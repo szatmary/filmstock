@@ -54,26 +54,8 @@ func main() {
 		cmdIndexRecords(os.Args[2:])
 	case "index-movies":
 		cmdIndex(os.Args[2:])
-	case "filmvecs":
-		cmdFilmVectors(os.Args[2:])
-	case "notability":
-		cmdNotability(os.Args[2:])
-	case "colbert-quantize":
-		cmdColbertQuantize(os.Args[2:])
-	case "quantize":
-		cmdQuantize(os.Args[2:])
-	case "chunk":
-		cmdChunk(os.Args[2:])
-	case "eval-vec":
-		cmdEvalVector(os.Args[2:])
-	case "eval-colbert":
-		cmdEvalColbert(os.Args[2:])
-	case "eval":
-		cmdEval(os.Args[2:])
 	case "search":
 		cmdSearch(os.Args[2:])
-	case "serve":
-		cmdServe(os.Args[2:])
 	case "television-debug":
 		cmdTelevisionDebug(os.Args[2:])
 	case "index-events":
@@ -107,9 +89,14 @@ Usage:
   filmstock index-television -television OUTDIR/television -db DB     reindex television only
   filmstock index-events     -events OUTDIR/events -db DB             reindex events only
   filmstock search [-n 20] QUERY...                                   fuzzy-search the index
-  filmstock eval   [-v] [-n 20]                                       score retrieval against docs/eval/queries.json
-  filmstock serve  -db OUTDIR/search.db -movies OUTDIR/movies \
-                   -television OUTDIR/television -events OUTDIR/events [-addr :8080]`)
+  filmstock pack    -records OUTDIR                                   records -> packs + offsets
+
+The browser is a separate binary:
+  filmstock-web -db OUTDIR/search.db -records OUTDIR
+  filmstock-web -db OUTDIR/search.db -remote https://.../v2026-08-22
+
+Retrieval experiments (ColBERT, dense vectors, quantisation, the eval harness)
+live on the ai-experiments branch.`)
 	os.Exit(2)
 }
 

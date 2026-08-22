@@ -2,13 +2,10 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"flag"
 	"fmt"
-	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
@@ -36,7 +33,7 @@ CREATE TABLE events(
   award TEXT, edition INTEGER, date TEXT, year INTEGER,
   hosts TEXT, organizer TEXT, venue TEXT, location TEXT, network TEXT,
   best_film TEXT, most_wins TEXT, opening_film TEXT, closing_film TEXT,
-  overview TEXT, cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL,
+  cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL,
   pack_offset INTEGER, pack_length INTEGER
 );
 CREATE INDEX idx_events_year ON events(year);
@@ -97,8 +94,8 @@ func cmdIndexEvents(args []string) {
 	}
 	stmt, err := tx.Prepare(`INSERT OR REPLACE INTO events
       (id,title,kind,award,edition,date,year,hosts,organizer,venue,location,network,
-       best_film,most_wins,opening_film,closing_film,overview,cover_image_file,
-       wikipedia_url,path) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+       best_film,most_wins,opening_film,closing_film,cover_image_file,
+       wikipedia_url,path) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	if err != nil {
 		fatal(err)
 	}
@@ -122,7 +119,7 @@ func cmdIndexEvents(args []string) {
 		if _, err := stmt.Exec(e.PageID, e.Title, e.Kind, e.Award, e.Edition, e.Date,
 			e.Year, strings.Join(names, ", "), e.Organizer, e.Venue, e.Location,
 			strings.Join(e.Network, ", "), e.BestFilm, e.MostWins, e.OpeningFilm,
-			e.ClosingFilm, e.Overview, e.CoverImageFile, e.WikiURL, rel); err != nil {
+			e.ClosingFilm, e.CoverImageFile, e.WikiURL, rel); err != nil {
 			return err
 		}
 		for _, h := range e.Hosts {
@@ -152,38 +149,4 @@ func cmdIndexEvents(args []string) {
 	}
 	fmt.Fprintf(os.Stderr, "  events=%d (%d ceremonies, %d festivals)  host credits=%d  in %.1fs\n",
 		n, ceremonies, festivals, hosted, time.Since(start).Seconds())
-}
-
-// handleAPIEvents serves the Events search mode.
-func (s *server) handleAPIEvents(w http.ResponseWriter, r *http.Request) {
-	res, err := filmstock.SearchEvents(r.Context(), s.db, r.URL.Query().Get("q"), 25)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(res)
-}
-
-// handleEventPage renders one ceremony or festival from its record.
-func (s *server) handleEventPage(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(r.URL.Query().Get("id"))
-	if err != nil {
-		http.Error(w, "bad id", 400)
-		return
-	}
-	var relPath string
-	if err := s.db.QueryRow(`SELECT path FROM events WHERE id = ?`, id).Scan(&relPath); err != nil {
-		http.Error(w, "event not found", 404)
-		return
-	}
-	e, err := filmstock.ReadEventGz(filepath.Join(s.eventsDir, relPath))
-	if err != nil {
-		http.Error(w, "could not load event: "+err.Error(), 500)
-		return
-	}
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	if err := pages.ExecuteTemplate(w, "event.html", e); err != nil {
-		http.Error(w, err.Error(), 500)
-	}
 }

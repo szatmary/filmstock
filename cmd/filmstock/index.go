@@ -22,7 +22,7 @@ CREATE TABLE movies(
   year INTEGER,
   release_date TEXT,
   director TEXT, producer TEXT, writer TEXT, starring TEXT,
-  music TEXT, distributor TEXT, country TEXT, language TEXT,
+  music TEXT, distributor TEXT, country TEXT, language TEXT, genre TEXT,
   runtime TEXT, budget TEXT, gross TEXT,
   wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT, path TEXT NOT NULL,
   pack_offset INTEGER, pack_length INTEGER
@@ -133,8 +133,8 @@ func cmdIndex(args []string) {
 	}
 	stmt, err := tx.Prepare(`INSERT OR REPLACE INTO movies
 		(id,title,year,release_date,director,producer,writer,starring,music,
-		 distributor,country,language,runtime,budget,gross,wikipedia_url,cover_image_url,cover_image_file,path)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 distributor,country,language,genre,runtime,budget,gross,wikipedia_url,cover_image_url,cover_image_file,path)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	if err != nil {
 		fatal(err)
 	}
@@ -149,7 +149,7 @@ func cmdIndex(args []string) {
 		if _, err := stmt.Exec(
 			m.PageID, m.Title, yearOf(m), first(m.ReleaseDates),
 			joinP(m.Director), joinP(m.Producer), joinP(m.Writer), joinP(m.Starring),
-			joinP(m.Music), join(m.Distributor), join(m.Country), join(m.Language),
+			joinP(m.Music), join(m.Distributor), join(m.Country), join(m.Language), join(m.Genre),
 			m.Runtime, m.Budget, m.Gross, m.WikiURL, m.CoverImageURL, m.CoverImageFile, it.path,
 		); err != nil {
 			fmt.Fprintln(os.Stderr, "insert error:", m.Title, err)
