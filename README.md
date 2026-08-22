@@ -124,8 +124,6 @@ src/                Go module (module filmstock) — all the tools, one binary
   templates/          HTML
 docs/
   TODO.md             what is done, what is open, what was settled by measurement
-  embeddings.md       semantic search design
-  eval/               the 415-query evaluation set
 ```
 
 ## Records are byte-deterministic
@@ -138,26 +136,23 @@ this is headed.
 Ingest is currently additive-only: a page that disappears from the dump is not
 removed from a previous build. Deletion handling comes with the diff work.
 
-## The semantic search work
+## Scope
 
-Retrieval experiments — dense embeddings, ColBERT late interaction,
-quantisation, cross-encoder reranking, RRF fusion — live on the
-**`ai-experiments`** branch, along with the Python embedding jobs. `main` is the
-build pipeline.
+`main` is the Wikipedia processing and a browser over the result: parse the
+dumps, resolve identity against Wikidata, index for lookup, serve it. Search here
+is lexical — FTS5 trigram over titles, cast and creators — which is what finding
+a specific entry needs.
 
-The Go code for those paths ships on `main` too (they are opt-in `serve` flags,
-off by default) so the two branches never diverge in a shared file. What the
-branch adds is `embed/`, the sweep scripts, and the measurement logs.
-
-Measured results are in [docs/TODO.md](docs/TODO.md) — including the ones that
-say *don't do this*: equal-weight RRF fusion scores below its better input, a
-cross-encoder third stage lost to not reranking, and a bigger ColBERT encoder
-lost to a smaller one.
+Semantic search is **not** part of main. Dense embeddings, ColBERT late
+interaction, quantisation, cross-encoder reranking, RRF fusion, the Python
+embedding jobs and the eval harness all live on the **`ai-experiments`** branch,
+along with `docs/embeddings.md` and the measurements that settled which of them
+earned their keep.
 
 ## Known rough edges
 
-- The passage corpus is films only. 61k series and 551k episodes have no
-  embedding text yet.
+- The plain-text corpus is films only. 61k series and 551k episodes get no
+  `out/text/` entry, so anything built on that text covers films alone.
 
 ## Use it as a library
 

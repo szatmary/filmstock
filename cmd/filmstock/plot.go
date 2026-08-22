@@ -41,9 +41,9 @@ func extractLeadAndPlot(text string) (overview, plot string) {
 	return overview, plot
 }
 
-// fullPlainText cleans an entire article to prose for the embedding corpus:
+// fullPlainText cleans an entire article to prose for the full-text corpus:
 // refs/templates/markup stripped, section headings and paragraphs preserved.
-// This is the raw-source embedding input — kept on disk, NOT in the search record.
+// This is the raw-source prose — kept on disk, NOT in the search record.
 func fullPlainText(text string) string {
 	return trimLen(cleanText(text), 120000)
 }

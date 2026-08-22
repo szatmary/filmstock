@@ -33,7 +33,7 @@ func encodeRecordJSON(v any) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// encodeRecordText gzips plain text (the embedding corpus) in memory.
+// encodeRecordText gzips plain text (the full-text corpus) in memory.
 func encodeRecordText(s string) ([]byte, error) {
 	var buf bytes.Buffer
 	gz := gzip.NewWriter(&buf)
@@ -79,7 +79,7 @@ func writeRecordJSON(root, kind string, id int64, v any) error {
 	return writeBytesAtomic(filmstock.RecordPath(root, kind, id, ".json.gz"), data)
 }
 
-// writeRecordText writes gzipped plain text (the embedding corpus), atomically.
+// writeRecordText writes gzipped plain text (the full-text corpus), atomically.
 func writeRecordText(root string, id int64, s string) error {
 	data, err := encodeRecordText(s)
 	if err != nil {

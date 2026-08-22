@@ -16,7 +16,7 @@ import (
 
 // `extract` turns a directory of dumps into the record hierarchy, in one command.
 //
-// The record hierarchy IS the repository; search.db and any vector index are
+// The record hierarchy IS the repository; search.db and any derived index are
 // derived from it and can be deleted and rebuilt without touching a dump. So the
 // contract here is: delete OUTDIR, run this, get an identical repository back.
 //
@@ -118,7 +118,7 @@ func cmdExtract(args []string) {
 	force := fs.Bool("force", false, "rebuild the resolver cache even if present")
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
 	limit := fs.Int("limit", 0, "stop after this many films (0 = all); for smoke tests")
-	skipText := fs.Bool("no-text", false, "skip the full-text corpus (faster; breaks semantic search)")
+	skipText := fs.Bool("no-text", false, "skip the full-text corpus (faster; out/text/ is not written)")
 	doIndex := fs.Bool("index", true, "also build search.db when extraction finishes")
 	fs.Parse(args)
 

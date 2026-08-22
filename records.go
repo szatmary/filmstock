@@ -9,14 +9,14 @@ import (
 	"strings"
 )
 
-// The record hierarchy is the repository. Everything else — search.db, vector
+// The record hierarchy is the repository. Everything else — search.db, derived
 // indexes — is derived and can be deleted and rebuilt from these files without
 // touching a dump.
 //
 //	out/movies/<shard>/<page_id>.json.gz
 //	out/television/<shard>/<page_id>.json.gz
 //	out/people/<shard>/<qid>.json.gz
-//	out/text/<shard>/<page_id>.txt.gz     embedding corpus
+//	out/text/<shard>/<page_id>.txt.gz     full-text corpus
 //	out/manifest.jsonl                    kind, id, content hash
 //
 // A record's path is a pure function of its identity, never its title. Sharding
