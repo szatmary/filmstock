@@ -153,6 +153,13 @@ lost to a smaller one.
 - The passage corpus is films only. 61k series and 551k episodes have no
   embedding text yet.
 
+## Distributing it
+
+The intended consumer download is `search.db` alone, with the per-record detail
+fetched on demand by HTTP range request out of a single packed blob — not 620k
+loose files. Design and the reasoning in [docs/TODO.md](docs/TODO.md) §D1. Not
+built yet; `serve` reads records from a local directory today.
+
 ## Data license
 
 The records are derived from English Wikipedia and Wikidata. Wikipedia text is

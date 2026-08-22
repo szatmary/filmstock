@@ -152,6 +152,47 @@ made twice already this session).
 - Manifest of `page_id -> content_hash` for diffs — mostly free once records are
   deterministic and git-tracked.
 
+### D1. Ship the database; fetch records on demand
+
+The consumer should not have to take 60 GB to look up a film. `search.db` (637 MB)
+already carries everything the search and list views need — titles, years,
+credits, people, episodes, and the FTS indexes. The per-record `.json.gz` only
+adds the detail page: raw infobox, nested seasons and episodes, plot, overview.
+So the natural split is **the database is the download, the records are fetched
+per view**.
+
+`serve` is already shaped for this. `recordPath` makes a record's location a pure
+function of `(kind, id)`, and only two call sites read one (`serve.go` for the
+film and series pages). One `recordSource` interface with a local-directory and a
+remote implementation covers it.
+
+**Do not serve 620k loose files.** That is the obvious version and it is the bad
+one: a TLS handshake and a round trip per record, no way to list or verify what
+exists, raw-file hosting rate limits, and the `git status` problem above simply
+moved onto the network. Instead:
+
+- **One `records.pack`** — every record concatenated, each still individually
+  gzipped so it stays independently decodable.
+- **Offsets live in `search.db`** — add `(pack_offset, pack_length)` beside each
+  work. About 8 bytes a row in a file the client already has, so locating a record
+  costs zero extra requests.
+- **Fetch with an HTTP Range request** — one round trip, ~5 KB, CDN-cacheable, and
+  supported by every host worth using (GitHub Release assets, S3, R2).
+
+Sizes today: movies 1.2 GB + television 495 MB + people 129 MB + events 36 MB ≈
+1.9 GB, which fits under the 2 GB per-asset limit on a GitHub Release — but only
+just, so it needs a size check per ingest and a plan for splitting by kind when it
+grows. `text/` (1.3 GB) is a second pack that only the semantic path needs.
+
+This composes with the diff work rather than competing with it: records are
+byte-deterministic, so a `page_id -> content_hash` manifest tells a client exactly
+which ranges changed between two ingests, and it re-fetches only those.
+
+Open question before building it: whether the pack is rebuilt whole per ingest
+(simple, and re-uploading 1.9 GB is cheap next to a 48-minute extract) or appended
+to with a tombstone list (complicates deletion, which ingest does not handle yet
+anyway).
+
 ## E. Housekeeping
 
 - `serve` still defaults to the old `-db movies.db -movies movies` layout; it
