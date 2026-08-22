@@ -1,0 +1,49 @@
+
+===== 2026-08-05 09:13:56  chunk (section-aware, with headers)
+chunking 170421 documents (profile=lean window=246 overlap=49 words)
+  20000 docs, 69563 passages (8328 docs/s)  40000 docs, 139980 passages (8219 docs/s)  60000 docs, 210613 passages (8253 docs/s)  80000 docs, 280665 passages (8330 docs/s)  100000 docs, 351172 passages (8325 docs/s)  120000 docs, 421421 passages (8326 docs/s)  140000 docs, 490900 passages (8350 docs/s)  160000 docs, 561022 passages (8373 docs/s)  sections skipped by profile: 533283
+DONE: 170421 docs -> 597648 passages in 20.3s (3.5 passages/doc)
+  written to out/passages2.jsonl.gz
+
+===== 2026-08-05 09:14:17  embed bge-large
+
+=== run ===
+  model            BAAI/bge-large-en-v1.5  dim=1024
+  passages         597648
+  embed time       2041.3s  (292.8/s)
+  gpu util         mean 89.8%  peak 96.0%
+  gpu memory       mean 2442.0 MB  peak 2446.0 MB
+  cpu              mean 7.3%  peak 23.7%
+  host rss         peak 5950.3 MB
+  float32          2.45 GB
+  int8 / int2      612.0 MB / 153.0 MB
+  metrics          out/index2/metrics.BAAI_bge-large-en-v1.5.json
+
+===== 2026-08-05 09:48:38  quantize
+  int8    612.0 MB   mean cosine to float32  0.9999
+  int2    153.0 MB   mean cosine to float32  0.9427
+  manifest out/index2/quant.BAAI_bge-large-en-v1.5.json
+
+===== 2026-08-05 09:49:14  score (baseline was MRR 0.602)
+
+bge-large + headers (int2 scan -> int8 rerank)  (depth 20, 38 queries)
+--------------------------------------------------------------
+--------------------------------------------------------------
+    concept      n=16  r@1  12.5%  r@5  37.5%  r@20  62.5%  MRR 0.212
+    conjunctive  n= 8  r@1  75.0%  r@5 100.0%  r@20 100.0%  MRR 0.875
+    person       n= 4  r@1   0.0%  r@5  50.0%  r@20  75.0%  MRR 0.175
+    title        n= 4  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n= 6  r@1  66.7%  r@5  83.3%  r@20  83.3%  MRR 0.750
+  OVERALL      n=38  r@1  41.0%  r@5  64.1%  r@20  76.9%  MRR 0.516
+
+bge-large + headers + lexical, RRF fused  (depth 20, 38 queries)
+--------------------------------------------------------------
+--------------------------------------------------------------
+    concept      n=16  r@1   6.2%  r@5  18.8%  r@20  62.5%  MRR 0.122
+    conjunctive  n= 8  r@1   0.0%  r@5 100.0%  r@20 100.0%  MRR 0.406
+    person       n= 4  r@1   0.0%  r@5   0.0%  r@20  75.0%  MRR 0.082
+    title        n= 4  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n= 6  r@1  66.7%  r@5  66.7%  r@20  83.3%  MRR 0.694
+  OVERALL      n=38  r@1  23.1%  r@5  48.7%  r@20  76.9%  MRR 0.360
+
+===== 2026-08-05 09:49:33  STEP 2 COMPLETE

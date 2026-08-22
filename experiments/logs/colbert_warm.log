@@ -1,0 +1,17 @@
+===== 13:38:15 warming 13G into page cache
+
+real	2m26.269s
+user	0m0.032s
+sys	0m3.479s
+Mem:             121          18          89           0          14         102
+===== 13:40:41 eval, warm
+colbert: answerdotai/answerai-colbert-small-v1  dim=96  606570 passages  227.5 tokens/passage  13.25 GB
+cascade: int2 4000 -> int8 -> MaxSim 500
+  OVERALL      n=38  r@1  51.3%  r@5  66.7%  r@20  79.5%  MRR 0.602
+  OVERALL      n=38  r@1  59.0%  r@5  84.6%  r@20  94.9%  MRR 0.697
+  OVERALL      n=38  r@1  48.7%  r@5  66.7%  r@20  94.9%  MRR 0.586
+	User time (seconds): 48.40
+	System time (seconds): 4.85
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:32.68
+	Maximum resident set size (kbytes): 1604468
+===== 13:41:14 done

@@ -1,0 +1,42 @@
+
+===== 23:06:52  re-embed 415 queries
+  query prefix: 'Represent this sentence for searching relevant passages: '
+415 queries x 32 tokens x 96 dims -> out/colbert/colbert.queries.answerdotai_answerai-colbert-small-v1.bin
+
+===== 23:08:04  warm colbert store
+
+===== 23:09:48  lexical
+    concept      n=196  rel=197  r@1   0.0%  r@5   0.0%  r@20   0.0%  MRR 0.000
+    conjunctive  n=68  rel= 74  r@1   0.0%  r@5   0.0%  r@20   1.4%  MRR 0.002
+    person       n=64  rel=141  r@1   0.0%  r@5   0.0%  r@20   0.7%  MRR 0.002
+    title        n=43  rel= 43  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n=44  rel= 44  r@1  86.4%  r@5  90.9%  r@20  93.2%  MRR 0.884
+  OVERALL      n=415  r@1  16.2%  r@5  16.6%  r@20  17.2%  MRR 0.198
+
+===== 23:13:51  dense + colbert + fused
+colbert: answerdotai/answerai-colbert-small-v1  dim=96  606570 passages  227.5 tokens/passage  13.25 GB
+dense (int2 -> int8)  (depth 20, 415 queries)
+    concept      n=196  rel=197  r@1  17.3%  r@5  26.9%  r@20  33.5%  MRR 0.217
+    conjunctive  n=68  rel= 74  r@1  36.5%  r@5  66.2%  r@20  77.0%  MRR 0.511
+    person       n=64  rel=141  r@1   5.7%  r@5  17.0%  r@20  25.5%  MRR 0.206
+    title        n=43  rel= 43  r@1  93.0%  r@5  95.3%  r@20  95.3%  MRR 0.938
+    typo         n=44  rel= 44  r@1  54.5%  r@5  75.0%  r@20  84.1%  MRR 0.630
+  OVERALL      n=415  r@1  26.7%  r@5  40.1%  r@20  47.5%  MRR 0.382
+colbert late interaction  (depth 20, 415 queries)
+  boxer from Philadelphia gets a title shot      rank 3
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  38.6%  r@5  47.7%  r@20  52.3%  MRR 0.426
+    conjunctive  n=68  rel= 74  r@1  77.0%  r@5  89.2%  r@20  90.5%  MRR 0.858
+    person       n=64  rel=141  r@1  17.7%  r@5  41.1%  r@20  49.6%  MRR 0.474
+    title        n=43  rel= 43  r@1  97.7%  r@5  97.7%  r@20  97.7%  MRR 0.977
+    typo         n=44  rel= 44  r@1  45.5%  r@5  70.5%  r@20  86.4%  MRR 0.553
+  OVERALL      n=415  r@1  44.1%  r@5  58.3%  r@20  64.1%  MRR 0.575
+colbert + lexical, RRF fused  (depth 20, 415 queries)
+    concept      n=196  rel=197  r@1  17.8%  r@5  42.6%  r@20  52.3%  MRR 0.297
+    conjunctive  n=68  rel= 74  r@1  64.9%  r@5  87.8%  r@20  90.5%  MRR 0.781
+    person       n=64  rel=141  r@1   9.9%  r@5  34.0%  r@20  49.6%  MRR 0.360
+    title        n=43  rel= 43  r@1  97.7%  r@5 100.0%  r@20 100.0%  MRR 0.983
+    typo         n=44  rel= 44  r@1  65.9%  r@5  93.2%  r@20 100.0%  MRR 0.783
+  OVERALL      n=415  r@1  33.7%  r@5  56.3%  r@20  65.5%  MRR 0.508
+
+===== 23:18:41  FINAL BASELINE DONE

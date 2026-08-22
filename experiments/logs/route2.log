@@ -1,0 +1,30 @@
+routing threshold 0.50
+    concept      n=196  rel=197  r@1  38.1%  r@5  46.7%  r@20  51.3%  MRR 0.421
+    conjunctive  n=68  rel= 74  r@1  73.0%  r@5  83.8%  r@20  85.1%  MRR 0.813
+    person       n=64  rel=141  r@1  17.7%  r@5  39.7%  r@20  48.2%  MRR 0.465
+    title        n=43  rel= 43  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n=44  rel= 44  r@1  88.6%  r@5  93.2%  r@20  97.7%  MRR 0.907
+  OVERALL      n=415  r@1  47.3%  r@5  58.9%  r@20  63.7%  MRR 0.604
+routing threshold 0.42
+    concept      n=196  rel=197  r@1  37.6%  r@5  45.7%  r@20  50.3%  MRR 0.414
+    conjunctive  n=68  rel= 74  r@1  73.0%  r@5  83.8%  r@20  85.1%  MRR 0.813
+    person       n=64  rel=141  r@1  12.8%  r@5  31.2%  r@20  38.3%  MRR 0.330
+    title        n=43  rel= 43  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n=44  rel= 44  r@1  84.1%  r@5  90.9%  r@20  93.2%  MRR 0.866
+  OVERALL      n=415  r@1  45.3%  r@5  55.9%  r@20  60.1%  MRR 0.575
+routing threshold 0.35
+    concept      n=196  rel=197  r@1  35.5%  r@5  43.1%  r@20  46.7%  MRR 0.391
+    conjunctive  n=68  rel= 74  r@1  13.5%  r@5  16.2%  r@20  18.9%  MRR 0.158
+    person       n=64  rel=141  r@1   2.1%  r@5   6.4%  r@20   9.9%  MRR 0.058
+    title        n=43  rel= 43  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n=44  rel= 44  r@1  86.4%  r@5  93.2%  r@20  95.5%  MRR 0.889
+  OVERALL      n=415  r@1  32.9%  r@5  38.1%  r@20  41.1%  MRR 0.418
+routing threshold 0.25
+    concept      n=196  rel=197  r@1  18.3%  r@5  20.8%  r@20  21.3%  MRR 0.194
+    conjunctive  n=68  rel= 74  r@1   0.0%  r@5   0.0%  r@20   1.4%  MRR 0.002
+    person       n=64  rel=141  r@1   0.0%  r@5   0.0%  r@20   0.7%  MRR 0.002
+    title        n=43  rel= 43  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n=44  rel= 44  r@1  86.4%  r@5  90.9%  r@20  93.2%  MRR 0.884
+  OVERALL      n=415  r@1  23.4%  r@5  24.8%  r@20  25.7%  MRR 0.290
+
+ROUTE2 DONE

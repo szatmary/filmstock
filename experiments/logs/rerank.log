@@ -1,0 +1,5 @@
+loading BAAI/bge-reranker-base on cuda ...
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 2734.57it/s]
+loading passage text from /tank/mediadb/out/passages.jsonl.gz ...
+  606570 passages
+cross-encoder on http://0.0.0.0:8092/api/rerank (BAAI/bge-reranker-base)

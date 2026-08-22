@@ -1,0 +1,74 @@
+
+===== 21:03:44  warm colbert store
+
+===== 21:06:10  lexical (418 queries, fixed denominator)
+    concept      n=197  rel=198  r@1   0.0%  r@5   0.0%  r@20   0.0%  MRR 0.000
+    conjunctive  n=68  rel= 74  r@1   0.0%  r@5   0.0%  r@20   1.4%  MRR 0.002
+    person       n=64  rel=141  r@1   0.0%  r@5   0.0%  r@20   0.7%  MRR 0.002
+    title        n=44  rel= 44  r@1  97.7%  r@5  97.7%  r@20  97.7%  MRR 0.977
+    typo         n=45  rel= 45  r@1  84.4%  r@5  88.9%  r@20  91.1%  MRR 0.865
+  OVERALL      n=418  r@1  16.1%  r@5  16.5%  r@20  17.1%  MRR 0.197
+
+===== 21:10:17  dense + colbert + fused (418 queries)
+colbert: answerdotai/answerai-colbert-small-v1  dim=96  606570 passages  227.5 tokens/passage  13.25 GB
+dense (int2 -> int8)  (depth 20, 418 queries)
+    concept      n=197  rel=198  r@1  17.2%  r@5  26.8%  r@20  33.3%  MRR 0.215
+    conjunctive  n=68  rel= 74  r@1  36.5%  r@5  66.2%  r@20  77.0%  MRR 0.511
+    person       n=64  rel=141  r@1   5.7%  r@5  17.0%  r@20  25.5%  MRR 0.206
+    title        n=44  rel= 44  r@1  93.2%  r@5  95.5%  r@20  95.5%  MRR 0.939
+    typo         n=45  rel= 45  r@1  55.6%  r@5  75.6%  r@20  84.4%  MRR 0.638
+  OVERALL      n=418  r@1  26.9%  r@5  40.2%  r@20  47.6%  MRR 0.384
+colbert late interaction  (depth 20, 418 queries)
+  boxer from Philadelphia gets a title shot      rank 3
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=197  rel=198  r@1  38.4%  r@5  47.5%  r@20  52.0%  MRR 0.424
+    conjunctive  n=68  rel= 74  r@1  77.0%  r@5  89.2%  r@20  90.5%  MRR 0.858
+    person       n=64  rel=141  r@1  17.7%  r@5  41.1%  r@20  49.6%  MRR 0.474
+    title        n=44  rel= 44  r@1  97.7%  r@5  97.7%  r@20  97.7%  MRR 0.977
+    typo         n=45  rel= 45  r@1  46.7%  r@5  71.1%  r@20  86.7%  MRR 0.562
+  OVERALL      n=418  r@1  44.2%  r@5  58.4%  r@20  64.1%  MRR 0.575
+colbert + lexical, RRF fused  (depth 20, 418 queries)
+    concept      n=197  rel=198  r@1  17.7%  r@5  42.4%  r@20  52.0%  MRR 0.295
+    conjunctive  n=68  rel= 74  r@1  64.9%  r@5  87.8%  r@20  90.5%  MRR 0.781
+    person       n=64  rel=141  r@1   9.9%  r@5  34.0%  r@20  49.6%  MRR 0.360
+    title        n=44  rel= 44  r@1  97.7%  r@5 100.0%  r@20 100.0%  MRR 0.983
+    typo         n=45  rel= 45  r@1  64.4%  r@5  91.1%  r@20 100.0%  MRR 0.768
+  OVERALL      n=418  r@1  33.7%  r@5  56.2%  r@20  65.5%  MRR 0.507
+
+===== 21:15:06  re-extract (records only, network-label fix)
+[3/4] records: dump/enwiki-latest-pages-articles-multistream.xml.bz2 -> out
+season->series edges from Wikidata P179: 71908
+
+
+  events=4669 (award ceremonies + film festivals)
+
+  pages=25716950 films=165265 series=61137 episodes=551174
+  people=219629  with Q-id=148220 (67%)  link-target only=71409
+  season->series: resolved=24321 unresolved=1705
+  unattached episode sources (sample): [List of Yona of the Dawn episodes List of Hoshizora e Kakaru Hashi episodes List of Radiolab episodes Goblin Slayer season 1 List of The Smurfs (1981 TV series) episodes List of A Certain Scientific Railgun episodes List of Basquash! episodes List of Food Wars! Shokugeki no Soma episodes List of The Legend of the Legendary Heroes episodes Gladiators (2024 British TV series) series 1 List of You and Idol Pretty Cure episodes List of Zack & Quack episodes List of Star Driver episodes Kuroko's Basketball season 2 Survivor – A sziget season 3 List of Love Lab episodes List of Powerpuff Girls Z episodes List of Wangan Midnight episodes Youth With You season 3 List of City Hunter episodes List of I Can See Your Voice Malaysia (Malay language) episodes The Challenge: Champs vs. Stars season 2 List of 2.5 Dimensional Seduction episodes List of Akazukin Chacha episodes List of Komi Can't Communicate episodes]
+extract complete in 48.4 min
+  extract wall 2904.28 s   cpu 7103.49 s   peak rss 1737644 KB
+
+===== 22:03:30  stale-record GC
+  movies: 0 stale
+  tv: 0 stale
+  people: 0 stale
+  events: 0 stale
+
+===== 22:03:32  index
+indexing 61137 TV series into out/search.db...
+  inserted 61137 series, 551174 episodes. building FTS...
+done.
+[3/3] events -> out/search.db
+  events=4669 (3039 ceremonies, 1630 festivals)  host credits=2375  in 102.4s
+index complete in 30.0 min
+
+===== 22:33:35  verify
+  films    165265
+  events   4669 (3039 ceremonies, 1630 festivals)
+  televised 1021
+    99th Academy Awards -> ABC, Hulu
+    20th Sur Awards -> TNT, HBO Max
+    Logie Awards of 2026 -> Seven Network
+
+===== 22:33:35  ALL DONE

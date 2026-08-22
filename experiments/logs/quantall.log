@@ -1,0 +1,19 @@
+quantizing 543200 vectors x 1024 dims from out/index/vectors.f32.BAAI_bge-large-en-v1.5.bin
+  calibrated on 108640 vectors: int8 p99.9 0.0626..0.3206, int2 1.494sigma 0.0286..0.4803
+  100000/543200  200000/543200  300000/543200  400000/543200  500000/543200  done in 34.7s
+  int8    556.2 MB   mean cosine to float32  0.9999
+  int2    139.1 MB   mean cosine to float32  0.9430
+  manifest out/index/quant.BAAI_bge-large-en-v1.5.json
+quantizing 543200 vectors x 1024 dims from out/index/vectors.f32.BAAI_bge-m3.bin
+  calibrated on 108640 vectors: int8 p99.9 0.0206..0.3154, int2 1.494sigma 0.0097..0.4597
+  100000/543200  200000/543200  300000/543200  400000/543200  500000/543200  done in 34.5s
+  int8    556.2 MB   mean cosine to float32  0.9999
+  int2    139.1 MB   mean cosine to float32  0.9405
+  manifest out/index/quant.BAAI_bge-m3.json
+quantizing 543200 vectors x 768 dims from out/index/vectors.f32.nomic-ai_nomic-embed-text-v1.5.bin
+  calibrated on 108640 vectors: int8 p99.9 0.0648..0.2473, int2 1.494sigma 0.0293..0.3492
+  100000/543200  200000/543200  300000/543200  400000/543200  500000/543200  done in 26.9s
+  int8    417.2 MB   mean cosine to float32  1.0000
+  int2    104.3 MB   mean cosine to float32  0.9440
+  manifest out/index/quant.nomic-ai_nomic-embed-text-v1.5.json
+QUANTIZE ALL DONE

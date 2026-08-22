@@ -1,0 +1,171 @@
+
+colbert: answerdotai/answerai-colbert-small-v1  dim=96  606570 passages  227.5 tokens/passage  13.25 GB
+cascade: int2 4000 -> int8 -> MaxSim 100
+
+dense (int2 -> int8)  (depth 20, 38 queries)
+--------------------------------------------------------------
+--------------------------------------------------------------
+    concept      n=16  r@1  25.0%  r@5  50.0%  r@20  62.5%  MRR 0.365
+    conjunctive  n= 8  r@1  87.5%  r@5 100.0%  r@20 100.0%  MRR 0.938
+    person       n= 4  r@1  25.0%  r@5  50.0%  r@20  75.0%  MRR 0.344
+    title        n= 4  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n= 6  r@1  66.7%  r@5  66.7%  r@20 100.0%  MRR 0.695
+  OVERALL      n=38  r@1  51.3%  r@5  66.7%  r@20  79.5%  MRR 0.602
+
+colbert late interaction  (depth 20, 38 queries)
+--------------------------------------------------------------
+  hacker discovers reality is a simulation       rank 4
+  shark terrorises a beach town                  rank 1
+  dinosaurs cloned for a theme park              rank 1
+  toys that come alive when nobody is watching   rank 20
+  boxer from Philadelphia gets a title shot      rank 3
+  a ring must be destroyed in a volcano          rank 1
+  an orphan learns he is a wizard                rank 2
+  ocean liner sinks after hitting an iceberg     rank 12
+  a cyborg assassin sent back in time            rank 1
+  man relives the same day over and over         rank 4
+  prisoner escapes after tunnelling for decades  rank 7
+  astronaut stranded alone on mars               rank 8
+  navy pilots at an elite fighter weapons school rank 1
+  a clownfish father searches the ocean for his … rank 1
+  a young lion flees after his father is killed  MISS
+  archaeologist races nazis for a biblical artef… rank 1
+  matt damon growing potatoes on another planet  rank 4
+  tom cruise flying navy jets                    rank 1
+  tom hanks stranded on a desert island          rank 1
+  keanu reeves fighting agents in a simulation   rank 1
+  arnold schwarzenegger as a killer robot        rank 1
+  leonardo dicaprio on a sinking ship            rank 1
+  harrison ford as an archaeologist with a whip  rank 1
+  bill murray stuck repeating a day              rank 1
+  films starring sigourney weaver                rank 17
+  directed by stanley kubrick                    rank 4
+  starring audrey hepburn                        rank 2
+  quentin tarantino film                         rank 3
+  blade runner                                   rank 1
+  the godfather                                  rank 1
+  citizen kane                                   rank 1
+  apocalypse now                                 rank 1
+  matt daemon on mars                            rank 1
+  tom cruze navy fighter jets                    rank 4
+  jurrasic park dinosaurs                        rank 1
+  shawshenk redemption prison                    rank 1
+  arnold schwarzeneger terminator robot          rank 1
+  the maxtrix hacker simulation                  MISS
+--------------------------------------------------------------
+    concept      n=16  r@1  43.8%  r@5  68.8%  r@20  93.8%  MRR 0.546
+    conjunctive  n= 8  r@1  87.5%  r@5 100.0%  r@20 100.0%  MRR 0.906
+    person       n= 4  r@1   0.0%  r@5  75.0%  r@20 100.0%  MRR 0.286
+    title        n= 4  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n= 6  r@1  66.7%  r@5  83.3%  r@20  83.3%  MRR 0.708
+  OVERALL      n=38  r@1  56.4%  r@5  79.5%  r@20  92.3%  MRR 0.668
+
+colbert + lexical, RRF fused  (depth 20, 38 queries)
+--------------------------------------------------------------
+--------------------------------------------------------------
+    concept      n=16  r@1  31.2%  r@5  56.2%  r@20  93.8%  MRR 0.416
+    conjunctive  n= 8  r@1  62.5%  r@5  87.5%  r@20 100.0%  MRR 0.766
+    person       n= 4  r@1   0.0%  r@5  50.0%  r@20 100.0%  MRR 0.172
+    title        n= 4  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n= 6  r@1  50.0%  r@5  66.7%  r@20  83.3%  MRR 0.557
+  OVERALL      n=38  r@1  43.6%  r@5  66.7%  r@20  92.3%  MRR 0.548
+
+cross-encoder: http://localhost:8092/api/rerank, top 60 passages
+
+colbert -> cross-encoder  (depth 20, 38 queries)
+--------------------------------------------------------------
+  hacker discovers reality is a simulation       rank 2
+  shark terrorises a beach town                  rank 1
+  dinosaurs cloned for a theme park              rank 1
+  toys that come alive when nobody is watching   MISS
+  boxer from Philadelphia gets a title shot      rank 11
+  a ring must be destroyed in a volcano          rank 5
+  an orphan learns he is a wizard                rank 3
+  ocean liner sinks after hitting an iceberg     rank 3
+  a cyborg assassin sent back in time            rank 4
+  man relives the same day over and over         rank 7
+  prisoner escapes after tunnelling for decades  rank 6
+  astronaut stranded alone on mars               rank 3
+  navy pilots at an elite fighter weapons school rank 2
+  a clownfish father searches the ocean for his … rank 1
+  a young lion flees after his father is killed  MISS
+  archaeologist races nazis for a biblical artef… rank 8
+  matt damon growing potatoes on another planet  rank 3
+  tom cruise flying navy jets                    rank 1
+  tom hanks stranded on a desert island          rank 1
+  keanu reeves fighting agents in a simulation   rank 3
+  arnold schwarzenegger as a killer robot        rank 2
+  leonardo dicaprio on a sinking ship            rank 8
+  harrison ford as an archaeologist with a whip  rank 1
+  bill murray stuck repeating a day              rank 1
+  films starring sigourney weaver                MISS
+  directed by stanley kubrick                    rank 13
+  starring audrey hepburn                        rank 12
+  quentin tarantino film                         rank 8
+  blade runner                                   rank 1
+  the godfather                                  rank 1
+  citizen kane                                   rank 1
+  apocalypse now                                 rank 1
+  matt daemon on mars                            rank 1
+  tom cruze navy fighter jets                    rank 1
+  jurrasic park dinosaurs                        rank 1
+  shawshenk redemption prison                    rank 1
+  arnold schwarzeneger terminator robot          rank 3
+  the maxtrix hacker simulation                  MISS
+--------------------------------------------------------------
+    concept      n=16  r@1  18.8%  r@5  62.5%  r@20  87.5%  MRR 0.373
+    conjunctive  n= 8  r@1  50.0%  r@5  87.5%  r@20 100.0%  MRR 0.661
+    person       n= 4  r@1   0.0%  r@5   0.0%  r@20  75.0%  MRR 0.071
+    title        n= 4  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n= 6  r@1  66.7%  r@5  83.3%  r@20  83.3%  MRR 0.722
+  OVERALL      n=38  r@1  38.5%  r@5  66.7%  r@20  87.2%  MRR 0.523
+
+cross-encoder: http://localhost:8092/api/rerank over the top 60
+
+colbert -> cross-encoder (top 60)  (depth 20, 38 queries)
+--------------------------------------------------------------
+  hacker discovers reality is a simulation       rank 2
+  shark terrorises a beach town                  rank 1
+  dinosaurs cloned for a theme park              rank 1
+  toys that come alive when nobody is watching   MISS
+  boxer from Philadelphia gets a title shot      rank 15
+  a ring must be destroyed in a volcano          rank 4
+  an orphan learns he is a wizard                rank 5
+  ocean liner sinks after hitting an iceberg     rank 11
+  a cyborg assassin sent back in time            rank 6
+  man relives the same day over and over         MISS
+  prisoner escapes after tunnelling for decades  rank 8
+  astronaut stranded alone on mars               rank 5
+  navy pilots at an elite fighter weapons school rank 9
+  a clownfish father searches the ocean for his … rank 1
+  a young lion flees after his father is killed  rank 13
+  archaeologist races nazis for a biblical artef… rank 10
+  matt damon growing potatoes on another planet  rank 14
+  tom cruise flying navy jets                    rank 3
+  tom hanks stranded on a desert island          rank 1
+  keanu reeves fighting agents in a simulation   rank 9
+  arnold schwarzenegger as a killer robot        rank 8
+  leonardo dicaprio on a sinking ship            rank 10
+  harrison ford as an archaeologist with a whip  rank 1
+  bill murray stuck repeating a day              rank 4
+  films starring sigourney weaver                MISS
+  directed by stanley kubrick                    rank 13
+  starring audrey hepburn                        rank 11
+  quentin tarantino film                         rank 9
+  blade runner                                   rank 1
+  the godfather                                  rank 1
+  citizen kane                                   rank 1
+  apocalypse now                                 rank 1
+  matt daemon on mars                            rank 1
+  tom cruze navy fighter jets                    rank 1
+  jurrasic park dinosaurs                        rank 1
+  shawshenk redemption prison                    rank 1
+  arnold schwarzeneger terminator robot          rank 5
+  the maxtrix hacker simulation                  MISS
+--------------------------------------------------------------
+    concept      n=16  r@1  18.8%  r@5  43.8%  r@20  87.5%  MRR 0.305
+    conjunctive  n= 8  r@1  25.0%  r@5  50.0%  r@20 100.0%  MRR 0.374
+    person       n= 4  r@1   0.0%  r@5   0.0%  r@20  75.0%  MRR 0.070
+    title        n= 4  r@1 100.0%  r@5 100.0%  r@20 100.0%  MRR 1.000
+    typo         n= 6  r@1  66.7%  r@5  83.3%  r@20  83.3%  MRR 0.700
+  OVERALL      n=38  r@1  33.3%  r@5  51.3%  r@20  87.2%  MRR 0.430

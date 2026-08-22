@@ -1,0 +1,83 @@
+===== 06:54:56 warm store
+
+### baseline
+  boxer from Philadelphia gets a title shot      rank 3
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  38.6%  r@5  47.7%  r@20  52.3%  MRR 0.426
+    conjunctive  n=68  rel= 74  r@1  77.0%  r@5  89.2%  r@20  90.5%  MRR 0.858
+    person       n=64  rel=141  r@1  17.7%  r@5  41.1%  r@20  49.6%  MRR 0.474
+    title        n=43  rel= 43  r@1  97.7%  r@5  97.7%  r@20  97.7%  MRR 0.977
+    typo         n=44  rel= 44  r@1  45.5%  r@5  70.5%  r@20  86.4%  MRR 0.553
+  OVERALL      n=415  r@1  44.1%  r@5  58.3%  r@20  64.1%  MRR 0.575
+
+### qtokens=8
+  boxer from Philadelphia gets a title shot      rank 2
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  25.4%  r@5  38.1%  r@20  47.2%  MRR 0.314
+    conjunctive  n=68  rel= 74  r@1  55.4%  r@5  83.8%  r@20  89.2%  MRR 0.700
+    person       n=64  rel=141  r@1  17.0%  r@5  39.0%  r@20  49.6%  MRR 0.458
+    title        n=43  rel= 43  r@1  95.3%  r@5  97.7%  r@20  97.7%  MRR 0.959
+    typo         n=44  rel= 44  r@1  45.5%  r@5  72.7%  r@20  84.1%  MRR 0.548
+  OVERALL      n=415  r@1  35.3%  r@5  53.3%  r@20  61.7%  MRR 0.491
+
+### qtokens=12
+  boxer from Philadelphia gets a title shot      rank 4
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  35.0%  r@5  45.7%  r@20  50.8%  MRR 0.397
+    conjunctive  n=68  rel= 74  r@1  78.4%  r@5  90.5%  r@20  90.5%  MRR 0.875
+    person       n=64  rel=141  r@1  18.4%  r@5  42.6%  r@20  48.9%  MRR 0.483
+    title        n=43  rel= 43  r@1  95.3%  r@5  97.7%  r@20  97.7%  MRR 0.959
+    typo         n=44  rel= 44  r@1  45.5%  r@5  70.5%  r@20  84.1%  MRR 0.553
+  OVERALL      n=415  r@1  42.9%  r@5  58.1%  r@20  63.1%  MRR 0.563
+
+### lennorm=0.5
+  boxer from Philadelphia gets a title shot      rank 10
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  29.9%  r@5  42.1%  r@20  52.3%  MRR 0.356
+    conjunctive  n=68  rel= 74  r@1  21.6%  r@5  58.1%  r@20  86.5%  MRR 0.396
+    person       n=64  rel=141  r@1   5.7%  r@5  12.8%  r@20  30.5%  MRR 0.182
+    title        n=43  rel= 43  r@1  62.8%  r@5  90.7%  r@20  95.3%  MRR 0.752
+    typo         n=44  rel= 44  r@1  25.0%  r@5  36.4%  r@20  65.9%  MRR 0.325
+  OVERALL      n=415  r@1  24.2%  r@5  39.9%  r@20  56.1%  MRR 0.374
+
+### lennorm=1.0
+  boxer from Philadelphia gets a title shot      MISS
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  12.2%  r@5  25.4%  r@20  44.2%  MRR 0.192
+    conjunctive  n=68  rel= 74  r@1   8.1%  r@5  17.6%  r@20  39.2%  MRR 0.140
+    person       n=64  rel=141  r@1   1.4%  r@5   2.1%  r@20   7.8%  MRR 0.051
+    title        n=43  rel= 43  r@1  11.6%  r@5  41.9%  r@20  81.4%  MRR 0.265
+    typo         n=44  rel= 44  r@1   2.3%  r@5  20.5%  r@20  38.6%  MRR 0.113
+  OVERALL      n=415  r@1   7.6%  r@5  18.6%  r@20  35.9%  MRR 0.161
+
+### nb=0.05
+  boxer from Philadelphia gets a title shot      rank 1
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  38.1%  r@5  48.7%  r@20  53.3%  MRR 0.428
+    conjunctive  n=68  rel= 74  r@1  73.0%  r@5  87.8%  r@20  90.5%  MRR 0.831
+    person       n=64  rel=141  r@1  15.6%  r@5  42.6%  r@20  48.2%  MRR 0.455
+    title        n=43  rel= 43  r@1  93.0%  r@5  97.7%  r@20  97.7%  MRR 0.950
+    typo         n=44  rel= 44  r@1  43.2%  r@5  59.1%  r@20  75.0%  MRR 0.491
+  OVERALL      n=415  r@1  42.1%  r@5  57.9%  r@20  63.1%  MRR 0.559
+
+### nb=0.15
+  boxer from Philadelphia gets a title shot      rank 1
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  35.0%  r@5  45.7%  r@20  52.3%  MRR 0.402
+    conjunctive  n=68  rel= 74  r@1  50.0%  r@5  81.1%  r@20  89.2%  MRR 0.661
+    person       n=64  rel=141  r@1   8.5%  r@5  31.9%  r@20  45.4%  MRR 0.311
+    title        n=43  rel= 43  r@1  81.4%  r@5  90.7%  r@20  95.3%  MRR 0.849
+    typo         n=44  rel= 44  r@1  34.1%  r@5  43.2%  r@20  56.8%  MRR 0.379
+  OVERALL      n=415  r@1  33.7%  r@5  50.7%  r@20  59.9%  MRR 0.474
+
+### nb=0.15 lennorm=0.5
+  boxer from Philadelphia gets a title shot      rank 1
+  outlaw impersonates a count and scandalizes a … MISS
+    concept      n=196  rel=197  r@1  29.9%  r@5  42.6%  r@20  51.3%  MRR 0.361
+    conjunctive  n=68  rel= 74  r@1  27.0%  r@5  45.9%  r@20  75.7%  MRR 0.397
+    person       n=64  rel=141  r@1   2.8%  r@5  11.3%  r@20  25.5%  MRR 0.132
+    title        n=43  rel= 43  r@1  62.8%  r@5  86.0%  r@20  93.0%  MRR 0.737
+    typo         n=44  rel= 44  r@1  22.7%  r@5  38.6%  r@20  47.7%  MRR 0.295
+  OVERALL      n=415  r@1  24.0%  r@5  37.7%  r@20  50.9%  MRR 0.364
+
+===== 07:33:22 RANK SWEEP DONE

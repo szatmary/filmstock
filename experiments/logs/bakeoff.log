@@ -1,0 +1,68 @@
+==================================================================
+2026-08-04 15:41:54  BAAI/bge-large-en-v1.5
+==================================================================
+loading passages from /tank/mediadb/out/passages.jsonl.gz ...
+  543200 passages in 4.1s
+loading BAAI/bge-large-en-v1.5 on cuda ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/tank/mediadb/embed/embed.py:197: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  dim = model.get_sentence_embedding_dimension()
+  loaded in 9.6s, dim=1024
+
+=== run ===
+  model            BAAI/bge-large-en-v1.5  dim=1024
+  passages         543200
+  embed time       3369.2s  (161.2/s)
+  gpu util         mean 90.8%  peak 96.0%
+  gpu memory       mean 2442.0 MB  peak 2442.0 MB
+  cpu              mean 5.9%  peak 15.8%
+  host rss         peak 6061.1 MB
+  float32          2.22 GB
+  int8 / int2      556.2 MB / 139.1 MB
+  metrics          /tank/mediadb/out/index/metrics.BAAI_bge-large-en-v1.5.json
+==================================================================
+2026-08-04 16:38:24  BAAI/bge-m3
+==================================================================
+loading passages from /tank/mediadb/out/passages.jsonl.gz ...
+  543200 passages in 4.4s
+loading BAAI/bge-m3 on cuda ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/tank/mediadb/embed/embed.py:197: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  dim = model.get_sentence_embedding_dimension()
+  loaded in 42.8s, dim=1024
+
+=== run ===
+  model            BAAI/bge-m3  dim=1024
+  passages         543200
+  embed time       4081.2s  (133.1/s)
+  gpu util         mean 91.5%  peak 96.0%
+  gpu memory       mean 9959.2 MB  peak 9960.0 MB
+  cpu              mean 6.8%  peak 21.7%
+  host rss         peak 6439.1 MB
+  float32          2.22 GB
+  int8 / int2      556.2 MB / 139.1 MB
+  metrics          /tank/mediadb/out/index/metrics.BAAI_bge-m3.json
+==================================================================
+2026-08-04 17:47:20  nomic-ai/nomic-embed-text-v1.5
+==================================================================
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/tank/mediadb/venv/lib/python3.12/site-packages/sentence_transformers/base/modules/transformer.py", line 654, in __init__
+    self.model = self._load_model(
+                 ^^^^^^^^^^^^^^^^^
+  File "/tank/mediadb/venv/lib/python3.12/site-packages/sentence_transformers/base/modules/transformer.py", line 1751, in _load_model
+    return model_cls.from_pretrained(model_name_or_path, config=config, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tank/mediadb/venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 378, in from_pretrained
+    model_class = get_class_from_dynamic_module(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tank/mediadb/venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 612, in get_class_from_dynamic_module
+    final_module = get_cached_module_file(
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tank/mediadb/venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 441, in get_cached_module_file
+    modules_needed = check_imports(resolved_module_file)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tank/mediadb/venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 258, in check_imports
+    raise ImportError(
+ImportError: This modeling file requires the following packages that were not found in your environment: einops. Run `pip install einops`
+2026-08-04 17:47:30  bake-off complete

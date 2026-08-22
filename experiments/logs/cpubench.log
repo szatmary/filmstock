@@ -1,0 +1,22 @@
+loading passages from /tank/mediadb/out/passages.jsonl.gz ...
+  64 passages in 0.0s
+loading BAAI/bge-large-en-v1.5 on cpu ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 17825.21it/s]
+/tank/mediadb/embed/embed.py:197: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  dim = model.get_sentence_embedding_dimension()
+  loaded in 3.2s, dim=1024
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]Batches:  25%|██▌       | 1/4 [00:15<00:47, 15.67s/it]Batches:  50%|█████     | 2/4 [00:29<00:29, 14.78s/it]Batches:  75%|███████▌  | 3/4 [00:44<00:14, 14.93s/it]Batches: 100%|██████████| 4/4 [00:56<00:00, 13.51s/it]Batches: 100%|██████████| 4/4 [00:56<00:00, 14.07s/it]
+
+=== run ===
+  model            BAAI/bge-large-en-v1.5  dim=1024
+  passages         64
+  embed time       56.3s  (1.1/s)
+  gpu util         mean 87.5%  peak 96.0%
+Traceback (most recent call last):
+  File "/tank/mediadb/embed/embed.py", line 261, in <module>
+    main()
+  File "/tank/mediadb/embed/embed.py", line 250, in main
+    print(f"  gpu memory       mean {r['gpu_mem_mb']['mean']} MB  peak {r['gpu_mem_mb']['peak']} MB")
+                                     ~~~~~~~~~~~~~~~^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
