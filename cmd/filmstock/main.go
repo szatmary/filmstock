@@ -17,6 +17,24 @@ func main() {
 		build.CIndexRecords(os.Args[2:])
 	case "index-movies":
 		build.CIndex(os.Args[2:])
+	case "filmvecs":
+		cmdFilmVectors(os.Args[2:])
+	case "notability":
+		cmdNotability(os.Args[2:])
+	case "colbert-quantize":
+		cmdColbertQuantize(os.Args[2:])
+	case "quantize":
+		cmdQuantize(os.Args[2:])
+	case "chunk":
+		cmdChunk(os.Args[2:])
+	case "eval-vec":
+		cmdEvalVector(os.Args[2:])
+	case "eval-colbert":
+		cmdEvalColbert(os.Args[2:])
+	case "eval":
+		cmdEval(os.Args[2:])
+	case "serve":
+		cmdServe(os.Args[2:])
 	case "search":
 		build.CSearch(os.Args[2:])
 	case "television-debug":
@@ -62,6 +80,10 @@ Usage:
   filmstock join  -in index-parts/ -db index.db                      parts -> index (verified)
 
 The browser is a separate binary:
-  filmstock-web -db index.db -records filmstock-data`)
+  filmstock-web -db index.db -records filmstock-data
+
+This branch also carries the retrieval experiments: filmvecs, notability,
+chunk, quantize, colbert-quantize, eval, eval-vec, eval-colbert, and the
+experimental serve that wires them into a UI.`)
 	os.Exit(2)
 }

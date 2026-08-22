@@ -1,0 +1,91 @@
+{{define "browse.html"}}<!doctype html>
+<meta charset="utf-8"><title>filmstock — space browser</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0c0d10;color:#e8e9ee;font:14px/1.45 system-ui,-apple-system,sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;gap:14px;
+ padding:0 18px;background:#101218;border-bottom:1px solid #20232c;z-index:10}
+#bar h1{font-size:15px;font-weight:600;margin:0;white-space:nowrap}
+#bar .sub{color:#7c8296;font-size:12px}
+button{background:#171a21;border:1px solid #2a2f3a;color:#aab0c0;padding:6px 13px;border-radius:999px;
+ cursor:pointer;font-size:13px}
+button:hover{border-color:#5b8cff;color:#fff}
+#alpha{width:150px}
+#stage{position:absolute;inset:56px 0 0 0}
+.node{position:absolute;width:104px;margin:-70px 0 0 -52px;text-align:center;cursor:pointer;
+ transition:transform .35s cubic-bezier(.2,.8,.2,1),left .35s cubic-bezier(.2,.8,.2,1),top .35s cubic-bezier(.2,.8,.2,1)}
+.node img{width:76px;height:110px;object-fit:cover;border-radius:6px;background:#1b1f27;
+ border:1px solid #262b36;display:block;margin:0 auto 5px}
+.node .t{font-size:11.5px;line-height:1.25;color:#cdd2df;max-height:30px;overflow:hidden}
+.node .y{font-size:10.5px;color:#6e7488}
+.node:hover img{border-color:#5b8cff;transform:scale(1.06)}
+.node.center img{width:104px;height:150px;border-color:#5b8cff;box-shadow:0 0 0 3px rgba(91,140,255,.22)}
+.node.center{margin:-96px 0 0 -52px}
+.node.center .t{font-size:13px;color:#fff;font-weight:600;max-height:none}
+svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+line{stroke:#2a3040;stroke-width:1}
+#trail{position:fixed;bottom:0;left:0;right:0;padding:8px 18px;background:#101218;
+ border-top:1px solid #20232c;font-size:12px;color:#7c8296;white-space:nowrap;overflow:hidden}
+#trail b{color:#9fb4e6;font-weight:500}
+</style>
+<div id="bar">
+  <h1>space browser</h1>
+  <button id="rand">random film</button>
+  <span class="sub">walk α</span>
+  <input id="alpha" type="range" min="0" max="150" value="0">
+  <span class="sub" id="av">0.00</span>
+  <span class="sub" id="hint">click a neighbour to step — α&gt;0 keeps going in that direction</span>
+</div>
+<div id="stage"><svg id="edges"></svg></div>
+<div id="trail">path: <span id="path">—</span></div>
+<script>
+const stage=document.getElementById('stage'),edges=document.getElementById('edges');
+const alphaEl=document.getElementById('alpha'),av=document.getElementById('av');
+let cur=0, prev=0, trail=[];
+
+function alpha(){ return alphaEl.value/100; }
+alphaEl.oninput=()=>{ av.textContent=alpha().toFixed(2); if(cur) load(cur,prev); };
+
+async function load(id, from){
+  const u = new URL('/api/near', location.origin);
+  if(id) u.searchParams.set('id', id);
+  if(from && alpha()>0){ u.searchParams.set('from', from); u.searchParams.set('alpha', alpha()); }
+  u.searchParams.set('k', 24);
+  const r = await fetch(u); if(!r.ok){ return; }
+  render(await r.json());
+}
+
+function render(d){
+  cur = d.center.page_id;
+  const W=stage.clientWidth, H=stage.clientHeight, cx=W/2, cy=H/2;
+  // scale the PCA coords to fill the stage
+  let mx=0.0001;
+  d.neighbors.forEach(n=>{ mx=Math.max(mx,Math.abs(n.x),Math.abs(n.y)); });
+  const R=Math.min(W,H)*0.40/mx;
+  stage.querySelectorAll('.node').forEach(e=>e.remove());
+  let lines='';
+  const mk=(n,isC)=>{
+    const el=document.createElement('div');
+    el.className='node'+(isC?' center':'');
+    const x=isC?cx:cx+n.x*R, y=isC?cy:cy+n.y*R;
+    el.style.left=x+'px'; el.style.top=y+'px';
+    el.innerHTML=(n.cover?`<img src="${n.cover}" loading="lazy" onerror="this.style.visibility='hidden'">`
+                          :`<img style="visibility:hidden">`)+
+      `<div class="t">${n.title.replace(/</g,'&lt;')}</div><div class="y">${n.year||''}${isC?'':' · '+n.score.toFixed(3)}</div>`;
+    if(!isC) el.onclick=()=>{ trail.push(d.center.title); prev=d.center.page_id; load(n.page_id, prev); };
+    else el.onclick=()=>location.href='/movie?id='+n.page_id;
+    stage.appendChild(el);
+    if(!isC) lines+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/>`;
+  };
+  d.neighbors.forEach(n=>mk(n,false)); mk(d.center,true);
+  edges.innerHTML=lines;
+  document.getElementById('path').innerHTML =
+    (trail.slice(-8).map(t=>t.replace(/</g,'&lt;')).join(' › ')||'—') + ' › <b>'+d.center.title.replace(/</g,'&lt;')+'</b>';
+}
+
+document.getElementById('rand').onclick=()=>{ trail=[]; prev=0; load(0,0); };
+addEventListener('resize',()=>{ if(cur) load(cur,prev); });
+load(0,0);
+</script>
+{{end}}
