@@ -27,13 +27,14 @@ BUNZIP := $(shell command -v lbzip2 >/dev/null && echo "lbzip2 -dc -n 20" || ech
 help:
 	@sed -n 's/^##//p' $(MAKEFILE_LIST)
 
-## build      compile the single binary -> ./filmstock
+## build      compile the binaries -> ./filmstock and ./filmstock-web
 build:
-	cd src && go build -o ../filmstock .
+	go build -o filmstock ./cmd/filmstock
+	go build -o filmstock-web ./cmd/filmstock-web
 
-## test       run the parser regression tests
+## test       run the regression tests
 test:
-	cd src && go test ./...
+	go test ./...
 
 ## dumps      download the four source dumps (~129 GB)
 dumps: $(DUMP) $(INDEX) $(PROPS) $(ENTITIES)

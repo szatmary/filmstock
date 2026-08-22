@@ -28,7 +28,7 @@
 # ── Compiled binaries. The legacy names are still on disk from before the
 # rename; they are build output either way.
 /filmstock
-/src/filmstock
+/filmstock-web
 /moviedb
 /moviedb.next
 /src/mediadb
