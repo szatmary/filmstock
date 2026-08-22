@@ -159,6 +159,49 @@ lost to a smaller one.
 - The passage corpus is films only. 61k series and 551k episodes have no
   embedding text yet.
 
+## Use it as a library
+
+```go
+import "github.com/szatmary/filmstock"
+
+db, err := filmstock.Open("search.db", filmstock.Remote(baseURL))
+defer db.Close()
+
+films, _ := db.SearchFilms(ctx, "blade runner", "title", 20)  // database only
+film,  _ := db.Film(ctx, films[0].ID)                          // one range request
+fmt.Println(film.Plot, film.Cinematography, film.RawInfobox)
+```
+
+Every search, ranking and count is answered from `search.db` alone and touches no
+network. Only `Film`, `Series` and `Event` reach the record source. That split is
+the reason a 161 MB download can still open 620k full records.
+
+Where records come from is one argument:
+
+```go
+filmstock.Dir("out")                        // local tree — development, tests
+filmstock.Remote("https://…/v2026-08-22")   // release packs, HTTP range requests
+filmstock.RemoteWithClient(url, myClient)   // your own transport, auth, retries
+```
+
+`modernc.org/sqlite` is used rather than a cgo driver, so importing this package
+does not force cgo on you.
+
+### The sample app
+
+`cmd/filmstock-web` is a small web server built on nothing but the exported API —
+no internals, no SQL of its own. If a working server could not be written against
+the public surface, the surface would be wrong, so it is a test as much as a demo.
+
+```sh
+make web                                              # local records
+./filmstock-web -db out/search.db -remote https://…   # remote packs
+```
+
+It refuses to guess between the two, and returns an `X-Record-Fetch` header so
+the cost of each is visible. Measured on this machine: **2.9 ms** local versus
+**4.8 ms** over HTTP, returning byte-identical records.
+
 ## Distributing it
 
 The intended consumer download is `search.db` alone, with the per-record detail
@@ -172,8 +215,22 @@ unindexed text duplicating what the record `.json.gz` already holds. They are no
 stored, and `movies` never had them.
 
 ```sh
+make pack           # -> out/packs/{movies,television,events}.pack + offsets in the db
 make dist           # -> out/search.db.zst
 ```
+
+Pack sizes, measured:
+
+| pack | records | size |
+|---|---|---|
+| `movies.pack` | 165,265 | 240 MB |
+| `television.pack` | 61,137 | 150 MB |
+| `events.pack` | 4,669 | 3.5 MB |
+
+That is **394 MB total** — far less than the 1.9 GB the record tree occupies on
+disk, because 620k small files pay filesystem block overhead roughly five times
+over. Packing is a large space win before it is a distribution mechanism, and it
+puts every asset comfortably under GitHub's 2 GB per-asset limit.
 
 Measured end to end:
 

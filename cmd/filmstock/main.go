@@ -82,6 +82,8 @@ func main() {
 		cmdIndexTelevision(os.Args[2:])
 	case "build-qidmap":
 		cmdBuildQidmap(os.Args[2:])
+	case "pack":
+		cmdPack(os.Args[2:])
 	case "extract":
 		cmdExtract(os.Args[2:])
 	case "build-wd-edges":

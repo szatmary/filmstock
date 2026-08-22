@@ -33,7 +33,8 @@ CREATE TABLE television_series(
   first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
   network TEXT, num_seasons TEXT, num_episodes TEXT,
   seasons_count INTEGER, episodes_count INTEGER,
-  cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL
+  cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL,
+  pack_offset INTEGER, pack_length INTEGER
 );
 CREATE VIRTUAL TABLE television_fts USING fts5(
   title, starring, creator,

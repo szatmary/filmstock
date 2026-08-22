@@ -1,0 +1,158 @@
+package filmstock
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+
+	_ "modernc.org/sqlite" // pure Go: importers of this package need no cgo
+)
+
+// DB is a searchable filmstock database plus the source its full records come
+// from. It is safe for concurrent use.
+//
+// The division of labour is the whole design: every search, ranking and count
+// below is answered from search.db alone and touches no network. Only the
+// single-record accessors (Film, Series, Event) go to the RecordSource. That is
+// what lets a consumer take a 161 MB database and still reach 620k full records.
+type DB struct {
+	sql *sql.DB
+	src RecordSource
+}
+
+// Open opens a search database. src may be nil if the caller only searches;
+// the record accessors then return an error explaining what is missing rather
+// than panicking.
+//
+//	db, err := filmstock.Open("search.db", filmstock.Dir("out"))
+//	db, err := filmstock.Open("search.db", filmstock.Remote("https://…/v2026-08-22"))
+func Open(path string, src RecordSource) (*DB, error) {
+	// Read-only: nothing in this package writes, and saying so lets several
+	// readers share one file without fighting over the write lock.
+	h, err := sql.Open("sqlite", "file:"+path+"?mode=ro")
+	if err != nil {
+		return nil, err
+	}
+	if err := h.Ping(); err != nil {
+		h.Close()
+		return nil, fmt.Errorf("filmstock: open %s: %w", path, err)
+	}
+	return &DB{sql: h, src: src}, nil
+}
+
+// FromSQL wraps an already-open handle, for callers who manage their own pool.
+func FromSQL(h *sql.DB, src RecordSource) *DB { return &DB{sql: h, src: src} }
+
+// SQL exposes the underlying handle. Everything this package does is a plain
+// query against a documented schema, so dropping to SQL is expected rather than
+// a workaround — use it for joins and aggregates the API does not cover.
+func (db *DB) SQL() *sql.DB { return db.sql }
+
+func (db *DB) Close() error { return db.sql.Close() }
+
+// ── search: database only, no network ──────────────────────────────────────
+
+// SearchFilms ranks films by fuzzy title match. field selects what is matched:
+// "title", "starring" or "director"; empty means title.
+func (db *DB) SearchFilms(ctx context.Context, q, field string, limit int) ([]SearchResult, error) {
+	return SearchMovies(ctx, db.sql, q, field, limit)
+}
+
+// SearchSeries ranks television series. field: "title", "starring" or "creator".
+func (db *DB) SearchSeries(ctx context.Context, q, field string, limit int) ([]TelevisionSearchResult, error) {
+	return SearchTelevision(ctx, db.sql, q, field, limit)
+}
+
+func (db *DB) SearchEpisodes(ctx context.Context, q string, limit int) ([]EpisodeSearchResult, error) {
+	return SearchEpisodes(ctx, db.sql, q, limit)
+}
+
+func (db *DB) SearchPeople(ctx context.Context, q string, limit int) ([]PersonResult, error) {
+	return SearchPeople(ctx, db.sql, q, limit)
+}
+
+func (db *DB) SearchEvents(ctx context.Context, q string, limit int) ([]UnifiedResult, error) {
+	return SearchEvents(ctx, db.sql, q, limit)
+}
+
+// Filmography returns everything a person is credited on, grouped by role.
+func (db *DB) Filmography(personID int) (*Filmography, error) {
+	return PersonFilmography(db.sql, personID)
+}
+
+// PersonID resolves a display name to a person id. It returns 0 when the name
+// is unknown — names are not identities here, so a miss is ordinary.
+func (db *DB) PersonID(name string) int { return PersonIDByName(db.sql, name) }
+
+// ── records: one fetch each ────────────────────────────────────────────────
+
+// Film returns the full film record: everything in the database plus what only
+// the record holds — plot, overview, genre, cinematography, editing, production
+// companies, release dates, and the unparsed infobox.
+func (db *DB) Film(ctx context.Context, id int) (*Movie, error) {
+	var m Movie
+	if err := db.fetch(ctx, KindMovie, id, &m); err != nil {
+		return nil, err
+	}
+	return &m, nil
+}
+
+// Series returns the full series record, including every season and episode
+// with its summary, director and writer. Episode summaries live here and not in
+// the database on purpose: they are 150 MB of text that nothing searches.
+func (db *DB) Series(ctx context.Context, id int) (*TelevisionSeries, error) {
+	var s TelevisionSeries
+	if err := db.fetch(ctx, KindTelevision, id, &s); err != nil {
+		return nil, err
+	}
+	return &s, nil
+}
+
+// Event returns the full award-ceremony or festival record.
+func (db *DB) Event(ctx context.Context, id int) (*Event, error) {
+	var e Event
+	if err := db.fetch(ctx, KindEvent, id, &e); err != nil {
+		return nil, err
+	}
+	return &e, nil
+}
+
+// locate reads where a record lives. Both answers come from the same row, so a
+// Dir source and a Remote source cost exactly one query either way.
+func (db *DB) locate(ctx context.Context, kind string, id int) (Location, error) {
+	var table string
+	switch kind {
+	case KindMovie:
+		table = "movies"
+	case KindTelevision:
+		table = "television_series"
+	case KindEvent:
+		table = "events"
+	default:
+		return Location{}, fmt.Errorf("filmstock: no records of kind %q", kind)
+	}
+	loc := Location{Kind: kind, ID: id}
+	err := db.sql.QueryRowContext(ctx,
+		`SELECT path, COALESCE(pack_offset,0), COALESCE(pack_length,0) FROM `+table+` WHERE id = ?`,
+		id).Scan(&loc.Path, &loc.Offset, &loc.Length)
+	if err == sql.ErrNoRows {
+		return Location{}, fmt.Errorf("filmstock: no %s with id %d", kind, id)
+	}
+	return loc, err
+}
+
+func (db *DB) fetch(ctx context.Context, kind string, id int, v any) error {
+	if db.src == nil {
+		return fmt.Errorf("filmstock: no RecordSource configured; " +
+			"pass filmstock.Dir(root) or filmstock.Remote(baseURL) to Open")
+	}
+	loc, err := db.locate(ctx, kind, id)
+	if err != nil {
+		return err
+	}
+	b, err := db.src.Fetch(ctx, loc)
+	if err != nil {
+		return err
+	}
+	return decodeRecord(b, v)
+}

@@ -36,7 +36,8 @@ CREATE TABLE events(
   award TEXT, edition INTEGER, date TEXT, year INTEGER,
   hosts TEXT, organizer TEXT, venue TEXT, location TEXT, network TEXT,
   best_film TEXT, most_wins TEXT, opening_film TEXT, closing_film TEXT,
-  overview TEXT, cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL
+  overview TEXT, cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL,
+  pack_offset INTEGER, pack_length INTEGER
 );
 CREATE INDEX idx_events_year ON events(year);
 CREATE INDEX idx_events_kind ON events(kind);

@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>filmstock — sample app</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 15px/1.5 ui-sans-serif, system-ui, sans-serif; max-width: 780px;
+         margin: 40px auto; padding: 0 16px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { opacity: .65; font-size: 13px; margin-bottom: 20px; }
+  input { width: 100%; padding: 10px 12px; font-size: 16px; border-radius: 8px;
+          border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+          background: transparent; color: inherit; }
+  ul { list-style: none; padding: 0; margin: 18px 0 0; }
+  li { padding: 9px 0; border-bottom: 1px solid
+       color-mix(in srgb, currentColor 12%, transparent); display: flex; gap: 10px; }
+  .k { font-size: 11px; text-transform: uppercase; letter-spacing: .05em;
+       opacity: .6; min-width: 62px; padding-top: 3px; }
+  .t { font-weight: 600; }
+  .s { opacity: .65; font-size: 13px; }
+  a { color: inherit; }
+  #hint { opacity: .6; font-size: 13px; margin-top: 12px; }
+</style>
+<h1>filmstock</h1>
+<div class="sub">
+  Sample app built on the public API only.
+  Records come from {{if .Remote}}<b>remote packs</b> (HTTP range requests){{else}}a <b>local tree</b>{{end}}.
+  Search never fetches a record; opening one does.
+</div>
+<input id="q" placeholder="Search films, series, episodes, people… (3+ characters)" autofocus autocomplete="off">
+<div id="hint"></div>
+<ul id="out"></ul>
+<script>
+const q = document.getElementById('q'), out = document.getElementById('out'), hint = document.getElementById('hint');
+let timer, seq = 0;
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+q.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(run, 120); });
+async function run() {
+  const term = q.value.trim();
+  if (term.length < 3) { out.innerHTML = ''; hint.textContent = ''; return; }
+  const my = ++seq;
+  hint.textContent = 'searching…';
+  const r = await fetch('/api/search?q=' + encodeURIComponent(term));
+  if (my !== seq) return;
+  const rows = await r.json();
+  hint.textContent = rows.length ? rows.length + ' results' : 'no matches';
+  out.innerHTML = rows.map(x => {
+    const body = '<div><div class="t">' + esc(x.Title) + '</div><div class="s">' + esc(x.Subtitle) + '</div></div>';
+    return '<li><div class="k">' + esc(x.Kind) + '</div>' +
+      (x.Link ? '<a href="' + x.Link + '">' + body + '</a>' : body) + '</li>';
+  }).join('');
+}
+</script>

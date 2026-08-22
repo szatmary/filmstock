@@ -24,7 +24,8 @@ CREATE TABLE movies(
   director TEXT, producer TEXT, writer TEXT, starring TEXT,
   music TEXT, distributor TEXT, country TEXT, language TEXT,
   runtime TEXT, budget TEXT, gross TEXT,
-  wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT, path TEXT NOT NULL
+  wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT, path TEXT NOT NULL,
+  pack_offset INTEGER, pack_length INTEGER
 );
 CREATE VIRTUAL TABLE movies_fts USING fts5(
   title, starring, director,
