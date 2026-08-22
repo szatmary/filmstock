@@ -72,7 +72,7 @@ func readEventGz(path string) (*Event, error) {
 
 func cmdIndexEvents(args []string) {
 	fs := flag.NewFlagSet("index-events", flag.ExitOnError)
-	records := fs.String("records", "/tank/mediadb/out", "record hierarchy")
+	records := fs.String("records", "out", "record hierarchy")
 	dbPath := fs.String("db", "", "database (default <records>/search.db)")
 	fs.Parse(args)
 

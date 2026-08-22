@@ -25,7 +25,10 @@
 *.bin
 *.jsonl.gz
 
-# ── Compiled binaries.
+# ── Compiled binaries. The legacy names are still on disk from before the
+# rename; they are build output either way.
+/filmstock
+/src/filmstock
 /moviedb
 /moviedb.next
 /src/mediadb

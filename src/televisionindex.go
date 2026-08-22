@@ -70,8 +70,8 @@ func readTelevisionSeriesGz(path string) (*TelevisionSeries, error) {
 // per-series JSON.gz files. Does not touch the movies tables.
 func cmdIndexTelevision(args []string) {
 	fs := flag.NewFlagSet("index-television", flag.ExitOnError)
-	televisionDir := fs.String("television", "../television", "directory of per-series JSON.gz files")
-	dbPath := fs.String("db", "../movies.db", "SQLite database (shared with movies)")
+	televisionDir := fs.String("television", "out/television", "directory of per-series JSON.gz files")
+	dbPath := fs.String("db", "out/search.db", "SQLite database (shared with movies)")
 	records := fs.String("records", "", "record hierarchy from `extract` (supplies people identities)")
 	workers := fs.Int("workers", 16, "reader workers")
 	fs.Parse(args)

@@ -47,8 +47,8 @@ type retriever func(q string, n int) ([]int, error)
 
 func cmdEval(args []string) {
 	fs := flag.NewFlagSet("eval", flag.ExitOnError)
-	dbPath := fs.String("db", "/tank/mediadb/out/search.db", "search database")
-	setPath := fs.String("queries", "/tank/mediadb/docs/eval/queries.json", "query set")
+	dbPath := fs.String("db", "out/search.db", "search database")
+	setPath := fs.String("queries", "docs/eval/queries.json", "query set")
 	n := fs.Int("n", 20, "retrieval depth")
 	verbose := fs.Bool("v", false, "show the rank of each expected answer")
 	fs.Parse(args)
@@ -177,10 +177,10 @@ func score(set evalSet, name string, r retriever, n int, verbose bool) {
 // exists at all.
 func cmdEvalVector(args []string) {
 	fs := flag.NewFlagSet("eval-vec", flag.ExitOnError)
-	dbPath := fs.String("db", "/tank/mediadb/out/search.db", "search database")
-	setPath := fs.String("queries", "/tank/mediadb/docs/eval/queries.json", "query set")
+	dbPath := fs.String("db", "out/search.db", "search database")
+	setPath := fs.String("queries", "docs/eval/queries.json", "query set")
 	manifest := fs.String("quant", "", "quant.<model>.json (required)")
-	idsPath := fs.String("ids", "/tank/mediadb/out/index/passages.bin", "passage -> page_id map")
+	idsPath := fs.String("ids", "out/index/passages.bin", "passage -> page_id map")
 	qvecs := fs.String("qvecs", "", "query vectors from embed_queries.py (required)")
 	dim := fs.Int("dim", 1024, "embedding dimension")
 	n := fs.Int("n", 20, "retrieval depth")

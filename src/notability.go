@@ -90,7 +90,7 @@ func buildNotability(recordsDir string) (map[int]float32, error) {
 // blob, producing a blob of dim+1 that quantize/search treat as ordinary.
 func cmdNotability(args []string) {
 	fs := flag.NewFlagSet("notability", flag.ExitOnError)
-	records := fs.String("records", "/tank/mediadb/out", "record hierarchy")
+	records := fs.String("records", "out", "record hierarchy")
 	in := fs.String("vectors", "", "float32 vector blob (required)")
 	idsPath := fs.String("ids", "", "passages.bin (default alongside -vectors)")
 	dim := fs.Int("dim", 1024, "embedding dimension of the input blob")

@@ -81,13 +81,13 @@ func searchMovies(ctx context.Context, db *sql.DB, query, field string, limit in
 
 func cmdSearch(args []string) {
 	fs := flag.NewFlagSet("search", flag.ExitOnError)
-	dbPath := fs.String("db", "../movies.db", "SQLite database")
+	dbPath := fs.String("db", "out/search.db", "SQLite database")
 	n := fs.Int("n", 20, "max results")
 	field := fs.String("field", "title", "field to rank against: title|starring|director")
 	fs.Parse(args)
 	query := strings.TrimSpace(strings.Join(fs.Args(), " "))
 	if query == "" {
-		fmt.Fprintln(os.Stderr, "usage: mediadb search [-n N] [-field title|starring|director] QUERY")
+		fmt.Fprintln(os.Stderr, "usage: filmstock search [-n N] [-field title|starring|director] QUERY")
 		os.Exit(2)
 	}
 

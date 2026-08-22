@@ -1,13 +1,13 @@
-# mediadb — outstanding work
+# filmstock — outstanding work
 
 Status as of 2026-08-04, after the extract/index rewrite.
 
 Pipeline today:
 
 ```
-mediadb extract -dumps DUMPDIR -out OUTDIR    # dumps -> records (+ search.db by default)
-mediadb index   -records OUTDIR               # rebuild search.db from records alone
-mediadb serve   -db OUTDIR/search.db -movies OUTDIR/movies -television OUTDIR/television
+filmstock extract -dumps DUMPDIR -out OUTDIR    # dumps -> records (+ search.db by default)
+filmstock index   -records OUTDIR               # rebuild search.db from records alone
+filmstock serve   -db OUTDIR/search.db -movies OUTDIR/movies -television OUTDIR/television
 ```
 
 Current data (2026-08-13): 165,265 films · 4,669 events · 61,137 series ·
@@ -69,7 +69,7 @@ in-process cascade, film-space browser, and both retrieval paths). What is left
 is listed under "open" at the end.
 
 1. ✅ **Eval harness FIRST.** 38 queries in `docs/eval/queries.json`, scored by
-   category — `moviedb eval` (lexical), `eval-vec` (dense), `eval-colbert` (late
+   category — `filmstock eval` (lexical), `eval-vec` (dense), `eval-colbert` (late
    interaction). Without it the silent failure modes (pooling mismatch, missing
    `query:`/`passage:` prefixes, wrong model version) are indistinguishable from
    "the model is mediocre".
@@ -98,7 +98,7 @@ is listed under "open" at the end.
   (section-aware chunking, contextual headers, lean profile) and REGRESSED: MRR
   0.516 against the 0.602 baseline. Its own header says they have to be split if
   it did not improve. Also: `out/passages2.jsonl.gz` was written at 09:14 and
-  `chunk.go`/`moviedb` were rebuilt at 09:16, so that score may not even reflect
+  `chunk.go`/`filmstock` were rebuilt at 09:16, so that score may not even reflect
   the chunker that produced it — re-chunk before drawing any conclusion.
 - **Pure-Go query encoder** (static/Model2Vec), so the device path needs no
   Python at all.
@@ -195,8 +195,10 @@ anyway).
 
 ## E. Housekeeping
 
-- `serve` still defaults to the old `-db movies.db -movies movies` layout; it
-  should default to the records layout.
+- ~~`serve` defaults to the old layout~~ — DONE. Every flag default is now
+  relative to the working directory and points at the records layout (`dump`,
+  `out`, `out/search.db`, `out/movies`, `out/television`), so the tools run from
+  the repo root with no arguments.
 - Old artifacts still on disk: `movies/`, `television/`, `text/`, `movies.db` (pre-rewrite),
   and `wikidata.db` (28 GB resolver cache, build-time only, discardable).
 - **`/tank` is 5 USB 3.0 disks in raidz1** — ~100 IOPS. The record-per-file model

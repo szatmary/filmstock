@@ -130,7 +130,7 @@ func claimTargets(raw json.RawMessage) []int64 {
 // property would cost as much as the first.
 func cmdBuildWDEdges(args []string) {
 	fs := flag.NewFlagSet("build-wd-edges", flag.ExitOnError)
-	dbPath := fs.String("db", "../wikidata.db", "sqlite db to write the edge tables into")
+	dbPath := fs.String("db", "wikidata.db", "sqlite db to write the edge tables into")
 	every := fs.Int("progress", 250_000, "log progress every N entities")
 	workers := fs.Int("workers", 12, "parallel line parsers")
 	fs.Parse(args)

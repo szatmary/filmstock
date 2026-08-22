@@ -42,7 +42,7 @@ func TestOrdinaryRefsStillStripped(t *testing.T) {
 
 // The real article: 158k chars of wikitext that collapsed to 10k.
 func TestRealArticleSurvivesCleaning(t *testing.T) {
-	b, err := os.ReadFile("/tmp/claude-1000/-tank-mediadb/ba900659-9246-4446-869d-f16a7d1ad6bb/scratchpad/hpfilm.wiki")
+	b, err := os.ReadFile("/tmp/claude-1000/-tank-filmstock/ba900659-9246-4446-869d-f16a7d1ad6bb/scratchpad/hpfilm.wiki")
 	if err != nil {
 		t.Skip("fixture missing")
 	}

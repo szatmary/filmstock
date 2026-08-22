@@ -316,7 +316,7 @@ func writeTelevisionSeries(outDir string, s *TelevisionSeries) error {
 }
 
 // cmdTelevisionTest assembles television from local wikitext files to validate the pipeline.
-// Usage: mediadb television-test title=file [title=file ...]
+// Usage: filmstock television-test title=file [title=file ...]
 func cmdTelevisionTest(args []string) {
 	coll := newTelevisionCollector()
 	var pid int
@@ -346,10 +346,10 @@ func cmdTelevisionTest(args []string) {
 }
 
 // cmdTelevisionDebug parses a single wikitext file and prints what the television parser sees.
-// Usage: mediadb television-debug <wikitext-file> [title]
+// Usage: filmstock television-debug <wikitext-file> [title]
 func cmdTelevisionDebug(args []string) {
 	if len(args) < 1 {
-		fmt.Fprintln(os.Stderr, "usage: mediadb television-debug <wikitext-file> [title]")
+		fmt.Fprintln(os.Stderr, "usage: filmstock television-debug <wikitext-file> [title]")
 		os.Exit(2)
 	}
 	data, err := os.ReadFile(args[0])

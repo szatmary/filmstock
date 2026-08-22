@@ -9,7 +9,7 @@ import (
 )
 
 // Wikipedia asks API clients to send a descriptive User-Agent with contact info.
-const userAgent = "mediadb/0.1 (movie database; +https://github.com/szatmary/filmstock)"
+const userAgent = "filmstock/0.1 (movie database; +https://github.com/szatmary/filmstock)"
 
 var imgClient = &http.Client{Timeout: 6 * time.Second}
 

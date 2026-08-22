@@ -111,8 +111,8 @@ func tableExists(dbPath, table string, col string) bool {
 
 func cmdExtract(args []string) {
 	fs := flag.NewFlagSet("extract", flag.ExitOnError)
-	dumpDir := fs.String("dumps", "/tank/mediadb/dump", "directory holding the dumps (inputs; never written)")
-	outDir := fs.String("out", "/tank/mediadb/out", "output directory for the record hierarchy")
+	dumpDir := fs.String("dumps", "dump", "directory holding the dumps (inputs; never written)")
+	outDir := fs.String("out", "out", "output directory for the record hierarchy")
 	workers := fs.Int("workers", 18, "parallel workers")
 	force := fs.Bool("force", false, "rebuild the resolver cache even if present")
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
@@ -163,7 +163,7 @@ func cmdExtract(args []string) {
 
 	// Index here by default: the records were just written, so they are still in
 	// page cache and the 170k+ random reads that dominate a standalone index run
-	// are nearly free. `mediadb index -records DIR` stays available on its own —
+	// are nearly free. `filmstock index -records DIR` stays available on its own —
 	// search.db is derived, so it must always be rebuildable without re-extracting.
 	if *doIndex {
 		fmt.Fprintln(os.Stderr, "[4/4] search index")

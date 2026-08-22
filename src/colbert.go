@@ -634,10 +634,10 @@ func readQueryTokens(path string, nq, qlen, dim int) ([][][]float32, error) {
 // matters is the DELTA, and reranking can only reorder what dense retrieved.
 func cmdEvalColbert(args []string) {
 	fs := flag.NewFlagSet("eval-colbert", flag.ExitOnError)
-	dbPath := fs.String("db", "/tank/mediadb/out/search.db", "search database")
-	setPath := fs.String("queries", "/tank/mediadb/docs/eval/queries.json", "query set")
+	dbPath := fs.String("db", "out/search.db", "search database")
+	setPath := fs.String("queries", "docs/eval/queries.json", "query set")
 	manifest := fs.String("quant", "", "dense quant.<model>.json (required, supplies candidates)")
-	idsPath := fs.String("ids", "/tank/mediadb/out/index/passages.bin", "passage -> page_id map")
+	idsPath := fs.String("ids", "out/index/passages.bin", "passage -> page_id map")
 	qvecs := fs.String("qvecs", "", "dense query vectors from embed_queries.py (required)")
 	cbMan := fs.String("colbert", "", "colbert.<model>.json (required)")
 	cbQ := fs.String("cqvecs", "", "colbert query tokens from colbert.py queries (required)")

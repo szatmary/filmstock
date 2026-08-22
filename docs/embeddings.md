@@ -1,4 +1,4 @@
-# mediadb — Semantic Search / Embeddings Design
+# filmstock — Semantic Search / Embeddings Design
 
 Status: **corpus chunked, embedding next.** Decisions below marked SUPERSEDED
 were revised on 2026-08-04; the rest of the design stands.
@@ -29,7 +29,7 @@ were revised on 2026-08-04; the rest of the design stands.
   Its real selection criterion is therefore not benchmark score but how well it
   quantises for on-device query use.
 
-- **Bake-off, not a guess.** `mediadb eval` exists and the lexical baseline is
+- **Bake-off, not a guess.** `filmstock eval` exists and the lexical baseline is
   **0% recall / MRR 0.000** across 12 concept queries — they are worded to avoid
   titles, so trigram search cannot answer them and any semantic result is real
   signal. Candidates: bge-m3 (multilingual, 8k ctx), bge-large-en-v1.5 (English
@@ -43,7 +43,7 @@ were revised on 2026-08-04; the rest of the design stands.
 
 
 This document explains, exactly, how semantic ("vector") search will work in
-mediadb — what data feeds it, how text becomes vectors, how those vectors are
+filmstock — what data feeds it, how text becomes vectors, how those vectors are
 stored and searched, and how it stays runnable on small hardware.
 
 ---
@@ -64,8 +64,8 @@ simulation" can find *The Matrix* even though it shares no words with the plot.
 
 | Plane | Source | Contains | Where it lives | Who reads it |
 |------|--------|----------|----------------|--------------|
-| **Embedding corpus** | **Raw Wikipedia article** (full text) | Full cleaned prose — lead, plot, production, **reception/box office**, themes, … | `/tank/mediadb/text/<shard>/<pageid>.txt.gz` | Offline embedder (GB10) |
-| **Browser record** | Our field extraction | title, credits, genre, dates, cover, **plot/overview** | `/tank/mediadb/movies/**.json.gz` + `movies.db` | The web server / user |
+| **Embedding corpus** | **Raw Wikipedia article** (full text) | Full cleaned prose — lead, plot, production, **reception/box office**, themes, … | `out/text/<shard>/<pageid>.txt.gz` | Offline embedder (GB10) |
+| **Browser record** | Our field extraction | title, credits, genre, dates, cover, **plot/overview** | `out/movies/**.json.gz` + `search.db` | The web server / user |
 
 Key decision: **embeddings are built from the full raw article, not from our
 narrow field extraction.** Reason: queries like *"1978 box office flops"* depend

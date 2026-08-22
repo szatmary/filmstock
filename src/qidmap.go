@@ -26,9 +26,9 @@ var reWikibase = regexp.MustCompile(`\((\d+),'wikibase_item','Q(\d+)'`)
 // (page_id → title). Output: table wiki_qid(title PRIMARY KEY, qid) in the db.
 func cmdBuildQidmap(args []string) {
 	fs := flag.NewFlagSet("build-qidmap", flag.ExitOnError)
-	pp := fs.String("pageprops", "../dump/enwiki-latest-page_props.sql.gz", "page_props.sql.gz")
-	idx := fs.String("index", "../dump/enwiki-latest-pages-articles-multistream-index.txt.bz2", "multistream index")
-	dbPath := fs.String("db", "../movies.db", "output SQLite database")
+	pp := fs.String("pageprops", "dump/enwiki-latest-page_props.sql.gz", "page_props.sql.gz")
+	idx := fs.String("index", "dump/enwiki-latest-pages-articles-multistream-index.txt.bz2", "multistream index")
+	dbPath := fs.String("db", "out/search.db", "output SQLite database")
 	fs.Parse(args)
 
 	// 1. page_id -> qid from page_props (streamed, chunked regex scan).

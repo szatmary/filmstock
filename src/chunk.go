@@ -252,7 +252,7 @@ func pageIDFromPath(p string) (int, bool) {
 
 func cmdChunk(args []string) {
 	fs := flag.NewFlagSet("chunk", flag.ExitOnError)
-	records := fs.String("records", "/tank/mediadb/out", "record hierarchy")
+	records := fs.String("records", "out", "record hierarchy")
 	out := fs.String("out", "", "output passages (.jsonl.gz); default <records>/passages.jsonl.gz")
 	window := fs.Int("window", 246, "window size in words (~320 subword tokens)")
 	overlap := fs.Int("overlap", 49, "overlap in words (~64 subword tokens)")

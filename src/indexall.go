@@ -10,14 +10,14 @@ import (
 
 // cmdIndexRecords builds the derived search database from the record hierarchy.
 //
-//	mediadb index -records OUTDIR
+//	filmstock index -records OUTDIR
 //
 // It reads nothing but records: no dump, no resolver cache, no ordering the
 // caller has to know. Deleting search.db and re-running restores it exactly,
 // which is the point of keeping the records as the source of truth.
 func cmdIndexRecords(args []string) {
 	fs := flag.NewFlagSet("index", flag.ExitOnError)
-	records := fs.String("records", "/tank/mediadb/out", "record hierarchy produced by `extract`")
+	records := fs.String("records", "out", "record hierarchy produced by `extract`")
 	dbPath := fs.String("db", "", "output database (default <records>/search.db)")
 	workers := fs.Int("workers", 16, "reader workers")
 	fs.Parse(args)

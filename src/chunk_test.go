@@ -93,10 +93,10 @@ func TestChunkIsDeterministic(t *testing.T) {
 }
 
 func TestPageIDFromPath(t *testing.T) {
-	if id, ok := pageIDFromPath("/tank/mediadb/out/text/07/30007.txt.gz"); !ok || id != 30007 {
+	if id, ok := pageIDFromPath("out/text/07/30007.txt.gz"); !ok || id != 30007 {
 		t.Errorf("got (%d,%v), want (30007,true)", id, ok)
 	}
-	if _, ok := pageIDFromPath("/tank/mediadb/out/text/07/not-a-number.txt.gz"); ok {
+	if _, ok := pageIDFromPath("out/text/07/not-a-number.txt.gz"); ok {
 		t.Error("accepted a non-numeric filename")
 	}
 }

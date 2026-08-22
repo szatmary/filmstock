@@ -1,9 +1,9 @@
-# mediadb — dumps in, media database out.
+# filmstock — dumps in, media database out.
 #
 # Every target is resumable and none of them are incremental: the parse is a
 # linear stream over the whole 26.5 GB dump, so a rebuild reads everything.
 
-BIN     := ./moviedb
+BIN     := ./filmstock
 DUMPS   := dump
 OUT     := out
 WD      := wikidata.db
@@ -27,9 +27,9 @@ BUNZIP := $(shell command -v lbzip2 >/dev/null && echo "lbzip2 -dc -n 20" || ech
 help:
 	@sed -n 's/^##//p' $(MAKEFILE_LIST)
 
-## build      compile the single binary -> ./moviedb
+## build      compile the single binary -> ./filmstock
 build:
-	cd src && go build -o ../moviedb .
+	cd src && go build -o ../filmstock .
 
 ## test       run the parser regression tests
 test:

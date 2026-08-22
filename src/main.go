@@ -92,20 +92,20 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintln(os.Stderr, `mediadb — a media database built from the Wikipedia and Wikidata dumps
+	fmt.Fprintln(os.Stderr, `filmstock — a media database built from the Wikipedia and Wikidata dumps
 
 Usage:
-  mediadb build-wd-edges -db wikidata.db < ENTITIES.json            P179/P4908 edges (stdin)
-  mediadb build-qidmap   -pageprops F -index IDX -db wikidata.db    title/page_id -> Q-id
-  mediadb extract -dumps DUMPDIR -out OUTDIR -cache wikidata.db     dumps -> records + search.db
-  mediadb extract ... -index=false                                  records only, skip the index
-  mediadb index   -records OUTDIR                                   rebuild search.db from the records alone
-  mediadb index-television -television OUTDIR/television -db DB     reindex television only
-  mediadb index-events     -events OUTDIR/events -db DB             reindex events only
-  mediadb search [-n 20] QUERY...                                   fuzzy-search the index
-  mediadb eval   [-v] [-n 20]                                       score retrieval against docs/eval/queries.json
-  mediadb serve  -db OUTDIR/search.db -movies OUTDIR/movies \
-                 -television OUTDIR/television -events OUTDIR/events [-addr :8080]`)
+  filmstock build-wd-edges -db wikidata.db < ENTITIES.json            P179/P4908 edges (stdin)
+  filmstock build-qidmap   -pageprops F -index IDX -db wikidata.db    title/page_id -> Q-id
+  filmstock extract -dumps DUMPDIR -out OUTDIR -cache wikidata.db     dumps -> records + search.db
+  filmstock extract ... -index=false                                  records only, skip the index
+  filmstock index   -records OUTDIR                                   rebuild search.db from the records alone
+  filmstock index-television -television OUTDIR/television -db DB     reindex television only
+  filmstock index-events     -events OUTDIR/events -db DB             reindex events only
+  filmstock search [-n 20] QUERY...                                   fuzzy-search the index
+  filmstock eval   [-v] [-n 20]                                       score retrieval against docs/eval/queries.json
+  filmstock serve  -db OUTDIR/search.db -movies OUTDIR/movies \
+                   -television OUTDIR/television -events OUTDIR/events [-addr :8080]`)
 	os.Exit(2)
 }
 

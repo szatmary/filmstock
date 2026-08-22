@@ -1,4 +1,4 @@
-# mediadb
+# filmstock
 
 A media database built from the English Wikipedia and Wikidata dumps: films, television
 series and episodes, award ceremonies and festivals, and the people credited on
@@ -45,7 +45,7 @@ You need Go 1.25+, `sqlite3`, and `lbzip2` (or `bzip2`). Budget ~130 GB for the
 dumps, ~60 GB for the outputs, and ~28 GB for the build-time resolver cache.
 
 ```sh
-make build          # -> ./moviedb
+make build          # -> ./filmstock
 ```
 
 ### 1. Fetch the dumps
@@ -100,7 +100,7 @@ make serve          # http://localhost:8080
 ## Layout
 
 ```
-src/                Go module (module mediadb) — all the tools, one binary
+src/                Go module (module filmstock) — all the tools, one binary
   extract.go          dumps -> records; the single pass
   multistream.go      parallel bz2 stream reads off the index
   wikitext.go         template/infobox parsing, link and ref cleanup
@@ -147,9 +147,6 @@ lost to a smaller one.
 
 ## Known rough edges
 
-- `serve`, `qidmap` and `wdedges` still carry absolute `/tank/mediadb/...` flag
-  defaults from the machine this was built on. Pass the paths explicitly, or see
-  §E of [docs/TODO.md](docs/TODO.md).
 - The passage corpus is films only. 61k series and 551k episodes have no
   embedding text yet.
 

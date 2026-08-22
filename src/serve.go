@@ -33,9 +33,9 @@ type server struct {
 
 func cmdServe(args []string) {
 	fs := flag.NewFlagSet("serve", flag.ExitOnError)
-	dbPath := fs.String("db", "../movies.db", "SQLite database")
-	moviesDir := fs.String("movies", "../movies", "directory of per-movie JSON.gz files")
-	televisionDir := fs.String("television", "../television", "directory of per-series JSON.gz files")
+	dbPath := fs.String("db", "out/search.db", "SQLite database")
+	moviesDir := fs.String("movies", "out/movies", "directory of per-movie JSON.gz files")
+	televisionDir := fs.String("television", "out/television", "directory of per-series JSON.gz files")
 	eventsDir := fs.String("events", "", "directory of per-event JSON.gz files (award ceremonies, festivals)")
 	addr := fs.String("addr", ":8080", "listen address")
 	quant := fs.String("quant", "", "quant.<model>.json — enables Semantic mode")
@@ -114,7 +114,7 @@ func cmdServe(args []string) {
 	mux.HandleFunc("/api/near", s.handleAPINear)
 	mux.HandleFunc("/browse", s.handleBrowse)
 
-	fmt.Fprintf(os.Stderr, "mediadb browser listening on http://localhost%s\n", *addr)
+	fmt.Fprintf(os.Stderr, "filmstock browser listening on http://localhost%s\n", *addr)
 	if err := http.ListenAndServe(*addr, mux); err != nil {
 		fatal(err)
 	}
