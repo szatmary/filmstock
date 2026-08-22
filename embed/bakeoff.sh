@@ -3,9 +3,9 @@
 # each run cost. Prefixes are per-model and MUST match on the query side —
 # omitting them fails silently, costing accuracy with no error.
 set -u
-cd /tank/mediadb
+cd "$(dirname "$0")/.."
 V=./venv/bin/python
-OUT=/tank/mediadb/out/index
+OUT=out/index
 mkdir -p "$OUT"
 
 run() {  # model, passage-prefix, extra flags

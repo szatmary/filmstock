@@ -93,7 +93,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["serve"])
     ap.add_argument("--model", default="BAAI/bge-reranker-base")
-    ap.add_argument("--passages", default="/tank/mediadb/out/passages.jsonl.gz")
+    ap.add_argument("--passages", default="out/passages.jsonl.gz")
     ap.add_argument("--batch", type=int, default=32)
     ap.add_argument("--device", default=None, help="cuda | cpu (default: cuda if present)")
     ap.add_argument("--addr", default=":8092")

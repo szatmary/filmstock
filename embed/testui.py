@@ -4,7 +4,7 @@
 Deliberately NOT the shipping path: it brute-forces float32 with numpy rather
 than using the int2 -> int8 cascade, so what you see is the retrieval CEILING.
 If a result is bad here, no amount of quantisation tuning will save it — the
-model or the chunking is at fault. Comparing this against `mediadb eval-vec`
+model or the chunking is at fault. Comparing this against `filmstock eval-vec`
 separates "the model can't find it" from "quantisation lost it".
 
 It also shows the matching PASSAGE, not just the film, because that is usually
@@ -19,8 +19,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 import numpy as np
 
-INDEX = "/tank/mediadb/out/index"
-DB = "/tank/mediadb/out/search.db"
+INDEX = "out/index"
+DB = "out/search.db"
 
 MODELS = {
     "bge-large": ("BAAI/bge-large-en-v1.5", 1024,
@@ -52,7 +52,7 @@ def load_shared():
     state["ids"] = np.fromfile(f"{INDEX}/passages.bin", dtype=np.int32)
     print("loading passage text ...", flush=True)
     texts = []
-    with gzip.open("/tank/mediadb/out/passages.jsonl.gz", "rt", errors="replace") as f:
+    with gzip.open("out/passages.jsonl.gz", "rt", errors="replace") as f:
         for line in f:
             texts.append(json.loads(line)["text"])
     state["texts"] = texts
@@ -88,7 +88,7 @@ def search(which, q, topn=15):
     return out
 
 
-PAGE = """<!doctype html><meta charset=utf-8><title>mediadb semantic test</title>
+PAGE = """<!doctype html><meta charset=utf-8><title>filmstock semantic test</title>
 <style>
 body{background:#141416;color:#e8e8ea;font:15px/1.5 system-ui,sans-serif;margin:0;padding:28px}
 .wrap{max-width:900px;margin:0 auto}
@@ -105,7 +105,7 @@ input{width:100%;box-sizing:border-box}
 .hint{color:#6a6a72;font-size:12px;margin-top:14px}
 </style>
 <div class=wrap>
-<h1>mediadb — semantic search</h1>
+<h1>filmstock — semantic search</h1>
 <div class=sub>brute-force float32 (the quality ceiling, not the shipping cascade)</div>
 <div class=row>
   <input id=q placeholder="describe a film — e.g. hacker discovers reality is a simulation" autofocus>

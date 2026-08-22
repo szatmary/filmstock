@@ -20,7 +20,7 @@ from colbert import ColBERT, load_passages
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="answerdotai/answerai-colbert-small-v1")
-    ap.add_argument("--passages", default="/tank/mediadb/out/passages.jsonl.gz")
+    ap.add_argument("--passages", default="out/passages.jsonl.gz")
     ap.add_argument("--out", required=True, help="dir holding the encoded index")
     ap.add_argument("--ref", required=True, help="reference json to write")
     ap.add_argument("--query", default="a hacker discovers reality is a simulation")

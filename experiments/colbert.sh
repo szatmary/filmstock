@@ -12,7 +12,7 @@
 # pipefail matters: every heavy step below pipes into grep, and without it a
 # crashed encoder is masked by grep's exit status and the script reports success.
 set -euo pipefail
-cd /tank/mediadb
+cd "$(dirname "$0")/.."
 fail() { echo "!!! FAILED at: $STEP" >&2; exit 1; }
 trap fail ERR
 step() { STEP="$1"; echo; echo "===== $(date '+%F %T')  $1"; }
@@ -43,7 +43,7 @@ step "encode eval queries"
 $V embed/colbert.py queries --model "$MODEL" --out $OUT 2>&1 | tail -2
 
 step "score"
-./moviedb eval-colbert \
+./filmstock eval-colbert \
   -quant   out/index/quant.BAAI_bge-large-en-v1.5.json \
   -ids     out/index/passages.bin \
   -qvecs   out/index/queries.BAAI_bge-large-en-v1.5.bin \

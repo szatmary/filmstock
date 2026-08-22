@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline passage embedding for mediadb, run on the GB10.
+"""Offline passage embedding for filmstock, run on the GB10.
 
 Reads passages.jsonl.gz, writes float32 vectors as a flat memory-mappable blob
 plus the page_id per row, and a metrics file recording exactly what the run cost.
@@ -154,8 +154,8 @@ def load_passages(path, limit=0):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--passages", default="/tank/mediadb/out/passages.jsonl.gz")
-    ap.add_argument("--out", default="/tank/mediadb/out/index")
+    ap.add_argument("--passages", default="out/passages.jsonl.gz")
+    ap.add_argument("--out", default="out/index")
     ap.add_argument("--model", default="BAAI/bge-m3")
     ap.add_argument("--prefix", default="", help='e.g. "passage: " for e5-family')
     ap.add_argument("--batch", type=int, default=64)

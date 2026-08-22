@@ -25,8 +25,8 @@ PREFIXES = {
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
-    ap.add_argument("--queries", default="/tank/mediadb/docs/eval/queries.json")
-    ap.add_argument("--out", default="/tank/mediadb/out/index")
+    ap.add_argument("--queries", default="docs/eval/queries.json")
+    ap.add_argument("--out", default="out/index")
     ap.add_argument("--trust-remote-code", action="store_true")
     args = ap.parse_args()
 

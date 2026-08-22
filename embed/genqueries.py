@@ -80,7 +80,7 @@ def make_typo(title, rng):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--db", default="/tank/mediadb/out/search.db")
+    ap.add_argument("--db", default="out/search.db")
     ap.add_argument("--out", required=True)
     ap.add_argument("--n-person", type=int, default=60)
     ap.add_argument("--n-conjunctive", type=int, default=60)
