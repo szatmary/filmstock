@@ -22,7 +22,7 @@ FETCH := $(shell command -v aria2c >/dev/null && echo "aria2c -c -x4 -s4 --dir=$
 # lbzip2 decompresses in parallel; the 102 GB wikidata pass is bound on it.
 BUNZIP := $(shell command -v lbzip2 >/dev/null && echo "lbzip2 -dc -n 20" || echo "bzip2 -dc")
 
-.PHONY: build test dumps resolver extract index serve clean-out help
+.PHONY: build test dumps resolver extract index serve verify dist clean-out help
 
 help:
 	@sed -n 's/^##//p' $(MAKEFILE_LIST)
@@ -81,11 +81,22 @@ verify:
 	@echo "raw wikitext leaking into person names (must be 0):"
 	@sqlite3 $(OUT)/search.db \
 	  "select '  '||count(*) from people where name like '%[[%' or name like '%<br%'"
+	@echo "episodes whose series_id has no series row (must be 0 — episode search"
+	@echo "joins for the series title instead of storing a copy):"
+	@sqlite3 $(OUT)/search.db \
+	  "select '  '||count(*) from television_episodes e \
+	   left join television_series t on t.id = e.series_id where t.id is null"
 
 ## serve      web UI on :8080
 serve: build
 	$(BIN) serve -db $(OUT)/search.db -movies $(OUT)/movies -television $(OUT)/television \
 	  -events $(OUT)/events -addr :8080
+
+## dist       compress the database for distribution (zstd -19)
+dist: $(OUT)/search.db
+	zstd -19 -T0 -f -k $(OUT)/search.db -o $(OUT)/search.db.zst
+	@printf "  %-22s %s\n" "search.db"     "$$(du -h --apparent-size $(OUT)/search.db     | cut -f1)"
+	@printf "  %-22s %s\n" "search.db.zst" "$$(du -h --apparent-size $(OUT)/search.db.zst | cut -f1)"
 
 ## clean-out  delete the regenerated outputs; keeps dumps and the resolver cache
 clean-out:

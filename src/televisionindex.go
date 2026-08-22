@@ -17,6 +17,15 @@ import (
 	_ "modernc.org/sqlite"
 )
 
+// televisionSchema deliberately stores no prose. Episode summaries and series
+// overview/plot are not indexed by FTS (which covers title/starring/creator
+// only) and are already in the record .json.gz that the detail page loads — so
+// in the database they were 219 MB of duplication, 34% of the whole file,
+// carried by everyone who downloads it. The film side never had them; this is
+// television catching up, not a new policy. See docs/TODO.md §D1.
+//
+// series_title went with them: it was a denormalised copy of
+// television_series.title across 551,174 rows, reachable by join.
 const televisionSchema = `
 DROP TABLE IF EXISTS television_series;
 DROP TABLE IF EXISTS television_fts;
@@ -27,7 +36,7 @@ CREATE TABLE television_series(
   id INTEGER PRIMARY KEY, title TEXT NOT NULL, year INTEGER,
   first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
   network TEXT, num_seasons TEXT, num_episodes TEXT,
-  seasons_count INTEGER, episodes_count INTEGER, overview TEXT, plot TEXT,
+  seasons_count INTEGER, episodes_count INTEGER,
   cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL
 );
 CREATE VIRTUAL TABLE television_fts USING fts5(
@@ -36,8 +45,8 @@ CREATE VIRTUAL TABLE television_fts USING fts5(
 );
 CREATE TABLE television_episodes(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  series_id INTEGER, series_title TEXT, season INTEGER,
-  number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT, summary TEXT
+  series_id INTEGER, season INTEGER,
+  number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT
 );
 CREATE INDEX idx_television_ep_series ON television_episodes(series_id);
 CREATE VIRTUAL TABLE television_episodes_fts USING fts5(
@@ -133,10 +142,10 @@ func cmdIndexTelevision(args []string) {
 	tx, _ := db.Begin()
 	stmt, _ := tx.Prepare(`INSERT OR REPLACE INTO television_series
 		(id,title,year,first_aired,last_aired,genre,creator,starring,network,
-		 num_seasons,num_episodes,seasons_count,episodes_count,overview,plot,cover_image_file,wikipedia_url,path)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,wikipedia_url,path)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	epStmt, _ := tx.Prepare(`INSERT INTO television_episodes
-		(series_id,series_title,season,number_in_season,number_overall,title,air_date,summary) VALUES(?,?,?,?,?,?,?,?)`)
+		(series_id,season,number_in_season,number_overall,title,air_date) VALUES(?,?,?,?,?,?)`)
 	// Reuses movie-pass person ids (loads existing people); resolves Q-ids.
 	pb, err := newPeopleBuilder(tx, p2q)
 	if err != nil {
@@ -158,7 +167,7 @@ func cmdIndexTelevision(args []string) {
 		stmt.Exec(s.PageID, cleanName, year, s.FirstAired, s.LastAired,
 			join(s.Genre), joinP(s.Creator), joinP(s.Starring), join(s.Network),
 			s.NumSeasons, s.NumEpisodes, len(s.Seasons), epCount,
-			s.Overview, s.Plot, s.CoverImageFile, s.WikiURL, it.path)
+			s.CoverImageFile, s.WikiURL, it.path)
 
 		seen := map[string]bool{}
 		pb.credit(seen, s.Creator, s.PageID, "television", "Creator")
@@ -168,7 +177,7 @@ func cmdIndexTelevision(args []string) {
 			for _, e := range se.Episodes {
 				pb.credit(seen, e.DirectedBy, s.PageID, "television", "Director")
 				pb.credit(seen, e.WrittenBy, s.PageID, "television", "Writer")
-				epStmt.Exec(s.PageID, cleanName, se.Season, e.NumberInSeason, e.NumberOverall, e.Title, e.AirDate, e.Summary)
+				epStmt.Exec(s.PageID, se.Season, e.NumberInSeason, e.NumberOverall, e.Title, e.AirDate)
 				nEp++
 			}
 		}
@@ -222,9 +231,15 @@ func searchEpisodes(ctx context.Context, db *sql.DB, query string, limit int) ([
 	for g := range qgrams {
 		parts = append(parts, `"`+strings.ReplaceAll(g, `"`, `""`)+`"`)
 	}
+	// The series title comes from the join rather than a stored copy. This
+	// cannot lose rows: an episode is only ever written inside the same
+	// transaction as the series whose page_id it carries, so every series_id
+	// has a matching row. The reindex verifies the episode count is unchanged.
 	rows, err := db.QueryContext(ctx, `
-		SELECT e.title,e.series_id,e.series_title,e.season,e.number_in_season,e.air_date
-		FROM television_episodes_fts f JOIN television_episodes e ON e.id=f.rowid
+		SELECT e.title,e.series_id,t.title,e.season,e.number_in_season,e.air_date
+		FROM television_episodes_fts f
+		JOIN television_episodes e ON e.id=f.rowid
+		JOIN television_series t ON t.id=e.series_id
 		WHERE television_episodes_fts MATCH ?
 		ORDER BY bm25(television_episodes_fts) LIMIT 800`, strings.Join(parts, " OR "))
 	if err != nil {

@@ -154,8 +154,20 @@ lost to a smaller one.
 
 The intended consumer download is `search.db` alone, with the per-record detail
 fetched on demand by HTTP range request out of a single packed blob — not 620k
-loose files. Design and the reasoning in [docs/TODO.md](docs/TODO.md) §D1. Not
-built yet; `serve` reads records from a local directory today.
+loose files. Design and the reasoning in [docs/TODO.md](docs/TODO.md) §D1. The
+fetch side is not built yet; `serve` reads records from a local directory today.
+
+The database is sized for that role: it stores **no prose**. FTS covers titles,
+cast and creators only, so episode summaries and series overview/plot were 219 MB
+of unindexed text — 34% of the file — duplicating what the record `.json.gz`
+already holds. They are not stored. `movies` never had them.
+
+```sh
+make dist           # -> out/search.db.zst
+```
+
+Measured on the pre-trim database, zstd -19 compressed the pages 2.79x against
+gzip's 2.16x, so compression is worth roughly another 2.8x on top of the trim.
 
 ## Data license
 
