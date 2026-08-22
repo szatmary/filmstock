@@ -6,6 +6,7 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -207,5 +208,25 @@ func TestNilSourceIsUsableForSearchAndExplainsItself(t *testing.T) {
 	_, err = db.Film(context.Background(), 3746)
 	if err == nil || !strings.Contains(err.Error(), "RecordSource") {
 		t.Fatalf("want an error naming RecordSource, got %v", err)
+	}
+}
+
+// A missing id must be distinguishable from a failed fetch: one is a 404, the
+// other a 500, and collapsing them makes a broken record source look like a
+// missing record.
+func TestMissingIDIsErrNotFound(t *testing.T) {
+	dbPath, root, _ := fixture(t)
+	db, err := Open(dbPath, Dir(root))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if _, err := db.Film(context.Background(), 999999999); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("want ErrNotFound, got %v", err)
+	}
+	// A real id whose record file is missing is NOT "not found" — the row exists.
+	os.Remove(filepath.Join(root, KindMovie, "a2/3746.json.gz"))
+	if _, err := db.Film(context.Background(), 3746); errors.Is(err, ErrNotFound) {
+		t.Error("a present row with an unreadable record must not report ErrNotFound")
 	}
 }

@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"compress/gzip"
@@ -14,6 +14,8 @@ import (
 	"strings"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
 // televisionMsg is a unit of television data emitted by parseTelevisionPage: either a series record or a
@@ -37,7 +39,7 @@ type televisionMsg struct {
 }
 
 // parseTelevisionPage extracts series and/or episode data from one article.
-func parseTelevisionPage(p Page) []televisionMsg {
+func parseTelevisionPage(p dump.Page) []televisionMsg {
 	text := p.Text
 	lower := strings.ToLower(text)
 	var msgs []televisionMsg
@@ -46,8 +48,8 @@ func parseTelevisionPage(p Page) []televisionMsg {
 	if _, season, ok := articleSeason(p.Title); ok &&
 		(strings.Contains(lower, "{{infobox television season") || strings.Contains(lower, "{{episode list")) {
 		var meta *filmstock.Season
-		if body, ok := findTemplate(text, "Infobox television season"); ok {
-			ib := parseInfobox(body)
+		if body, ok := wikitext.FindTemplate(text, "Infobox television season"); ok {
+			ib := wikitext.ParseInfobox(body)
 			meta = &filmstock.Season{Season: season}
 			if d := parseReleaseDates(ib["first_aired"]); len(d) > 0 {
 				meta.FirstAired = d[0]
@@ -57,8 +59,8 @@ func parseTelevisionPage(p Page) []televisionMsg {
 			}
 		}
 		var eps []*filmstock.Episode
-		for _, body := range findAllTemplates(text, "Episode list") {
-			if e := parseEpisodeRow(parseInfobox(body)); e != nil {
+		for _, body := range wikitext.FindAllTemplates(text, "Episode list") {
+			if e := parseEpisodeRow(wikitext.ParseInfobox(body)); e != nil {
 				eps = append(eps, e)
 			}
 		}
@@ -72,9 +74,9 @@ func parseTelevisionPage(p Page) []televisionMsg {
 	}
 
 	// Series article — exact match so "…episode"/"…season" infoboxes don't leak in.
-	if body, ok := findTemplateExact(text, "Infobox television"); ok {
-		s := buildTelevisionSeries(p.Title, p.ID, parseInfobox(body))
-		s.Overview, s.Plot = extractLeadAndPlot(text)
+	if body, ok := wikitext.FindTemplateExact(text, "Infobox television"); ok {
+		s := buildTelevisionSeries(p.Title, p.ID, wikitext.ParseInfobox(body))
+		s.Overview, s.Plot = wikitext.ExtractLeadAndPlot(text)
 		msgs = append(msgs, televisionMsg{series: s})
 		// Episodes listed inside the series article belong to that series by
 		// construction — no resolution needed.
@@ -317,9 +319,9 @@ func writeTelevisionSeries(outDir string, s *filmstock.TelevisionSeries) error {
 	return enc.Encode(s)
 }
 
-// cmdTelevisionTest assembles television from local wikitext files to validate the pipeline.
+// CTelevisionTest assembles television from local wikitext files to validate the pipeline.
 // Usage: filmstock television-test title=file [title=file ...]
-func cmdTelevisionTest(args []string) {
+func CTelevisionTest(args []string) {
 	coll := newTelevisionCollector()
 	var pid int
 	for _, a := range args {
@@ -334,7 +336,7 @@ func cmdTelevisionTest(args []string) {
 		}
 		pid++
 		// mimic xml.Decoder entity unescaping that the streaming parser gets
-		p := Page{Title: title, NS: 0, ID: pid, Text: html.UnescapeString(string(data))}
+		p := dump.Page{Title: title, NS: 0, ID: pid, Text: html.UnescapeString(string(data))}
 		for _, m := range parseTelevisionPage(p) {
 			coll.add(m)
 		}
@@ -347,9 +349,9 @@ func cmdTelevisionTest(args []string) {
 	}
 }
 
-// cmdTelevisionDebug parses a single wikitext file and prints what the television parser sees.
+// CTelevisionDebug parses a single wikitext file and prints what the television parser sees.
 // Usage: filmstock television-debug <wikitext-file> [title]
-func cmdTelevisionDebug(args []string) {
+func CTelevisionDebug(args []string) {
 	if len(args) < 1 {
 		fmt.Fprintln(os.Stderr, "usage: filmstock television-debug <wikitext-file> [title]")
 		os.Exit(2)
@@ -364,12 +366,12 @@ func cmdTelevisionDebug(args []string) {
 		title = args[1]
 	}
 
-	if body, ok := findTemplate(text, "Infobox television season"); ok {
-		ib := parseInfobox(body)
+	if body, ok := wikitext.FindTemplate(text, "Infobox television season"); ok {
+		ib := wikitext.ParseInfobox(body)
 		fmt.Printf("SEASON ARTICLE: season_number=%s first_aired=%s\n",
 			ib["season_number"], firstNonEmpty(ib["first_aired"]))
-	} else if body, ok := findTemplate(text, "Infobox television"); ok {
-		s := buildTelevisionSeries(title, 0, parseInfobox(body))
+	} else if body, ok := wikitext.FindTemplate(text, "Infobox television"); ok {
+		s := buildTelevisionSeries(title, 0, wikitext.ParseInfobox(body))
 		s.Raw = nil
 		out, _ := json.MarshalIndent(s, "", "  ")
 		fmt.Println("SERIES:")

@@ -1,4 +1,4 @@
-package main
+package wikitext
 
 import "regexp"
 
@@ -43,8 +43,8 @@ var genrePatterns = []struct {
 	{"Zombie", regexp.MustCompile(`(?i)\bzombie\b`)},
 }
 
-// extractGenres derives canonical genres from an article's film categories.
-func extractGenres(text string) []string {
+// ExtractGenres derives canonical genres from an article's film categories.
+func ExtractGenres(text string) []string {
 	seen := map[string]bool{}
 	var out []string
 	for _, m := range reCategory.FindAllStringSubmatch(text, -1) {

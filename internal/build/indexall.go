@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"flag"
@@ -10,14 +10,14 @@ import (
 	"github.com/szatmary/filmstock"
 )
 
-// cmdIndexRecords builds the derived search database from the record hierarchy.
+// CIndexRecords builds the derived search database from the record hierarchy.
 //
 //	filmstock index -records OUTDIR
 //
 // It reads nothing but records: no dump, no resolver cache, no ordering the
 // caller has to know. Deleting search.db and re-running restores it exactly,
 // which is the point of keeping the records as the source of truth.
-func cmdIndexRecords(args []string) {
+func CIndexRecords(args []string) {
 	fs := flag.NewFlagSet("index", flag.ExitOnError)
 	records := fs.String("records", "out", "record hierarchy produced by `extract`")
 	dbPath := fs.String("db", "", "output database (default <records>/search.db)")
@@ -33,7 +33,7 @@ func cmdIndexRecords(args []string) {
 	// Films first: `index` recreates the database from scratch, so it must run
 	// before index-television adds the television tables to the same file.
 	fmt.Fprintf(os.Stderr, "[1/3] films -> %s\n", out)
-	cmdIndex([]string{
+	CIndex([]string{
 		"-movies", filepath.Join(*records, filmstock.KindMovie),
 		"-records", *records,
 		"-db", out,
@@ -41,7 +41,7 @@ func cmdIndexRecords(args []string) {
 	})
 
 	fmt.Fprintf(os.Stderr, "[2/3] television -> %s\n", out)
-	cmdIndexTelevision([]string{
+	CIndexTelevision([]string{
 		"-television", filepath.Join(*records, filmstock.KindTelevision),
 		"-records", *records,
 		"-db", out,
@@ -49,7 +49,7 @@ func cmdIndexRecords(args []string) {
 	})
 
 	fmt.Fprintf(os.Stderr, "[3/3] events -> %s\n", out)
-	cmdIndexEvents([]string{"-records", *records, "-db", out})
+	CIndexEvents([]string{"-records", *records, "-db", out})
 
 	fmt.Fprintf(os.Stderr, "index complete in %.1f min\n", time.Since(start).Minutes())
 	_ = os.Stderr

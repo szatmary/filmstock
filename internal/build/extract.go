@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"database/sql"
@@ -11,6 +11,8 @@ import (
 	"time"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/wikitext"
 	_ "modernc.org/sqlite"
 )
 
@@ -110,7 +112,7 @@ func tableExists(dbPath, table string, col string) bool {
 	return rows > 0
 }
 
-func cmdExtract(args []string) {
+func CExtract(args []string) {
 	fs := flag.NewFlagSet("extract", flag.ExitOnError)
 	dumpDir := fs.String("dumps", "dump", "directory holding the dumps (inputs; never written)")
 	outDir := fs.String("out", "out", "output directory for the record hierarchy")
@@ -134,7 +136,7 @@ func cmdExtract(args []string) {
 	// ---- Phase 1: Wikidata relations + multilingual names -------------------
 	if *force || !tableExists(d.cache, "wd_part_of_series", "") {
 		fmt.Fprintf(os.Stderr, "[1/4] wikidata: %s\n", d.entities)
-		r, err := openBz2(d.entities, *workers)
+		r, err := dump.OpenBz2(d.entities, *workers)
 		if err != nil {
 			fatal(err)
 		}
@@ -150,7 +152,7 @@ func cmdExtract(args []string) {
 	// ---- Phase 2: page_id ↔ title ↔ Q-id ------------------------------------
 	if *force || !tableExists(d.cache, "wiki_qid", "page_id") {
 		fmt.Fprintf(os.Stderr, "[2/4] identity map: %s\n", d.pageProps)
-		cmdBuildQidmap([]string{"-pageprops", d.pageProps, "-index", d.index, "-db", d.cache})
+		CBuildQidmap([]string{"-pageprops", d.pageProps, "-index", d.index, "-db", d.cache})
 	} else {
 		fmt.Fprintln(os.Stderr, "[2/4] identity map: cached, skipping (-force to rebuild)")
 	}
@@ -168,7 +170,7 @@ func cmdExtract(args []string) {
 	// search.db is derived, so it must always be rebuildable without re-extracting.
 	if *doIndex {
 		fmt.Fprintln(os.Stderr, "[4/4] search index")
-		cmdIndexRecords([]string{"-records", *outDir, "-workers", fmt.Sprint(*workers)})
+		CIndexRecords([]string{"-records", *outDir, "-workers", fmt.Sprint(*workers)})
 		fmt.Fprintf(os.Stderr, "extract+index complete in %.1f min\n", time.Since(start).Minutes())
 	}
 }
@@ -209,7 +211,7 @@ func extractRecords(d *dumpSet, outDir string, workers int, wantText bool, limit
 	}()
 
 	var scanned int64
-	handle := func(p Page) {
+	handle := func(p dump.Page) {
 		atomic.AddInt64(&scanned, 1)
 		if p.NS != 0 {
 			return
@@ -243,7 +245,9 @@ func extractRecords(d *dumpSet, outDir string, workers int, wantText bool, limit
 	if limit > 0 {
 		shouldStop = func() bool { return atomic.LoadInt64(&rec.films) >= int64(limit) }
 	}
-	runMultistream(d.articles, d.index, workers, handle, shouldStop)
+	if err := dump.RunMultistream(d.articles, d.index, workers, handle, shouldStop); err != nil {
+		fatal(err)
+	}
 	close(msgs)
 	<-collDone
 	close(stop)
@@ -323,7 +327,7 @@ func (w *recordWriter) notePeople(groups ...[]filmstock.Person) {
 	}
 }
 
-func (w *recordWriter) handleFilm(p Page) {
+func (w *recordWriter) handleFilm(p dump.Page) {
 	m := buildFilm(p)
 	if m == nil {
 		return
@@ -337,7 +341,7 @@ func (w *recordWriter) handleFilm(p Page) {
 	atomic.AddInt64(&w.films, 1)
 	w.notePeople(m.Director, m.Producer, m.Writer, m.Starring, m.Music, m.Cinematography, m.Editing)
 	if w.wantText {
-		if td, err := encodeRecordText(fullPlainText(p.Text)); err != nil {
+		if td, err := encodeRecordText(wikitext.FullPlainText(p.Text)); err != nil {
 			w.fail(err)
 		} else {
 			w.pool.put(filmstock.RecordPath(w.out, filmstock.KindText, int64(p.ID), ".txt.gz"), td)
@@ -350,7 +354,7 @@ func (w *recordWriter) handleFilm(p Page) {
 // mutually exclusive by construction now that both match their template
 // exactly, and an else-branch would silently hide it if that ever stopped being
 // true.
-func (w *recordWriter) handleEvent(p Page) {
+func (w *recordWriter) handleEvent(p dump.Page) {
 	e := buildEvent(p)
 	if e == nil {
 		return
@@ -459,7 +463,7 @@ func buildListOwner(cachePath string, coll *televisionCollector) (map[int]int, e
 
 	out := map[int]int{}
 	for seriesID, s := range coll.series {
-		t := canonTitle(s.ListEpisodes)
+		t := wikitext.CanonTitle(s.ListEpisodes)
 		if t == "" {
 			continue
 		}

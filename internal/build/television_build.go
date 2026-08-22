@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"net/url"
@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
 // buildTelevisionSeries constructs a series record from an {{Infobox television}} map.
@@ -18,15 +19,15 @@ func buildTelevisionSeries(title string, pageID int, ib map[string]string) *film
 		WikiURL: "https://en.wikipedia.org/wiki/" + strings.ReplaceAll(url.PathEscape(title), "%20", "_"),
 		Raw:     ib,
 	}
-	s.Genre = splitList(ib["genre"])
+	s.Genre = wikitext.SplitList(ib["genre"])
 	s.Creator = mergePeople(ib["creator"], ib["developer"])
-	s.Starring = splitPeople(ib["starring"])
+	s.Starring = wikitext.SplitPeople(ib["starring"])
 	s.Network = mergeLists(ib["network"], ib["channel"], ib["first_run"])
-	s.Country = splitList(ib["country"])
+	s.Country = wikitext.SplitList(ib["country"])
 	s.Composer = mergePeople(ib["composer"], ib["theme_music_composer"])
-	s.NumSeasons = cleanText(ib["num_seasons"])
-	s.NumEpisodes = cleanText(firstNonEmpty(ib["num_episodes"], ib["episodes"]))
-	s.Runtime = cleanText(ib["runtime"])
+	s.NumSeasons = wikitext.CleanText(ib["num_seasons"])
+	s.NumEpisodes = wikitext.CleanText(firstNonEmpty(ib["num_episodes"], ib["episodes"]))
+	s.Runtime = wikitext.CleanText(ib["runtime"])
 	if d := parseReleaseDates(ib["first_aired"]); len(d) > 0 {
 		s.FirstAired = d[0]
 	}
@@ -36,7 +37,7 @@ func buildTelevisionSeries(title string, pageID int, ib map[string]string) *film
 	if img := ib["image"]; img != "" {
 		s.CoverImageFile, s.CoverImageURL = filmstock.CoverImageURL(cleanBareFilename(img))
 	}
-	if le := cleanText(ib["list_episodes"]); le != "" {
+	if le := wikitext.CleanText(ib["list_episodes"]); le != "" {
 		s.ListEpisodes = le
 	}
 	return s
@@ -67,21 +68,21 @@ var reSeasonHeading = regexp.MustCompile(`(?im)^=+\s*(?:filmstock.Season|Series)
 
 // parseEpisodeRow builds an Episode from one {{Episode list}} parameter map.
 func parseEpisodeRow(ib map[string]string) *filmstock.Episode {
-	title := cleanText(firstNonEmpty(ib["title"], ib["rtitle"], ib["englishtitle"]))
+	title := wikitext.CleanText(firstNonEmpty(ib["title"], ib["rtitle"], ib["englishtitle"]))
 	if title == "" {
 		return nil
 	}
 	e := &filmstock.Episode{
 		Title:      title,
-		DirectedBy: splitPeople(ib["directedby"]),
-		WrittenBy:  splitPeople(ib["writtenby"]),
+		DirectedBy: wikitext.SplitPeople(ib["directedby"]),
+		WrittenBy:  wikitext.SplitPeople(ib["writtenby"]),
 	}
 	e.NumberOverall = atoiSafe(ib["episodenumber"])
 	e.NumberInSeason = atoiSafe(ib["episodenumber2"])
 	if d := parseReleaseDates(ib["originalairdate"]); len(d) > 0 {
 		e.AirDate = d[0]
 	}
-	e.Summary = trimLen(cleanText(ib["shortsummary"]), 1500)
+	e.Summary = wikitext.TrimLen(wikitext.CleanText(ib["shortsummary"]), 1500)
 	return e
 }
 
@@ -122,12 +123,12 @@ func extractEpisodesByHeading(text string) []taggedEpisode {
 			break
 		}
 		start := idx + rel
-		body, next := balancedBody(text, start, len(target))
+		body, next := wikitext.BalancedBody(text, start, len(target))
 		if next < 0 {
 			break
 		}
 		idx = next
-		if e := parseEpisodeRow(parseInfobox(body)); e != nil {
+		if e := parseEpisodeRow(wikitext.ParseInfobox(body)); e != nil {
 			out = append(out, taggedEpisode{e, seasonAt(start)})
 		}
 	}
@@ -137,29 +138,6 @@ func extractEpisodesByHeading(text string) []taggedEpisode {
 type taggedEpisode struct {
 	ep     *filmstock.Episode
 	season int
-}
-
-// balancedBody returns the inner body after `nameLen` bytes past `start` and the
-// index just past the closing "}}" (or -1). Mirrors findTemplate's brace walk.
-func balancedBody(text string, start, nameLen int) (string, int) {
-	depth, i := 0, start
-	for i < len(text)-1 {
-		if text[i] == '{' && text[i+1] == '{' {
-			depth++
-			i += 2
-			continue
-		}
-		if text[i] == '}' && text[i+1] == '}' {
-			depth--
-			i += 2
-			if depth == 0 {
-				return text[start+nameLen : i-2], i
-			}
-			continue
-		}
-		i++
-	}
-	return "", -1
 }
 
 func atoiSafe(s string) int {

@@ -109,22 +109,26 @@ make serve          # http://localhost:8080
 ## Layout
 
 ```
-src/                Go module (module filmstock) — all the tools, one binary
-  extract.go          dumps -> records; the single pass
-  multistream.go      parallel bz2 stream reads off the index
-  wikitext.go         template/infobox parsing, link and ref cleanup
-  movie.go            film record construction
-  television.go       series, seasons and episodes
-  event.go            award ceremonies and festivals
-  people.go           credits and person identity
-  televisionresolve.go  season -> series via stated Wikidata edges
-  qidmap.go wdedges.go  the resolver cache builders
-  index*.go           records -> search.db (FTS5)
-  serve.go browse.go  the web UI
-  templates/          HTML
-docs/
-  TODO.md             what is done, what is open, what was settled by measurement
+github.com/szatmary/filmstock        the library — import this
+  db.go                Open, DB, the search methods, ErrNotFound
+  search*.go           lexical search: FTS5 trigram + fuzzy ranking
+  record.go            RecordSource: Dir, Remote, and the readers
+  paths.go             record paths, kind constants, tree walking
+  movie.go television.go event.go people.go       record types
+internal/
+  wikitext/            template and infobox parsing, link/ref cleanup
+  dump/                multistream bz2 reading off the index
+  build/               dumps -> records -> search.db, resolvers, packing
+cmd/
+  filmstock/           the CLI: extract, index, pack, search  (64 lines)
+  filmstock-web/       the browser
+docs/TODO.md           what is done, what is open, what measurement settled
 ```
+
+Implementation lives under `internal/` rather than inside a `package main`, so it
+is importable and unit-testable; `cmd/filmstock/main.go` is dispatch and nothing
+else. The library sits at the module root because that is what makes the import
+path `github.com/szatmary/filmstock` rather than `.../pkg/filmstock`.
 
 ## Records are byte-deterministic
 

@@ -1,4 +1,4 @@
-package main
+package wikitext
 
 import (
 	"testing"
@@ -89,9 +89,9 @@ func TestSplitPeople(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			got := names(splitPeople(c.in))
+			got := names(SplitPeople(c.in))
 			if !eq(got, c.want) {
-				t.Errorf("splitPeople(%q)\n  got  %q\n  want %q", c.in, got, c.want)
+				t.Errorf("SplitPeople(%q)\n  got  %q\n  want %q", c.in, got, c.want)
 			}
 		})
 	}
@@ -100,7 +100,7 @@ func TestSplitPeople(t *testing.T) {
 // A shared article means a shared identity: both halves of a duo must keep the
 // same wiki target, so they resolve to one Q-id rather than two name-keyed rows.
 func TestSplitPeopleSharedLinkTarget(t *testing.T) {
-	ps := splitPeople("[[Jonathan Dayton and Valerie Faris|Jonathan Dayton<br />Valerie Faris]]")
+	ps := SplitPeople("[[Jonathan Dayton and Valerie Faris|Jonathan Dayton<br />Valerie Faris]]")
 	if len(ps) != 2 {
 		t.Fatalf("want 2 people, got %d: %q", len(ps), names(ps))
 	}
@@ -119,10 +119,10 @@ func TestSplitPeopleNeverLeaksWikitext(t *testing.T) {
 		"[[Alice Smith]]<br />[[Bob Jones]]",
 	}
 	for _, in := range inputs {
-		for _, p := range splitPeople(in) {
+		for _, p := range SplitPeople(in) {
 			for _, bad := range []string{"[[", "]]", "|", "<br"} {
 				if contains(p.Name, bad) {
-					t.Errorf("splitPeople(%q) leaked %q in name %q", in, bad, p.Name)
+					t.Errorf("SplitPeople(%q) leaked %q in name %q", in, bad, p.Name)
 				}
 			}
 		}

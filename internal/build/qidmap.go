@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"bufio"
@@ -21,10 +21,10 @@ import (
 //	(12345,'wikibase_item','Q678',NULL)
 var reWikibase = regexp.MustCompile(`\((\d+),'wikibase_item','Q(\d+)'`)
 
-// cmdBuildQidmap builds a title→Q-id lookup table by joining the MySQL
+// CBuildQidmap builds a title→Q-id lookup table by joining the MySQL
 // page_props dump (page_id → wikibase_item) with the multistream index
 // (page_id → title). Output: table wiki_qid(title PRIMARY KEY, qid) in the db.
-func cmdBuildQidmap(args []string) {
+func CBuildQidmap(args []string) {
 	fs := flag.NewFlagSet("build-qidmap", flag.ExitOnError)
 	pp := fs.String("pageprops", "dump/enwiki-latest-page_props.sql.gz", "page_props.sql.gz")
 	idx := fs.String("index", "dump/enwiki-latest-pages-articles-multistream-index.txt.bz2", "multistream index")

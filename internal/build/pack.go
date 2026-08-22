@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"bufio"
@@ -13,7 +13,7 @@ import (
 	"github.com/szatmary/filmstock"
 )
 
-// cmdPack concatenates every record of a kind into one <kind>.pack and writes
+// CPack concatenates every record of a kind into one <kind>.pack and writes
 // each record's (offset, length) back into the database.
 //
 // One pack per kind, not one for everything: a single pack would sit close to
@@ -23,7 +23,7 @@ import (
 // Records are appended in ascending id order, so the pack is a pure function of
 // its inputs — the same records always produce the same bytes. That is what
 // makes a pack diffable between ingests, which is the point of §D1.
-func cmdPack(args []string) {
+func CPack(args []string) {
 	fs := flag.NewFlagSet("pack", flag.ExitOnError)
 	records := fs.String("records", "out", "record hierarchy produced by `extract`")
 	dbPath := fs.String("db", "", "database to write offsets into (default <records>/search.db)")

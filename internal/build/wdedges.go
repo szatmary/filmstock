@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"bufio"
@@ -122,13 +122,13 @@ func claimTargets(raw json.RawMessage) []int64 {
 	return out
 }
 
-// cmdBuildWDEdges streams the Wikidata entity dump on stdin (one JSON entity per
+// CBuildWDEdges streams the Wikidata entity dump on stdin (one JSON entity per
 // line) and writes the stated relations we key on into the given SQLite db.
 //
 // Both properties are extracted in a single pass on purpose: decompressing the
 // ~102 GB dump is by far the dominant cost, so a second pass to pick up another
 // property would cost as much as the first.
-func cmdBuildWDEdges(args []string) {
+func CBuildWDEdges(args []string) {
 	fs := flag.NewFlagSet("build-wd-edges", flag.ExitOnError)
 	dbPath := fs.String("db", "wikidata.db", "sqlite db to write the edge tables into")
 	every := fs.Int("progress", 250_000, "log progress every N entities")

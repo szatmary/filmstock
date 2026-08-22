@@ -1,4 +1,4 @@
-package main
+package dump
 
 import (
 	"bufio"
@@ -59,14 +59,14 @@ func loadOffsets(indexPath string) ([]int64, error) {
 // byte ranges to workers. Each worker seeks into its own file handle, so there is
 // no contention on decoding. Offsets beyond the current file size are skipped,
 // which lets this run against a partially-downloaded dump.
-func runMultistream(dumpPath, indexPath string, workers int, handle func(Page), shouldStop func() bool) {
+func RunMultistream(dumpPath, indexPath string, workers int, handle func(Page), shouldStop func() bool) error {
 	offsets, err := loadOffsets(indexPath)
 	if err != nil {
-		fatal(fmt.Errorf("loading index: %w", err))
+		return fmt.Errorf("loading index: %w", err)
 	}
 	fi, err := os.Stat(dumpPath)
 	if err != nil {
-		fatal(err)
+		return err
 	}
 	size := fi.Size()
 	fmt.Fprintf(os.Stderr, "multistream: %d sub-streams, dump size %d bytes\n", len(offsets), size)
@@ -114,6 +114,7 @@ func runMultistream(dumpPath, indexPath string, workers int, handle func(Page), 
 		}()
 	}
 	wg.Wait()
+	return nil
 }
 
 // processRange decompresses one byte range and feeds its <page> elements to

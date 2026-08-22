@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"net/url"
@@ -7,6 +7,8 @@ import (
 	"strings"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
 // Both spellings occur; MediaWiki template names are case-insensitive in their
@@ -39,7 +41,7 @@ var reDeliveryLabel = regexp.MustCompile(`(?i)^(broadcast|streaming|radio|televi
 // cleaned one because splitList needs the <br> separators cleanText removes.
 func networkList(raw string) []string {
 	out := []string{}
-	for _, v := range splitList(raw) {
+	for _, v := range wikitext.SplitList(raw) {
 		v = strings.TrimSpace(reDeliveryLabel.ReplaceAllString(v, ""))
 		if v != "" {
 			out = append(out, v)
@@ -49,21 +51,21 @@ func networkList(raw string) []string {
 }
 
 // buildEvent returns the event record for a page, or nil if the page is not one.
-func buildEvent(p Page) *filmstock.Event {
+func buildEvent(p dump.Page) *filmstock.Event {
 	if p.NS != 0 {
 		return nil
 	}
 	for _, t := range eventTemplates {
-		body, ok := findTemplateExact(p.Text, t.name)
+		body, ok := wikitext.FindTemplateExact(p.Text, t.name)
 		if !ok {
 			continue
 		}
-		return newEvent(p, t.kind, parseInfobox(body))
+		return newEvent(p, t.kind, wikitext.ParseInfobox(body))
 	}
 	return nil
 }
 
-func newEvent(p Page, kind string, ib map[string]string) *filmstock.Event {
+func newEvent(p dump.Page, kind string, ib map[string]string) *filmstock.Event {
 	e := &filmstock.Event{
 		Title:      p.Title,
 		PageID:     p.ID,
@@ -73,7 +75,7 @@ func newEvent(p Page, kind string, ib map[string]string) *filmstock.Event {
 	}
 	get := func(keys ...string) string {
 		for _, k := range keys {
-			if v := cleanText(ib[k]); v != "" {
+			if v := wikitext.CleanText(ib[k]); v != "" {
 				return v
 			}
 		}
@@ -100,9 +102,9 @@ func newEvent(p Page, kind string, ib map[string]string) *filmstock.Event {
 		host = ib["hosts"]
 	}
 	if kind == filmstock.EventAwardCeremony {
-		e.Hosts = splitPeople(host)
+		e.Hosts = wikitext.SplitPeople(host)
 	} else {
-		e.Organizer = cleanText(reComment.ReplaceAllString(host, ""))
+		e.Organizer = wikitext.CleanText(wikitext.ReComment.ReplaceAllString(host, ""))
 	}
 
 	if n, err := strconv.Atoi(strings.TrimSpace(ib["number"])); err == nil && n > 0 {
@@ -117,6 +119,6 @@ func newEvent(p Page, kind string, ib map[string]string) *filmstock.Event {
 		e.Year, _ = strconv.Atoi(m[1])
 	}
 
-	e.Overview, _ = extractLeadAndPlot(p.Text)
+	e.Overview, _ = wikitext.ExtractLeadAndPlot(p.Text)
 	return e
 }

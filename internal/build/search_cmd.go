@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"context"
@@ -11,7 +11,7 @@ import (
 	"github.com/szatmary/filmstock"
 )
 
-func cmdSearch(args []string) {
+func CSearch(args []string) {
 	fs := flag.NewFlagSet("search", flag.ExitOnError)
 	dbPath := fs.String("db", "out/search.db", "SQLite database")
 	n := fs.Int("n", 20, "max results")

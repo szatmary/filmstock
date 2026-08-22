@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -27,8 +28,12 @@ func (s *server) handleEventPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	e, err := s.fs.Event(r.Context(), id)
+	if errors.Is(err, filmstock.ErrNotFound) {
+		http.Error(w, "event not found", http.StatusNotFound)
+		return
+	}
 	if err != nil {
-		http.Error(w, "could not load event: "+err.Error(), 500)
+		http.Error(w, "could not load event: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")

@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"database/sql"
@@ -58,7 +58,7 @@ type indexItem struct {
 	path string
 }
 
-func cmdIndex(args []string) {
+func CIndex(args []string) {
 	fs := flag.NewFlagSet("index", flag.ExitOnError)
 	moviesDir := fs.String("movies", "out/movies", "directory of per-movie JSON.gz files")
 	dbPath := fs.String("db", "out/search.db", "output SQLite database")

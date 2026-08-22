@@ -1,4 +1,4 @@
-package main
+package wikitext
 
 import (
 	"regexp"
@@ -8,11 +8,11 @@ import (
 	"github.com/szatmary/filmstock"
 )
 
-// findTemplate locates the first template whose name matches `name` (case
+// FindTemplate locates the first template whose name matches `name` (case
 // variations on the first letter allowed) and returns the raw inner text
 // between the opening "{{" and its matching "}}", handling nested braces.
 // Returns the inner body (excluding the leading "{{name") and true if found.
-func findTemplate(text, name string) (string, bool) {
+func FindTemplate(text, name string) (string, bool) {
 	lower := strings.ToLower(text)
 	target := "{{" + strings.ToLower(name)
 	idx := 0
@@ -57,10 +57,10 @@ func findTemplate(text, name string) (string, bool) {
 	}
 }
 
-// findTemplateExact is like findTemplate but requires the template name to be
+// FindTemplateExact is like FindTemplate but requires the template name to be
 // followed (after optional whitespace) by "|" or "}" — so "Infobox television"
 // does NOT match "Infobox television episode" or "…season".
-func findTemplateExact(text, name string) (string, bool) {
+func FindTemplateExact(text, name string) (string, bool) {
 	lower := strings.ToLower(text)
 	target := "{{" + strings.ToLower(name)
 	idx := 0
@@ -75,7 +75,7 @@ func findTemplateExact(text, name string) (string, bool) {
 			j++
 		}
 		if j < len(text) && (text[j] == '|' || text[j] == '}') {
-			if body, end := balancedBody(text, start, len(target)); end >= 0 {
+			if body, end := BalancedBody(text, start, len(target)); end >= 0 {
 				return body, true
 			}
 			return "", false
@@ -84,10 +84,10 @@ func findTemplateExact(text, name string) (string, bool) {
 	}
 }
 
-// findAllTemplates returns the inner bodies (text after the template name) of
+// FindAllTemplates returns the inner bodies (text after the template name) of
 // every template whose name matches `name`, handling nested braces. Used to pull
 // all {{Episode list}} rows from an article.
-func findAllTemplates(text, name string) []string {
+func FindAllTemplates(text, name string) []string {
 	var out []string
 	lower := strings.ToLower(text)
 	target := "{{" + strings.ToLower(name)
@@ -190,8 +190,8 @@ func splitParams(body string) []string {
 	return params
 }
 
-// parseInfobox returns a map of key -> raw value for the template body.
-func parseInfobox(body string) map[string]string {
+// ParseInfobox returns a map of key -> raw value for the template body.
+func ParseInfobox(body string) map[string]string {
 	out := make(map[string]string)
 	for _, p := range splitParams(body) {
 		eq := strings.Index(p, "=")
@@ -211,7 +211,7 @@ func parseInfobox(body string) map[string]string {
 var (
 	reRef      = regexp.MustCompile(`(?is)<ref[^>]*>.*?</ref>`)
 	reRefSelf  = regexp.MustCompile(`(?is)<ref[^>]*/>`)
-	reComment  = regexp.MustCompile(`(?s)<!--.*?-->`)
+	ReComment  = regexp.MustCompile(`(?s)<!--.*?-->`)
 	reHTMLTag  = regexp.MustCompile(`(?is)<[^>]+>`)
 	reWikiLink = regexp.MustCompile(`\[\[([^\]]+)\]\]`)
 	reBold     = regexp.MustCompile(`'''?`)
@@ -219,9 +219,9 @@ var (
 	reWS       = regexp.MustCompile(`[ \t]+`)
 )
 
-// cleanText reduces a wikitext fragment to readable plain text.
-func cleanText(s string) string {
-	s = reComment.ReplaceAllString(s, "")
+// CleanText reduces a wikitext fragment to readable plain text.
+func CleanText(s string) string {
+	s = ReComment.ReplaceAllString(s, "")
 	// Self-closing refs MUST be stripped first. <ref name="x"/> also matches
 	// reRef's opening tag (its [^>]* happily consumes ` name="x"/`), so reRef
 	// would treat it as an opening <ref> and delete everything up to the next
@@ -401,12 +401,12 @@ func expandLinkBreaks(s string) string {
 	})
 }
 
-// splitPeople extracts person credits from a wikitext field, preserving each
+// SplitPeople extracts person credits from a wikitext field, preserving each
 // person's [[link target]] as their identity. It unwraps list templates,
 // splits bullet/<br>/"X & Y"/"X and Y" lists (not inside [[...]]), strips
 // "Story & Screenplay:" label prefixes, and returns {Name, Wiki} per person.
-func splitPeople(raw string) []filmstock.Person {
-	s := reComment.ReplaceAllString(raw, "")
+func SplitPeople(raw string) []filmstock.Person {
+	s := ReComment.ReplaceAllString(raw, "")
 	// Self-closing refs MUST be stripped first. <ref name="x"/> also matches
 	// reRef's opening tag (its [^>]* happily consumes ` name="x"/`), so reRef
 	// would treat it as an opening <ref> and delete everything up to the next
@@ -468,12 +468,12 @@ func parseOnePerson(piece string) filmstock.Person {
 			disp = inner[bar+1:]
 			inner = inner[:bar]
 		}
-		wiki = canonTitle(inner)
-		name = strings.TrimSpace(strings.Trim(cleanText(disp), ",;"))
+		wiki = CanonTitle(inner)
+		name = strings.TrimSpace(strings.Trim(CleanText(disp), ",;"))
 	}
 	if name == "" {
 		// Unlinked credit: the whole piece is the name.
-		name = strings.TrimSpace(strings.Trim(cleanText(piece), ",;"))
+		name = strings.TrimSpace(strings.Trim(CleanText(piece), ",;"))
 	}
 	if name == "" && wiki != "" {
 		name = wiki
@@ -517,10 +517,10 @@ func splitAmp(s string) []string {
 	return append(out, s[last:])
 }
 
-// canonTitle normalizes a wiki link target to match article titles: strips
+// CanonTitle normalizes a wiki link target to match article titles: strips
 // section anchors, underscores→spaces, uppercases the first letter; drops
 // File:/Category: etc.
-func canonTitle(t string) string {
+func CanonTitle(t string) string {
 	t = strings.TrimSpace(t)
 	if i := strings.IndexByte(t, '#'); i >= 0 {
 		t = t[:i]
@@ -535,15 +535,15 @@ func canonTitle(t string) string {
 	return string(r)
 }
 
-// splitList turns a wikitext value containing multiple entries (bullet lists,
+// SplitList turns a wikitext value containing multiple entries (bullet lists,
 // <br> separators, plainlist templates) into a slice of clean strings.
-func splitList(raw string) []string {
+func SplitList(raw string) []string {
 	// normalise list separators to newlines before cleaning
 	v := raw
 	v = regexp.MustCompile(`(?i)<br\s*/?>`).ReplaceAllString(v, "\n")
 	// bullet items at line start
 	v = regexp.MustCompile(`(?m)^\s*\*+`).ReplaceAllString(v, "\n")
-	cleaned := cleanText(v)
+	cleaned := CleanText(v)
 	var out []string
 	seen := map[string]bool{}
 	for _, line := range strings.Split(cleaned, "\n") {

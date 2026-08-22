@@ -8,6 +8,7 @@ package main
 import (
 	"embed"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"html/template"
@@ -206,8 +207,12 @@ func (s *server) handleTelevision(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	series, err := s.fs.Series(r.Context(), id)
+	if errors.Is(err, filmstock.ErrNotFound) {
+		http.Error(w, "series not found", http.StatusNotFound)
+		return
+	}
 	if err != nil {
-		http.Error(w, "could not load series: "+err.Error(), 500)
+		http.Error(w, "could not load series: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -261,8 +266,12 @@ func (s *server) handleMovie(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	m, err := s.fs.Film(r.Context(), id)
+	if errors.Is(err, filmstock.ErrNotFound) {
+		http.Error(w, "movie not found", http.StatusNotFound)
+		return
+	}
 	if err != nil {
-		http.Error(w, "could not load movie: "+err.Error(), 500)
+		http.Error(w, "could not load movie: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")

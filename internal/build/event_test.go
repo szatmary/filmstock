@@ -1,9 +1,10 @@
-package main
+package build
 
 import (
 	"testing"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/dump"
 )
 
 // The collision that put 4,065 non-films into the film index. Both of these
@@ -21,7 +22,7 @@ func TestFilmAwardsAndFestivalsAreNotFilms(t *testing.T) {
 		{"festival", "{{Infobox Film festival\n| name = Cannes\n| number = 70\n| location = Cannes\n| opening = [[Ismael's Ghosts]]\n}}", false, filmstock.EventFilmFestival},
 	}
 	for _, c := range cases {
-		p := Page{Title: c.name, ID: 1, NS: 0, Text: c.text}
+		p := dump.Page{Title: c.name, ID: 1, NS: 0, Text: c.text}
 		if got := buildFilm(p) != nil; got != c.film {
 			t.Errorf("%s: buildFilm non-nil = %v, want %v", c.name, got, c.film)
 		}
@@ -42,7 +43,7 @@ func TestFilmAwardsAndFestivalsAreNotFilms(t *testing.T) {
 }
 
 func TestEventFieldsParsed(t *testing.T) {
-	p := Page{Title: "53rd NAACP Image Awards", ID: 69815195, NS: 0, Text: `{{Infobox film awards
+	p := dump.Page{Title: "53rd NAACP Image Awards", ID: 69815195, NS: 0, Text: `{{Infobox film awards
 | award = NAACP Image Award
 | date = February 26, 2022
 | site = [[Pasadena Civic Auditorium]]
@@ -81,7 +82,7 @@ func TestNetworkLabelsStripped(t *testing.T) {
 
 // A festival's "host" is the organising body, not a presenter.
 func TestFestivalHostIsNotAPerson(t *testing.T) {
-	fest := buildEvent(Page{Title: "Toronto International Film Festival", ID: 2, NS: 0,
+	fest := buildEvent(dump.Page{Title: "Toronto International Film Festival", ID: 2, NS: 0,
 		Text: "{{Infobox Film festival\n| name = TIFF\n| host = Toronto International Film Festival Group\n}}"})
 	if fest == nil {
 		t.Fatal("nil event")
@@ -92,7 +93,7 @@ func TestFestivalHostIsNotAPerson(t *testing.T) {
 	if fest.Organizer != "Toronto International Film Festival Group" {
 		t.Errorf("organizer = %q", fest.Organizer)
 	}
-	cer := buildEvent(Page{Title: "76th Academy Awards", ID: 3, NS: 0,
+	cer := buildEvent(dump.Page{Title: "76th Academy Awards", ID: 3, NS: 0,
 		Text: "{{Infobox film awards\n| award = Academy Award\n| host = [[Billy Crystal]]\n}}"})
 	if cer == nil || len(cer.Hosts) != 1 || cer.Hosts[0].Name != "Billy Crystal" {
 		t.Errorf("ceremony hosts = %+v, want [Billy Crystal]", cer)

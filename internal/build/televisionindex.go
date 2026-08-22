@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"database/sql"
@@ -50,9 +50,9 @@ CREATE VIRTUAL TABLE television_episodes_fts USING fts5(
   title, content='television_episodes', content_rowid='id', tokenize='trigram'
 );`
 
-// cmdIndexTelevision adds television_series + television_fts tables to an existing database, indexing the
+// CIndexTelevision adds television_series + television_fts tables to an existing database, indexing the
 // per-series JSON.gz files. Does not touch the movies tables.
-func cmdIndexTelevision(args []string) {
+func CIndexTelevision(args []string) {
 	fs := flag.NewFlagSet("index-television", flag.ExitOnError)
 	televisionDir := fs.String("television", "out/television", "directory of per-series JSON.gz files")
 	dbPath := fs.String("db", "out/search.db", "SQLite database (shared with movies)")

@@ -3,10 +3,17 @@ package filmstock
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 
 	_ "modernc.org/sqlite" // pure Go: importers of this package need no cgo
 )
+
+// ErrNotFound is returned when an id is not in the database. It is a distinct
+// error because callers need to tell it apart from a fetch that failed: one is a
+// 404, the other is a 500, and collapsing them makes a broken record source look
+// like a missing record.
+var ErrNotFound = errors.New("filmstock: not found")
 
 // DB is a searchable filmstock database plus the source its full records come
 // from. It is safe for concurrent use.
@@ -136,7 +143,7 @@ func (db *DB) locate(ctx context.Context, kind string, id int) (Location, error)
 		`SELECT path, COALESCE(pack_offset,0), COALESCE(pack_length,0) FROM `+table+` WHERE id = ?`,
 		id).Scan(&loc.Path, &loc.Offset, &loc.Length)
 	if err == sql.ErrNoRows {
-		return Location{}, fmt.Errorf("filmstock: no %s with id %d", kind, id)
+		return Location{}, fmt.Errorf("no %s with id %d: %w", kind, id, ErrNotFound)
 	}
 	return loc, err
 }

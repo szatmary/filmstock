@@ -186,3 +186,12 @@ func Truncate(s string, n int) string {
 	}
 	return string(r[:n]) + "…"
 }
+
+type UnifiedResult struct {
+	Type     string // movie | television | episode | person | event
+	Title    string
+	Subtitle string
+	Link     string
+	Cover    string
+	Score    float64
+}

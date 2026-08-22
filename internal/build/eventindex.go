@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"database/sql"
@@ -43,7 +43,7 @@ CREATE VIRTUAL TABLE events_fts USING fts5(
   content='events', content_rowid='id', tokenize='trigram'
 );`
 
-func cmdIndexEvents(args []string) {
+func CIndexEvents(args []string) {
 	fs := flag.NewFlagSet("index-events", flag.ExitOnError)
 	records := fs.String("records", "out", "record hierarchy")
 	dbPath := fs.String("db", "", "database (default <records>/search.db)")

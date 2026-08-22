@@ -1,4 +1,4 @@
-package main
+package wikitext
 
 import (
 	"os"
@@ -15,10 +15,10 @@ func TestSelfClosingRefDoesNotEatTheArticle(t *testing.T) {
 	src := `Start of the article. <ref name="a"/> The plot follows a young wizard ` +
 		`who discovers he is famous.<ref>{{cite web|title=Something}}</ref> ` +
 		`He attends a school of magic and defeats a dark lord. End of article.`
-	got := cleanText(src)
+	got := CleanText(src)
 	for _, must := range []string{"young wizard", "school of magic", "End of article"} {
 		if !strings.Contains(got, must) {
-			t.Errorf("cleanText dropped %q\n  got: %s", must, got)
+			t.Errorf("CleanText dropped %q\n  got: %s", must, got)
 		}
 	}
 	if strings.Contains(got, "cite web") {
@@ -27,7 +27,7 @@ func TestSelfClosingRefDoesNotEatTheArticle(t *testing.T) {
 }
 
 func TestOrdinaryRefsStillStripped(t *testing.T) {
-	got := cleanText(`Alpha<ref>noise one</ref> Beta<ref name="b">noise two</ref> Gamma`)
+	got := CleanText(`Alpha<ref>noise one</ref> Beta<ref name="b">noise two</ref> Gamma`)
 	for _, bad := range []string{"noise one", "noise two"} {
 		if strings.Contains(got, bad) {
 			t.Errorf("ref body survived: %s", got)
@@ -46,7 +46,7 @@ func TestRealArticleSurvivesCleaning(t *testing.T) {
 	if err != nil {
 		t.Skip("fixture missing")
 	}
-	out := fullPlainText(string(b))
+	out := FullPlainText(string(b))
 	if len(out) < 30000 {
 		t.Errorf("cleaned text is only %d chars from %d raw — refs are still eating the body",
 			len(out), len(b))

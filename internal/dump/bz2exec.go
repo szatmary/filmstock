@@ -1,4 +1,4 @@
-package main
+package dump
 
 import (
 	"bytes"
@@ -109,10 +109,10 @@ func (b *bz2Cmd) Close() error {
 	return nil
 }
 
-// openBz2 returns a reader over the decompressed contents of a .bz2 file,
+// OpenBz2 returns a reader over the decompressed contents of a .bz2 file,
 // preferring lbzcat and falling back to Go's single-threaded stdlib decoder when
 // it is absent. Which path is taken is always reported, never silent.
-func openBz2(path string, workers int) (io.ReadCloser, error) {
+func OpenBz2(path string, workers int) (io.ReadCloser, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
