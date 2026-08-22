@@ -1,0 +1,50 @@
+# ── Inputs: Wikimedia dumps (~129 GB). Downloaded, never authored.
+/dump/
+
+# ── Outputs: everything the tools regenerate from the dumps.
+# The record hierarchy, the full-text corpus, the search database, the passage
+# corpus and every vector/quantised index. ~60 GB, byte-deterministic from a
+# given dump + extractor version, so it is rebuilt rather than stored.
+/out/
+
+# ── Pre-rewrite artifacts, kept on disk only until the new layout is trusted.
+/movies/
+/tv/
+/text/
+/movies.db
+
+# ── Build-time resolver cache (28 GB). Rebuilt by build-wd-edges + build-qidmap;
+# discardable once extract has run.
+/wikidata.db
+/dump/resolver.db
+
+# ── Databases and vector blobs, wherever they land.
+*.db
+*.db-shm
+*.db-wal
+*.bin
+*.jsonl.gz
+
+# ── Compiled binaries.
+/moviedb
+/moviedb.next
+/src/mediadb
+/src/moviedb
+
+# ── Run state. Long jobs record their PID and stream to a log; both are
+# per-machine and per-run.
+*.pid
+*.log
+*.stamp
+
+# ...except the experiment logs, which ARE the evidence for the conclusions in
+# docs/TODO.md. Inert on main, which has no experiments/ directory.
+!/experiments/logs/*.log
+
+# ── Python side.
+/venv/
+__pycache__/
+*.pyc
+
+# ── Local agent config (contains machine-specific paths).
+/.claude/

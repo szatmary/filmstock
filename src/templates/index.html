@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>mediadb — movie browser</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0f1115;color:#e6e8ec}
+header{padding:32px 20px 12px;text-align:center}
+h1{margin:0 0 4px;font-size:26px;letter-spacing:.5px}
+.sub{color:#8a90a0;font-size:13px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 60px}
+.modes{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.mode{background:#171a21;border:1px solid #2a2f3a;color:#8a90a0;padding:6px 16px;border-radius:999px;
+  cursor:pointer;font-size:14px}
+.mode.active{background:#5b8cff;border-color:#5b8cff;color:#fff}
+.searchbar{display:flex;gap:8px;margin:14px 0 6px}
+#q{flex:1;padding:13px 16px;font-size:17px;border-radius:10px;border:1px solid #2a2f3a;
+  background:#171a21;color:#e6e8ec;outline:none}
+#q:focus{border-color:#5b8cff}
+select{padding:0 10px;border-radius:10px;border:1px solid #2a2f3a;background:#171a21;color:#e6e8ec}
+.spin{width:20px;height:20px;flex:none;align-self:center;border:2px solid #2a2f3a;
+  border-top-color:#5b8cff;border-radius:50%;animation:spin .7s linear infinite;visibility:hidden}
+.spin.on{visibility:visible}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hint{color:#6b7280;font-size:12px;min-height:16px}
+ul{list-style:none;padding:0;margin:14px 0}
+li a{display:flex;gap:14px;align-items:center;padding:10px 12px;border-radius:10px;
+  color:inherit;text-decoration:none;border:1px solid transparent}
+li a:hover{background:#171a21;border-color:#2a2f3a}
+.thumb{width:46px;height:68px;object-fit:cover;border-radius:5px;background:#20242e;flex:none}
+.meta .t{font-weight:600}
+.meta .d{color:#8a90a0;font-size:13px}
+.score{margin-left:auto;color:#5b8cff;font-variant-numeric:tabular-nums;font-size:13px}
+.tb{font-size:10px;border-radius:4px;padding:1px 6px;vertical-align:middle;text-transform:uppercase;letter-spacing:.03em}
+.tb-movie{background:#2a3a2f;color:#8fe0a8}.tb-television{background:#2a3550;color:#9db4ff}
+.tb-episode{background:#3a3350;color:#c9b3f0}.tb-event{background:#7c5cff}
+.tb-person{background:#3a3330;color:#e0c090}
+</style></head><body>
+<header><h1>🎬 mediadb</h1><div class="sub">fuzzy movie search from Wikipedia</div></header>
+<div class="wrap">
+  <div class="modes">
+    <button id="m-all" class="mode active">All</button>
+    <button id="m-movies" class="mode">Movies</button>
+    <button id="m-television" class="mode">Television</button>
+    <button id="m-episodes" class="mode">Episodes</button>
+    <button id="m-people" class="mode">People</button>
+    <button id="m-events" class="mode">Events</button>
+    <button id="m-semantic" class="mode">Semantic</button>
+    <button id="m-colbert" class="mode">ColBERT</button>
+  </div>
+  <div class="searchbar">
+    <input id="q" placeholder="Search movies, television, episodes, people…" autocomplete="off" autofocus>
+    <div class="spin" id="spin"></div>
+  </div>
+  <div class="hint" id="hint"></div>
+  <ul id="results"></ul>
+</div>
+<script>
+const q=document.getElementById('q'),
+  results=document.getElementById('results'),hint=document.getElementById('hint'),
+  spin=document.getElementById('spin');
+let timer=null,seq=0,mode='all',controller=null;
+const ICON={movie:'🎬',television:'📺',episode:'🎞️',person:'🎭',event:'🏆'};
+function allRow(r){
+  const img=r.Cover?'<img class="thumb" loading="lazy" src="'+r.Cover+'?width=120">'
+    :'<div class="thumb pth">'+(ICON[r.Type]||'•')+'</div>';
+  return '<li><a href="'+r.Link+'">'+img+
+    '<div class="meta"><div class="t">'+esc(r.Title)+' <span class="tb tb-'+r.Type+'">'+r.Type+'</span></div>'+
+    '<div class="d">'+esc(r.Subtitle||'')+'</div></div>'+
+    '<span class="score">'+r.Score.toFixed(2)+'</span></a></li>';
+}
+function movieRow(m){
+  const yr=m.Year?' ('+m.Year+')':'';
+  const img=m.Cover?'<img class="thumb" loading="lazy" src="'+m.Cover+'?width=120">':'<div class="thumb"></div>';
+  return '<li><a href="/movie?id='+m.ID+'">'+img+
+    '<div class="meta"><div class="t">'+esc(m.Title)+yr+'</div><div class="d">'+esc(m.Director||'')+'</div></div>'+
+    '<span class="score">'+m.Score.toFixed(2)+'</span></a></li>';
+}
+function personRow(p){
+  return '<li><a href="/person?id='+p.ID+'"><div class="thumb pth">🎭</div>'+
+    '<div class="meta"><div class="t">'+esc(p.Name)+'</div>'+
+    '<div class="d">'+p.Credits+' credit'+(p.Credits!==1?'s':'')+'</div></div></a></li>';
+}
+function televisionRow(m){
+  const yr=m.Year?' ('+m.Year+')':'';
+  const img=m.Cover?'<img class="thumb" loading="lazy" src="'+m.Cover+'?width=120">':'<div class="thumb"></div>';
+  const sub=(m.SeasonsCount?m.SeasonsCount+' season'+(m.SeasonsCount!==1?'s':''):'')+
+    (m.EpisodesCount?' · '+m.EpisodesCount+' episodes':'')+(m.Network?' · '+esc(m.Network):'');
+  return '<li><a href="/television?id='+m.ID+'">'+img+
+    '<div class="meta"><div class="t">'+esc(m.Title)+yr+'</div><div class="d">'+sub+'</div></div>'+
+    '<span class="score">'+m.Score.toFixed(2)+'</span></a></li>';
+}
+function epRow(e){
+  const se=(e.Season?'S'+e.Season:'')+(e.NumberInSeason?'E'+e.NumberInSeason:'');
+  const sub=esc(e.SeriesTitle)+(se?' · '+se:'')+(e.AirDate?' · '+e.AirDate:'');
+  return '<li><a href="/television?id='+e.SeriesID+'"><div class="thumb pth">🎞️</div>'+
+    '<div class="meta"><div class="t">'+esc(e.Title)+'</div><div class="d">'+sub+'</div></div>'+
+    '<span class="score">'+e.Score.toFixed(2)+'</span></a></li>';
+}
+function run(){
+  const term=q.value.trim();
+  if(term.length<3){results.innerHTML='';hint.textContent=term?'keep typing… (3+ characters)':'';spin.classList.remove('on');return;}
+  const my=++seq;
+  let u,rowFn;
+  if(mode==='all'){u='/api/all?q='+encodeURIComponent(term);rowFn=allRow;}
+  else if(mode==='people'){u='/api/people?q='+encodeURIComponent(term);rowFn=personRow;}
+  else if(mode==='episodes'){u='/api/episodes?q='+encodeURIComponent(term);rowFn=epRow;}
+  else if(mode==='television'){u='/api/television?q='+encodeURIComponent(term);rowFn=televisionRow;}
+  else if(mode==='events'){u='/api/events?q='+encodeURIComponent(term);rowFn=allRow;}
+  else if(mode==='semantic'){u='/api/semantic?q='+encodeURIComponent(term);rowFn=allRow;}
+  else if(mode==='colbert'){u='/api/colbert?q='+encodeURIComponent(term);rowFn=allRow;}
+  else {u='/api/search?q='+encodeURIComponent(term);rowFn=movieRow;}
+  spin.classList.add('on');
+  hint.textContent='Searching…';
+  if(controller) controller.abort();      // cancel the previous in-flight search
+  controller=new AbortController();
+  fetch(u,{signal:controller.signal}).then(r=>r.json()).then(rows=>{
+    if(my!==seq)return;
+    spin.classList.remove('on');
+    rows=rows||[];
+    hint.textContent=rows.length?rows.length+' result'+(rows.length>1?'s':''):'no matches';
+    results.innerHTML=rows.map(rowFn).join('');
+  }).catch(err=>{
+    if(err.name==='AbortError')return;    // superseded — ignore
+    if(my===seq){spin.classList.remove('on');hint.textContent='search error';}
+  });
+}
+const MODES=['all','movies','television','episodes','people','events','semantic','colbert'];
+const PLACE={all:'Search movies, television, episodes, people…',movies:'Search a movie… (typos are fine)',
+  television:'Search a television show… (typos are fine)',episodes:'Search an episode title…',people:'Search a person…',
+  semantic:'Describe a film… e.g. hacker discovers reality is a simulation',
+  events:'Search an awards ceremony or film festival…',
+  colbert:'Describe a film in detail… every term is matched separately'};
+function setMode(m){
+  mode=m;
+  for(const x of MODES) document.getElementById('m-'+x).classList.toggle('active',m===x);
+  q.placeholder=PLACE[m];
+  q.focus();run();
+}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+for(const x of MODES) document.getElementById('m-'+x).onclick=()=>setMode(x);
+q.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(run,120);});
+</script>
+<style>.pth{display:flex;align-items:center;justify-content:center;font-size:24px}</style>
+</body></html>

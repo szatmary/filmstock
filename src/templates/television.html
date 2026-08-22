@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{televisiontitle .Title}} — mediadb</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0f1115;color:#e6e8ec}
+.wrap{max-width:940px;margin:0 auto;padding:20px 16px 60px}
+a.back{color:#5b8cff;text-decoration:none;font-size:14px}
+.hero{display:flex;gap:26px;margin-top:16px;flex-wrap:wrap;align-items:flex-start}
+.poster{width:220px;max-width:100%;height:auto;display:block;flex:0 0 auto;border-radius:12px;background:#20242e;box-shadow:0 8px 30px #0008}
+.info{flex:1 1 300px;min-width:0}
+h1{margin:0 0 2px;font-size:30px;overflow-wrap:anywhere}
+.year{color:#8a90a0;font-weight:400}
+.badges{color:#8a90a0;font-size:14px;margin:4px 0 10px}
+dl{display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px 16px;margin:14px 0}
+dt{color:#8a90a0;font-size:14px}dd{margin:0;overflow-wrap:anywhere}
+.plink{color:#cdd6f4;text-decoration:none;border-bottom:1px dotted #3a4152}
+.plink:hover{color:#5b8cff;border-color:#5b8cff}
+.wl{display:inline-block;margin-top:8px;color:#5b8cff;text-decoration:none;font-size:14px}
+details{margin:10px 0;border:1px solid #222834;border-radius:10px;overflow:hidden}
+summary{cursor:pointer;padding:12px 14px;background:#161a21;font-weight:600;list-style:none;display:flex;justify-content:space-between}
+summary::-webkit-details-marker{display:none}
+summary .c{color:#8a90a0;font-weight:400;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:8px 12px;border-top:1px solid #1c2129;text-align:left;vertical-align:top}
+th{color:#8a90a0;font-weight:500;font-size:12px;text-transform:uppercase}
+td.n{color:#8a90a0;width:52px;font-variant-numeric:tabular-nums}
+td.d{color:#8a90a0;white-space:nowrap}
+.ep-title{font-weight:500}
+.crew{color:#8a90a0;font-size:12.5px}
+.ep-sum{color:#aab0bd;font-size:13px;margin-top:4px;max-width:90ch;line-height:1.55}
+.television-overview{max-width:80ch;margin:20px 0 6px;color:#c8ccd4;line-height:1.65}
+.plotbox{margin:12px 0}
+.plottext{max-width:85ch;margin-top:10px;color:#c8ccd4;line-height:1.7;white-space:pre-wrap}
+</style></head><body>
+<div class="wrap">
+<a class="back" href="/">← search</a>
+<div class="hero">
+  {{with poster .CoverImageFile 500}}<img class="poster" src="{{.}}" alt="poster">{{end}}
+  <div class="info">
+    <h1>📺 {{televisiontitle .Title}} {{if .FirstAired}}<span class="year">({{slice .FirstAired 0 4}}{{if .LastAired}}–{{slice .LastAired 0 4}}{{end}})</span>{{end}}</h1>
+    <div class="badges">{{if .NumSeasons}}{{.NumSeasons}} seasons{{end}}{{if .NumEpisodes}} · {{.NumEpisodes}} episodes{{end}}{{if .Network}} · {{join .Network}}{{end}}</div>
+    <dl>
+      {{if .Genre}}<dt>Genre</dt><dd>{{join .Genre}}</dd>{{end}}
+      {{if .Creator}}<dt>Creator</dt><dd>{{people .Creator}}</dd>{{end}}
+      {{if .Starring}}<dt>Starring</dt><dd>{{people .Starring}}</dd>{{end}}
+      {{if .Composer}}<dt>Composer</dt><dd>{{people .Composer}}</dd>{{end}}
+      {{if .Country}}<dt>Country</dt><dd>{{join .Country}}</dd>{{end}}
+      {{if .Runtime}}<dt>Runtime</dt><dd>{{.Runtime}}</dd>{{end}}
+      {{if .FirstAired}}<dt>Aired</dt><dd>{{.FirstAired}}{{if .LastAired}} – {{.LastAired}}{{end}}</dd>{{end}}
+    </dl>
+    <a class="wl" href="{{.WikiURL}}" target="_blank" rel="noopener">View on Wikipedia →</a>
+  </div>
+</div>
+{{if .Overview}}<p class="television-overview">{{.Overview}}</p>{{end}}
+{{if .Plot}}<details class="plotbox"><summary>Synopsis</summary><div class="plottext">{{.Plot}}</div></details>{{end}}
+{{range .Seasons}}
+<details{{if eq .Season 1}} open{{end}}>
+  <summary><span>Season {{.Season}}</span><span class="c">{{.NumEpisodes}} episodes{{if .FirstAired}} · {{.FirstAired}}{{end}}</span></summary>
+  <table>
+    <tr><th>#</th><th>Title</th><th>Air date</th></tr>
+    {{range .Episodes}}
+    <tr>
+      <td class="n">{{if .NumberInSeason}}{{.NumberInSeason}}{{else if .NumberOverall}}{{.NumberOverall}}{{else}}–{{end}}</td>
+      <td><div class="ep-title">{{.Title}}</div>
+        {{if or .DirectedBy .WrittenBy}}<div class="crew">{{if .DirectedBy}}dir: {{people .DirectedBy}}{{end}}{{if .WrittenBy}} · writ: {{people .WrittenBy}}{{end}}</div>{{end}}
+        {{if .Summary}}<div class="ep-sum">{{.Summary}}</div>{{end}}
+      </td>
+      <td class="d">{{.AirDate}}</td>
+    </tr>
+    {{end}}
+  </table>
+</details>
+{{end}}
+</div>
+</body></html>

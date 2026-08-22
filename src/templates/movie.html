@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{title .Title}} — mediadb</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0f1115;color:#e6e8ec}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+a.back{color:#5b8cff;text-decoration:none;font-size:14px}
+.hero{display:flex;gap:26px;margin-top:16px;flex-wrap:wrap;align-items:flex-start}
+.poster{width:240px;max-width:100%;height:auto;display:block;flex:0 0 auto;
+  border-radius:12px;background:#20242e;box-shadow:0 8px 30px #0008}
+h1{margin:0 0 2px;font-size:30px;overflow-wrap:anywhere}
+.year{color:#8a90a0;font-weight:400}
+.info{flex:1 1 300px;min-width:0}
+dl{display:grid;grid-template-columns:130px minmax(0,1fr);gap:6px 16px;margin:18px 0}
+dt{color:#8a90a0;font-size:14px}
+dd{margin:0;overflow-wrap:anywhere}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#1b1f28;border:1px solid #2a2f3a;border-radius:999px;padding:2px 10px;font-size:13px;
+  color:inherit;text-decoration:none}
+a.chip:hover{border-color:#5b8cff;color:#fff}
+.plink{color:#cdd6f4;text-decoration:none;border-bottom:1px dotted #3a4152}
+.plink:hover{color:#5b8cff;border-color:#5b8cff}
+.wl{display:inline-block;margin-top:14px;color:#5b8cff;text-decoration:none;font-size:14px}
+details{margin-top:26px}
+summary{cursor:pointer;color:#8a90a0}
+pre{background:#12151b;border:1px solid #222834;border-radius:10px;padding:14px;overflow:auto;font-size:12px}
+.overview{max-width:75ch;margin:22px 0 6px;color:#c8ccd4;line-height:1.65}
+.plotbox{margin-top:16px}
+.plottext{max-width:80ch;margin-top:10px;color:#c8ccd4;line-height:1.7;white-space:pre-wrap}
+</style></head><body>
+<div class="wrap">
+<a class="back" href="/">← search</a>
+<div class="hero">
+  {{with poster .CoverImageFile 600}}<img class="poster" src="{{.}}" alt="poster">{{end}}
+  <div class="info">
+    <h1>{{title .Title}} {{with year .}}<span class="year">({{.}})</span>{{end}}</h1>
+    <dl>
+      {{if .ReleaseDates}}<dt>Released</dt><dd>{{range $i,$d := .ReleaseDates}}{{if $i}}, {{end}}{{$d}}{{end}}</dd>{{end}}
+      {{if .Director}}<dt>Director</dt><dd>{{people .Director}}</dd>{{end}}
+      {{if .Writer}}<dt>Writer</dt><dd>{{people .Writer}}</dd>{{end}}
+      {{if .Producer}}<dt>Producer</dt><dd>{{people .Producer}}</dd>{{end}}
+      {{if .Music}}<dt>Music</dt><dd>{{people .Music}}</dd>{{end}}
+      {{if .Cinematography}}<dt>Cinematography</dt><dd>{{people .Cinematography}}</dd>{{end}}
+      {{if .Editing}}<dt>Editing</dt><dd>{{people .Editing}}</dd>{{end}}
+      {{if .ProductionCompanies}}<dt>Studio</dt><dd>{{join .ProductionCompanies}}</dd>{{end}}
+      {{if .Distributor}}<dt>Distributor</dt><dd>{{join .Distributor}}</dd>{{end}}
+      {{if .Runtime}}<dt>Runtime</dt><dd>{{.Runtime}}</dd>{{end}}
+      {{if .Country}}<dt>Country</dt><dd>{{join .Country}}</dd>{{end}}
+      {{if .Language}}<dt>Language</dt><dd>{{join .Language}}</dd>{{end}}
+      {{if .Budget}}<dt>Budget</dt><dd>{{.Budget}}</dd>{{end}}
+      {{if .Gross}}<dt>Box office</dt><dd>{{.Gross}}</dd>{{end}}
+    </dl>
+    {{if .Starring}}<dt style="color:#8a90a0;font-size:14px">Starring</dt>
+    <div class="chips">{{range .Starring}}<a class="chip" href="{{phref .}}">{{.Name}}</a>{{end}}</div>{{end}}
+    <div><a class="wl" href="{{.WikiURL}}" target="_blank" rel="noopener">View on Wikipedia →</a></div>
+  </div>
+</div>
+{{if .Overview}}<p class="overview">{{.Overview}}</p>{{end}}
+{{if .Plot}}<details class="plotbox" open><summary>Plot</summary><div class="plottext">{{.Plot}}</div></details>{{end}}
+</div>
+</body></html>
