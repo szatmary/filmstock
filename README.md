@@ -9,18 +9,27 @@ produces a self-contained record hierarchy and a SQLite database you can serve.
 
 **Current build** (enwiki 2026-07-07 dump):
 
-| | count |
+| | rows in `search.db` |
 |---|---|
 | films | 165,265 |
 | award ceremonies & festivals | 4,669 |
 | television series | 61,137 |
-| television episodes | 551,174 |
-| people | 219,629 (148,220 with a Q-id, 67.5%) |
-| credits | 1,294,389 |
+| television episodes | 551,202 |
+| people | 219,050 (148,030 with a Q-id, 67.6%) |
+| credits | 1,294,290 |
 
-Extract takes **48 min wall / 7,103 s CPU / 1.7 GB peak RSS** on an idle box —
-I/O bound, not CPU bound (2.4 cores' worth across 48 minutes) on a 5-disk USB
-raidz1 array. On NVMe it is substantially faster.
+Records written to disk differ slightly from rows indexed — 219,628 people
+records against 219,050 rows, since a person needs a credit to be indexed. Quote
+whichever you mean; the two are not interchangeable.
+
+Extract is **7,459 s CPU / 1.9 GB peak RSS**, and 65.5 min wall on a 5-disk USB
+raidz1 array that was also serving other reads at the time. An earlier run on an
+idle box measured 48.4 min wall for 7,103 s CPU — the CPU figure is the stable
+one, and the gap between them is the point: this is I/O bound, not CPU bound. On
+NVMe it is substantially faster.
+
+Indexing from records already on disk is **2 min 20 s** (`make index`), no dump
+read.
 
 ## Why the identity work matters
 
@@ -158,16 +167,25 @@ loose files. Design and the reasoning in [docs/TODO.md](docs/TODO.md) §D1. The
 fetch side is not built yet; `serve` reads records from a local directory today.
 
 The database is sized for that role: it stores **no prose**. FTS covers titles,
-cast and creators only, so episode summaries and series overview/plot were 219 MB
-of unindexed text — 34% of the file — duplicating what the record `.json.gz`
-already holds. They are not stored. `movies` never had them.
+cast and creators only, so episode summaries and series overview/plot were
+unindexed text duplicating what the record `.json.gz` already holds. They are not
+stored, and `movies` never had them.
 
 ```sh
 make dist           # -> out/search.db.zst
 ```
 
-Measured on the pre-trim database, zstd -19 compressed the pages 2.79x against
-gzip's 2.16x, so compression is worth roughly another 2.8x on top of the trim.
+Measured end to end:
+
+| | size |
+|---|---|
+| with prose | 637 MB |
+| without prose | **383 MB** |
+| `search.db.zst` (zstd -19) | **161 MB** |
+
+`television_episodes` went from 209 MB to 26.8 MB and `television_series` from
+106 MB to 17.3 MB. zstd -19 beat gzip -6 by 29% on these pages (2.79x vs 2.16x
+before the trim). Net for a consumer: **637 MB → 161 MB, 3.96x**.
 
 ## Data license
 

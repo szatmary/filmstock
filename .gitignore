@@ -11,7 +11,7 @@
 /movies/
 /tv/
 /text/
-/movies.db
+/movies.db*
 
 # ── Build-time resolver cache (28 GB). Rebuilt by build-wd-edges + build-qidmap;
 # discardable once extract has run.

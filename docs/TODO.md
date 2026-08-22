@@ -10,12 +10,17 @@ filmstock index   -records OUTDIR               # rebuild search.db from records
 filmstock serve   -db OUTDIR/search.db -movies OUTDIR/movies -television OUTDIR/television
 ```
 
-Current data (2026-08-13): 165,265 films · 4,669 events · 61,137 series ·
-551,174 episodes · 219,629 people (148,220 with a Q-id, 67.5%).
-Extract 48.4 min wall / 7,103 s CPU / 1.7 GB peak RSS, measured on an otherwise
-idle box. The 17.4 min previously recorded is not reproducible from a cold page
-cache — CPU is only 2.4 cores' worth across 48 minutes, so this is I/O bound on
-the array, as the storage notes predict.
+Current data (2026-08-22, re-extracted after the tv -> television rename):
+165,265 films · 4,669 events · 61,137 series · 551,202 episodes · 219,050 people
+(148,030 with a Q-id, 67.6%) · 1,294,290 credits. Those are `search.db` rows;
+219,628 people *records* were written, the difference being people with no
+indexed credit.
+
+Extract 7,459 s CPU / 1.9 GB peak RSS / 65.5 min wall, but the box was serving
+other reads throughout, so wall time is not comparable to the 48.4 min recorded
+on an idle box for 7,103 s CPU. CPU is the stable figure and moved <5%. The 17.4
+min once recorded is not reproducible from a cold page cache. This is I/O bound
+on the array, as the storage notes predict. Reindexing from records is 2m20s.
 
 Films dropped from 170,421 because 5,156 records were never films: `findTemplate`
 prefix-matched `{{Infobox film awards}}` and `{{Infobox Film festival}}` against
@@ -140,6 +145,18 @@ made twice already this session).
 - **Records are byte-deterministic** — verified: identical input gives identical
   bytes (Go's gzip writes no timestamp, encoding/json sorts map keys). This is the
   precondition; without it every re-extract churns all ~620k files.
+- **UNRESOLVED — the 2026-08-22 re-extract did not reproduce two counts.** Same
+  dump, same resolver cache: films, events, series and people all landed on the
+  exact same numbers, but `television_episodes` moved 551,174 -> 551,202 (+28)
+  and `credits` moved 1,294,389 -> 1,294,290 (-99). Both are merge paths rather
+  than keyed lookups — episodes gathered across source articles, credits deduped
+  through the `seen` map in televisionindex.go — which is the shape map-iteration
+  order produces. It is not proven: the earlier figures may predate a code change,
+  and this is one run against one recorded set. **Settle it before building
+  anything on diffs**, because determinism is this whole section's precondition:
+  extract twice into scratch directories on identical code and `diff -r` the
+  record trees (~65 min each). If they differ, the diff/sync plan needs an
+  ordering fix first.
 - **Reconsider gzip.** Git already zlib-compresses, and delta compression cannot
   see through gzip — a one-field change re-transfers the whole blob. Plain `.json`
   costs ~3-4x locally but makes packfiles and p2p deltas far smaller.
