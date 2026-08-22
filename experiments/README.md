@@ -11,8 +11,11 @@ here is the Python side, the sweep scripts, and the logs they produced.
 ## Results
 
 The numbers, and the conclusions drawn from them, are in
-[../docs/TODO.md](../docs/TODO.md). Read that before re-running anything: several
-of these experiments are settled and rerunning them is wasted GPU time.
+[../docs/retrieval.md](../docs/retrieval.md), alongside the design in
+[../docs/embeddings.md](../docs/embeddings.md) and the query sets under
+[../docs/eval/](../docs/eval/). All four live only on this branch. Read
+retrieval.md before re-running anything: several of these experiments are settled
+and repeating them is wasted GPU time.
 
 | path | MRR | concept | conjunctive | person | title | typo |
 |---|---|---|---|---|---|---|
