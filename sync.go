@@ -20,11 +20,11 @@ const DataRepoURL = "https://github.com/szatmary/filmstock-data.git"
 // the store fingerprint of the resulting tree (StoreFingerprint) and
 // whether the tree changed. Progress, if non-nil, receives coarse
 // human-readable sync progress lines.
-func SyncStore(ctx context.Context, dir string, progress func(string)) (string, bool, error) {
+func SyncStore(ctx context.Context, dir string, progress func(string)) (fingerprint string, changed bool, err error) {
 	return syncStore(ctx, DataRepoURL, dir, progress)
 }
 
-func syncStore(ctx context.Context, url, dir string, progress func(string)) (string, bool, error) {
+func syncStore(ctx context.Context, url, dir string, progress func(string)) (fingerprint string, changed bool, err error) {
 	say := func(s string) {
 		if progress != nil {
 			progress(s)
@@ -60,7 +60,7 @@ func syncStore(ctx context.Context, url, dir string, progress func(string)) (str
 		return "", false, fmt.Errorf("filmstock: remote head: %w", err)
 	}
 
-	changed := remote.Hash() != head.Hash()
+	changed = remote.Hash() != head.Hash()
 	if changed {
 		say("resetting to " + remote.Hash().String()[:12])
 		wt, err := repo.Worktree()
@@ -73,6 +73,6 @@ func syncStore(ctx context.Context, url, dir string, progress func(string)) (str
 	} else {
 		say("up to date")
 	}
-	fp, err := StoreFingerprint(dir)
-	return fp, changed, err
+	fingerprint, err = StoreFingerprint(dir)
+	return
 }
