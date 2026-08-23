@@ -93,3 +93,44 @@ func TestParseDateTemplate(t *testing.T) {
 		}
 	}
 }
+
+// Season headings are what tell an inline episode list which season it belongs
+// to. When this regex stopped matching, every episode in every series article
+// fell into season 0, the seasons merged, and dedup by episode number silently
+// destroyed 164,445 episodes — while the series count, the source count and the
+// Wikidata resolution counts all stayed identical, so nothing else looked wrong.
+func TestSeasonHeadingsAreRecognised(t *testing.T) {
+	for _, h := range []string{
+		"===Season 1 (2015)===",
+		"== Season 3 ==",
+		"=== Series 2 (2009) ===",
+		"====Season 12====",
+	} {
+		if !reSeasonHeading.MatchString(h) {
+			t.Errorf("reSeasonHeading does not match %q", h)
+		}
+	}
+}
+
+// The real failure was not "no episodes" but "all episodes in one season", which
+// only shows up when a document has more than one.
+func TestInlineEpisodesGetTheirOwnSeasons(t *testing.T) {
+	const article = `
+===Season 1 (2015)===
+{{Episode list|EpisodeNumber=1|EpisodeNumber2=1|Title=Pilot}}
+{{Episode list|EpisodeNumber=2|EpisodeNumber2=2|Title=Joust Friends}}
+===Season 2 (2016)===
+{{Episode list|EpisodeNumber=9|EpisodeNumber2=1|Title=A New Season}}
+`
+	got := extractEpisodesByHeading(article)
+	if len(got) != 3 {
+		t.Fatalf("got %d episodes, want 3", len(got))
+	}
+	seasons := map[int]int{}
+	for _, e := range got {
+		seasons[e.season]++
+	}
+	if seasons[1] != 2 || seasons[2] != 1 {
+		t.Errorf("seasons = %v, want 2 episodes in season 1 and 1 in season 2", seasons)
+	}
+}

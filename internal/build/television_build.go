@@ -64,7 +64,7 @@ func articleSeason(title string) (string, int, bool) {
 var reListEpisodes = regexp.MustCompile(`(?i)^List of (.+) episodes$`)
 
 // reSeasonHeading matches "== Season 3 ==" / "=== Series 2 (2009) ===".
-var reSeasonHeading = regexp.MustCompile(`(?im)^=+\s*(?:filmstock.Season|Series)\s+(\d+)`)
+var reSeasonHeading = regexp.MustCompile(`(?im)^=+\s*(?:Season|Series)\s+(\d+)`)
 
 // parseEpisodeRow builds an Episode from one {{Episode list}} parameter map.
 func parseEpisodeRow(ib map[string]string) *filmstock.Episode {

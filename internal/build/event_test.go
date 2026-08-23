@@ -88,7 +88,7 @@ func TestFestivalHostIsNotAPerson(t *testing.T) {
 		t.Fatal("nil event")
 	}
 	if len(fest.Hosts) != 0 {
-		t.Errorf("festival produced %d filmstock.Person hosts, want 0: %+v", len(fest.Hosts), fest.Hosts)
+		t.Errorf("festival produced %d host credits, want 0: %+v", len(fest.Hosts), fest.Hosts)
 	}
 	if fest.Organizer != "Toronto International Film Festival Group" {
 		t.Errorf("organizer = %q", fest.Organizer)

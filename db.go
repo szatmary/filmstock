@@ -148,7 +148,7 @@ func (db *DB) locate(ctx context.Context, kind string, id int) (Location, error)
 func (db *DB) fetch(ctx context.Context, kind string, id int, v any) error {
 	if db.src == nil {
 		return fmt.Errorf("filmstock: no RecordSource configured; " +
-			"pass filmstock.Dir(root) or filmstock.Remote(baseURL) to Open")
+			"pass filmstock.Dir(root) to Open")
 	}
 	loc, err := db.locate(ctx, kind, id)
 	if err != nil {
