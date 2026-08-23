@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"os"
 )
 
 // RunStream decodes every <page> from a plain MediaWiki XML stream.
@@ -40,4 +41,13 @@ func RunStream(r io.Reader, handle func(Page)) error {
 		}
 		handle(p)
 	}
+}
+
+// DumpSize is the compressed size of a dump, the denominator for progress.
+func DumpSize(path string) (int64, error) {
+	fi, err := os.Stat(path)
+	if err != nil {
+		return 0, err
+	}
+	return fi.Size(), nil
 }

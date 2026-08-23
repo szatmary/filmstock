@@ -223,6 +223,9 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 		close(collDone)
 	}()
 
+	var progress atomic.Int64
+	total, _ := dump.DumpSize(d.articles)
+
 	var scanned int64
 	handle := func(p dump.Page) {
 		atomic.AddInt64(&scanned, 1)
@@ -248,9 +251,26 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 				return
 			case <-t.C:
 				n := atomic.LoadInt64(&scanned)
-				fmt.Fprintf(os.Stderr, "\r  [%5.0fs] pages=%d (%.0f/s) films=%d",
-					time.Since(t0).Seconds(), n, float64(n)/time.Since(t0).Seconds(),
-					atomic.LoadInt64(&rec.films))
+				el := time.Since(t0).Seconds()
+				pct, eta := 0.0, ""
+				if done := progress.Load(); total > 0 && done > 0 {
+					pct = 100 * float64(done) / float64(total)
+					if rate := float64(done) / el; rate > 0 {
+						eta = fmt.Sprintf("  eta %s",
+							(time.Duration(float64(total-done)/rate) * time.Second).Round(time.Minute))
+					}
+				}
+				// Written with \r for a terminal but also newline-terminated at
+				// intervals, because a progress line that only ever rewrites
+				// itself disappears entirely when stderr is piped — which is how
+				// an 85-minute run once produced a 181-byte log.
+				line := fmt.Sprintf("  [%5.0fs] %5.1f%%  pages=%d (%.0f/s) films=%d%s",
+					el, pct, n, float64(n)/el, atomic.LoadInt64(&rec.films), eta)
+				if isTerminal(os.Stderr) {
+					fmt.Fprintf(os.Stderr, "\r%s", line)
+				} else {
+					fmt.Fprintln(os.Stderr, line)
+				}
 			}
 		}
 	}()
@@ -259,7 +279,7 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	if limit > 0 {
 		shouldStop = func() bool { return atomic.LoadInt64(&rec.films) >= int64(limit) }
 	}
-	if err := dump.RunMultistream(d.articles, d.index, workers, handle, shouldStop); err != nil {
+	if err := dump.RunMultistreamProgress(d.articles, d.index, workers, handle, shouldStop, &progress); err != nil {
 		fatal(err)
 	}
 	close(msgs)
@@ -481,4 +501,15 @@ func buildListOwner(cachePath string, coll *televisionCollector) (map[int]int, e
 	}
 	fmt.Fprintf(os.Stderr, "episode-list links resolved: %d\n", len(out))
 	return out, nil
+}
+
+// isTerminal reports whether w is a terminal, so progress can rewrite one line
+// there and emit whole lines when redirected. A \r-only progress line vanishes
+// into a pipe's buffer, which is not a progress indicator.
+func isTerminal(f *os.File) bool {
+	fi, err := f.Stat()
+	if err != nil {
+		return false
+	}
+	return fi.Mode()&os.ModeCharDevice != 0
 }

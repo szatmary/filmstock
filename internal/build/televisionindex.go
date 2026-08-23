@@ -33,6 +33,7 @@ CREATE TABLE television_series(
   seasons_count INTEGER, episodes_count INTEGER,
   cover_image_file TEXT, wikipedia_url TEXT, gitdb_id INTEGER NOT NULL
 );
+CREATE INDEX idx_television_title ON television_series(title);
 CREATE VIRTUAL TABLE television_fts USING fts5(
   title, starring, creator,
   content='television_series', content_rowid='id', tokenize='trigram'
@@ -64,11 +65,11 @@ func CIndexTelevision(args []string) {
 		fatal(err)
 	}
 	// Identities come from the person records, not from a dump or resolver.
-	p2q, err := loadPeopleQIDs(*records)
+	p2q, err := loadPeopleIdentities(*records)
 	if err != nil {
 		fatal(err)
 	}
-	fmt.Fprintf(os.Stderr, "  %d person identities from records\n", len(p2q))
+	fmt.Fprintf(os.Stderr, "  %d person identities\n", len(p2q))
 
 	fmt.Fprintf(os.Stderr, "indexing television from %s into %s...\n", *records, *dbPath)
 

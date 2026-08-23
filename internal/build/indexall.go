@@ -29,6 +29,17 @@ func CIndexRecords(args []string) {
 	}
 	start := time.Now()
 
+	// The person identity map is read from the store ONCE and shared. Both the
+	// film and the television indexer need it, and each used to rebuild it —
+	// ~220k records inflated against the dictionary twice for the same answer.
+	// That was nearly free when records were loose files on a warm page cache.
+	p2q, err := loadPeopleQIDs(*records)
+	if err != nil {
+		fatal(err)
+	}
+	fmt.Fprintf(os.Stderr, "  %d person identities from the store\n", len(p2q))
+	sharedIdentities = p2q
+
 	// Films first: `index` recreates the database from scratch, so it must run
 	// before index-television adds the television tables to the same file.
 	fmt.Fprintf(os.Stderr, "[1/3] films -> %s\n", out)

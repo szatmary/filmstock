@@ -38,6 +38,7 @@ DROP TABLE IF EXISTS person_alias;
 DROP TABLE IF EXISTS people_fts;
 CREATE TABLE people(id INTEGER PRIMARY KEY, qid INTEGER, name TEXT NOT NULL, wiki TEXT, gitdb_id INTEGER);
 CREATE INDEX idx_people_qid ON people(qid);
+CREATE INDEX idx_people_name ON people(name);
 CREATE TABLE credits(person_id INTEGER, work_id INTEGER, work_type TEXT, role TEXT);
 CREATE INDEX idx_credits_person ON credits(person_id);
 CREATE INDEX idx_credits_work ON credits(work_id, work_type);
@@ -89,6 +90,21 @@ type peopleBuilder struct {
 type personIdentity struct {
 	QID     int64
 	GitdbID uint64
+}
+
+// sharedIdentities lets CIndexRecords read the person identity map once and
+// hand it to both indexers. It is package-level rather than a parameter because
+// CIndex and CIndexTelevision are also reachable as standalone commands, which
+// must still work on their own; nil means "read it yourself".
+var sharedIdentities map[string]personIdentity
+
+// loadPeopleIdentities returns the shared map when one was prepared, and reads
+// the store when it was not.
+func loadPeopleIdentities(recordsDir string) (map[string]personIdentity, error) {
+	if sharedIdentities != nil {
+		return sharedIdentities, nil
+	}
+	return loadPeopleQIDs(recordsDir)
 }
 
 func loadPeopleQIDs(recordsDir string) (map[string]personIdentity, error) {

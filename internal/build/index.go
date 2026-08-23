@@ -25,6 +25,12 @@ CREATE TABLE movies(
   runtime TEXT, budget TEXT, gross TEXT,
   wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT, gitdb_id INTEGER NOT NULL
 );
+-- Lookup by exact title, and by name on the people side, are the two access
+-- paths with no index at all. Locally that hid behind the page cache; over a
+-- remote VFS a title lookup became a 20,120-request, 80 MB table scan, because
+-- SQLite had nothing to seek with.
+CREATE INDEX idx_movies_title ON movies(title);
+CREATE INDEX idx_movies_year ON movies(year);
 CREATE VIRTUAL TABLE movies_fts USING fts5(
   title, starring, director,
   content='movies', content_rowid='id', tokenize='trigram'
@@ -77,11 +83,11 @@ func CIndex(args []string) {
 		fatal(err)
 	}
 	// Identities come from the person records, not from a dump or resolver.
-	p2q, err := loadPeopleQIDs(*records)
+	p2q, err := loadPeopleIdentities(*records)
 	if err != nil {
 		fatal(err)
 	}
-	fmt.Fprintf(os.Stderr, "  %d person identities from records\n", len(p2q))
+	fmt.Fprintf(os.Stderr, "  %d person identities\n", len(p2q))
 
 	fmt.Fprintf(os.Stderr, "indexing movies from %s into %s...\n", *records, *dbPath)
 

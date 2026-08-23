@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 )
 
 // streamRange is a byte range within the multistream .bz2 file spanning one or
@@ -59,7 +60,24 @@ func loadOffsets(indexPath string) ([]int64, error) {
 // byte ranges to workers. Each worker seeks into its own file handle, so there is
 // no contention on decoding. Offsets beyond the current file size are skipped,
 // which lets this run against a partially-downloaded dump.
+// Progress reports how far through the dump the run is, in BYTES.
+//
+// Bytes, not pages: the total page count is only known once a pass ends and
+// changes with every dump, while the dump size and the offset index are both
+// known before it starts. Bytes also predict time honestly here, because the job
+// is I/O bound — the pages/s figure swings 45x with article size, reading 174/s
+// early and 7,891/s later, which is not the job speeding up.
+type Progress struct {
+	Done, Total int64
+}
+
 func RunMultistream(dumpPath, indexPath string, workers int, handle func(Page), shouldStop func() bool) error {
+	return RunMultistreamProgress(dumpPath, indexPath, workers, handle, shouldStop, nil)
+}
+
+// RunMultistreamProgress is RunMultistream with a progress counter the caller
+// may read at any time from another goroutine.
+func RunMultistreamProgress(dumpPath, indexPath string, workers int, handle func(Page), shouldStop func() bool, prog *atomic.Int64) error {
 	offsets, err := loadOffsets(indexPath)
 	if err != nil {
 		return fmt.Errorf("loading index: %w", err)
@@ -70,6 +88,9 @@ func RunMultistream(dumpPath, indexPath string, workers int, handle func(Page), 
 	}
 	size := fi.Size()
 	fmt.Fprintf(os.Stderr, "multistream: %d sub-streams, dump size %d bytes\n", len(offsets), size)
+	if prog != nil {
+		prog.Store(0)
+	}
 
 	// Batch consecutive sub-streams to amortise per-job overhead.
 	const batch = 20
@@ -107,6 +128,9 @@ func RunMultistream(dumpPath, indexPath string, workers int, handle func(Page), 
 			defer f.Close()
 			for r := range jobs {
 				processRange(f, r, handle)
+				if prog != nil {
+					prog.Add(r.end - r.start)
+				}
 				if shouldStop != nil && shouldStop() {
 					return
 				}
