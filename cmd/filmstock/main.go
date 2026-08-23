@@ -13,6 +13,8 @@ func main() {
 		usage()
 	}
 	switch os.Args[1] {
+	case "sync":
+		build.CmdSync(os.Args[2:])
 	case "index":
 		build.CIndexRecords(os.Args[2:])
 	case "index-movies":
@@ -63,6 +65,7 @@ Usage:
                                                                dumps -> the record tree
   filmstock extract ... -text DIR                              put the corpus elsewhere
   filmstock extract ... -index=false                           records only
+  filmstock sync                                               clone/pull the store, reindex if stale
   filmstock index   -records filmstock-data -db index.db       record store -> the index
   filmstock update  -incr DUMP -records filmstock-data         apply one day of changes
   filmstock update ... -commit [-message MSG]                   apply, report the diff, commit it
