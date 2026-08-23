@@ -19,14 +19,6 @@ import (
 // out of 165,265 — under a tenth of a percent — so an incremental pass is the
 // difference between rewriting the store and changing a few hundred lines of it.
 //
-// Two things are deliberately NOT done here, and both are stated rather than
-// half-done:
-//
-// Television is skipped. A season article names its season but never its series,
-// and its series may not be in today's changes at all, so attaching it means
-// merging into a record the pass never sees. That is real work and it belongs in
-// its own change.
-//
 // Deletions of pages are not detected. An adds-changes dump carries pages that
 // changed; a page deleted from Wikipedia simply stops appearing, which is
 // indistinguishable from a page that did not change. Only a full pass, or a
@@ -39,6 +31,7 @@ func CmdUpdate(args []string) {
 	records := fs.String("records", "filmstock-data", "record store to update in place")
 	dbPath := fs.String("db", "", "optional index; read for its page_id -> record mapping instead of scanning the store")
 	workers := fs.Int("workers", 4, "bz2 decompression workers")
+	cache := fs.String("cache", "wikidata.db", "Wikidata resolver cache; television needs its P179 edges")
 	dry := fs.Bool("dry-run", false, "report what would change without writing")
 	fs.Parse(args)
 
@@ -78,6 +71,13 @@ func CmdUpdate(args []string) {
 	} else {
 		fmt.Fprintln(os.Stderr, "no -db given; reading identities by scanning the store (slower)")
 	}
+	// Television needs the Wikidata edges: a season article names its season and
+	// never its series, so nothing else can attach it.
+	tv, tvErr := newTelevisionUpdater(w, *cache)
+	if tvErr != nil {
+		fmt.Fprintf(os.Stderr, "television updates disabled: %v\n", tvErr)
+	}
+
 	start := time.Now()
 	var st updateStats
 
@@ -90,12 +90,17 @@ func CmdUpdate(args []string) {
 		applyFilm(w, p, &st, *dry)
 		applyEvent(w, p, &st, *dry)
 		applyBiography(w, p, &st, *dry)
-		if len(parseTelevisionPage(p)) > 0 {
+		if tv != nil {
+			tv.consider(p)
+		} else if len(parseTelevisionPage(p)) > 0 {
 			st.televisionSkipped++
 		}
 	})
 	if err != nil {
 		fatal(err)
+	}
+	if tv != nil {
+		tv.apply(*dry)
 	}
 	if err := w.Err(); err != nil {
 		fatal(err)
@@ -105,16 +110,26 @@ func CmdUpdate(args []string) {
 	if *dry {
 		what = "would apply"
 	}
+	// Report what the store actually took, not what was considered. A changed
+	// page very often re-derives to identical bytes — the same revision we
+	// already extracted — and saying "18 biographies updated" when nine lines
+	// changed is the kind of number that gets trusted and then disbelieved.
+	unchanged, updated, inserted := w.Counts()
 	fmt.Fprintf(os.Stderr, "%s %s in %.1fs\n", what, *incr, time.Since(start).Seconds())
 	fmt.Fprintf(os.Stderr, "  pages=%d (ns0=%d)\n", st.pages, st.ns0)
-	fmt.Fprintf(os.Stderr, "  films        %d updated, %d added, %d no longer films\n",
+	fmt.Fprintf(os.Stderr, "  store: %d records written (%d updated, %d inserted), %d re-derived identical\n",
+		updated+inserted, updated, inserted, unchanged)
+	fmt.Fprintf(os.Stderr, "  films        %d changed pages, %d new, %d no longer films\n",
 		st.filmUpdated, st.filmAdded, st.filmDropped)
-	fmt.Fprintf(os.Stderr, "  events       %d updated, %d added, %d no longer events\n",
+	fmt.Fprintf(os.Stderr, "  events       %d changed pages, %d new, %d no longer events\n",
 		st.eventUpdated, st.eventAdded, st.eventDropped)
-	fmt.Fprintf(os.Stderr, "  biographies  %d updated, %d for people not in the store\n",
+	fmt.Fprintf(os.Stderr, "  biographies  %d changed pages, %d for people not in the store\n",
 		st.bioUpdated, st.bioUnmatched)
-	fmt.Fprintf(os.Stderr, "  television   %d pages skipped — needs cross-page merge, not implemented\n",
-		st.televisionSkipped)
+	if tv != nil {
+		tv.report()
+	} else {
+		fmt.Fprintf(os.Stderr, "  television   %d pages skipped — no resolver cache\n", st.televisionSkipped)
+	}
 	if !*dry {
 		fmt.Fprintln(os.Stderr, "\nthe index is now stale; rebuild it with `filmstock index`")
 	}

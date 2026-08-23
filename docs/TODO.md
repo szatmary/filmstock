@@ -67,10 +67,15 @@ is a one-line diff in git. See github.com/szatmary/gitdb. Done and measured:
   the other. The cost is that a record's location is no longer a pure function
   of its identity: a reader now needs the index, and re-extract must read the
   store before writing it.
-- **Open: television in incremental ingest.** `filmstock update` applies a day's
-  adds-changes dump, but skips television. A season article names its season and
-  never its series, and that series may not be in the day's changes, so attaching
-  it means merging into a record the pass never sees.
+- **Done: television in incremental ingest.** `filmstock update` merges a day's
+  television changes into the series records the store already holds — a changed
+  season article replaces that season, a changed series article takes the
+  metadata and keeps the seasons other articles assembled. Ownership comes from
+  Wikidata's stated P179/P4908 edge, never from the title.
+  **Residual gap**: "List of X episodes" articles are attached in a full pass
+  because the SERIES article states the link. An incremental pass only has that
+  when the series article also changed; otherwise the source is counted
+  unresolved rather than guessed, as the full pass does with its 1,705.
 - **Open: page deletions.** An adds-changes dump carries pages that CHANGED; a
   page deleted from Wikipedia stops appearing, which is indistinguishable from
   one that did not change. Only a full pass or a separate page list finds those.
