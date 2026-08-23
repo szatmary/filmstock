@@ -181,7 +181,7 @@ func CExtract(args []string) {
 	// index.db is derived, so it must always be rebuildable without re-extracting.
 	if *doIndex {
 		fmt.Fprintln(os.Stderr, "[4/4] search index")
-		CIndexRecords([]string{"-records", *outDir, "-db", *dbPath, "-workers", fmt.Sprint(*workers)})
+		CIndexRecords([]string{"-records", *outDir, "-db", *dbPath})
 		fmt.Fprintf(os.Stderr, "extract+index complete in %.1f min\n", time.Since(start).Minutes())
 	}
 }
@@ -208,7 +208,8 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	// Encoding stays on the parser workers; only syscalls go to the pool. Depth is
 	// generous because the array sustains only a few hundred IOPS and the parsers
 	// must be free to run far ahead of it.
-	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText, people: map[string]*filmstock.PersonRecord{},
+	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText,
+		store: newStoreWriter(outDir), people: map[string]*filmstock.PersonRecord{},
 		bios: map[string]*filmstock.PersonBio{},
 		pool: newWritePool(8, 16384)}
 
@@ -308,6 +309,7 @@ type recordWriter struct {
 	events   int64
 	pool     *writePool
 
+	store  *storeWriter
 	mu     sync.Mutex
 	people map[string]*filmstock.PersonRecord
 	// bios is keyed by article title. A biography is encountered at an arbitrary
@@ -360,12 +362,7 @@ func (w *recordWriter) handleFilm(p dump.Page) {
 	if m == nil {
 		return
 	}
-	data, err := encodeRecordJSON(m)
-	if err != nil {
-		w.fail(err)
-		return
-	}
-	w.pool.put(filmstock.RecordPath(w.out, filmstock.KindMovie, int64(p.ID), ".json.gz"), data)
+	w.store.put(filmstock.KindMovie, int64(p.ID), m)
 	atomic.AddInt64(&w.films, 1)
 	w.notePeople(m.Director, m.Producer, m.Writer, m.Starring, m.Music, m.Cinematography, m.Editing)
 	if w.wantText {
@@ -387,23 +384,13 @@ func (w *recordWriter) handleEvent(p dump.Page) {
 	if e == nil {
 		return
 	}
-	data, err := encodeRecordJSON(e)
-	if err != nil {
-		w.fail(err)
-		return
-	}
-	w.pool.put(filmstock.RecordPath(w.out, filmstock.KindEvent, int64(p.ID), ".json.gz"), data)
+	w.store.put(filmstock.KindEvent, int64(p.ID), e)
 	atomic.AddInt64(&w.events, 1)
 	w.notePeople(e.Hosts)
 }
 
 func (w *recordWriter) handleSeries(s *filmstock.TelevisionSeries) {
-	data, err := encodeRecordJSON(s)
-	if err != nil {
-		w.fail(err)
-		return
-	}
-	w.pool.put(filmstock.RecordPath(w.out, filmstock.KindTelevision, int64(s.PageID), ".json.gz"), data)
+	w.store.put(filmstock.KindTelevision, int64(s.PageID), s)
 	w.notePeople(s.Creator, s.Starring, s.Composer)
 	for _, se := range s.Seasons {
 		for _, e := range se.Episodes {
@@ -455,12 +442,7 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total in
 			// upgrades it to a Q-id for free.
 			id = -int64(filmstock.PersonRecordPathID(p.Wiki))
 		}
-		data, err := encodeRecordJSON(p)
-		if err != nil {
-			w.fail(err)
-			return
-		}
-		w.pool.put(filmstock.RecordPath(w.out, filmstock.KindPerson, id, ".json.gz"), data)
+		w.store.put(filmstock.KindPerson, id, p)
 		total++
 	}
 	return

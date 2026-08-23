@@ -2,12 +2,10 @@ package build
 
 import (
 	"database/sql"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
-	"path/filepath"
-	"strings"
-	"sync"
 
 	"github.com/szatmary/filmstock"
 	_ "modernc.org/sqlite"
@@ -33,7 +31,7 @@ CREATE TABLE television_series(
   first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
   network TEXT, num_seasons TEXT, num_episodes TEXT,
   seasons_count INTEGER, episodes_count INTEGER,
-  cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL
+  cover_image_file TEXT, wikipedia_url TEXT, gitdb_id INTEGER NOT NULL
 );
 CREATE VIRTUAL TABLE television_fts USING fts5(
   title, starring, creator,
@@ -53,10 +51,8 @@ CREATE VIRTUAL TABLE television_episodes_fts USING fts5(
 // per-series JSON.gz files. Does not touch the movies tables.
 func CIndexTelevision(args []string) {
 	fs := flag.NewFlagSet("index-television", flag.ExitOnError)
-	televisionDir := fs.String("television", "filmstock-data/television", "directory of per-series JSON.gz files")
 	dbPath := fs.String("db", "index.db", "the index (shared with movies)")
 	records := fs.String("records", "", "record hierarchy from `extract` (supplies people identities)")
-	workers := fs.Int("workers", 16, "reader workers")
 	fs.Parse(args)
 
 	db, err := sql.Open("sqlite", *dbPath)
@@ -74,49 +70,32 @@ func CIndexTelevision(args []string) {
 	}
 	fmt.Fprintf(os.Stderr, "  %d person identities from records\n", len(p2q))
 
-	var files []string
-	filepath.WalkDir(*televisionDir, func(p string, d os.DirEntry, err error) error {
-		if err == nil && !d.IsDir() && strings.HasSuffix(p, ".json.gz") {
-			files = append(files, p)
-		}
-		return nil
-	})
-	fmt.Fprintf(os.Stderr, "indexing %d television series into %s...\n", len(files), *dbPath)
+	fmt.Fprintf(os.Stderr, "indexing television from %s into %s...\n", *records, *dbPath)
 
 	type item struct {
-		s    *filmstock.TelevisionSeries
-		path string
+		s   *filmstock.TelevisionSeries
+		gid uint64
 	}
-	paths := make(chan string, 2048)
 	items := make(chan item, 2048)
-	var rwg sync.WaitGroup
-	for i := 0; i < *workers; i++ {
-		rwg.Add(1)
-		go func() {
-			defer rwg.Done()
-			for p := range paths {
-				s, err := filmstock.ReadTelevisionSeriesGz(p)
-				if err != nil {
-					continue
-				}
-				rel, _ := filepath.Rel(*televisionDir, p)
-				items <- item{s, rel}
-			}
-		}()
-	}
 	go func() {
-		for _, p := range files {
-			paths <- p
+		defer close(items)
+		if err := filmstock.WalkStore(*records, filmstock.KindTelevision, func(r filmstock.StoredRecord) error {
+			var ser filmstock.TelevisionSeries
+			if err := json.Unmarshal(r.Data, &ser); err != nil {
+				fmt.Fprintf(os.Stderr, "record %d: %v\n", r.GitdbID, err)
+				return nil
+			}
+			items <- item{&ser, r.GitdbID}
+			return nil
+		}); err != nil {
+			fatal(err)
 		}
-		close(paths)
-		rwg.Wait()
-		close(items)
 	}()
 
 	tx, _ := db.Begin()
 	stmt, _ := tx.Prepare(`INSERT OR REPLACE INTO television_series
 		(id,title,year,first_aired,last_aired,genre,creator,starring,network,
-		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,wikipedia_url,path)
+		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,wikipedia_url,gitdb_id)
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	epStmt, _ := tx.Prepare(`INSERT INTO television_episodes
 		(series_id,season,number_in_season,number_overall,title,air_date) VALUES(?,?,?,?,?,?)`)
@@ -141,7 +120,7 @@ func CIndexTelevision(args []string) {
 		stmt.Exec(s.PageID, cleanName, year, s.FirstAired, s.LastAired,
 			join(s.Genre), joinP(s.Creator), joinP(s.Starring), join(s.Network),
 			s.NumSeasons, s.NumEpisodes, len(s.Seasons), epCount,
-			s.CoverImageFile, s.WikiURL, it.path)
+			s.CoverImageFile, s.WikiURL, it.gid)
 
 		seen := map[string]bool{}
 		pb.credit(seen, s.Creator, s.PageID, "television", "Creator")

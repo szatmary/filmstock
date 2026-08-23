@@ -2,6 +2,7 @@ package build
 
 import (
 	"database/sql"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -33,7 +34,7 @@ CREATE TABLE events(
   award TEXT, edition INTEGER, date TEXT, year INTEGER,
   hosts TEXT, organizer TEXT, venue TEXT, location TEXT, network TEXT,
   best_film TEXT, most_wins TEXT, opening_film TEXT, closing_film TEXT,
-  cover_image_file TEXT, wikipedia_url TEXT, path TEXT NOT NULL
+  cover_image_file TEXT, wikipedia_url TEXT, gitdb_id INTEGER NOT NULL
 );
 CREATE INDEX idx_events_year ON events(year);
 CREATE INDEX idx_events_kind ON events(kind);
@@ -94,7 +95,7 @@ func CIndexEvents(args []string) {
 	stmt, err := tx.Prepare(`INSERT OR REPLACE INTO events
       (id,title,kind,award,edition,date,year,hosts,organizer,venue,location,network,
        best_film,most_wins,opening_film,closing_film,cover_image_file,
-       wikipedia_url,path) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+       wikipedia_url,gitdb_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	if err != nil {
 		fatal(err)
 	}
@@ -105,12 +106,11 @@ func CIndexEvents(args []string) {
 	}
 
 	var n, ceremonies, festivals, hosted int
-	err = filmstock.WalkRecords(*records, filmstock.KindEvent, func(path string) error {
-		e, err := filmstock.ReadEventGz(path)
-		if err != nil {
-			return err
+	err = filmstock.WalkStore(*records, filmstock.KindEvent, func(r filmstock.StoredRecord) error {
+		var e filmstock.Event
+		if err := json.Unmarshal(r.Data, &e); err != nil {
+			return nil
 		}
-		rel, _ := filepath.Rel(dir, path)
 		names := make([]string, 0, len(e.Hosts))
 		for _, h := range e.Hosts {
 			names = append(names, h.Name)
@@ -118,7 +118,7 @@ func CIndexEvents(args []string) {
 		if _, err := stmt.Exec(e.PageID, e.Title, e.Kind, e.Award, e.Edition, e.Date,
 			e.Year, strings.Join(names, ", "), e.Organizer, e.Venue, e.Location,
 			strings.Join(e.Network, ", "), e.BestFilm, e.MostWins, e.OpeningFilm,
-			e.ClosingFilm, e.CoverImageFile, e.WikiURL, rel); err != nil {
+			e.ClosingFilm, e.CoverImageFile, e.WikiURL, r.GitdbID); err != nil {
 			return err
 		}
 		for _, h := range e.Hosts {
@@ -126,7 +126,6 @@ func CIndexEvents(args []string) {
 				if _, err := credit.Exec(id, e.PageID); err != nil {
 					return err
 				}
-				hosted++
 			}
 		}
 		n++

@@ -4,10 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"path/filepath"
 	"time"
-
-	"github.com/szatmary/filmstock"
 )
 
 // CIndexRecords builds the derived search database from the record hierarchy.
@@ -21,7 +18,6 @@ func CIndexRecords(args []string) {
 	fs := flag.NewFlagSet("index", flag.ExitOnError)
 	records := fs.String("records", "filmstock-data", "the record tree, from `filmstock extract`")
 	dbPath := fs.String("db", "", "the index to write")
-	workers := fs.Int("workers", 16, "reader workers")
 	fs.Parse(args)
 
 	out := *dbPath
@@ -34,18 +30,14 @@ func CIndexRecords(args []string) {
 	// before index-television adds the television tables to the same file.
 	fmt.Fprintf(os.Stderr, "[1/3] films -> %s\n", out)
 	CIndex([]string{
-		"-movies", filepath.Join(*records, filmstock.KindMovie),
 		"-records", *records,
 		"-db", out,
-		"-workers", fmt.Sprint(*workers),
 	})
 
 	fmt.Fprintf(os.Stderr, "[2/3] television -> %s\n", out)
 	CIndexTelevision([]string{
-		"-television", filepath.Join(*records, filmstock.KindTelevision),
 		"-records", *records,
 		"-db", out,
-		"-workers", fmt.Sprint(*workers),
 	})
 
 	fmt.Fprintf(os.Stderr, "[3/3] events -> %s\n", out)

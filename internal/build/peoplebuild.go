@@ -2,6 +2,7 @@ package build
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"os"
 	"strconv"
@@ -35,7 +36,7 @@ DROP TABLE IF EXISTS people;
 DROP TABLE IF EXISTS credits;
 DROP TABLE IF EXISTS person_alias;
 DROP TABLE IF EXISTS people_fts;
-CREATE TABLE people(id INTEGER PRIMARY KEY, qid INTEGER, name TEXT NOT NULL, wiki TEXT);
+CREATE TABLE people(id INTEGER PRIMARY KEY, qid INTEGER, name TEXT NOT NULL, wiki TEXT, gitdb_id INTEGER);
 CREATE INDEX idx_people_qid ON people(qid);
 CREATE TABLE credits(person_id INTEGER, work_id INTEGER, work_type TEXT, role TEXT);
 CREATE INDEX idx_credits_person ON credits(person_id);
@@ -69,8 +70,8 @@ func personKey(qid int64, wiki string) (string, bool) {
 // credits + wiki aliases. Shared by the movie and television indexers so a person who is
 // in a film AND a series collapses to one entity.
 type peopleBuilder struct {
-	title2qid map[string]int64 // full wiki_qid map, loaded once (in-memory)
-	byKey     map[string]int64 // dedup key -> person id
+	title2qid map[string]personIdentity // full wiki_qid map, loaded once (in-memory)
+	byKey     map[string]int64          // dedup key -> person id
 	insPerson *sql.Stmt
 	insCredit *sql.Stmt
 	insAlias  *sql.Stmt
@@ -83,22 +84,29 @@ type peopleBuilder struct {
 // baked it into the records, so indexing needs no dump, no resolver cache, and
 // no ordering constraint. It is also far smaller — one entry per person actually
 // credited (~250k) instead of the entire 10M-row wiki_qid table.
-func loadPeopleQIDs(recordsDir string) (map[string]int64, error) {
-	m := map[string]int64{}
-	err := filmstock.WalkRecords(recordsDir, filmstock.KindPerson, func(p string) error {
+// personIdentity is what indexing needs to know about a person: who they are,
+// and which record in the store holds the rest.
+type personIdentity struct {
+	QID     int64
+	GitdbID uint64
+}
+
+func loadPeopleQIDs(recordsDir string) (map[string]personIdentity, error) {
+	m := map[string]personIdentity{}
+	err := filmstock.WalkStore(recordsDir, filmstock.KindPerson, func(r filmstock.StoredRecord) error {
 		var pr filmstock.PersonRecord
-		if filmstock.ReadRecordJSON(p, &pr) == nil && pr.Wiki != "" {
-			m[pr.Wiki] = pr.QID
+		if json.Unmarshal(r.Data, &pr) == nil && pr.Wiki != "" {
+			m[pr.Wiki] = personIdentity{QID: pr.QID, GitdbID: r.GitdbID}
 		}
 		return nil
 	})
 	return m, err
 }
 
-func newPeopleBuilder(tx *sql.Tx, title2qid map[string]int64) (*peopleBuilder, error) {
+func newPeopleBuilder(tx *sql.Tx, title2qid map[string]personIdentity) (*peopleBuilder, error) {
 	b := &peopleBuilder{byKey: map[string]int64{}, title2qid: title2qid}
 	if b.title2qid == nil {
-		b.title2qid = map[string]int64{}
+		b.title2qid = map[string]personIdentity{}
 	}
 	var err error
 	// Load any existing people (so the television pass reuses movie-pass person ids).
@@ -115,7 +123,7 @@ func newPeopleBuilder(tx *sql.Tx, title2qid map[string]int64) (*peopleBuilder, e
 		}
 		rows.Close()
 	}
-	if b.insPerson, err = tx.Prepare(`INSERT INTO people(qid,name,wiki) VALUES(?,?,?)`); err != nil {
+	if b.insPerson, err = tx.Prepare(`INSERT INTO people(qid,name,wiki,gitdb_id) VALUES(?,?,?,?)`); err != nil {
 		return nil, err
 	}
 	if b.insCredit, err = tx.Prepare(`INSERT INTO credits(person_id,work_id,work_type,role) VALUES(?,?,?,?)`); err != nil {
@@ -132,7 +140,15 @@ func (b *peopleBuilder) qidOf(title string) int64 {
 	if title == "" {
 		return 0
 	}
-	return b.title2qid[title]
+	return b.title2qid[title].QID
+}
+
+// gitdbOf returns the store record holding this person, 0 when there is none.
+func (b *peopleBuilder) gitdbOf(title string) uint64 {
+	if title == "" {
+		return 0
+	}
+	return b.title2qid[title].GitdbID
 }
 
 // person resolves a Person to a canonical person id (creating the row if new).
@@ -159,7 +175,11 @@ func (b *peopleBuilder) person(p filmstock.Person) (int64, bool) {
 		if p.Wiki != "" {
 			w = p.Wiki
 		}
-		res, err := b.insPerson.Exec(q, name, w)
+		var g interface{}
+		if gid := b.gitdbOf(p.Wiki); gid != 0 {
+			g = int64(gid)
+		}
+		res, err := b.insPerson.Exec(q, name, w, g)
 		if err != nil {
 			return 0, false
 		}

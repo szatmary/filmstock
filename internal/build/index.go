@@ -2,12 +2,11 @@ package build
 
 import (
 	"database/sql"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
-	"sync"
 
 	"github.com/szatmary/filmstock"
 	_ "modernc.org/sqlite"
@@ -24,7 +23,7 @@ CREATE TABLE movies(
   director TEXT, producer TEXT, writer TEXT, starring TEXT,
   music TEXT, distributor TEXT, country TEXT, language TEXT, genre TEXT,
   runtime TEXT, budget TEXT, gross TEXT,
-  wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT, path TEXT NOT NULL
+  wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT, gitdb_id INTEGER NOT NULL
 );
 CREATE VIRTUAL TABLE movies_fts USING fts5(
   title, starring, director,
@@ -53,16 +52,14 @@ func roleCredits(m *filmstock.Movie) []struct {
 
 // indexItem carries a parsed movie plus its store-relative path to the DB writer.
 type indexItem struct {
-	m    *filmstock.Movie
-	path string
+	m   *filmstock.Movie
+	gid uint64
 }
 
 func CIndex(args []string) {
 	fs := flag.NewFlagSet("index", flag.ExitOnError)
-	moviesDir := fs.String("movies", "filmstock-data/movies", "directory of per-movie JSON.gz files")
 	dbPath := fs.String("db", "index.db", "the index to write")
 	records := fs.String("records", "", "record hierarchy from `extract` (supplies people identities)")
-	workers := fs.Int("workers", 16, "reader workers")
 	fs.Parse(args)
 
 	if err := os.Remove(*dbPath); err != nil && !os.IsNotExist(err) {
@@ -86,43 +83,25 @@ func CIndex(args []string) {
 	}
 	fmt.Fprintf(os.Stderr, "  %d person identities from records\n", len(p2q))
 
-	var files []string
-	filepath.WalkDir(*moviesDir, func(p string, d os.DirEntry, err error) error {
-		if err == nil && !d.IsDir() && strings.HasSuffix(p, ".json.gz") {
-			files = append(files, p)
-		}
-		return nil
-	})
-	fmt.Fprintf(os.Stderr, "indexing %d movie files into %s...\n", len(files), *dbPath)
+	fmt.Fprintf(os.Stderr, "indexing movies from %s into %s...\n", *records, *dbPath)
 
-	paths := make(chan string, 2048)
 	items := make(chan indexItem, 2048)
-	var rwg sync.WaitGroup
-	for i := 0; i < *workers; i++ {
-		rwg.Add(1)
-		go func() {
-			defer rwg.Done()
-			for p := range paths {
-				m, err := filmstock.ReadMovieGz(p)
-				if err != nil {
-					fmt.Fprintln(os.Stderr, "read error:", p, err)
-					continue
-				}
-				rel, err := filepath.Rel(*moviesDir, p)
-				if err != nil {
-					rel = p
-				}
-				items <- indexItem{m, rel}
-			}
-		}()
-	}
 	go func() {
-		for _, p := range files {
-			paths <- p
+		defer close(items)
+		// One reader: the store is a sequential file and JSON decoding 165k
+		// small records is seconds, so a worker pool would buy nothing and
+		// would have to preserve store order anyway.
+		if err := filmstock.WalkStore(*records, filmstock.KindMovie, func(r filmstock.StoredRecord) error {
+			var m filmstock.Movie
+			if err := json.Unmarshal(r.Data, &m); err != nil {
+				fmt.Fprintf(os.Stderr, "record %d: %v\n", r.GitdbID, err)
+				return nil
+			}
+			items <- indexItem{&m, r.GitdbID}
+			return nil
+		}); err != nil {
+			fatal(err)
 		}
-		close(paths)
-		rwg.Wait()
-		close(items)
 	}()
 
 	// single writer: one big transaction
@@ -132,7 +111,7 @@ func CIndex(args []string) {
 	}
 	stmt, err := tx.Prepare(`INSERT OR REPLACE INTO movies
 		(id,title,year,release_date,director,producer,writer,starring,music,
-		 distributor,country,language,genre,runtime,budget,gross,wikipedia_url,cover_image_url,cover_image_file,path)
+		 distributor,country,language,genre,runtime,budget,gross,wikipedia_url,cover_image_url,cover_image_file,gitdb_id)
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	if err != nil {
 		fatal(err)
@@ -149,7 +128,7 @@ func CIndex(args []string) {
 			m.PageID, m.Title, yearOf(m), first(m.ReleaseDates),
 			joinP(m.Director), joinP(m.Producer), joinP(m.Writer), joinP(m.Starring),
 			joinP(m.Music), join(m.Distributor), join(m.Country), join(m.Language), join(m.Genre),
-			m.Runtime, m.Budget, m.Gross, m.WikiURL, m.CoverImageURL, m.CoverImageFile, it.path,
+			m.Runtime, m.Budget, m.Gross, m.WikiURL, m.CoverImageURL, m.CoverImageFile, it.gid,
 		); err != nil {
 			fmt.Fprintln(os.Stderr, "insert error:", m.Title, err)
 			continue
