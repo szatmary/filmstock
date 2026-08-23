@@ -194,6 +194,12 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 		return err
 	}
 
+	// A store carries the dictionary it was written with. Seed a new one from
+	// what this build embeds; an existing store keeps its own, because the
+	// records already in it can only be read with that.
+	if err := filmstock.WriteDictionaries(outDir); err != nil {
+		return err
+	}
 	for _, k := range []string{filmstock.KindMovie, filmstock.KindTelevision, filmstock.KindPerson} {
 		if err := os.MkdirAll(filepath.Join(outDir, k), 0o755); err != nil {
 			return err

@@ -77,9 +77,16 @@ func Dictionary(kind string) []byte {
 // They are not configurable: they are recorded in the store header and enforced
 // on reopen, so they are a property of the format rather than of a caller.
 func storeOptions(kind string) []gitdb.Option {
+	return storeOptionsWith(Dictionary(kind))
+}
+
+// storeOptionsWith is the same settings against a supplied dictionary. These are
+// not configurable: they are recorded in the store header and enforced on
+// reopen, so they are a property of the format rather than of a caller.
+func storeOptionsWith(dict []byte) []gitdb.Option {
 	return []gitdb.Option{
 		gitdb.WithEncoding(gitdb.Base94()),
-		gitdb.WithDictionary(Dictionary(kind)),
+		gitdb.WithDictionary(dict),
 		// Level 9 costs build time once and is paid back on every clone.
 		gitdb.WithLevel(9),
 		// 4 MB, not the 50 MB default. A record is read by offset and length, so
@@ -96,6 +103,51 @@ func storeOptions(kind string) []gitdb.Option {
 		// order of magnitude of headroom for a longer-running show.
 		gitdb.WithMaxFileSize(4 << 20),
 	}
+}
+
+// DictionaryName is the file a store keeps its compression dictionary in, one
+// per kind, beside the stores themselves.
+//
+// The dictionary lives with the DATA, not with the code. It is trained on the
+// corpus, it changes when the corpus changes, and a store cannot be read without
+// exactly the one it was written with — gitdb records only the dictionary's
+// identity in each file header, not its bytes. Keeping it in the code repository
+// would mean a store could only be opened by the matching version of the tools,
+// and every retraining would silently strand older code.
+func DictionaryName(kind string) string { return kind + ".dict" }
+
+// LoadDictionary reads the dictionary a store was built with.
+//
+// A missing dictionary is an error rather than a quiet reach for whatever this
+// binary happens to embed: substituting the wrong dictionary does not fail
+// cleanly, it surfaces later as unreadable records.
+func LoadDictionary(root, kind string) ([]byte, error) {
+	b, err := os.ReadFile(filepath.Join(root, DictionaryName(kind)))
+	if err != nil {
+		return nil, fmt.Errorf("filmstock: %s has no %s: a store carries the "+
+			"dictionary it was written with, and cannot be read without it: %w",
+			root, DictionaryName(kind), err)
+	}
+	return b, nil
+}
+
+// WriteDictionaries seeds a new store directory with the dictionaries this build
+// embeds. Called when a store is created; the copy on disk is authoritative
+// from then on.
+func WriteDictionaries(root string) error {
+	if err := os.MkdirAll(root, 0o755); err != nil {
+		return err
+	}
+	for _, kind := range []string{KindMovie, KindTelevision, KindPerson, KindEvent} {
+		p := filepath.Join(root, DictionaryName(kind))
+		if _, err := os.Stat(p); err == nil {
+			continue // already seeded; never overwrite what a store was built with
+		}
+		if err := os.WriteFile(p, Dictionary(kind), 0o644); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Store serves records from a gitdb record store — one store per kind, under
@@ -120,7 +172,11 @@ func (s *storeSource) db(kind string) (*gitdb.DB, error) {
 	if d, ok := s.open[kind]; ok {
 		return d, nil
 	}
-	d, err := gitdb.Open(filepath.Join(s.root, kind), storeOptions(kind)...)
+	dict, err := LoadDictionary(s.root, kind)
+	if err != nil {
+		return nil, err
+	}
+	d, err := gitdb.Open(filepath.Join(s.root, kind), storeOptionsWith(dict)...)
 	if err != nil {
 		return nil, fmt.Errorf("filmstock: open %s store: %w", kind, err)
 	}
@@ -174,7 +230,11 @@ type StoredRecord struct {
 // store's id for it — the id is what the index stores so a reader can get back
 // to it — and iterating gives both without anyone having to derive a location.
 func WalkStore(root, kind string, fn func(StoredRecord) error) error {
-	d, err := gitdb.Open(filepath.Join(root, kind), storeOptions(kind)...)
+	dict, err := LoadDictionary(root, kind)
+	if err != nil {
+		return err
+	}
+	d, err := gitdb.Open(filepath.Join(root, kind), storeOptionsWith(dict)...)
 	if err != nil {
 		return fmt.Errorf("filmstock: open %s store: %w", kind, err)
 	}
@@ -192,7 +252,23 @@ func WalkStore(root, kind string, fn func(StoredRecord) error) error {
 // OpenStore opens one kind's record store for writing. Callers that only read
 // should use Store or WalkStore.
 func OpenStore(root, kind string) (*gitdb.DB, error) {
-	return gitdb.Open(filepath.Join(root, kind), storeOptions(kind)...)
+	dict, err := LoadDictionary(root, kind)
+	if err != nil {
+		return nil, err
+	}
+	return gitdb.Open(filepath.Join(root, kind), storeOptionsWith(dict)...)
+}
+
+// OpenStoreWithDictionary opens a store against a dictionary other than the one
+// embedded in this build.
+//
+// It exists for exactly one job: rewriting a store when the dictionary changes.
+// A store records its dictionary's identity in its header and refuses to open
+// against a different one, so reading the old store and writing the new one has
+// to happen in a process holding both — which no single embedded dictionary can
+// do. Nothing else should need this.
+func OpenStoreWithDictionary(root, kind string, dict []byte) (*gitdb.DB, error) {
+	return gitdb.Open(filepath.Join(root, kind), storeOptionsWith(dict)...)
 }
 
 // StoreFingerprint identifies the state of a record store.
