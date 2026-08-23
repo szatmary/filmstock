@@ -388,14 +388,20 @@ func (w *recordWriter) handlePerson(p dump.Page) {
 	w.mu.Unlock()
 }
 
+// handleFilmRecord is the half of handleFilm that stores a parsed film and notes
+// its people, split out so a test can drive the real code rather than restate it.
+func (w *recordWriter) handleFilmRecord(m *filmstock.Movie, pageID int64) {
+	w.store.put(filmstock.KindMovie, pageID, m)
+	atomic.AddInt64(&w.films, 1)
+	w.notePeople(m.Director, m.Producer, m.Writer, m.Starring, m.Music, m.Cinematography, m.Editing)
+}
+
 func (w *recordWriter) handleFilm(p dump.Page) {
 	m := buildFilm(p)
 	if m == nil {
 		return
 	}
-	w.store.put(filmstock.KindMovie, int64(p.ID), m)
-	atomic.AddInt64(&w.films, 1)
-	w.notePeople(m.Director, m.Producer, m.Writer, m.Starring, m.Music, m.Cinematography, m.Editing)
+	w.handleFilmRecord(m, int64(p.ID))
 	if w.wantText {
 		if td, err := encodeRecordText(wikitext.FullPlainText(p.Text)); err != nil {
 			w.fail(err)
@@ -410,19 +416,38 @@ func (w *recordWriter) handleFilm(p dump.Page) {
 // mutually exclusive by construction now that both match their template
 // exactly, and an else-branch would silently hide it if that ever stopped being
 // true.
+// handleEventRecord is the half of handleEvent that stores a parsed event and
+// notes its people, split out so a test can drive the real code rather than
+// restate it.
+func (w *recordWriter) handleEventRecord(e *filmstock.Event) {
+	w.store.put(filmstock.KindEvent, int64(e.PageID), e)
+	w.notePeople(e.Hosts)
+}
+
 func (w *recordWriter) handleEvent(p dump.Page) {
 	e := buildEvent(p)
 	if e == nil {
 		return
 	}
-	w.store.put(filmstock.KindEvent, int64(p.ID), e)
+	w.handleEventRecord(e)
 	atomic.AddInt64(&w.events, 1)
-	w.notePeople(e.Hosts)
 }
 
 func (w *recordWriter) handleSeries(s *filmstock.TelevisionSeries) {
 	w.store.put(filmstock.KindTelevision, int64(s.PageID), s)
-	w.notePeople(s.Creator, s.Starring, s.Composer)
+	// EVERY person-bearing field has to be noted here. Noting only some of them
+	// does not drop those people from the database — the index still builds
+	// credits from the series record — it drops them from Q-id resolution, so
+	// they end up as index rows with a null qid and no record in the store at
+	// all. That is how 8,407 people came to be keyed by a hash of their article
+	// path while their Q-id sat in the resolver cache unread: this call listed
+	// Creator, Starring and Composer, and the television enrichment had since
+	// added eight more fields. Their credits were 6,775 Presenter, 2,672
+	// Executive Producer, 1,688 Narrator and so on — not one movie credit among
+	// them, which is what identified the cause.
+	w.notePeople(s.Creator, s.Starring, s.Composer,
+		s.Director, s.Producer, s.ExecutiveProducer, s.Writer,
+		s.Editor, s.Cinematography, s.Presenter, s.Narrator)
 	for _, se := range s.Seasons {
 		for _, e := range se.Episodes {
 			w.notePeople(e.DirectedBy, e.WrittenBy)
