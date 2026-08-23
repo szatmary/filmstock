@@ -86,7 +86,7 @@ type peopleBuilder struct {
 func loadPeopleQIDs(recordsDir string) (map[string]int64, error) {
 	m := map[string]int64{}
 	err := filmstock.WalkRecords(recordsDir, filmstock.KindPerson, func(p string) error {
-		var pr PersonRecord
+		var pr filmstock.PersonRecord
 		if filmstock.ReadRecordJSON(p, &pr) == nil && pr.Wiki != "" {
 			m[pr.Wiki] = pr.QID
 		}

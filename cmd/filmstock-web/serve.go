@@ -233,9 +233,36 @@ func (s *server) handlePerson(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "person not found", 404)
 		return
 	}
-	fm.Image = filmstock.FetchPersonImage(fm.Name) // live lookup; not stored
+	// The biography comes from the person's own article, via the record. Absent
+	// for anyone whose credit links to a redlink or something that is not a
+	// person; the page then shows identity and filmography, as it always did.
+	rec, err := s.fs.Person(r.Context(), id)
+	if err != nil {
+		rec = nil
+	}
+	// PersonBio is embedded by pointer, so rec.Image promotes straight through a
+	// nil PersonBio and panics. Pull the biography out once, explicitly, and work
+	// from that — every access below is then guarded by one nil check.
+	var bio *filmstock.PersonBio
+	var wikiURL string
+	if rec != nil {
+		bio, wikiURL = rec.PersonBio, rec.WikiURL
+	}
+	if bio != nil && bio.Image != "" {
+		fm.Image = filmstock.FilePathURL(bio.Image, 250)
+	} else {
+		// No portrait in the infobox: fall back to the live thumbnail lookup.
+		fm.Image = filmstock.FetchPersonImage(fm.Name)
+	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	if err := pages.ExecuteTemplate(w, "person.html", fm); err != nil {
+	// The template gets the biography pointer itself, not the record: {{with}}
+	// guards a nil Bio, but would not guard a non-nil record whose PersonBio is
+	// nil — which is every person until their article has been extracted.
+	if err := pages.ExecuteTemplate(w, "person.html", struct {
+		*filmstock.Filmography
+		Bio     *filmstock.PersonBio
+		WikiURL string
+	}{fm, bio, wikiURL}); err != nil {
 		http.Error(w, err.Error(), 500)
 	}
 }

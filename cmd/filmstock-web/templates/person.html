@@ -20,6 +20,11 @@ li a{display:flex;justify-content:space-between;gap:12px;padding:8px 10px;border
 li a:hover{background:#171a21;border-color:#2a2f3a}
 .yr{color:#8a90a0;font-variant-numeric:tabular-nums}
 .television-badge{font-size:10px;background:#2a3550;color:#9db4ff;border-radius:4px;padding:1px 5px;vertical-align:middle}
+.bio{max-width:70ch;margin:16px 0 4px;color:#c8ccd4;line-height:1.65}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:6px 0 0;font-size:14px;color:#8a90a0}
+.facts b{color:#c8ccd4;font-weight:600}
+.occ{font-size:14px;color:#9db4ff;margin-top:2px}
+.src{font-size:13px}
 </style></head><body>
 <div class="wrap">
 <a class="back" href="/">← search</a>
@@ -27,9 +32,19 @@ li a:hover{background:#171a21;border-color:#2a2f3a}
   {{if .Image}}<img class="avatar" src="{{.Image}}" alt="{{.Name}}">{{else}}<div class="avatar ph">🎭</div>{{end}}
   <div>
     <h1>{{.Name}}</h1>
+    {{with .Bio}}{{if .Occupation}}<div class="occ">{{join .Occupation}}</div>{{end}}{{end}}
     <div class="count">{{range .Roles}}{{len .Movies}} {{.Role}}{{if gt (len .Movies) 1}}s{{end}} · {{end}}</div>
+    {{with .Bio}}<div class="facts">
+      {{if .BirthDate}}<span><b>Born</b> {{.BirthDate}}{{if .BirthPlace}}, {{.BirthPlace}}{{end}}</span>{{end}}
+      {{if .DeathDate}}<span><b>Died</b> {{.DeathDate}}{{if .DeathPlace}}, {{.DeathPlace}}{{end}}</span>{{end}}
+      {{if .YearsActive}}<span><b>Active</b> {{.YearsActive}}</span>{{end}}
+      {{if .Nationality}}<span><b>Nationality</b> {{.Nationality}}</span>{{end}}
+    </div>{{end}}
   </div>
 </div>
+{{with .Bio}}{{if .Overview}}<p class="bio">{{.Overview}}</p>{{end}}
+{{end}}
+{{if .WikiURL}}<a class="back src" href="{{.WikiURL}}">Wikipedia ↗</a>{{end}}
 {{range .Roles}}
   <div class="role">{{.Role}}</div>
   <ul>{{range .Movies}}<li><a href="{{if eq .Type "television"}}/television{{else}}/movie{{end}}?id={{.ID}}"><span>{{.Title}}{{if eq .Type "television"}} <span class="television-badge">Television</span>{{end}}</span><span class="yr">{{if .Year}}{{.Year}}{{end}}</span></a></li>{{end}}</ul>

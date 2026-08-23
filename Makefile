@@ -71,7 +71,8 @@ resolver: build $(ENTITIES) $(PROPS) $(INDEX)
 ## extract    dumps -> the record tree + the index (one pass, ~65 min)
 extract: build
 	@test -s $(WD) || { echo "no $(WD) — run 'make resolver' first"; exit 1; }
-	$(BIN) extract -dumps $(DUMPS) -out $(RECORDS) -text $(OUT) -cache $(WD) -workers $(WORKERS)
+	$(BIN) extract -dumps $(DUMPS) -out $(RECORDS) -text $(OUT) -db $(OUT)/index.db \
+	  -cache $(WD) -workers $(WORKERS)
 	@$(MAKE) --no-print-directory verify
 
 ## index      rebuild the index from the record tree alone (~2m20s, no dump read)

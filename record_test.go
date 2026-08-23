@@ -121,3 +121,51 @@ func TestDirReadsTheRecordTheIndexNames(t *testing.T) {
 		t.Fatalf("got %q, want Solaris", m.Title)
 	}
 }
+
+// personShardPath must produce exactly what RecordPath produces, including for
+// the negative ids given to people with no Q-id. If these ever disagree, every
+// person record silently 404s while the identity still resolves — a failure
+// that looks like missing data rather than a bug.
+func TestPersonShardPathMatchesRecordPath(t *testing.T) {
+	for _, id := range []int64{56005, 1, 255, 256, 257, -1, -255, -256, -3487676} {
+		want := RecordPath("root", KindPerson, id, ".json.gz")
+		got := filepath.Join("root", KindPerson, personShardPath(id))
+		if got != want {
+			t.Errorf("id %d: personShardPath gave %q, RecordPath gave %q", id, got, want)
+		}
+	}
+}
+
+// PersonBio is embedded by pointer, so any promoted field access on a record
+// without a biography panics. Person must return such records — that is the
+// normal state for anyone whose article has not been extracted — so callers
+// have to be able to tell, and the nil must be reachable safely.
+func TestPersonWithoutBiographyIsUsable(t *testing.T) {
+	root := t.TempDir()
+	dbPath := filepath.Join(root, "index.db")
+	db, err := sql.Open("sqlite", dbPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := db.Exec(`CREATE TABLE people(id INTEGER PRIMARY KEY, qid INTEGER, name TEXT, wiki TEXT);
+		INSERT INTO people VALUES(1, 56005, 'Ridley Scott', 'Ridley Scott')`); err != nil {
+		t.Fatal(err)
+	}
+	db.Close()
+
+	h, err := Open(dbPath, Dir(root)) // no record file exists for this person
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer h.Close()
+	rec, err := h.Person(context.Background(), 1)
+	if err != nil {
+		t.Fatalf("a person with no record on disk must still resolve: %v", err)
+	}
+	if rec.Name != "Ridley Scott" || rec.QID != 56005 {
+		t.Errorf("identity lost: %+v", rec)
+	}
+	if rec.PersonBio != nil {
+		t.Error("expected no biography")
+	}
+}

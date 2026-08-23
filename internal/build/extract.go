@@ -4,8 +4,10 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
+	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -124,7 +126,8 @@ func CExtract(args []string) {
 	textDir := fs.String("text", "", "where the full-text corpus goes (default <out>/text). "+
 		"Separate from -out so the records can live in a git repository while the "+
 		"corpus, which nothing consumes yet, stays with the other derived artifacts")
-	doIndex := fs.Bool("index", true, "also build index.db when extraction finishes")
+	doIndex := fs.Bool("index", true, "also build the index when extraction finishes")
+	dbPath := fs.String("db", "index.db", "the index to build when -index is set")
 	fs.Parse(args)
 
 	d, err := findDumps(*dumpDir)
@@ -178,7 +181,7 @@ func CExtract(args []string) {
 	// index.db is derived, so it must always be rebuildable without re-extracting.
 	if *doIndex {
 		fmt.Fprintln(os.Stderr, "[4/4] search index")
-		CIndexRecords([]string{"-records", *outDir, "-workers", fmt.Sprint(*workers)})
+		CIndexRecords([]string{"-records", *outDir, "-db", *dbPath, "-workers", fmt.Sprint(*workers)})
 		fmt.Fprintf(os.Stderr, "extract+index complete in %.1f min\n", time.Since(start).Minutes())
 	}
 }
@@ -205,7 +208,8 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	// Encoding stays on the parser workers; only syscalls go to the pool. Depth is
 	// generous because the array sustains only a few hundred IOPS and the parsers
 	// must be free to run far ahead of it.
-	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText, people: map[string]*PersonRecord{},
+	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText, people: map[string]*filmstock.PersonRecord{},
+		bios: map[string]*filmstock.PersonBio{},
 		pool: newWritePool(8, 16384)}
 
 	coll := newTelevisionCollector()
@@ -226,6 +230,7 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 		}
 		rec.handleFilm(p)
 		rec.handleEvent(p)
+		rec.handlePerson(p)
 		for _, m := range parseTelevisionPage(p) {
 			msgs <- m
 		}
@@ -268,7 +273,7 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	for _, s := range series {
 		rec.handleSeries(s)
 	}
-	withQID, nPeople := rec.flushPeople(d.cache)
+	withQID, withBio, nPeople := rec.flushPeople(d.cache)
 	if err := rec.pool.close(); err != nil {
 		rec.fail(err)
 	}
@@ -280,23 +285,19 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	if nPeople > 0 {
 		pct = 100 * withQID / nPeople
 	}
+	bioPct := 0
+	if nPeople > 0 {
+		bioPct = 100 * withBio / nPeople
+	}
 	fmt.Fprintf(os.Stderr, "  people=%d  with Q-id=%d (%d%%)  link-target only=%d\n",
 		nPeople, withQID, pct, nPeople-withQID)
+	fmt.Fprintf(os.Stderr, "  biographies=%d of %d people (%d%%)  from %d person articles in the dump\n",
+		withBio, nPeople, bioPct, len(rec.bios))
 	fmt.Fprintf(os.Stderr, "  season->series: resolved=%d unresolved=%d\n", st.Resolved, st.Unresolved)
 	if st.Unresolved > 0 {
 		fmt.Fprintf(os.Stderr, "  unattached episode sources (sample): %v\n", st.OrphanNames)
 	}
 	return rec.err
-}
-
-// PersonRecord is a person as an entity in its own right, rather than a row
-// synthesized while indexing. It exists only where there is a stated identity —
-// a Q-id, or failing that the wiki article the credit links to. A bare name with
-// no link is NOT a person: keying one by its display string merges strangers.
-type PersonRecord struct {
-	QID  int64  `json:"qid,omitempty"`
-	Wiki string `json:"wiki,omitempty"`
-	Name string `json:"name"`
 }
 
 type recordWriter struct {
@@ -308,8 +309,13 @@ type recordWriter struct {
 	pool     *writePool
 
 	mu     sync.Mutex
-	people map[string]*PersonRecord
-	err    error
+	people map[string]*filmstock.PersonRecord
+	// bios is keyed by article title. A biography is encountered at an arbitrary
+	// point in the stream — long before or long after the film that credits its
+	// subject — so it cannot be attached on sight. It is held here and joined to
+	// the discovered people once the pass is over.
+	bios map[string]*filmstock.PersonBio
+	err  error
 }
 
 func (w *recordWriter) fail(e error) {
@@ -330,10 +336,23 @@ func (w *recordWriter) notePeople(groups ...[]filmstock.Person) {
 				continue // no link, no identity, not an entity
 			}
 			if _, ok := w.people[p.Wiki]; !ok {
-				w.people[p.Wiki] = &PersonRecord{Wiki: p.Wiki, Name: p.Name}
+				w.people[p.Wiki] = &filmstock.PersonRecord{Wiki: p.Wiki, Name: p.Name}
 			}
 		}
 	}
+}
+
+// handlePerson keeps the biography of every person-shaped article in the dump.
+// Most will never be credited on anything and are dropped at the end; which ones
+// matter is not knowable until the whole stream has been read.
+func (w *recordWriter) handlePerson(p dump.Page) {
+	b := buildBiography(p)
+	if b == nil {
+		return
+	}
+	w.mu.Lock()
+	w.bios[wikitext.CanonTitle(p.Title)] = b
+	w.mu.Unlock()
 }
 
 func (w *recordWriter) handleFilm(p dump.Page) {
@@ -399,7 +418,7 @@ func (w *recordWriter) handleSeries(s *filmstock.TelevisionSeries) {
 // Resolution goes ONLY through the link target. Looking a bare display name up
 // as an article title would attach every unlinked "John Smith" to whoever holds
 // that title — an invented identity, and silently wrong.
-func (w *recordWriter) flushPeople(cachePath string) (withQID, total int) {
+func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total int) {
 	db, err := sql.Open("sqlite", cachePath)
 	if err != nil {
 		w.fail(err)
@@ -419,13 +438,22 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, total int) {
 			p.QID = q
 			withQID++
 		}
+		// Join the biography read from this person's own article. A miss is
+		// ordinary and is counted, not guessed at: the credit may link to a
+		// redlink, a disambiguation page, or something that is not a person.
+		if b, ok := w.bios[wikitext.CanonTitle(p.Wiki)]; ok {
+			p.PersonBio = b
+			withBio++
+		}
+		p.WikiURL = "https://en.wikipedia.org/wiki/" +
+			strings.ReplaceAll(url.PathEscape(p.Wiki), "%20", "_")
 		id := p.QID
 		if id == 0 {
 			// No Q-id yet: the link target is still a stated identity, so keep
 			// the person. Negative ids keep the two path spaces disjoint; the
 			// record itself carries the real key (Wiki), and a later extract
 			// upgrades it to a Q-id for free.
-			id = -int64(hashString(p.Wiki))
+			id = -int64(filmstock.PersonRecordPathID(p.Wiki))
 		}
 		data, err := encodeRecordJSON(p)
 		if err != nil {
@@ -436,18 +464,6 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, total int) {
 		total++
 	}
 	return
-}
-
-// hashString is FNV-1a, used only to give link-target-keyed people a stable
-// path. It is never an identity — the identity is the link target itself, which
-// is stored in the record.
-func hashString(s string) uint32 {
-	var h uint32 = 2166136261
-	for i := 0; i < len(s); i++ {
-		h ^= uint32(s[i])
-		h *= 16777619
-	}
-	return h & 0x7fffffff
 }
 
 // buildListOwner inverts each series' stated list_episodes link into

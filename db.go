@@ -160,3 +160,52 @@ func (db *DB) fetch(ctx context.Context, kind string, id int, v any) error {
 	}
 	return decodeRecord(b, v)
 }
+
+// Person returns the full record for a person: their identity, and — when their
+// credit links to an article that is actually a biography — birth and death,
+// occupation, nationality and the lead of their article.
+//
+// Not every person has one. A credit's link target may be a redlink, a
+// disambiguation page, or something that is not a person at all; those return a
+// record with identity and no PersonBio, which is the honest answer rather than
+// an error.
+func (db *DB) Person(ctx context.Context, id int) (*PersonRecord, error) {
+	var qid sql.NullInt64
+	var name, wiki string
+	err := db.sql.QueryRowContext(ctx,
+		`SELECT qid, name, COALESCE(wiki,'') FROM people WHERE id = ?`, id).Scan(&qid, &name, &wiki)
+	if err == sql.ErrNoRows {
+		return nil, fmt.Errorf("no person with id %d: %w", id, ErrNotFound)
+	}
+	if err != nil {
+		return nil, err
+	}
+	rec := &PersonRecord{QID: qid.Int64, Wiki: wiki, Name: name}
+	if db.src == nil {
+		return rec, nil
+	}
+	// The record's path is derived, not stored: a Q-id where there is one, and a
+	// hash of the link target where there is not. Both spaces are kept disjoint
+	// by the sign, so the two can never collide.
+	recID := qid.Int64
+	if recID == 0 {
+		if wiki == "" {
+			return rec, nil
+		}
+		recID = -int64(PersonRecordPathID(wiki))
+	}
+	loc := Location{
+		Kind: KindPerson,
+		ID:   int(recID),
+		Path: personShardPath(recID),
+	}
+	b, err := db.src.Fetch(ctx, loc)
+	if err != nil {
+		return rec, nil // no record on disk is not an error; the identity stands
+	}
+	var full PersonRecord
+	if err := decodeRecord(b, &full); err != nil {
+		return rec, nil
+	}
+	return &full, nil
+}
