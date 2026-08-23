@@ -190,6 +190,19 @@ return byte-identical records, 2.9 ms against 4.8 ms over HTTP.
 
 ## E. Housekeeping
 
+- **The people store is walked twice per index run.** loadPeopleQIDs builds the
+  link-target -> identity map by walking every person record, and both CIndex and
+  CIndexTelevision call it — ~220k records inflated and JSON-decoded twice for
+  the same map. This was nearly free when records were loose files on a warm page
+  cache; with gitdb every record goes through zlib with a preset dictionary, so
+  the second walk is real CPU. Build it once in CIndexRecords and pass it down.
+  Found by asking what the index phase actually reads, not by profiling.
+
+- **A progress stream that dies when piped is not a progress stream.** The
+  ticker writes \r-terminated lines to stderr; the wrapper scripts pipe stderr
+  through grep, which block-buffers, so an 85-minute run produced a 181-byte log
+  and no visible progress at all. Whatever replaces it has to survive a pipe.
+
 - **extract has no progress percentage or ETA.** The ticker prints elapsed,
   pages scanned, rate and films found, with no denominator — you have to know
   from memory that the dump is ~25.7M pages. Use BYTES, not pages: the total
