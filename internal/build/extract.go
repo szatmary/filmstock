@@ -314,6 +314,11 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 		nPeople, withQID, pct, nPeople-withQID)
 	fmt.Fprintf(os.Stderr, "  biographies=%d of %d people (%d%%)  from %d person articles in the dump\n",
 		withBio, nPeople, bioPct, len(rec.bios))
+	// What the store actually took. An ingest that leaves most records alone is
+	// the whole point of the format; saying so makes a regression visible.
+	if un, up, ins := rec.store.Counts(); un+up+ins > 0 {
+		fmt.Fprintf(os.Stderr, "  store: %d unchanged, %d updated, %d inserted\n", un, up, ins)
+	}
 	fmt.Fprintf(os.Stderr, "  season->series: resolved=%d unresolved=%d\n", st.Resolved, st.Unresolved)
 	if st.Unresolved > 0 {
 		fmt.Fprintf(os.Stderr, "  unattached episode sources (sample): %v\n", st.OrphanNames)

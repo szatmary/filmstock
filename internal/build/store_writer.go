@@ -1,6 +1,7 @@
 package build
 
 import (
+	"bytes"
 	"database/sql"
 	"encoding/json"
 	"fmt"
@@ -21,12 +22,23 @@ import (
 // rather than a second copy under a new id — ids are permanent, and a consumer
 // holding one must keep getting the same work back.
 type storeWriter struct {
-	mu     sync.Mutex
-	stores map[string]*gitdb.DB
-	byID   map[string]map[int64]uint64 // kind -> identity -> store id
-	byWiki map[string]int64            // person article title -> identity
-	root   string
-	err    error
+	mu        sync.Mutex
+	stores    map[string]*gitdb.DB
+	byID      map[string]map[int64]uint64 // kind -> identity -> store id
+	byWiki    map[string]int64            // person article title -> identity
+	root      string
+	err       error
+	unchanged int
+	updated   int
+	inserted  int
+}
+
+// Counts reports what the last run actually wrote, so an ingest can say how much
+// of the store it left alone rather than implying it rewrote everything.
+func (w *storeWriter) Counts() (unchanged, updated, inserted int) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	return w.unchanged, w.updated, w.inserted
 }
 
 // loadIdentitiesFromIndex fills the identity maps from the search index instead
@@ -169,9 +181,20 @@ func (w *storeWriter) put(kind string, identity int64, v any) {
 		return
 	}
 	if existing, ok := m[identity]; ok {
+		// Only write when the bytes actually changed. gitdb's Update appends a
+		// new version and rewrites the index entry regardless of content, so
+		// writing unconditionally makes a re-ingest of an unchanged dump rewrite
+		// the entire store — measured at 450,633 deleted lines and every index
+		// shard churned, for zero real change. The comparison is what makes an
+		// incremental ingest incremental.
+		if cur, err := d.Get(existing); err == nil && bytes.Equal(cur, data) {
+			w.unchanged++
+			return
+		}
 		if err := d.Update(existing, data); err != nil {
 			w.err = fmt.Errorf("%s %d: %w", kind, identity, err)
 		}
+		w.updated++
 		return
 	}
 	id, err := d.Insert(data)
@@ -180,6 +203,7 @@ func (w *storeWriter) put(kind string, identity int64, v any) {
 		return
 	}
 	m[identity] = id
+	w.inserted++
 }
 
 // delete removes a record. Used when a page stops qualifying — an infobox is
