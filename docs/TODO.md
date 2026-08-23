@@ -190,6 +190,16 @@ return byte-identical records, 2.9 ms against 4.8 ms over HTTP.
 
 ## E. Housekeeping
 
+- **extract has no progress percentage or ETA.** The ticker prints elapsed,
+  pages scanned, rate and films found, with no denominator — you have to know
+  from memory that the dump is ~25.7M pages. Use BYTES, not pages: the total
+  page count is only known when the pass ends and changes with every dump,
+  whereas RunMultistream already stats the dump for its size and loads the
+  offset index, and dispatches work as byte ranges. Byte progress also predicts
+  time honestly because the job is I/O bound — the current pages/s reads 174/s
+  early and 7,891/s later, which is article size varying, not the job speeding
+  up 45x. Wants a progress func(done, total int64) callback on RunMultistream.
+
 - ~~`serve` defaults to the old layout~~ — DONE. Every flag default is now
   relative to the working directory and points at the records layout (`dump`,
   `out`, `out/index.db`, `out/movies`, `out/television`), so the tools run from
