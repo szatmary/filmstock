@@ -76,6 +76,17 @@ is a one-line diff in git. See github.com/szatmary/gitdb. Done and measured:
   because the SERIES article states the link. An incremental pass only has that
   when the series article also changed; otherwise the source is counted
   unresolved rather than guessed, as the full pass does with its 1,705.
+- **Compaction is index-bound, not data-bound.** gitdb record files compact
+  beautifully — the diff reads as removed lines. The index shards do not: an
+  entry holds an absolute offset, so removing one record rewrites every entry
+  after it in that file. Measured: updating one record costs 3 changed lines;
+  compacting the same store cost ~9,900, of which 8,875 were index entries whose
+  offsets had moved. So `filmstock compact` is for after a schema change (it
+  recovered 783.5 MB -> 420.7 MB, half the store being superseded versions), not
+  for a daily job. Possibly a gitdb format question: length-based entries, or a
+  compaction that preserves offsets, would make a compact diff as small as the
+  data change.
+
 - **Open: page deletions.** An adds-changes dump carries pages that CHANGED; a
   page deleted from Wikipedia stops appearing, which is indistinguishable from
   one that did not change. Only a full pass or a separate page list finds those.

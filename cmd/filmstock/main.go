@@ -29,6 +29,8 @@ func main() {
 		build.CBuildQidmap(os.Args[2:])
 	case "update":
 		build.CmdUpdate(os.Args[2:])
+	case "compact":
+		build.CmdCompact(os.Args[2:])
 	case "recompress":
 		build.CmdRecompress(os.Args[2:])
 	case "train-dict":
@@ -66,6 +68,7 @@ Usage:
   filmstock index-television / index-events                    reindex one kind
   filmstock search  [-n 20] QUERY...                           fuzzy-search the index
   filmstock train-dict -records filmstock-data                        retrain the compression dictionaries
+  filmstock compact -records filmstock-data                           reclaim space from superseded records
   filmstock recompress -in OLD -out NEW -old-dict D                   rewrite a store against new dictionaries
   filmstock split -db index.db -out index-parts/                     index -> committable parts
   filmstock join  -in index-parts/ -db index.db                      parts -> index (verified)
