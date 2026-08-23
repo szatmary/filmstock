@@ -134,7 +134,24 @@ would cost ~383 MB of history per ingest to store something that regenerates in
 - **Records are byte-deterministic** — verified: identical input gives identical
   bytes (Go's gzip writes no timestamp, encoding/json sorts map keys). This is the
   precondition; without it every re-extract churns all ~620k files.
-- **UNRESOLVED — the 2026-08-22 re-extract did not reproduce two counts.** Same
+- **RESOLVED, and quantified.** A re-extract of the same dump into the existing
+  store leaves 450,295 of 450,634 records byte-identical — 99.925%. Films and
+  events are exactly deterministic, 0 of 165,265 and 0 of 4,669. The 339 that
+  differ are 307 people and 32 television, entirely in the merge paths. A no-op
+  re-ingest costs ~1,000 changed lines of 901,456, so the repository grows by
+  megabytes per ingest rather than hundreds of them.
+
+  The earlier appearance of wholesale churn was our own bug, not nondeterminism:
+  storeWriter called gitdb's Update unconditionally, and Update appends a new
+  version whether or not the content changed. Fixed by comparing first.
+
+  **Still open**: the residual 339. Both merge paths assemble from data arriving
+  in goroutine-scheduling order — television from a collector fed by a channel,
+  people from a map flushed at the end — so the surviving nondeterminism is
+  almost certainly ordering, not parsing. Worth fixing if byte-exact reingest
+  matters; ~0.075% of records is not worth much else.
+
+- ~~**SUPERSEDED — the 2026-08-22 re-extract did not reproduce two counts.**~~ Same
   dump, same resolver cache: films, events, series and people all landed on the
   exact same numbers, but `television_episodes` moved 551,174 -> 551,202 (+28)
   and `credits` moved 1,294,389 -> 1,294,290 (-99). Both are merge paths rather
