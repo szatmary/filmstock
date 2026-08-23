@@ -38,8 +38,13 @@ with the measurements that settled which of them were worth keeping.
 
 ## A. Record storage (gitdb)
 
-Records move from loose .json.gz files to gitdb stores, one per kind, so adding
-or changing a record is a one-line diff in git. See github.com/szatmary/gitdb.
+Records are stored in gitdb stores, one per kind, so adding or changing a record
+is a one-line diff in git. See github.com/szatmary/gitdb. Done and measured:
+
+  450,701 records   376 MB working tree   361.53 MiB packed   117 files
+  extract+index 43.1 min, was 83.7 — the parse runs at 11,741 pages/s against
+  7,891, and indexing dropped 27.8 min -> 3.0, because reading 117 append-only
+  files is a different workload from 450,699 tiny ones on a ~100 IOPS array.
 
 - **UNTRUSTED: the people dictionary.** Trained on records averaging 36 bytes,
   because biographies are joined at the END of an extract pass and the bounded
@@ -62,7 +67,28 @@ or changing a record is a one-line diff in git. See github.com/szatmary/gitdb.
   the other. The cost is that a record's location is no longer a pure function
   of its identity: a reader now needs the index, and re-extract must read the
   store before writing it.
-- **Open**: the write path is not wired yet. extract still writes loose files.
+- **Open: television in incremental ingest.** `filmstock update` applies a day's
+  adds-changes dump, but skips television. A season article names its season and
+  never its series, and that series may not be in the day's changes, so attaching
+  it means merging into a record the pass never sees.
+- **Open: page deletions.** An adds-changes dump carries pages that CHANGED; a
+  page deleted from Wikipedia stops appearing, which is indistinguishable from
+  one that did not change. Only a full pass or a separate page list finds those.
+  A page that stops QUALIFYING is already handled, because that page does appear.
+- **Settled: gitdb_id stays in the index, for readers only.** Not for deletions
+  and not for updates — both derive the mapping by scanning, and both are
+  offline. It is there because anything opening a record by page_id would
+  otherwise pay ~23s and ~40 MB to rebuild the map in memory. 8 bytes a row in a
+  file that is not committed.
+- **Considered and declined: storing file+offset instead of gitdb_id.** It saves
+  one seek, and one HTTP round trip if remote reads ever return. Declined because
+  a gitdb id is permanent across updates and compaction while a location is
+  exactly the volatile half; because a stale location can land on a different
+  record's start and return the wrong film silently, where a stale id errors; and
+  because reading a location directly means reimplementing gitdb's format outside
+  gitdb — which went v4 -> v5 mid-session, changing that very packing. Revisit if
+  remote reads return, and then as a validated hint rather than the source of
+  truth.
 
 ## B. Identity and data quality
 

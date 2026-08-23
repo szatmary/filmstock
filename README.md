@@ -87,7 +87,7 @@ falling back to title matching.
 ### 3. Extract and index
 
 ```sh
-make extract        # dumps -> out/{movies,television,people,events,text}/ + out/index.db
+make extract        # dumps -> the record store + the index (one pass, ~43 min)
 ```
 
 One linear pass over the 26.5 GB dump handles films and television together. It is not
@@ -112,7 +112,7 @@ Three things sit side by side. Only the first is this repository.
 
 ```
 filmstock/          this repo — the library, the CLI, the browser
-filmstock-data/     the record tree, its own repo (450,699 records, 438 MB)
+filmstock-data/     the record store, its own repo (450,701 records, 376 MB)
 dump/               the Wikimedia dumps, ~129 GB of input
 build/              everything derived: index.db, the corpus, vectors
 wikidata.db         build-time resolver cache, discardable
@@ -194,9 +194,7 @@ the reason a 161 MB download can still open 620k full records.
 Where records come from is one argument:
 
 ```go
-filmstock.Dir("out")                        // local tree — development, tests
-filmstock.Remote("https://…/v2026-08-22")   // release packs, HTTP range requests
-filmstock.RemoteWithClient(url, myClient)   // your own transport, auth, retries
+filmstock.Store("filmstock-data")   // the record stores, one per kind
 ```
 
 `modernc.org/sqlite` is used rather than a cgo driver, so importing this package
@@ -219,37 +217,40 @@ the cost of each is visible. Measured on this machine: **2.9 ms** local versus
 
 ## Where the data lives
 
-The record tree is a separate repository:
+The records are a separate repository:
 **[github.com/szatmary/filmstock-data](https://github.com/szatmary/filmstock-data)**
-— 450,699 records, 409.7 MB, committed.
+— 450,701 records, 376 MB, committed.
 
-It is separate because the Go module proxy serves a zip of the entire module tree
-and caps it at 500 MiB. Records in this module root would make every `go get` of
-the library download 438 MB, and would eventually break installation outright as
-the corpus grows.
+Separate because the Go module proxy serves a zip of the entire module tree and
+caps it at 500 MiB, so records in this module root would make every `go get` of
+the library pay for them.
 
 ```sh
 git clone https://github.com/szatmary/filmstock-data
-filmstock index -records filmstock-data -db index.db     # ~2m20s
+filmstock index -records filmstock-data -db index.db     # ~3 minutes, once
 filmstock-web  -db index.db -records filmstock-data
 ```
 
-The index is in neither repository. It is derived, it rebuilds in 2m20s, and a
-rebuild changes 100% of its bytes — measured — so committing it would cost about
-383 MB of permanent history per ingest. If you want it committed anyway,
-`make split` cuts it into five ~90 MB parts with a checksummed manifest, and
-`make join` reassembles and verifies.
+Records live in [gitdb](https://github.com/szatmary/gitdb) stores — one record
+per line of text, zlib-compressed against a per-kind dictionary and Base94
+encoded — so git diffs them by line and changing one record is one changed line.
+The dictionary is what makes that affordable: it buys 21.7% over plain zlib,
+very nearly cancelling Base94's 25% expansion.
 
-Measured, for the record:
+Measured, on this corpus:
 
-| | first commit | each re-ingest |
-|---|---|---|
-| record tree | 438 MB packfile | **+1-3 MB** |
-| index | 196 MB | **+383 MB** |
+| | |
+|---|---|
+| store | 376 MB working tree, 361.53 MiB packed, 117 files |
+| largest file | 4.00 MB — GitHub rejects at 100 MiB |
+| full pass | 43.1 min (parse ~40, index 3.0) |
+| one day of changes | `filmstock update`, 0.8 s |
 
-450,699 files turned out to be a non-issue for git: `git add` 22.8 s, `git status`
-0.28 s. The `feature.manyFiles` tuning that docs/TODO.md §D recommends is not
-needed at this scale.
+The index is in neither repository. It is derived, it rebuilds in about three
+minutes, and a rebuild changes 100% of its bytes — so committing it would cost
+hundreds of megabytes of permanent history per ingest for something regenerable.
+`filmstock index` stamps the store state it was built from, and the tools warn if
+you pull new records without reindexing.
 
 ## Data license
 
