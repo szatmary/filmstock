@@ -5,6 +5,18 @@ package filmstock
 // a Q-id, or failing that the wiki article the credit links to. A bare name with
 // no link is NOT a person: keying one by its display string merges strangers.
 type PersonRecord struct {
+	// PageID is the person's identity, the same enwiki page_id every other kind
+	// of record is keyed on. Uniform identity across all four kinds means one
+	// rule to reason about instead of a special case for people.
+	//
+	// A Q-id would serve equally well for anyone who has one — Wikidata items
+	// are independent of enwiki titles, so both survive a page rename — but only
+	// 63.5% of credited people have one, and using it here made person identity
+	// depend on Wikidata for no gain over the page_id already in the dump.
+	//
+	// Zero for a credit whose link target has no article at all. Those people
+	// have no canonical identity of any kind; see the count reported by extract.
+	PageID  int    `json:"page_id,omitempty"`
 	QID     int64  `json:"qid,omitempty"`
 	Wiki    string `json:"wiki,omitempty"`
 	Name    string `json:"name"`

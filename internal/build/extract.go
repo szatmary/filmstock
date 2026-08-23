@@ -216,8 +216,9 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	// must be free to run far ahead of it.
 	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText,
 		store: newStoreWriter(outDir), people: map[string]*filmstock.PersonRecord{},
-		bios: map[string]*filmstock.PersonBio{},
-		pool: newWritePool(8, 16384)}
+		bios:    map[string]*filmstock.PersonBio{},
+		bioPage: map[string]int{},
+		pool:    newWritePool(8, 16384)}
 
 	coll := newTelevisionCollector()
 	msgs := make(chan televisionMsg, 4096)
@@ -300,7 +301,7 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	for _, s := range series {
 		rec.handleSeries(s)
 	}
-	withQID, withBio, nPeople := rec.flushPeople(d.cache)
+	withQID, withBio, nPeople, noIdentity := rec.flushPeople(d.cache)
 	if err := rec.pool.close(); err != nil {
 		rec.fail(err)
 	}
@@ -316,8 +317,21 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	if nPeople > 0 {
 		bioPct = 100 * withBio / nPeople
 	}
-	fmt.Fprintf(os.Stderr, "  people=%d  with Q-id=%d (%d%%)  link-target only=%d\n",
-		nPeople, withQID, pct, nPeople-withQID)
+	idPct := 0
+	if nPeople > 0 {
+		idPct = 100 * (nPeople - noIdentity) / nPeople
+	}
+	fmt.Fprintf(os.Stderr, "  people=%d  keyed by page_id=%d (%d%%)  with Q-id=%d (%d%%)\n",
+		nPeople, nPeople-noIdentity, idPct, withQID, pct)
+	// The one identity in the database that is not canonical. A credit whose
+	// link target has no article has no page_id and no Q-id, so it is keyed by a
+	// hash of the link target — a display string, which two different people can
+	// share and which changes if the article is later created under another
+	// title. Reported every run so the size of that exception stays visible.
+	if noIdentity > 0 {
+		fmt.Fprintf(os.Stderr, "  no article behind the link=%d (%d%%)  keyed by link target, NOT canonical\n",
+			noIdentity, 100*noIdentity/nPeople)
+	}
 	fmt.Fprintf(os.Stderr, "  biographies=%d of %d people (%d%%)  from %d person articles in the dump\n",
 		withBio, nPeople, bioPct, len(rec.bios))
 	// What the store actually took. An ingest that leaves most records alone is
@@ -348,7 +362,12 @@ type recordWriter struct {
 	// subject — so it cannot be attached on sight. It is held here and joined to
 	// the discovered people once the pass is over.
 	bios map[string]*filmstock.PersonBio
-	err  error
+	// bioPage is the page_id of each biography article, keyed the same way as
+	// bios. It is the person's identity, and it comes from the dump rather than
+	// from wiki_qid so that a person whose article carries no Wikidata item still
+	// gets a canonical id.
+	bioPage map[string]int
+	err     error
 }
 
 func (w *recordWriter) fail(e error) {
@@ -384,7 +403,12 @@ func (w *recordWriter) handlePerson(p dump.Page) {
 		return
 	}
 	w.mu.Lock()
-	w.bios[wikitext.CanonTitle(p.Title)] = b
+	title := wikitext.CanonTitle(p.Title)
+	w.bios[title] = b
+	// The page_id of the person's own article, which is their identity. Taken
+	// from the dump rather than looked up: this covers people whose article
+	// carries no Wikidata item and who are therefore absent from wiki_qid.
+	w.bioPage[title] = int(p.ID)
 	w.mu.Unlock()
 }
 
@@ -461,14 +485,14 @@ func (w *recordWriter) handleSeries(s *filmstock.TelevisionSeries) {
 // Resolution goes ONLY through the link target. Looking a bare display name up
 // as an article title would attach every unlinked "John Smith" to whoever holds
 // that title — an invented identity, and silently wrong.
-func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total int) {
+func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, noIdentity int) {
 	db, err := sql.Open("sqlite", cachePath)
 	if err != nil {
 		w.fail(err)
 		return
 	}
 	defer db.Close()
-	stmt, err := db.Prepare(`SELECT qid FROM wiki_qid WHERE title = ?`)
+	stmt, err := db.Prepare(`SELECT qid, page_id FROM wiki_qid WHERE title = ?`)
 	if err != nil {
 		w.fail(err)
 		return
@@ -476,10 +500,18 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total in
 	defer stmt.Close()
 
 	for _, p := range w.people {
-		var q int64
-		if stmt.QueryRow(p.Wiki).Scan(&q) == nil && q > 0 {
+		var q, pid int64
+		if stmt.QueryRow(p.Wiki).Scan(&q, &pid) == nil && q > 0 {
 			p.QID = q
 			withQID++
+		}
+		// The dump is authoritative for page_id and covers articles that have no
+		// Wikidata item; wiki_qid fills in anyone whose article was not parsed as
+		// a biography (not person-shaped, a disambiguation page, a redirect).
+		if bp, ok := w.bioPage[wikitext.CanonTitle(p.Wiki)]; ok && bp > 0 {
+			p.PageID = bp
+		} else if pid > 0 {
+			p.PageID = int(pid)
 		}
 		// Join the biography read from this person's own article. A miss is
 		// ordinary and is counted, not guessed at: the credit may link to a
@@ -490,13 +522,14 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total in
 		}
 		p.WikiURL = "https://en.wikipedia.org/wiki/" +
 			strings.ReplaceAll(url.PathEscape(p.Wiki), "%20", "_")
-		id := p.QID
+		id := int64(p.PageID)
 		if id == 0 {
-			// No Q-id yet: the link target is still a stated identity, so keep
-			// the person. Negative ids keep the two path spaces disjoint; the
-			// record itself carries the real key (Wiki), and a later extract
-			// upgrades it to a Q-id for free.
+			// The link target has no article, so there is no page_id and no
+			// Q-id: nothing canonical to key on. The link target itself is all
+			// there is, and it is a display string. Kept, but counted, because
+			// this is the one identity in the database that is not canonical.
 			id = -int64(filmstock.PersonRecordPathID(p.Wiki))
+			noIdentity++
 		}
 		w.store.put(filmstock.KindPerson, id, p)
 		total++

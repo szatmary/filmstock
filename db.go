@@ -171,24 +171,26 @@ func (db *DB) fetch(ctx context.Context, kind string, id int, v any) error {
 // record with identity and no PersonBio, which is the honest answer rather than
 // an error.
 func (db *DB) Person(ctx context.Context, id int) (*PersonRecord, error) {
-	var qid sql.NullInt64
+	var qid, pageID sql.NullInt64
 	var name, wiki string
 	err := db.sql.QueryRowContext(ctx,
-		`SELECT qid, name, COALESCE(wiki,'') FROM people WHERE id = ?`, id).Scan(&qid, &name, &wiki)
+		`SELECT page_id, qid, name, COALESCE(wiki,'') FROM people WHERE id = ?`,
+		id).Scan(&pageID, &qid, &name, &wiki)
 	if err == sql.ErrNoRows {
 		return nil, fmt.Errorf("no person with id %d: %w", id, ErrNotFound)
 	}
 	if err != nil {
 		return nil, err
 	}
-	rec := &PersonRecord{QID: qid.Int64, Wiki: wiki, Name: name}
+	rec := &PersonRecord{PageID: int(pageID.Int64), QID: qid.Int64, Wiki: wiki, Name: name}
 	if db.src == nil {
 		return rec, nil
 	}
-	// A person's identity is their Q-id where they have one, and the link target
-	// hash where they do not. That identity is what the record carries; where the
-	// record lives is the store's business and comes from the index.
-	recID := qid.Int64
+	// A person's identity is their article's page_id — the same key every other
+	// kind of record uses. Only a credit whose link target has no article falls
+	// back to a hash of that link target, which is the one non-canonical
+	// identity in the database.
+	recID := pageID.Int64
 	if recID == 0 {
 		if wiki == "" {
 			return rec, nil
