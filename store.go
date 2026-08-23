@@ -260,3 +260,16 @@ func (db *DB) CheckStore(root string) error {
 	}
 	return nil
 }
+
+// CheckIndexAgainstStore opens an index and verifies it was built from the store
+// at root. Used by tools that need the index's page_id -> record mapping to be
+// trustworthy before they write anything: applying a day's changes through a
+// stale mapping would update the wrong records.
+func CheckIndexAgainstStore(indexPath, root string) error {
+	db, err := Open(indexPath, nil)
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+	return db.CheckStore(root)
+}
