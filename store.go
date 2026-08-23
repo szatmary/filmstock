@@ -2,9 +2,17 @@ package filmstock
 
 import (
 	"context"
+	"crypto/sha256"
+	"database/sql"
 	_ "embed"
+	"encoding/hex"
+	"errors"
 	"fmt"
+	"io"
+	"os"
 	"path/filepath"
+	"sort"
+	"strings"
 	"sync"
 
 	"github.com/szatmary/gitdb"
@@ -185,4 +193,70 @@ func WalkStore(root, kind string, fn func(StoredRecord) error) error {
 // should use Store or WalkStore.
 func OpenStore(root, kind string) (*gitdb.DB, error) {
 	return gitdb.Open(filepath.Join(root, kind), storeOptions(kind)...)
+}
+
+// StoreFingerprint identifies the state of a record store.
+//
+// It hashes the index shards rather than the record files. A shard holds one
+// fixed-width entry per id, and every insert, update and delete rewrites the
+// entry for the id it touched — so the shards change if and only if the records
+// do, and they are small enough (a few MB across the whole corpus) to hash in
+// milliseconds at startup.
+//
+// This exists because "clone and index" has one failure mode: `git pull` brings
+// new records and leaves the index behind, and a stale index is not obviously
+// wrong. It answers correct-looking queries against yesterday's corpus.
+func StoreFingerprint(root string) (string, error) {
+	h := sha256.New()
+	for _, kind := range []string{KindMovie, KindTelevision, KindPerson, KindEvent} {
+		shards, err := filepath.Glob(filepath.Join(root, kind, "*.idx"))
+		if err != nil {
+			return "", err
+		}
+		sort.Strings(shards)
+		for _, s := range shards {
+			f, err := os.Open(s)
+			if err != nil {
+				return "", err
+			}
+			fmt.Fprintf(h, "%s\n", filepath.Base(s))
+			if _, err := io.Copy(h, f); err != nil {
+				f.Close()
+				return "", err
+			}
+			f.Close()
+		}
+	}
+	return hex.EncodeToString(h.Sum(nil)), nil
+}
+
+// ErrStaleIndex means the index was built from a different state of the record
+// store than the one on disk — almost always a `git pull` without a reindex.
+var ErrStaleIndex = errors.New("filmstock: index is stale; rebuild it with `filmstock index`")
+
+// CheckStore reports whether this index was built from the store at root.
+//
+// It is not called automatically by Open, because a caller may deliberately want
+// to search an older index, and because failing to open is a harsh answer to a
+// question the caller might rather warn about. Callers that care should call it
+// and decide.
+func (db *DB) CheckStore(root string) error {
+	var want string
+	err := db.sql.QueryRow(`SELECT value FROM meta WHERE key = 'store_fingerprint'`).Scan(&want)
+	if err == sql.ErrNoRows || err != nil && strings.Contains(err.Error(), "no such table") {
+		// An index built before fingerprints existed. Say nothing rather than
+		// claim staleness we cannot actually establish.
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	got, err := StoreFingerprint(root)
+	if err != nil {
+		return err
+	}
+	if got != want {
+		return fmt.Errorf("index built from store %s, on disk is %s: %w", want[:12], got[:12], ErrStaleIndex)
+	}
+	return nil
 }

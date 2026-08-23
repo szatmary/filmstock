@@ -37,6 +37,13 @@ func main() {
 	}
 	defer db.Close()
 
+	// A stale index answers plausible queries against an older corpus, which is
+	// worse than an error. Warn rather than refuse: searching a deliberately
+	// older index is legitimate.
+	if err := db.CheckStore(*records); err != nil {
+		fmt.Fprintf(os.Stderr, "WARNING: %v\n", err)
+	}
+
 	s := &server{fs: db}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", s.handleIndex)

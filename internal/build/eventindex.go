@@ -126,6 +126,7 @@ func CIndexEvents(args []string) {
 				if _, err := credit.Exec(id, e.PageID); err != nil {
 					return err
 				}
+				hosted++
 			}
 		}
 		n++
