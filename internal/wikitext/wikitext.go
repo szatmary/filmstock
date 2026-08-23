@@ -556,3 +556,73 @@ func SplitList(raw string) []string {
 	}
 	return out
 }
+
+// reTrailingNote captures a parenthetical qualifier at the end of an entry:
+// "Warner Bros. (worldwide)" -> "Warner Bros.", "worldwide".
+var reTrailingNote = regexp.MustCompile(`\s*\(([^()]{1,60})\)\s*$`)
+
+// SplitLinks is SplitList that keeps each entry's link target.
+//
+// Consumers should never have to read raw wikitext to find out what a field
+// points at. Every list field goes through here so a link target reaches the
+// record as data rather than as markup somebody else has to parse.
+func SplitLinks(raw string) []filmstock.Link {
+	v := raw
+	v = regexp.MustCompile(`(?i)<br\s*/?>`).ReplaceAllString(v, "\n")
+	v = regexp.MustCompile(`(?m)^\s*\*+`).ReplaceAllString(v, "\n")
+	v = expandLinkBreaks(v)
+	v = stripSimpleTemplates(v)
+	v = ReComment.ReplaceAllString(v, "")
+
+	var out []filmstock.Link
+	seen := map[string]bool{}
+	for _, line := range strings.Split(v, "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		// The first link in an entry is the entry's identity. Later links are
+		// usually qualifiers ("[[Warner Bros.]] in [[North America]]"), and
+		// treating them as separate entries would invent companies.
+		target, display := firstLink(line)
+		text := CleanText(line)
+		note := ""
+		if m := reTrailingNote.FindStringSubmatch(text); m != nil {
+			note = strings.TrimSpace(m[1])
+			text = strings.TrimSpace(reTrailingNote.ReplaceAllString(text, ""))
+		}
+		if display != "" {
+			text = display
+		}
+		text = strings.TrimSpace(strings.Trim(text, "•,;"))
+		if text == "" || seen[text] {
+			continue
+		}
+		seen[text] = true
+		out = append(out, filmstock.Link{Name: text, Wiki: CanonTitle(target), Note: note})
+	}
+	return out
+}
+
+// firstLink returns the target and display text of the first [[link]] in s.
+func firstLink(s string) (target, display string) {
+	m := reWikiLink.FindStringSubmatch(s)
+	if m == nil {
+		return "", ""
+	}
+	// reWikiLink captures everything between the brackets, so a piped link
+	// arrives as "Target|Display".
+	inner := m[1]
+	target, display = inner, inner
+	if i := strings.Index(inner, "|"); i >= 0 {
+		target, display = inner[:i], inner[i+1:]
+	}
+	target = strings.TrimSpace(target)
+	display = strings.TrimSpace(display)
+	if display == "" {
+		display = target
+	}
+	// A piped link may hide a qualifier in the display text; the target is what
+	// identifies the thing either way.
+	return target, CleanText(display)
+}

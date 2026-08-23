@@ -103,10 +103,10 @@ func buildMovie(title string, pageID int, ib map[string]string) *filmstock.Movie
 	m.Music = wikitext.SplitPeople(ib["music"])
 	m.Cinematography = wikitext.SplitPeople(ib["cinematography"])
 	m.Editing = wikitext.SplitPeople(ib["editing"])
-	m.ProductionCompanies = mergeLists(ib["production_companies"], ib["studio"])
-	m.Distributor = wikitext.SplitList(ib["distributor"])
-	m.Country = wikitext.SplitList(ib["country"])
-	m.Language = wikitext.SplitList(ib["language"])
+	m.ProductionCompanies = mergeLinks(ib["production_companies"], ib["studio"])
+	m.Distributor = wikitext.SplitLinks(ib["distributor"])
+	m.Country = wikitext.SplitLinks(ib["country"])
+	m.Language = wikitext.SplitLinks(ib["language"])
 	m.Runtime = wikitext.CleanText(ib["runtime"])
 	m.Budget = wikitext.CleanText(ib["budget"])
 	m.Gross = wikitext.CleanText(ib["gross"])
@@ -163,4 +163,28 @@ func cleanBareFilename(v string) string {
 		v = inner
 	}
 	return strings.TrimSpace(v)
+}
+
+// mergeLinks is mergeLists for link-bearing fields: several infobox parameters
+// mean the same thing (production_companies and studio; network, channel and
+// first_run), and a film may use either.
+func mergeLinks(raws ...string) []filmstock.Link {
+	var out []filmstock.Link
+	seen := map[string]bool{}
+	for _, raw := range raws {
+		for _, l := range wikitext.SplitLinks(raw) {
+			// Dedup on the link target where there is one, because that is the
+			// identity; on the display name only when there is not.
+			key := l.Wiki
+			if key == "" {
+				key = "name:" + l.Name
+			}
+			if seen[key] {
+				continue
+			}
+			seen[key] = true
+			out = append(out, l)
+		}
+	}
+	return out
 }

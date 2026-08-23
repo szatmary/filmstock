@@ -34,18 +34,20 @@ var reYearIn = regexp.MustCompile(`\b(1[89]\d{2}|20\d{2})\b`)
 // their network field: "Broadcast: ABC<br>Streaming: Hulu".
 var reDeliveryLabel = regexp.MustCompile(`(?i)^(broadcast|streaming|radio|television|tv|online|simulcast|worldwide)\s*:\s*`)
 
-// networkList splits the broadcaster field and drops those labels. The label
-// says HOW the ceremony reached viewers, not WHO carried it, and leaving it
-// inside the value makes the field unqueryable — a search for "ABC" can never
-// match the string "Broadcast: ABC". The raw field is passed in rather than a
-// cleaned one because splitList needs the <br> separators cleanText removes.
-func networkList(raw string) []string {
-	out := []string{}
-	for _, v := range wikitext.SplitList(raw) {
-		v = strings.TrimSpace(reDeliveryLabel.ReplaceAllString(v, ""))
-		if v != "" {
-			out = append(out, v)
+// networkLinks splits the broadcaster field, keeping link targets and dropping
+// the delivery labels. The label says HOW the ceremony reached viewers, not WHO
+// carried it, and leaving it inside the value makes the field unqueryable — a
+// search for "ABC" can never match "Broadcast: ABC". The raw field is passed in
+// rather than a cleaned one because the split needs the <br> separators that
+// cleaning removes.
+func networkLinks(raws ...string) []filmstock.Link {
+	out := []filmstock.Link{}
+	for _, l := range mergeLinks(raws...) {
+		l.Name = strings.TrimSpace(reDeliveryLabel.ReplaceAllString(l.Name, ""))
+		if l.Name == "" {
+			continue
 		}
+		out = append(out, l)
 	}
 	return out
 }
@@ -86,7 +88,7 @@ func newEvent(p dump.Page, kind string, ib map[string]string) *filmstock.Event {
 	e.Date = get("date")
 	e.Venue = get("site", "venue")
 	e.Location = get("location", "country")
-	e.Network = networkList(ib["network"] + "\n" + ib["broadcaster"])
+	e.Network = networkLinks(ib["network"], ib["broadcaster"])
 	e.Previous = get("previous", "last")
 	e.Next = get("next")
 	e.BestFilm = get("film", "best_film")

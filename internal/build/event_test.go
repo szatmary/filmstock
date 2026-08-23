@@ -65,7 +65,7 @@ The '''53rd NAACP Image Awards''' honored the best in film.`}
 	if len(e.Hosts) != 1 || e.Hosts[0].Name != "Anthony Anderson" {
 		t.Errorf("hosts = %+v, want [Anthony Anderson]", e.Hosts)
 	}
-	if len(e.Network) != 1 || e.Network[0] != "BET" {
+	if len(e.Network) != 1 || e.Network[0].Name != "BET" {
 		t.Errorf("network = %v, want [BET]", e.Network)
 	}
 	if e.Venue == "" {
@@ -74,9 +74,14 @@ The '''53rd NAACP Image Awards''' honored the best in film.`}
 }
 
 func TestNetworkLabelsStripped(t *testing.T) {
-	got := networkList("Broadcast: [[American Broadcasting Company|ABC]]<br>Streaming: [[Hulu]]")
-	if len(got) != 2 || got[0] != "ABC" || got[1] != "Hulu" {
-		t.Errorf("networkList = %v, want [ABC Hulu]", got)
+	got := networkLinks("Broadcast: [[American Broadcasting Company|ABC]]<br>Streaming: [[Hulu]]")
+	if len(got) != 2 || got[0].Name != "ABC" || got[1].Name != "Hulu" {
+		t.Errorf("networkLinks = %v, want [ABC Hulu]", got)
+	}
+	// The label is stripped from the display name, but the link target — which
+	// is the identity — must survive intact.
+	if got[0].Wiki != "American Broadcasting Company" {
+		t.Errorf("link target lost: %+v", got[0])
 	}
 }
 

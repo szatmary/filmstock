@@ -133,7 +133,7 @@ func CIndex(args []string) {
 		if _, err := stmt.Exec(
 			m.PageID, m.Title, yearOf(m), first(m.ReleaseDates),
 			joinP(m.Director), joinP(m.Producer), joinP(m.Writer), joinP(m.Starring),
-			joinP(m.Music), join(m.Distributor), join(m.Country), join(m.Language), join(m.Genre),
+			joinP(m.Music), join(filmstock.Names(m.Distributor)), join(filmstock.Names(m.Country)), join(filmstock.Names(m.Language)), join(m.Genre),
 			m.Runtime, m.Budget, m.Gross, m.WikiURL, m.CoverImageURL, m.CoverImageFile, it.gid,
 		); err != nil {
 			fmt.Fprintln(os.Stderr, "insert error:", m.Title, err)

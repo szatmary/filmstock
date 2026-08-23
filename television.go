@@ -17,8 +17,8 @@ type TelevisionSeries struct {
 	Genre          []string          `json:"genre,omitempty"`
 	Creator        []Person          `json:"creator,omitempty"`
 	Starring       []Person          `json:"starring,omitempty"`
-	Network        []string          `json:"network,omitempty"`
-	Country        []string          `json:"country,omitempty"`
+	Network        []Link          `json:"network,omitempty"`
+	Country        []Link          `json:"country,omitempty"`
 	Composer       []Person          `json:"composer,omitempty"`
 	NumSeasons     string            `json:"num_seasons,omitempty"`
 	NumEpisodes    string            `json:"num_episodes,omitempty"`

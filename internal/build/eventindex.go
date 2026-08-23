@@ -117,7 +117,7 @@ func CIndexEvents(args []string) {
 		}
 		if _, err := stmt.Exec(e.PageID, e.Title, e.Kind, e.Award, e.Edition, e.Date,
 			e.Year, strings.Join(names, ", "), e.Organizer, e.Venue, e.Location,
-			strings.Join(e.Network, ", "), e.BestFilm, e.MostWins, e.OpeningFilm,
+			strings.Join(filmstock.Names(e.Network), ", "), e.BestFilm, e.MostWins, e.OpeningFilm,
 			e.ClosingFilm, e.CoverImageFile, e.WikiURL, r.GitdbID); err != nil {
 			return err
 		}

@@ -119,7 +119,7 @@ func CIndexTelevision(args []string) {
 		}
 		cleanName := filmstock.CleanTelevisionTitle(s.Title)
 		stmt.Exec(s.PageID, cleanName, year, s.FirstAired, s.LastAired,
-			join(s.Genre), joinP(s.Creator), joinP(s.Starring), join(s.Network),
+			join(s.Genre), joinP(s.Creator), joinP(s.Starring), join(filmstock.Names(s.Network)),
 			s.NumSeasons, s.NumEpisodes, len(s.Seasons), epCount,
 			s.CoverImageFile, s.WikiURL, it.gid)
 

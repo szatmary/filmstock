@@ -50,7 +50,7 @@ type Event struct {
 	Organizer string   `json:"organizer,omitempty"`
 	Venue     string   `json:"venue,omitempty"`
 	Location  string   `json:"location,omitempty"`
-	Network   []string `json:"network,omitempty"` // televised
+	Network   []Link `json:"network,omitempty"` // televised
 
 	Previous string `json:"previous,omitempty"`
 	Next     string `json:"next,omitempty"`

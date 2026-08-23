@@ -30,10 +30,10 @@ type Movie struct {
 	Music               []Person `json:"music,omitempty"`
 	Cinematography      []Person `json:"cinematography,omitempty"`
 	Editing             []Person `json:"editing,omitempty"`
-	ProductionCompanies []string `json:"production_companies,omitempty"`
-	Distributor         []string `json:"distributor,omitempty"`
-	Country             []string `json:"country,omitempty"`
-	Language            []string `json:"language,omitempty"`
+	ProductionCompanies []Link `json:"production_companies,omitempty"`
+	Distributor         []Link `json:"distributor,omitempty"`
+	Country             []Link `json:"country,omitempty"`
+	Language            []Link `json:"language,omitempty"`
 	Runtime             string   `json:"runtime,omitempty"`
 	Budget              string   `json:"budget,omitempty"`
 	Gross               string   `json:"gross,omitempty"`
