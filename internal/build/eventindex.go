@@ -34,7 +34,7 @@ CREATE TABLE events(
   award TEXT, edition INTEGER, date TEXT, year INTEGER,
   hosts TEXT, organizer TEXT, venue TEXT, location TEXT, network TEXT,
   best_film TEXT, most_wins TEXT, opening_film TEXT, closing_film TEXT,
-  cover_image_file TEXT, wikipedia_url TEXT, gitdb_id INTEGER NOT NULL
+  cover_image_file TEXT, wikipedia_url TEXT
 );
 CREATE INDEX idx_events_year ON events(year);
 CREATE INDEX idx_events_kind ON events(kind);
@@ -95,7 +95,7 @@ func CIndexEvents(args []string) {
 	stmt, err := tx.Prepare(`INSERT OR REPLACE INTO events
       (id,title,kind,award,edition,date,year,hosts,organizer,venue,location,network,
        best_film,most_wins,opening_film,closing_film,cover_image_file,
-       wikipedia_url,gitdb_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+       wikipedia_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	if err != nil {
 		fatal(err)
 	}
@@ -122,7 +122,7 @@ func CIndexEvents(args []string) {
 			strings.Join(filmstock.Names(e.MostWins), ", "),
 			strings.Join(filmstock.Names(e.OpeningFilm), ", "),
 			strings.Join(filmstock.Names(e.ClosingFilm), ", "),
-			e.CoverImageFile, e.WikiURL, r.GitdbID); err != nil {
+			e.CoverImageFile, e.WikiURL); err != nil {
 			return err
 		}
 		for _, h := range e.Hosts {

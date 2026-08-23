@@ -112,7 +112,7 @@ func loadPeopleQIDs(recordsDir string) (map[string]personIdentity, error) {
 	err := filmstock.WalkStore(recordsDir, filmstock.KindPerson, func(r filmstock.StoredRecord) error {
 		var pr filmstock.PersonRecord
 		if json.Unmarshal(r.Data, &pr) == nil && pr.Wiki != "" {
-			m[pr.Wiki] = personIdentity{QID: pr.QID, GitdbID: r.GitdbID}
+			m[pr.Wiki] = personIdentity{QID: pr.QID}
 		}
 		return nil
 	})

@@ -2,30 +2,29 @@ package build
 
 import (
 	"bytes"
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"sync"
 
 	"github.com/szatmary/filmstock"
-	"github.com/szatmary/gitdb"
+	"github.com/szatmary/filmstock/gitdb"
 )
 
-// storeWriter writes records into the per-kind gitdb stores, keeping each
-// record's identity (page_id, or Q-id for a person) pointed at the store id that
-// holds it.
+// storeWriter writes records into the per-kind gitdb stores.
 //
-// The mapping is rebuilt by reading the existing store rather than kept in a
-// side file, so the store stays self-describing: every record already carries
-// its own identity, and a mapping that lived elsewhere could go stale against
-// it. That read is also what makes a re-extract an Update of the existing record
-// rather than a second copy under a new id — ids are permanent, and a consumer
-// holding one must keep getting the same work back.
+// Records are keyed by their own identity — page_id for a work, Q-id for a
+// person — so writing one is a Put under that key and there is no mapping to
+// maintain, rebuild, or let go stale. A re-extract therefore updates the record
+// that is already there rather than making a second copy, by construction rather
+// than by bookkeeping.
 type storeWriter struct {
-	mu        sync.Mutex
-	stores    map[string]*gitdb.DB
-	byID      map[string]map[int64]uint64 // kind -> identity -> store id
-	byWiki    map[string]int64            // person article title -> identity
+	mu     sync.Mutex
+	stores map[string]*gitdb.DB
+	// byWiki maps a person's article title to their identity. This is real
+	// information the store holds and a title alone cannot give, unlike the
+	// identity -> store-id map that used to sit beside it: format 6 keys records
+	// by identity, so that one no longer exists.
+	byWiki    map[string]int64
 	root      string
 	err       error
 	unchanged int
@@ -41,65 +40,10 @@ func (w *storeWriter) Counts() (unchanged, updated, inserted int) {
 	return w.unchanged, w.updated, w.inserted
 }
 
-// loadIdentitiesFromIndex fills the identity maps from the search index instead
-// of scanning the store.
-//
-// Scanning is right for a full extract, which is going to read everything
-// anyway. It is badly wrong for an incremental pass: inflating all 450,701
-// records against the dictionary costs ~23 seconds before the first page of a
-// day's changes is even looked at, to apply about 145 film edits. The index
-// already holds page_id -> gitdb_id for every kind, which is precisely this
-// mapping, and reading it is four queries.
-func (w *storeWriter) loadIdentitiesFromIndex(db *sql.DB) error {
-	for _, q := range []struct{ kind, sql string }{
-		{filmstock.KindMovie, `SELECT id, gitdb_id FROM movies`},
-		{filmstock.KindTelevision, `SELECT id, gitdb_id FROM television_series`},
-		{filmstock.KindEvent, `SELECT id, gitdb_id FROM events`},
-		{filmstock.KindPerson, `SELECT COALESCE(qid, -1), gitdb_id, COALESCE(wiki,'') FROM people WHERE gitdb_id IS NOT NULL`},
-	} {
-		rows, err := db.Query(q.sql)
-		if err != nil {
-			return fmt.Errorf("reading %s ids from the index: %w", q.kind, err)
-		}
-		m := map[int64]uint64{}
-		for rows.Next() {
-			var identity int64
-			var gid uint64
-			if q.kind == filmstock.KindPerson {
-				var wiki string
-				if err := rows.Scan(&identity, &gid, &wiki); err != nil {
-					rows.Close()
-					return err
-				}
-				// A person with no Q-id is keyed on a hash of their link target,
-				// exactly as the extractor keyed them.
-				if identity < 0 && wiki != "" {
-					identity = -int64(filmstock.PersonRecordPathID(wiki))
-				}
-				if wiki != "" {
-					w.byWiki[wiki] = identity
-				}
-			} else if err := rows.Scan(&identity, &gid); err != nil {
-				rows.Close()
-				return err
-			}
-			m[identity] = gid
-		}
-		rows.Close()
-		d, err := filmstock.OpenStore(w.root, q.kind)
-		if err != nil {
-			return err
-		}
-		w.stores[q.kind], w.byID[q.kind] = d, m
-	}
-	return nil
-}
-
 func newStoreWriter(root string) *storeWriter {
 	return &storeWriter{
 		root:   root,
 		stores: map[string]*gitdb.DB{},
-		byID:   map[string]map[int64]uint64{},
 		byWiki: map[string]int64{},
 	}
 }
@@ -128,29 +72,29 @@ func identityOf(kind string, data []byte) (int64, bool) {
 	return probe.PageID, probe.PageID != 0
 }
 
-// open loads a kind's store and the identity mapping it already contains.
-func (w *storeWriter) open(kind string) (*gitdb.DB, map[int64]uint64, error) {
+// open loads a kind's store.
+//
+// Opening scans the record files to build gitdb's key map, which is cheap: it
+// reads each line's key and version prefix without decoding payloads. Only the
+// people store needs more than that — a biography arrives by article title and
+// the title alone does not give a Q-id — so only that one pays for a full decode.
+func (w *storeWriter) open(kind string) (*gitdb.DB, error) {
 	if d, ok := w.stores[kind]; ok {
-		return d, w.byID[kind], nil
+		return d, nil
 	}
 	d, err := filmstock.OpenStore(w.root, kind)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
-	m := map[int64]uint64{}
-	for rec, err := range d.All() {
-		if err != nil {
-			return nil, nil, fmt.Errorf("scanning existing %s store: %w", kind, err)
-		}
-		id, ok := identityOf(kind, rec.Data)
-		if !ok {
-			continue
-		}
-		m[id] = rec.ID
-		if kind == filmstock.KindPerson {
-			// An incremental pass meets a biography by article title and has to
-			// find the person it belongs to. Identity is a Q-id, which the title
-			// alone does not give, so the mapping is read from the store.
+	if kind == filmstock.KindPerson {
+		for rec, err := range d.All() {
+			if err != nil {
+				return nil, fmt.Errorf("scanning existing %s store: %w", kind, err)
+			}
+			id, ok := identityOf(kind, rec.Data)
+			if !ok {
+				continue
+			}
 			var probe struct {
 				Wiki string `json:"wiki"`
 			}
@@ -159,8 +103,8 @@ func (w *storeWriter) open(kind string) (*gitdb.DB, map[int64]uint64, error) {
 			}
 		}
 	}
-	w.stores[kind], w.byID[kind] = d, m
-	return d, m, nil
+	w.stores[kind] = d
+	return d, nil
 }
 
 // put writes one record, updating in place when this identity is already stored.
@@ -175,34 +119,33 @@ func (w *storeWriter) put(kind string, identity int64, v any) {
 	if w.err != nil {
 		return
 	}
-	d, m, err := w.open(kind)
+	d, err := w.open(kind)
 	if err != nil {
 		w.err = err
 		return
 	}
-	if existing, ok := m[identity]; ok {
-		// Only write when the bytes actually changed. gitdb's Update appends a
-		// new version and rewrites the index entry regardless of content, so
-		// writing unconditionally makes a re-ingest of an unchanged dump rewrite
-		// the entire store — measured at 450,633 deleted lines and every index
-		// shard churned, for zero real change. The comparison is what makes an
-		// incremental ingest incremental.
-		if cur, err := d.Get(existing); err == nil && bytes.Equal(cur, data) {
+	key := filmstock.StoreKey(identity)
+	if d.Has(key) {
+		// Only write when the bytes actually changed. A Put appends a new line
+		// regardless of content, so writing unconditionally makes a re-ingest of
+		// an unchanged dump rewrite the entire store — measured at 450,633
+		// rewritten records for zero real change. On a normal day this check
+		// suppresses about 4,400 writes and permits about 590: roughly seven in
+		// eight changed pages re-derive to identical bytes.
+		if cur, err := d.Get(key); err == nil && bytes.Equal(cur, data) {
 			w.unchanged++
 			return
 		}
-		if err := d.Update(existing, data); err != nil {
+		if err := d.Put(key, data); err != nil {
 			w.err = fmt.Errorf("%s %d: %w", kind, identity, err)
 		}
 		w.updated++
 		return
 	}
-	id, err := d.Insert(data)
-	if err != nil {
+	if err := d.Put(key, data); err != nil {
 		w.err = fmt.Errorf("%s %d: %w", kind, identity, err)
 		return
 	}
-	m[identity] = id
 	w.inserted++
 }
 
@@ -217,20 +160,19 @@ func (w *storeWriter) delete(kind string, identity int64) bool {
 	if w.err != nil {
 		return false
 	}
-	d, m, err := w.open(kind)
+	d, err := w.open(kind)
 	if err != nil {
 		w.err = err
 		return false
 	}
-	id, ok := m[identity]
-	if !ok {
+	key := filmstock.StoreKey(identity)
+	if !d.Has(key) {
 		return false
 	}
-	if err := d.Delete(id); err != nil {
+	if err := d.Delete(key); err != nil {
 		w.err = fmt.Errorf("delete %s %d: %w", kind, identity, err)
 		return false
 	}
-	delete(m, identity)
 	return true
 }
 
@@ -238,16 +180,12 @@ func (w *storeWriter) delete(kind string, identity int64) bool {
 func (w *storeWriter) get(kind string, identity int64) []byte {
 	w.mu.Lock()
 	defer w.mu.Unlock()
-	d, m, err := w.open(kind)
+	d, err := w.open(kind)
 	if err != nil {
 		w.err = err
 		return nil
 	}
-	id, ok := m[identity]
-	if !ok {
-		return nil
-	}
-	b, err := d.Get(id)
+	b, err := d.Get(filmstock.StoreKey(identity))
 	if err != nil {
 		return nil
 	}
@@ -258,7 +196,7 @@ func (w *storeWriter) get(kind string, identity int64) []byte {
 func (w *storeWriter) personIdentityFor(wiki string) (int64, bool) {
 	w.mu.Lock()
 	defer w.mu.Unlock()
-	if _, _, err := w.open(filmstock.KindPerson); err != nil {
+	if _, err := w.open(filmstock.KindPerson); err != nil {
 		w.err = err
 		return 0, false
 	}
@@ -281,8 +219,8 @@ func (w *storeWriter) counts() map[string]int {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	out := map[string]int{}
-	for kind, m := range w.byID {
-		out[kind] = len(m)
+	for kind, d := range w.stores {
+		out[kind] = d.Len()
 	}
 	return out
 }

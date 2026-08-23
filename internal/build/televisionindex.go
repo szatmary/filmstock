@@ -31,7 +31,7 @@ CREATE TABLE television_series(
   first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
   network TEXT, num_seasons TEXT, num_episodes TEXT,
   seasons_count INTEGER, episodes_count INTEGER,
-  cover_image_file TEXT, wikipedia_url TEXT, gitdb_id INTEGER NOT NULL
+  cover_image_file TEXT, wikipedia_url TEXT
 );
 CREATE INDEX idx_television_title ON television_series(title);
 CREATE VIRTUAL TABLE television_fts USING fts5(
@@ -74,8 +74,7 @@ func CIndexTelevision(args []string) {
 	fmt.Fprintf(os.Stderr, "indexing television from %s into %s...\n", *records, *dbPath)
 
 	type item struct {
-		s   *filmstock.TelevisionSeries
-		gid uint64
+		s *filmstock.TelevisionSeries
 	}
 	items := make(chan item, 2048)
 	go func() {
@@ -83,10 +82,10 @@ func CIndexTelevision(args []string) {
 		if err := filmstock.WalkStore(*records, filmstock.KindTelevision, func(r filmstock.StoredRecord) error {
 			var ser filmstock.TelevisionSeries
 			if err := json.Unmarshal(r.Data, &ser); err != nil {
-				fmt.Fprintf(os.Stderr, "record %d: %v\n", r.GitdbID, err)
+				fmt.Fprintf(os.Stderr, "record %s: %v\n", r.Key, err)
 				return nil
 			}
-			items <- item{&ser, r.GitdbID}
+			items <- item{&ser}
 			return nil
 		}); err != nil {
 			fatal(err)
@@ -96,8 +95,8 @@ func CIndexTelevision(args []string) {
 	tx, _ := db.Begin()
 	stmt, _ := tx.Prepare(`INSERT OR REPLACE INTO television_series
 		(id,title,year,first_aired,last_aired,genre,creator,starring,network,
-		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,wikipedia_url,gitdb_id)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,wikipedia_url)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	epStmt, _ := tx.Prepare(`INSERT INTO television_episodes
 		(series_id,season,number_in_season,number_overall,title,air_date) VALUES(?,?,?,?,?,?)`)
 	// Reuses movie-pass person ids (loads existing people); resolves Q-ids.
@@ -121,7 +120,7 @@ func CIndexTelevision(args []string) {
 		stmt.Exec(s.PageID, cleanName, year, s.FirstAired, s.LastAired,
 			join(s.Genre), joinP(s.Creator), joinP(s.Starring), join(filmstock.Names(s.Network)),
 			s.NumSeasons, s.NumEpisodes, len(s.Seasons), epCount,
-			s.CoverImageFile, s.WikiURL, it.gid)
+			s.CoverImageFile, s.WikiURL)
 
 		seen := map[string]bool{}
 		pb.credit(seen, s.Creator, s.PageID, "television", "Creator")

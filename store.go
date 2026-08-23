@@ -8,14 +8,13 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 	"sync"
 
-	"github.com/szatmary/gitdb"
+	"github.com/szatmary/filmstock/gitdb"
 )
 
 // dictionary is a zlib preset dictionary trained on a sample of the corpus.
@@ -185,18 +184,15 @@ func (s *storeSource) db(kind string) (*gitdb.DB, error) {
 }
 
 func (s *storeSource) Fetch(_ context.Context, loc Location) ([]byte, error) {
-	if loc.GitdbID == 0 {
-		return nil, fmt.Errorf("filmstock: %s %d has no record id; the index was "+
-			"built against a different store (rebuild it with `filmstock index`): %w",
-			loc.Kind, loc.ID, ErrNotFound)
-	}
 	d, err := s.db(loc.Kind)
 	if err != nil {
 		return nil, err
 	}
-	b, err := d.Get(loc.GitdbID)
+	// The identity is the key. There is no mapping to be stale against, so a
+	// miss here means the record genuinely is not in the store.
+	b, err := d.Get(StoreKey(int64(loc.ID)))
 	if err != nil {
-		return nil, fmt.Errorf("filmstock: %s %d (record %d): %w", loc.Kind, loc.ID, loc.GitdbID, err)
+		return nil, fmt.Errorf("filmstock: %s %d: %w", loc.Kind, loc.ID, err)
 	}
 	return b, nil
 }
@@ -216,19 +212,20 @@ func (s *storeSource) Close() error {
 	return first
 }
 
-// A StoredRecord is one record as it sits in a store: the store's id for it, and
-// its bytes. The identity (page_id, Q-id) is inside Data — the store does not
-// know or care what a record means.
+// A StoredRecord is one record as it sits in a store: its key, the version that
+// key is currently at, and its bytes. The key is the identity (page_id, Q-id),
+// which also appears inside Data.
 type StoredRecord struct {
-	GitdbID uint64
+	Key     string
+	Version uint64
 	Data    []byte
 }
 
 // WalkStore visits every live record of a kind, in store order.
 //
-// This is how the indexers read the corpus. They need both the record and the
-// store's id for it — the id is what the index stores so a reader can get back
-// to it — and iterating gives both without anyone having to derive a location.
+// This is how the indexers read the corpus, and the scan that a consumer runs to
+// build its own index. The key comes with each record, so an indexer never has
+// to derive or store a separate location.
 func WalkStore(root, kind string, fn func(StoredRecord) error) error {
 	dict, err := LoadDictionary(root, kind)
 	if err != nil {
@@ -242,7 +239,7 @@ func WalkStore(root, kind string, fn func(StoredRecord) error) error {
 		if err != nil {
 			return fmt.Errorf("filmstock: walk %s store: %w", kind, err)
 		}
-		if err := fn(StoredRecord{GitdbID: rec.ID, Data: rec.Data}); err != nil {
+		if err := fn(StoredRecord{Key: rec.Key, Version: rec.Version, Data: rec.Data}); err != nil {
 			return err
 		}
 	}
@@ -271,36 +268,29 @@ func OpenStoreWithDictionary(root, kind string, dict []byte) (*gitdb.DB, error) 
 	return gitdb.Open(filepath.Join(root, kind), storeOptionsWith(dict)...)
 }
 
-// StoreFingerprint identifies the state of a record store.
+// StoreFingerprint identifies the state of a record store, so an index can say
+// which state it was built from.
 //
-// It hashes the index shards rather than the record files. A shard holds one
-// fixed-width entry per id, and every insert, update and delete rewrites the
-// entry for the id it touched — so the shards change if and only if the records
-// do, and they are small enough (a few MB across the whole corpus) to hash in
-// milliseconds at startup.
-//
-// This exists because "clone and index" has one failure mode: `git pull` brings
-// new records and leaves the index behind, and a stale index is not obviously
-// wrong. It answers correct-looking queries against yesterday's corpus.
+// Format 5 hashed the .idx shards, which was cheap and exact: they changed
+// whenever any record did. There are no index files now, so this hashes the
+// record files' names and sizes instead. Those only ever grow on append, so a
+// changed store always changes the fingerprint — but note that this is weaker
+// than the old one: a Compact that happened to produce identical sizes would not
+// show up. It is a staleness hint, not a checksum.
 func StoreFingerprint(root string) (string, error) {
 	h := sha256.New()
 	for _, kind := range []string{KindMovie, KindTelevision, KindPerson, KindEvent} {
-		shards, err := filepath.Glob(filepath.Join(root, kind, "*.idx"))
+		files, err := filepath.Glob(filepath.Join(root, kind, "*.gitdb"))
 		if err != nil {
 			return "", err
 		}
-		sort.Strings(shards)
-		for _, s := range shards {
-			f, err := os.Open(s)
+		sort.Strings(files)
+		for _, p := range files {
+			fi, err := os.Stat(p)
 			if err != nil {
 				return "", err
 			}
-			fmt.Fprintf(h, "%s\n", filepath.Base(s))
-			if _, err := io.Copy(h, f); err != nil {
-				f.Close()
-				return "", err
-			}
-			f.Close()
+			fmt.Fprintf(h, "%s %d\n", filepath.Base(p), fi.Size())
 		}
 	}
 	return hex.EncodeToString(h.Sum(nil)), nil

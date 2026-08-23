@@ -6,21 +6,24 @@ import (
 	"encoding/json"
 	"io"
 	"os"
+	"strconv"
 )
 
-// A Location identifies one record: what kind of thing it is, its identity, and
-// which record in the store holds it.
+// A Location identifies one record: what kind of thing it is, and its identity.
 //
-// ID and GitdbID are different things and both are needed. ID is the identity —
-// page_id for a work, Q-id for a person — and is what every other part of this
-// project keys on. GitdbID is where the bytes are, allocated by the store and
-// meaningful only inside it. The index maps one to the other; nothing derives
-// either from the other.
+// Format 5 stores allocated their own record ids, so a Location had to carry
+// both the identity and that id, and the index existed partly to map one to the
+// other. Format 6 keys records by the identity itself, so there is nothing left
+// to map: ID is the key.
 type Location struct {
-	Kind    string // KindMovie, KindTelevision, KindPerson, KindEvent
-	ID      int    // page_id, or Q-id for people
-	GitdbID uint64 // the record's id within its store
+	Kind string // KindMovie, KindTelevision, KindPerson, KindEvent
+	ID   int    // page_id, or Q-id for people
 }
+
+// StoreKey renders an identity as the key its record is stored under. Person
+// identities go negative when the person has no Q-id, which is why this is
+// signed; the key just has to be stable and free of whitespace.
+func StoreKey(identity int64) string { return strconv.FormatInt(identity, 10) }
 
 // A RecordSource returns the raw gzip bytes of one record.
 //

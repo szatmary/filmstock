@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/szatmary/gitdb"
+	"github.com/szatmary/filmstock/gitdb"
 )
 
 // fixture builds a miniature but structurally real index and record store: two
@@ -33,17 +33,14 @@ func fixture(t *testing.T) (dbPath, root string) {
 		{3746, "Blade Runner"},
 		{1234, "Solaris"},
 	}
-	ids := map[int]uint64{}
 	for _, f := range films {
 		raw, err := json.Marshal(Movie{Title: f.title, PageID: f.pageID, Plot: "plot of " + f.title})
 		if err != nil {
 			t.Fatal(err)
 		}
-		id, err := store.Insert(raw)
-		if err != nil {
+		if err := store.Put(StoreKey(int64(f.pageID)), raw); err != nil {
 			t.Fatal(err)
 		}
-		ids[f.pageID] = id
 	}
 
 	dbPath = filepath.Join(root, "index.db")
@@ -52,11 +49,11 @@ func fixture(t *testing.T) (dbPath, root string) {
 		t.Fatal(err)
 	}
 	defer db.Close()
-	if _, err := db.Exec(`CREATE TABLE movies(id INTEGER PRIMARY KEY, title TEXT, gitdb_id INTEGER)`); err != nil {
+	if _, err := db.Exec(`CREATE TABLE movies(id INTEGER PRIMARY KEY, title TEXT)`); err != nil {
 		t.Fatal(err)
 	}
 	for _, f := range films {
-		if _, err := db.Exec(`INSERT INTO movies VALUES(?,?,?)`, f.pageID, f.title, ids[f.pageID]); err != nil {
+		if _, err := db.Exec(`INSERT INTO movies VALUES(?,?)`, f.pageID, f.title); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -111,15 +108,20 @@ func TestMissingIDIsErrNotFound(t *testing.T) {
 	}
 }
 
-// An index row pointing at a record id the store never allocated means the two
-// are out of step. That has to say so, not return an empty record.
+// An index row naming a film the store does not hold means the two are out of
+// step — a `git pull` without a reindex, or the reverse. That has to say so
+// rather than return an empty record.
+//
+// Under format 5 this was staged by pointing the row's gitdb_id at an id the
+// store never allocated. There is no such column now: the index row itself is
+// the claim, so the way to break it is to add a row for a record that is absent.
 func TestIndexPointingAtAMissingRecordIsAnError(t *testing.T) {
 	dbPath, root := fixture(t)
 	h, err := sql.Open("sqlite", dbPath)
 	if err != nil {
 		t.Fatal(err)
 	}
-	h.Exec(`UPDATE movies SET gitdb_id = 99999 WHERE id = 3746`)
+	h.Exec(`INSERT INTO movies VALUES(99999,'Not In The Store')`)
 	h.Close()
 
 	db, err := Open(dbPath, Store(root))
@@ -127,7 +129,7 @@ func TestIndexPointingAtAMissingRecordIsAnError(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer db.Close()
-	if _, err := db.Film(context.Background(), 3746); err == nil {
+	if _, err := db.Film(context.Background(), 99999); err == nil {
 		t.Fatal("want an error for an index that names a record the store does not have")
 	}
 }

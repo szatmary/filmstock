@@ -137,8 +137,9 @@ func (db *DB) locate(ctx context.Context, kind string, id int) (Location, error)
 		return Location{}, fmt.Errorf("filmstock: no records of kind %q", kind)
 	}
 	loc := Location{Kind: kind, ID: id}
+	var one int
 	err := db.sql.QueryRowContext(ctx,
-		`SELECT gitdb_id FROM `+table+` WHERE id = ?`, id).Scan(&loc.GitdbID)
+		`SELECT 1 FROM `+table+` WHERE id = ?`, id).Scan(&one)
 	if err == sql.ErrNoRows {
 		return Location{}, fmt.Errorf("no %s with id %d: %w", kind, id, ErrNotFound)
 	}
@@ -194,13 +195,10 @@ func (db *DB) Person(ctx context.Context, id int) (*PersonRecord, error) {
 		}
 		recID = -int64(PersonRecordPathID(wiki))
 	}
-	var gid uint64
-	if err := db.sql.QueryRowContext(ctx,
-		`SELECT COALESCE(gitdb_id,0) FROM people WHERE id = ?`, id).Scan(&gid); err != nil || gid == 0 {
-		return rec, nil // identity stands even with no record behind it
-	}
-	loc := Location{Kind: KindPerson, ID: int(recID), GitdbID: gid}
-	b, err := db.src.Fetch(ctx, loc)
+	// recID is the person's identity: their Q-id, or a negative id derived from
+	// the article path when Wikidata has no item for them. Either way it is the
+	// store key, so no lookup column is involved.
+	b, err := db.src.Fetch(ctx, Location{Kind: KindPerson, ID: int(recID)})
 	if err != nil {
 		return rec, nil // no record on disk is not an error; the identity stands
 	}

@@ -1,7 +1,6 @@
 package build
 
 import (
-	"database/sql"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -29,10 +28,11 @@ func CmdUpdate(args []string) {
 	fs := flag.NewFlagSet("update", flag.ExitOnError)
 	incr := fs.String("incr", "", "adds-changes dump (enwiki-YYYYMMDD-pages-meta-hist-incr.xml.bz2)")
 	records := fs.String("records", "filmstock-data", "record store to update in place")
-	dbPath := fs.String("db", "", "optional index; read for its page_id -> record mapping instead of scanning the store")
 	workers := fs.Int("workers", 4, "bz2 decompression workers")
 	cache := fs.String("cache", "wikidata.db", "Wikidata resolver cache; television needs its P179 edges")
 	dry := fs.Bool("dry-run", false, "report what would change without writing")
+	commit := fs.Bool("commit", false, "commit the change to the record store's git repository")
+	message := fs.String("message", "", "commit message (default names the dump applied)")
 	fs.Parse(args)
 
 	if *incr == "" {
@@ -46,31 +46,11 @@ func CmdUpdate(args []string) {
 
 	w := newStoreWriter(*records)
 
-	// The index is an optimisation, not a dependency. It already holds
-	// page_id -> gitdb_id, so reading it turns a 23-second scan of the whole
-	// store into four queries. But this is an offline maintainer's tool, and a
-	// maintainer with a store and no index must be able to apply a day's changes
-	// and index afterwards — the same order an end user does it in.
-	//
-	// When an index IS given its fingerprint is checked first: applying changes
-	// through a mapping built from a different state of the store would update
-	// the wrong records, which is worse than being slow.
-	if *dbPath != "" {
-		if err := filmstock.CheckIndexAgainstStore(*dbPath, *records); err != nil {
-			fatal(err)
-		}
-		idx, err := sql.Open("sqlite", *dbPath)
-		if err != nil {
-			fatal(err)
-		}
-		defer idx.Close()
-		if err := w.loadIdentitiesFromIndex(idx); err != nil {
-			fatal(err)
-		}
-		fmt.Fprintf(os.Stderr, "identities from %s\n", *dbPath)
-	} else {
-		fmt.Fprintln(os.Stderr, "no -db given; reading identities by scanning the store (slower)")
-	}
+	// Format 5 stores allocated their own record ids, so an update had to load a
+	// page_id -> record-id mapping before it could touch anything, and reading it
+	// from the index was the fast way to do that. Format 6 keys records by
+	// page_id, so there is nothing to load and nothing to be stale against: the
+	// -db flag and its fingerprint check are gone with the mapping they guarded.
 	// Television needs the Wikidata edges: a season article names its season and
 	// never its series, so nothing else can attach it.
 	tv, tvErr := newTelevisionUpdater(w, *cache)
@@ -132,6 +112,13 @@ func CmdUpdate(args []string) {
 	}
 	if !*dry {
 		fmt.Fprintln(os.Stderr, "\nthe index is now stale; rebuild it with `filmstock index`")
+		msg := *message
+		if msg == "" {
+			msg = defaultCommitMessage(*incr)
+		}
+		if err := reportAndCommit(os.Stderr, *records, msg, *commit); err != nil {
+			fatal(err)
+		}
 	}
 }
 

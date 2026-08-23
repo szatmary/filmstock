@@ -2,10 +2,7 @@ module github.com/szatmary/filmstock
 
 go 1.26.3
 
-require (
-	github.com/szatmary/gitdb v0.0.0-20260823032443-994dab05016b
-	modernc.org/sqlite v1.56.0
-)
+require modernc.org/sqlite v1.56.0
 
 require (
 	github.com/dustin/go-humanize v1.0.1 // indirect

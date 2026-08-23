@@ -82,35 +82,19 @@ func CmdRecompress(args []string) {
 			fatal(fmt.Errorf("create %s in %s: %w", kind, *out, err))
 		}
 
+		// Format 5 allocated ids, so this loop had to reproduce them exactly —
+		// including the gaps left by deleted records, which it recreated by
+		// inserting a placeholder and deleting it, because a shifted id would
+		// have made the index point at the wrong record. Format 6 keys records by
+		// their own identity, so a rewrite just writes them.
 		var n int
-		var want uint64 = 1
 		for rec, err := range src.All() {
 			if err != nil {
 				fatal(fmt.Errorf("reading %s: %w", kind, err))
 			}
-			// A gap means a deleted record. Ids must not shift, so the gap is
-			// preserved by inserting a placeholder and deleting it — otherwise
-			// every id after the gap would move and the index would point at the
-			// wrong records.
-			for want < rec.ID {
-				id, err := dst.Insert([]byte("{}"))
-				if err != nil {
-					fatal(err)
-				}
-				if err := dst.Delete(id); err != nil {
-					fatal(err)
-				}
-				want++
-			}
-			got, err := dst.Insert(rec.Data)
-			if err != nil {
+			if err := dst.Put(rec.Key, rec.Data); err != nil {
 				fatal(fmt.Errorf("writing %s: %w", kind, err))
 			}
-			if got != rec.ID {
-				fatal(fmt.Errorf("%s: id drift, record %d became %d — the index would "+
-					"now point at the wrong record", kind, rec.ID, got))
-			}
-			want = got + 1
 			n++
 		}
 		inSz, outSz := dirSize(filepath.Join(*in, kind)), dirSize(filepath.Join(*out, kind))

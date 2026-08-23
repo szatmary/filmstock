@@ -65,6 +65,7 @@ Usage:
   filmstock extract ... -index=false                           records only
   filmstock index   -records filmstock-data -db index.db       record store -> the index
   filmstock update  -incr DUMP -records filmstock-data         apply one day of changes
+  filmstock update ... -commit [-message MSG]                   apply, report the diff, commit it
   filmstock index-television / index-events                    reindex one kind
   filmstock search  [-n 20] QUERY...                           fuzzy-search the index
   filmstock train-dict -records filmstock-data                        retrain the compression dictionaries
