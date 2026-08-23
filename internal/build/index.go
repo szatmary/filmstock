@@ -59,8 +59,8 @@ type indexItem struct {
 
 func CIndex(args []string) {
 	fs := flag.NewFlagSet("index", flag.ExitOnError)
-	moviesDir := fs.String("movies", "out/movies", "directory of per-movie JSON.gz files")
-	dbPath := fs.String("db", "out/search.db", "output SQLite database")
+	moviesDir := fs.String("movies", "filmstock-data/movies", "directory of per-movie JSON.gz files")
+	dbPath := fs.String("db", "index.db", "the index to write")
 	records := fs.String("records", "", "record hierarchy from `extract` (supplies people identities)")
 	workers := fs.Int("workers", 16, "reader workers")
 	fs.Parse(args)

@@ -13,7 +13,7 @@ import (
 
 func CSearch(args []string) {
 	fs := flag.NewFlagSet("search", flag.ExitOnError)
-	dbPath := fs.String("db", "out/search.db", "SQLite database")
+	dbPath := fs.String("db", "index.db", "the index")
 	n := fs.Int("n", 20, "max results")
 	field := fs.String("field", "title", "field to rank against: title|starring|director")
 	fs.Parse(args)

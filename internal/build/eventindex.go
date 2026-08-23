@@ -44,13 +44,13 @@ CREATE VIRTUAL TABLE events_fts USING fts5(
 
 func CIndexEvents(args []string) {
 	fs := flag.NewFlagSet("index-events", flag.ExitOnError)
-	records := fs.String("records", "out", "record hierarchy")
-	dbPath := fs.String("db", "", "database (default <records>/search.db)")
+	records := fs.String("records", "filmstock-data", "the record tree")
+	dbPath := fs.String("db", "", "the index to write")
 	fs.Parse(args)
 
 	out := *dbPath
 	if out == "" {
-		out = filepath.Join(*records, "search.db")
+		out = "index.db"
 	}
 	dir := filepath.Join(*records, filmstock.KindEvent)
 	if _, err := os.Stat(dir); err != nil {

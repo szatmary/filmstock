@@ -9,7 +9,7 @@ produces a self-contained record hierarchy and a SQLite database you can serve.
 
 **Current build** (enwiki 2026-07-07 dump):
 
-| | rows in `search.db` |
+| | rows in `index.db` |
 |---|---|
 | films | 165,265 |
 | award ceremonies & festivals | 4,669 |
@@ -87,7 +87,7 @@ falling back to title matching.
 ### 3. Extract and index
 
 ```sh
-make extract        # dumps -> out/{movies,television,people,events,text}/ + out/search.db
+make extract        # dumps -> out/{movies,television,people,events,text}/ + out/index.db
 ```
 
 One linear pass over the 26.5 GB dump handles films and television together. It is not
@@ -97,7 +97,7 @@ Wikimedia's daily `adds-changes` dumps instead, which is a different pipeline.
 To rebuild only the database from records already on disk:
 
 ```sh
-make index          # out/ -> out/search.db, no dump read
+make index          # out/ -> out/index.db, no dump read
 ```
 
 ### 4. Serve it
@@ -108,27 +108,43 @@ make serve          # http://localhost:8080
 
 ## Layout
 
+Three things sit side by side. Only the first is this repository.
+
+```
+filmstock/          this repo — the library, the CLI, the browser
+filmstock-data/     the record tree, its own repo (450,699 records, 438 MB)
+dump/               the Wikimedia dumps, ~129 GB of input
+build/              everything derived: index.db, the corpus, vectors
+wikidata.db         build-time resolver cache, discardable
+```
+
+Inside this repo:
+
 ```
 github.com/szatmary/filmstock        the library — import this
-  db.go                Open, DB, the search methods, ErrNotFound
-  search*.go           lexical search: FTS5 trigram + fuzzy ranking
-  record.go            RecordSource: Dir, Remote, and the readers
-  paths.go             record paths, kind constants, tree walking
-  movie.go television.go event.go people.go       record types
+  db.go              Open, DB, the search methods, ErrNotFound
+  search*.go         lexical search: FTS5 trigram + fuzzy ranking
+  record.go          RecordSource: Dir, and the readers
+  paths.go           record paths, kind constants, tree walking
+  movie.go television.go event.go people.go     record types
 internal/
-  wikitext/            template and infobox parsing, link/ref cleanup
-  dump/                multistream bz2 reading off the index
-  build/               dumps -> records -> search.db, resolvers, packing
+  wikitext/          template and infobox parsing, link/ref cleanup
+  dump/              multistream bz2 reading off the offset index
+  build/             dumps -> records -> index.db, resolvers, splitting
 cmd/
-  filmstock/           the CLI: extract, index, pack, search  (64 lines)
-  filmstock-web/       the browser
-docs/TODO.md           what is done, what is open, what measurement settled
+  filmstock/         the CLI — dispatch only
+  filmstock-web/     the browser
 ```
 
 Implementation lives under `internal/` rather than inside a `package main`, so it
-is importable and unit-testable; `cmd/filmstock/main.go` is dispatch and nothing
-else. The library sits at the module root because that is what makes the import
-path `github.com/szatmary/filmstock` rather than `.../pkg/filmstock`.
+is importable and unit-testable. The library sits at the module root because that
+is what makes the import path `github.com/szatmary/filmstock` rather than
+`.../pkg/filmstock`.
+
+The Makefile's paths point outward (`../dump`, `../filmstock-data`, `../build`)
+and every one is overridable. The tools' own flag defaults assume the simpler
+case the README documents: a working directory holding `filmstock-data/` and
+`index.db`.
 
 ## Records are byte-deterministic
 
@@ -163,7 +179,7 @@ earned their keep.
 ```go
 import "github.com/szatmary/filmstock"
 
-db, err := filmstock.Open("search.db", filmstock.Remote(baseURL))
+db, err := filmstock.Open("index.db", filmstock.Remote(baseURL))
 defer db.Close()
 
 films, _ := db.SearchFilms(ctx, "blade runner", "title", 20)  // database only
@@ -171,7 +187,7 @@ film,  _ := db.Film(ctx, films[0].ID)                          // one range requ
 fmt.Println(film.Plot, film.Cinematography, film.RawInfobox)
 ```
 
-Every search, ranking and count is answered from `search.db` alone and touches no
+Every search, ranking and count is answered from `index.db` alone and touches no
 network. Only `Film`, `Series` and `Event` reach the record source. That split is
 the reason a 161 MB download can still open 620k full records.
 
@@ -194,7 +210,7 @@ the public surface, the surface would be wrong, so it is a test as much as a dem
 
 ```sh
 make web                                              # local records
-./filmstock-web -db out/search.db -remote https://…   # remote packs
+./filmstock-web -db out/index.db -remote https://…   # remote packs
 ```
 
 It refuses to guess between the two, and returns an `X-Record-Fetch` header so

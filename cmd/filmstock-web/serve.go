@@ -25,8 +25,8 @@ import (
 type server struct{ fs *filmstock.DB }
 
 func main() {
-	dbPath := flag.String("db", "out/search.db", "search database")
-	records := flag.String("records", "out", "record tree produced by `filmstock extract`")
+	dbPath := flag.String("db", "index.db", "the index")
+	records := flag.String("records", "filmstock-data", "record tree produced by `filmstock extract`")
 	addr := flag.String("addr", ":8080", "listen address")
 	flag.Parse()
 

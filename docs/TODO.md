@@ -5,14 +5,14 @@ Status as of 2026-08-04, after the extract/index rewrite.
 Pipeline today:
 
 ```
-filmstock extract -dumps DUMPDIR -out OUTDIR    # dumps -> records (+ search.db by default)
-filmstock index   -records OUTDIR               # rebuild search.db from records alone
-filmstock serve   -db OUTDIR/search.db -movies OUTDIR/movies -television OUTDIR/television
+filmstock extract -dumps DUMPDIR -out OUTDIR    # dumps -> records (+ index.db by default)
+filmstock index   -records OUTDIR               # rebuild index.db from records alone
+filmstock serve   -db OUTDIR/index.db -movies OUTDIR/movies -television OUTDIR/television
 ```
 
 Current data (2026-08-22, re-extracted after the tv -> television rename):
 165,265 films · 4,669 events · 61,137 series · 551,202 episodes · 219,050 people
-(148,030 with a Q-id, 67.6%) · 1,294,290 credits. Those are `search.db` rows;
+(148,030 with a Q-id, 67.6%) · 1,294,290 credits. Those are `index.db` rows;
 219,628 people *records* were written, the difference being people with no
 indexed credit.
 
@@ -111,7 +111,7 @@ would cost ~383 MB of history per ingest to store something that regenerates in
 
 ### D1. Ship the database; fetch records on demand
 
-The consumer should not have to take 60 GB to look up a film. `search.db` (637 MB)
+The consumer should not have to take 60 GB to look up a film. `index.db` (637 MB)
 already carries everything the search and list views need — titles, years,
 credits, people, episodes, and the FTS indexes. The per-record `.json.gz` only
 adds the detail page: raw infobox, nested seasons and episodes, plot, overview.
@@ -130,7 +130,7 @@ moved onto the network. Instead:
 
 - **One `records.pack`** — every record concatenated, each still individually
   gzipped so it stays independently decodable.
-- **Offsets live in `search.db`** — add `(pack_offset, pack_length)` beside each
+- **Offsets live in `index.db`** — add `(pack_offset, pack_length)` beside each
   work. About 8 bytes a row in a file the client already has, so locating a record
   costs zero extra requests.
 - **Fetch with an HTTP Range request** — one round trip, ~5 KB, CDN-cacheable, and
@@ -164,7 +164,7 @@ return byte-identical records, 2.9 ms against 4.8 ms over HTTP.
 
 - ~~`serve` defaults to the old layout~~ — DONE. Every flag default is now
   relative to the working directory and points at the records layout (`dump`,
-  `out`, `out/search.db`, `out/movies`, `out/television`), so the tools run from
+  `out`, `out/index.db`, `out/movies`, `out/television`), so the tools run from
   the repo root with no arguments.
 - Old artifacts still on disk: `movies/`, `television/`, `text/`, `movies.db` (pre-rewrite),
   and `wikidata.db` (28 GB resolver cache, build-time only, discardable).

@@ -29,8 +29,8 @@ const manifestName = "MANIFEST"
 // choice that does not have to be revisited then.
 func CmdSplit(args []string) {
 	fs := flag.NewFlagSet("split", flag.ExitOnError)
-	dbPath := fs.String("db", "out/search.db", "index to split")
-	outDir := fs.String("out", "index", "directory to write parts into")
+	dbPath := fs.String("db", "index.db", "index to split")
+	outDir := fs.String("out", "index-parts", "directory to write parts into")
 	fs.Parse(args)
 
 	if err := os.MkdirAll(*outDir, 0o755); err != nil {
@@ -110,8 +110,8 @@ func CmdSplit(args []string) {
 // failure than refusing to assemble.
 func CmdJoin(args []string) {
 	fs := flag.NewFlagSet("join", flag.ExitOnError)
-	inDir := fs.String("in", "index", "directory holding the parts and MANIFEST")
-	dbPath := fs.String("db", "out/search.db", "index to write")
+	inDir := fs.String("in", "index-parts", "directory holding the parts and MANIFEST")
+	dbPath := fs.String("db", "index.db", "index to write")
 	fs.Parse(args)
 
 	raw, err := os.ReadFile(filepath.Join(*inDir, manifestName))

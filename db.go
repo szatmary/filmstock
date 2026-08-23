@@ -19,7 +19,7 @@ var ErrNotFound = errors.New("filmstock: not found")
 // from. It is safe for concurrent use.
 //
 // The division of labour is the whole design: every search, ranking and count
-// below is answered from search.db alone and touches no network. Only the
+// below is answered from index.db alone and touches no network. Only the
 // single-record accessors (Film, Series, Event) go to the RecordSource. That is
 // what lets a consumer take a 161 MB database and still reach 620k full records.
 type DB struct {
@@ -31,7 +31,7 @@ type DB struct {
 // the record accessors then return an error explaining what is missing rather
 // than panicking.
 //
-//	db, err := filmstock.Open("search.db", filmstock.Dir("out"))
+//	db, err := filmstock.Open("index.db", filmstock.Dir("out"))
 func Open(path string, src RecordSource) (*DB, error) {
 	// Read-only: nothing in this package writes, and saying so lets several
 	// readers share one file without fighting over the write lock.

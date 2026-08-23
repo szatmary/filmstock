@@ -53,8 +53,8 @@ CREATE VIRTUAL TABLE television_episodes_fts USING fts5(
 // per-series JSON.gz files. Does not touch the movies tables.
 func CIndexTelevision(args []string) {
 	fs := flag.NewFlagSet("index-television", flag.ExitOnError)
-	televisionDir := fs.String("television", "out/television", "directory of per-series JSON.gz files")
-	dbPath := fs.String("db", "out/search.db", "SQLite database (shared with movies)")
+	televisionDir := fs.String("television", "filmstock-data/television", "directory of per-series JSON.gz files")
+	dbPath := fs.String("db", "index.db", "the index (shared with movies)")
 	records := fs.String("records", "", "record hierarchy from `extract` (supplies people identities)")
 	workers := fs.Int("workers", 16, "reader workers")
 	fs.Parse(args)

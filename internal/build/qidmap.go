@@ -28,7 +28,7 @@ func CBuildQidmap(args []string) {
 	fs := flag.NewFlagSet("build-qidmap", flag.ExitOnError)
 	pp := fs.String("pageprops", "dump/enwiki-latest-page_props.sql.gz", "page_props.sql.gz")
 	idx := fs.String("index", "dump/enwiki-latest-pages-articles-multistream-index.txt.bz2", "multistream index")
-	dbPath := fs.String("db", "out/search.db", "output SQLite database")
+	dbPath := fs.String("db", "index.db", "the index to write")
 	fs.Parse(args)
 
 	// 1. page_id -> qid from page_props (streamed, chunked regex scan).

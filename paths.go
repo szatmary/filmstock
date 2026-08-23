@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// The record hierarchy is the repository. Everything else — search.db, derived
+// The record hierarchy is the repository. Everything else — index.db, derived
 // indexes — is derived and can be deleted and rebuilt from these files without
 // touching a dump.
 //

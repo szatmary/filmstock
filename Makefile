@@ -1,13 +1,23 @@
 # filmstock — dumps in, media database out.
 #
+# This repo is the code. Its neighbours are:
+#
+#   ../dump             the Wikimedia dumps, ~129 GB of input
+#   ../filmstock-data   the record tree, a git repository of its own
+#   ../build            everything derived: the index, the corpus, vectors
+#   ../wikidata.db      the build-time resolver cache, discardable
+#
 # Every target is resumable and none of them are incremental: the parse is a
 # linear stream over the whole 26.5 GB dump, so a rebuild reads everything.
 
+# The code repo, the record tree, the dumps and the derived artifacts are
+# siblings, so these point outward. Override any of them on the command line.
 BIN     := ./filmstock
-DUMPS   := dump
-OUT     := out
-WD      := wikidata.db
-WORKERS := 18
+DUMPS   ?= ../dump
+RECORDS ?= ../filmstock-data
+OUT     ?= ../build
+WD      ?= ../wikidata.db
+WORKERS ?= 18
 
 ENWIKI  := https://dumps.wikimedia.org/enwiki/latest
 WIKIDATA:= https://dumps.wikimedia.org/wikidatawiki/entities
@@ -22,7 +32,7 @@ FETCH := $(shell command -v aria2c >/dev/null && echo "aria2c -c -x4 -s4 --dir=$
 # lbzip2 decompresses in parallel; the 102 GB wikidata pass is bound on it.
 BUNZIP := $(shell command -v lbzip2 >/dev/null && echo "lbzip2 -dc -n 20" || echo "bzip2 -dc")
 
-.PHONY: build test dumps resolver extract index serve verify split join web dist clean-out help
+.PHONY: build test dumps resolver extract index verify split join web dist clean-out help
 
 help:
 	@sed -n 's/^##//p' $(MAKEFILE_LIST)
@@ -58,20 +68,20 @@ resolver: build $(ENTITIES) $(PROPS) $(INDEX)
 	  "select 'wd_part_of_series '||count(*) from wd_part_of_series" \
 	  "select 'wd_episode_season '||count(*) from wd_episode_season"
 
-## extract    dumps -> out/ records + out/search.db (one pass, ~48 min)
+## extract    dumps -> the record tree + the index (one pass, ~65 min)
 extract: build
 	@test -s $(WD) || { echo "no $(WD) — run 'make resolver' first"; exit 1; }
-	$(BIN) extract -dumps $(DUMPS) -out $(OUT) -cache $(WD) -workers $(WORKERS)
+	$(BIN) extract -dumps $(DUMPS) -out $(RECORDS) -text $(OUT) -cache $(WD) -workers $(WORKERS)
 	@$(MAKE) --no-print-directory verify
 
-## index      rebuild out/search.db from the records alone (no dump read)
+## index      rebuild the index from the record tree alone (~2m20s, no dump read)
 index: build
-	$(BIN) index -records $(OUT) -db $(OUT)/search.db -workers 16
+	$(BIN) index -records $(RECORDS) -db $(OUT)/index.db -workers 16
 	@$(MAKE) --no-print-directory verify
 
 ## verify     print what actually landed in the database
 verify:
-	@sqlite3 $(OUT)/search.db \
+	@sqlite3 $(OUT)/index.db \
 	  "select 'movies              '||count(*) from movies" \
 	  "select 'events              '||count(*) from events" \
 	  "select 'television_series   '||count(*) from television_series" \
@@ -80,37 +90,32 @@ verify:
 	  "select '  with qid          '||count(*) from people where qid is not null" \
 	  "select 'credits             '||count(*) from credits"
 	@echo "raw wikitext leaking into person names (must be 0):"
-	@sqlite3 $(OUT)/search.db \
+	@sqlite3 $(OUT)/index.db \
 	  "select '  '||count(*) from people where name like '%[[%' or name like '%<br%'"
 	@echo "episodes whose series_id has no series row (must be 0 — episode search"
 	@echo "joins for the series title instead of storing a copy):"
-	@sqlite3 $(OUT)/search.db \
+	@sqlite3 $(OUT)/index.db \
 	  "select '  '||count(*) from television_episodes e \
 	   left join television_series t on t.id = e.series_id where t.id is null"
 
-## serve      web UI on :8080
-serve: build
-	$(BIN) serve -db $(OUT)/search.db -movies $(OUT)/movies -television $(OUT)/television \
-	  -events $(OUT)/events -addr :8080
-
 ## split      cut the index into git-committable parts (<100 MB each)
 split: build
-	$(BIN) split -db $(OUT)/search.db -out index
+	$(BIN) split -db $(OUT)/index.db -out $(OUT)/index-parts
 
 ## join       reassemble the index from parts, verifying checksums
 join: build
-	$(BIN) join -in index -db $(OUT)/search.db
+	$(BIN) join -in $(OUT)/index-parts -db $(OUT)/index.db
 
 ## web        the browser
 web: build
-	./filmstock-web -db $(OUT)/search.db -records $(OUT) -addr :8080
+	./filmstock-web -db $(OUT)/index.db -records $(RECORDS) -addr :8080
 
-## dist       compress the database for distribution (zstd -19)
-dist: $(OUT)/search.db
-	zstd -19 -T0 -f -k $(OUT)/search.db -o $(OUT)/search.db.zst
-	@printf "  %-22s %s\n" "search.db"     "$$(du -h --apparent-size $(OUT)/search.db     | cut -f1)"
-	@printf "  %-22s %s\n" "search.db.zst" "$$(du -h --apparent-size $(OUT)/search.db.zst | cut -f1)"
+## dist       compress the index for distribution (zstd -19)
+dist: $(OUT)/index.db
+	zstd -19 -T0 -f -k $(OUT)/index.db -o $(OUT)/index.db.zst
+	@printf "  %-22s %s\n" "index.db"     "$$(du -h --apparent-size $(OUT)/index.db     | cut -f1)"
+	@printf "  %-22s %s\n" "index.db.zst" "$$(du -h --apparent-size $(OUT)/index.db.zst | cut -f1)"
 
-## clean-out  delete the regenerated outputs; keeps dumps and the resolver cache
+## clean-out  delete the derived artifacts; keeps the dumps and the record tree
 clean-out:
 	rm -rf $(OUT)

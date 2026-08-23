@@ -53,7 +53,7 @@ func fixture(t *testing.T) (dbPath, root string) {
 		}
 	}
 
-	dbPath = filepath.Join(root, "search.db")
+	dbPath = filepath.Join(root, "index.db")
 	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
 		t.Fatal(err)

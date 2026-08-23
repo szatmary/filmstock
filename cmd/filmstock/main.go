@@ -45,23 +45,23 @@ func main() {
 func usage() {
 	fmt.Fprintln(os.Stderr, `filmstock — a media database built from the Wikipedia and Wikidata dumps
 
+The record tree is a separate repository: github.com/szatmary/filmstock-data
+The index is derived from it and rebuilds in about two minutes.
+
 Usage:
-  filmstock build-wd-edges -db wikidata.db < ENTITIES.json            P179/P4908 edges (stdin)
-  filmstock build-qidmap   -pageprops F -index IDX -db wikidata.db    title/page_id -> Q-id
-  filmstock extract -dumps DUMPDIR -out OUTDIR -cache wikidata.db     dumps -> records + search.db
-  filmstock extract ... -index=false                                  records only, skip the index
-  filmstock index   -records OUTDIR                                   rebuild search.db from the records alone
-  filmstock index-television -television OUTDIR/television -db DB     reindex television only
-  filmstock index-events     -events OUTDIR/events -db DB             reindex events only
-  filmstock search [-n 20] QUERY...                                   fuzzy-search the index
-  filmstock split -db out/search.db -out index/                       index -> git-committable parts
-  filmstock join  -in index/ -db out/search.db                        parts -> index (verified)
+  filmstock build-wd-edges -db wikidata.db < ENTITIES.json     P179/P4908 edges (stdin)
+  filmstock build-qidmap   -pageprops F -index IDX -db DB      title/page_id -> Q-id
+  filmstock extract -dumps DUMPS -out RECORDS -cache wikidata.db
+                                                               dumps -> the record tree
+  filmstock extract ... -text DIR                              put the corpus elsewhere
+  filmstock extract ... -index=false                           records only
+  filmstock index   -records filmstock-data -db index.db       record tree -> the index
+  filmstock index-television / index-events                    reindex one kind
+  filmstock search  [-n 20] QUERY...                           fuzzy-search the index
+  filmstock split -db index.db -out index-parts/                     index -> committable parts
+  filmstock join  -in index-parts/ -db index.db                      parts -> index (verified)
 
 The browser is a separate binary:
-  filmstock-web -db OUTDIR/search.db -records OUTDIR
-  filmstock-web -db OUTDIR/search.db -remote https://.../v2026-08-22
-
-Retrieval experiments (ColBERT, dense vectors, quantisation, the eval harness)
-live on the ai-experiments branch.`)
+  filmstock-web -db index.db -records filmstock-data`)
 	os.Exit(2)
 }

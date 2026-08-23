@@ -15,18 +15,18 @@ import (
 //	filmstock index -records OUTDIR
 //
 // It reads nothing but records: no dump, no resolver cache, no ordering the
-// caller has to know. Deleting search.db and re-running restores it exactly,
+// caller has to know. Deleting index.db and re-running restores it exactly,
 // which is the point of keeping the records as the source of truth.
 func CIndexRecords(args []string) {
 	fs := flag.NewFlagSet("index", flag.ExitOnError)
-	records := fs.String("records", "out", "record hierarchy produced by `extract`")
-	dbPath := fs.String("db", "", "output database (default <records>/search.db)")
+	records := fs.String("records", "filmstock-data", "the record tree, from `filmstock extract`")
+	dbPath := fs.String("db", "", "the index to write")
 	workers := fs.Int("workers", 16, "reader workers")
 	fs.Parse(args)
 
 	out := *dbPath
 	if out == "" {
-		out = filepath.Join(*records, "search.db")
+		out = "index.db"
 	}
 	start := time.Now()
 

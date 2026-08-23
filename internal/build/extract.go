@@ -18,7 +18,7 @@ import (
 
 // `extract` turns a directory of dumps into the record hierarchy, in one command.
 //
-// The record hierarchy IS the repository; search.db and any derived index are
+// The record hierarchy IS the repository; index.db and any derived index are
 // derived from it and can be deleted and rebuilt without touching a dump. So the
 // contract here is: delete OUTDIR, run this, get an identical repository back.
 //
@@ -120,8 +120,11 @@ func CExtract(args []string) {
 	force := fs.Bool("force", false, "rebuild the resolver cache even if present")
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
 	limit := fs.Int("limit", 0, "stop after this many films (0 = all); for smoke tests")
-	skipText := fs.Bool("no-text", false, "skip the full-text corpus (faster; out/text/ is not written)")
-	doIndex := fs.Bool("index", true, "also build search.db when extraction finishes")
+	skipText := fs.Bool("no-text", false, "skip the full-text corpus (faster; nothing is written to -text)")
+	textDir := fs.String("text", "", "where the full-text corpus goes (default <out>/text). "+
+		"Separate from -out so the records can live in a git repository while the "+
+		"corpus, which nothing consumes yet, stays with the other derived artifacts")
+	doIndex := fs.Bool("index", true, "also build index.db when extraction finishes")
 	fs.Parse(args)
 
 	d, err := findDumps(*dumpDir)
@@ -159,7 +162,12 @@ func CExtract(args []string) {
 
 	// ---- Phase 3: enwiki -> records ----------------------------------------
 	fmt.Fprintf(os.Stderr, "[3/4] records: %s -> %s\n", d.articles, *outDir)
-	if err := extractRecords(d, *outDir, *workers, !*skipText, *limit); err != nil {
+	// Default the corpus alongside the records, so a plain `extract -out DIR`
+	// still behaves exactly as it always did.
+	if *textDir == "" {
+		*textDir = *outDir
+	}
+	if err := extractRecords(d, *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "extract complete in %.1f min\n", time.Since(start).Minutes())
@@ -167,7 +175,7 @@ func CExtract(args []string) {
 	// Index here by default: the records were just written, so they are still in
 	// page cache and the 170k+ random reads that dominate a standalone index run
 	// are nearly free. `filmstock index -records DIR` stays available on its own —
-	// search.db is derived, so it must always be rebuildable without re-extracting.
+	// index.db is derived, so it must always be rebuildable without re-extracting.
 	if *doIndex {
 		fmt.Fprintln(os.Stderr, "[4/4] search index")
 		CIndexRecords([]string{"-records", *outDir, "-workers", fmt.Sprint(*workers)})
@@ -177,7 +185,7 @@ func CExtract(args []string) {
 
 // extractRecords streams the article dump ONCE, feeding every page to both the
 // film and the television extractors and writing the record hierarchy.
-func extractRecords(d *dumpSet, outDir string, workers int, wantText bool, limit int) error {
+func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bool, limit int) error {
 	seasonOf, err := loadSeasonOf(d.cache)
 	if err != nil {
 		return err
@@ -189,7 +197,7 @@ func extractRecords(d *dumpSet, outDir string, workers int, wantText bool, limit
 		}
 	}
 	if wantText {
-		if err := os.MkdirAll(filepath.Join(outDir, filmstock.KindText), 0o755); err != nil {
+		if err := os.MkdirAll(filepath.Join(textDir, filmstock.KindText), 0o755); err != nil {
 			return err
 		}
 	}
@@ -197,7 +205,7 @@ func extractRecords(d *dumpSet, outDir string, workers int, wantText bool, limit
 	// Encoding stays on the parser workers; only syscalls go to the pool. Depth is
 	// generous because the array sustains only a few hundred IOPS and the parsers
 	// must be free to run far ahead of it.
-	rec := &recordWriter{out: outDir, wantText: wantText, people: map[string]*PersonRecord{},
+	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText, people: map[string]*PersonRecord{},
 		pool: newWritePool(8, 16384)}
 
 	coll := newTelevisionCollector()
@@ -293,6 +301,7 @@ type PersonRecord struct {
 
 type recordWriter struct {
 	out      string
+	textOut  string // corpus root; may sit outside -out entirely
 	wantText bool
 	films    int64
 	events   int64
@@ -344,7 +353,7 @@ func (w *recordWriter) handleFilm(p dump.Page) {
 		if td, err := encodeRecordText(wikitext.FullPlainText(p.Text)); err != nil {
 			w.fail(err)
 		} else {
-			w.pool.put(filmstock.RecordPath(w.out, filmstock.KindText, int64(p.ID), ".txt.gz"), td)
+			w.pool.put(filmstock.RecordPath(w.textOut, filmstock.KindText, int64(p.ID), ".txt.gz"), td)
 		}
 	}
 }
