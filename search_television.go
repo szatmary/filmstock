@@ -41,7 +41,6 @@ type TelevisionSearchResult struct {
 	Network       string
 	Starring      string
 	Cover         string
-	Path          string
 	SeasonsCount  int
 	EpisodesCount int
 	Score         float64
@@ -115,7 +114,7 @@ func SearchTelevision(ctx context.Context, db *sql.DB, query, field string, limi
 		parts = append(parts, `"`+strings.ReplaceAll(g, `"`, `""`)+`"`)
 	}
 	rows, err := db.QueryContext(ctx, `
-		SELECT t.id,t.title,t.year,t.network,t.starring,t.cover_image_file,t.path,t.seasons_count,t.episodes_count
+		SELECT t.id,t.title,t.year,t.network,t.starring,t.cover_image_file,t.seasons_count,t.episodes_count
 		FROM television_fts f JOIN television_series t ON t.id=f.rowid
 		WHERE television_fts MATCH ?
 		ORDER BY bm25(television_fts, 10.0, 2.0, 2.0)
@@ -129,7 +128,7 @@ func SearchTelevision(ctx context.Context, db *sql.DB, query, field string, limi
 		var r TelevisionSearchResult
 		var year sql.NullInt64
 		var coverFile string
-		if err := rows.Scan(&r.ID, &r.Title, &year, &r.Network, &r.Starring, &coverFile, &r.Path, &r.SeasonsCount, &r.EpisodesCount); err != nil {
+		if err := rows.Scan(&r.ID, &r.Title, &year, &r.Network, &r.Starring, &coverFile, &r.SeasonsCount, &r.EpisodesCount); err != nil {
 			continue
 		}
 		r.Year = int(year.Int64)

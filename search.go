@@ -18,7 +18,6 @@ type SearchResult struct {
 	Starring string
 	Director string
 	Cover    string
-	Path     string
 	Score    float64
 }
 
@@ -38,7 +37,7 @@ func SearchMovies(ctx context.Context, db *sql.DB, query, field string, limit in
 	match := strings.Join(parts, " OR ")
 
 	rows, err := db.QueryContext(ctx, `
-		SELECT m.id, m.title, m.year, m.starring, m.director, m.cover_image_file, m.path
+		SELECT m.id, m.title, m.year, m.starring, m.director, m.cover_image_file
 		FROM movies_fts f JOIN movies m ON m.id = f.rowid
 		WHERE movies_fts MATCH ?
 		ORDER BY bm25(movies_fts, 10.0, 2.0, 2.0)
@@ -53,7 +52,7 @@ func SearchMovies(ctx context.Context, db *sql.DB, query, field string, limit in
 		var r SearchResult
 		var year sql.NullInt64
 		var coverFile string
-		if err := rows.Scan(&r.ID, &r.Title, &year, &r.Starring, &r.Director, &coverFile, &r.Path); err != nil {
+		if err := rows.Scan(&r.ID, &r.Title, &year, &r.Starring, &r.Director, &coverFile); err != nil {
 			continue
 		}
 		r.Year = int(year.Int64)
