@@ -93,8 +93,9 @@ type CreditMovie struct {
 
 // roleOrder controls how credit sections are ordered on a person page.
 var roleOrder = map[string]int{
-	"Director": 0, "Writer": 1, "Creator": 2, "Producer": 3, "Cast": 4,
-	"Composer": 5, "Cinematographer": 6, "Editor": 7,
+	"Director": 0, "Writer": 1, "Creator": 2, "Producer": 3,
+	"Executive Producer": 4, "Cast": 5, "Presenter": 6, "Narrator": 7,
+	"Composer": 8, "Cinematographer": 9, "Editor": 10, "Host": 11,
 }
 
 // PersonFilmography loads a person by id and returns their credits (movies AND

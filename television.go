@@ -8,18 +8,39 @@ import (
 // TelevisionSeries is the structured record for one television series, with nested
 // seasons and episodes.
 type TelevisionSeries struct {
-	Title          string            `json:"title"`
-	PageID         int               `json:"page_id"`
-	Type           string            `json:"type"` // always "television"
-	WikiURL        string            `json:"wikipedia_url"`
-	Overview       string            `json:"overview,omitempty"`
-	Plot           string            `json:"plot,omitempty"`
-	Genre          []string          `json:"genre,omitempty"`
-	Creator        []Person          `json:"creator,omitempty"`
-	Starring       []Person          `json:"starring,omitempty"`
-	Network        []Link          `json:"network,omitempty"`
-	Country        []Link          `json:"country,omitempty"`
-	Composer       []Person          `json:"composer,omitempty"`
+	Title    string   `json:"title"`
+	PageID   int      `json:"page_id"`
+	Type     string   `json:"type"` // always "television"
+	WikiURL  string   `json:"wikipedia_url"`
+	Overview string   `json:"overview,omitempty"`
+	Plot     string   `json:"plot,omitempty"`
+	Genre    []string `json:"genre,omitempty"`
+	Creator  []Person `json:"creator,omitempty"`
+	Starring []Person `json:"starring,omitempty"`
+	Network  []Link   `json:"network,omitempty"`
+	Country  []Link   `json:"country,omitempty"`
+	Composer []Person `json:"composer,omitempty"`
+
+	// Series-level crew. Films have carried these from the beginning;
+	// television did not, so "who directed this series" had no answer while the
+	// same question about a film did. They were present on a majority of series
+	// infoboxes and read by nothing, which silently shrank the people graph.
+	Director            []Person `json:"director,omitempty"`
+	Producer            []Person `json:"producer,omitempty"`
+	ExecutiveProducer   []Person `json:"executive_producer,omitempty"`
+	Writer              []Person `json:"writer,omitempty"`
+	Editor              []Person `json:"editor,omitempty"`
+	Cinematography      []Person `json:"cinematography,omitempty"`
+	Presenter           []Person `json:"presenter,omitempty"`
+	Narrator            []Person `json:"narrator,omitempty"`
+	ProductionCompanies []Link   `json:"production_companies,omitempty"`
+
+	// References to other works. BasedOn is usually a book or play and often
+	// outside this database; Related points at other series, which usually are
+	// in it. Both keep the link target, because the target is what could ever
+	// resolve to a record and the display string never can.
+	BasedOn        []Link            `json:"based_on,omitempty"`
+	Related        []Link            `json:"related,omitempty"`
 	NumSeasons     string            `json:"num_seasons,omitempty"`
 	NumEpisodes    string            `json:"num_episodes,omitempty"`
 	FirstAired     string            `json:"first_aired,omitempty"`

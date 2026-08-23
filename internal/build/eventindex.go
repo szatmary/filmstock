@@ -117,8 +117,12 @@ func CIndexEvents(args []string) {
 		}
 		if _, err := stmt.Exec(e.PageID, e.Title, e.Kind, e.Award, e.Edition, e.Date,
 			e.Year, strings.Join(names, ", "), e.Organizer, e.Venue, e.Location,
-			strings.Join(filmstock.Names(e.Network), ", "), e.BestFilm, e.MostWins, e.OpeningFilm,
-			e.ClosingFilm, e.CoverImageFile, e.WikiURL, r.GitdbID); err != nil {
+			strings.Join(filmstock.Names(e.Network), ", "),
+			strings.Join(filmstock.Names(e.BestFilm), ", "),
+			strings.Join(filmstock.Names(e.MostWins), ", "),
+			strings.Join(filmstock.Names(e.OpeningFilm), ", "),
+			strings.Join(filmstock.Names(e.ClosingFilm), ", "),
+			e.CoverImageFile, e.WikiURL, r.GitdbID); err != nil {
 			return err
 		}
 		for _, h := range e.Hosts {

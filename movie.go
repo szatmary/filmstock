@@ -30,15 +30,20 @@ type Movie struct {
 	Music               []Person `json:"music,omitempty"`
 	Cinematography      []Person `json:"cinematography,omitempty"`
 	Editing             []Person `json:"editing,omitempty"`
-	ProductionCompanies []Link `json:"production_companies,omitempty"`
-	Distributor         []Link `json:"distributor,omitempty"`
-	Country             []Link `json:"country,omitempty"`
-	Language            []Link `json:"language,omitempty"`
-	Runtime             string   `json:"runtime,omitempty"`
-	Budget              string   `json:"budget,omitempty"`
-	Gross               string   `json:"gross,omitempty"`
-	CoverImageFile      string   `json:"cover_image_file,omitempty"`
-	CoverImageURL       string   `json:"cover_image_url,omitempty"`
+	ProductionCompanies []Link   `json:"production_companies,omitempty"`
+	Distributor         []Link   `json:"distributor,omitempty"`
+
+	// The work a film adapts. Usually a book or play and often outside this
+	// database — but the link target is what could ever resolve, and it was
+	// present on a third of films and read by nothing.
+	BasedOn        []Link `json:"based_on,omitempty"`
+	Country        []Link `json:"country,omitempty"`
+	Language       []Link `json:"language,omitempty"`
+	Runtime        string `json:"runtime,omitempty"`
+	Budget         string `json:"budget,omitempty"`
+	Gross          string `json:"gross,omitempty"`
+	CoverImageFile string `json:"cover_image_file,omitempty"`
+	CoverImageURL  string `json:"cover_image_url,omitempty"`
 	// Raw holds the untouched infobox parameters for later expansion.
 	Raw map[string]string `json:"raw_infobox,omitempty"`
 }

@@ -50,17 +50,21 @@ type Event struct {
 	Organizer string   `json:"organizer,omitempty"`
 	Venue     string   `json:"venue,omitempty"`
 	Location  string   `json:"location,omitempty"`
-	Network   []Link `json:"network,omitempty"` // televised
+	Network   []Link   `json:"network,omitempty"` // televised
 
-	Previous string `json:"previous,omitempty"`
-	Next     string `json:"next,omitempty"`
+	// These point at another ceremony in this same database — the 94th and 96th
+	// Academy Awards from the 95th. Keeping only the rendered title made that
+	// unnavigable; the link target is the one thing that could resolve.
+	Previous []Link `json:"previous,omitempty"`
+	Next     []Link `json:"next,omitempty"`
 
-	BestFilm        string `json:"best_film,omitempty"`
-	MostWins        string `json:"most_wins,omitempty"`
-	MostNominations string `json:"most_nominations,omitempty"`
-	OpeningFilm     string `json:"opening_film,omitempty"`
-	ClosingFilm     string `json:"closing_film,omitempty"`
-	MainCompetition string `json:"main_competition,omitempty"`
+	// And these point at films this database holds.
+	BestFilm        []Link `json:"best_film,omitempty"`
+	MostWins        []Link `json:"most_wins,omitempty"`
+	MostNominations []Link `json:"most_nominations,omitempty"`
+	OpeningFilm     []Link `json:"opening_film,omitempty"`
+	ClosingFilm     []Link `json:"closing_film,omitempty"`
+	MainCompetition []Link `json:"main_competition,omitempty"`
 	Founded         string `json:"founded,omitempty"`
 
 	Overview       string            `json:"overview,omitempty"`

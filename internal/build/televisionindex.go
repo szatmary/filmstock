@@ -127,6 +127,17 @@ func CIndexTelevision(args []string) {
 		pb.credit(seen, s.Creator, s.PageID, "television", "Creator")
 		pb.credit(seen, s.Starring, s.PageID, "television", "Cast")
 		pb.credit(seen, s.Composer, s.PageID, "television", "Composer")
+		// Series-level crew. Without these a television director existed only
+		// per-episode, so a person's page showed episodes they directed but
+		// never the series they ran.
+		pb.credit(seen, s.Director, s.PageID, "television", "Director")
+		pb.credit(seen, s.Producer, s.PageID, "television", "Producer")
+		pb.credit(seen, s.ExecutiveProducer, s.PageID, "television", "Executive Producer")
+		pb.credit(seen, s.Writer, s.PageID, "television", "Writer")
+		pb.credit(seen, s.Editor, s.PageID, "television", "Editor")
+		pb.credit(seen, s.Cinematography, s.PageID, "television", "Cinematographer")
+		pb.credit(seen, s.Presenter, s.PageID, "television", "Presenter")
+		pb.credit(seen, s.Narrator, s.PageID, "television", "Narrator")
 		for _, se := range s.Seasons {
 			for _, e := range se.Episodes {
 				pb.credit(seen, e.DirectedBy, s.PageID, "television", "Director")
