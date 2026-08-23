@@ -201,47 +201,39 @@ It refuses to guess between the two, and returns an `X-Record-Fetch` header so
 the cost of each is visible. Measured on this machine: **2.9 ms** local versus
 **4.8 ms** over HTTP, returning byte-identical records.
 
-## Distributing it
+## Where the data lives
 
-The intended consumer download is `search.db` alone, with the per-record detail
-fetched on demand by HTTP range request out of a single packed blob — not 620k
-loose files. Design and the reasoning in [docs/TODO.md](docs/TODO.md) §D1. The
-fetch side is not built yet; `serve` reads records from a local directory today.
+The record tree is a separate repository:
+**[github.com/szatmary/filmstock-data](https://github.com/szatmary/filmstock-data)**
+— 450,699 records, 409.7 MB, committed.
 
-The database is sized for that role: it stores **no prose**. FTS covers titles,
-cast and creators only, so episode summaries and series overview/plot were
-unindexed text duplicating what the record `.json.gz` already holds. They are not
-stored, and `movies` never had them.
+It is separate because the Go module proxy serves a zip of the entire module tree
+and caps it at 500 MiB. Records in this module root would make every `go get` of
+the library download 438 MB, and would eventually break installation outright as
+the corpus grows.
 
 ```sh
-make pack           # -> out/packs/{movies,television,events}.pack + offsets in the db
-make dist           # -> out/search.db.zst
+git clone https://github.com/szatmary/filmstock-data
+filmstock index -records filmstock-data -db index.db     # ~2m20s
+filmstock-web  -db index.db -records filmstock-data
 ```
 
-Pack sizes, measured:
+The index is in neither repository. It is derived, it rebuilds in 2m20s, and a
+rebuild changes 100% of its bytes — measured — so committing it would cost about
+383 MB of permanent history per ingest. If you want it committed anyway,
+`make split` cuts it into five ~90 MB parts with a checksummed manifest, and
+`make join` reassembles and verifies.
 
-| pack | records | size |
+Measured, for the record:
+
+| | first commit | each re-ingest |
 |---|---|---|
-| `movies.pack` | 165,265 | 240 MB |
-| `television.pack` | 61,137 | 150 MB |
-| `events.pack` | 4,669 | 3.5 MB |
+| record tree | 438 MB packfile | **+1-3 MB** |
+| index | 196 MB | **+383 MB** |
 
-That is **394 MB total** — far less than the 1.9 GB the record tree occupies on
-disk, because 620k small files pay filesystem block overhead roughly five times
-over. Packing is a large space win before it is a distribution mechanism, and it
-puts every asset comfortably under GitHub's 2 GB per-asset limit.
-
-Measured end to end:
-
-| | size |
-|---|---|
-| with prose | 637 MB |
-| without prose | **383 MB** |
-| `search.db.zst` (zstd -19) | **161 MB** |
-
-`television_episodes` went from 209 MB to 26.8 MB and `television_series` from
-106 MB to 17.3 MB. zstd -19 beat gzip -6 by 29% on these pages (2.79x vs 2.16x
-before the trim). Net for a consumer: **637 MB → 161 MB, 3.96x**.
+450,699 files turned out to be a non-issue for git: `git add` 22.8 s, `git status`
+0.28 s. The `feature.manyFiles` tuning that docs/TODO.md §D recommends is not
+needed at this scale.
 
 ## Data license
 

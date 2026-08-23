@@ -1,8 +1,6 @@
 // Command filmstock-web is the browser: search the database, open a record.
 //
-// It is built on the public github.com/szatmary/filmstock API and nothing else,
-// so it works identically against a local record tree and against packs served
-// over HTTP — the difference is one flag.
+// It is built on the public github.com/szatmary/filmstock API and nothing else.
 package main
 
 import (
@@ -28,29 +26,12 @@ type server struct{ fs *filmstock.DB }
 
 func main() {
 	dbPath := flag.String("db", "out/search.db", "search database")
-	records := flag.String("records", "", "local record tree (out/)")
-	remote := flag.String("remote", "", "base URL serving movies.pack / television.pack / events.pack")
+	records := flag.String("records", "out", "record tree produced by `filmstock extract`")
 	addr := flag.String("addr", ":8080", "listen address")
 	flag.Parse()
 
-	// Never guess between the two: which one is in use decides whether opening a
-	// page costs a disk read or a network round trip, and the operator should
-	// know which they got.
-	var src filmstock.RecordSource
-	switch {
-	case *records != "" && *remote != "":
-		fatal(fmt.Errorf("-records and -remote are mutually exclusive"))
-	case *records != "":
-		src = filmstock.Dir(*records)
-		fmt.Fprintf(os.Stderr, "records: local tree %s\n", *records)
-	case *remote != "":
-		src = filmstock.Remote(*remote)
-		fmt.Fprintf(os.Stderr, "records: remote packs %s\n", *remote)
-	default:
-		fatal(fmt.Errorf("pass -records DIR or -remote URL"))
-	}
-
-	db, err := filmstock.Open(*dbPath, src)
+	fmt.Fprintf(os.Stderr, "records: %s\n", *records)
+	db, err := filmstock.Open(*dbPath, filmstock.Dir(*records))
 	if err != nil {
 		fatal(err)
 	}

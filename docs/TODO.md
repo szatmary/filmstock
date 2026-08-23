@@ -70,6 +70,13 @@ made twice already this session).
 
 ## D. Distribution (git-annex + signed commits + p2p)
 
+**Settled:** the record tree is committed, in its own repository —
+`filmstock-data`, 450,699 records, 437.9 MiB packed. Separate from the code
+because the Go module proxy zips the whole module tree and caps it at 500 MiB.
+The index is not committed: a rebuild changes 100% of its bytes (measured), so it
+would cost ~383 MB of history per ingest to store something that regenerates in
+2m20s. `filmstock split`/`join` exist if that trade is ever worth making.
+
 - **Records are byte-deterministic** — verified: identical input gives identical
   bytes (Go's gzip writes no timestamp, encoding/json sorts map keys). This is the
   precondition; without it every re-extract churns all ~620k files.
@@ -85,13 +92,18 @@ made twice already this session).
   extract twice into scratch directories on identical code and `diff -r` the
   record trees (~65 min each). If they differ, the diff/sync plan needs an
   ordering fix first.
-- **Reconsider gzip.** Git already zlib-compresses, and delta compression cannot
-  see through gzip — a one-field change re-transfers the whole blob. Plain `.json`
-  costs ~3-4x locally but makes packfiles and p2p deltas far smaller.
+- ~~**Reconsider gzip**~~ — MEASURED, and it does not matter. 8,000 real records,
+  second ingest changing 1% of them: plain `.json` 12.5 MB then +0.1 MB; gzipped
+  12.8 MB then +0.1 MB. Extrapolated to all films, plain costs 259 MB and gzipped
+  264 MB, and a re-ingest is 1 MB against 3 MB. The gzip penalty is real per-file
+  and irrelevant at this size, because a changed record is only ~1.5 KB. Plain
+  JSON is 3.1x larger on disk for no packfile benefit. Keep gzip.
 - **Plain git probably beats git-annex** for `movies/`/`television/`/`people/` (5-20 KB,
   highly deltable). Annex suits `text/` (1.3 GB), if it ships at all.
-- **620k files** makes `git status` slow: set `feature.manyFiles`, untracked cache,
-  fsmonitor; sparse-checkout lets consumers take only what they want.
+- ~~**620k files** makes `git status` slow~~ — MEASURED, not a problem. The real
+  tree is 450,699 records: `git add` 22.8 s, `commit` 1.1 s, `gc` 30 s,
+  `git status` **0.28 s**, packfile 437.9 MiB. No `feature.manyFiles`, untracked
+  cache or fsmonitor needed at this scale.
 - **Stamp records with an extractor version** so consumers can distinguish "the
   data changed" from "the parser changed". A parser change rewrites every record.
 - Manifest of `page_id -> content_hash` for diffs — mostly free once records are

@@ -22,7 +22,7 @@ FETCH := $(shell command -v aria2c >/dev/null && echo "aria2c -c -x4 -s4 --dir=$
 # lbzip2 decompresses in parallel; the 102 GB wikidata pass is bound on it.
 BUNZIP := $(shell command -v lbzip2 >/dev/null && echo "lbzip2 -dc -n 20" || echo "bzip2 -dc")
 
-.PHONY: build test dumps resolver extract index serve verify pack web dist clean-out help
+.PHONY: build test dumps resolver extract index serve verify split join web dist clean-out help
 
 help:
 	@sed -n 's/^##//p' $(MAKEFILE_LIST)
@@ -93,12 +93,15 @@ serve: build
 	$(BIN) serve -db $(OUT)/search.db -movies $(OUT)/movies -television $(OUT)/television \
 	  -events $(OUT)/events -addr :8080
 
-## pack       concatenate records into out/packs/<kind>.pack + write offsets
-pack: build
-	$(BIN) pack -records $(OUT)
-	@ls -l $(OUT)/packs | awk 'NR>1{printf "  %-20s %10.1f MB\n", $$9, $$5/1048576}'
+## split      cut the index into git-committable parts (<100 MB each)
+split: build
+	$(BIN) split -db $(OUT)/search.db -out index
 
-## web        the sample app: a web server built on the public library API
+## join       reassemble the index from parts, verifying checksums
+join: build
+	$(BIN) join -in index -db $(OUT)/search.db
+
+## web        the browser
 web: build
 	./filmstock-web -db $(OUT)/search.db -records $(OUT) -addr :8080
 

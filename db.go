@@ -32,7 +32,6 @@ type DB struct {
 // than panicking.
 //
 //	db, err := filmstock.Open("search.db", filmstock.Dir("out"))
-//	db, err := filmstock.Open("search.db", filmstock.Remote("https://…/v2026-08-22"))
 func Open(path string, src RecordSource) (*DB, error) {
 	// Read-only: nothing in this package writes, and saying so lets several
 	// readers share one file without fighting over the write lock.
@@ -124,8 +123,7 @@ func (db *DB) Event(ctx context.Context, id int) (*Event, error) {
 	return &e, nil
 }
 
-// locate reads where a record lives. Both answers come from the same row, so a
-// Dir source and a Remote source cost exactly one query either way.
+// locate reads where a record lives, from the index.
 func (db *DB) locate(ctx context.Context, kind string, id int) (Location, error) {
 	var table string
 	switch kind {
@@ -140,8 +138,7 @@ func (db *DB) locate(ctx context.Context, kind string, id int) (Location, error)
 	}
 	loc := Location{Kind: kind, ID: id}
 	err := db.sql.QueryRowContext(ctx,
-		`SELECT path, COALESCE(pack_offset,0), COALESCE(pack_length,0) FROM `+table+` WHERE id = ?`,
-		id).Scan(&loc.Path, &loc.Offset, &loc.Length)
+		`SELECT path FROM `+table+` WHERE id = ?`, id).Scan(&loc.Path)
 	if err == sql.ErrNoRows {
 		return Location{}, fmt.Errorf("no %s with id %d: %w", kind, id, ErrNotFound)
 	}

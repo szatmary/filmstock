@@ -27,8 +27,10 @@ func main() {
 		build.CIndexTelevision(os.Args[2:])
 	case "build-qidmap":
 		build.CBuildQidmap(os.Args[2:])
-	case "pack":
-		build.CPack(os.Args[2:])
+	case "split":
+		build.CmdSplit(os.Args[2:])
+	case "join":
+		build.CmdJoin(os.Args[2:])
 	case "extract":
 		build.CExtract(os.Args[2:])
 	case "build-wd-edges":
@@ -52,7 +54,8 @@ Usage:
   filmstock index-television -television OUTDIR/television -db DB     reindex television only
   filmstock index-events     -events OUTDIR/events -db DB             reindex events only
   filmstock search [-n 20] QUERY...                                   fuzzy-search the index
-  filmstock pack    -records OUTDIR                                   records -> packs + offsets
+  filmstock split -db out/search.db -out index/                       index -> git-committable parts
+  filmstock join  -in index/ -db out/search.db                        parts -> index (verified)
 
 The browser is a separate binary:
   filmstock-web -db OUTDIR/search.db -records OUTDIR
