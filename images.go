@@ -8,8 +8,16 @@ import (
 	"time"
 )
 
-// Wikipedia asks API clients to send a descriptive User-Agent with contact info.
-const userAgent = "filmstock/0.1 (movie database; +https://github.com/szatmary/filmstock)"
+// UserAgent is sent on every request to the Wikimedia APIs. Their policy asks
+// clients to identify themselves and to give a way to be contacted, so anyone
+// running this at volume should set their own before making requests:
+//
+//	filmstock.UserAgent = "myapp/1.0 (https://example.com; me@example.com)"
+//
+// The default carries no personal contact on purpose. A library that shipped one
+// would make every program importing it send a stranger's address to Wikimedia,
+// and would put that address in every copy of the source.
+var UserAgent = "filmstock/0.1 (+https://github.com/szatmary/filmstock)"
 
 var imgClient = &http.Client{Timeout: 6 * time.Second}
 
@@ -23,7 +31,7 @@ func FetchPersonImage(name string) string {
 	if err != nil {
 		return ""
 	}
-	req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("User-Agent", UserAgent)
 	resp, err := imgClient.Do(req)
 	if err != nil {
 		return ""
