@@ -31,7 +31,7 @@ func main() {
 	flag.Parse()
 
 	fmt.Fprintf(os.Stderr, "records: %s\n", *records)
-	db, err := filmstock.Open(*dbPath, filmstock.Dir(*records))
+	db, err := filmstock.Open(*dbPath, filmstock.Store(*records))
 	if err != nil {
 		fatal(err)
 	}

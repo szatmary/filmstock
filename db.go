@@ -138,7 +138,7 @@ func (db *DB) locate(ctx context.Context, kind string, id int) (Location, error)
 	}
 	loc := Location{Kind: kind, ID: id}
 	err := db.sql.QueryRowContext(ctx,
-		`SELECT path FROM `+table+` WHERE id = ?`, id).Scan(&loc.Path)
+		`SELECT gitdb_id FROM `+table+` WHERE id = ?`, id).Scan(&loc.GitdbID)
 	if err == sql.ErrNoRows {
 		return Location{}, fmt.Errorf("no %s with id %d: %w", kind, id, ErrNotFound)
 	}
@@ -184,9 +184,9 @@ func (db *DB) Person(ctx context.Context, id int) (*PersonRecord, error) {
 	if db.src == nil {
 		return rec, nil
 	}
-	// The record's path is derived, not stored: a Q-id where there is one, and a
-	// hash of the link target where there is not. Both spaces are kept disjoint
-	// by the sign, so the two can never collide.
+	// A person's identity is their Q-id where they have one, and the link target
+	// hash where they do not. That identity is what the record carries; where the
+	// record lives is the store's business and comes from the index.
 	recID := qid.Int64
 	if recID == 0 {
 		if wiki == "" {
@@ -194,11 +194,12 @@ func (db *DB) Person(ctx context.Context, id int) (*PersonRecord, error) {
 		}
 		recID = -int64(PersonRecordPathID(wiki))
 	}
-	loc := Location{
-		Kind: KindPerson,
-		ID:   int(recID),
-		Path: personShardPath(recID),
+	var gid uint64
+	if err := db.sql.QueryRowContext(ctx,
+		`SELECT COALESCE(gitdb_id,0) FROM people WHERE id = ?`, id).Scan(&gid); err != nil || gid == 0 {
+		return rec, nil // identity stands even with no record behind it
 	}
+	loc := Location{Kind: KindPerson, ID: int(recID), GitdbID: gid}
 	b, err := db.src.Fetch(ctx, loc)
 	if err != nil {
 		return rec, nil // no record on disk is not an error; the identity stands
