@@ -74,9 +74,19 @@ func storeOptions(kind string) []gitdb.Option {
 		gitdb.WithDictionary(Dictionary(kind)),
 		// Level 9 costs build time once and is paid back on every clone.
 		gitdb.WithLevel(9),
-		// Well under the 100 MB a git host refuses, and small enough that a
-		// browser still renders the diff.
-		gitdb.WithMaxFileSize(32 << 20),
+		// 4 MB, not the 50 MB default. A record is read by offset and length, so
+		// file size does not affect a local lookup at all — but it decides how
+		// much has to move for anything that fetches whole files, how much a
+		// compaction rewrites, and whether a web diff viewer will render the
+		// file at all. Small files cost nothing in capacity here: gitdb spends
+		// an index entry's bits on whatever the cap does not need, so a smaller
+		// cap buys back file-index bits and total capacity stays in terabytes.
+		//
+		// It also caps a single record, since gitdb refuses any record larger
+		// than the file it would live in. The largest record in this corpus is a
+		// 490 KB television series before compression, so 4 MB leaves about an
+		// order of magnitude of headroom for a longer-running show.
+		gitdb.WithMaxFileSize(4 << 20),
 	}
 }
 
