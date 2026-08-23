@@ -37,7 +37,7 @@ func CmdUpdate(args []string) {
 	fs := flag.NewFlagSet("update", flag.ExitOnError)
 	incr := fs.String("incr", "", "adds-changes dump (enwiki-YYYYMMDD-pages-meta-hist-incr.xml.bz2)")
 	records := fs.String("records", "filmstock-data", "record store to update in place")
-	dbPath := fs.String("db", "index.db", "the index, read for its page_id -> record mapping")
+	dbPath := fs.String("db", "", "optional index; read for its page_id -> record mapping instead of scanning the store")
 	workers := fs.Int("workers", 4, "bz2 decompression workers")
 	dry := fs.Bool("dry-run", false, "report what would change without writing")
 	fs.Parse(args)
@@ -45,19 +45,6 @@ func CmdUpdate(args []string) {
 	if *incr == "" {
 		fatal(fmt.Errorf("update needs -incr FILE (see dumps.wikimedia.org/other/incr/enwiki/)"))
 	}
-	// The index is required, not optional. It carries page_id -> gitdb_id, which
-	// is the only cheap way to find the record a changed page belongs to;
-	// deriving it by scanning the store costs ~23 seconds before the first page
-	// of a day's changes is read.
-	if err := filmstock.CheckIndexAgainstStore(*dbPath, *records); err != nil {
-		fatal(err)
-	}
-	idx, err := sql.Open("sqlite", *dbPath)
-	if err != nil {
-		fatal(err)
-	}
-	defer idx.Close()
-
 	rc, err := dump.OpenBz2(*incr, *workers)
 	if err != nil {
 		fatal(err)
@@ -65,8 +52,31 @@ func CmdUpdate(args []string) {
 	defer rc.Close()
 
 	w := newStoreWriter(*records)
-	if err := w.loadIdentitiesFromIndex(idx); err != nil {
-		fatal(err)
+
+	// The index is an optimisation, not a dependency. It already holds
+	// page_id -> gitdb_id, so reading it turns a 23-second scan of the whole
+	// store into four queries. But this is an offline maintainer's tool, and a
+	// maintainer with a store and no index must be able to apply a day's changes
+	// and index afterwards — the same order an end user does it in.
+	//
+	// When an index IS given its fingerprint is checked first: applying changes
+	// through a mapping built from a different state of the store would update
+	// the wrong records, which is worse than being slow.
+	if *dbPath != "" {
+		if err := filmstock.CheckIndexAgainstStore(*dbPath, *records); err != nil {
+			fatal(err)
+		}
+		idx, err := sql.Open("sqlite", *dbPath)
+		if err != nil {
+			fatal(err)
+		}
+		defer idx.Close()
+		if err := w.loadIdentitiesFromIndex(idx); err != nil {
+			fatal(err)
+		}
+		fmt.Fprintf(os.Stderr, "identities from %s\n", *dbPath)
+	} else {
+		fmt.Fprintln(os.Stderr, "no -db given; reading identities by scanning the store (slower)")
 	}
 	start := time.Now()
 	var st updateStats
