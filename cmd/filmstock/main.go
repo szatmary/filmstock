@@ -27,6 +27,8 @@ func main() {
 		build.CIndexTelevision(os.Args[2:])
 	case "build-qidmap":
 		build.CBuildQidmap(os.Args[2:])
+	case "train-dict":
+		build.CmdTrainDict(os.Args[2:])
 	case "split":
 		build.CmdSplit(os.Args[2:])
 	case "join":
@@ -58,6 +60,7 @@ Usage:
   filmstock index   -records filmstock-data -db index.db       record tree -> the index
   filmstock index-television / index-events                    reindex one kind
   filmstock search  [-n 20] QUERY...                           fuzzy-search the index
+  filmstock train-dict -records filmstock-data                        retrain the compression dictionaries
   filmstock split -db index.db -out index-parts/                     index -> committable parts
   filmstock join  -in index-parts/ -db index.db                      parts -> index (verified)
 

@@ -19,7 +19,7 @@ func fixture(t *testing.T) (dbPath, root string) {
 	t.Helper()
 	root = t.TempDir()
 
-	store, err := gitdb.Open(filepath.Join(root, KindMovie), storeOptions()...)
+	store, err := gitdb.Open(filepath.Join(root, KindMovie), storeOptions(KindMovie)...)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -36,6 +36,34 @@ embeddings, ColBERT late interaction, quantisation, reranking, fusion, and the
 eval harness that scored them — lives on the **ai-experiments** branch, together
 with the measurements that settled which of them were worth keeping.
 
+## A. Record storage (gitdb)
+
+Records move from loose .json.gz files to gitdb stores, one per kind, so adding
+or changing a record is a one-line diff in git. See github.com/szatmary/gitdb.
+
+- **UNTRUSTED: the people dictionary.** Trained on records averaging 36 bytes,
+  because biographies are joined at the END of an extract pass and the bounded
+  run used for training never reached most of them. Real people records carry a
+  biography 54% of the time and are an order of magnitude larger. Its measured
+  15.8% gain over a shared dictionary is real but says nothing about the corpus
+  it will actually compress. Retrain with `filmstock train-dict` against a full
+  store and rebuild. The events dictionary has the same problem for a different
+  reason: 69 training records, which zstd itself warned was far too few.
+- **Dictionaries are rebuilt often, not once.** A dictionary is only as good as
+  the records it saw and the corpus changes with every dump. Changing one
+  invalidates the store built with it — the identity is in the store header and
+  a mismatch is refused at Open — so training is always followed by a rebuild.
+- **Per-kind, not shared**: worth 15.8% on people and 27.4% on events over one
+  shared dictionary, ~1.5% on films and series. Costs nothing structurally since
+  each kind is already its own store.
+- **page_id cannot be the store id.** 231,071 works over an 83.6M id space is
+  0.28% density, and gitdb addresses a slot per id, so it would be 877 MB of
+  tombstones. The index maps page_id -> store id; nothing derives either from
+  the other. The cost is that a record's location is no longer a pure function
+  of its identity: a reader now needs the index, and re-extract must read the
+  store before writing it.
+- **Open**: the write path is not wired yet. extract still writes loose files.
+
 ## B. Identity and data quality
 
 - **Duo articles give both people the same Q-id.** "[[Jonathan Dayton and Valerie

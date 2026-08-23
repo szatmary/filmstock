@@ -19,25 +19,59 @@ import (
 // smallest and most repetitive. That gain is very nearly the 25% Base94 costs to
 // encode, which is what makes storing these in a text file affordable.
 //
-// It is embedded rather than loaded from disk because a store records its
-// dictionary's identity in its header: opening a store with the wrong dictionary
-// is an error, not silent corruption, so the reader and the writer must be
-// carrying the same bytes by construction.
+// There is one per kind rather than one shared. Each kind is its own store, so
+// this costs nothing structurally, and it is worth 15.8% on people and 27.4% on
+// events over a shared dictionary — the small, repetitive kinds where a record
+// compressed on its own has least to work with. Films and series gain only ~1.5%
+// because they are large enough to compress well unaided.
 //
-//go:embed dict/filmstock.dict
-var dictionary []byte
+// They are embedded rather than read from disk because a store records its
+// dictionary's identity in its header: opening a store with the wrong dictionary
+// is an error, not silent corruption, so reader and writer must be carrying the
+// same bytes by construction.
+//
+// CAVEAT, and it is a real one: the people dictionary was trained on records
+// averaging 36 bytes, because biographies are joined at the END of an extract
+// pass and the bounded run used for training never reached most of them. Real
+// people records carry a biography 54% of the time and average an order of
+// magnitude larger. Retrain against a full store — `filmstock train-dict` — and
+// rebuild before believing any number about people compression.
+//
+//go:embed dict/movies.dict
+var dictMovies []byte
 
-// Dictionary returns the compression dictionary the record stores are built
-// with. Exposed so a tool that opens a store directly passes the same one.
-func Dictionary() []byte { return dictionary }
+//go:embed dict/television.dict
+var dictTelevision []byte
+
+//go:embed dict/people.dict
+var dictPeople []byte
+
+//go:embed dict/events.dict
+var dictEvents []byte
+
+// Dictionary returns the compression dictionary a kind's store is built with.
+// Exposed so a tool opening a store directly passes the same one.
+func Dictionary(kind string) []byte {
+	switch kind {
+	case KindMovie:
+		return dictMovies
+	case KindTelevision:
+		return dictTelevision
+	case KindPerson:
+		return dictPeople
+	case KindEvent:
+		return dictEvents
+	}
+	return nil
+}
 
 // storeOptions are the settings every filmstock record store is opened with.
 // They are not configurable: they are recorded in the store header and enforced
 // on reopen, so they are a property of the format rather than of a caller.
-func storeOptions() []gitdb.Option {
+func storeOptions(kind string) []gitdb.Option {
 	return []gitdb.Option{
 		gitdb.WithEncoding(gitdb.Base94()),
-		gitdb.WithDictionary(dictionary),
+		gitdb.WithDictionary(Dictionary(kind)),
 		// Level 9 costs build time once and is paid back on every clone.
 		gitdb.WithLevel(9),
 		// Well under the 100 MB a git host refuses, and small enough that a
@@ -68,7 +102,7 @@ func (s *storeSource) db(kind string) (*gitdb.DB, error) {
 	if d, ok := s.open[kind]; ok {
 		return d, nil
 	}
-	d, err := gitdb.Open(filepath.Join(s.root, kind), storeOptions()...)
+	d, err := gitdb.Open(filepath.Join(s.root, kind), storeOptions(kind)...)
 	if err != nil {
 		return nil, fmt.Errorf("filmstock: open %s store: %w", kind, err)
 	}
@@ -122,7 +156,7 @@ type StoredRecord struct {
 // store's id for it — the id is what the index stores so a reader can get back
 // to it — and iterating gives both without anyone having to derive a location.
 func WalkStore(root, kind string, fn func(StoredRecord) error) error {
-	d, err := gitdb.Open(filepath.Join(root, kind), storeOptions()...)
+	d, err := gitdb.Open(filepath.Join(root, kind), storeOptions(kind)...)
 	if err != nil {
 		return fmt.Errorf("filmstock: open %s store: %w", kind, err)
 	}
@@ -140,5 +174,5 @@ func WalkStore(root, kind string, fn func(StoredRecord) error) error {
 // OpenStore opens one kind's record store for writing. Callers that only read
 // should use Store or WalkStore.
 func OpenStore(root, kind string) (*gitdb.DB, error) {
-	return gitdb.Open(filepath.Join(root, kind), storeOptions()...)
+	return gitdb.Open(filepath.Join(root, kind), storeOptions(kind)...)
 }
