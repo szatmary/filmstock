@@ -123,6 +123,7 @@ Inside this repo:
 ```
 github.com/szatmary/filmstock        the library — import this
   db.go              Open, DB, the search methods, ErrNotFound
+  sync.go            SyncStore: clone/update the filmstock-data checkout (consumers)
   search*.go         lexical search: FTS5 trigram + fuzzy ranking
   record.go          RecordSource: Dir, and the readers
   paths.go           record paths, kind constants, tree walking
