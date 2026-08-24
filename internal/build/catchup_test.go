@@ -1,9 +1,14 @@
 package build
 
 import (
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+
+	"github.com/szatmary/filmstock"
 )
 
 func TestNextDayCrossesBoundaries(t *testing.T) {
@@ -87,5 +92,46 @@ func TestFetchIncrLeavesNoPartialFile(t *testing.T) {
 	}
 	if _, err := os.Stat(filepath.Join(dir, incrName("20260822"))); err == nil {
 		t.Error("a .part file must not satisfy the presence check")
+	}
+}
+
+// Wikimedia turns away Go's default user agent, and the refusal is invisible:
+// the dump listing simply comes back empty, which reads as "no dumps published".
+// This asserts the header is actually on the wire.
+func TestRequestsCarryTheUserAgent(t *testing.T) {
+	var got string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		got = r.Header.Get("User-Agent")
+		w.Write([]byte("ok"))
+	}))
+	defer srv.Close()
+
+	resp, err := httpGet(srv.URL)
+	if err != nil {
+		t.Fatal(err)
+	}
+	resp.Body.Close()
+	if got == "" {
+		t.Fatal("no User-Agent sent")
+	}
+	if strings.HasPrefix(got, "Go-http-client") {
+		t.Fatalf("sent the default agent %q; Wikimedia rejects it", got)
+	}
+	if got != filmstock.UserAgent {
+		t.Errorf("User-Agent = %q, want %q", got, filmstock.UserAgent)
+	}
+}
+
+// A hung mirror must not stall a scheduled run until CI's own limit kills it.
+func TestDumpClientBoundsTheHandshakeNotTheBody(t *testing.T) {
+	if dumpClient.Timeout != 0 {
+		t.Error("an overall timeout would abort legitimate multi-minute 800 MB downloads")
+	}
+	tr, ok := dumpClient.Transport.(*http.Transport)
+	if !ok {
+		t.Fatal("expected a configured Transport")
+	}
+	if tr.ResponseHeaderTimeout == 0 || tr.TLSHandshakeTimeout == 0 {
+		t.Error("a dead server must fail fast, before the body starts")
 	}
 }

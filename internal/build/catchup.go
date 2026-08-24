@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -204,6 +205,20 @@ func fetchIncr(day, path string) error {
 	return os.Rename(tmp, path)
 }
 
+// dumpClient deliberately has no overall Timeout: a daily dump is ~800 MB and a
+// slow mirror can legitimately take many minutes to send it. What it does bound
+// is everything before the body starts flowing, so a dead or hanging server
+// fails in seconds instead of stalling a scheduled run until the CI job's own
+// limit kills it hours later.
+var dumpClient = &http.Client{
+	Transport: &http.Transport{
+		DialContext:           (&net.Dialer{Timeout: 15 * time.Second}).DialContext,
+		TLSHandshakeTimeout:   15 * time.Second,
+		ResponseHeaderTimeout: 60 * time.Second,
+		IdleConnTimeout:       90 * time.Second,
+	},
+}
+
 // Wikimedia rejects the Go client's default user agent, and asks tools to
 // identify themselves. Without this the dump listing comes back empty, which
 // looks exactly like "no dumps published" rather than like being turned away.
@@ -213,7 +228,7 @@ func httpDo(method, url string) (*http.Response, error) {
 		return nil, err
 	}
 	req.Header.Set("User-Agent", filmstock.UserAgent)
-	return http.DefaultClient.Do(req)
+	return dumpClient.Do(req)
 }
 
 func httpGet(url string) (*http.Response, error) { return httpDo("GET", url) }
