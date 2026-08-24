@@ -34,49 +34,11 @@ const (
 // not build structures for the hundreds of properties on a typical item; only
 // the two properties we care about are unmarshalled further.
 type wdEntity struct {
-	ID           string                     `json:"id"`
-	Claims       map[string]json.RawMessage `json:"claims"`
-	Labels       map[string]langVal         `json:"labels"`
-	Descriptions map[string]langVal         `json:"descriptions"`
-	Aliases      map[string][]langVal       `json:"aliases"`
-	Sitelinks    map[string]struct {
+	ID        string                     `json:"id"`
+	Claims    map[string]json.RawMessage `json:"claims"`
+	Sitelinks map[string]struct {
 		Title string `json:"title"`
 	} `json:"sitelinks"`
-}
-
-type langVal struct {
-	Value string `json:"value"`
-}
-
-// compactLang rewrites Wikidata's {"en":{"language":"en","value":"Belgium"}} as
-// {"en":"Belgium"}. Same information at roughly a third the bytes, across ~7M
-// entities and up to ~300 languages each.
-func compactLang(m map[string]langVal) string {
-	if len(m) == 0 {
-		return ""
-	}
-	out := make(map[string]string, len(m))
-	for k, v := range m {
-		out[k] = v.Value
-	}
-	b, _ := json.Marshal(out)
-	return string(b)
-}
-
-func compactAliases(m map[string][]langVal) string {
-	if len(m) == 0 {
-		return ""
-	}
-	out := make(map[string][]string, len(m))
-	for k, vs := range m {
-		s := make([]string, 0, len(vs))
-		for _, v := range vs {
-			s = append(s, v.Value)
-		}
-		out[k] = s
-	}
-	b, _ := json.Marshal(out)
-	return string(b)
 }
 
 type wdClaim struct {
@@ -153,6 +115,7 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	db.Exec(`PRAGMA journal_mode=OFF; PRAGMA synchronous=OFF;`)
 	db.Exec(`DROP TABLE IF EXISTS wd_part_of_series`)
 	db.Exec(`DROP TABLE IF EXISTS wd_episode_season`)
+	// Drop any wd_text left by an older build; see the note below.
 	db.Exec(`DROP TABLE IF EXISTS wd_text`)
 	if _, err := db.Exec(`CREATE TABLE wd_part_of_series(item_qid INTEGER, series_qid INTEGER)`); err != nil {
 		return err
@@ -160,14 +123,14 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	if _, err := db.Exec(`CREATE TABLE wd_episode_season(item_qid INTEGER, season_qid INTEGER)`); err != nil {
 		return err
 	}
-	// Multilingual names for anything reachable from this database. Restricted to
-	// entities with an enwiki sitelink (~7M of ~115M): the corpus is enwiki-derived,
-	// so nothing outside that set can ever be referenced, and the restriction is
-	// what keeps this to one row per entity rather than one per language.
-	if _, err := db.Exec(`CREATE TABLE wd_text(
-		qid INTEGER PRIMARY KEY, enwiki TEXT, labels TEXT, descriptions TEXT, aliases TEXT)`); err != nil {
-		return err
-	}
+	// A wd_text table of multilingual labels, descriptions and aliases used to be
+	// built here, for every entity with an enwiki sitelink. It was 25.16 GB —
+	// 96% of the resolver cache — and nothing ever read it: no SELECT against it
+	// existed on any branch or in any commit. It cost most of phase 1's write I/O
+	// and made the cache far too large to move, cache in CI, or keep around.
+	//
+	// It is not built any more. Multilingual titles would be a real feature, and
+	// when something needs them this comes back with a consumer attached.
 
 	needle179 := []byte(`"` + propPartOfSeries + `":`)
 	needle4908 := []byte(`"` + propSeason + `":`)
@@ -181,13 +144,8 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 		from   int64
 		to     int64
 	}
-	type textRow struct {
-		qid                              int64
-		enwiki, labels, descs, aliasesJS string
-	}
 	lines := make(chan []byte, 4096)
 	edges := make(chan edge, 8192)
-	texts := make(chan textRow, 8192)
 
 	var entities, parsed int64
 	var wg sync.WaitGroup
@@ -222,43 +180,37 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 						edges <- edge{true, from, to}
 					}
 				}
-				if sl, ok := e.Sitelinks["enwiki"]; ok {
-					texts <- textRow{from, sl.Title,
-						compactLang(e.Labels), compactLang(e.Descriptions), compactAliases(e.Aliases)}
-				}
 			}
 		}()
 	}
-	go func() { wg.Wait(); close(edges); close(texts) }()
+	go func() { wg.Wait(); close(edges) }()
 
 	start := time.Now()
 	done := make(chan struct{})
-	var nSeries, nSeason, nText int64
+	var nSeries, nSeason int64
 	go func() {
 		defer close(done)
 		tx, _ := db.Begin()
-		prep := func() (*sql.Stmt, *sql.Stmt, *sql.Stmt) {
+		prep := func() (*sql.Stmt, *sql.Stmt) {
 			a, _ := tx.Prepare(`INSERT INTO wd_part_of_series(item_qid,series_qid) VALUES(?,?)`)
 			b, _ := tx.Prepare(`INSERT INTO wd_episode_season(item_qid,season_qid) VALUES(?,?)`)
-			c, _ := tx.Prepare(`INSERT OR IGNORE INTO wd_text(qid,enwiki,labels,descriptions,aliases) VALUES(?,?,?,?,?)`)
-			return a, b, c
+			return a, b
 		}
-		insSeries, insSeason, insText := prep()
+		insSeries, insSeason := prep()
 		n := 0
 		bump := func() {
 			// Commit periodically so a long run is not one giant transaction.
 			if n++; n%500_000 == 0 {
 				insSeries.Close()
 				insSeason.Close()
-				insText.Close()
 				if err := tx.Commit(); err != nil {
 					panic(err)
 				}
 				tx, _ = db.Begin()
-				insSeries, insSeason, insText = prep()
+				insSeries, insSeason = prep()
 			}
 		}
-		for edges != nil || texts != nil {
+		for edges != nil {
 			select {
 			case e, ok := <-edges:
 				if !ok {
@@ -273,19 +225,11 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 					atomic.AddInt64(&nSeries, 1)
 				}
 				bump()
-			case t, ok := <-texts:
-				if !ok {
-					texts = nil
-					continue
-				}
-				insText.Exec(t.qid, t.enwiki, t.labels, t.descs, t.aliasesJS)
-				atomic.AddInt64(&nText, 1)
 				bump()
 			}
 		}
 		insSeries.Close()
 		insSeason.Close()
-		insText.Close()
 		if err := tx.Commit(); err != nil {
 			panic(err)
 		}
@@ -299,9 +243,8 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 			lines <- line
 			if n%int64(*every) == 0 {
 				el := time.Since(start).Seconds()
-				fmt.Fprintf(os.Stderr, "  %d entities (%.0f/s)  P179=%d  P4908=%d  text=%d\n",
-					n, float64(n)/el, atomic.LoadInt64(&nSeries), atomic.LoadInt64(&nSeason),
-					atomic.LoadInt64(&nText))
+				fmt.Fprintf(os.Stderr, "  %d entities (%.0f/s)  P179=%d  P4908=%d\n",
+					n, float64(n)/el, atomic.LoadInt64(&nSeries), atomic.LoadInt64(&nSeason))
 			}
 		}
 		if err != nil {
@@ -315,10 +258,9 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	<-done
 	db.Exec(`CREATE INDEX idx_wd_pos_item ON wd_part_of_series(item_qid)`)
 	db.Exec(`CREATE INDEX idx_wd_eps_item ON wd_episode_season(item_qid)`)
-	db.Exec(`CREATE INDEX idx_wd_text_enwiki ON wd_text(enwiki)`)
 
 	fmt.Fprintf(os.Stderr,
-		"DONE: entities=%d parsed=%d P179=%d P4908=%d wd_text=%d elapsed=%.1fm\n",
-		entities, parsed, nSeries, nSeason, nText, time.Since(start).Minutes())
+		"DONE: entities=%d parsed=%d P179=%d P4908=%d elapsed=%.1fm\n",
+		entities, parsed, nSeries, nSeason, time.Since(start).Minutes())
 	return nil
 }

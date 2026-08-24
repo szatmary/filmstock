@@ -13,6 +13,8 @@ func main() {
 		usage()
 	}
 	switch os.Args[1] {
+	case "catchup":
+		build.CmdCatchup(os.Args[2:])
 	case "sync":
 		build.CmdSync(os.Args[2:])
 	case "index":
@@ -66,6 +68,7 @@ Usage:
   filmstock extract ... -text DIR                              put the corpus elsewhere
   filmstock extract ... -index=false                           records only
   filmstock sync                                               clone/pull the store, reindex if stale
+  filmstock catchup -records filmstock-data                    apply every daily since the store's last
   filmstock index   -records filmstock-data -db index.db       record store -> the index
   filmstock update  -incr DUMP -records filmstock-data         apply one day of changes
   filmstock update ... -commit [-message MSG]                   apply, report the diff, commit it
