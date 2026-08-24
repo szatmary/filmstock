@@ -54,7 +54,7 @@ func CmdSync(args []string) {
 	case *pull:
 		fmt.Fprintf(os.Stderr, "updating %s\n", records)
 		before, _ := gitRev(records)
-		if err := runGit(records, "pull", "--ff-only"); err != nil {
+		if err := updateClone(records); err != nil {
 			fatal(err)
 		}
 		after, _ := gitRev(records)
@@ -94,6 +94,32 @@ func CmdSync(args []string) {
 	}
 	fmt.Fprintf(os.Stderr, "\nready in %.1fs\n  records %s\n  index   %s\n",
 		time.Since(start).Seconds(), records, index)
+}
+
+// updateClone brings the clone to whatever the remote now says, including when
+// the remote's history was rewritten.
+//
+// A record store is derived data: nothing here is authored locally, so there is
+// nothing a reset could destroy. That matters because the maintainer's way to
+// reclaim space is to compact and squash and force-push — which is a perfectly
+// good thing to do to a repository of generated records, and would otherwise
+// leave every existing clone stuck on "Not possible to fast-forward, aborting".
+//
+// A fast-forward is still tried first, so the ordinary case stays ordinary and
+// only a genuine divergence takes the heavier path.
+func updateClone(records string) error {
+	if err := runGit(records, "pull", "--ff-only"); err == nil {
+		return nil
+	}
+	fmt.Fprintln(os.Stderr, "  remote history was rewritten; resetting to it")
+	if err := runGit(records, "fetch", "--prune", "origin"); err != nil {
+		return err
+	}
+	branch, err := git(records, "rev-parse", "--abbrev-ref", "HEAD")
+	if err != nil {
+		return err
+	}
+	return runGit(records, "reset", "--hard", "origin/"+strings.TrimSpace(branch))
 }
 
 // indexNeeded reports why the index must be rebuilt, or "" if it is current.

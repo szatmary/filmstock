@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/szatmary/filmstock"
@@ -184,5 +185,64 @@ func TestIndexNeededRebuildsOnAnEmptyFingerprint(t *testing.T) {
 	}
 	if why == "" {
 		t.Error("an empty fingerprint was accepted as current")
+	}
+}
+
+// The maintainer's way to reclaim space is compact + squash + force-push. That
+// is legitimate for a store of generated records — nothing is authored in a
+// clone — but it leaves `git pull --ff-only` stuck on "Not possible to
+// fast-forward". sync has to follow the remote across a rewrite.
+func TestUpdateCloneFollowsARewrittenHistory(t *testing.T) {
+	origin := newRepo(t)
+	write(t, origin, "movies/000001.gitdb", "gitdb 6\n1 1 a\n")
+	gitT(t, origin, "add", "-A")
+	gitT(t, origin, "commit", "-q", "-m", "one")
+	write(t, origin, "movies/000001.gitdb", "gitdb 6\n1 1 a\n2 1 b\n")
+	gitT(t, origin, "add", "-A")
+	gitT(t, origin, "commit", "-q", "-m", "two")
+
+	clone := filepath.Join(t.TempDir(), "clone")
+	if _, err := git(t.TempDir(), "clone", "-q", origin, clone); err != nil {
+		t.Fatal(err)
+	}
+
+	// The maintainer squashes and force-pushes.
+	gitT(t, origin, "checkout", "-q", "--orphan", "squashed")
+	gitT(t, origin, "add", "-A")
+	gitT(t, origin, "commit", "-q", "-m", "compacted and squashed")
+	gitT(t, origin, "branch", "-q", "-D", "main")
+	gitT(t, origin, "branch", "-q", "-m", "main")
+
+	if err := updateClone(clone); err != nil {
+		t.Fatalf("sync could not follow the rewrite: %v", err)
+	}
+	got := strings.TrimSpace(gitT(t, clone, "log", "-1", "--pretty=%s"))
+	if got != "compacted and squashed" {
+		t.Errorf("clone is at %q, want the rewritten history", got)
+	}
+	if st := gitT(t, clone, "status", "--porcelain"); strings.TrimSpace(st) != "" {
+		t.Errorf("clone left dirty after reset:\n%s", st)
+	}
+}
+
+// The ordinary case must stay a plain fast-forward.
+func TestUpdateCloneFastForwardsNormally(t *testing.T) {
+	origin := newRepo(t)
+	write(t, origin, "f", "one")
+	gitT(t, origin, "add", "-A")
+	gitT(t, origin, "commit", "-q", "-m", "one")
+	clone := filepath.Join(t.TempDir(), "clone")
+	if _, err := git(t.TempDir(), "clone", "-q", origin, clone); err != nil {
+		t.Fatal(err)
+	}
+	write(t, origin, "f", "two")
+	gitT(t, origin, "add", "-A")
+	gitT(t, origin, "commit", "-q", "-m", "two")
+
+	if err := updateClone(clone); err != nil {
+		t.Fatal(err)
+	}
+	if got := strings.TrimSpace(gitT(t, clone, "log", "-1", "--pretty=%s")); got != "two" {
+		t.Errorf("clone at %q, want two", got)
 	}
 }
