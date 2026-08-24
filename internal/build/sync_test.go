@@ -136,3 +136,53 @@ func TestDefaultSyncDirIsNotEmpty(t *testing.T) {
 		t.Error("default sync dir must never be empty")
 	}
 }
+
+// An index whose build was interrupted has no meta table. CheckStore stays
+// quiet about that on purpose — it cannot prove staleness without a
+// fingerprint — but sync must rebuild rather than accept it.
+//
+// Observed for real: a reindex killed part-way left an index built from the
+// previous day's store, and every later sync reported "index is current".
+func TestIndexNeededRebuildsAnIndexWithNoFingerprint(t *testing.T) {
+	_, records := syncFixture(t)
+	half := filepath.Join(t.TempDir(), "half.db")
+	h, err := sql.Open("sqlite", half)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// A valid database that simply never got its meta table written.
+	if _, err := h.Exec(`CREATE TABLE movies(id INTEGER PRIMARY KEY, title TEXT)`); err != nil {
+		t.Fatal(err)
+	}
+	h.Close()
+
+	why, err := indexNeeded(half, records, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if why == "" {
+		t.Fatal("an index with no fingerprint was accepted as current")
+	}
+}
+
+// An empty fingerprint is the same problem wearing a different hat.
+func TestIndexNeededRebuildsOnAnEmptyFingerprint(t *testing.T) {
+	_, records := syncFixture(t)
+	p := filepath.Join(t.TempDir(), "empty.db")
+	h, err := sql.Open("sqlite", p)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := h.Exec(`CREATE TABLE meta(key TEXT PRIMARY KEY, value TEXT);
+		INSERT INTO meta VALUES('store_fingerprint','')`); err != nil {
+		t.Fatal(err)
+	}
+	h.Close()
+	why, err := indexNeeded(p, records, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if why == "" {
+		t.Error("an empty fingerprint was accepted as current")
+	}
+}

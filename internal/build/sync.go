@@ -80,7 +80,18 @@ func CmdSync(args []string) {
 		return
 	}
 	fmt.Fprintf(os.Stderr, "reindexing: %s\n", why)
-	CIndexRecords([]string{"-records", records, "-db", index})
+	// Build beside the real index and rename into place. A killed run then
+	// leaves the previous index untouched instead of a truncated one that the
+	// next run has to recognise as broken.
+	tmp := index + ".building"
+	os.Remove(tmp)
+	CIndexRecords([]string{"-records", records, "-db", tmp})
+	if err := os.Rename(tmp, index); err != nil {
+		fatal(fmt.Errorf("installing the new index: %w", err))
+	}
+	for _, sfx := range []string{"-wal", "-shm", "-journal"} {
+		os.Rename(tmp+sfx, index+sfx)
+	}
 	fmt.Fprintf(os.Stderr, "\nready in %.1fs\n  records %s\n  index   %s\n",
 		time.Since(start).Seconds(), records, index)
 }
@@ -100,6 +111,25 @@ func indexNeeded(index, records string, force bool) (string, error) {
 		return "the index could not be opened", nil //nolint:nilerr // rebuild rather than fail
 	}
 	defer h.Close()
+
+	// An index with no recorded fingerprint must be rebuilt, not accepted.
+	//
+	// CheckStore deliberately stays quiet about one of these: it cannot prove
+	// staleness without a fingerprint, and a library should not claim more than
+	// it knows. But sync's job is to arrive at a working index, and the usual
+	// way to get an index with no meta table is an interrupted build — which is
+	// exactly the case that must not be treated as current. Observed for real: a
+	// reindex killed part-way left an index built from the previous day's store,
+	// and sync then reported "index is current" on every subsequent run.
+	var fp string
+	switch err := h.QueryRow(
+		`SELECT value FROM meta WHERE key = 'store_fingerprint'`).Scan(&fp); {
+	case err != nil:
+		return "the index records no store fingerprint (interrupted build?)", nil //nolint:nilerr
+	case fp == "":
+		return "the index records an empty store fingerprint", nil
+	}
+
 	db := filmstock.FromSQL(h, nil)
 	switch err := db.CheckStore(records); {
 	case err == nil:
