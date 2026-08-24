@@ -13,6 +13,8 @@ func main() {
 		usage()
 	}
 	switch os.Args[1] {
+	case "vectors":
+		build.CmdVectors(os.Args[2:])
 	case "catchup":
 		build.CmdCatchup(os.Args[2:])
 	case "sync":
