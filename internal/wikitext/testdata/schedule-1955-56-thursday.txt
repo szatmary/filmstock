@@ -1,0 +1,42 @@
+== Thursday ==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! style="background-color:#C0C0C0;text-align:center"| Network
+! style="background-color:#C0C0C0;text-align:center"| 7:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 7:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! [[American Broadcasting Company|ABC]]
+| bgcolor="#F0F0F0" | ''[[Kukla, Fran and Ollie]]'' (7:00) / ''[[John Daly and the News]]'' (7:15) 
+| bgcolor="#F0F0F0" |''[[The Lone Ranger (TV series)|The Lone Ranger]]''
+| bgcolor="#F0F0F0" | ''[[Life is Worth Living]]''
+| bgcolor="#F0F0F0" | ''[[Stop the Music (American game show)|Stop the Music]]''
+| bgcolor="#F0F0F0" | ''[[Star Tonight]]''
+| bgcolor="#F0F0F0" | ''[[Down You Go]]''
+| bgcolor="#F0F0F0" | '''''Outside U.S.A.'''''
+| bgcolor="#abbfff" | Local
+|-
+! [[CBS]]
+| bgcolor="#F0F0F0" | Local (7:00) / ''[[CBS Evening News|Douglas Edwards with the News]]'' (7:15)
+| bgcolor="#F0F0F0" | '''''[[Sergeant Preston of the Yukon (TV series)|Sergeant Preston of the Yukon]]'''''
+| bgcolor="#F0F0F0" | ''[[The Bob Cummings Show]]''
+| bgcolor="#F0F0F0" colspan="2" | <span style="background-color:magenta">''[[Climax!]]'' (22/29.6)</span> / ''[[Shower of Stars]]'' (once a month)
+| bgcolor="#F0F0F0" | ''[[Four Star Playhouse]]''
+| bgcolor="#F0F0F0" | '''''[[The Johnny Carson Show]]'''''
+| bgcolor="#F0F0F0" | '''''Wanted'''''
+|-
+! [[NBC]]
+| bgcolor="#abbfff" | Local
+| bgcolor="#F0F0F0" | ''[[The Dinah Shore Show]]'' (7:30) / ''[[Camel News Caravan|Plymouth News Caravan]]'' (7:45)
+| bgcolor="#FFFF00" | ''[[You Bet Your Life]]'' (7/35.4)
+| bgcolor="#F0F0F0" | '''''[[The People's Choice (TV series)|The People’s Choice]]'''''
+| bgcolor="#FFFF00" | ''[[Dragnet (series)|Dragnet]]'' (8/35.0)
+| bgcolor="#00FFFF" | ''[[Ford Theatre]]'' (In <span style="color:red;">C</span><span style="color:orange;">O</span><span style="color:gold;">L</span><span style="color:green;">O</span><span style="color:blue;">R</span>) (12/32.4)<br/><small>(Tied with ''[[Private Secretary (TV series)|Private Secretary]]'')</small>
+| bgcolor="#FF22FF" colspan="2" | ''[[Lux Video Theatre]]'' (25/28.9)
+|}
+

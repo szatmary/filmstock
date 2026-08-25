@@ -1,0 +1,119 @@
+==Thursday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="6"|[[American Broadcasting Company|ABC]]
+! Fall
+| colspan="2" style="background:#00FFFF;"|''[[Grey's Anatomy]]'' {{small|(11/7.9)<br/>(Tied with ''[[The Voice (American TV series)|The Voice]]'')}}
+| colspan="2" style="background:#00FFFF;"|''[[Scandal (TV series)|Scandal]]'' {{small|(16/7.6)<br/>(Tied with ''[[Scorpion (TV series)|Scorpion]]'')}}
+| colspan="2" style="background:#00FFFF;"|''[[How to Get Away with Murder]]'' {{small|(19/7.2)<br/>(Tied with ''[[Little Big Shots]]'')}}
+|-
+! Winter
+| colspan="2"|''[[Beyond the Tank]]''
+| colspan="4"|'''''[[My Diet Is Better Than Yours]]'''''
+|-
+! Late winter
+| colspan="2" rowspan="2" style="background:#00FFFF;"|''[[Grey's Anatomy]]'' {{small|(11/7.9)<br/>(Tied with ''[[The Voice (American TV series)|The Voice]]'')}}
+| colspan="2" rowspan="2" style="background:#00FFFF;"|''[[Scandal (TV series)|Scandal]]'' {{small|(16/7.6)<br/>(Tied with ''[[Scorpion (TV series)|Scorpion]]'')}}
+| colspan="2" style="background:#00FFFF;"|''[[How to Get Away with Murder]]'' {{small|(19/7.2)<br/>(Tied with ''[[Little Big Shots]]'')}}
+|-
+! Spring
+| colspan="2"|'''''[[The Catch (TV series)|The Catch]]''''' 
+|-
+! Summer
+| colspan="2" rowspan="2"|''[[BattleBots]]''
+| colspan="2"|'''''[[Greatest Hits (TV series)|Greatest Hits]]'''''
+| style="background:#C0C0C0;" rowspan="2" colspan="2"|'''''[[Match Game]]''''' {{small|(R)}}
+|-
+! Late summer
+| style="background:#C0C0C0;" colspan="2"|'''''[[Pyramid (game show)|The $100,000 Pyramid]]''''' {{small|(R)}}
+|-
+! rowspan="6"|[[CBS]]
+! Fall
+| style="background:lightgreen"|''[[The NFL Today|NFL Thursday Night Kickoff]]''
+| colspan="5" style="background:#FFFF00"|''[[Thursday Night Football]]'' {{small|(continued to game completion)}} {{small|(4/10.6)}}
+|-
+! Late fall
+| rowspan="5" style="background:#FFFF00;"|''[[The Big Bang Theory]]'' {{small|(3/12.5)}}
+| rowspan="3" style="background:#FF00FF;"|'''''[[Life in Pieces]]''''' {{small|(30/6.5)<br/>(Tied with ''[[Chicago Med (TV series)|Chicago Med]]'' and ''[[Shades of Blue (TV series)|Shades of Blue]]'')}}
+| rowspan="4"|''[[Mom (TV series)|Mom]]''
+| ''[[2 Broke Girls]]''
+| rowspan="3" colspan="2"|''[[Elementary (TV series)|Elementary]]''
+|-
+! Winter
+| '''''[[Angel from Hell]]'''''
+|-
+! Late winter
+| rowspan="2"|''[[2 Broke Girls]]''
+|-
+! Spring
+| ''[[The Odd Couple (2015 TV series)|The Odd Couple]]''
+| colspan="2"|'''''[[Rush Hour (American TV series)|Rush Hour]]'''''
+|-
+! Summer
+| style="background:#C0C0C0;"|'''''[[Life in Pieces]]''''' {{small|(R)}}
+| colspan="2"|''[[Big Brother (American TV series)|Big Brother]]''
+| style="background:#C0C0C0;" colspan="2"|'''''[[Code Black (TV series)|Code Black]]''''' {{small|(R)}}
+|-
+! rowspan="4"|[[The CW]]
+! Fall
+| colspan="2"|''[[The Vampire Diaries]]''
+| colspan="2"|''[[The Originals (TV series)|The Originals]]''
+| style="background:#abbfff;" colspan="2" rowspan="8"|Local programming
+|-
+! Winter
+| colspan="2" rowspan="3"|'''''[[Legends of Tomorrow]]'''''
+| colspan="2" rowspan="2"|''[[The 100 (TV series)|The 100]]''
+|-
+! Spring
+|-
+! Summer
+| colspan="2"|''[[Beauty & the Beast (2012 TV series)|Beauty & the Beast]]''
+|-
+! rowspan="4"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| colspan="2"|''[[Bones (TV series)|Bones]]''
+| colspan="2"|''[[Sleepy Hollow (TV series)|Sleepy Hollow]]''
+|-
+! Winter
+| colspan="4" style="background:#FF00FF;"|''[[American Idol]]'' {{small|(27/6.7)}}
+|-
+! Spring
+| colspan="2" rowspan="2"|''[[Bones (TV series)|Bones]]''
+| colspan="2"|'''''[[American Grit]]'''''
+|-
+! Summer
+| colspan="2"|''[[Home Free (2015 TV series)|Home Free]]''
+|-
+! rowspan="6"|[[NBC]]
+! Fall
+| rowspan="2" colspan="2"|'''''[[Heroes Reborn (miniseries)|Heroes Reborn]]'''''
+| rowspan="4" colspan="2" style="background:#00FFFF;"|''[[The Blacklist]]'' {{small|(18/7.3)}}
+| colspan="2"|'''''[[The Player (2015 TV series)|The Player]]'''''
+|-
+! Winter
+| rowspan="2" colspan="2" style="background:#FF00FF;"|'''''[[Shades of Blue (TV series)|Shades of Blue]]''''' {{small|(30/6.5)<br/>(Tied with ''[[Chicago Med (TV series)|Chicago Med]]'' and ''[[Life in Pieces]]'')}}
+|-
+! Late winter
+| colspan="2"|'''''[[You, Me and the Apocalypse]]'''''
+|-
+! Spring
+| colspan="2"|'''''[[Strong (TV series)|Strong]]'''''
+| colspan="2"|'''''[[Game of Silence (American TV series)|Game of Silence]]'''''
+|-
+! Summer
+| style="background:#C0C0C0;" colspan="2"|'''''[[Spartan: Ultimate Team Challenge]]''''' {{small|(R)}}
+| colspan="2"|'''''[[Spartan: Ultimate Team Challenge]]'''''
+| colspan="2"|''[[Aquarius (American TV series)|Aquarius]]''
+|-
+! Late summer
+| style="background:#C0C0C0;" colspan="6"|Encore programming
+|}
+

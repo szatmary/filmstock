@@ -1,0 +1,71 @@
+==Thursday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="4"|[[American Broadcasting Company|ABC]]
+! Fall
+| rowspan="4" colspan="2"|''[[High Incident]]''
+| colspan="2"|''[[Murder One (TV series)|Murder One]]''
+| colspan="2" style="background:#6699CC;"|''[[Turning Point (TV program)|Turning Point]]''
+|-
+! Winter
+| colspan="4" style="background:#FA8072;"|''The ABC Thursday Night Movie''
+|-
+! Late winter
+| colspan="2"|'''''Vital Signs'''''
+| colspan="2" style="background:#6699CC;"|''[[Turning Point (TV program)|Turning Point]]''
+|-
+! Summer
+| colspan="2" style="background:#6699CC;"|''[[Turning Point (TV program)|Turning Point]]''
+| colspan="2" style="background:#6699CC;"|[[ABC News (United States)|ABC News]] programming
+|-
+! rowspan="2"|[[CBS]]
+! Fall
+| colspan="2"|''[[Diagnosis: Murder]]''
+| colspan="2"|'''''[[Moloney (TV series)|Moloney]]'''''
+| colspan="2" rowspan="2" style="background:#6699CC;"|''[[48 Hours (TV program)|48 Hours]]''
+|-
+! Summer
+| colspan="2" style="background:#C0C0C0;"|'''''[[Promised Land (1996 TV series)|Promised Land]]''''' {{small|(R)}}
+| colspan="2" style="background:#C0C0C0;"|''[[Diagnosis: Murder]]'' {{small|(R)}}
+|-
+! colspan="2"|[[Fox Broadcasting Company|Fox]]
+| ''[[Martin (TV series)|Martin]]''
+| ''[[Living Single]]''
+| colspan="2"|''[[New York Undercover]]''
+| colspan="2" style="background:#abbfff;"|Local programming
+|-
+! rowspan="6" | [[NBC]]
+! Fall
+| rowspan="6" style="background:yellow;"|''[[Friends]]'' {{small|(4/16.8)<br/>(Tied with ''[[The Naked Truth (TV series)|The Naked Truth]]'')}}
+| rowspan="2" style="background:yellow;"|''[[The Single Guy]]'' {{small|(8/14.1)}}
+| rowspan="6" style="background:yellow;"|''[[Seinfeld]]'' {{small|(2/20.5)}}
+| style="background:yellow;"|'''''[[Suddenly Susan]]''''' {{small|(3/17.0)}}
+| colspan="2" rowspan="2" style="background:yellow;"|''[[ER (TV series)|ER]]'' {{small|(1/21.2)}}
+|-
+! Winter
+| rowspan="2" style="background:yellow;"|''[[The Naked Truth (TV series)|The Naked Truth]]'' {{small|(4/16.8)<br/>(Tied with ''[[Friends]]'')}}
+|-
+! Late winter
+| rowspan="2" style="background:yellow;"|'''''[[Suddenly Susan]]''''' {{small|(3/17.0)}}
+| colspan="2" style="background:magenta;"|''[[Law & Order]]'' {{small|(27/10.8)<br/>(Tied with ''[[3rd Rock from the Sun]]'')}}
+|-
+! Spring
+| style="background:yellow;"|'''''[[Fired Up (TV series)|Fired Up]]''''' {{small|(6/16.5)}}
+| colspan="2"  rowspan="3" style="background:yellow;"| ''[[ER (TV series)|ER]]'' {{small|(1/21.2)}}
+|-
+! Late spring
+| rowspan="2" style="background:#C0C0C0;"|'''''[[Men Behaving Badly (U.S. TV series)|Men Behaving Badly]]''''' {{small|(R)}}
+| style="background:#C0C0C0;"|'''''[[Suddenly Susan]]''''' {{small|(R)}}
+|-
+! Summer
+| style="background:#C0C0C0;"|''[[3rd Rock from the Sun]]'' {{small|(R)}}
+|}
+

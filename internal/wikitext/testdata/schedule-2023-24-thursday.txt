@@ -1,0 +1,135 @@
+== Thursday ==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="5"|[[American Broadcasting Company|ABC]]
+! Fall
+| colspan="2" style="background:magenta;"|'''''[[The Golden Bachelor]]''''' {{small|(29/5.94)}}
+| colspan="4"|''[[Bachelor in Paradise (American TV series)|Bachelor in Paradise]]''
+|-
+! Winter
+| colspan="2"|''[[Press Your Luck]]''
+| colspan="4" style="background:#C0C0C0;"|''[[Press Your Luck]]'' {{small|(R)}}
+|-
+! Mid-winter
+| colspan="4" style="background:#C0C0C0;"|Various programming
+| colspan="2" style="background:#C0C0C0;"|''[[Will Trent]]'' {{small|(R)}}
+|-
+! Late winter
+| colspan="2" style="background:magenta;"|''[[9-1-1 (TV series)|9-1-1]]'' {{small|(22/6.86)}}
+| colspan="2"|''[[Grey's Anatomy]]''
+| colspan="2"|''[[Station 19]]''
+|-
+! Summer
+| colspan="2"|''[[Press Your Luck]]''
+| colspan="2"|'''''[[Lucky 13 (TV series)|Lucky 13]]'''''
+| colspan="2" style="background:#C0C0C0;"|''[[Who Wants to Be a Millionaire (American game show)|Who Wants to Be a Millionaire]]'' {{small|(R)}}
+|-
+! rowspan="6"|[[CBS]]
+! Fall
+| colspan="2"|'''''[[Buddy Games (TV series)|Buddy Games]]'''''
+| colspan="2"|''[[Big Brother (American TV series)|Big Brother]]''
+| colspan="2"|''[[The Challenge: USA]]''
+|-
+! Mid-fall
+| style="background:#C0C0C0;"|''[[Young Sheldon]]'' {{small|(R)}}
+| style="background:#C0C0C0;"|[[Ghosts (American TV series)|''Ghosts'' (USA)]] {{small|(R)}}
+| colspan="2" style="background:#C0C0C0;"|'''[[Ghosts (2019 British TV series)|''Ghosts'' (UK)]]''' {{small|(R)}}
+| colspan="2" style="background:#C0C0C0;"|''[[SEAL Team (TV series)|SEAL Team]]'' {{small|(R)}}
+|-
+! Winter
+| rowspan="2" style="background:yellow;"|''[[Young Sheldon]]'' {{small|(5/9.10)}}
+| rowspan="2" style="background:yellow;"|''[[Ghosts (American TV series)|''Ghosts'' (USA)]]'' {{small|(10/8.21)}}
+| colspan="2" style="background:magenta;"|''[[So Help Me Todd]]'' {{small|(26/6.18)}}
+| colspan="2" style="background:cyan;"|'''''[[Elsbeth (TV series)|Elsbeth]]''''' {{small|(15/7.45)}}
+|-
+! Spring
+| colspan="2" style="background:#C0C0C0;"|'''''[[Elsbeth (TV series)|Elsbeth]]''''' {{small|(R)}}
+| rowspan="2" colspan="2" style="background:#C0C0C0;"|''[[Fire Country]]'' {{small|(R)}}
+|-
+! Summer
+| rowspan="2" colspan="2"|''[[Big Brother (American TV series)|Big Brother]]''
+| rowspan="2" style="background:#C0C0C0;"|''[[Young Sheldon]]'' {{small|(R)}}
+| rowspan="2" style="background:#C0C0C0;"|[[Ghosts (American TV series)|''Ghosts'' (USA)]] {{small|(R)}}
+|-
+! Late summer
+| colspan="2" style="background:#C0C0C0;"|'''''[[Elsbeth (TV series)|Elsbeth]]''''' {{small|(R)}}
+|-
+! rowspan="8"|[[The CW]]
+! Fall
+| rowspan="3" style="background:#FFE082;"|''[[Son of a Critch]]''
+| style="background:#FFE082;"|''[[Run the Burbs]]''
+| style="background:#C0C0C0;"|''[[Children Ruin Everything]]'' {{small|(R)}}
+| style="background:#FFE082;"|'''''[[Everyone Else Burns]]'''''
+| rowspan="13" colspan="2" style="background:#abbfff;"|Local programming
+|-
+! Mid-fall
+| style="background:#C0C0C0;"|''[[Children Ruin Everything]]'' {{small|(R)}}
+| style="background:#C0C0C0;"|''[[Whose Line Is It Anyway? (American TV series)|Whose Line Is It Anyway?]]'' {{small|(R)}}
+| style="background:#C0C0C0;"|''[[The Great American Joke Off]]'' {{small|(R)}}
+|-
+! Winter
+| colspan="2" style="background:#C0C0C0;"|''[[The Conners]]'' {{small|(R)}}
+| rowspan="2" style="background:#FFE082;"|''[[Children Ruin Everything]]''
+|-
+! Mid-winter
+| rowspan="2" colspan="2" style="background:#C0C0C0;"|''[[The Conners]]'' {{small|(R)}}
+| style="background:#FFE082;"|''[[Son of a Critch]]''
+|-
+! Spring
+| colspan="2" style="background:#FFE082;"|''[[Son of a Critch]]''
+|-
+! Mid-spring
+| rowspan="2" colspan="2"|'''''[[Patti Stanger: The Matchmaker]]'''''
+| colspan="2"|'''''[[Lovers and Liars (TV series)|Lovers and Liars]]'''''
+|-
+! Late spring
+| colspan="2" style="background:#C0C0C0;"|'''''[[Police 24/7 (TV series)|Police 24/7]]''''' {{small|(R)}}
+|-
+! Summer
+| colspan="2" style="background:#C0C0C0;"|''[[The Conners]]'' {{small|(R)}}
+| ''[[Masters of Illusion (TV series)|Masters of Illusion]]''
+| ''[[World's Funniest Animals]]''
+|-
+! rowspan="5"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| colspan="2"|''[[Hell's Kitchen (American TV series)|Hell's Kitchen]]''
+| colspan="2"|''[[Lego Masters (American TV series)|Lego Masters]]''
+|-
+! Winter
+| colspan="2"|''[[Next Level Chef (American TV series)|Next Level Chef]]''
+| colspan="2"|''[[Farmer Wants a Wife (American TV series)|Farmer Wants a Wife]]''
+|-
+! Spring
+| colspan="2"|''[[I Can See Your Voice (American game show)|I Can See Your Voice]]''
+| colspan="2"|''[[Don't Forget the Lyrics! (American game show)|Don't Forget the Lyrics!]]''
+|-
+! Summer
+| colspan="4"|''[[Don't Forget the Lyrics! (American game show)|Don't Forget the Lyrics!]]''
+|-
+! Late summer
+| colspan="4" style="background:lightgreen"|[[Fox Sports (United States)|Fox Sports]] programming
+|-
+! rowspan="3"|[[NBC]]
+! Fall
+| colspan="2" style="background:#C0C0C0;"|''[[Law & Order: Special Victims Unit]]'' {{small|(R)}}
+| rowspan="2" colspan="2" style="background:#FFE082;"|''[[Transplant (TV series)|Transplant]]''
+| rowspan="2" colspan="2" style="background:#6699CC;"|''[[Dateline NBC]]''
+|-
+! Mid-fall
+| colspan="2" style="background:#C0C0C0;"|''[[Law & Order]]'' {{small|(R)}}
+|-
+! Winter
+| colspan="2"|''[[Law & Order]]''
+| colspan="2" style="background:cyan;"|''[[Law & Order: Special Victims Unit]]'' {{small|(20/6.91)}}
+| colspan="2"|''[[Law & Order: Organized Crime]]''
+|}
+

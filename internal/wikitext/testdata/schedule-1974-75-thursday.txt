@@ -1,0 +1,56 @@
+==Thursday==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable plainrowheaders" style="width:100%; margin:auto; text-align:center;"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="4"|[[American Broadcasting Company|ABC]]
+! Fall
+| ''[[The Odd Couple (1970 TV series)|The Odd Couple]]''
+| '''''[[Paper Moon (American TV series)|Paper Moon]]'''''
+| colspan="2" rowspan="4" style="background:#FF00FF;"|''[[The Streets of San Francisco]]'' {{small|(22/21.3)<br/>(Tied with ''[[Cher (TV series)|Cher]]'' and [[The NBC Mystery Movie|The NBC Sunday Mystery Movie]])}}
+| colspan="2" rowspan="4"|'''''[[Harry O]]'''''
+|-
+! Winter
+| rowspan="2"|'''''[[Barney Miller]]'''''
+| '''''[[Karen (1975 TV series)|Karen]]'''''
+|-
+! Summer
+| '''''[[The Texas Wheelers]]'''''
+|-
+! Late summer
+| colspan="2"|'''''[[It's a Knockout|Almost Anything Goes!]]'''''
+|-
+! colspan="2"|[[CBS]]
+| style="background:#FFFF00;" colspan="2"|''[[The Waltons]]'' {{small|(8/25.5)}}
+| colspan="4" style="background:#FA8072;"|''[[CBS Thursday Night Movie]]''
+|-
+! rowspan="5"|[[NBC]]
+! Fall
+| colspan="2"|'''''[[Sierra (TV series)|Sierra]]'''''
+| colspan="2"|''[[Ironside (1967 TV series)|Ironside]]''
+| colspan="2" rowspan="3"|'''''[[Movin' On (TV series)|Movin' On]]'''''
+|-
+! Winter
+| colspan="2"|'''''[[The Mac Davis Show]]'''''
+| colspan="2"|'''''[[Archer (1975 TV series)|Archer]]'''''
+|-
+! Spring
+| '''''[[Sunshine (American TV series)|Sunshine]]'''''
+| '''''[[The Bob Crane Show]]'''''
+| colspan="2"|'''''[[The Mac Davis Show]]'''''
+|-
+! Summer
+| colspan="2"|'''''[[Gladys Knight & the Pips|The Gladys Knight & the Pips Show]]'''''
+| colspan="4" rowspan="2" style="background:#FA8072;"|''NBC Thursday Night at the Movies''
+|-
+! Mid-summer
+| colspan="2"|'''''[[Ben Vereen|Ben Vereen...Comin' At Ya]]'''''
+|}
+
