@@ -1,0 +1,745 @@
+{{Short description|none}}
+{{Use mdy dates|date=March 2025}}
+{{USTV|1955}}
+The '''1955–56 network television schedule''' for the four major English language commercial [[List of United States over-the-air television networks|broadcast networks in the United States]]. The schedule covers [[primetime]] hours from September 1955 through March 1956. The schedule is followed by a [[#By network|list per network]] of returning series, new series, and series cancelled after the [[1954-55 United States network television schedule|1954–55 season]].
+
+''[[The $64,000 Question]]'' had debuted on [[CBS]] during summer 1955 and became the #1 program on U.S. television. The three networks "rushed to copy this latest hit format, quickly filling [[prime time]] with similar contests".<ref name="CP1984"/> (It would not be until fall 1958 that it would be confirmed that several of these new quiz shows [[Quiz show scandals|were rigged]].)<ref name="CP1984">Castleman, H. and Podrazik, W. (1984). ''The TV Schedule Book: Four Decades of Network Programming from Sign-on to Sign-off''. McGraw-Hill. pg 79–85. {{ISBN|0-07-010277-5}}</ref>
+
+For years, [[American Broadcasting Company|ABC]] had "struggled to cobble together a TV schedule",<ref name="Miller">{{cite news | last = Miller| first = Roger K.| title = TV of 50 Years Ago is Stiff Competition for Today's Shows| newspaper = Deseret News| location = Salt Lake City (UT)| date = 2005-09-16| url = http://www.redorbit.com/news/technology/241863/tv_of_50_years_ago_is_stiff_competition_for_todays/index.html| access-date = 2009-09-17}}</ref> but following the network's major success with Disney-produced series ''[[Disneyland (TV series)|Disneyland]]'' in 1954, other Hollywood film companies began embracing television. MGM assembled clips for ''[[MGM Parade]]'' on ABC; ABC also hired [[Warner Bros.]] for a Tuesday night program called ''[[Warner Brothers Presents]]''. The hour-long umbrella series featured TV adaptations of three Warner Brothers movies: ''[[Cheyenne (1947 film)|Cheyenne]]'', ''[[Casablanca (film)|Casablanca]]'', and ''[[Kings Row]]''. Of the three new series, only ''Cheyenne'' was a hit with viewers, and ABC began contracting with other Hollywood studios for Westerns.<ref name="CP1984"/> Immediately following ''[[Warner Brothers Presents]]'', ABC scheduled ''[[The Life and Legend of Wyatt Earp]]''. This Western was also produced in conjunction with a Hollywood studio: [[Desilu Productions]].
+
+CBS had its own Western hit with ''[[Gunsmoke]]'', which also debuted in fall 1955. Over the next few years, "the rush to Westerns had become a virtual stampede so that, by the fall of 1959, viewers had their choice from a staggering twenty-eight different Western-based prime time series."<ref name="CP1984"/> Around 1955, live drama anthologies, the staple of early television programming, were being phased out by the networks in favor of filmed fare: Westerns, police dramas, quiz shows, and adventure series.<ref name="CP1984"/>
+
+By the mid-1950s, the practice of television executives of ordering dozens of [[Television pilot|pilots]] for proposed [[television series]] each year — far more than their networks could possibly broadcast as series — had created a sizable body of unsold pilots that had never aired.<ref name=tvobsecurities19561967>{{cite web |url=https://www.tvobscurities.com/articles/unsold_pilots_on_television_56_66/ |title=UNSOLD PILOTS ON TELEVISION, 1956-1966 |author=<!--Not stated--> |date=15 August 2019 |website=tvobscurities.com |publisher=Television Obscurities |access-date= 3 June 2024}}</ref> By 1954, the American [[television industry]] had begun to consider the idea of packaging these unsold pilots in [[anthology series]] and airing them during the summer, providing television networks with a way of both providing fresh programming during the summer rerun season and recouping at least some of the expense of producing them.<ref name=tvobsecurities19561967/> During the summer of 1956, ABC and NBC acted on this idea, airing the first series — ''[[G.E. Summer Originals]]'' on ABC and ''[[Sneak Preview (TV series)|Sneak Preview]]'' on NBC — composed entirely of unsold pilots.<ref name=tvobsecurities19561967/><ref name=ctvage>{{cite web |url=https://ctva.biz/US/Anthology/GeneralElectricSummerOriginals.htm |title=General Electric Summer Originals |author=<!--Not stated--> |date=<!--Undated-->|website=ctva.com |publisher=CTVA – The Classic TV Archive |access-date= 3 June 2024}}</ref><ref name=ctvasneak>{{cite web |url=https://ctva.biz/US/Anthology/SneakPreview.htm |title=Sneak Preview |author=<!--Not stated--> |date=<!--Undated-->|website=ctva.com |publisher=CTVA – The Classic TV Archive |access-date= 3 June 2024}}</ref> On June 8, 1956, when it reported ABC's decision to broadcast ''G.E. Summer Originals'', the ''[[New York Times]]'' wrote that "the problem of what to do with ‘pilot’ or sample films of projected television series that previously have failed to sell has been solved."<ref name=tvobsecurities19561967/><ref>{{cite web |url=https://www.nytimes.com/1956/06/08/archives/ge-will-sponsor-tv-series-in-summer-using-previously-unsold-sample.html |title=G.E. Will Sponsor TV Series in Summer Using Previously Unsold ‘Sample’ Films |author=<!--Not stated--> |date=8 June 1956 |website=nytimes.com |publisher=The New York Times |page=37 |access-date= 3 June 2024}}</ref> Both series premiered on July 3, 1956, at 9:00 p.m.<ref name=tvobsecurities19561967/><ref name=ctvage/><ref name=ctvasneak/> In the following decades, ABC, NBC, and later CBS would air a number of anthology series consisting in whole or in part of unsold pilots.<ref name=tvobsecurities19561967/><ref>{{cite web |url=https://www.tvobscurities.com/articles/unsold_pilots_on_television_67_89/ |title=UNSOLD PILOTS ON TELEVISION, 1967-1989 |author=<!--Not stated--> |date=5 May 2018 |website=tvobscurities.com |publisher=Television Obscurities |access-date= 3 June 2024}}</ref>
+
+The struggling [[DuMont Television Network]] offered little during the 1955–56 television season. DuMont's final program line-up consisted of ''[[What's the Story]]'' on Wednesday nights at 9:30 and ''[[Boxing from St. Nicholas Arena|Boxing From St. Nicholas Arena]]'' on Monday nights at 9:00.<ref name="CP1984"/> By September 23, ''What's the Story'' was off the air.<ref>McNeil, Alex (1996). ''[[Total Television]]'' (4th ed.), p. 907. New York: Penguin Books. {{ISBN|0-14-024916-8}}</ref> DuMont honored its few remaining network commitments until August 6, 1956, when it ceased operations as a major television network.<ref name="BM">Brooks, Tim & Marsh, Earle (2007). ''[[The Complete Directory to Prime Time Network and Cable TV Shows]]'' (9th ed.). New York: Ballantine. pp. 517–518, 1576–1577. {{ISBN|0-345-31864-1}}.</ref> DuMont hoped to go into independent television production; the company's studio facilities and [[Electronicam]] system were used to produce CBS's ''[[The Honeymooners]]'' during the 1955–56 season. DuMont's loss was ABC's gain, as some of DuMont's most popular programs, including ''[[Life Is Worth Living]]'', ''[[Chance of a Lifetime (1950s TV series)|Chance of a Lifetime]]'', ''[[Life Begins at Eighty]]'', and ''[[Down You Go]]'', found their way onto ABC's 1955–56 prime time schedule.
+
+The crumbling and eventual death of the old DuMont Network meant the 1955–56 television season would be the first year in which the three major remaining U.S. television networks would be the only full-time commercial participants in prime time, a situation that was to remain for the next 31 years, until [[Fox Broadcasting Company|Fox]] entered prime time on Sunday, April 5, 1987.
+
+This was the first season that CBS and NBC aired some of their prime-time programs in color.
+
+New series are highlighted in '''bold'''.
+
+All times are [[Eastern Time Zone|U.S. Eastern]] and [[Pacific Time Zone|Pacific time]] (except for some live sports or events). Subtract one hour for [[Central Time Zone|Central]] and [[Mountain Time Zone|Mountain]] times.
+
+Each of the 30 highest-rated shows is listed with its rank and rating as determined by [[Nielsen Media Research]].<ref name="BM2">Highest-rated series is based on the annual top-rated programs list compiled by [[Nielsen Media Research]] and reported in: Brooks, Tim & Marsh, Earle (2007). ''The Complete Directory to Prime Time Network TV Shows'' (9th ed.). New York: Ballantine. {{ISBN|978-0-345-49773-4}}.</ref>
+
+==Legend==
+{{plainlist|
+* {{Color box|#abbfff|border=darkgray}} Light blue indicates local programming
+* {{Color box|lightgreen|border=darkgray}} Light green indicates sporting events.
+* {{Color box|#bf8fef|border=darkgray}} Light purple indicates movies.
+* {{Color box|#FA8072|border=darkgray}} Red indicates series being [[burning off|burned off]] and other irregularly scheduled programs, including specials.
+* {{Color box|yellow|border=darkgray}} Yellow indicates the programs in the top 10 for the season.
+* {{Color box|cyan|border=darkgray}} Cyan indicates the programs in the top 20 for the season.
+* {{Color box|FF22FF|border=darkgray}} Magenta indicates the programs in the top 30 for the season.
+}}
+
+== Sunday ==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! style="background-color:#C0C0C0;text-align:center"| Network
+! style="background-color:#C0C0C0;text-align:center"| 7:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 7:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! bgcolor="#C0C0C0" | [[American Broadcasting Company|ABC]]
+| bgcolor="#F0F0F0" | ''[[You Asked For It]]''
+| bgcolor="#bf8fef" colspan="3" | '''''[[Famous Film Festival]]'''''
+| bgcolor="#F0F0F0" | ''[[Chance of a Lifetime (1950s TV series)|Chance of a Lifetime]]''
+| bgcolor="#F0F0F0" | ''[[Original Amateur Hour|The Original Amateur Hour]]''
+| bgcolor="#F0F0F0" | ''[[Life Begins at Eighty]]''
+| bgcolor="#abbfff" | Local Programming
+|-
+! bgcolor="#C0C0C0" | [[CBS]]
+| bgcolor="#F0F0F0" | ''[[Lassie (1954 TV series)|Lassie]]''
+| bgcolor="#F0F0F0" | <span style="background-color:#FFFF00">''[[The Jack Benny Program#Television|The Jack Benny Show]]'' (5/37.2)</span> / <span style="background-color:#00FFFF">''[[Private Secretary (TV series)|Private Secretary]]'' (12/32.4)<br/><small>(Tied with ''[[Ford Theatre]]'')</small></span>
+| bgcolor="#FFFF00" colspan="2" | ''[[The Ed Sullivan Show]]''* (3/39.5)
+| bgcolor="#00FFFF" | ''[[General Electric Theater]]'' (11/32.9)
+| bgcolor="#F0F0F0" | '''''[[Alfred Hitchcock Presents]]'''''
+| bgcolor="#F0F0F0" | ''[[Appointment with Adventure]]''
+| bgcolor="#F0F0F0" | ''[[What's My Line?]]''
+|-
+! bgcolor="#C0C0C0" | [[NBC]]
+| bgcolor="#F0F0F0" | ''[[It's a Great Life (TV series)|It's a Great Life]]''
+| bgcolor="#F0F0F0" | '''''[[Frontier (1955 TV series)|Frontier]]'''''
+| bgcolor="#F0F0F0" colspan="2" | ''[[The Colgate Comedy Hour|Colgate Variety Hour]]''**
+| bgcolor="#F0F0F0" colspan="2" | ''[[Goodyear Television Playhouse]]'' / '''''[[The Alcoa Hour]]'''''  
+| bgcolor="#F0F0F0" | ''[[Letter to Loretta|The Loretta Young Show]]''
+| bgcolor="#F0F0F0" | ''Justice''
+|}
+
+<nowiki>*</nowiki> ''[[The Ed Sullivan Show]]'' was formerly ''[[Toast of the Town]]''. <br>
+<nowiki>**</nowiki> formerly ''[[The Colgate Comedy Hour]]''.
+
+* On NBC, ''Color Spread'' (<span style="color:red;">C</span><span style="color:orange;">O</span><span style="color:gold;">L</span><span style="color:green;">O</span><span style="color:blue;">R</span>) aired as a monthly series, 7:30–9 p.m.
+*''Appointment with Adventure'' premiered on CBS on April 3, 1955, and ran through September 1955, before starting its regular second season in the same time slot on October 2, 1955. The anthology series had no host.
+
+== Monday ==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! style="background-color:#C0C0C0;text-align:center" colspan=2 | Network
+! style="background-color:#C0C0C0;text-align:center"| 7:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 7:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! colspan=2 | [[American Broadcasting Company|ABC]]
+| bgcolor="#F0F0F0" | ''[[Kukla, Fran and Ollie]]'' (7:00) / ''[[John Daly and the News]]'' (7:15)
+| bgcolor="#F0F0F0" | ''[[Topper (TV series)|Topper]]'' (repeats)
+| bgcolor="#F0F0F0" | ''[[TV Reader's Digest]]''
+| bgcolor="#F0F0F0" | ''[[The Voice of Firestone]]''
+| bgcolor="#F0F0F0" | ''[[The Dotty Mack Show]]''
+| bgcolor="#F0F0F0" | '''''[[Medical Horizons]]'''''
+| bgcolor="#F0F0F0" | ''[[The Big Picture (American TV series)|The Big Picture]]''
+| bgcolor="#abbfff" | Local Programming
+|-
+! rowspan=2 | [[CBS]]
+! Fall
+| bgcolor="#F0F0F0" rowspan=2 | Local (7:00) / ''[[CBS Evening News|Douglas Edwards with the News]]'' (7:15)
+| bgcolor="#00FFFF" rowspan=2 | '''''[[The Adventures of Robin Hood (TV series)|The Adventures of Robin Hood]]''''' (20/30.1)
+| bgcolor="#FF22FF" rowspan=2 | ''[[The George Burns and Gracie Allen Show]]'' (27/28.4)<br/><small>(Tied with ''[[People Are Funny]]'')</small>
+| bgcolor="#00FFFF" rowspan=2 | ''[[Arthur Godfrey's Talent Scouts]]'' (16/31.1)
+| bgcolor="#FFFF00" rowspan=2 | ''[[I Love Lucy]]'' (2/46.1)
+| bgcolor="#FFFF00" | ''[[December Bride]]'' (6/37.0)
+| bgcolor="#F0F0F0" colspan="2" rowspan=2 | ''[[Studio One (U.S. TV series)|Studio One]]''
+|-
+! Summer
+| bgcolor="#F0F0F0" | '''''[[The Vic Damone Show]]'''''
+|-
+! colspan=2 | [[DuMont Television Network|DMN]]
+| bgcolor="#abbfff" colspan="4" | Local
+| bgcolor="lightgreen" colspan="4" | ''[[Boxing from St. Nicholas Arena|Boxing From St. Nicholas Arena]]'' (9:00) / ''At Ringside'' (10:45)
+|-
+! colspan=2 | [[NBC]]
+| bgcolor="#abbfff" | Local
+| bgcolor="#F0F0F0" | ''[[Tony Martin (American singer)|The Tony Martin Show]]'' (7:30) / ''[[Camel News Caravan]]'' (7:45)
+| bgcolor="#F0F0F0" colspan="2" | ''[[Caesar's Hour]]''
+| bgcolor="#F0F0F0" | ''[[Medic (TV series)|Medic]]''
+| bgcolor="#F0F0F0" colspan="2" | ''[[Robert Montgomery Presents]]''
+| bgcolor="#abbfff" | Local Programming
+|}
+
+Note: On NBC, ''[[Producers' Showcase]]'' aired as a monthly series 8–9:30&nbsp;p.m. No longer a network operation, DuMont continued airing its ''[[Boxing from St. Nicholas Arena|Boxing From St. Nicholas Arena]]'' on an occasional basis over individual stations until August 6, 1956. On CBS, in most areas, ''[[CBS Evening News|Douglas Edwards With the News]]'' aired at 6:45&nbsp;p.m., while some cities (including New York) aired the 7:15&nbsp;p.m. edition.
+
+== Tuesday ==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"| Network
+! style="background-color:#C0C0C0;text-align:center"| 7:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 7:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! rowspan="2" | [[American Broadcasting Company|ABC]]
+! Fall
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Kukla, Fran and Ollie]]'' (7:00) / ''[[John Daly and the News]]'' (7:15)
+| bgcolor="#F0F0F0" colspan="2" rowspan="2" | '''''[[Warner Bros. Presents]]''''' / '''''[[Kings Row (TV series)|Kings Row]]''''' / '''''[[Cheyenne (1955 TV series)|Cheyenne]]''''' / '''''[[Casablanca (1955 TV series)|Casablanca]]'''''
+| bgcolor="#F0F0F0" rowspan="2" | '''''[[The Life and Legend of Wyatt Earp]]'''''
+| bgcolor="#F0F0F0" | ''[[Make Room for Daddy]]''
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Cavalcade of America|Du Pont Cavalcade Theater]]''
+| bgcolor="#F0F0F0" rowspan="2" | '''''[[Talent Varieties]]'''''
+| bgcolor="#abbfff" rowspan="2" | Local Programming
+|-
+! Summer
+| bgcolor="#F0F0F0" | '''''[[G.E. Summer Originals]]'''''
+|-
+! rowspan="2" | [[CBS]]
+! Fall
+| bgcolor="#F0F0F0" rowspan="2" | Local (7:00) / ''[[CBS Evening News|Douglas Edwards with the News]]'' (7:15)
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Name That Tune]]''
+| bgcolor="#F0F0F0" | '''''[[Navy Log]]'''''
+| bgcolor="#FF22FF" | '''''[[The Phil Silvers Show|You'll Never Get Rich]]''''' (30/28.1)
+| bgcolor="#F0F0F0" rowspan="2"  | ''[[Meet Millie]]''
+| bgcolor="#00FFFF" rowspan="2"  | ''[[The Red Skelton Show]]'' (In <span style="color:red;">C</span><span style="color:orange;">O</span><span style="color:gold;">L</span><span style="color:green;">O</span><span style="color:blue;">R</span>) (14/32.3)
+| bgcolor="#FFFF00" rowspan="2" | ''[[The $64,000 Question]]'' (1/47.5)
+| bgcolor="#F0F0F0" rowspan="2" | ''[[My Favorite Husband]]''
+|-
+! November
+| bgcolor="#FF22FF" | '''''[[The Phil Silvers Show]]''''' (30/28.1)
+| bgcolor="F0F0F0" | '''''[[Navy Log]]'''''
+|-
+! rowspan="2" | [[NBC]]
+! Fall
+| bgcolor="#abbfff" rowspan="2" | Local
+| bgcolor="#F0F0F0" rowspan="2" | ''[[The Dinah Shore Show]]'' (7:30) / ''[[Camel News Caravan|Plymouth News Caravan]]'' (7:45)
+| bgcolor="#F0F0F0" colspan="2" | ''[[Texaco Star Theater|The Milton Berle Show]]'' (In <span style="color:red;">C</span><span style="color:orange;">O</span><span style="color:gold;">L</span><span style="color:green;">O</span><span style="color:blue;">R</span>) / ''[[Martha Raye|The Martha Raye Show]]'' / <span style="background-color:#FF22FF">'''''The Chevy Show''''' (29/28.2)</span>
+| bgcolor="#FF00FF" | ''[[Fireside Theatre]]'' (24/29.0)
+| bgcolor="#F0F0F0" colspan="2" | ''[[Armstrong Circle Theatre]]'' / '''''Pontiac Presents Playwrights '56''''' (alternating)
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Big Town (American TV series)|Big Town]]''
+|-
+! Summer
+| bgcolor="#F0F0F0" | ''[[Dear Phoebe]]''
+| bgcolor="#F0F0F0" | ''[[This Is Show Business]]''
+| bgcolor="#F0F0F0" | '''''[[Sneak Preview (TV series)|Sneak Preview]]'''''
+| bgcolor="#F0F0F0" colspan="2" | '''''[[The Kaiser Aluminum Hour]]'''''
+|}
+
+'''Notes:''' ''The Martha Raye Show'' and ''[[The Chevy Show]]'' appeared monthly. As of November 1, ''[[You'll Never Get Rich]]'' officially became ''[[The Phil Silvers Show]]'', swapping time periods with ''[[Navy Log]]''.
+
+On NBC, ''[[Dear Phoebe]]'' consisted entirely of reruns of the series from the [[1954–55 United States network television schedule|1954–1955 season]].
+
+Premiering on the same evening at the same time, ''[[G.E. Summer Originals]]'' on ABC and ''[[Sneak Preview (TV series)|Sneak Preview]]'' on NBC were the first U.S. [[anthology series]] composed of unsold [[television pilot]]s.
+
+== Wednesday ==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center" | Network
+! style="background-color:#C0C0C0;text-align:center"| 7:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 7:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! colspan="2" | [[American Broadcasting Company|ABC]]
+| bgcolor="#F0F0F0" | ''[[Kukla, Fran and Ollie]]'' (7:00) / ''[[John Daly and the News]]'' (7:15)
+| bgcolor="#FFFF00" colspan="2" | ''[[Walt Disney anthology television series|Disneyland]]'' (4/37.4)
+| bgcolor="#F0F0F0" | '''''[[MGM Parade]]'''''
+| bgcolor="#F0F0F0" | ''[[Masquerade Party]]''
+| bgcolor="#F0F0F0" | ''[[Break the Bank (1948)|Break the Bank]]''
+| bgcolor="lightgreen" colspan="2" | '''''[[Pabst Blue Ribbon Bouts|The Wednesday Night Fights]]'''''* 
+|-
+! rowspan="2" | [[CBS]]
+! Fall
+| bgcolor="#F0F0F0" rowspan="2" | Local (7:00) / ''[[CBS Evening News|Douglas Edwards with the News]]'' (7:15)
+| bgcolor="#F0F0F0" | '''''[[Brave Eagle]]'''''
+| bgcolor="#F0F0F0" colspan="2" rowspan="2" | ''[[Arthur Godfrey and His Friends]]''
+| bgcolor="#FFFF00" rowspan="2" | ''[[The Millionaire (TV series)|The Millionaire]]'' (9/33.8)
+| bgcolor="#FFFF00" rowspan="2" | ''[[I've Got a Secret]]'' (10/33.5)
+| bgcolor="#F0F0F0" colspan="2" rowspan="2" | ''[[The United States Steel Hour]]'' / '''''[[The 20th Century Fox Hour]]''''' 
+|-
+! Summer
+| bgcolor="#F0F0F0" | '''''[[CBS Cartoon Theatre]]'''''
+|-
+! rowspan="3" | [[DuMont Television Network|DMN]]
+! Fall
+| bgcolor="#abbfff" colspan="4" rowspan="2" | Local Programming
+| bgcolor="#F0F0F0" rowspan="2" | '''''[[Hollywood Preview]]'''''
+| bgcolor="#F0F0F0" | ''[[What's the Story]]''**
+| colspan="2" bgcolor="#abbfff" | Local Programming
+|-
+! October
+| colspan="3" bgcolor="#abbfff" | Local Programming
+|-
+! Winter
+| bgcolor="#abbfff" colspan="8" |Local Programming
+|-
+! colspan="2" | [[NBC]]
+| bgcolor="#abbfff" | Local Programming
+| bgcolor="#F0F0F0" | ''[[Coke Time with Eddie Fisher]]'' (7:30) / ''[[Camel News Caravan]]'' (7:45)
+| bgcolor="#F0F0F0" | '''''[[Screen Director's Playhouse]]'''''
+| bgcolor="#F0F0F0" | ''[[Father Knows Best]]''
+| bgcolor="#F0F0F0" colspan="2" | ''[[Kraft Television Theater]]''
+| bgcolor="#FF22FF" | ''[[This Is Your Life (American franchise)|This Is Your Life]]'' (26/28.8)
+| bgcolor="#F0F0F0" | ''[[Midwestern Hayride]]''
+|}
+
+<nowiki>*</nowiki> Formerly ''[[Pabst Blue Ribbon Bouts]]'' on CBS.
+
+''** [[What's the Story]]'' aired only until September 23 before being cancelled.
+
+== Thursday ==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! style="background-color:#C0C0C0;text-align:center"| Network
+! style="background-color:#C0C0C0;text-align:center"| 7:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 7:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! [[American Broadcasting Company|ABC]]
+| bgcolor="#F0F0F0" | ''[[Kukla, Fran and Ollie]]'' (7:00) / ''[[John Daly and the News]]'' (7:15) 
+| bgcolor="#F0F0F0" |''[[The Lone Ranger (TV series)|The Lone Ranger]]''
+| bgcolor="#F0F0F0" | ''[[Life is Worth Living]]''
+| bgcolor="#F0F0F0" | ''[[Stop the Music (American game show)|Stop the Music]]''
+| bgcolor="#F0F0F0" | ''[[Star Tonight]]''
+| bgcolor="#F0F0F0" | ''[[Down You Go]]''
+| bgcolor="#F0F0F0" | '''''Outside U.S.A.'''''
+| bgcolor="#abbfff" | Local
+|-
+! [[CBS]]
+| bgcolor="#F0F0F0" | Local (7:00) / ''[[CBS Evening News|Douglas Edwards with the News]]'' (7:15)
+| bgcolor="#F0F0F0" | '''''[[Sergeant Preston of the Yukon (TV series)|Sergeant Preston of the Yukon]]'''''
+| bgcolor="#F0F0F0" | ''[[The Bob Cummings Show]]''
+| bgcolor="#F0F0F0" colspan="2" | <span style="background-color:magenta">''[[Climax!]]'' (22/29.6)</span> / ''[[Shower of Stars]]'' (once a month)
+| bgcolor="#F0F0F0" | ''[[Four Star Playhouse]]''
+| bgcolor="#F0F0F0" | '''''[[The Johnny Carson Show]]'''''
+| bgcolor="#F0F0F0" | '''''Wanted'''''
+|-
+! [[NBC]]
+| bgcolor="#abbfff" | Local
+| bgcolor="#F0F0F0" | ''[[The Dinah Shore Show]]'' (7:30) / ''[[Camel News Caravan|Plymouth News Caravan]]'' (7:45)
+| bgcolor="#FFFF00" | ''[[You Bet Your Life]]'' (7/35.4)
+| bgcolor="#F0F0F0" | '''''[[The People's Choice (TV series)|The People’s Choice]]'''''
+| bgcolor="#FFFF00" | ''[[Dragnet (series)|Dragnet]]'' (8/35.0)
+| bgcolor="#00FFFF" | ''[[Ford Theatre]]'' (In <span style="color:red;">C</span><span style="color:orange;">O</span><span style="color:gold;">L</span><span style="color:green;">O</span><span style="color:blue;">R</span>) (12/32.4)<br/><small>(Tied with ''[[Private Secretary (TV series)|Private Secretary]]'')</small>
+| bgcolor="#FF22FF" colspan="2" | ''[[Lux Video Theatre]]'' (25/28.9)
+|}
+
+== Friday ==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"| Network
+! style="background-color:#C0C0C0;text-align:center"| 7:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 7:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! bgcolor="#C0C0C0" rowspan="2" | [[American Broadcasting Company|ABC]]
+! Fall
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Kukla, Fran and Ollie]]'' (7:00) / ''[[John Daly and the News]]'' (7:15)
+| bgcolor="#F0F0F0" rowspan="2" | ''[[The Adventures of Rin Tin Tin]]''
+| bgcolor="#F0F0F0" | ''[[The Adventures of Ozzie and Harriet]]''
+| bgcolor="#F0F0F0" rowspan="2" | '''''[[Crossroads (1955 TV series)|Crossroads]]'''''
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Dollar a Second]]''
+| bgcolor="#F0F0F0" rowspan="2" | ''[[The Vise (1955 TV series)|The Vise]]''
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Ethel and Albert]]''
+| bgcolor="#abbfff" rowspan="2" | Local
+|-
+! Summer
+| bgcolor="#F0F0F0" | '''''[[Combat Sergeant]]'''''
+|-
+! colspan="2" | [[CBS]]
+| bgcolor="#F0F0F0" | Local (7:00) / ''[[CBS Evening News|Douglas Edwards with the News]]'' (7:15)
+| bgcolor="#F0F0F0" | '''''[[The Adventures of Champion (TV series)|The Adventures of Champion]]''''' 
+| bgcolor="#F0F0F0" | ''[[Mama (American TV series)|Mama]]''
+| bgcolor="#F0F0F0" | ''[[Our Miss Brooks]]''
+| bgcolor="#F0F0F0" | '''''Crusader'''''
+| bgcolor="#F0F0F0" | ''[[Schlitz Playhouse of Stars]]''
+| bgcolor="#00FFFF" | ''[[The Lineup (TV series)|The Lineup]]'' (17/30.8)
+| bgcolor="#F0F0F0" | ''[[Person to Person]]''
+|-
+! rowspan="3" | [[DuMont Television Network|DMN]]
+! Fall
+| colspan="8" bgcolor="#abbfff" | Local Programming
+|-
+! Winter
+| colspan="7" bgcolor="#abbfff" | Local Programming
+| bgcolor="#F0F0F0" |'''''[[Hollywood Preview]]'''''
+|-
+! Spring 
+| colspan="8" bgcolor="#abbfff" | Local Programming
+|-
+! rowspan="3" | [[NBC]]
+! Fall
+| bgcolor="#abbfff"  rowspan="3" | Local
+| bgcolor="#F0F0F0"  rowspan="3" | ''[[Coke Time with Eddie Fisher]]'' (7:30) / ''[[Camel News Caravan]]'' (7:45)
+| bgcolor="#F0F0F0"  rowspan="3" | ''[[Truth or Consequences]]''
+| bgcolor="#FF00FF" | ''[[The Life of Riley]]'' (21/29.9)
+| bgcolor="#F0F0F0" | ''[[The Big Story (radio/TV)|The Big Story]]''
+| bgcolor="#F0F0F0" rowspan="2" |'''''[[Star Stage]]'''''
+| bgcolor="#F0F0F0" colspan="2" rowspan="3" | ''[[Gillette Cavalcade of Sports]]'' (10:00) / ''[[Red Barber|Red Barber's Corner]]'' (10:45)
+|-
+! Summer
+| bgcolor="#F0F0F0" | ''[[The Best in Mystery]]''
+|-
+! Follow-up
+| bgcolor="#F0F0F0" | '''''[[Star Stage]]'''''
+|
+|}
+'''Note:''' On NBC, ''[[The Best in Mystery]]'' consisted entirely of reruns of episodes of ''[[Four Star Playhouse]]'' seen previously on CBS.
+
+== Saturday ==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"| Network
+! style="background-color:#C0C0C0;text-align:center"| 7:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 7:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! colspan="2" | [[American Broadcasting Company|ABC]]
+| bgcolor="#abbfff" | Local
+| bgcolor="#F0F0F0" colspan="3" | ''[[Ozark Jubilee]]''
+| bgcolor="#F0F0F0" colspan="2" | '''''[[Lawrence Welk|Lawrence Welk's Dodge Dancing Party]]'''''
+| bgcolor="#F0F0F0" | ''Tomorrow's Careers''
+| bgcolor="#abbfff" | Local
+|-
+! rowspan="2" | [[CBS]]
+! Fall
+| bgcolor="#F0F0F0" rowspan="2" | ''[[The Gene Autry Show]]''
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Beat the Clock]]''
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Stage Show (TV series)|Stage Show]]''
+| bgcolor="#00FFFF" rowspan="2" | '''''[[The Honeymooners]]''''' (19/30.2)
+| bgcolor="#F0F0F0" rowspan="2" | ''[[Two for the Money (game show)|Two for the Money]]''
+| bgcolor="#F0F0F0" rowspan="2" | '''''[[It's Always Jan]]'''''
+| bgcolor="#F0F0F0" rowspan="2" | '''''[[Gunsmoke]]'''''
+| bgcolor="#F0F0F0" | ''[[Damon Runyon Theater]]''
+|-
+! July
+| bgcolor="#F0F0F0"  | '''''[[High Finance (1956 TV series)|High Finance]]'''''
+|-
+! rowspan="2" | [[NBC]]
+! Fall
+| bgcolor="#abbfff" rowspan="2" | Local
+| bgcolor="#F0F0F0" rowspan="2" |'''''[[The Big Surprise]]'''''
+| bgcolor="#00FFFF" colspan="2" | ''[[The Perry Como Show]]'' (18/30.3)
+| bgcolor="#FF22FF" rowspan="2" | ''[[People Are Funny]]'' (27/28.4)<br/><small>(Tied with ''[[The George Burns and Gracie Allen Show]]'')</small>
+| bgcolor="#F0F0F0" | ''[[Texaco Star Theater]]'' (In <span style="color:red;">C</span><span style="color:orange;">O</span><span style="color:gold;">L</span><span style="color:green;">O</span><span style="color:blue;">R</span>)
+| bgcolor="#00FFFF" | ''[[George Gobel|The George Gobel Show]]'' (15/31.9)
+| bgcolor="#FF22FF" rowspan="2" | ''[[Your Hit Parade]]'' (23/29.1)
+|-
+! Summer
+| bgcolor="#F0F0F0"  colspan="2" |'''''[[Julius LaRosa|The Julius LaRosa Show]]''''' (13 weeks)
+| bgcolor="#F0F0F0" | ''[[Jimmy Durante|The Jimmy Durante Show]]''
+| bgcolor="#F0F0F0"  |'''''Encore Theatre'''''
+|}
+'''Notes:'''
+* On ABC, ''[[Grand Ole Opry]]'' made its debut as a monthly series, airing 8–9 p.m. from October 15, 1955, to September 26, 1956. On CBS, ''[[Ford Star Jubilee]]'' made its debut as a monthly series, airing 9:30–11 p.m. On NBC, ''[[Max Liebman Presents]]'' aired as a monthly series, 9–10:30&nbsp;p.m.
+*''[[High Finance (1956 TV series)|High Finance]]'', hosted by [[Dennis James]], debuted on July 7, 1956, at 10:30 on CBS. It ran until December 15, 1956. It replaced ''The Damon Runyon Theater.''
+*On NBC, the 1956 version of the summer series ''[[Encore Theatre]]'' consisted of reruns of episodes of ''[[Pepsi Cola Playhouse]]'' and ''[[Studio 57]]''.
+
+==By network==
+
+===[[American Broadcasting Company|ABC]]===
+{{col-begin}}
+{{col-3}}
+'''Returning Series'''
+*''[[The Adventures of Ozzie and Harriet]]''
+*''[[The Adventures of Rin-Tin-Tin]]''
+*''[[The Big Picture (American TV series)|The Big Picture]]''
+*''[[Break the Bank (1945 game show)|Break the Bank]]''
+*''[[Chance of a Lifetime (TV series)|Chance of a Lifetime]]'' (moved from [[DuMont Television Network|DuMont]])
+*''[[Cheyenne (TV series)|Cheyenne]]''
+*''[[Disney anthology television series|Disneyland]]''
+*''[[Dollar a Second]]''
+*''[[The Dotty Mack Show]]''
+*''[[Down You Go]]''
+*''[[Cavalcade of America|Du Pont Cavalcade Theater]]''
+*''[[Ethel and Albert]]''
+*''[[ABC World News Tonight|John Daly and the News]]''
+*''[[Kukla, Fran and Ollie]]''
+*''[[Life Begins at Eighty]]''
+*''[[Life is Worth Living]]''
+*''[[The Lone Ranger (TV series)|The Lone Ranger]]''
+*''[[The Danny Thomas Show|Make Room for Daddy]]''
+*''[[Masquerade Party]]''
+*''[[The Original Amateur Hour]]''
+*''[[Ozark Jubilee]]''
+*''[[Paris Precinct]]''
+*''[[Star Tonight]]''
+*''[[Stop the Music (American game show)|Stop the Music]]''
+*''Tomorrow's Careers''
+*''[[TV Reader's Digest]]''
+*''[[The Vise (1955 TV series)|The Vise]]''
+*''[[The Voice of Firestone]]''
+*''[[You Asked for It]]''
+
+{{col-3}}
+'''New Series'''
+*'''''[[The Alcoa Hour]]'''''
+*'''''[[Casablanca (1955 TV series)|Casablanca]]'''''
+*'''''[[Cheyenne (TV series)|Cheyenne]]'''''
+*'''''[[Combat Sergeant]]''''' *
+*'''''[[Crossroads (1955 TV series)|Crossroads]]'''''
+*'''''[[Down You Go]]'''''
+*'''''[[Famous Film Festival]]'''''
+*'''''[[G.E. Summer Originals]]''''' *
+*'''''[[Grand Ole Opry]]'''''
+*'''''[[It's Polka Time]]''''' *
+*'''''[[Kings Row (TV series)|Kings Row]]'''''
+*'''''[[The Lawrence Welk Show|Lawrence Welk's Dodge Dancing Party]]'''''
+*'''''[[The Life and Legend of Wyatt Earp]]'''''
+*'''''[[Medical Horizons]]'''''
+*'''''[[MGM Parade]]'''''
+*'''''Outside U.S.A.'''''
+*'''''[[Press Conference (TV program)|Press Conference]]''''' *
+*'''''[[Talent Varieties]]'''''
+*'''''[[Warner Bros. Presents]]'''''
+
+{{col-3}}
+'''Not returning from [[1954–55 United States network television schedule|1954–55]]:'''
+*''[[Boxing from Eastern Parkway]]''
+*''[[Cavalcade of America]]''
+*''College Press Conference''
+*''Come Closer''
+*''[[The Elgin Hour|The Elgin TV Hour]]''
+*''Enterprise''
+*''Fight Talk''
+*''Flight No. 7''
+*''[[Jamie (TV series)|Jamie]]''
+*''[[The Jane Pickens Show]]''
+*''[[Let's See]]''
+*''[[The Mail Story]]''
+*''[[The Martha Wright Show]]''
+*''[[Mr. Citizen (TV series)|Mr. Citizen]]''
+*''[[The Name's the Same]]''
+*''[[Pond's Theater]]''
+*''[[The Ray Bolger Show]]''
+*''The Saturday Night Fights''
+*''[[So You Want to Lead a Band]]''
+*''[[Soldier Parade]]''
+*''[[Star Tonight]]''
+*''The Stork Club''
+*''[[The Stu Erwin Show]]''
+*''[[Talent Patrol]]''
+*''[[Treasury Men in Action]]''
+*''[[Twenty Questions]]''
+*''[[What's Going On (game show)|What's Going On]]''
+*''[[Where's Raymond?]]''
+{{col-end}}
+
+===[[CBS]]===
+{{col-begin}}
+{{col-3}}
+'''Returning Series'''
+*''[[The $64,000 Question]]''
+*''[[Appointment with Adventure]]''
+*''[[Arthur Godfrey and His Friends]]''
+*''[[Arthur Godfrey's Talent Scouts]]''
+*''[[Beat the Clock]]''
+*''[[The Bob Cummings Show]]'' (moved from [[NBC]])
+*''[[Climax!]]''
+*''[[Damon Runyon Theater]]''
+*''[[December Bride]]''
+*''[[CBS Evening News|Douglas Edwards with the News]]''
+*''[[The Ed Sullivan Show]]''
+*''[[Four Star Playhouse]]''
+*''[[Frankie Laine Time]]''
+*''[[The Gene Autry Show]]''
+*''[[General Electric Theater]]''
+*''[[The George Burns and Gracie Allen Show]]''
+*''[[The Herb Shriner Show]]''
+*''[[I Love Lucy]]''
+*''[[I've Got a Secret]]''
+*''[[The Jack Benny Program|The Jack Benny Show]]''
+*''[[Lassie (1954 TV series)|Lassie]]''
+*''[[The Lineup (TV series)|The Lineup]]''
+*''[[Mama (American TV series)|Mama]]''
+*''[[Meet Millie]]''
+*''[[The Millionaire (TV series)|The Millionaire]]''
+*''[[My Favorite Husband]]''
+*''[[Name That Tune]]''
+*''[[Omnibus (American TV program)|Omnibus]]''
+*''[[Our Miss Brooks]]''
+*''[[Person to Person]]''
+*''[[Private Secretary (TV series)|Private Secretary]]''
+*''[[The Red Skelton Show]]''
+*''[[Schlitz Playhouse of Stars]]''
+*''[[Shower of Stars]]''
+*''[[Stage Show (TV series)|Stage Show]]''
+*''[[Studio One (American TV series)|Studio One]]''
+*''[[Two for the Money (game show)|Two for the Money]]''
+*''[[The United States Steel Hour]]'' (moved from [[American Broadcasting Company|ABC]])
+*''[[What's My Line?]]''
+
+{{col-3}}
+'''New Series'''
+*'''''[[The 20th Century Fox Hour]]'''''
+*'''''[[The $64,000 Question|The $64,000 Challenge]]''''' *
+*'''''[[The Adventures of Champion (TV series)|The Adventures of Champion]]'''''
+*'''''[[The Adventures of Robin Hood (TV series)|The Adventures of Robin Hood]]'''''
+*'''''[[Alfred Hitchcock Presents]]'''''
+*'''''[[Brave Eagle]]'''''
+*'''''[[CBS Cartoon Theatre]]''''' *
+*'''''[[Crusader (TV series)|Crusader]]'''''
+*'''''[[Ford Star Jubilee]]'''''
+*'''''[[Gunsmoke]]'''''
+*'''''[[High Finance (game show)|High Finance]]''''' *
+*'''''[[Hollywood Summer Theater]]''''' *
+*'''''[[The Honeymooners]]'''''
+*'''''[[It's Always Jan]]'''''
+*'''''[[Joe and Mabel]]'''''
+*'''''[[The Johnny Carson Show]]'''''
+*'''''[[My Friend Flicka (TV series)|My Friend Flicka]]''''' *
+*'''''[[Navy Log]]'''''
+*'''''[[Sergeant Preston of the Yukon (TV series)|Sergeant Preston of the Yukon]]'''''
+*'''''[[Tales of the Texas Rangers]]'''''
+*'''''[[Telephone Time]]''''' *
+*'''''[[Vic Damone|The Vic Damone Show]]''''' *
+*'''''[[Wanted (1955 TV series)|Wanted]]'''''
+*'''''[[The Phil Silvers Show|You'll Never Get Rich]]'''''
+
+{{col-3}}
+'''Not returning from [[1954–55 United States network television schedule|1954–55]]:'''
+*''America's Greatest Bands''
+*''[[The Best of Broadway]]''
+*''[[The Blue Angel (TV series)|The Blue Angel]]''
+*''[[Danger (TV series)|Danger]]''
+*''[[Father Knows Best]]'' (moved to [[NBC]])
+*''[[The Halls of Ivy]]''
+*''[[Honestly, Celeste!]]''
+*''[[Life with Father]]''
+*''Music 55''
+*''[[Pabst Blue Ribbon Bouts]]'' (moved to [[American Broadcasting Company|ABC]], renamed to The Wednesday Night Fights)
+*''[[The Public Defender (TV series)|The Public Defender]]''
+*''[[Meet Mr. McNutley|The Ray Milland Show]]''
+*''[[See It Now]]''
+*''Sports Spot''
+*''[[Stage 7]]''
+*''[[Strike It Rich (1947 game show)|Strike It Rich]]''
+*''[[That's My Boy (1954 TV series)|That's My Boy]]''
+*''[[Topper (TV series)|Topper]]''
+*''[[What in the World? (game show)|What in the World?]]''
+*''[[Willy (TV series)|Willy]]''
+*''[[Windows (TV series)|Windows]]''
+*''[[Your Play Time]]''
+
+{{col-end}}
+
+===[[DuMont Television Network|DuMont]]===
+
+{{col-begin}}
+{{col-3}}
+'''Returning series'''
+*''At Ringside''
+*''[[Boxing from St. Nicholas Arena]]''
+*''[[What's the Story]]''
+
+{{col-3}}
+'''New series'''
+*'''''[[Hollywood Preview]]'''''
+
+{{col-3}}
+'''Not returning from [[1954–55 United States network television schedule|1954–55]]:'''
+*''[[Captain Video and His Video Rangers|Captain Video]]''
+*''[[Chance of a Lifetime (TV series)|Chance of a Lifetime]]'' 
+*''[[Concert Tonight]]''
+*''[[DuMont Evening News]]''
+*''[[Flash Gordon (1954 TV series)|Flash Gordon]]''
+*''[[The Ilona Massey Show]]''
+*''[[It's Alec Templeton Time]]''
+*''[[Life Begins at Eighty]]''
+*''[[The Music Show (US)|The Music Show]]''
+*''[[NFL on DuMont|National Football League Professional Football]]''
+*''[[One Minute Please]]''
+*''[[Opera Cameos]]''
+*''[[The Paul Dixon Show]]''
+*''[[Rocky King, Inside Detective]]''
+*''[[Studio 57]]''
+*''[[The Stranger (1954 American TV series)|The Stranger]]''
+*''[[They Stand Accused]]''
+*''[[Time Will Tell (game show)|Time Will Tell]]''
+{{col-end}}
+
+===[[NBC]]===
+{{col-begin}}
+{{col-3}}
+'''Returning Series'''
+*''[[Armstrong Circle Theatre]]''
+*''[[Big Town (American TV series)|Big Town]]''
+*''[[Caesar's Hour]]''
+*''[[Camel News Caravan]]''
+*''The Chevy Show''
+*''[[Coke Time with Eddie Fisher]]''
+*''[[The Colgate Comedy Hour|Colgate Variety Hour]]''
+*''[[Dragnet (1951 TV series)|Dragnet]]''
+*''[[Father Knows Best]]'' (Moved from [[CBS]])
+*''[[Fireside Theatre]]''
+*''[[Ford Theatre]]''
+*''[[George Gobel|The George Gobel Show]]''
+*''[[Gillette Cavalcade of Sports]]''
+*''[[Goodyear Television Playhouse]]''
+*''[[It's a Great Life (TV series)|It's a Great Life]]''
+*''[[Jimmy Durante|The Jimmy Durante Show]]''
+*''[[Justice (1954 TV series)|Justice]]''
+*''[[Kraft Television Theatre]]''
+*''[[The Life of Riley]]''
+*''[[The Loretta Young Show]]''
+*''[[Lux Video Theatre]]''
+*''[[Martha Raye|The Martha Raye Show]]''
+*''[[Max Liebman Presents]]''
+*''[[Medic (TV series)|Medic]]''
+*''[[Midwestern Hayride]]''
+*''[[Texaco Star Theater|The Milton Berle Show]]''
+*''[[People Are Funny]]''
+*''[[Perry Como|The Perry Como Show]]'' (moved from [[CBS]])
+*''[[Producers' Showcase]]''
+*''[[Red Barber|Red Barber's Corner]]''
+*''[[Robert Montgomery Presents]]''
+*''[[Texaco Star Theater]]''
+*''[[This Is Your Life (American franchise)|This Is Your Life]]''
+*''[[Tony Martin (American singer)|The Tony Martin Show]]''
+*''[[Truth or Consequences]]''
+*''[[You Bet Your Life]]''
+*''[[Your Hit Parade]]''
+
+{{col-3}}
+'''New Series'''
+*'''''[[Adventure Theater]]''''' *
+*'''''[[The Alcoa Hour]]'''''
+*'''''[[The Big Surprise]]'''''
+*'''''Encore Theatre''''' *
+*'''''[[Frontier (1955 TV series)|Frontier]]'''''
+*'''''[[The Golden Touch of Frankie Carle]]''''' *
+*'''''[[Hollywood Today]]''''' *
+*'''''[[Julius La Rosa|The Julius LaRosa Show]]''''' *
+*'''''[[The Kaiser Aluminum Hour]]''''' *
+*'''''[[The NBC Comedy Hour]]''''' *
+*'''''[[The People's Choice (TV series)|The People's Choice]]'''''
+*'''''[[Playwrights '56|Pontiac Presents Playwrights '56]]'''''
+*'''''[[Screen Directors Playhouse]]'''''
+*'''''[[Sneak Preview (TV series)|Sneak Preview]]''''' *
+*'''''[[Star Stage]]'''''
+*'''''[[Wide Wide World]]'''''
+
+{{col-3}}
+'''Not returning from [[1954–55 United States network television schedule|1954–55]]:'''
+*''[[Joseph Dunninger|The Amazing Dunninger]]''
+*''And Here‘s the Show''
+*''[[The Bob Cummings Show]]'' (moved to CBS)
+*''[[Bob Hope television specials|The Bob Hope Show]]''
+*''The Buick-Berle Show''
+*''[[Cameo Theatre]]''
+*''[[Commando Cody: Sky Marshal of the Universe]]''
+*''[[The Donald O'Connor Show]]''
+*''[[Goodyear Television Playhouse]]''
+*''The Greatest Moments in Sports''
+*''The Hunter''
+*''[[I Married Joan]]''
+*''[[Imogene Coca|The Imogene Coca Show]]''
+*''[[The Jack Carson Show]]''
+*''[[Make the Connection]]''
+*''[[The Mickey Rooney Show|The Mickey Rooney Show: Hey, Mulligan]]''
+*''[[Mister Peepers]]''
+*''[[Musical Chairs (1955 game show)|Musical Chairs]]''
+*''[[My Little Margie]]''
+*''[[Norby (TV series)|Norby]]''
+*''[[The Philco Television Playhouse]]''
+*''Place the Face''
+*''[[The Red Buttons Show]]''
+*''[[The Soldiers (American TV series)|The Soldiers]]''
+*''[[Watch Mr. Wizard]]''
+{{col-end}}
+
+Note: The * indicates that the program was introduced in midseason.
+
+==References==
+{{Reflist}}
+* Castleman, H. & Podrazik, W. (1982). ''Watching TV: Four Decades of American Television''. New York: McGraw-Hill. 314 pp.
+* McNeil, Alex (1996). ''Total Television: The Comprehensive Guide to Programming from 1948 to the Present''. Fourth edition. New York: Penguin Books. {{ISBN|0-14-024916-8}}.
+* Brooks, Tim & Marsh, Earle (1964). ''The Complete Directory to Prime Time Network TV Shows'' (3rd ed.). New York: Ballantine. {{ISBN|0-345-31864-1}}.
+
+{{US TV schedule}}
+
+{{DEFAULTSORT:1955-56 United States network television schedule}}
+[[Category:United States primetime network television schedules]]
+[[Category:1955 in American television|United States network television schedule]]
+[[Category:1956 in American television|United States network television schedule]]

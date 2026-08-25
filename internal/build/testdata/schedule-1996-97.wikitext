@@ -1,0 +1,1040 @@
+{{Short description|Television schedule for the fall of 1996}}
+{{Use mdy dates|date=March 2025}}
+{{USTV|1996}}
+The '''1996–97 United States network television schedule''' for the six major English language commercial [[List of United States over-the-air television networks|broadcast networks in the United States]] covers the [[primetime]] hours from September 1996 to August 1997. The schedule is followed by a [[#By network|list per network]] of returning series, new series, and series canceled after the [[1995–96 United States network television schedule|1995–96 season]].
+
+[[PBS]] is not included; member stations have local flexibility over most of their schedules and broadcast times for network shows may vary.
+
+Each of the 30 highest-rated shows released in May 1997 is listed with its rank and rating as determined by [[Nielsen Media Research]].<ref name="BM2">Highest-rated series is based on the annual top-rated programs list compiled by [[Nielsen Media Research]] and reported in: Brooks, Tim & Marsh, Earle (2007). ''The Complete Directory to Prime Time Network TV Shows'' (9th ed.). New York: Ballantine. {{ISBN|978-0-345-49773-4}}.</ref>
+
+New series highlighted in '''bold'''.
+
+Repeat airings or same-day rebroadcasts are indicated by '''{{small|(R)}}'''.
+
+All times are [[Eastern Time Zone|U.S. Eastern]] and [[Pacific Time Zone|Pacific Time]] (except for some live sports or events). Subtract one hour for [[Central Time Zone|Central]], [[Mountain Time Zone|Mountain]], [[Alaska Time Zone|Alaska]] and [[Hawaii–Aleutian Time Zone|Hawaii–Aleutian]] times.
+
+All sporting events air live in all time zones in U.S. Eastern time, with local and/or late-night programming (including Fox affiliates during the 10 p.m. ET/PT hour) by affiliates after game completion.
+
+The WB expanded three nights a week with the new Monday Night lineup for the first time from fall 1996.
+
+==Legend==
+{{Plainlist|
+*{{Color box|#abbfff|border=darkgray}} Light blue indicates local programming.
+*{{Color box|#C0C0C0|border=darkgray}} Gray indicates encore programming.
+*{{Color box|#6699CC|border=darkgray}} Blue-gray indicates news programming.
+*{{Color box|lightgreen|border=darkgray}} Light green indicates sporting events.
+*{{Color box|#FA8072|border=darkgray}} Red indicates series being [[burning off|burned off]] and other irregularly scheduled programs, including specials and movies.
+*{{Color box|#FFE082|border=darkgray}} Light gold indicates programming produced outside of the United States.
+*{{Color box|light white|border=darkgray|highlight|yellow}} Yellow highlights indicates the top-10 most watched programs of the season.
+*{{Color box|light white|border=darkgray|highlight|cyan}} Cyan highlights indicates numbers 11-20 most watched programs of the season.
+*{{Color box|light white|border=darkgray|highlight|magenta}} Magenta highlights indicates numbers 21-30 most watched programs of the season.
+*{{Color box|light white|border=darkgray|highlight|black}} Highlights indicates that it falls in multiple of the above categories.
+}}
+
+==Sunday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0"|Network
+! style="background-color:#C0C0C0;text-align:center;width:13.8%;"|7:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center;width:13.8%;"|7:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="5"|[[American Broadcasting Company|ABC]]
+! Fall
+|''[[America's Funniest Home Videos]]''
+|''[[America's Funniest Home Videos]]''
+| colspan="2"|''[[Lois & Clark: The New Adventures of Superman]]''
+| rowspan="5" colspan="4" style="background:#FA8072;"|''[[The ABC Sunday Night Movie]]''
+|-
+! Winter
+| colspan="2"|''[[Lois & Clark: The New Adventures of Superman]]''
+|''[[America's Funniest Home Videos]]''
+|''[[America's Funniest Home Videos]]''
+|-
+! Spring
+|''[[America's Funniest Home Videos]]''
+|''[[America's Funniest Home Videos]]''
+| colspan="2" style="background:#6699CC;"|[[ABC News (United States)|ABC News]] programming
+|-
+! Summer
+| style="background:#FA8072;" colspan="2"|''[[Second Noah]]''
+| rowspan="2"|''[[America's Funniest Home Videos]]''
+| rowspan="2"|''[[America's Funniest Home Videos]]''
+|-
+! Late summer
+| style="background:#FA8072;" colspan="2"|{{small|Special programming}}
+|-
+! colspan="2"|[[CBS]]
+| colspan="2" style="background:#6699CC;"|{{highlight|''[[60 Minutes]]'' {{small|(11/13.3)}}|#00FFFF}}
+| colspan="2" style="background:#FFFF00;"|''[[Touched by an Angel]]'' {{small|(10/13.6)}}
+| colspan="4" style="background:#FA8072;"|{{highlight|''[[CBS Sunday Movie]]'' {{small|(14/12.1)}}|#00FFFF}}
+|-
+! rowspan="7"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| colspan="2"|'''''[[Big Deal (game show)|Big Deal]]'''''
+| colspan="4" style="background:#FA8072;"|''Fox Movie Special''
+| colspan="2" rowspan="7" style="background:#abbfff;"|{{small|Local programming}}
+|-
+! Mid-fall
+| style="background:#C0C0C0;"|''[[Married... with Children]]'' {{small|(R)}}
+| ''[[Married... with Children]]''
+| rowspan="6"|''[[The Simpsons]]''
+| ''[[Ned and Stacey|Ned & Stacey]]''
+| colspan="2" rowspan="6" style="background:#FF66FF;"|''[[The X-Files]]'' {{small|(21/11.4)<br/>(Tied with ''[[Cosby (TV series)|Cosby]]'')}}
+|-
+! Winter
+| colspan="2" rowspan="2" style="background:#FA8072;"|{{small|Special programming}}
+| rowspan="5"|'''''[[King of the Hill]]'''''
+|-
+! Spring
+|-
+! Summer
+| colspan="2"|'''''[[Beyond Belief: Fact or Fiction]]'''''
+|-
+! Mid-summer
+| colspan="2" style="background:#FA8072;"|{{small|Special programming}}
+|-
+! Late summer
+| colspan="2"|'''''[[Beyond Belief: Fact or Fiction]]'''''
+
+|-
+! rowspan="4"|[[NBC]]
+! Fall
+| colspan="2" rowspan="4" style="background:#6699CC;"|''[[Dateline NBC]]''
+| rowspan="4" style="background:#FF66FF;"|''[[3rd Rock from the Sun]]'' {{small|(27/10.8)<br />(Tied with ''[[Law & Order]]'')}}
+| rowspan="3" | ''[[Boston Common (TV series)|Boston Common]]''
+| colspan="4" rowspan="4" style="background:#FA8072;"|{{highlight|''[[NBC Sunday Night Movie]]'' {{small|(18/11.5)<br/>(Tied with ''[[The Drew Carey Show]]'')}}|#00FFFF}}
+|-
+! Winter
+|-
+! Spring
+|-
+! Summer
+| style="background:#C0C0C0;"|''[[NewsRadio]]'' {{small|(R)}}
+|-
+! rowspan="7"|[[The WB]]
+! Fall
+| ''[[Kirk (TV series)|Kirk]]''
+| rowspan="2"| ''[[Brotherly Love (1995 TV series)|Brotherly Love]]''
+| rowspan="4"|''[[The Parent 'Hood]]''
+| rowspan="5"|'''''[[The Steve Harvey Show]]'''''
+| rowspan="7"|''[[Unhappily Ever After]]''
+| rowspan="4"|'''''[[Life with Roger]]'''''
+| colspan="2" rowspan="7" style="background:#abbfff;"|{{small|Local programming}}
+|-
+! Mid-fall
+| style="background:#C0C0C0;"|''[[Brotherly Love (1995 TV series)|Brotherly Love]]'' {{small|(R)}}
+|-
+! Winter
+| rowspan="2"| ''[[Brotherly Love (1995 TV series)|Brotherly Love]]''
+| rowspan="2"| '''''[[Nick Freno: Licensed Teacher]]'''''
+|-
+! Spring
+|-
+! Summer
+| rowspan="3"|'''''[[Nick Freno: Licensed Teacher]]''''' 
+| rowspan="3"|''[[The Parent 'Hood]]'' 
+| style="background:#C0C0C0;"|'''''[[The Steve Harvey Show]]''''' {{small|(R)}}
+| rowspan="3" style="background:#C0C0C0;"|''[[The Wayans Bros.]]'' {{small|(R)}}
+|-
+! Mid-summer
+| colspan="2" style="background:#C0C0C0;"|'''''[[Buffy the Vampire Slayer]]''''' {{small|(R)}}
+|-
+! Late summer
+| style="background:#C0C0C0;"|'''''[[The Jamie Foxx Show]]''''' {{small|(R)}}
+| style="background:#C0C0C0;"|'''''[[The Jamie Foxx Show]]''''' {{small|(R)}}
+|}
+
+==Monday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="7"|[[American Broadcasting Company|ABC]]
+! Fall
+| rowspan="2" colspan="2"|'''''[[Dangerous Minds (TV series)|Dangerous Minds]]'''''
+| colspan="4" style="background:yellow;"|''[[Monday Night Football]]'' {{small|(7/16.0)}}
+|-
+! Winter
+| rowspan="5" colspan="4" style="background:#FA8072;"|''The ABC Monday Night Movie''
+|-
+! Late winter
+| colspan="2"|'''''[[Spy Game (TV series)|Spy Game]]'''''
+|-
+! Spring
+| colspan="2"|'''''[[Relativity (TV series)|Relativity]]'''''
+|-
+! Mid-spring
+| colspan="2" style="background:#FA8072;"|Special programming
+|-
+! Summer
+| colspan="2" style="background:#C0C0C0;"|'''''World of Discovery''''' {{small|(R)}}
+|-
+! Mid-summer
+| colspan="6" style="background:lightgreen;"|''[[Monday Night Football|Monday Night Football Preseason]]''
+|-
+! rowspan="5"|[[CBS]]
+! Fall
+| rowspan="5" style="background:magenta;"| '''''[[Cosby (TV series)|Cosby]]''''' {{small|(21/11.2)<br/>(Tied with ''[[The X-Files]]'')}}
+| '''''[[Pearl (TV series)|Pearl]]'''''
+| rowspan="2"|''[[Murphy Brown]]''
+| rowspan="2" style="background:magenta;"|''[[Cybill]]'' {{small|(30/10.5)<br/>(Tied with ''[[Chicago Hope]]'' and ''[[Dateline NBC]]'')}}
+| rowspan="5" colspan="2" style="background:magenta;"| ''[[Chicago Hope]]'' {{small|(30/10.5)<br/>(Tied with ''[[Dateline NBC]]'' and ''[[Cybill]]'')}}
+|-
+! Mid-fall
+| '''''[[Ink (TV series)|Ink]]'''''
+|-
+! Winter
+| '''''[[Everybody Loves Raymond]]'''''
+| rowspan="3" style="background:magenta;"| ''[[Cybill]]'' {{small|(30/10.5)<br/>(Tied with ''[[Chicago Hope]]'' and ''[[Dateline NBC]]'')}}
+| rowspan="2"|'''''[[Ink (TV series)|Ink]]'''''
+|-
+! Spring
+| ''[[Murphy Brown]]'' 
+|-
+! Late spring
+| style="background:#C0C0C0;"|'''''[[Everybody Loves Raymond]]''''' {{small|(R)}}
+| style="background:#C0C0C0;"|''[[Murphy Brown]]'' {{small|(R)}}
+|-
+! rowspan="6"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| colspan="2" rowspan="4"|''[[Melrose Place]]''
+| '''''[[Party Girl (1996 TV series)|Party Girl]]'''''
+| '''''[[Lush Life (TV series)|Lush Life]]'''''
+| colspan="2" rowspan="6" style="background:#abbfff;"|Local programming
+|-
+! Mid-Fall
+| colspan="2" style="background:#FA8072;"|Special programming
+|-
+! Winter
+| ''[[Ned and Stacey]]''
+| ''[[Married... with Children]]''
+|-
+! Late winter
+| ''[[Married... with Children]]'' 
+| '''''[[Pauly]]'''''
+|-
+! Late Spring
+| ''[[Mad TV|MADtv Primetime]]''
+| '''''[[The Ruby Wax Show]]'''''
+| colspan="2" style="background:#C0C0C0;"|''[[Married... with Children]]'' {{small|(R)}}
+|-
+! Summer
+| colspan="2" style="background:#C0C0C0;"|Various programming
+| colspan="2"|'''''[[Roar (1997 TV series)|Roar]]'''''
+|-
+! rowspan="4"|[[NBC]]
+! Fall
+| rowspan="2"|''[[The Jeff Foxworthy Show]]''
+| '''''[[Mr. Rhodes]]'''''
+| colspan="4" rowspan="2" style="background:magenta;"|''[[The NBC Monday Movie]]'' {{small|(23/11.0)<br/>(Tied with ''[[Walker, Texas Ranger]]'', ''[[Mad About You]]'' and ''[[Caroline in the City]]'')}}
+|-
+! Spring
+| ''[[Boston Common (TV series)|Boston Common]]''
+|-
+! Late spring
+| colspan="4" style="background:magenta;"|''[[The NBC Monday Movie]]'' {{small|(23/11.0)<br>(Tied with ''[[Walker, Texas Ranger]]'', ''[[Mad About You]]'' and ''[[Caroline in the City]]'')}}
+| colspan="2" rowspan="2" style="background:#6699CC;"|''[[Dateline NBC]]''
+|-
+! Summer
+| style="background:#C0C0C0;"|'''''[[Suddenly Susan]]''''' {{small|(R)}}
+| style="background:#C0C0C0;"|'''''[[Fired Up (TV series)|Fired Up]]''''' {{small|(R)}}
+| style="background:#C0C0C0;"|''[[Caroline in the City]]'' {{small|(R)}}
+| style="background:#C0C0C0;"|''[[Wings (1990 TV series)|Wings]]'' {{small|(R)}}
+|-
+! rowspan="2"|[[UPN]]
+! Fall
+| rowspan="2"|''[[In the House (TV series)|In the House]]''
+| rowspan="2"|'''''[[Malcolm & Eddie]]'''''
+| '''''[[Goode Behavior (1996 TV series)|Goode Behavior]]'''''
+| '''''[[Sparks (TV series)|Sparks]]'''''
+| rowspan="4" colspan="2" style="background:#abbfff;"|Local programming
+|-
+! Winter
+| '''''[[Sparks (TV series)|Sparks]]'''''
+| '''''[[Goode Behavior (1996 TV series)|Goode Behavior]]'''''
+|-
+! rowspan="2"|[[The WB]]
+! Fall
+| rowspan="2" colspan="2"|'''''[[7th Heaven (TV series)|7th Heaven]]'''''
+| colspan="2"|''[[Savannah (TV series)|Savannah]]''
+|-
+! Winter
+| colspan="2"|'''''[[Buffy the Vampire Slayer]]'''''
+|}
+
+Note: On CBS, the debut of '''[[Ink (TV series)|Ink]]''' was delayed by a month due to production problems, resulting in another new sitcom, '''[[Pearl (TV series)|Pearl]]''', which aired temporarily in its slot before moving to its own originally designated Wednesday time period in late October.
+
+==Tuesday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="6"|[[American Broadcasting Company|ABC]]
+! Fall
+| rowspan="3"|''[[Roseanne]]''
+| '''''[[Life's Work]]'''''
+| rowspan="6" style="background:yellow;"|''[[Home Improvement (TV series)|Home Improvement]]'' {{small|(9/14.0)}} 
+| rowspan="6" style="background:cyan;"|'''''[[Spin City]]''''' {{small|(17/11.7)}}
+| rowspan="2" colspan="2" style="background:cyan;"|''[[NYPD Blue]]'' {{small|(13/12.5)}}
+|-
+! Winter
+| rowspan="2" style="background:#C0C0C0;"|''[[Ellen (TV series)|Ellen]]'' {{small|(R)}}
+|-
+! Late winter
+| colspan="2"|'''''[[The Practice]]'''''
+|-
+! Spring
+| style="background:#C0C0C0;"|''[[Home Improvement (TV series)|Home Improvement]]'' {{small|(R)}}
+| '''''[[Soul Man (TV series)|Soul Man]]'''''
+| rowspan="3" colspan="2" style="background:cyan;"|''[[NYPD Blue]]'' {{small|(13/12.5)}}
+|-
+! Late spring
+| rowspan="2"|''[[Roseanne]]''
+| style="background:#FA8072;"|'''''[[Life's Work]]'''''
+|-
+! Summer
+| style="background:#C0C0C0;"|''[[Grace Under Fire]]'' {{small|(R)}}
+|-
+! colspan="2"|[[CBS]]
+| colspan="2"|'''''[[Promised Land (1996 TV series)|Promised Land]]'''''
+| colspan="4" style="background:#FA8072;"|''CBS Tuesday Movie''
+|-
+! colspan="2"|[[Fox Broadcasting Company|Fox]]
+| colspan="4" style="background:#FA8072;"|''Fox Tuesday Night Movie''
+| colspan="2" style="background:#abbfff;"|Local programming
+|-
+! rowspan="3"|[[NBC]]
+! Fall
+| rowspan="3" style="background:magenta;"|''[[Mad About You]]'' {{small|(23/11.0)<br/>(Tied with ''[[Walker, Texas Ranger]]'', ''[[Caroline in the City]]'' and ''[[The NBC Monday Movie]]'')}}
+| '''''[[Something So Right (TV series)|Something So Right]]'''''
+| rowspan="3" style="background:cyan;"|''[[Frasier]]'' {{small|(16/11.8)}}
+| rowspan="2" style="background:magenta;"|''[[Caroline in the City]]'' {{small|(23/11.0)<br/>(Tied with ''[[Walker, Texas Ranger]]'' ''[[Mad About You]]'' and ''[[The NBC Monday Movie]]'')}}
+| colspan="2" rowspan="3" style="background:cyan;"|''[[Dateline NBC|Dateline Tuesday]]'' {{small|(20/11.4)}}
+|-
+! Summer
+| style="background:#C0C0C0;"|''[[The Naked Truth (TV series)|The Naked Truth]]'' {{small|(R)}}
+|-
+! Mid-summer
+| style="background:#C0C0C0;"|''[[NewsRadio]]'' {{small|(R)}}
+| style="background:#C0C0C0;"|'''''[[Just Shoot Me!]]''''' {{small|(R)}}
+|-
+! rowspan="4"|[[UPN]]
+! Fall
+| rowspan="4"|''[[Moesha]]''
+| '''''[[Homeboys in Outer Space]]'''''
+| rowspan="3" colspan="2"|'''''[[The Burning Zone]]'''''
+| rowspan="4" colspan="2" style="background:#abbfff;"|Local programming
+|-
+! Winter
+| '''''[[Social Studies (1997 TV series)|Social Studies]]'''''
+|-
+! Spring
+| '''''[[Homeboys in Outer Space]]'''''
+|-
+! Summer
+| style="background:#C0C0C0;"|'''''[[Social Studies (1997 TV series)|Social Studies]]''''' {{small|(R)}}
+| style="background:#C0C0C0;"|'''''[[Malcolm & Eddie]]''''' {{small|(R)}}
+| style="background:#C0C0C0;"|''[[In the House (TV series)|In the House]]'' {{small|(R)}}
+|}
+
+==Wednesday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="4"| [[American Broadcasting Company|ABC]]
+! Fall
+| style="background:magenta;"|''[[Ellen (TV series)|Ellen]]'' {{small|(29/10.6)}}
+| '''''[[Townies]]'''''
+| ''[[Grace Under Fire]]''
+| style="background:cyan;"|''[[The Drew Carey Show]]'' {{small|(18/11.5)<br/>(Tied with The ''[[NBC Sunday Night Movie]]'')}}
+| rowspan="4" colspan="2" style="background:cyan;"|''[[Primetime (American TV program)|Primetime Live]]'' {{small|(15/11.9)}}
+|-
+! Winter
+| rowspan="3"|''[[Grace Under Fire]]''
+| rowspan="3"|''[[Coach (TV series)|Coach]]''
+| rowspan="3" style="background:cyan;"|''[[The Drew Carey Show]]'' {{small|(18/11.5)<br/>(Tied with The ''[[NBC Sunday Night Movie]]'')}}
+| style="background:magenta;"|''[[Ellen (TV series)|Ellen]]'' {{small|(29/10.6)}}
+|-
+! Late winter
+| '''''[[Arsenio (TV series)|Arsenio]]'''''
+|-
+! Spring
+| style="background:magenta;"|''[[Ellen (TV series)|Ellen]]'' {{small|(29/10.6)}}
+|-
+! rowspan="7"|[[CBS]]
+! Fall
+| rowspan="7"|''[[The Nanny]]''
+| ''[[Almost Perfect]]''
+| colspan="4" rowspan="2" style="background:#FA8072;"|''CBS Wednesday Movie''
+|-
+! Mid-fall
+| rowspan="2"|'''''[[Pearl (TV series)|Pearl]]'''''
+|-
+! Winter
+| colspan="2" style="background:#6699CC;"|'''''Coast to Coast'''''
+| colspan="2"|'''''[[Orleans (TV series)|Orleans]]'''''
+|-
+! Late winter
+| '''''[[Temporarily Yours]]'''''
+| colspan="2"|'''''[[Feds (TV series)|Feds]]'''''
+| colspan="2"|'''''[[EZ Streets]]'''''
+|-
+! Spring
+| style="background:#C0C0C0;"|Various programming
+| colspan="4" rowspan="2" style="background:#FA8072;"|''CBS Wednesday Movie''
+|-
+! Late spring
+| style="background:#FA8072;"| '''''[[Pearl (TV series)|Pearl]]'''''
+|-
+! Summer
+| style="background:#C0C0C0;"|''[[Murphy Brown]]'' {{small|(R)}}
+| colspan="2" style="background:#6699CC;"|'''''Coast to Coast'''''
+| colspan="2" style="background:#6699CC;"|''[[48 Hours (TV program)|48 Hours]]''
+|-
+! rowspan="4"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| colspan="2" rowspan="3"|''[[Beverly Hills, 90210]]''
+| colspan="2" rowspan="2"|''[[Party of Five]]''
+| colspan="2" rowspan="4" style="background:#abbfff;"|{{small|Local programming}}
+|-
+! Winter
+|-
+! Spring
+| colspan="2" rowspan="2"|'''''[[Pacific Palisades (TV series)|Pacific Palisades]]'''''
+|-
+! Summer
+| colspan="2" style="background:#FA8072;"|{{small|Special programming}}
+|-
+! rowspan="9"|[[NBC]]
+! Fall
+| rowspan="3"|''[[Wings (1990 TV series)|Wings]]''
+| ''[[The John Larroquette Show]]''
+| rowspan="3"|''[[NewsRadio]]''
+| rowspan="3"|'''''[[Men Behaving Badly (American TV series)|Men Behaving Badly]]'''''
+| colspan="2" rowspan="3" style="background:#FF66FF;"|''[[Law & Order]]'' {{small|(27/10.8)<br/>(Tied with ''[[3rd Rock from the Sun]]'')}}
+|-
+! Mid-fall
+| style="background:#C0C0C0;"|{{small|Various programming}}
+|-
+! Winter
+| rowspan="2"|'''''[[Chicago Sons]]'''''
+|-
+! Late winter
+| rowspan="5"|''[[NewsRadio]]''
+| rowspan="3"|''[[Wings (1990 TV series)|Wings]]''
+| '''''[[Just Shoot Me!]]'''''
+| colspan="2" | '''''[[Prince Street (TV series)|Prince Street]]'''''
+|-
+! Spring
+| style="background:yellow;"|''[[The Single Guy]]'' {{small|(8/14.1)}}
+| rowspan="2" | '''''[[Men Behaving Badly (American TV series)|Men Behaving Badly]]'''''
+| colspan="2" rowspan="2" style="background:#FF66FF;"| ''[[Law & Order]]'' {{small|(27/10.8)<br/>(Tied with ''[[3rd Rock from the Sun]]'')}}
+|-
+! Mid-spring
+| style="background:#C0C0C0;"|{{small|Various programming}}
+|-
+! Summer
+| '''''[[Men Behaving Badly (American TV series)|Men Behaving Badly]]'''''
+| colspan="4" style="background:lightgreen;"|''[[NBA on NBC]]''
+|-
+! Mid-summer
+| style="background:#C0C0C0;"|{{small|Various programming}}
+|''[[Wings (1990 TV series)|Wings]]'' 
+| style="background:#FA8072;"| '''''[[Chicago Sons]]'''''
+| colspan="2" rowspan="2" style="background:#FF66FF;"| ''[[Law & Order]]'' {{small|(27/10.8)<br/>(Tied with ''[[3rd Rock from the Sun]]'')}}
+|-
+! Late summer
+| colspan="4" style="background:#FA8072;"|''NBC Wednesday Night Movie''
+|-
+! colspan="2"|[[UPN]]
+| colspan="2"|''[[The Sentinel (TV series)|The Sentinel]]''
+| colspan="2"|''[[Star Trek: Voyager]]''
+| rowspan="8" colspan="2" style="background:#abbfff;"|Local programming
+|-
+! rowspan="6"|[[The WB]]
+! Fall
+| rowspan="6"|''[[Sister, Sister (TV series)|Sister, Sister]]''
+| rowspan="2"|'''''[[Nick Freno: Licensed Teacher]]'''''
+| rowspan="2"|''[[The Wayans Bros.]]''
+| rowspan="2"|'''''[[The Jamie Foxx Show]]'''''
+|-
+! Winter
+|-
+! Spring
+| '''''[[Smart Guy]]'''''
+| rowspan="3"|'''''[[The Jamie Foxx Show]]'''''
+| rowspan="3"|''[[The Wayans Bros.]]''
+|-
+! Summer
+| style="background:#C0C0C0;"|''[[The Parent 'Hood]]'' {{small|(R)}}
+|-
+! Mid-summer
+| style="background:#C0C0C0;"|'''''[[The Steve Harvey Show]]''''' {{small|(R)}}
+|-
+! Late summer
+| '''''[[Smart Guy]]'''''
+| ''[[The Wayans Bros.]]''
+| style="background:#C0C0C0;"|'''''[[The Steve Harvey Show]]''''' {{small|(R)}}
+|}
+
+Note: On CBS, due to the effect of the debut delay of '''[[Ink (TV series)|Ink]]''' on Monday, the first month of the new season on this night aired ''[[Almost Perfect]]'' at 8:30&nbsp;p.m., followed by ''CBS Wednesday Movies'' at 9 p.m. The originally planned fall Wednesday lineup took shape at the end of October with '''[[Pearl (TV series)|Pearl]]''' taking over at 8:30&nbsp;p.m., ''[[Almost Perfect]]'' moving to 9 p.m., '''[[Public Morals (1996 TV series)|Public Morals]]''' debuting at 9:30&nbsp;p.m., and '''[[EZ Streets]]''' debuting at 10 p.m. This lasted for only one week in late October. CBS cancelled Public Morals [[List of television series canceled after one episode|after it aired for only one episode]]. This meant Almost Perfect would soon be cancelled. '''[[EZ Streets]]''' would be given a 2nd chance in the spring.
+==Thursday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="4"|[[American Broadcasting Company|ABC]]
+! Fall
+| rowspan="4" colspan="2"|''[[High Incident]]''
+| colspan="2"|''[[Murder One (TV series)|Murder One]]''
+| colspan="2" style="background:#6699CC;"|''[[Turning Point (TV program)|Turning Point]]''
+|-
+! Winter
+| colspan="4" style="background:#FA8072;"|''The ABC Thursday Night Movie''
+|-
+! Late winter
+| colspan="2"|'''''Vital Signs'''''
+| colspan="2" style="background:#6699CC;"|''[[Turning Point (TV program)|Turning Point]]''
+|-
+! Summer
+| colspan="2" style="background:#6699CC;"|''[[Turning Point (TV program)|Turning Point]]''
+| colspan="2" style="background:#6699CC;"|[[ABC News (United States)|ABC News]] programming
+|-
+! rowspan="2"|[[CBS]]
+! Fall
+| colspan="2"|''[[Diagnosis: Murder]]''
+| colspan="2"|'''''[[Moloney (TV series)|Moloney]]'''''
+| colspan="2" rowspan="2" style="background:#6699CC;"|''[[48 Hours (TV program)|48 Hours]]''
+|-
+! Summer
+| colspan="2" style="background:#C0C0C0;"|'''''[[Promised Land (1996 TV series)|Promised Land]]''''' {{small|(R)}}
+| colspan="2" style="background:#C0C0C0;"|''[[Diagnosis: Murder]]'' {{small|(R)}}
+|-
+! colspan="2"|[[Fox Broadcasting Company|Fox]]
+| ''[[Martin (TV series)|Martin]]''
+| ''[[Living Single]]''
+| colspan="2"|''[[New York Undercover]]''
+| colspan="2" style="background:#abbfff;"|Local programming
+|-
+! rowspan="6" | [[NBC]]
+! Fall
+| rowspan="6" style="background:yellow;"|''[[Friends]]'' {{small|(4/16.8)<br/>(Tied with ''[[The Naked Truth (TV series)|The Naked Truth]]'')}}
+| rowspan="2" style="background:yellow;"|''[[The Single Guy]]'' {{small|(8/14.1)}}
+| rowspan="6" style="background:yellow;"|''[[Seinfeld]]'' {{small|(2/20.5)}}
+| style="background:yellow;"|'''''[[Suddenly Susan]]''''' {{small|(3/17.0)}}
+| colspan="2" rowspan="2" style="background:yellow;"|''[[ER (TV series)|ER]]'' {{small|(1/21.2)}}
+|-
+! Winter
+| rowspan="2" style="background:yellow;"|''[[The Naked Truth (TV series)|The Naked Truth]]'' {{small|(4/16.8)<br/>(Tied with ''[[Friends]]'')}}
+|-
+! Late winter
+| rowspan="2" style="background:yellow;"|'''''[[Suddenly Susan]]''''' {{small|(3/17.0)}}
+| colspan="2" style="background:magenta;"|''[[Law & Order]]'' {{small|(27/10.8)<br/>(Tied with ''[[3rd Rock from the Sun]]'')}}
+|-
+! Spring
+| style="background:yellow;"|'''''[[Fired Up (TV series)|Fired Up]]''''' {{small|(6/16.5)}}
+| colspan="2"  rowspan="3" style="background:yellow;"| ''[[ER (TV series)|ER]]'' {{small|(1/21.2)}}
+|-
+! Late spring
+| rowspan="2" style="background:#C0C0C0;"|'''''[[Men Behaving Badly (U.S. TV series)|Men Behaving Badly]]''''' {{small|(R)}}
+| style="background:#C0C0C0;"|'''''[[Suddenly Susan]]''''' {{small|(R)}}
+|-
+! Summer
+| style="background:#C0C0C0;"|''[[3rd Rock from the Sun]]'' {{small|(R)}}
+|}
+
+==Friday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"| Network
+! style="background-color:#C0C0C0;text-align:center"| 8:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 8:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 9:30 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:00 PM
+! style="background-color:#C0C0C0;text-align:center"| 10:30 PM
+|-
+! rowspan="5" | [[American Broadcasting Company|ABC]]
+! Fall
+| rowspan="3" | ''[[Family Matters]]''
+| '''''[[Sabrina the Teenage Witch (1996 TV series)|Sabrina the Teenage Witch]]'''''
+| '''''[[Clueless (TV series)|Clueless]]'''''
+| ''[[Boy Meets World]]''
+| rowspan="5" colspan="2" style="background:cyan;"| ''[[20/20 (American TV program)|20/20]]'' {{small|(12/12.8)}}
+|-
+! Mid-fall
+| rowspan="4"|''[[Boy Meets World]]''
+| rowspan="4"|'''''[[Sabrina the Teenage Witch (1996 TV series)|Sabrina the Teenage Witch]]'''''
+| '''''[[Clueless (TV series)|Clueless]]'''''
+|-
+! Late Winter
+| ''[[Step by Step (TV series)|Step by Step]]''
+|-
+! Spring
+| rowspan="2" | ''[[Step by Step (TV series)|Step by Step]]''
+| style="background:#C0C0C0;"|'''''[[Clueless (TV series)|Clueless]]''''' {{small|(R)}}
+|-
+! Summer
+| ''[[Hangin' with Mr. Cooper]]''
+|-
+! rowspan="6"|[[CBS]]
+! Fall
+| rowspan="3"|''[[Dave's World]]''
+| rowspan="3"|'''''[[Everybody Loves Raymond]]'''''
+| colspan="2"|'''''[[Mr. & Mrs. Smith (1996 TV series)|Mr. & Mrs. Smith]]'''''
+| rowspan="6" colspan="2"|''[[Nash Bridges]]''
+|-
+! Late fall
+| colspan="2" style="background:#FA8072;"|Special programming
+|-
+! Winter
+| colspan="2"|''[[JAG (TV series)|JAG]]''
+|-
+! Spring
+| colspan="2"|''[[JAG (TV series)|JAG]]''
+| colspan="2"|'''''[[Orleans (TV series)|Orleans]]'''''
+|-
+! Late spring
+| ''[[Dave's World]]''
+| '''''[[Life... and Stuff]]'''''
+| colspan="2" rowspan="2" style="background:#C0C0C0;"|''[[JAG (TV series)|JAG]]'' {{small|(R)}}
+|-
+! Summer
+| colspan="2"|'''''Ordinary Extraordinary'''''
+|-
+! rowspan="2"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| colspan="2" rowspan="2"|''[[Sliders (TV series)|Sliders]]''
+| colspan="2" style="background:magenta;"| ''[[The X-Files]]'' {{small|(21/11.4)<br/>(Tied with ''[[Cosby (TV series)|Cosby]]'')}}
+| colspan="2" rowspan="2" style="background:#abbfff;"|Local programming
+|-
+! Mid-fall
+| colspan="2"|'''''[[Millennium (TV series)|Millennium]]'''''
+|-
+! rowspan="5"|[[NBC]]
+! Fall
+| colspan="2" rowspan="5"|''[[Unsolved Mysteries]]''
+| colspan="2" rowspan="5" style="background:magenta;"| ''[[Dateline NBC]]'' {{small|(30/10.5)<br/>(Tied with ''[[Chicago Hope]]'' and ''[[Cybill]]'')}}
+| colspan="2"|''[[Homicide: Life on the Street]]''
+|-
+! Winter
+| colspan="2"|'''''[[Crisis Center]]'''''
+|-
+! Spring
+| colspan="2"|''[[Homicide: Life on the Street]]''
+|-
+! Late spring
+| colspan="2" style="background:#C0C0C0;"|'''''[[Profiler (TV series)|Profiler]]''''' {{small|(R)}}
+|-
+! Summer
+| colspan="2" style="background:#C0C0C0;"|''[[Homicide: Life on the Street]]'' {{small|(R)}}
+|}
+
+'''Note:''' [[CBS]] picked up ''[[JAG (TV series)|JAG]]'' after [[NBC]] cancelled it due to low ratings and it became a success afterwards.
+
+This is the last season of ''[[Family Matters]]'' and ''[[Step by Step (TV series)|Step by Step]]'' and the only season of ''[[Clueless (TV series)|Clueless]]'' to air on [[American Broadcasting Company|ABC]]'s [[TGIF (TV programming block)|TGIF]] block, until the following season, the former two shows were picked up by [[CBS]] and ''Clueless'' moved to [[UPN]] on Tuesdays.
+
+==Saturday==
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center;width:15%;"|Network
+! style="background-color:#C0C0C0;text-align:center;width:14%;"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center;width:14%;"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center;width:14%;"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center;width:14%;"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="6"|[[American Broadcasting Company|ABC]]
+! Fall
+| colspan="2"|''[[Second Noah]]''
+| ''[[Coach (TV series)|Coach]]''
+| '''''[[Common Law (1996 TV series)|Common Law]]'''''
+| rowspan="2" colspan="2"|'''''[[Relativity (TV series)|Relativity]]'''''
+|-
+! Mid-fall
+| colspan="4" style="background:#FA8072;"|''The ABC Saturday Night Movie''
+|-
+! Winter
+| colspan="2"|'''''[[Dangerous Minds (TV series)|Dangerous Minds]]'''''
+| colspan="4" style="background:#FA8072;"|''The ABC Saturday Night Movie''
+|-
+! Spring
+| colspan="2"|''[[Lois & Clark: The New Adventures of Superman]]''
+| colspan="2"|'''''[[Leaving L.A.]]'''''
+| colspan="2"|'''''[[Gun (TV series)|Gun]]'''''
+|-
+! Late spring
+| rowspan="2" style="background:#C0C0C0;"|''[[Family Matters]]'' {{small|(R)}}
+| rowspan="2"|''[[Hangin' with Mr. Cooper]]''
+| colspan="2" style="background:#C0C0C0;"|'''''[[Dangerous Minds (TV series)|Dangerous Minds]]''''' {{small|(R)}}
+| colspan="2"|'''''[[Spy Game (TV series)|Spy Game]]'''''
+|-
+! Summer
+| colspan="2" style="background:#FA8072;"|Special programming
+| colspan="2" style="background:#C0C0C0;"|'''''[[The Practice]]''''' {{small|(R)}}
+|-
+! colspan="2"|[[CBS]]
+| colspan="2"|''[[Dr. Quinn, Medicine Woman]]''
+| colspan="2"|'''''[[Early Edition]]'''''
+| colspan="2" style="background:#FF00FF;"|''[[Walker, Texas Ranger]]'' {{small|(23/11.0)<br/>(Tied with ''[[Mad About You]]'', ''[[Caroline in the City]]''<br /> and [[The NBC Monday Movie]])}}
+|-
+! rowspan="2"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| rowspan="2"|''[[Cops (TV program)|COPS]]''
+| rowspan="2" style="background:#C0C0C0;"|''[[Cops (TV program)|COPS]]'' {{small|(R)}}
+| ''[[Married... with Children]]''
+| '''''[[Love and Marriage (1996 TV series)|Love and Marriage]]'''''
+| bgcolor="#abbfff" rowspan="2" colspan="2"|Local programming
+|-
+! Mid-fall
+| colspan="2"|''[[America's Most Wanted|America's Most Wanted:<br />America Fights Back]]''
+|-
+! rowspan="3"|[[NBC]]
+! Fall
+| colspan="2"|'''''[[Dark Skies]]'''''
+| colspan="2" rowspan="2"|'''''[[The Pretender (TV series)|The Pretender]]'''''
+| colspan="2" rowspan="2"|'''''[[Profiler (TV series)|Profiler]]'''''
+|-
+! Spring
+| colspan="2" style="background:#FA8072;"|Special programming
+|-
+! Summer
+| colspan="2"|'''''[[The Pretender (TV series)|The Pretender]]'''''
+| colspan="4" style="background:#FA8072;"|'''''NBC Saturday Night At The Movies'''''
+|}
+
+Note: ''[[America's Most Wanted]]'' would return in November at 9:00 on Fox. ''[[Married... with Children]]'' moved to Sundays at 7-8pm in November, Mondays at 9:30 in January, and Mondays at 9pm in February. '''''[[Lawless (American TV series)|Lawless]]''''' which aired on March 27, 1997, replacing the second half of America's Most Wanted was canceled after one episode.
+
+==By network==
+===[[American Broadcasting Company|ABC]]===
+{{col-begin}}
+{{col-3}}
+;Returning series
+*''[[20/20 (American TV program)|20/20]]''
+*''The ABC Monday Night Movie''
+*''[[The ABC Sunday Night Movie]]''
+*''The ABC Saturday Night Movie''
+*''The ABC Thursday Night Movie''
+*''[[America's Funniest Home Videos]]'' 
+*''[[Boy Meets World]]'' 
+*''[[Coach (TV series)|Coach]]'' 
+*''[[The Drew Carey Show]]''
+*''[[Ellen (TV series)|Ellen]]''
+*''[[Family Matters]]''
+*''[[Grace Under Fire]]'' 
+*''[[Hangin' with Mr. Cooper]]'' 
+*''[[High Incident]]'' 
+*''[[Home Improvement (TV series)|Home Improvement]]'' 
+*''[[Lois & Clark: The New Adventures of Superman]]'' 
+*''[[Monday Night Football]]'' 
+*''[[Murder One (TV series)|Murder One]]'' 
+*''[[NYPD Blue]]''
+*''[[Primetime (American TV program)|Primetime Live]]''
+*''[[Roseanne]]'' 
+*''[[Second Noah]]'' 
+*''[[Step by Step (TV series)|Step by Step]]''
+*''[[Turning Point (TV program)|Turning Point]]''
+
+{{col-3}}
+;New series
+*'''''[[Arsenio (TV series)|Arsenio]]'''''
+*'''''[[Clueless (TV series)|Clueless]]'''''
+*'''''[[Common Law (1996 TV series)|Common Law]]'''''
+*'''''[[Dangerous Minds (TV series)|Dangerous Minds]]'''''
+*'''''[[Gun (TV series)|Gun]]'''''
+*'''''[[Leaving L.A.]]'''''
+*'''''[[Life's Work]]'''''
+*'''''[[The Practice]]'''''
+*'''''[[Relativity (TV series)|Relativity]]'''''
+*'''''[[Sabrina the Teenage Witch (1996 TV series)|Sabrina the Teenage Witch]]'''''
+*'''''[[Soul Man (TV series)|Soul Man]]''''' 
+*'''''[[Spin City]]'''''
+*'''''[[Spy Game (TV series)|Spy Game]]'''''
+*'''''[[Townies]]'''''
+*'''''[[Vital Signs (TV series)|Vital Signs]]'''''
+
+{{col-3}}
+;Not returning from 1995-96
+*''[[Aliens in the Family]]''
+*''[[Before They Were Stars]]''
+*''[[Buddies (TV series)|Buddies]]''
+*''[[Champs (TV series)|Champs]]''
+*''[[Charlie Grace (TV series)|Charlie Grace]]''
+*''[[The Commish]]''
+*''[[The Dana Carvey Show]]''
+*''[[The Faculty (TV series)|The Faculty]]''
+*''[[Hudson Street (TV series)|Hudson Street]]''
+*''[[The Jeff Foxworthy Show]]'' (moved to [[NBC]])
+*''[[The Marshal]]''
+*''[[Maybe This Time (TV series)|Maybe This Time]]''
+*''[[The Monroes (1995 TV series)|The Monroes]]''
+*''[[Muppets Tonight]]''
+*''[[The Naked Truth (TV series)|The Naked Truth]]'' (moved to [[NBC]])
+*''[[World's Funniest Videos]]''
+{{col-end}}
+
+===[[CBS]]===
+{{col-begin}}
+{{col-3}}
+;Returning series
+*''[[48 Hours (TV program)|48 Hours]]''
+*''[[60 Minutes]]''
+*''[[Almost Perfect]]''
+*''[[CBS Sunday Movie]]''
+*''[[Chicago Hope]]''
+*''[[Cybill]]''
+*''[[Dave's World]]''
+*''[[Diagnosis Murder]]''
+*''[[Dr. Quinn, Medicine Woman]]''
+*''[[JAG (TV series)|JAG]]'' (moved from [[NBC]])
+*''[[Murphy Brown]]''
+*''[[The Nanny]]''
+*''[[Nash Bridges]]''
+*''[[Touched by an Angel]]''
+*''[[Walker, Texas Ranger]]''
+
+{{col-3}}
+;New series
+*'''''[[Cosby (TV series)|Cosby]]'''''
+*'''''[[Early Edition]]'''''
+*'''''[[Everybody Loves Raymond]]'''''
+*'''''[[EZ Streets]]'''''
+*'''''[[Feds (TV series)|Feds]]'''''
+*'''''[[Ink (TV series)|Ink]]'''''
+*'''''[[Life... and Stuff]]'''''
+*'''''[[Mr. & Mrs. Smith (1996 TV series)|Mr. & Mrs. Smith]]'''''
+*'''''[[Moloney (TV series)|Moloney]]'''''
+*'''''[[Orleans (TV series)|Orleans]]'''''
+*'''''[[Pearl (TV series)|Pearl]]'''''
+*'''''[[Promised Land (1996 TV series)|Promised Land]]'''''
+*'''''[[Public Morals (1996 TV series)|Public Morals]]'''''
+*'''''[[Temporarily Yours]]'''''
+
+{{col-3}}
+;Not returning from 1995-96
+*''[[American Gothic (1995 TV series)|American Gothic]]''
+*''[[Bless This House (American TV series)|Bless This House]]''
+*''[[The Bonnie Hunt Show]]''
+*''[[Can't Hurry Love]]''
+*''[[Central Park West (TV series)|Central Park West]]''
+*''[[The Client (TV series)|The Client]]''
+*''[[Courthouse (TV series)|Courthouse]]''
+*''[[Due South]]''
+*''[[Dweebs]]''
+*''[[High Society (1995 TV series)|High Society]]''
+*''[[The Louie Show]]''
+*''[[Matt Waters]]''
+*''[[Murder, She Wrote]]''
+*''[[My Guys]]''
+*''[[Picket Fences]]''
+*''[[Rescue 911]]''
+*''[[New York News]]''
+{{col-end}}
+
+===[[Fox Broadcasting Company|Fox]]===
+{{col-begin}}
+{{col-3}}
+;Returning series
+* ''[[America's Most Wanted|America's Most Wanted: America Fights Back]]''
+* ''[[Beverly Hills, 90210]]''
+* ''[[Cops (TV program)|Cops]]''
+* ''Fox Tuesday Night Movie''
+* ''[[Living Single]]''
+* ''[[Married... with Children]]''
+* ''[[Martin (TV series)|Martin]]''
+* ''[[Melrose Place]]''
+* ''[[Ned and Stacey]]''
+* ''[[New York Undercover]]''
+* ''[[Party of Five]]''
+* ''[[The Simpsons]]''
+* ''[[Sliders (TV series)|Sliders]]''
+* ''[[The X-Files]]''
+
+{{col-3}}
+;New series
+* '''''[[Beyond Belief: Fact or Fiction]]'''''
+* '''''[[Big Deal (game show)|Big Deal]]'''''
+* '''''[[King of the Hill]]'''''
+* '''''[[Lawless (American TV series)|Lawless]]'''''
+* '''''[[Love and Marriage (1996 TV series)|Love and Marriage]]'''''
+* '''''[[Lush Life (TV series)|Lush Life]]'''''
+* '''''[[Millennium (TV series)|Millennium]]'''''
+* '''''[[Pacific Palisades (TV series)|Pacific Palisades]]'''''
+* '''''[[Party Girl (1996 TV series)|Party Girl]]'''''
+* '''''[[Pauly]]'''''
+* '''''[[Roar (1997 TV series)|Roar]]'''''
+
+{{col-3}}
+;Not returning from 1995-96
+* ''[[The Crew (1995 TV series)|The Crew]]''
+* ''[[Encounters (TV series)|Encounters: The Hidden Truth]]''
+* ''[[Kindred: The Embraced]]''
+* ''[[L.A. Firefighters]]''
+* ''[[The Last Frontier (1996 TV series)|The Last Frontier]]''
+* ''[[Local Heroes (American TV series)|Local Heroes]]''
+* ''[[Misery Loves Company (TV series)|Misery Loves Company]]''
+* ''[[Partners (1995 TV series)|Partners]]''
+* ''[[The Preston Episodes]]''
+* ''[[Profit (TV series)|Profit]]''
+* ''[[Saturday Night Special (TV series)|Saturday Night Special]]''
+* ''The Show''
+* ''[[Space: Above and Beyond]]''
+* ''[[Strange Luck]]''
+* ''[[Too Something]]''
+* ''What's So Funny?''
+{{col-end}}
+
+===[[NBC]]===
+{{col-begin}}
+{{col-3}}
+;Returning series
+*''[[3rd Rock from the Sun]]''
+*''[[Boston Common (TV series)|Boston Common]]''
+*''[[Caroline in the City]]''
+*''[[Dateline NBC]]''
+*''[[ER (TV series)|ER]]''
+*''[[Frasier]]''
+*''[[Friends]]''
+*''[[Homicide: Life on the Street]]''
+*''[[The Jeff Foxworthy Show]]'' (moved from [[American Broadcasting Company|ABC]])
+*''[[The John Larroquette Show]]''
+*''[[Law & Order]]''
+*''[[Mad About You]]''
+*''[[The Naked Truth (TV series)|The Naked Truth]]'' (moved from [[American Broadcasting Company|ABC]])
+*''[[NBC Sunday Night Movie]]''
+*''[[The NBC Monday Movie]]''
+*''[[NewsRadio]]''
+*''[[Seinfeld]]''
+*''[[The Single Guy]]''
+*''[[Unsolved Mysteries]]''
+*''[[Wings (1990 TV series)|Wings]]''
+
+{{col-3}}
+;New series
+*'''''[[Chicago Sons]]'''''
+*'''''[[Crisis Center]]'''''
+*'''''[[Dark Skies]]'''''
+*'''''[[Fired Up (TV series)|Fired Up]]'''''
+*'''''[[Just Shoot Me!]]'''''
+*'''''[[Men Behaving Badly (American TV series)|Men Behaving Badly]]'''''
+*'''''[[Mr. Rhodes]]'''''
+*'''''[[The Pretender (TV series)|The Pretender]]'''''
+*'''''NBC Saturday Night at the Movies'''''
+*'''''[[Prince Street (TV series)|Prince Street]]'''''
+*'''''[[Profiler (TV series)|Profiler]]'''''
+*'''''[[Something So Right (TV series)|Something So Right]]'''''
+*'''''[[Suddenly Susan]]'''''
+
+{{col-3}}
+;Not returning from 1995-96
+*''[[Brotherly Love (1995 TV series)|Brotherly Love]]'' (moved to [[The WB]])
+*''[[The Fresh Prince of Bel-Air]]'' (returning on [[HBO Max]] in 2020)
+*''[[The Home Court]]''
+*''[[Hope and Gloria]]''
+*''[[In the House (TV series)|In the House]]'' (moved to [[UPN]])
+*''[[JAG (TV series)|JAG]]'' (moved to [[CBS]])
+*''[[Malibu Shores]]''
+*''[[The Pursuit of Happiness (1995 TV series)|The Pursuit of Happiness]]''
+*''[[seaQuest DSV|seaQuest 2032]]''
+*''[[Sisters (American TV series)|Sisters]]''
+{{col-end}}
+
+===[[UPN]]===
+{{col-begin}}
+{{col-3}}
+;Returning series
+*''[[In the House (TV series)|In the House]]'' (moved from [[NBC]])
+*''[[Moesha]]''
+*''[[The Sentinel (TV series)|The Sentinel]]''
+*''[[Star Trek: Voyager]]''
+
+{{col-3}}
+;New series
+*'''''[[The Burning Zone]]'''''
+*'''''[[Goode Behavior (1996 TV series)|Goode Behavior]]'''''
+*'''''[[Homeboys in Outer Space]]'''''
+*'''''[[Malcolm & Eddie]]'''''
+*'''''[[Social Studies (1997 TV series)|Social Studies]]'''''
+*'''''[[Sparks (TV series)|Sparks]]'''''
+
+{{col-3}}
+;Not returning from 1995-96
+*''[[Deadly Games (TV series)|Deadly Games]]''
+*''[[Live Shot]]''
+*''[[Minor Adjustments]]''
+*''[[Nowhere Man (American TV series)|Nowhere Man]]''
+*''The Paranormal Borderline''
+*''[[Swift Justice]]''
+{{col-end}}
+
+===[[The WB]]===
+{{col-begin}}
+{{col-3}}
+;Returning series
+*''[[Brotherly Love (1995 TV series)|Brotherly Love]]'' (moved from [[NBC]])
+*''[[Kirk (TV series)|Kirk]]''
+*''[[The Parent 'Hood]]''
+*''[[Savannah (TV series)|Savannah]]''
+*''[[Sister, Sister (TV series)|Sister, Sister]]''
+*''[[Unhappily Ever After]]''
+*''[[The Wayans Bros.]]''
+
+{{col-3}}
+;New series
+*'''''[[7th Heaven (TV series)|7th Heaven]]'''''
+*'''''[[Buffy the Vampire Slayer]]'''''
+*'''''[[The Jamie Foxx Show]]'''''
+*'''''[[Life with Roger]]'''''
+*'''''[[Nick Freno: Licensed Teacher]]'''''
+*'''''[[Smart Guy]]'''''
+*'''''[[The Steve Harvey Show]]'''''
+
+{{col-3}}
+;Not returning from 1995-96
+*''[[Cleghorne!]]''
+*''[[First Time Out]]''
+*''[[Pinky and the Brain]]'' (moved to Kids' WB in daytime)
+*''[[Simon (American TV series)|Simon]]''
+{{col-end}}
+
+==References==
+{{Reflist}}
+
+{{US TV schedule}}
+
+{{DEFAULTSORT:1996 97 United States Network Television Schedule}}
+[[Category:United States primetime network television schedules]]
+[[Category:1996 in American television|United States Network Television Schedule, 1996 97]]
+[[Category:1997 in American television|United States Network Television Schedule, 1996 97]]

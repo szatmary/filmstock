@@ -1,0 +1,543 @@
+{{Short description|none}}
+{{Use mdy dates|date=March 2025}}
+{{USTV|1974}}
+The '''1974–75 network television schedule''' for the three major English language commercial [[List of United States over-the-air television networks|broadcast networks in the United States]] covers [[primetime]] hours from September 1974 through August 1975. The schedule is followed by a [[#By network|list per network]] of returning series, new series, and series cancelled after the [[1973-74 United States network television schedule|1973–74 season]].
+
+[[PBS]], the Public Broadcasting Service, was in operation, but the schedule was set by each local station.
+
+This is the last season in which the networks were limited to a 21-hour (three hours every day) weekly prime time schedule as mandated by the original Prime Time Access Rule enacted in September 1971. In January 1974, the FCC announced that it would relax the rulings for the fall season so that the networks could have four hours of nighttime programming on Sundays from 7 to 11 p.m., with two additional half-hours allocated for public affairs or family-oriented programming for the rest of the week. However, an injunction by syndicators forced the FCC to delay the changes by a year
+
+New series are highlighted in '''bold'''.
+
+All times are [[Eastern Time Zone|U.S. Eastern]] and [[Pacific Time Zone|Pacific Time]] (except for some live sports or events). Subtract one hour for [[Central Time Zone|Central]], [[Mountain Time Zone|Mountain]], [[Alaska Time Zone|Alaska]] and [[Hawaii–Aleutian Time Zone|Hawaii–Aleutian]] times.
+
+Each of the 30 highest-rated shows is listed with its rank and rating as determined by [[Nielsen Media Research]].<ref name="BM2">Highest-rated series is based on the annual top-rated programs list compiled by [[Nielsen Media Research]] and reported in: Brooks, Tim & Marsh, Earle (2007). ''The Complete Directory to Prime Time Network TV Shows'' (9th ed.). New York: Ballantine. {{ISBN|978-0-345-49773-4}}.</ref>
+
+==Legend==
+{{Plainlist|
+*{{Color box|#abbfff|border=darkgray}} Light blue indicates local programming.
+*{{Color box|#C0C0C0|border=darkgray}} Gray indicates encore programming.
+*{{Color box|#6699CC|border=darkgray}} Blue-gray indicates news programming.
+*{{Color box|lightgreen|border=darkgray}} Light green indicates sporting events.
+*{{Color box|#FA8072|border=darkgray}} Red indicates series being [[burning off|burned off]] and other regularly scheduled programs, including specials and movies.
+*{{Color box|light white|border=darkgray|highlight|yellow}} Yellow highlights indicates the top-10 most watched programs of the season.
+*{{Color box|light white|border=darkgray|highlight|cyan}} Cyan highlights indicates numbers 11-20 most watched programs of the season.
+*{{Color box|light white|border=darkgray|highlight|magenta}} Magenta highlights indicates numbers 21-30 most watched programs of the season.
+*{{Color box|light white|border=darkgray|highlight|black}} Highlights indicates that it falls in multiple of the above categories.
+}}
+
+==Sunday==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable plainrowheaders" style="width:100%; margin:auto; text-align:center;"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|7:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="2"|[[American Broadcasting Company|ABC]]
+! Fall
+| style="background:#abbfff;"|Local programming 
+| colspan="2"|'''''[[The Sonny Comedy Revue]]'''''
+| colspan="4" style="background:#FA8072;"|''[[The ABC Sunday Night Movie]]''
+|-
+! Winter
+| colspan="2"|''[[The Six Million Dollar Man]]''
+| colspan="4" style="background:#FA8072;"|''[[The ABC Sunday Night Movie]]''
+| style="background:#abbfff;" rowspan="6"|Local programming
+|-
+! rowspan="4"|[[CBS]]
+! Fall
+| colspan="2"|''[[Apple's Way]]''
+| style="background:#00FFFF;" colspan="2" rowspan="4"|''[[Kojak]]'' {{small|(14/23.3)}}
+| style="background:#00FFFF;" colspan="2" rowspan="2"|''[[Mannix]]'' {{small|(20/21.6)<br/>(Tied with ''[[Cannon (TV series)|Cannon]]'')}}
+|-
+! Winter
+| colspan="2" style="background:#FF00FF;"|'''''[[Cher (TV series)|Cher]]''''' {{small|(22/21.3)<br/>(Tied with ''[[The Streets of San Francisco]]'' and ''[[The NBC Mystery Movie|NBC Sunday Mystery Movie]]'')}}
+|-
+! Summer
+| colspan="2"|'''''[[Joey Heatherton|Joey]] & [[Ray Heatherton|Dad]]'''''
+| colspan="2" rowspan="2" style="background:#6699CC;"|''[[60 Minutes]]''
+|-
+! Late summer
+| colspan="2"|'''''[[The Manhattan Transfer|Manhattan Transfer]]'''''
+|-
+! colspan="2"|[[NBC]]
+| style="background:#00FFFF;" colspan="2"|''[[Disney anthology television series|The Wonderful World of Disney]]'' {{small|(18/22.0)<br/>(Tied with ''[[The Rookies]]'')}}
+| style="background:#FF00FF;" colspan="4"|''[[The NBC Mystery Movie|NBC Sunday Mystery Movie]]'': ''[[Columbo (TV series)|Columbo]]'' / ''[[McCloud (TV series)|McCloud]]'' / ''[[McMillan & Wife]]'' / '''''[[Amy Prentiss]]''''' {{small|(22/21.3)<br/>(Tied with '''''[[Cher (TV series)|Cher]]''''' and ''[[The Streets of San Francisco]]'')}}
+|}
+
+'''Note:''' ''[[60 Minutes]]'' aired at 6:00-7:00 pm on CBS from September 1974 to June 1975.
+
+==Monday==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable plainrowheaders" style="width:100%; margin:auto; text-align:center;"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="3"|[[American Broadcasting Company|ABC]]
+! Fall
+| colspan="2" rowspan="3" style="background:#00FFFF;"|''[[The Rookies]]'' {{small|(18/22.0)<br/>(Tied with ''[[Disney anthology television series|The Wonderful World of Disney]]'')}}
+| colspan="4" style="background:lightgreen;"|''[[Monday Night Football]]''
+|-
+! Winter
+| colspan="4" style="background:#FA8072;"|''The ABC Monday Night Movie''
+|-
+! Mid-winter
+| colspan="2" style="background:#00FFFF;"|'''''[[S.W.A.T. (1975 TV series)|S.W.A.T.]]''''' (16/22.6)
+| colspan="2"| '''''[[Caribe (American TV series)|Caribe]]'''''
+|-
+! colspan="2"|[[CBS]]
+| style="background:#FF00FF;" colspan="2"|''[[Gunsmoke]]'' {{small|(28/20.5)}}
+| style="background:#FFFF00;"|''[[Maude (TV series)|Maude]]'' {{small|(9/24.9)}}
+| style="background:#FFFF00;"|'''''[[Rhoda]]''''' {{small|(6/26.3)}}
+| style="background:#FF00FF;" colspan="2"|''[[Medical Center (TV series)|Medical Center]]'' {{small|(27/20.6)}}
+|-
+! rowspan="3"|[[NBC]]
+! Fall
+| colspan="2"|'''''[[Born Free (TV Series)|Born Free]]'''''
+| colspan="4" rowspan="2" style="background:#FA8072;"|''[[The NBC Monday Movie|NBC Monday Night at the Movies]]''
+|-
+! Winter
+| colspan="2"|'''''[[Smothers Brothers|The Smothers Brothers Show]]'''''
+|-
+! Summer
+| colspan="6" style="background:lightgreen;"|''[[Joe Garagiola Sr.|The Baseball World of Joe Garagiola]]'' {{small|(8:00 p.m.)}} / ''[[Major League Baseball on NBC|Monday Night Baseball]]'' {{small|(8:15 p.m.)}}
+|}
+
+==Tuesday==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable plainrowheaders" style="width:100%; margin:auto; text-align:center;"
+|-
+! style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! [[American Broadcasting Company|ABC]]
+| ''[[Happy Days]]''
+| style="background:#FA8072;" colspan="3"|''[[ABC Movie of the Week|ABC Tuesday Movie of the Week]]''
+| colspan="2"|''[[Marcus Welby, M.D.]]''
+|-
+! [[CBS]]
+| style="background:#FFFF00;"|''[[Good Times]]'' {{small|(7/25.8)}}
+| style="background:#FFFF00;"|''[[M*A*S*H (TV series)|M*A*S*H]]'' {{small|(5/27.4)}}
+| style="background:#FFFF00;" colspan="2"|''[[Hawaii Five-O (1968 TV series)|Hawaii Five-O]]'' {{small|(10/24.8)}}
+| colspan="2"|''[[Barnaby Jones]]''
+|-
+! [[NBC]]
+| ''[[Adam-12]]''
+| colspan="3" style="background:#FA8072;"|'''''NBC World Premiere Movie'''''
+| colspan="2"|''[[Police Story (1973 TV series)|Police Story]]''
+|}
+
+==Wednesday==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable plainrowheaders" style="width:100%; margin:auto; text-align:center;"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="3"|[[American Broadcasting Company|ABC]]
+! Fall
+| rowspan="3"|'''''[[That's My Mama]]'''''
+| colspan="3" rowspan="3" style="background:#FA8072;"|''[[ABC Movie of the Week|ABC Wednesday Movie of the Week]]''
+| colspan="2"|'''''[[Get Christie Love!]]'''''
+|-
+! Spring
+| colspan="2"|'''''[[Baretta]]'''''
+|-
+! Summer
+| colspan="2"|'''''The Jim Stafford Show'''''
+|-
+! rowspan="4"|[[CBS]]
+! Fall
+| colspan="2"|'''''Sons and Daughters'''''
+| style="background:#00FFFF;" colspan="2" rowspan="4"|''[[Cannon (TV series)|Cannon]]'' {{small|(20/21.6)<br/>(Tied with ''[[Mannix]]'')}}
+| colspan="2" rowspan="2"|'''''[[The Manhunter]]'''''
+|-
+! Winter
+| style="background:#FF00FF;" colspan="2" rowspan="3"|''[[Tony Orlando and Dawn (TV series)|Tony Orlando and Dawn]]'' {{small|(25/20.7)<br/>(Tied with ''[[Paul Sand in Friends and Lovers]]'')}}
+|-
+! Spring
+| style="background:#C0C0C0;" colspan="2"|''[[Dan August]]'' {{small|(R)}}
+|-
+! Summer
+| colspan="2"|''[[Mannix]]''
+|-
+! colspan="2"|[[NBC]]
+| style="background:#00FFFF;" colspan="2"|'''''[[Little House on the Prairie (1974 TV series)|Little House on the Prairie]]''''' {{small|(13/23.5)}}
+| colspan="2"|'''''[[Lucas Tanner]]'''''
+| colspan="2"|'''''[[Petrocelli]]'''''
+|}
+'''Note:''' ''[[Dan August]]'' consisted of reruns of the 1970-1971 [[American Broadcasting Company|ABC]] series.
+
+==Thursday==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable plainrowheaders" style="width:100%; margin:auto; text-align:center;"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="4"|[[American Broadcasting Company|ABC]]
+! Fall
+| ''[[The Odd Couple (1970 TV series)|The Odd Couple]]''
+| '''''[[Paper Moon (American TV series)|Paper Moon]]'''''
+| colspan="2" rowspan="4" style="background:#FF00FF;"|''[[The Streets of San Francisco]]'' {{small|(22/21.3)<br/>(Tied with ''[[Cher (TV series)|Cher]]'' and [[The NBC Mystery Movie|The NBC Sunday Mystery Movie]])}}
+| colspan="2" rowspan="4"|'''''[[Harry O]]'''''
+|-
+! Winter
+| rowspan="2"|'''''[[Barney Miller]]'''''
+| '''''[[Karen (1975 TV series)|Karen]]'''''
+|-
+! Summer
+| '''''[[The Texas Wheelers]]'''''
+|-
+! Late summer
+| colspan="2"|'''''[[It's a Knockout|Almost Anything Goes!]]'''''
+|-
+! colspan="2"|[[CBS]]
+| style="background:#FFFF00;" colspan="2"|''[[The Waltons]]'' {{small|(8/25.5)}}
+| colspan="4" style="background:#FA8072;"|''[[CBS Thursday Night Movie]]''
+|-
+! rowspan="5"|[[NBC]]
+! Fall
+| colspan="2"|'''''[[Sierra (TV series)|Sierra]]'''''
+| colspan="2"|''[[Ironside (1967 TV series)|Ironside]]''
+| colspan="2" rowspan="3"|'''''[[Movin' On (TV series)|Movin' On]]'''''
+|-
+! Winter
+| colspan="2"|'''''[[The Mac Davis Show]]'''''
+| colspan="2"|'''''[[Archer (1975 TV series)|Archer]]'''''
+|-
+! Spring
+| '''''[[Sunshine (American TV series)|Sunshine]]'''''
+| '''''[[The Bob Crane Show]]'''''
+| colspan="2"|'''''[[The Mac Davis Show]]'''''
+|-
+! Summer
+| colspan="2"|'''''[[Gladys Knight & the Pips|The Gladys Knight & the Pips Show]]'''''
+| colspan="4" rowspan="2" style="background:#FA8072;"|''NBC Thursday Night at the Movies''
+|-
+! Mid-summer
+| colspan="2"|'''''[[Ben Vereen|Ben Vereen...Comin' At Ya]]'''''
+|}
+
+==Friday==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable plainrowheaders" style="width:100%; margin:auto; text-align:center;"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="4"|[[American Broadcasting Company|ABC]]
+! Fall
+| '''''[[Kodiak (TV series)|Kodiak]]'''''
+| colspan="2"|''[[The Six Million Dollar Man]]''
+| '''''[[The Texas Wheelers]]'''''
+| colspan="2" rowspan="2"|'''''[[Kolchak: The Night Stalker]]'''''
+|-
+! Mid-fall
+| colspan="2"|''[[Kung Fu (1972 TV series)|Kung Fu]]''
+| colspan="2"|''[[The Six Million Dollar Man]]''
+|-
+! Winter
+| colspan="2" rowspan="2"|'''''[[Kolchak: The Night Stalker]]'''''
+| rowspan="2"|'''''[[Hot L Baltimore]]'''''
+| rowspan="2"|''[[The Odd Couple (1970 TV series)|The Odd Couple]]''
+| colspan="2"|'''''[[Baretta]]'''''
+|-
+! Spring
+| colspan="2"|'''''[[Get Christie Love!]]'''''
+|-
+! rowspan="4"|[[CBS]]
+! Fall
+| colspan="2"|'''''[[Planet of the Apes (TV series)|Planet of the Apes]]'''''
+| colspan="4" rowspan="4" style="background:#FA8072;"|''The CBS Friday Night Movie''
+|-
+! Winter
+| colspan="2"|'''''[[Khan! (TV series)|Khan!]]'''''
+|-
+! Spring
+| '''''[[Paul Sand in Friends and Lovers]]'''''
+| '''''[[We'll Get By]]'''''
+|-
+! Summer
+| colspan="2" style="background:#FA8072;"|Special programming
+|-
+! colspan="2"|[[NBC]]
+| style="background:#FFFF00;" |''[[Sanford and Son]]'' {{small|(2/29.6)}}
+| style="background:#FFFF00;" |'''''[[Chico and the Man]]''''' {{small|(3/28.5)}}
+| style="background:#00FFFF;" colspan="2" |'''''[[The Rockford Files]]''''' {{small|(12/23.7)}}
+| style="background:#00FFFF;" colspan="2" |'''''[[Police Woman (TV series)|Police Woman]]''''' {{small|(15/22.8)}}
+|}
+
+==Saturday==
+<!-- Any show that is added to the schedule needs to have aired in a particular slot consecutively for a minimum of three weeks in the case of fresh episodes and four weeks in the case of encore repeats. Thank you. -->
+{| class="wikitable plainrowheaders" style="width:100%; margin:auto; text-align:center;"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|8:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|8:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|9:30&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:00&nbsp;p.m.
+! style="background-color:#C0C0C0;text-align:center"|10:30&nbsp;p.m.
+|-
+! rowspan="4"|[[American Broadcasting Company|ABC]]
+! Fall
+| colspan="2"|'''''[[The New Land (TV series)|The New Land]]'''''
+| colspan="2"|''[[Kung Fu (1972 TV series)|Kung Fu]]''
+| colspan="2" rowspan="2"|'''''[[Nakia (TV series)|Nakia]]'''''
+|-
+! Mid-fall
+| colspan="4" style="background:#FA8072;"|Movie special
+|-
+! Winter
+| colspan="2"|''[[Kung Fu (1972 TV series)|Kung Fu]]''
+| colspan="4" rowspan="2" style="background:#FA8072;"|''The ABC Saturday Night Movie''
+|-
+! Summer
+| colspan="2"|'''''[[Keep on Truckin' (TV series)|Keep on Truckin']]'''''
+|-
+! rowspan="4"|[[CBS]]
+! Fall
+| style="background:#FFFF00;" rowspan="4"|''[[All in the Family]]'' {{small|(1/30.2)}}
+| style="background:#FF00FF;"|'''''[[Friends and Lovers (TV series)|Paul Sand in Friends and Lovers]]''''' {{small|(25/20.7)<br/>(Tied with ''[[Tony Orlando and Dawn (TV series)|Tony Orlando and Dawn]]'')}}
+| style="background:#00FFFF;" rowspan="4" |''[[The Mary Tyler Moore Show]]'' {{small|(11/24.0)}}
+| style="background:#00FFFF;" rowspan="4" |''[[The Bob Newhart Show]]'' {{small|(17/22.4)}}
+| style="background:#FF00FF;" colspan="2" rowspan="2" | ''[[The Carol Burnett Show]]'' {{small|(29/20.4)}}
+|-
+! Winter
+| rowspan="2" style="background:#FFFF00;" |'''''[[The Jeffersons]]''''' {{small|(4/27.6)}}
+|-
+! Summer
+| colspan="2"|'''''[[Moses the Lawgiver]]'''''
+|-
+! Late summer
+|'''''[[Big Eddie]]'''''
+| colspan="2" |'''''[[The Dick Cavett Show]]'''''
+|-
+! colspan="2" | [[NBC]]
+| style="background:#FF00FF;" colspan="2"|''[[Emergency!]]'' {{small|(30/20.0)}}
+| colspan="4" style="background:#bf8fef;"|''[[NBC Saturday Night at the Movies]]''
+|}
+
+==By network==
+
+===[[American Broadcasting Company|ABC]]===
+{{col-begin}}
+{{col-3}}
+'''Returning Series'''
+*''The ABC Monday Night Movie''
+*''The ABC Saturday Night Movie''
+*''[[The ABC Sunday Night Movie]]''
+*''[[ABC Movie of the Week|ABC Tuesday Movie of the Week]]''
+*''[[ABC Movie of the Week|ABC Wednesday Movie of the Week]]''
+*''[[Happy Days]]''
+*''[[Kung Fu (1972 TV series)|Kung Fu]]''
+*''[[Marcus Welby, M.D.]]''
+*''[[Monday Night Football]]''
+*''[[The Odd Couple (1970 TV series)|The Odd Couple]]''
+*''[[The Rookies]]''
+*''[[The Six Million Dollar Man]]''
+*''[[The Streets of San Francisco]]''
+
+{{col-3}}
+'''New Series'''
+*'''''[[It's a Knockout|Almost Anything Goes!]]''''' *
+*'''''[[Baretta]]''''' *
+*'''''[[Barney Miller]]''''' *
+*'''''[[Caribe (American TV series)|Caribe]]''''' *
+*'''''[[Get Christie Love!]]'''''
+*'''''[[Harry O]]'''''
+*'''''[[Hot l Baltimore]]''''' *
+*'''''[[Jim Stafford|The Jim Stafford Show]]''''' *
+*'''''[[Karen (1975 TV series)|Karen]]''''' *
+*'''''[[Keep on Truckin' (TV series)|Keep on Truckin']]''''' *
+*'''''[[Kodiak (TV series)|Kodiak]]'''''
+*'''''[[Kolchak: The Night Stalker]]'''''
+*'''''[[Nakia (TV series)|Nakia]]'''''
+*'''''[[The New Land (TV series)|The New Land]]'''''
+*'''''[[Paper Moon (American TV series)|Paper Moon]]'''''
+*'''''[[The Sonny Comedy Revue]]'''''
+*'''''[[S.W.A.T. (1975 TV series)|S.W.A.T.]]''''' *
+*'''''[[The Texas Wheelers]]'''''
+*'''''[[That's My Mama]]'''''
+
+{{col-3}}
+'''Not returning from [[1973–74 United States network television schedule|1973–74]]:'''
+*''[[Bob & Carol & Ted & Alice (TV series)|Bob & Carol & Ted & Alice]]''
+*''[[The Brady Bunch]]''
+*''[[Chopper One]]''
+*''[[The Cowboys (TV series)|The Cowboys]]''
+*''[[Dick Clark|Dick Clark Presents the Rock and Roll Years]]''
+*''[[Doc Elliot]]''
+*''[[The F.B.I. (TV series)|The F.B.I.]]''
+*''[[Firehouse (TV series)|Firehouse]]''
+*''[[Griff (TV series)|Griff]]''
+*''[[Just for Laughs (1974 TV series)|Just for Laughs]]''
+*''[[Love, American Style]]''
+*''[[Owen Marshall: Counselor at Law]]''
+*''[[The Partridge Family]]''
+*''[[Room 222]]''
+*''[[Temperatures Rising]]''
+*''[[Toma (TV series)|Toma]]''
+{{col-end}}
+
+===[[CBS]]===
+{{col-begin}}
+{{col-3}}
+'''Returning Series'''
+*''[[60 Minutes]]''
+*''[[All in the Family]]''
+*''[[Apple's Way]]''
+*''[[Barnaby Jones]]''
+*''[[The Bob Newhart Show]]''
+*''[[CBS Thursday Night Movie]]''
+*''[[Cannon (TV series)|Cannon]]''
+*''[[The Carol Burnett Show]]''
+*''[[Good Times]]''
+*''[[Gunsmoke]]''
+*''[[Hawaii Five-O (1968 TV series)|Hawaii Five-O]]''
+*''[[Kojak]]''
+*''[[M*A*S*H (TV series)|M*A*S*H]]''
+*''[[Mannix]]''
+*''[[The Mary Tyler Moore Show]]''
+*''[[Maude (TV series)|Maude]]''
+*''[[Medical Center (TV series)|Medical Center]]''
+*''[[Tony Orlando and Dawn (TV series)|Tony Orlando and Dawn]]''
+*''[[The Waltons]]''
+*''[[Your Hit Parade]]''
+
+{{col-3}}
+'''New Series'''
+*'''''[[Big Eddie]]''''' *
+*'''''[[Cher (TV series)|Cher]]''''' *
+*'''''The Friday Comedy Special''''' *
+*'''''[[Friends and Lovers (TV series)|Friends and Lovers]]'''''
+*'''''Frigidaire Spring Feature''''' *
+*'''''[[The Jeffersons]]''''' *
+*'''''[[Joey Heatherton|Joey]] & [[Ray Heatherton|Dad]]''''' *
+*'''''[[Khan! (TV series)|Khan!]]''''' *
+*'''''[[The Manhattan Transfer]]''''' *
+*'''''[[The Manhunter]]'''''
+*'''''[[Moses the Lawgiver]]''''' *
+*'''''[[Planet of the Apes (TV series)|Planet of the Apes]]'''''
+*'''''[[Rhoda]]'''''
+*'''''[[Sons and Daughters (1974 TV series)|Sons and Daughters]]'''''
+*'''''[[We'll Get By]]''''' *
+
+{{col-3}}
+'''Not returning from [[1973–74 United States network television schedule|1973–74]]:'''
+*''[[Calucci's Department]]''
+*''[[Dirty Sally]]''
+*''[[The New CBS Tuesday Night Movies]]''
+*''[[The New Dick Van Dyke Show]]''
+*''[[Here's Lucy]]''
+*''[[The Hudson Brothers]] Show''
+*''[[The New Perry Mason]]''
+*''[[Roll Out]]''
+*''[[The Sonny & Cher Comedy Hour]]''
+{{col-end}}
+
+===[[NBC]]===
+{{col-begin}}
+{{col-3}}
+'''Returning Series'''
+*''[[Adam-12]]''
+*''[[Columbo (TV series)|Columbo]]''
+*''[[Emergency!]]''
+*''[[Ironside (1967 TV series)|Ironside]]''
+*''[[McCloud (TV series)|McCloud]]''
+*''[[McMillan & Wife]]''
+*''[[Monday Night Baseball]]''
+*''[[NBC Monday Night at the Movies]]''
+*''[[The NBC Mystery Movie]]''
+*''[[NBC Saturday Night at the Movies]]''
+*''[[Police Story (1973 TV series)|Police Story]]''
+*''[[Sanford and Son]]''
+*''[[The Wonderful World of Disney]]''
+
+{{col-3}}
+'''New Series'''
+*'''''[[Amy Prentiss]]''''' *
+*'''''[[Archer (1975 TV series)|Archer]]''''' *
+*'''''[[Ben Vereen|Ben Vereen...Comin' At Ya]]''''' *
+*'''''[[The Bob Crane Show]]''''' *
+*'''''[[Born Free (TV series)|Born Free]]'''''
+*'''''[[Chico and the Man]]''''' *
+*'''''[[Gladys Knight & the Pips|The Gladys Knight & the Pips Show]]'''''
+*'''''[[Little House on the Prairie (1974 TV series)|Little House on the Prairie]]'''''
+*'''''[[Lucas Tanner]]'''''
+*'''''[[The Mac Davis Show]]''''' *
+*'''''[[Movin' On (TV series)|Movin' On]]'''''
+*'''''NBC World Premiere Movie'''''
+*'''''[[Petrocelli]]'''''
+*'''''[[Police Woman (TV series)|Police Woman]]'''''
+*'''''[[The Rockford Files]]'''''
+*'''''[[Sierra (TV series)|Sierra]]'''''
+*'''''[[Smothers Brothers|The Smothers Brothers Show]]''''' *
+*'''''[[Sunshine (American TV series)|Sunshine]]''''' *
+
+{{col-3}}
+'''Not returning from [[1973–74 United States network television schedule|1973–74]]:'''
+*''[[The Brian Keith Show]]''
+*''[[Chase (1973 TV series)|Chase]]''
+*''[[The Dean Martin Comedy World]]''
+*''[[Dean Martin|The Dean Martin Show]]''
+*''[[Diana (American TV series)|Diana]]''
+*''[[The Flip Wilson Show]]''
+*''[[The Girl with Something Extra]]''
+*''[[Lotsa Luck]]''
+*''[[Love Story (1973 TV series)|Love Story]]''
+*''[[The Magician (U.S. TV series)|The Magician]]''
+*''Music Country USA''
+*''NBC Follies''
+*''[[Needles and Pins (TV series)|Needles and Pins]]''
+{{col-end}}
+
+Note: The * indicates that the program was introduced in midseason.
+
+==References==
+{{reflist}}
+
+==Additional sources==
+* Castleman, H. & Podrazik, W. (1982). ''Watching TV: Four Decades of American Television''. New York: McGraw-Hill. 314 pp.
+* McNeil, Alex. ''Total Television''. Fourth edition. New York: Penguin Books. {{ISBN|0-14-024916-8}}.
+* Brooks, Tim & Marsh, Earle (1985). ''The Complete Directory to Prime Time Network TV Shows'' (3rd ed.). New York: Ballantine. {{ISBN|0-345-31864-1}}.
+
+{{US TV schedule}}
+
+{{DEFAULTSORT:1974-75 United States network television schedule}}
+[[Category:United States primetime network television schedules]]
+[[Category:1974 in American television]]
+[[Category:1975 in American television]]
