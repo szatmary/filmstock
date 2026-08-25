@@ -1,31 +1,32 @@
 package build
 
 import (
+	"context"
 	"database/sql"
-	"errors"
 	"flag"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/szatmary/filmstock"
 )
 
-// Getting from nothing to a searchable database took two commands and knowing
-// the data repository's URL: clone it, then discover that `filmstock index`
-// exists and run it. Worse, after a `git pull` there was no signal that the
-// index was now behind the store — the fingerprint to detect it was recorded and
-// compared, but nothing acted on it.
+// The command that gets a consumer from nothing to a searchable database.
 //
-// sync is those steps as one idempotent command: clone or pull, then reindex
-// only when the store actually moved.
-
-const defaultDataRepo = "https://github.com/szatmary/filmstock-data.git"
+// Moving the store around is filmstock.SyncStore's job, not this one's: the
+// library clones and updates through go-git so an importer needs no git binary,
+// and duplicating that here with shell-outs would mean two implementations of
+// "follow the remote, including when its history was rewritten" that could drift
+// apart. This adds what SyncStore deliberately leaves out — rebuilding the index
+// when the store has moved, and fetching the embedding vectors.
+//
+// Maintainer-side code in this package still shells out to git (see
+// gitreport.go), which is the right split: committing and diffing are things a
+// maintainer does with a real git installed, while a consumer should not need
+// one at all.
 
 // The vectors are published as a release asset rather than committed: they are
 // 168 MB, regenerable, and a new one lands with every corpus, so in git history
@@ -39,9 +40,7 @@ const defaultVectorsURL = "https://github.com/szatmary/filmstock-data/releases/l
 func CmdSync(args []string) {
 	fs := flag.NewFlagSet("sync", flag.ExitOnError)
 	dir := fs.String("dir", defaultSyncDir(), "where the store and index live")
-	repo := fs.String("repo", defaultDataRepo, "record store repository")
 	force := fs.Bool("force", false, "reindex even if the store has not changed")
-	pull := fs.Bool("pull", true, "fetch changes for an existing clone")
 	vecURL := fs.String("vectors", defaultVectorsURL, "embedding vectors to fetch (empty to skip)")
 	fs.Parse(args)
 
@@ -53,35 +52,19 @@ func CmdSync(args []string) {
 	}
 
 	start := time.Now()
-	switch {
-	case !isGitRepo(records):
-		if _, err := os.Stat(records); err == nil {
-			fatal(fmt.Errorf("%s exists but is not a git clone; move it aside or use -dir", records))
-		}
-		fmt.Fprintf(os.Stderr, "cloning %s -> %s\n", *repo, records)
-		if err := runGit(*dir, "clone", "--progress", *repo, records); err != nil {
-			fatal(err)
-		}
-	case *pull:
-		fmt.Fprintf(os.Stderr, "updating %s\n", records)
-		before, _ := gitRev(records)
-		if err := updateClone(records); err != nil {
-			fatal(err)
-		}
-		after, _ := gitRev(records)
-		if before == after {
-			fmt.Fprintf(os.Stderr, "  already at %s\n", short(after))
-		} else {
-			fmt.Fprintf(os.Stderr, "  %s -> %s\n", short(before), short(after))
-		}
-	default:
-		fmt.Fprintln(os.Stderr, "-pull=false; using the clone as it is")
+	fp, changed, err := filmstock.SyncStore(context.Background(), records,
+		func(line string) { fmt.Fprintf(os.Stderr, "  %s\n", line) })
+	if err != nil {
+		fatal(err)
+	}
+	if !changed {
+		fmt.Fprintln(os.Stderr, "  store unchanged")
 	}
 
 	// Reindex only when the store has actually moved. The fingerprint is what
 	// the index recorded about the store it was built from, so this is a real
 	// comparison rather than a timestamp guess.
-	why, err := indexNeeded(index, records, *force)
+	why, err := indexNeeded(index, fp, *force)
 	if err != nil {
 		fatal(err)
 	}
@@ -108,32 +91,6 @@ func CmdSync(args []string) {
 	}
 	fmt.Fprintf(os.Stderr, "\nready in %.1fs\n  records %s\n  index   %s\n",
 		time.Since(start).Seconds(), records, index)
-}
-
-// updateClone brings the clone to whatever the remote now says, including when
-// the remote's history was rewritten.
-//
-// A record store is derived data: nothing here is authored locally, so there is
-// nothing a reset could destroy. That matters because the maintainer's way to
-// reclaim space is to compact and squash and force-push — which is a perfectly
-// good thing to do to a repository of generated records, and would otherwise
-// leave every existing clone stuck on "Not possible to fast-forward, aborting".
-//
-// A fast-forward is still tried first, so the ordinary case stays ordinary and
-// only a genuine divergence takes the heavier path.
-func updateClone(records string) error {
-	if err := runGit(records, "pull", "--ff-only"); err == nil {
-		return nil
-	}
-	fmt.Fprintln(os.Stderr, "  remote history was rewritten; resetting to it")
-	if err := runGit(records, "fetch", "--prune", "origin"); err != nil {
-		return err
-	}
-	branch, err := git(records, "rev-parse", "--abbrev-ref", "HEAD")
-	if err != nil {
-		return err
-	}
-	return runGit(records, "reset", "--hard", "origin/"+strings.TrimSpace(branch))
 }
 
 // fetchVectors downloads the embedding vectors if they are not already there.
@@ -186,7 +143,7 @@ func fetchVectors(url, dest string) {
 }
 
 // indexNeeded reports why the index must be rebuilt, or "" if it is current.
-func indexNeeded(index, records string, force bool) (string, error) {
+func indexNeeded(index, storeFingerprint string, force bool) (string, error) {
 	if force {
 		return "-force given", nil
 	}
@@ -219,15 +176,10 @@ func indexNeeded(index, records string, force bool) (string, error) {
 		return "the index records an empty store fingerprint", nil
 	}
 
-	db := filmstock.FromSQL(h, nil)
-	switch err := db.CheckStore(records); {
-	case err == nil:
-		return "", nil
-	case errors.Is(err, filmstock.ErrStaleIndex):
+	if fp != storeFingerprint {
 		return "the store changed since the index was built", nil
-	default:
-		return "the index could not be checked", nil //nolint:nilerr
 	}
+	return "", nil
 }
 
 // defaultSyncDir follows the XDG cache convention, falling back to the working
@@ -237,29 +189,4 @@ func defaultSyncDir() string {
 		return filepath.Join(d, "filmstock")
 	}
 	return "filmstock-cache"
-}
-
-// runGit streams git's output through, because a 429 MB clone with no progress
-// looks indistinguishable from a hang.
-func runGit(dir string, args ...string) error {
-	cmd := exec.Command("git", args...)
-	cmd.Dir = dir
-	cmd.Stdout = os.Stderr
-	cmd.Stderr = os.Stderr
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("git %s: %w", strings.Join(args, " "), err)
-	}
-	return nil
-}
-
-func gitRev(dir string) (string, error) {
-	out, err := git(dir, "rev-parse", "HEAD")
-	return strings.TrimSpace(out), err
-}
-
-func short(rev string) string {
-	if len(rev) > 8 {
-		return rev[:8]
-	}
-	return rev
 }
