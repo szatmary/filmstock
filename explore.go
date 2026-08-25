@@ -423,3 +423,66 @@ func maxf(a, b float32) float32 {
 	}
 	return b
 }
+
+// Grid arranges a view into rows × cols for display, one record per cell.
+//
+// View.Cells gives each record a position on the two local axes, which is a
+// scatter, not a grid: several records can want the same corner and most cells
+// would be empty or doubled. Grid resolves that — each cell takes the nearest
+// record not already placed, working outward from the centre so the middle of
+// the screen gets the best match rather than whatever the iteration order
+// happened to reach first.
+//
+// Cells with no record left to place are nil. A caller should draw those as
+// blank rather than shifting everything up, so the layout stays stable between
+// presses and the eye can track a title across a move.
+func (v *View) Grid(cols, rows int) [][]*Cell {
+	out := make([][]*Cell, rows)
+	for r := range out {
+		out[r] = make([]*Cell, cols)
+	}
+	if cols <= 0 || rows <= 0 || len(v.Cells) == 0 {
+		return out
+	}
+	type slot struct {
+		r, c    int
+		x, y, d float32
+	}
+	slots := make([]slot, 0, rows*cols)
+	for r := range rows {
+		for c := range cols {
+			// Cell centres across -1..1; a single row or column sits at 0.
+			x, y := float32(0), float32(0)
+			if cols > 1 {
+				x = -1 + 2*float32(c)/float32(cols-1)
+			}
+			if rows > 1 {
+				y = 1 - 2*float32(r)/float32(rows-1)
+			}
+			slots = append(slots, slot{r, c, x, y, x*x + y*y})
+		}
+	}
+	// Fill from the middle outward.
+	sort.Slice(slots, func(a, b int) bool { return slots[a].d < slots[b].d })
+
+	taken := make([]bool, len(v.Cells))
+	for _, s := range slots {
+		best, bestD := -1, float32(math.MaxFloat32)
+		for i := range v.Cells {
+			if taken[i] {
+				continue
+			}
+			dx, dy := v.Cells[i].X-s.x, v.Cells[i].Y-s.y
+			if d := dx*dx + dy*dy; d < bestD {
+				best, bestD = i, d
+			}
+		}
+		if best < 0 {
+			break
+		}
+		taken[best] = true
+		cell := v.Cells[best]
+		out[s.r][s.c] = &cell
+	}
+	return out
+}

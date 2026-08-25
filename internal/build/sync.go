@@ -5,6 +5,8 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -25,6 +27,14 @@ import (
 
 const defaultDataRepo = "https://github.com/szatmary/filmstock-data.git"
 
+// The vectors are published as a release asset rather than committed: they are
+// 168 MB, regenerable, and a new one lands with every corpus, so in git history
+// they would accumulate a fresh blob each time.
+//
+// "latest" rather than a pinned tag, because a pinned one goes stale the moment
+// a new corpus is published and nobody would notice until the coverage dropped.
+const defaultVectorsURL = "https://github.com/szatmary/filmstock-data/releases/latest/download/vectors.bin"
+
 // CmdSync clones or updates the record store and rebuilds the index if stale.
 func CmdSync(args []string) {
 	fs := flag.NewFlagSet("sync", flag.ExitOnError)
@@ -32,6 +42,7 @@ func CmdSync(args []string) {
 	repo := fs.String("repo", defaultDataRepo, "record store repository")
 	force := fs.Bool("force", false, "reindex even if the store has not changed")
 	pull := fs.Bool("pull", true, "fetch changes for an existing clone")
+	vecURL := fs.String("vectors", defaultVectorsURL, "embedding vectors to fetch (empty to skip)")
 	fs.Parse(args)
 
 	records := filepath.Join(*dir, "data")
@@ -75,10 +86,13 @@ func CmdSync(args []string) {
 		fatal(err)
 	}
 	if why == "" {
+		fetchVectors(*vecURL, filepath.Join(*dir, "vectors.bin"))
 		fmt.Fprintf(os.Stderr, "index is current; nothing to do (%.1fs)\n", time.Since(start).Seconds())
 		fmt.Fprintf(os.Stderr, "\n  records %s\n  index   %s\n", records, index)
 		return
 	}
+	fetchVectors(*vecURL, filepath.Join(*dir, "vectors.bin"))
+
 	fmt.Fprintf(os.Stderr, "reindexing: %s\n", why)
 	// Build beside the real index and rename into place. A killed run then
 	// leaves the previous index untouched instead of a truncated one that the
@@ -120,6 +134,55 @@ func updateClone(records string) error {
 		return err
 	}
 	return runGit(records, "reset", "--hard", "origin/"+strings.TrimSpace(branch))
+}
+
+// fetchVectors downloads the embedding vectors if they are not already there.
+//
+// Optional on purpose: everything except similarity and exploration works
+// without them, so a failure here is reported and moved past rather than
+// failing a sync that otherwise succeeded.
+func fetchVectors(url, dest string) {
+	if url == "" {
+		return
+	}
+	if fi, err := os.Stat(dest); err == nil && fi.Size() > 0 {
+		fmt.Fprintf(os.Stderr, "vectors: have %s (%.0f MB)\n", dest, float64(fi.Size())/(1<<20))
+		return
+	}
+	fmt.Fprintf(os.Stderr, "vectors: fetching %s\n", url)
+	resp, err := httpGet(url)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "vectors: %v (similarity will be unavailable)\n", err)
+		return
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		fmt.Fprintf(os.Stderr, "vectors: %s: %s (similarity will be unavailable)\n", url, resp.Status)
+		return
+	}
+	tmp := dest + ".part"
+	f, err := os.Create(tmp)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "vectors: %v\n", err)
+		return
+	}
+	n, err := io.Copy(f, resp.Body)
+	f.Close()
+	if err != nil {
+		os.Remove(tmp)
+		fmt.Fprintf(os.Stderr, "vectors: %v\n", err)
+		return
+	}
+	if resp.ContentLength > 0 && n != resp.ContentLength {
+		os.Remove(tmp)
+		fmt.Fprintf(os.Stderr, "vectors: short read (%d of %d bytes)\n", n, resp.ContentLength)
+		return
+	}
+	if err := os.Rename(tmp, dest); err != nil {
+		fmt.Fprintf(os.Stderr, "vectors: %v\n", err)
+		return
+	}
+	fmt.Fprintf(os.Stderr, "vectors: %.0f MB\n", float64(n)/(1<<20))
 }
 
 // indexNeeded reports why the index must be rebuilt, or "" if it is current.

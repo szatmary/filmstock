@@ -171,3 +171,95 @@ func TestTinyCollection(t *testing.T) {
 		t.Error("no cells returned")
 	}
 }
+
+// A UI wants one record per grid cell. Cells carry a scatter position, so
+// something has to resolve collisions and empties — that is Grid's whole job.
+func TestGridPlacesEachRecordOnce(t *testing.T) {
+	v, all := plantedCorpus(t, 300, 24)
+	c, _ := v.Collect(all)
+	e, _ := c.Explore(all[0])
+	view, err := e.View(24)
+	if err != nil {
+		t.Fatal(err)
+	}
+	g := view.Grid(5, 5)
+	if len(g) != 5 || len(g[0]) != 5 {
+		t.Fatalf("grid is %dx%d, want 5x5", len(g), len(g[0]))
+	}
+	seen := map[int]bool{}
+	filled := 0
+	for _, row := range g {
+		for _, cell := range row {
+			if cell == nil {
+				continue
+			}
+			filled++
+			if seen[cell.PageID] {
+				t.Errorf("record %d placed in more than one cell", cell.PageID)
+			}
+			seen[cell.PageID] = true
+		}
+	}
+	if filled != 24 {
+		t.Errorf("filled %d cells from 24 records, want 24", filled)
+	}
+}
+
+// Fewer records than cells must leave holes, not repeat or rearrange: a stable
+// layout is what lets the eye follow a title across a press.
+func TestGridLeavesHolesWhenShort(t *testing.T) {
+	v, all := plantedCorpus(t, 300, 24)
+	c, _ := v.Collect(all)
+	e, _ := c.Explore(all[0])
+	view, _ := e.View(6)
+	g := view.Grid(4, 4)
+	filled := 0
+	for _, row := range g {
+		for _, cell := range row {
+			if cell != nil {
+				filled++
+			}
+		}
+	}
+	if filled != 6 {
+		t.Errorf("filled %d of 16 cells from 6 records, want 6", filled)
+	}
+}
+
+// The middle of the screen should hold the best match, not whatever the
+// iteration order reached first.
+func TestGridPutsTheNearestInTheMiddle(t *testing.T) {
+	v, all := plantedCorpus(t, 300, 24)
+	c, _ := v.Collect(all)
+	e, _ := c.Explore(all[0])
+	view, _ := e.View(25)
+	g := view.Grid(5, 5)
+	mid := g[2][2]
+	if mid == nil {
+		t.Fatal("centre cell is empty")
+	}
+	// The centre cell's record should be among the closest to the centre of the
+	// axes, not an outlier flung to a corner.
+	var better int
+	for _, cell := range view.Cells {
+		if cell.X*cell.X+cell.Y*cell.Y < mid.X*mid.X+mid.Y*mid.Y {
+			better++
+		}
+	}
+	if better > 3 {
+		t.Errorf("%d records sit nearer the origin than the one placed centre", better)
+	}
+}
+
+func TestGridHandlesDegenerateSizes(t *testing.T) {
+	v, all := plantedCorpus(t, 100, 24)
+	c, _ := v.Collect(all)
+	e, _ := c.Explore(all[0])
+	view, _ := e.View(10)
+	for _, d := range [][2]int{{0, 5}, {5, 0}, {1, 1}, {1, 7}} {
+		g := view.Grid(d[0], d[1])
+		if len(g) != max(d[1], 0) {
+			t.Errorf("Grid(%d,%d) returned %d rows", d[0], d[1], len(g))
+		}
+	}
+}
