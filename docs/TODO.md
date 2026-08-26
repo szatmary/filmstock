@@ -34,6 +34,21 @@ Export is `extract`'s second half reading the intermediate through the same
 `pageSource` the dump satisfies — one implementation, two readers, because a
 second copy of the shaping logic would drift silently.
 
+**Verified.** The first full import ran in 38.7 min (extract: 41) producing a
+7.6 GB store — 1,206,604 claims over 1,206,548 pages, at 11,112 pages/s by the
+end. Export from it takes **5.8 min**, and reproduces extract exactly where it
+should:
+
+| kind | result |
+|---|---|
+| movies | 165,740 identical, 0 changed |
+| events | 4,685 identical, 0 changed |
+| television | 52,192 identical, 9,150 changed — all in `seasons` |
+| people | 234,285 identical, 490 changed — all in `name` |
+
+The events figure also settles an old discrepancy: this TODO said 4,705, and
+the current records hold 4,685. The number was stale, not a loss.
+
 **What remains before this can be believed:**
 
 1. The first full import is running. Rate climbed past 4,700 pages/s once into
@@ -43,6 +58,51 @@ second copy of the shaping logic would drift silently.
    on synthetic pages so far. **Diff a full export against the current records
    before trusting it.**
 3. `-incr` has never been run against a real day.
+
+### Records vary between identical runs — PARTLY FIXED
+
+Exporting the same intermediate twice, with the same binary, gave different
+records: 174 television and 454 people. Movies and events were stable. Two
+causes found and fixed; whether any remains is being measured.
+
+**Episode-list ownership was decided by map iteration order.** More than one
+series can name the same episode-list article — 51 lists claimed by 530 series
+between them — and `buildListOwner` wrote each claim straight into a map, so
+the owner was whichever series Go reached last. I Love Lucy's six seasons and
+180 episodes attached to it on one run and to The Lucy–Desi Comedy Hour on the
+next. Now: an unfragmented link claims the article, a `#section` link claims a
+section, ties break on lowest page_id.
+
+**A person's name came from whichever credit arrived first.** 454 people per
+run flipped between spellings of their own name — "Bob Colleary"/"R.J.
+Colleary", "Yvette González-Nacer"/"Yvette Gonzalez-Nacer". Identity never
+moved; only the label. The name now comes from the article title.
+
+This matters more than the counts suggest: the store is distributed as a git
+history, so every run rewrote hundreds of records that had not changed.
+
+### Bands are being parsed as people
+
+6,981 person articles are disambiguated "(band)". `buildBiography` is claiming
+group articles as biographies. Found while tabulating person disambiguators;
+not investigated further.
+
+### Multiseries {{Series overview}} yields nothing
+
+Shows that share an episode list nest one overview per series inside an outer
+one, each numbering its seasons from one. Reading them into a list keyed by
+season number alone would give one show's Nielsen rank to another's season, so
+they are skipped. Doing it properly means routing each nested block to the
+series its `series =` parameter names. I Love Lucy and The Lucy–Desi Comedy
+Hour are the worked example.
+
+### The reference graph misses list_episodes entirely
+
+`linksOf` reads links out of infobox fields with `SplitLinks`, which requires a
+`[[wikilink]]`. `list_episodes` is written as a bare page title, so the links
+table holds **0 of 61,342** such edges. Harmless today — the export path
+resolves the field directly — but the graph is what incremental export will use
+to decide what went stale, and a missing edge there is a silently stale record.
 
 ### 56 schedule articles still yield nothing
 
