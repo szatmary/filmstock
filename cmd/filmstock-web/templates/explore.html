@@ -94,6 +94,23 @@
 const $ = s => document.querySelector(s);
 let session = null, busy = false;
 
+// How many cells fit, rather than a number I guessed.
+//
+// Odd on both sides so a true middle slot exists for the current position —
+// without one there is nothing for the arrows to move. Bounded because the
+// server caps them, and floored at 3 so the middle always has neighbours.
+function gridSize() {
+  const s = $('#surface');
+  const w = s.clientWidth - 34;             // padding
+  const h = s.clientHeight - 150;           // centre strip + axis labels
+  const cellW = 128, cellH = 208;           // poster plus its two title lines
+  let cols = Math.min(11, Math.max(3, Math.floor(w / cellW)));
+  let rows = Math.min(7,  Math.max(3, Math.floor(h / cellH)));
+  if (cols % 2 === 0) cols--;
+  if (rows % 2 === 0) rows--;
+  return { cols, rows, n: cols * rows + 12 };
+}
+
 async function search(q) {
   const r = await fetch('/api/search?q=' + encodeURIComponent(q) + '&limit=8');
   if (!r.ok) return [];
@@ -125,7 +142,9 @@ async function load(qs) {
   if (busy) return;
   busy = true;
   try {
-    const r = await fetch('/api/explore?' + qs + '&n=40&cols=7&rows=5');
+    const g = gridSize();
+    const r = await fetch('/api/explore?' + qs +
+      '&n=' + g.n + '&cols=' + g.cols + '&rows=' + g.rows);
     if (!r.ok) { $('#status').textContent = await r.text(); return; }
     draw(await r.json());
   } finally { busy = false; }
@@ -184,6 +203,14 @@ function draw(v) {
 
 const esc = s => (s || '').replace(/[&<>"]/g, c =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+let refit;
+addEventListener('resize', () => {
+  clearTimeout(refit);
+  // The layout comes from the server, so a resize means asking for the same
+  // position at the new size rather than reflowing what is already drawn.
+  refit = setTimeout(() => { if (session) load('s=' + session); }, 250);
+});
 
 addEventListener('keydown', e => {
   const k = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down'}[e.key];
