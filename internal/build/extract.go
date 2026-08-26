@@ -170,7 +170,7 @@ func CExtract(args []string) {
 	if *textDir == "" {
 		*textDir = *outDir
 	}
-	if err := extractRecords(d, *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
+	if err := extractRecords(d, dumpSource(d, *workers), *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "extract complete in %.1f min\n", time.Since(start).Minutes())
@@ -186,9 +186,31 @@ func CExtract(args []string) {
 	}
 }
 
-// extractRecords streams the article dump ONCE, feeding every page to both the
-// film and the television extractors and writing the record hierarchy.
-func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bool, limit int) error {
+// A pageSource feeds pages to the record builders.
+//
+// There are two, and they must be interchangeable: the article dump, and the
+// intermediate replaying the wikitext it stored. Interchangeable is the whole
+// claim of the two-pass split — a record built from the intermediate has to be
+// the record extract would have built, or the cheap path quietly produces
+// different data from the expensive one.
+type pageSource struct {
+	name  string // what to call it in the log
+	total int64  // denominator for progress, 0 if unknown
+	run   func(handle func(dump.Page), shouldStop func() bool, prog *atomic.Int64) error
+}
+
+// dumpSource reads the article dump, one bz2 sub-stream per worker.
+func dumpSource(d *dumpSet, workers int) pageSource {
+	total, _ := dump.DumpSize(d.articles)
+	return pageSource{name: d.articles, total: total,
+		run: func(handle func(dump.Page), stop func() bool, prog *atomic.Int64) error {
+			return dump.RunMultistreamProgress(d.articles, d.index, workers, handle, stop, prog)
+		}}
+}
+
+// extractRecords feeds every page to both the film and the television
+// extractors and writes the record hierarchy.
+func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers int, wantText bool, limit int) error {
 	seasonOf, err := loadSeasonOf(d.cache)
 	if err != nil {
 		return err
@@ -231,7 +253,7 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	}()
 
 	var progress atomic.Int64
-	total, _ := dump.DumpSize(d.articles)
+	total := src.total
 
 	var scanned int64
 	handle := func(p dump.Page) {
@@ -287,7 +309,7 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	if limit > 0 {
 		shouldStop = func() bool { return atomic.LoadInt64(&rec.films) >= int64(limit) }
 	}
-	if err := dump.RunMultistreamProgress(d.articles, d.index, workers, handle, shouldStop, &progress); err != nil {
+	if err := src.run(handle, shouldStop, &progress); err != nil {
 		fatal(err)
 	}
 	close(msgs)

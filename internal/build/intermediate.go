@@ -12,6 +12,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/szatmary/filmstock/internal/dump"
 )
 
 // The intermediate store: everything the dump said, before anything decides what
@@ -361,4 +363,48 @@ func unsquash(b []byte) (string, error) {
 	defer zr.Close()
 	out, err := io.ReadAll(zr)
 	return string(out), err
+}
+
+// EachPage replays every stored page as the dump presented it.
+//
+// Distinct by page_id, not one row per kind: an article claimed as both a film
+// and a person is one page, and handing it to the recognisers twice would count
+// it twice. The wikitext is what makes this a replay rather than an
+// approximation — export runs the same parsers over the same bytes the dump
+// carried, so a record built from the intermediate is the record extract would
+// have built.
+func (in *Inter) EachPage(fn func(dump.Page) error) error {
+	if err := in.commit(); err != nil {
+		return err
+	}
+	rows, err := in.db.Query(
+		`SELECT page_id, title, MAX(wikitext) FROM pages GROUP BY page_id`)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var p dump.Page
+		var wt []byte
+		if err := rows.Scan(&p.ID, &p.Title, &wt); err != nil {
+			return err
+		}
+		if p.Text, err = unsquash(wt); err != nil {
+			return err
+		}
+		if err := fn(p); err != nil {
+			return err
+		}
+	}
+	return rows.Err()
+}
+
+// Pages reports how many distinct pages EachPage will visit.
+func (in *Inter) Pages() (int, error) {
+	if err := in.commit(); err != nil {
+		return 0, err
+	}
+	var n int
+	err := in.db.QueryRow(`SELECT COUNT(DISTINCT page_id) FROM pages`).Scan(&n)
+	return n, err
 }
