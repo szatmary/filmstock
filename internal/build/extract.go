@@ -392,7 +392,7 @@ type recordWriter struct {
 	events   int64
 	pool     *writePool
 
-	store  *storeWriter
+	store  recordSink
 	mu     sync.Mutex
 	people map[string]*filmstock.PersonRecord
 	// bios is keyed by article title. A biography is encountered at an arbitrary

@@ -17,14 +17,26 @@ import (
 // maintain, rebuild, or let go stale. A re-extract therefore updates the record
 // that is already there rather than making a second copy, by construction rather
 // than by bookkeeping.
+// A recordSink takes finished records. The record builder needs three things
+// from it and no more, which is what makes the storage format replaceable: the
+// gitdb tree and the published SQLite database are both just sinks.
+type recordSink interface {
+	// put stores one record under its identity, which is always an enwiki
+	// page_id.
+	put(kind string, identity int64, v any)
+	// sweep removes whatever a complete run did not write, and reports how
+	// many. A partial run must not call it.
+	sweep() int
+	// Counts reports what the run left alone, so an ingest can say how much of
+	// the store it did not touch.
+	Counts() (unchanged, updated, inserted int)
+	// Err reports the first failure, if any.
+	Err() error
+}
+
 type storeWriter struct {
 	mu     sync.Mutex
 	stores map[string]*gitdb.DB
-	// byWiki maps a person's article title to their identity. This is real
-	// information the store holds and a title alone cannot give, unlike the
-	// identity -> store-id map that used to sit beside it: format 6 keys records
-	// by identity, so that one no longer exists.
-	byWiki map[string]int64
 	root   string
 	err    error
 	// wrote records every key the run produced, per kind, so a complete export
@@ -48,7 +60,6 @@ func newStoreWriter(root string) *storeWriter {
 	return &storeWriter{
 		root:   root,
 		stores: map[string]*gitdb.DB{},
-		byWiki: map[string]int64{},
 	}
 }
 
@@ -82,23 +93,6 @@ func (w *storeWriter) open(kind string) (*gitdb.DB, error) {
 	d, err := filmstock.OpenStore(w.root, kind)
 	if err != nil {
 		return nil, err
-	}
-	if kind == filmstock.KindPerson {
-		for rec, err := range d.All() {
-			if err != nil {
-				return nil, fmt.Errorf("scanning existing %s store: %w", kind, err)
-			}
-			id, ok := identityOf(kind, rec.Data)
-			if !ok {
-				continue
-			}
-			var probe struct {
-				Wiki string `json:"wiki"`
-			}
-			if json.Unmarshal(rec.Data, &probe) == nil && probe.Wiki != "" {
-				w.byWiki[probe.Wiki] = id
-			}
-		}
 	}
 	w.stores[kind] = d
 	return d, nil
@@ -190,61 +184,6 @@ func (w *storeWriter) sweep() (removed int) {
 		}
 	}
 	return removed
-}
-
-// delete removes a record. Used when a page stops qualifying — an infobox is
-// removed and a film is no longer a film. gitdb clears the index entry and
-// leaves the bytes, so this is one changed line and no other record moves.
-//
-// Returns whether anything was there to remove.
-func (w *storeWriter) delete(kind string, identity int64) bool {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	if w.err != nil {
-		return false
-	}
-	d, err := w.open(kind)
-	if err != nil {
-		w.err = err
-		return false
-	}
-	key := filmstock.StoreKey(identity)
-	if !d.Has(key) {
-		return false
-	}
-	if err := d.Delete(key); err != nil {
-		w.err = fmt.Errorf("delete %s %d: %w", kind, identity, err)
-		return false
-	}
-	return true
-}
-
-// get returns a record's current bytes, or nil when there is none.
-func (w *storeWriter) get(kind string, identity int64) []byte {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	d, err := w.open(kind)
-	if err != nil {
-		w.err = err
-		return nil
-	}
-	b, err := d.Get(filmstock.StoreKey(identity))
-	if err != nil {
-		return nil
-	}
-	return b
-}
-
-// personIdentityFor resolves a person's article title to their identity.
-func (w *storeWriter) personIdentityFor(wiki string) (int64, bool) {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	if _, err := w.open(filmstock.KindPerson); err != nil {
-		w.err = err
-		return 0, false
-	}
-	id, ok := w.byWiki[wiki]
-	return id, ok
 }
 
 func (w *storeWriter) fail(e error) {
