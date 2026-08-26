@@ -140,6 +140,68 @@ table holds **0 of 61,342** such edges. Harmless today — the export path
 resolves the field directly — but the graph is what incremental export will use
 to decide what went stale, and a missing edge there is a silently stale record.
 
+### Compressing the published database — DEFERRED, PLAIN SQLITE FOR NOW
+
+Decided: ship a plain SQLite file. Revisit compression once the pipeline is
+producing it daily and we know whether at-rest size is a real constraint.
+
+Everything below is measured, so the decision can be reopened without redoing
+the work.
+
+**Sizes.** The database is 409 MB: 174 MB content, 152 MB FTS5, 82 MB indexes.
+Adding the synopses the records carry (70 MB overview + 183 MB plot) and the
+embedding vectors (170,421 x 1024 int8 = 175 MB) takes it to roughly 705 MB.
+
+| approach | result |
+|---|---|
+| whole-file `zstd -3` | 409 -> **204 MB**, 1.4 s |
+| whole-file `zstd -19` | 409 -> **169 MB** |
+| per-row gzip on synopses | 253 -> 123 MB (2.06x) |
+| per-row flate + 110 KB dictionary | 253 -> 104 MB (2.43x) |
+| zstd on int8 vectors | 38 -> 32 MB (1.19x) — effectively incompressible |
+
+**Whole-file compression beats every scheme we can build**, because its window
+is the entire corpus while a page compressor sees 4 KB and a deflate dictionary
+sees 32 KB — deflate's window caps the dictionary, which is why the hand-rolled
+one only reached 2.43x. Page compression's advantage is random access without
+decompressing everything, not ratio.
+
+**Page-level options, if at-rest size ever matters.**
+
+- `sqlite_zstd_vfs` (mlin) — open source, **read/write**, ACID-preserving by
+  design, and it trains dictionaries automatically. Stores inner pages as rows
+  of an outer table, so the compressed file is still a SQLite database rather
+  than an opaque blob. Conversion is one statement:
+  `VACUUM INTO 'file:out.db?vfs=zstd'`. Reports ~40% on their example, where
+  whole-file zstd gives us 50%. Author's caveat is worth quoting: *"USE AT YOUR
+  OWN RISK... young and unlikely to have zero bugs. This project is not
+  associated with the SQLite developers."*
+- ZIPVFS — the SQLite authors' own, and commercial. Needs cgo and a licence.
+
+Both need cgo, which we can have; the cost is that the published file stops
+being readable by stock SQLite. The likely shape is publish plain and let
+Grindhouse convert locally with `VACUUM INTO`, so the dataset stays universal
+and the app still gets a small file.
+
+**Compression and diffing fight each other.** Change one row, its page
+recompresses, every byte of that page changes. That kills page-level and
+rsync-style deltas. It does NOT affect us, because a day's patch is emitted as
+SQL by the exporter — which already knows exactly which records changed — not
+by diffing two files. `sqldiff` is not involved and could not be: it has no
+`--vfs` flag, and against a page-compressed file without the VFS it would diff
+the compressed page table and emit nonsense.
+
+That is what makes the three concerns independent: **transport** (zstd the
+file), **at rest** (plain, or the consumer converts), and **daily patch** (SQL
+from the exporter) can each be settled on their own.
+
+**Vectors do not require `sqlite-vec`.** Stored as plain BLOBs with kNN in Go,
+brute force over 170,421 x 1024 int8 is well under a second, which `vectors.go`
+already does. The extension buys SQL-level `MATCH` and ANN indexing we do not
+need at this scale, and costs the file being openable without it. Per-row blobs
+rather than one matrix, so a daily patch touches the vectors that changed
+instead of rewriting 175 MB.
+
 ### 56 schedule articles still yield nothing
 
 232 of 288 read. The remainder are the overnight, morning and afternoon variants.
