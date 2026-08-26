@@ -244,9 +244,10 @@ func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers 
 	}
 	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText,
 		store: sw, people: map[string]*filmstock.PersonRecord{},
-		bios:    map[string]*filmstock.PersonBio{},
-		bioPage: map[string]int{},
-		pool:    newWritePool(8, 16384)}
+		bios:      map[string]*filmstock.PersonBio{},
+		bioPage:   map[string]int{},
+		workTitle: map[string]bool{},
+		pool:      newWritePool(8, 16384)}
 
 	coll := newTelevisionCollector()
 	msgs := make(chan televisionMsg, 4096)
@@ -272,6 +273,12 @@ func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers 
 		rec.handlePerson(p)
 		rec.handleSchedule(p)
 		for _, m := range parseTelevisionPage(p) {
+			if m.series != nil {
+				// The ARTICLE title, not the record's display title: the
+				// display one has had its disambiguator stripped, and a credit
+				// links to the article.
+				rec.noteWork(p.Title)
+			}
 			msgs <- m
 		}
 	}
@@ -410,6 +417,12 @@ type recordWriter struct {
 	// gets a canonical id.
 	bioPage map[string]int
 
+	// workTitle holds the article title of every film, series and event, so a
+	// credit that links to one can be recognised as not being a person. Page
+	// titles are unique on Wikipedia, so a title that names a film cannot also
+	// name a person.
+	workTitle map[string]bool
+
 	// schedules are held until the pass is over: their show ids resolve through
 	// the same cache the people pass uses, and doing it per cell would be a
 	// query for every slot in every season.
@@ -422,6 +435,17 @@ func (w *recordWriter) fail(e error) {
 	if w.err == nil {
 		w.err = e
 	}
+	w.mu.Unlock()
+}
+
+// noteWork records that an article title names a film, series or event.
+func (w *recordWriter) noteWork(title string) {
+	t := wikitext.CanonTitle(title)
+	if t == "" {
+		return
+	}
+	w.mu.Lock()
+	w.workTitle[t] = true
 	w.mu.Unlock()
 }
 
@@ -469,6 +493,9 @@ func (w *recordWriter) handleFilmRecord(m *filmstock.Movie, pageID int64) {
 
 func (w *recordWriter) handleFilm(p dump.Page) {
 	m := buildFilm(p)
+	if m != nil {
+		w.noteWork(p.Title)
+	}
 	if m == nil {
 		return
 	}
@@ -500,6 +527,7 @@ func (w *recordWriter) handleEvent(p dump.Page) {
 	if e == nil {
 		return
 	}
+	w.noteWork(p.Title)
 	w.handleEventRecord(e)
 	atomic.AddInt64(&w.events, 1)
 }
@@ -599,7 +627,24 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 	}
 	defer stmt.Close()
 
+	var wereWorks int
 	for _, p := range w.people {
+		// A work is not a person. Infoboxes link works into credit fields —
+		// "Saul of the Mole Men" lists itself under starring, and 60 Minutes,
+		// The Flintstones and Annie Hall are all credited somewhere as people.
+		// The article title says otherwise, and only a pass that has seen the
+		// whole corpus can say so, which is exactly what this one has.
+		//
+		// Unless the article is ALSO a biography: a page claimed as both is a
+		// person the film parser mistook for a film, and the biography is the
+		// better evidence.
+		key := wikitext.CanonTitle(p.Wiki)
+		if w.workTitle[key] {
+			if _, alsoPerson := w.bios[key]; !alsoPerson {
+				wereWorks++
+				continue
+			}
+		}
 		var q, pid int64
 		if stmt.QueryRow(p.Wiki).Scan(&q, &pid) == nil && q > 0 {
 			p.QID = q
@@ -638,6 +683,9 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 		}
 		w.store.put(filmstock.KindPerson, id, p)
 		total++
+	}
+	if wereWorks > 0 {
+		fmt.Fprintf(os.Stderr, "  %d credits dropped: the link target is a film, series or event\n", wereWorks)
 	}
 	return
 }
