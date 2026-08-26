@@ -647,19 +647,63 @@ func buildListOwner(cachePath string, coll *televisionCollector) (map[int]int, e
 	}
 	defer stmt.Close()
 
-	out := map[int]int{}
+	// More than one series can name the same episode-list article: 51 lists in
+	// the corpus are claimed by 530 series between them. Writing straight into
+	// the map keeps whichever series Go's randomised map iteration reached last,
+	// so the owner changed between two runs over identical input — which is how
+	// I Love Lucy's six seasons attached to it on one run and to The Lucy–Desi
+	// Comedy Hour on the next, with nothing in either output saying so.
+	//
+	// The articles themselves say which claim is stronger. A series linking
+	// "List of I Love Lucy episodes" claims the article; one linking
+	// "List of I Love Lucy episodes#The Lucy–Desi Comedy Hour episodes" claims a
+	// section of it. So an unfragmented claim wins, and among equals the lowest
+	// page_id wins — arbitrary, but fixed, and a page_id rather than a title.
+	best := map[int]listClaim{}
+	var contested int
 	for seriesID, s := range coll.series {
-		t := wikitext.CanonTitle(s.ListEpisodes)
+		raw := strings.TrimSpace(s.ListEpisodes)
+		t := wikitext.CanonTitle(raw)
 		if t == "" {
 			continue
 		}
 		var pid int
-		if stmt.QueryRow(t).Scan(&pid) == nil && pid != 0 {
-			out[pid] = seriesID
+		if stmt.QueryRow(t).Scan(&pid) != nil || pid == 0 {
+			continue
+		}
+		c := listClaim{series: seriesID, fragment: strings.Contains(raw, "#")}
+		cur, seen := best[pid]
+		if !seen {
+			best[pid] = c
+			continue
+		}
+		contested++
+		if betterClaim(c, cur) {
+			best[pid] = c
 		}
 	}
-	fmt.Fprintf(os.Stderr, "episode-list links resolved: %d\n", len(out))
+	out := make(map[int]int, len(best))
+	for pid, c := range best {
+		out[pid] = c.series
+	}
+	fmt.Fprintf(os.Stderr, "episode-list links resolved: %d (%d contested)\n", len(out), contested)
 	return out, nil
+}
+
+// A listClaim is one series' claim on an episode-list article.
+type listClaim struct {
+	series   int
+	fragment bool // the link named a section rather than the whole article
+}
+
+// betterClaim reports whether a should own the list article rather than b.
+// Whole-article claims beat section claims; ties break on the lower page_id so
+// the answer is the same on every run.
+func betterClaim(a, b listClaim) bool {
+	if a.fragment != b.fragment {
+		return !a.fragment
+	}
+	return a.series < b.series
 }
 
 // isTerminal reports whether w is a terminal, so progress can rewrite one line

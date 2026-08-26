@@ -1,0 +1,2508 @@
+{{Short description|none}}
+{{DISPLAYTITLE:List of ''I Love Lucy'' episodes}}
+{{Use American English|date=March 2026}}
+{{Use mdy dates|date=February 2025}}
+
+''[[I Love Lucy]]'' is an American television [[sitcom]] starring [[Lucille Ball]], [[Desi Arnaz]], [[Vivian Vance]] and [[William Frawley]]. The 180 black-and-white episodes originally ran on Monday nights from October 15, 1951 to May 6, 1957 on [[CBS]]. The [[pilot episode]], which was not produced for broadcast and did not air during the show's original run, is generally excluded from the list of episodes, although it is available in the DVD and Blu-ray releases of the first season.
+
+Following ''I Love Lucy'', 13 hour-long episodes were produced under the title of ''The Lucille Ball-Desi Arnaz Show'' (later and more commonly known in syndication as ''The Lucy–Desi Comedy Hour''), with the same cast and later packaged for syndication as Seasons 7, 8 and 9 of the ''I Love Lucy'' series.
+
+==Series overview==
+<onlyinclude>{{Series overview
+| infoA = Rank
+| infoB = Rating
+| infoC = Households<br />(millions)
+| multiseries =
+
+{{Series overview
+| series = ''[[I Love Lucy]]''
+| infoA = y
+| infoB = y
+| infoC = y
+
+| color1 = #F987C0
+| link1 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 1 (1951–52)
+| episodes1 = 35
+| start1 = {{Start date|1951|10|15}}
+| end1 = {{End date|1952|6|9}}
+| infoA1 = 3
+| infoB1 = 50.9
+| infoC1 = 7.78<ref>{{cite web|url=https://classictvguide.com/tvratings/1951.htm|title=TV Ratings: 1951–1952|work=ClassicTVHits.com|access-date=July 15, 2021}}</ref>
+
+| color2 = #E7CC58
+| link2 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 2 (1952–53)
+| episodes2 = 31
+| start2 = {{Start date|1952|9|15}}
+| end2 = {{End date|1953|6|29}}
+| infoA2 = 1
+| infoB2 = 67.3
+| infoC2 = 13.72<ref>{{cite web|url=https://classictvguide.com/tvratings/1952.htm|title=TV Ratings: 1952–1953|work=ClassicTVHits.com|access-date=July 15, 2021}}</ref>
+
+| color3 = #8AC1FF
+| link3 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 3 (1953–54)
+| episodes3 = 31
+| start3 = {{Start date|1953|10|5}}
+| end3 = {{End date|1954|5|24}}
+| infoA3 = 1
+| infoB3 = 58.8
+| infoC3 = 15.28<ref>{{cite web|url=https://classictvguide.com/tvratings/1953.htm|title=TV Ratings: 1953–1954|work=ClassicTVHits.com|access-date=July 15, 2021}}</ref>
+
+| color4 = #973838
+| link4 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 4 (1954–55)
+| episodes4 = 30
+| start4 = {{Start date|1954|10|4}}
+| end4 = {{End date|1955|5|30}}
+| infoA4 = 1
+| infoB4 = 49.3
+| infoC4 = 15.13<ref>{{cite web|url=https://classictvguide.com/tvratings/1954.htm|title=TV Ratings: 1954–1955|work=ClassicTVHits.com|access-date=July 15, 2021}}</ref>
+
+| color5 = #38B27E
+| link5 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 5 (1955–56)
+| episodes5 = 26
+| start5 = {{Start date|1955|10|3}}
+| end5 = {{End date|1956|5|14}}
+| infoA5 = 2
+| infoB5 = 46.1
+| infoC5 = 16.08<ref>{{cite web|url=https://classictvguide.com/tvratings/1955.htm|title=TV Ratings: 1955–1956|work=ClassicTVHits.com|access-date=July 15, 2021}}</ref>
+
+| color6 = #AE85CF
+| link6 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 6 (1956–57)
+| episodes6 = 27
+| start6 = {{Start date|1956|10|1}}
+| end6 = {{End date|1957|5|6}}
+| infoA6 = 1
+| infoB6 = 43.7
+| infoC6 = 16.99<ref>{{cite web|url=https://classictvguide.com/tvratings/1956.htm|title=TV Ratings: 1956–1957|work=ClassicTVHits.com|access-date=July 15, 2021}}</ref>
+
+}}
+
+{{Series overview
+| series = ''[[The Lucy–Desi Comedy Hour]]''
+| infoA = y
+| infoB = y
+| infoC = y
+
+
+| color1 = #1B548A
+| link1 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 1 (1957–58)
+| linkT1 = 1
+| episodes1 = 5
+| start1 = {{Start date|1957|11|6}}
+| end1 = {{End date|1958|4|14}}
+| infoA1 = {{N/a}}
+| infoB1 = {{N/a}}
+| infoC1 = {{N/a}}
+
+| color2 = #B8B6AD
+| link2 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 2 (1958–59)
+| linkT2 = 2
+| episodes2 = 5
+| start2 = {{Start date|1958|10|6}}
+| end2 = {{End date|1959|6|5}}
+| infoA2 = {{N/a}}
+| infoB2 = {{N/a}}
+| infoC2 = {{N/a}}
+
+| color3 = #784E46
+| link3 = <includeonly>List of I Love Lucy episodes</includeonly>#Season 3 (1959–60)
+| linkT3 = 3
+| episodes3 = 3
+| start3 = {{Start date|1959|9|25}}
+| end3 = {{End date|1960|4|1}}
+| infoA3 = {{N/a}}
+| infoB3 = {{N/a}}
+| infoC3 = {{N/a}}
+
+}}
+
+}}</onlyinclude>
+
+==Episodes==
+===Unaired pilot===
+The unaired pilot was [[kinescope]]d on March 2, 1951 and was considered lost until the widow of Pepito Pérez, a clown who appears in it, notified [[CBS|CBS Entertainment]] president [[Bud Grant (broadcaster)|Bud Grant]] that she owned a copy given to her husband by Desi Arnaz and Lucille Ball.<ref name="The Washington Post">{{cite news|url=https://www.washingtonpost.com/archive/lifestyle/1990/04/30/love-that-lost-lucy/9cd57b41-0520-4a6d-8d86-0a8a296e4d23/|title=Love That 'Lost' Lucy|newspaper=[[The Washington Post]]|access-date=August 21, 2023}}</ref><ref name="Outsider">{{cite web|url=https://outsider.com/entertainment/on-this-day-long-lost-pilot-i-love-lucy-aied-1990//|title=On This Day: 'Long-Lost' Pilot of ''I Love Lucy'' aired in 1990|work=Outsider.com|access-date=August 21, 2023}}</ref>  The pilot was first broadcast as part of a 60-minute special on CBS television stations nationwide on Monday, April 30, 1990, 39 years after it was originally filmed.<ref name="Outsider" /><ref name="IMDB1951">{{cite web|url=https://www.imdb.com/title/tt0448547/|title=''I Love Lucy: The Very First Show''|work=[[imdb.com]]|access-date=August 22, 2023}}</ref> However, the opening titles and the initial voiceover were damaged or missing, so [[Lucie Arnaz]] read the beginning lines of the opening voiceover, which then segued into the surviving footage.
+
+The original 2003 DVD edition of ''I Love Lucy'' contained the pilot episode with a reconstruction of the opening titles and voiceover. The original 35mm kinescope of the pilot was later located in the CBS archives and was included in the Season 1 [[Blu-ray]] release on August 4, 2015.<ref name="Amazon.com">{{cite web|url=https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/90747a05-f5fc-5602-8c25-732015ae074b/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4|title=''I Love Lucy'' Ultimate First Season on Blu-Ray|access-date=August 21, 2023}}</ref>
+
+===Season 1 (1951–52)===
+{{Episode table
+|background=#F987C0
+|overall=5
+|season=2
+|title=24
+|writer=21
+|director=16
+|aux3=15
+|aux3T=Film date
+|airdate=15
+|episodes=
+
+{{Episode list
+| EpisodeNumber=1
+| EpisodeNumber2=1
+| Title=[[The Girls Want to Go to a Nightclub]]
+| DirectedBy=[[Marc Daniels]]
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 15, 1951
+| OriginalAirDate={{Start date|1951|10|15}}
+| ShortSummary=Ethel tells Lucy that Monday is her and Fred's 18th wedding anniversary. Ethel would like Lucy and Ricky to help them celebrate, hopefully at The Copacabana. Meanwhile, Fred asks Ricky to celebrate his anniversary by going to Charlie's steakhouse and then the fights. The four get into an argument over where they will go. Lucy says that she'll just get dates to go to the nightclub and she knows who the young men will be. The men go to Fred's apartment. Lucy tells Ethel she just made up the young men. Lucy decides to call up some old boyfriends with no luck. Ricky wonders whether the girls really can get dates. Ricky suggests getting a couple dates and go to The Copacabana to keep an eye on the wives. He calls Ginny Jones at the Starlight Room about potential dates. Lucy also calls Ginny and finds out about Ricky's call. Lucy tells Ginny that her and Ethel will be Ricky and Fred's blind dates. It's Monday night and Lucy and Ethel arrive at Lucy's apartment made up and dressed all goofy. The guys don't recognize the girls and try to get out of the dates. After a while Ricky figures out it's Lucy and Ethel and the four wind up going to the fights.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=2
+| EpisodeNumber2=2
+| Title=Be a Pal
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 21, 1951
+| OriginalAirDate={{Start date|1951|10|22}}
+| ShortSummary=At breakfast, Lucy is trying to talk to Ricky but he's reading the paper and isn't paying attention to her. Ethel comes by and Lucy tells her about Ricky ignoring her. Ethel reads to Lucy a book full of advice on how to rekindle the flame. The book says to dress up for your husband and make yourself beautiful. The next morning Lucy does make herself glamorous, but Ricky is still glued to the newspaper. Lucy sets the paper on fire. Ethel checks the book again and it suggests that Lucy take up Ricky's hobbies. Ricky will be playing poker that night with Fred, Charlie and Hank ([[Richard Reeves (actor)|Richard Reeves]]). Lucy decides she'll join them. That night the guys reluctantly let Lucy sit in. Lucy doesn't really know how to play and it starts to annoy the guys. The next morning Ethel checks the book again. Lucy decorates the apartment with things to remind Ricky of his childhood in [[Cuba]]. She even adds chickens and a donkey. Lucy then puts on a performance as [[Carmen Miranda]]. She explains to Ricky why she did it.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=3
+| EpisodeNumber2=3
+| Title=The Diet
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 28, 1951
+| OriginalAirDate={{Start date|1951|10|29}}
+| ShortSummary=Lucy claims she weighs the same as when her and Ricky got married. Ricky brings out a scale and Lucy weighs 22 pounds more. Ricky gets a call that JoAnn, the girl that dances with him in his act at the Tropicana nightclub, has quit. Ricky needs to find a replacement by Saturday. He reluctantly agrees to let Lucy audition. At the club, the other girls make fun of Lucy. Ricky tells Lucy if she can fit into a size 12 dress, she can have the part. She only has four days. It's been three days and Lucy has ten more pounds to lose, but she is exhausted. By Saturday afternoon, Lucy finally makes it. Lucy gives a great performance with Ricky. Afterwards a doctor tells Lucy she is suffering from malnutrition and has to stay in bed for three weeks [[Marco Rizo]] as Piano Player.
+
+'''Songs:''' Desi sings "[[Cuban Pete (song)|Cuban Pete]]". Lucy sings "Sally Sweet".
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=4
+| EpisodeNumber2=4
+| Title=Lucy Thinks Ricky Is Trying to Murder Her
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 8, 1951
+| OriginalAirDate={{Start date|1951|11|5}}
+| ShortSummary=It's late at night and Lucy cannot put down a murder mystery novel she is reading. Ricky comes home and says his show at the Tropicana has been held over four weeks. Ricky jokes about a husband murdering his wife. The next morning Ethel comes by and tells Lucy she learned how to tell someone's fortune with a deck of cards. Lucy says she doesn't believe in that stuff. Ethel predicts Lucy's death in the near future. Ricky's agent Jerry ([[Jerry Hausner]]) calls him. Lucy overhears Ricky say that he's going to get rid of her. Ricky is actually talking about one of the singers in his show. Ricky also mentions a gun, which is a prop for the show. Later, Ricky comes home and Lucy hops around to be a moving target. Ricky tells Fred that Lucy is acting crazy. Ricky says that Lucy thinks he's going to kill her. Fred tells Ricky to give Lucy a mild sedative. Lucy sees Ricky drop the pill in a drink. When Lucy switches the glasses, Ricky switches them back. Lucy passes out and Ricky leaves. Ethel thinks Lucy is dead. Ethel is startled when Lucy wakes up. Lucy and Ethel go to the club with the prop gun. Lucy learns there was no murder plot. 
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=5
+| EpisodeNumber2=5
+| Title=The Quiz Show
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 5, 1951
+| OriginalAirDate={{Start date|1951|11|12}}
+| ShortSummary=Lucy is going over her household accounts and realizes she has no money to pay any bills. Ricky says he makes good money and doesn't understand where it's going. He decides to cut off Lucy's allowance and charge accounts. Ethel asks Lucy to go with her to a radio quiz show. It's called "Females are Fabulous" and it's hosted by Freddie Fillmore. When Lucy learns the first prize is $1,000, she agrees to go. Lucy winds up a contestant. In her first stunt, Lucy gets sprayed with water. To win the first prize, Lucy must introduce a stranger to Ricky as her "long lost first husband". Freddie will send a man to her house that evening. Later, Freddie gives Arnold ([[Philip Ober]]) Lucy's address. Lucy mistakes a tramp named Harold ([[John Emery (actor)|John Emery]]) for the stranger. Harold actually plays along with Lucy's story. Ricky doesn't believe it. Ethel comes by and tells Lucy that Harold is a tramp and he came to her door earlier. He's not the man from the show. Harold leaves and Ricky wants an explanation. Arnold arrives and Lucy tells Ricky about the quiz show. Even though Lucy manages to win regardless, the prize money is just enough to pay off her debts.
+
+'''Notes:''' ''William Frawley does not appear in this episode.  [[Frank Nelson (actor)|Frank Nelson]] makes the first of eleven appearances on the show, three times as game show emcee "Freddie Fillmore".''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=6
+| EpisodeNumber2=6
+| Title=The Audition{{anchor|The Audition}}
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 12, 1951
+| OriginalAirDate={{Start date|1951|11|19}}
+| ShortSummary=Lucy asks Ricky when he's doing his TV audition. She thinks he should have a pretty girl in the audition, hinting she could do it. Ricky says he doesn't want a wife who is in show business. Fred comes by and tells Ricky that a telegram says the audition is tonight. Ricky doesn't want Lucy to find out. To keep Lucy busy, Ricky wants her to take their wills downtown to have the lawyer sign them. Ricky is at the club rehearsing. Buffo the Clown is riding around on his bicycle. The brakes lock and he is thrown off and gets hurt. Ricky has Fred take Buffo to Ricky's place to rest. Lucy learns from Buffo about the audition. Buffo suggests she take his place. That night Ricky and the orchestra are performing for the sponsors. Lucy's hobo act is so comical she ends up with the contract Ricky wanted. She decides she is better off as Ricky's wife. [[Jess Oppenheimer]] as Network Sponsor #1. [[Harry Ackerman]] as Network Sponsor #2.
+
+'''Song:''' Desi sings "[[Babalú]]".
+
+'''Notes:''' ''This is a remake of the original unaired pilot.  Vivian Vance does not appear in this episode.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=7
+| EpisodeNumber2=7
+| Title=The Séance
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 19, 1951
+| OriginalAirDate={{Start date|1951|11|26}}
+| ShortSummary=Lucy is on a superstitious kick, studying [[numerology]] and [[astrology]]. Ricky thinks it's all a lot of nonsense. Ricky reminds Lucy that his barber is going to call today. Lucy's hobby almost destroys Ricky's career, as Lucy tells an important talent agent, Mr. Merriweather ([[Jay Novello]]), that Ricky cannot appear in a show because of his horoscope (Lucy thought she was telling the barber to cancel Ricky's haircut). Hoping to straighten things out, Ricky takes Lucy to see Merriweather. They learn that Merriweather is also interested in the occult. Merriweather mentions that he's been trying to contact his beloved Tilly, who he lost three years ago. Believing Tilly was his wife, Lucy invites Merriweather to a séance that evening in their apartment. Lucy tells Ricky that Ethel will pretend to be the medium and Fred jokes that she is "Medium Rhea". That evening Merriweather arrives and Lucy introduces Ethel as Madam Ethel Mertzola. But when both Lucy and Fred pretend to be a spirit, things quickly get confusing. However, they manage to pull it off and Ricky gets the part. They discover Mrs. Merriweather's name was Adelaide. Tilly was his dog.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=8
+| EpisodeNumber2=8
+| Title=Men Are Messy
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 25, 1951
+| OriginalAirDate={{Start date|1951|12|3}}
+| ShortSummary=Lucy has just finished cleaning the apartment. Ricky comes home and makes the place a mess. Tired of Ricky's messy behavior, Lucy divides the apartment in half. He can be messy in his half, but not hers. Fred and Ethel come by. Fred likes Ricky's half of the place. Kenny, Ricky's agent, calls. Ricky is upset with Kenny because Kenny had promised Ricky would get a spread in a local music magazine, which hasn't happened. Kenny says Ricky will be in next months magazine. Ricky is rehearsing at the club. He dances with Maggie, the cleaning lady. Kenny comes by with Jim White ([[Harry Shannon (actor)|Harry Shannon]]), the photographer from the magazine. Jim would like to get some pictures of Ricky's home. Ricky expects Lucy to clean up the whole apartment. Lucy decides to teach Ricky a lesson by making a mess of the whole apartment. When Ricky and Jim arrive, Ricky at first pretends they're in the wrong apartment. But then Lucy comes in the room dressed as a hillbilly. There are chickens in the room as well. Jim starts taking pictures. Ethel is there pretending to be Grandma. Lucy learns that Jim is not from the music magazine, he's from [[Look (American magazine)|Look]] magazine.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=9
+| EpisodeNumber2=9
+| Title=The Fur Coat
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 9, 1951
+| OriginalAirDate={{Start date|1951|12|10}}
+| ShortSummary=Ricky comes home and finds Fred finally fixing the drain in the kitchen sink. Lucy is at the market. Ethel comes by. Ricky shows them a mink coat he rented for a dance number at the club. Ethel tries it on. Lucy comes home and thinks Fred bought Ethel a mink. When Ricky says it's not Ethel's, Lucy thinks it is an anniversary present for her. Feeling bad that he forgot their annivesary, Ricky can't bring himself to tell Lucy the truth. Ricky plans to make it look as though it was stolen during the night. Lucy wears it to bed. Ricky then arranges for Fred to pose as a burglar and "steal" it the next night. A problem arises when a real thief ([[Ben Welden]]) sneaks into the apartment. The thief is frightened away when Fred puts a ladder up to Ricky's bedroom window. Lucy still has the mink. The next day, Lucy learns the truth about the coat from Ethel. Lucy gets even by destroying a fake fur in front of Ricky. Lucy later admits to Ethel that she lied about it being her anniversary to get the fur.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=10
+| EpisodeNumber2=10
+| Title=Lucy Is Jealous of Girl Singer
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 16, 1951
+| OriginalAirDate={{Start date|1951|12|17}}
+| ShortSummary=Ethel comes by and tells Lucy that Ricky is running around with another woman. Ethel shows Lucy the gossip column in today's paper that links Ricky with Rosemary, a new dancer at the club. Lucy says it's just a publicity story that Ricky's agent put in. After thinking about how young and beautiful Rosemary is, Lucy confronts Ricky. He says there's nothing to it. Ricky is at rehearsal at the Tropicana. He accidentally tears off a lacy piece of Rosemary's dress. Ricky says he'll have it fixed and has Rosemary put the piece in his coat pocket. At home, Lucy finds the piece and Ricky tries to explain. Ricky tells her to come to the club to see for herself. Ethel tells Lucy if she goes to the club, Ricky will just be on his good behavior. That night, Lucy disguises herself as one of the dancers in the show. She really messes the dance number up. Back at home, and knowing it was Lucy, Ricky teases her about it.
+
+'''Song:''' Desi sings "[[Jezebel (Frankie Laine song)|Jezebel]]".
+
+'''Notes:''' ''William Frawley does not appear in this episode.  In an earlier version of the script Rosemary was a singer, not a dancer, hence the episode's title.''<ref>''Nick at Nite's Classic TV Companion'', edited by Tom Hill, copyright 1996 by [[Viacom International]], p. 246: "the title of the episode reflects an earlier draft of the script where Rosemary was a singer rather than a dancer."</ref>
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=11
+| EpisodeNumber2=11
+| Title=Drafted
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 2, 1951
+| OriginalAirDate={{Start date|1951|12|24}}
+| ShortSummary=Ethel brings Lucy her mail. Ricky receives a letter from the War Department. Lucy opens it and it tells Ricky to appear at local Army base [[Fort Dix]] this coming Monday. Lucy is convinced that he has been drafted. Ricky tells Fred that he's going to Fort Dix to appear in a show to entertain the troops. Ricky asks Fred to join him. Ricky tells Fred to not mention it to Ethel. Ethel will tell Lucy and Lucy will want to be part of the show. Ethel tells Lucy that she thinks Fred enlisted in the Army. They start knitting socks for their husbands. Ricky tells Fred that Lucy has been acting strange. Because the wives are knitting little things, Ricky and Fred now believe the girls are pregnant. The men decide to throw a baby shower before they go to Fort Dix. Meanwhile, the girls decide to throw a surprise going away party for the guys. It's the night of both parties and each group of guests start arriving. When they try to hide them it leads to a hall closet overflowing with guests. The misunderstandings finally come to light. They then get the guests out of the closet.
+
+'''Note:''' ''A short Christmas tagline segment was filmed that aired immediately after this episode that included the four main characters, dressed as Santa Claus, prancing around a Christmas tree in the Ricardos' living room before a fifth Santa appears and disappears.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=12
+| EpisodeNumber2=12
+| Title=The Adagio
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 23, 1951
+| OriginalAirDate={{Start date|1951|12|31}}
+| ShortSummary=Ricky needs a dancer for the Parisian [[Apache (dance)|Apache]] dance number at the club. Lucy wants to do it, but Ricky says no. Lucy just needs a partner to learn the dance. The next day Ethel suggests that Lucy dance with Fred. Things do not go well. Ethel then says that the owner of the French laundry has a nephew who just arrived from France. His name is Jean Valjean Raymond ([[Shepard Menken]]) and he knows the dance. That afternoon Jean arrives and immediately starts flirting with Lucy. Ethel comes by and says Ricky is on his way up. Lucy hides Jean. Ricky just came by for some music and leaves. Jean starts flirting with Lucy again and she sends him away. That night Lucy sees Jean outside her bedroom window. Ricky catches Jean and asks him what he's doing there. Jean says he came to elope with Lucy. Jean challenges Ricky to a duel. When Ricky accepts, Jean backs down. Jean only flirted with Lucy because he thought American women expected it. He has a wife and five children. Jean and Ricky find a way to teach Lucy a lesson.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=13
+| EpisodeNumber2=13
+| Title=The Benefit
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 30, 1951
+| OriginalAirDate={{Start date|1952|1|7}}
+| ShortSummary=The Ricardo's and the Mertz's are playing cards. Lucy tries singing with the others, but she is way off key. Ethel tells Lucy that her Women's Club would like to have Ricky sing at a benefit they're giving. Lucy thinks she can talk Ricky into it, but she'd like to perform as well. At first Ricky says no, but then he agrees to do it. The next night Lucy and Ricky rehearse a song. Lucy's not happy that she doesn't have much of a part. The day of the show Lucy tells Ethel that Ricky won't perform but she's still available. Lucy won't sing. Lucy and Ethel think about doing something with a horse costume. Fred comes by and says that Ricky will now perform with Lucy. They'll sing and tell jokes. During the show, Lucy winds up stealing many of Ricky's lines.
+
+'''Songs:''' Desi, William, Vivian, and Lucy sing "[[Shine On, Harvest Moon]]". Desi and Lucy sing "Auf Wiedersehen, My Dear" and "[[Under the Bamboo Tree]]".
+
+'''Note:''' ''This episode was edited together with the episodes "Breaking the Lease" and "The Ballet", along with twenty minutes of new footage to create the unreleased'' [[I Love Lucy (film)|I Love Lucy ''movie'']] ''in 1953.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=14
+| EpisodeNumber2=14
+| Title=The Amateur Hour
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 7, 1951
+| OriginalAirDate={{Start date|1952|1|14}}
+| ShortSummary=Lucy buys a new dress on sale. Now she needs to get Ricky to agree to let her keep it. When Ricky comes home, Lucy is extra nice and flatters him. Ricky knows something is up. Lucy shows him the dress and Ricky says he's not paying for it. Lucy says she'll get a job. The next morning, Lucy can't find a job in the paper that she could do. Lucy then sees a job as a babysitter and she's surprised it pays $5 an hour. Ethel says there has to be a catch. Lucy calls and sets things up. That afternoon, Mrs. Hudson comes by with little Jimmy. Mrs. Hudson says that they're going to be in an amateur contest her club is giving for charity. While Lucy is in the kitchen with Jimmy, Mrs. Hudson sneaks in twin brother Timmy ([[David Stollery]]). Because the boys keep going in separate rooms, Lucy doesn't at first notice there are two of them. When she does find out, together they are very obnoxious. Mrs. Hudson calls and asks Lucy if she could perform with the boys at the contest. If they win, Lucy can keep the $100 prize. Ricky is hosting the contest. Lucy and the boys win. Ricky realizes it's Lucy and not Mrs. Hudson.
+
+'''Songs:''' Desi sings "I'm Breaking My Back Putting Up a Front for You". Lucy, Sammy Ogg and David Stollery sing "[[Ragtime Cowboy Joe]]".
+
+'''Note:''' ''William Frawley does not appear in this episode.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=15
+| EpisodeNumber2=15
+| Title=Lucy Plays Cupid
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 13, 1951
+| OriginalAirDate={{Start date|1952|1|21}}
+| ShortSummary=Lucy's neighbor, Miss Lewis ([[Bea Benaderet]]), has a crush on Mr. Ritter ([[Edward Everett Horton]]), the grocer. Miss Lewis has been carrying a torch for him for five years. She would like to have him to dinner and asks Lucy to give him the invite. Ricky wants Lucy to stay out of it. Lucy drops a hint to Mr. Ritter that someone really likes him. Mr. Ritter thinks it's Lucy who is fond of him. Mr. Ritter agrees to come to Lucy's apartment for dinner. Lucy tells Miss Lewis that she'll try to get Mr. Ritter uninterested in her.  That night, Lucy dresses very shabbily and serves Mr. Ritter a horrible meal. Knowing that he doesn't like children, Lucy has some kids in the apartment. Miss Lewis tells Ricky about the misunderstanding and that Mr. Ritter thinks Lucy is in love with him. Ricky thinks it's funny. Mr. Ritter tells Lucy he's willing to over look her faults. Ricky plays along and tells Mr. Ritter he can have Lucy. Miss Lewis comes by and starts chasing Mr. Ritter around the apartment. Mr. Ritter leaves with Miss Lewis.
+
+'''Note:''' ''Neither Vivian Vance nor William Frawley appear in this episode. Benaderet was one of the original choices to play Ethel Mertz but was unavailable.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=16
+| EpisodeNumber2=16
+| Title=Lucy Fakes Illness
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 18, 1951
+| OriginalAirDate={{Start date|1952|1|28}}
+| ShortSummary=Ethel and Fred tell Lucy that Ricky put an ad in Variety for a new act for his show. Ethel, Fred and Lucy want to be in the show. Ricky agrees to let Fred and Ethel audition, but not Lucy. Ethel tells Ricky that if he keeps refusing to hire Lucy, Lucy will develop a complex. Lucy gets a book from the library on abnormal psychology. Later when Ricky comes home, Lucy pretends to be [[Tallulah Bankhead]]. She then pretends to have amnesia and then acts like a little child. Ricky is getting really worried. Fred tells Ricky that Lucy is faking it. Ricky is going to get even. He calls his friend [[Hal March]]. Ricky wants Hal to pretend to be a doctor, examine Lucy and tell her she really does have a rare disease. When Ricky tells Lucy he was going to give her a part in his show, she suddenly acts normal. Ricky says he still wants to have her checked out and brings in Hal, who has a fake beard and mustache. Hal tells Lucy she has a rare disease and he may have to operate. Hopefully she won't turn green, because if she does, she will be gone soon. While she was asleep, Ricky put a green light bulb in the lamp. Lucy panics when she thinks she's green. Ricky confesses it was all a trick.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=17
+| EpisodeNumber2=17
+| Title=Lucy Writes a Play
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 22, 1951
+| OriginalAirDate={{Start date|1952|2|4}}
+| ShortSummary=The Women's Clubs in town are having a play writing contest. Lucy has just finished writing hers. Ethel comes by wearing a Spanish outfit. The play is set in Cuba. Lucy and Ethel rehearse a little. Lucy has Ricky in mind for the star, but he's not interested. Lucy has no luck finding another actor. Ethel says that Fred will do it, but Lucy doesn't think he can pull off being a Spaniard. She needs it to be realistic because movie producer Darryl B. Mayer will be judging the plays. So she changes her play from Cuba to England and she'll use Fred. When Ricky learns that Darryl B. Mayer will be the judge, he talks Fred into letting him play the part. He wants to surprise Lucy, so Fred shouldn't say anything. Ricky shows up to the play in a Spanish outfit because he's using the old script. Lucy at first accuses Ricky of trying to ruin her play. Lucy decides to quickly revert back to the old script to solve the problem. But by the time Ricky comes back on stage, he has the new script.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=18
+| EpisodeNumber2=18
+| Title=Breaking the Lease
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 5, 1952
+| OriginalAirDate={{Start date|1952|2|11}}
+| ShortSummary=The Mertzes are having a fun music-filled evening with the Ricardos in their apartment. Lucy is a little worried as it's very late in the evening. Fred and Ethel go back downstairs to their own apartment. Lucy and Ricky continue singing loudly. Suddenly there's a banging from downstairs. Ethel calls and tells Lucy to stop the singing. When Lucy and Ricky keep opening and closing the bedroom window, Fred calls and says stop making so much noise. Ricky makes some more noise when he tries to fix a leaky pipe. This leads to a feud between the couples, with the Ricardos saying they'll move out. The next day, Ethel tells Lucy she wants a check for five months rent to pay off the lease. Ricky wants to break the lease. They start making a lot of noise. Ricky has his band rehearse in the apartment. People start showing up to the rehearsal because the Mertzes sold tickets to people out in the street. Ethel and Fred give Lucy and Ricky their lease. On the day the Ricardos were to move out, the two couples reconcile. [[Barbara Pepper]] as Party Guest.
+
+'''Songs:'''  Lucy, Desi, Vivian and William sing "[[I Want a Girl (Just Like the Girl That Married Dear Old Dad)]]" and "[[Sweet Sue, Just You]]". Desi sings "El Cumbanchero".
+
+'''Note:''' I Love Lucy ''was briefly a radio program and this episode, retitled "The Lease Breakers," was broadcast on CBS Radio on February 27, 1952.  This episode was edited together with the episodes "The Benefit" and "The Ballet" to create the unreleased'' I Love Lucy ''movie.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=19
+| EpisodeNumber2=19
+| Title=The Ballet
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 11, 1952
+| OriginalAirDate={{Start date|1952|2|18}}
+| ShortSummary=Fred and Ethel come by. Ricky says he can't go to the picture with them because he's having trouble with his new show. Ricky needs a [[Ballet dancer]] and a pair of [[burlesque]] comics. Lucy wants to be the dancer, but Ricky says no. Fred says he could be the burlesque comic. Lucy dances for Ricky and he is unimpressed. Lucy goes to see Madame Lamond ([[Mary Wickes]]), the ballet teacher. Lucy does not do well in class. Lucy tells Ethel that she is having a Burlesque Comic ([[Frank J. Scannell]]) come over to teach her an act. The Comic wants to teach her the routine "[[Slowly I Turned]]". That doesn't go well either. Ethel calls and tells Lucy that Ricky hired the comics. Ethel and Fred go to the opening night of Ricky's new show. Fred learns that one of the ballet dancers took sick. Ethel calls Lucy and tells her one of the performers is sick and she should come by right away. Instead of a ballet outfit, Lucy shows up in a burlesque costume. Lucy adds burlesque stunts to the ballet dance number. Back at home, Ricky finds a way to get back at Lucy.
+
+'''Song:''' Desi sings "Martha".
+
+'''Note:''' ''This episode was edited together with the episodes "The Benefit" and "Breaking the Lease" to create the unreleased'' I Love Lucy ''movie.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=20
+| EpisodeNumber2=20
+| Title=The Young Fans
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 18, 1952
+| OriginalAirDate={{Start date|1952|2|25}}
+| ShortSummary=Ricky tells Lucy that teenager Peggy Dawson ([[Janet Waldo]]) has a crush on him and is following him everywhere. Peggy sneaks into the kitchen where Ricky is. Lucy teases Ricky about it. Ricky wants Lucy to talk to Peggy and he sneaks off to work. Lucy asks Peggy about boys her age. Peggy does mention Arthur Morton ([[Richard Crenna]]). Peggy says that Arthur is too shy to ask her to the school dance. Peggy also says that Arthur doesn't know how to dance. Lucy agrees to teach Arthur how to dance and has him come over. Arthur develops a crush on Lucy. Ricky thinks it's funny that Arthur told Lucy he loves her. Peggy calls and tells Lucy she's coming for Ricky because Lucy stole Arthur. Arthur calls and tells Ricky he wants to have a man to man talk with him about Lucy. Ricky and Lucy make themselves look very old. Peggy comes by and is stunned when she sees old Ricky in a wheelchair. Arthur arrives. When he sees Lucy, he and Peggy run off together.
+
+'''Note:''' ''Neither Vivian Vance nor William Frawley appear in this episode.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=21
+| EpisodeNumber2=21
+| Title=New Neighbors
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 25, 1952
+| OriginalAirDate={{Start date|1952|3|3}}
+| ShortSummary=Lucy and Ethel are watching the new tenants moving in. Tom O'Brien ([[Hayden Rorke]]) and his wife ([[K.T. Stevens]]) are actors and are rehearsing a scene for a show. After they leave for lunch, Ethel and Lucy snoop around their apartment. When they hear Ricky coming, Lucy hides in the closet. Ethel leaves with Ricky and the O'Briens return. The O'Briens continue rehearsing. Lucy overhears the couple talking about murdering her and Ricky, stealing their identities, and then blowing up [[United States Capitol|the Capitol]]. Lucy manages to get out of the apartment unnoticed. Lucy tells Ricky and the Mertzes what she heard, but they have a hard time believing her. Lucy calls the police and speaks with Sergeant Morton ([[Allen Jenkins]]). Morton doesn't believe Lucy either. Ricky and Fred were listening to the O'Briens through a furnace pipe and now believe Lucy. They turn the Ricardo's apartment into a war bunker and have shotguns. The doorbell rings and they shoot out the front door. It turns out to be Sergeant Morton and they get arrested. In jail the next morning, Morton tells them the O'Briens are actors and are moving out. Morton tells them that they shot a water heater flooding the apartment. It also causes a scandal for Ricky.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=22
+| EpisodeNumber2=22
+| Title=Fred and Ethel Fight
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 30, 1952
+| OriginalAirDate={{Start date|1952|3|10}}
+| ShortSummary=The Mertzes have a fight and aren't speaking to each other. Lucy makes an attempt to patch up their marriage. She's invited both to dinner without them knowing the other is coming. When they see each other, Fred and Ethel are about to leave. But then they see the food and decide to stay. It takes a little doing, but Fred and Ethel make up. Lucy and Ricky then get into a fight and Ricky leaves. The next day Ethel hopes to play on Ricky's sympathies. She'll bandage Lucy up and say she was hit by a bus. Meanwhile Fred and Ricky plot an elaborate setup where they fake a fire in the apartment from which Ricky appears to save Lucy. The plan backfires when the fake fire is so convincing that Lucy ends up jumping out the window to escape from it. Lucy and Ricky ultimately reconcile, but the Mertzes have another fight when Ethel discovers Fred's role in the scheme.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=23
+| EpisodeNumber2=23
+| Title=The Moustache
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 8, 1952
+| OriginalAirDate={{Start date|1952|3|17}}
+| ShortSummary=Ricky is growing a mustache and Lucy doesn't like it. Fred and Ethel come by and say Ricky looks good. Ricky is doing it to hopefully get a part in a movie. Lucy tells Ethel that she'll glue on a false mustache and won't take it off until Ricky shaves his. When Ricky gets home, Lucy has on a long white beard and mustache. Ricky shaves off his mustache, but Lucy can't get the beard off. Turns out that Fred glued the beard on her with what he thought was [[spirit gum]], but it was really Bulldog Cement. As a result, the beard will not come off. Ricky calls the drug store and learns they don't make the cement remover anymore. Lucy dresses as a man so people won't laugh at her. Fred found a drug store in Chicago that had the remover. They will send it air mail. Ricky tells Lucy that a Hollywood talent scout is coming by that night. Ricky brings by Mr. Murdoch ([[John Brown (actor)|John Brown]]). Fred and Ethel come by hoping to audition for Murdoch, but he's not interested. Lucy trims the beard shorter and hides it with the veil of a belly dancer costume. Ricky takes the veil off Lucy. Lucy finally gets rid of the beard and she and Ricky both get roles in the same movie. When Lucy discovers she is being cast as Ricky's father, she refuses the part.
+
+'''Song:''' Desi sings "[[I'll See You in C-U-B-A]]".
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=24
+| EpisodeNumber2=24
+| Title=The Gossip
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 15, 1952
+| OriginalAirDate={{Start date|1952|3|24}}
+| ShortSummary=Lucy is gossiping on the phone with Marge. Ricky gives Lucy a hard time about gossiping. Fred and Ethel come by. Lucy finds a way for Ethel to know the gossip from Marge without actually telling her. Lucy says that men gossip also. Lucy and Ethel make a bet with Ricky and Fred to see which pair can go longer without gossiping. The loser serves the winner breakfast in bed for a month. Ricky comes up with the idea that he and Fred will pretend to be talking in their sleep. They will plant a phony story that will be too juicy for the wives to not gossip about. It will be about tenant Grace Foster and the Milkman ([[Bob Jellison]]). The men put their plan into action. They then overhear the wives talk about Grace and the Milkman. The men say the wives lost the bet. Lucy then realizes that the men were awake when they told the story and they actually gossiped first. But the men say they made up the story so it wasn't them gossiping. The wives repeated the story, so they actually gossiped. The Milkman comes in the apartment looking for a place to hide. Bill Foster ([[Richard Reeves (actor)|Richard Reeves]] ) comes after him because the Milkman was flirting with Grace. Lucy and Ethel wind up winning the bet. What Ricky and Fred don't know is that Lucy paid Bill and the Milkman for their performance.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=25
+| EpisodeNumber2=25
+| Title=Pioneer Women
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 22, 1952
+| OriginalAirDate={{Start date|1952|3|31}}
+| ShortSummary=Lucy is doing dishes when Fred and Ethel come by. Lucy and Ethel hope to join The Society Matrons League, an elite women's club. They ask Ricky and Fred for electric dishwashers, but the men refuse. The men think their wives are spoiled. This leads to Ricky and Fred betting Lucy and Ethel that they cannot live without modern conveniences. The men will do the same. Ethel tried churning butter, but will need Lucy's help. Lucy tries to bake bread. Lucy gets a telegram that her and Ethel are invited to a tea at the women's club. Lucy winds up creating an 18-foot loaf of homemade bread. The girls hope to win the bet by making the men wear old fashioned clothes. The men have no problem wearing the old clothes. Mrs. Pettebone ([[Florence Bates]]) and Mrs. Pomerantz, from the club, come by. They are making a surprise inspection. Ricky wants to help Lucy, so he tells Mrs. Pettebone they are dressed this way because they are rehearsing an act for his club. When Mrs. Pettebone says they will make an allowance for show people, Lucy says they don't want to join their phony club. Ricky is proud of Lucy and calls off the bet.
+
+'''Songs:''' Desi performs "[[Pagliacci]]". Desi and William sing "[[The Fountain in the Park|While Strolling Through the Park One Day]]".
+
+'''Note:''' ''This episode was colorized and aired on CBS on December 14, 2018.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=26
+| EpisodeNumber2=26
+| Title=The Marriage License
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 28, 1952
+| OriginalAirDate={{Start date|1952|4|7}}
+| ShortSummary=Lucy is cleaning out the desk and Ethel comes by. Lucy finds her marriage license. She notices a spelling error in Ricky's name and is not sure if she and Ricky are legally married. She shows it to Ricky and he thinks she's overreacting. Lucy calls city hall and they want to see the license. Fred tells Ricky he has a friend in the license bureau. Ricky wants to pull a prank on Lucy. Fred will tell his friend to tell Lucy the license is invalid and she's not legally married. Lucy comes home and says they need to get remarried. She wants to do everything exactly as they did it the first time from the proposal on. They go to the forest in Connecticut where Ricky proposed. They get into a little argument. Ricky runs out of gas by a hotel. They ask the owner, Mr. Willoughby ([[Irving Bacon]]), about a gas station. Mr. Willoughby says that gas will arrive tomorrow. Lucy makes sure they have separate rooms. Ricky tells her about the prank he pulled, but Lucy doesn't believe him. Some more problems arise because Ricky doesn't have his wallet and has no money. Ricky finally proposes. Mrs. Willoughby ([[Elizabeth Patterson (actress)|Elizabeth Patterson]]) makes out the wedding license. Mr. Willoughby is also a justice of the peace and he marries Ricky and Lucy.
+
+'''Song:''' Elizabeth Patterson sings "[[I Love You Truly]]".
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=27
+| EpisodeNumber2=27
+| Title=The Kleptomaniac
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 7, 1952
+| OriginalAirDate={{Start date|1952|4|14}}
+| ShortSummary=Ethel gives Lucy some money that the Club Treasurer gave her for the charity bazaar. She's to use it to rent the hall and buy refreshments. Lucy is the Chairman of the bazaar, but she doesn't want Ricky to know. Lucy's been hiding all the donated items for the bazaar in a locked closet. Ricky finds the $200 and asks Lucy where she got it. Lucy jokes and says she stole it. Later that day, Ricky sees Lucy sneak in several expensive looking items. Ethel agrees to say the money is hers if Lucy finds a way to get rid of Fred's cuckoo clock. Ricky tells Fred that he thinks Lucy is a kleptomaniac. Ricky and Fred see Lucy take the cuckoo clock. Ethel tells Lucy that the men saw her take the clock and Ricky saw her with the other items. They think she's a kleptomaniac. Ethel says Ricky called a psychiatrist and he's bringing him over tonight. Lucy will get back at Ricky by pretending her and Ethel are crooks. Ricky comes home with Dr. Tom Robinson ([[Joseph Kearns]]). They find jewelry and other items laying around. Lucy and Ethel come in dressed as hoodlums and carrying guns. They claim they robbed a gas station. Tom tries to hypnotize Lucy and she plays along. Lucy brings in a baby elephant she claims she stole from a circus.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=28
+| EpisodeNumber2=28
+| Title=Cuban Pals
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 14, 1952
+| OriginalAirDate={{Start date|1952|4|21}}
+| ShortSummary=Lucy tells Ethel that some of Ricky's friends from Cuba are coming for a visit. They're a dance troupe that Ricky booked into the club. Ricky brings home Carlos and Maria. Lucy strikes up a conversation with them and then learns they don't speak English. Ricky tells Lucy that Renita Perez ([[Lita Baron]]) is also coming by. She was a little girl he used to dance with in Havana. Her partner hasn't arrived yet so Carlos asked if Ricky could dance with her at the club. Lucy thinks it's a great idea, until Renita arrives and she a grown up beautiful woman. Later, Fred and Ethel come by to get the rent. Lucy tells them about beautiful Renita. Fred suggests dressing as scrub women and go to the club to spy on Ricky and Renita. Lucy and Ethel are at the club and watch Ricky and Renita do a dance number together. Lucy tells Ethel that she intends to do the dance number with Ricky. She has Fred find a way to keep Renita away from the club. Lucy takes Renita's place at the club, but Ricky switches numbers when Renita's real dance partner Ramon shows up to do a voodoo number.
+
+'''Songs:''' Desi and Lita Baron perform "[[The Lady in Red (Allie Wrubel song)|The Lady in Red]]". Desi sings "[[Similau (See-Me-Lo)|Similau]]".
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=29
+| EpisodeNumber2=29
+| Title=The Freezer
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 21, 1952
+| OriginalAirDate={{Start date|1952|4|28}}
+| ShortSummary=Lucy wants to get a home freezer, but Ricky says he can't afford it. Ethel comes by and mentions she also wanted a freezer. Fred says he's doing work on the furance and there won't be any heat for a while. Ethel says her Uncle Oscar is a butcher and they could get a walk-in meat freezer from him for practically nothing. Not knowing how big they really are, Lucy orders two sides of beef. The meat arrives and there's 700 pounds of it, costing $483. They go to a butcher shop and try to sell some of the meat to the customers. The Butcher ([[Fred Aldrich]]) sees what they're doing and they leave. They put the meat into the freezer in the basement. Fred spoke to Uncle Oscar and learned about the freezer. He and Ricky are actually happy about it and they bought 30 pounds of meat. While Ethel stalls the men, Lucy goes to move the meat from the freezer to the furnace. Lucy gets locked inside the freezer. After Fred uses a crowbar to open the door, Lucy emerges nearly frozen. When Fred turns on the furnace to try and thaw Lucy out, he ends up cooking all the meat. [[Frank Sully]] as Delivery Man. [[Barbara Pepper]] as Woman in Butcher Shop.
+
+'''Songs''' Desi sings "Ay Mama Inés! " and "[[Cielito Lindo]]".
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=30
+| EpisodeNumber2=30
+| Title=[[Lucy Does a TV Commercial]]
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr. 
+| Aux3=March 28, 1952
+| OriginalAirDate={{Start date|1952|5|5}}
+| ShortSummary=Ricky gets a call from Jerry. Lucy learns that Ricky will be doing a television show. Despite being busy with that, Jerry wants Ricky to find a girl to act in a commercial on the show. Lucy immediately volunteers, but Ricky turns her down. Ricky leaves and Fred comes by. Ethel went to see her mother for a couple days. Lucy enlists Fred's help in showing Ricky that she could do the commercial. It doesn't go well and Lucy ruins their TV. Ricky tells Lucy he's already hired another girl. Lucy finds a way to have the girl think Ricky won't be needing her after all. Ross the Director ([[Ross Elliott]]) tells his assistant Joe ([[Jerry Hausner]]) that he's ready to rehearse the commercial. Lucy goes to the set and ends up in the sponsor's "Vitameatavegamin" health tonic commercial. As the tonic is 23% alcohol, Lucy soon ends up completely drunk. Joe takes her to the dressing room to rest before the show. Later, Joe can't find Lucy and the show is about to start. Drunken Lucy winds up disrupting Ricky's performance.
+
+'''Notes:''' ''Vivian Vance does not appear in this episode.''
+
+''In the April 9, 2020 episode of'' [[Will & Grace]], ''Debra Messing as Lucy, Matt Cook as the director and Brian Michael Jones as Joe, re-enacted the commercial scene.''
+
+''In 1997, [[TV Guide]] ranked this episode #2 on its list of the 100 Greatest Episodes.<ref name="autogenerated1997">{{cite journal |year=1997 |title=Special Collector's Issue: 100 Greatest Episodes of All Time |journal=[[TV Guide]] |issue=June 28-July 4 }}</ref> In 2009, it moved to #4.''<ref>{{cite web|url=http://rev-views.blogspot.com/2009/06/tv-guides-top-100-episodes.html|title=TV Guide's Top 100 Episodes|publisher=Rev/Views|access-date=July 4, 2016}}</ref>
+
+''This episode was colorized and aired on CBS on December 23, 2015.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=31
+| EpisodeNumber2=31
+| Title=The Publicity Agent
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 4, 1952
+| OriginalAirDate={{Start date|1952|5|12}}
+| ShortSummary=Ricky is depressed because he thinks he's not getting enough publicity and his career is going nowhere. Lucy wants to help, but Ricky tells her to stay out of it. After seeing something in the paper, Lucy dreams up a stunt which involves her posing as the "Maharincess of Franistan", who wants to see Ricky sing. Lucy manages to get the story in the paper. Ricky sees the article. He tells Fred he thinks his press agent made up the silly story. After speaking to his press agent, Ricky now thinks the story is true. A Reporter ([[Peter Leeds]]) comes to the club. Ricky tells him he's putting on a special show for the Maharincess. Lucy arrives all dressed up and disguised. Ethel is her assistant. The Reporter has a few questions for the Maharincess. Ricky then sings to her and she keeps swooning. Later, Lucy and Ethel are at the hotel. Fred comes by posing as the Chief of Franistan Secret Police. He tells her she is in great danger.  Suddenly two men from her country arrive to threaten her. Ricky shows up pretending to be "The Tiger" and he's there to kill her. Ricky reveals himself. He found out about her posing as the Maharincess and pulled this stunt so she wouldn't do it again. [[Richard Reeves (actor)|Richard Reeves]] as One of the Men.
+
+'''Songs:''' Desi sings "[[Adiós muchachos (song)|Adiós muchachos]]" and "[[Babalú]]".
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=32
+| EpisodeNumber2=32
+| Title=Lucy Gets Ricky on the Radio
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 11, 1952
+| OriginalAirDate={{Start date|1952|5|19}}
+| ShortSummary=Fred and Ethel come by to watch some television. Lucy would rather just talk. No one has anything to say. Lucy turns on the TV. They keep adjusting the picture until they break the TV. Lucy brings out a radio. The others are surprised at Ricky's correct answers to a radio quiz show. Lucy and Ethel go to get some sandwiches. Ricky tells Fred that the show was a delayed broadcast and Ricky was at the radio station when the questions were being asked. The next day, Lucy calls Freddy Fillmore ([[Frank Nelson (actor)|Frank Nelson]]), the host of the show, and gets her and Ricky on as contestants. Ricky comes home and tells Lucy what he told Fred. Ricky then learns they are to be on the show. Meanwhile, Tommy the Office Boy ([[Robert Ellis (actor, born 1933)|Robert Ellis]]) gives Freddy the questions for the next show. Lucy goes to see Freddy and, without Freddy knowing it, she gets the paper with the answers. On the show, Freddy changes the way the questions are picked. Lucy gives the wrong answers to the first two questions. Ricky wants to answer the third question. Lucy tells him what to say and it's wrong. Ricky somehow answers the jackpot question correctly. 
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=33
+| EpisodeNumber2=33
+| Title=Lucy's Schedule
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 18, 1952
+| OriginalAirDate={{Start date|1952|5|26}}
+| ShortSummary=Lucy is taking forever to get ready to go to the movies. Ricky tells Fred that he and Lucy are having dinner tomorrow night with his new boss, Alvin Littlefield ([[Gale Gordon]]). Littlefield bought the night club. The next night, a time saving stunt of Lucy's goes wrong and they are very late getting to the Littlefields. When they finally get there, Alvin says they've already eaten. Alvin mentions that he likes punctuality. Back at home, Ricky is putting Lucy on a rigid time schedule. Days later, Alvin is talking to Ricky about possibly managing the club. Alvin is concerned about Ricky being able to do things on time. Ricky tells Alvin that he laid down the law with Lucy. She is sticking to her schedule. To prove it, Ricky invites Alvin and his wife Phoebe ([[Edith Meiser]]) to dinner that night. Ethel tells Lucy that she's worried that Fred will put her on a schedule. Phoebe stops by and complains to Lucy about wives being on a schedule. Phoebe says that if Alvin likes what he sees at dinner tonight, he'll put her on a schedule. Lucy comes up with a plan and Phoebe and Ethel will help. That night the wives rush dinner so much that the men don't even get to eat anything. Alvin insists that Ricky get rid of Lucy's schedule and he does make Ricky the manager of the club.
+
+'''Note:''' ''Gordon was one of the early choices to play Fred Mertz but was unavailable.  He later starred with Lucille Ball in each of her later series.''
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=34
+| EpisodeNumber2=34
+| Title=Ricky Thinks He's Getting Bald
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 25, 1952
+| OriginalAirDate={{Start date|1952|6|2}}
+| ShortSummary=Lucy is looking in the mirror. She tells Ricky she's getting crows feet. Something Lucy says in passing makes Ricky think his hairline is receding. Then he thinks he's going bald. The next morning Ricky shows up to breakfast wearing a hat. After he leaves, Fred and Ethel show up. Something that Fred says gives Lucy the idea to teach Ricky a lesson by giving him painful scalp treatments. Lucy goes to see Mr. Thurlow ([[Milton Parsons]]) at the Hair Growth store. Lucy comes up with the idea to have a party with bald headed men to show Ricky he's fine. Mr. Thurlow brings the men to Lucy's apartment, but she has to pay them. Ricky calls and says he won't be coming home. The next day, Lucy gives Ricky some painful and messy scalp treatments. Her plan backfires when Ricky wants to do the treatments every night so his hair grows in faster.
+| LineColor=F987C0
+}}
+{{Episode list
+| EpisodeNumber=35
+| EpisodeNumber2=35
+| Title=Ricky Asks for a Raise
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 2, 1952
+| OriginalAirDate={{Start date|1952|6|9}}
+| ShortSummary=At Lucy's insistence, Ricky attempts to pressure his boss Alvin Littlefield into giving him a raise. Alvin refuses and Ricky says he's quitting. Determined to make things right, Lucy, with Ethel's help, decides to book up every table at the Tropicana to make Ricky appear popular. Fred and Ethel then point out that they need to make it clear that it is Ricky the customers want to see. With the help of Fred's old vaudeville friend and his quick-change cabinet, Lucy, Ethel, and Fred don various disguises. They'll pose as clubgoers who become irate and storm out when they hear Ricky has been let go. They successfully convince Mr. Littlefield to hire Ricky back with a raise. But the plan backfires when Ricky thinks he is so popular he does not need to work for Mr. Littlefield anymore. [[Maurice Marsac]] as Maurice, Headwaiter at Tropicana.
+
+'''Note:''' ''This was Gordon's final appearance on the series; he would later appear in one episode of'' The Lucy-Desi Comedy Hour.
+| LineColor=F987C0
+}}
+}}
+
+===Season 2 (1952–53)===
+{{Episode table |background=#E7CC58 |overall=5 |season=2 |title=24 |writer=21 |director=16 |aux3=15 |aux3T=Film date |airdate=15 |episodes={{Episode list
+| EpisodeNumber=36
+| EpisodeNumber2=1
+| Title=Job Switching
+| DirectedBy=[[William Asher]]
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 30, 1952
+| OriginalAirDate={{Start date|1952|9|15}}
+| ShortSummary=Ricky is upset because every month Lucy's checking account is overdrawn. Fred and Ethel come by. Fred complains about how much money Ethel spends. Ricky and Fred think doing housework is much easier than earning money. Lucy and Ethel feel the opposite. So the men will do the housework while the women attempt to earn a living for a week. Lucy is impressed with Ricky's first attempt at breakfast. She then learns that Ricky picked up the breakfast at the drug store. Lucy and Ethel go to see Mr. Snodgrass at the employment agency. They get a job at a candy factory. The Candy Factory Foreman ([[Elvia Allman]]) shows them what they will be doing. While trying to prepare dinner, Ricky and Fred make a huge mess in the Ricardo's kitchen. Lucy and Ethel find themselves fighting against a speedy conveyor belt of chocolates that they have to wrap. The four decide to go back to the way things were.
+
+'''Notes:''' ''In 1996,'' [[TV Guide]] ''included this episode as part of its "100 Most Memorable Moments in TV History", ranking it #2.''<ref>{{cite book|title=''TV Guide'' June 29-July 5, 1996. pg. 66}}</ref><br>
+
+Note: ''The episode [[List_of_Drake_%26_Josh_episodes#Season_4_(2006–07)|"I Love Sushi"]] which aired on November 26, 2006 in the [[Nickelodeon]] TV series [[Drake & Josh]] is an homage to this episode. In addition, the name of the factory in said episode "Ball & Vance Fish Corporation", references to both [[Lucille Ball]] and [[Vivian Vance]], and the episode's end credits being styled in the same manner.''
+
+''In the 2013 [[Paley Center for Media]] television special'' TV's Funniest of the Funniest, ''the candy factory scene was ranked first among the 30 funniest moments in TV history,<ref>{{cite web|url=http://www.huffingtonpost.com/2013/09/02/betty-white-counts-down-tvs-funniest-of-the-funniest-video_n_3854437.html |title=Betty White Counts Down 'TV's Funniest Of The Funniest': Who Came Out On Top?|last=Hughes|first=Jason|work=The Huffington Post|date=2013-09-02}}</ref> with only one moment eligible per TV series.''<br>
+
+''In the [[Will & Grace (season 11)#Reception|April 9, 2020 episode]] of'' [[Will & Grace]], ''[[Sean Hayes]] as Lucy, [[Debra Messing]] as Ethel, and [[Lucie Arnaz]] as their boss re-enact the chocolate factory scene.''<ref name="Rice">{{cite news|url=https://ew.com/tv/2019/11/25/will-and-grace-i-love-lucy-episode/|title=Will & Grace to air a special I Love Lucy-themed episode|last=Rice|first=Lynette|work=[[ew.com]]|date=2019-11-25|access-date=2020-04-15}}</ref><ref>{{cite web|url=https://www.nbc.com/will-and-grace/video/jack-and-grace-reenact-i-love-lucys-chocolate-factory-scene-will-grace/4148947|title=Jack and Grace Reenact I Love Lucy's Chocolate Factory Scene|work=[[NBC]]|access-date=2020-04-15}}</ref>
+
+''This episode was colorized and first aired on CBS on December 7, 2014.''
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=37
+| EpisodeNumber2=2
+| Title=The Saxophone
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=June 6, 1952
+| OriginalAirDate={{Start date|1952|9|22}}
+| ShortSummary=Lucy tells Ethel that Ricky's taking the band on a series of one-night engagements for three weeks. Despite Ricky not asking her, Lucy plans to go with. Lucy finds a saxophone she pretended to play in her high school band. She can only play one song, "[[The Glow-Worm]]". Ricky tells Lucy she can't go with on the tour. Ricky needs a saxophone player and Lucy wants to audition. Lucy gets advice from Fred on how to be a "hep cat" musician. Lucy goes to the audition, but Ricky tells her he wants her to stay home. Lucy wants to make it look as though it isn't safe to leave her alone at home, as there could be other men after her. Thanks to Fred, Ricky sees through Lucy's plan. Ricky calls Jule ([[Herb Vigran]]) at the musicians union. He wants Jule to send over several guys that will pretend to be Lucy's lovers. When Lucy sees the men, she goes running out of the apartment. After finding out who the men really were, Lucy gets Jule to call Ricky and say he couldn't find anyone to send over. [[Marco Rizo]] as Marco.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=38
+| EpisodeNumber2=3
+| Title=The Anniversary Present
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 9, 1952
+| OriginalAirDate={{Start date|1952|9|29}}
+| ShortSummary=Ricky calls neighbor Grace Foster ([[Gloria Blondell]]) and says that his and Lucy's anniversary is coming up. He would like to buy Lucy some real pearls. As Grace works at a jewelry company, he was hoping she could get him a discount. Lucy tells Ethel that she left clues around the house to remind Ricky about their anniversary. Later, Ethel tells Lucy she saw Ricky come out of Grace's apartment. Lucy thinks the worst. Ricky is rehearsing with the band. Jule tells Ricky that Grace called and he should go by her apartment that night. Ricky says it's strictly business. Lucy eavesdrops on Grace's call to Ricky and thinks they are having an affair. Lucy and Ethel try to catch Ricky in the act by posing as painters. They end up getting stuck on the scaffold outside Grace's window. Lucy winds up covered in paint. Ricky and Fred pull the wives off the scaffold. Everything gets straightened out and Lucy is delighted that Ricky remembered their anniversary. [[Barbara Pepper]] as Voice of the Woman in 4B. [[Richard Reeves (actor)|Richard Reeves]] as Voice of Albert, the Man in 4B.
+
+'''Song:''' Desi sings "Down Argentine Way".
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=39
+| EpisodeNumber2=4
+| Title=The Handcuffs
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 16, 1952
+| OriginalAirDate={{Start date|1952|10|6}}
+| ShortSummary=Fred is performing some magic tricks for Lucy, Ethel and Ricky. They are not amused. Lucy ruins a trick of Fred's that involved handcuffs. Ricky tells Lucy that he has a rehearsal for a TV show coming up. Later, Lucy plays a practical joke on Ricky and locks the two of them together with Fred's handcuffs. The handcuffs don't come apart the way they did earlier. Fred and Ethel come by. Turns out the handcuffs that Lucy took were actual [[American Civil War|Civil War]] handcuffs and not the trick ones. Fred doesn't have keys for them. Lucy and Ricky have a hard time trying to get some sleep. The next morning Ethel brings by Mr. Walters ([[Will Wright (actor)|Will Wright]]), a locksmith. Mr. Walters recognizes Ricky and would like his autograph for his wife. The keys he brought with don't work. Ricky has to take Lucy with to the TV appearance. Ricky's agent, Jerry ([[Paul Dubov]]), says he'll have to perform with Lucy. The Emcee ([[Veola Vonn]]) introduces Ricky to the audience and Lucy stays behind a curtain. Mr. Walters shows up with a key that works.
+
+'''Song:''' Desi sings "In Santiago, Chile". 
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=40
+| EpisodeNumber2=5
+| Title=The Operetta
+| DirectedBy=Marc Daniels
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 23, 1952
+| OriginalAirDate={{Start date|1952|10|13}}
+| ShortSummary=Lucy has a Womans Club meeting at her apartment. Lucy tells Ethel that the club decided to put on an operetta and Lucy's in charge. Because of some borrowing Lucy did, there's no money in the club treasury. They can save money if they write the operetta themselves. Lucy writes the [[operetta]] and pays for the costumes and scenery with a post-dated check. The operetta is going well. Because she can't carry a tune, whenever Lucy tries to sing, all the other ladies sing over her. Because the check bounced, the costumes and scenery are repossessed in the middle of the show. [[Betty Jaynes (actress)|Betty Jaynes]] as Singer in Operetta.
+
+'''Songs:''' Betty Jaynes sings "The Pleasant Peasant Girls". William sings "The Good Squire Quinn". Vivian sings "Lily of the Valley". Lucy and Betty sing "Queen of the Gypsies". Desi, Lucy, William, Vivian, Myra Marsh and Betty Jaynes sing "The Troops of the King". Desi sings "The Good Prince Lancelot".
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=41
+| EpisodeNumber2=6
+| Title=Vacation from Marriage
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=August 1, 1952
+| OriginalAirDate={{Start date|1952|10|27}}
+| ShortSummary=Lucy and Ethel agree that their marriages are in a rut. That night the wives tell Ricky and Fred that their lives have become a stale routine. Lucy says she did some research at the library. She found a book that said couples should take some time away from each other. Lucy will move in with Ethel and Fred will move in with Ricky. They won't see each other for a week. After several days, Lucy and Ethel grow tired of living together. They will attempt to make Ricky and Fred jealous by pretending that they have dates. Meanwhile, Ricky and Fred admit to each other that they miss their wives. The wives tell the men they are going out to a club. The men claim they have dates as well. Lucy tells Ethel that she thinks the men made up having dates. Lucy wants to sneak up to her apartment and try to see if the men are there. Ricky suggests to Fred that they sneak down to his apartment to see if the wives are there. The wives at first don't see the men, but then they hear them coming up from downstairs. Thinking the wives are out, the men decide to wait up for them. The wives wind up locked on the cold roof in their night clothes. The men find the wives on the roof and pull a prank on them. They all agree they'd rather be in a rut with each other.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=42
+| EpisodeNumber2=7
+| Title=The Courtroom
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=August 8, 1952
+| OriginalAirDate={{Start date|1952|11|10}}
+| ShortSummary=The Ricardos buy the Mertzes a new television set for their 25th wedding anniversary. Lucy had it delivered to her apartment. Now her and Ricky have to carry it down to the Mertzes place. When Ricky tries hooking it up, the TV explodes. Ricky and Fred get into an argument. In retaliation, Fred runs up to the Ricardo's apartment and kicks in the glass of their TV. Now they claim they will sue each other. The next day, a Process Server ([[Harry Bartell]]) tricks Ricky into signing a summons by pretending he wants Ricky's autograph. Ricky says they don't need a lawyer, he'll handle it. Ricky has Lucy practice her testimony. In court, Lucy repeats her rehearsed testimony and compliments the Judge ([[Moroni Olsen]]). Ethel then testifies with her exaggerated made up story. Because of the discrepancies, the Judge wants them to reenact the scene. The Judge reminds them about the penalty for perjury. Lucy and Ethel start telling the truth and the four get into an argument. The Judge has the Bailiff ([[Robert B. Williams (actor)|Robert B. Williams]]) take them into another room where they are to apologize to each other. They become friends again.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=43
+| EpisodeNumber2=8
+| Title=Redecorating
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=August 15, 1952
+| OriginalAirDate={{Start date|1952|11|24}}
+| ShortSummary=Ricky tells Fred that the wives went to a Home Show. He also mentions that he got four tickets to the opening night of the new [[Rodgers and Hammerstein]] [[Musical theatre|musical]]. The women come home and complain about their old furniture. Lucy says that her and Ethel entered a contest at the Home Show. The winner gets five rooms of new furniture. Lucy is determined to stay by the phone so she does not miss receiving the call that she won. In order to get her out of the house, Ricky decides to fool Lucy into thinking she has won. He asks Fred to call her posing as a representative from the contest. Ricky's plan backfires when Lucy sells all of their old furniture to second-hand man Dan Jenkins ([[Hans Conried]]) for $75. With the money she got for the furniture, Lucy will re-paint and paper the apartment. Lucy and Ethel will do the work, but it doesn't go well. Dan comes by to pick up the furniture, but Lucy says the new stuff hasn't arrived yet. Ricky comes home and sees all the furniture piled in the living room. Lucy tells him she sold the old furniture. Ricky tells her it was Fred that called her. Dan sells them the furniture back for $395. Ricky then sees the horrible wallpaper job. Fred tells Ricky he lost his nerve and didn't make the call to Lucy. Lucy actually won. [[Florence Halop]] as Woman on Phone. [[Margie Liszt]] as Woman on Phone. 
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=44
+| EpisodeNumber2=9
+| Title=Ricky Loses His Voice
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=August 22, 1952
+| OriginalAirDate={{Start date|1952|12|1}}
+| ShortSummary=Ricky is rehearsing with Marco the piano player. Ricky mentions that his throat is a little sore. Meanwhile, Ethel tells Lucy that her new furniture arrived. Ricky comes home and tells Lucy he isn't feeling well. Ricky tells Fred that he has an opening coming up. He wants to impress Mr. Chambers ([[Arthur Q. Bryan]]), the new owner of the Tropicana. Lucy tells Ethel and Fred that the doctor wants Ricky to not talk for a week. Ricky is also to stay in bed. Lucy will go ask Mr. Chambers to stage the show. Mr. Chambers calls and tells Lucy that he'll out of town, but will be back the day before the opening. Lucy decides to stage the show herself and not tell Ricky. Lucy, Ethel and Fred will also be in the show. Fred was able to get some of the chorus girls he used to work with. It's opening night, and because he rested, Ricky is able to sing. Ricky is surprised when he sees the elderly chorus girls. Ricky is even more surprised to see Fred and Ethel performing. Then it's Lucy's turn. The cast and Mr. Chambers dance to "[[Charleston (1923 song)|Charleston]]". [[Barbara Pepper]] as Chorus Girl. [[Gertrude Astor]] as Chorus Girl. [[Tony Terran]] as Trumpeter.
+
+'''Songs:''' Desi performs "[[Sweet and Lovely]]" and "Mexican Giveaway". William and Vivian sing "[[Carolina in the Morning]]". Lucy plays the ukelele and sings "[[Has Anybody Seen My Gal? (song)|Has Anybody Seen My Gal?]]".
+
+'''Note:''' Arthur Q. Bryan was one of the many who were the voice of [[Elmer Fudd]].
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=45
+| EpisodeNumber2=10
+| Title=Lucy Is Enceinte
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 3, 1952
+| OriginalAirDate={{Start date|1952|12|8}}
+| ShortSummary=Lucy tells Ethel that she has been experiencing weight gain and having low energy. Ethel thinks that she is actually pregnant, but Lucy doubts it. A visit to the doctor confirms Lucy will have a baby. Lucy doesn't want Ethel to say anything to Fred because she hasn't told Ricky yet. Lucy wants to find the right moment. Ricky comes home for lunch and says that everything went wrong at the club. Lucy tries to be romantic and tell Ricky the good news, but she keeps getting interrupted. Ricky has to get back to the club. Fred comes by with some baseball mementos if it's a baby boy. Lucy decides to go to the club, but she gets interrupted there as well. That night Ricky is performing for the audience. Lucy anonymously requests that Ricky perform his song "We're Having A Baby". Ricky gets quite a surprise when he finds out who requested the song. [[Bess Flowers]] as Woman at table. [[Richard Reeves (actor)|Richard Reeves]] as Lighting man at club.
+
+'''Songs:''' Desi sings "[[Granada (song)|Granada]]", "[[The Lady in Red (Allie Wrubel song)|The Lady in Red]]", "[[Rock-a-bye Baby]]" and "We're Having a Baby".
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=46
+| EpisodeNumber2=11
+| Title=Pregnant Women Are Unpredictable
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 10, 1952
+| OriginalAirDate={{Start date|1952|12|15}}
+| ShortSummary=Lucy is practicing bathing and diapering a baby using a doll. Ricky and Lucy are having a hard time picking a name for the baby. Ricky decides to make Lucy breakfast in bed. But because he doesn't know what he's doing, Lucy has to keep getting up to help. Fred comes by and tells Ricky that pregnant women are very unpredictable. The breakfast winds up burnt and the kitchen is a complete mess. Ethel offers to help clean up. Lucy then gets depressed thinking that all the special treatment she is getting is only because of the baby. Ricky comes home with a bunch of presents. Ethel is about to tell him what Lucy is thinking, but then Lucy walks in the room. The presents turn out to be things for the baby. Lucy feels even worse now. Ethel talks Ricky into taking Lucy out to dinner. Ricky sends Lucy a corsage and candy. Fred and Ethel join Ricky and Lucy at the club. Everyone is having a very nice time, but then Lucy starts crying. Now Lucy believes that Ricky does not care about the baby anymore.
+
+'''Song:''' Desi sings "[[Cheek to Cheek]]". 
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=47
+| EpisodeNumber2=12
+| Title=Lucy's Show Biz Swan Song
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 17, 1952
+| OriginalAirDate={{Start date|1952|12|22}}
+| ShortSummary=Ricky would like a Barber Shop Quartet for his [[Gay Nineties]] revue. He's a little surprised at what it will cost. Fred and Ethel volunteer to sing and Ricky says they can audition. Lucy wants to be in it as well, but Ricky says no. The next day Lucy tells Ethel she'll audition. Ethel reluctantly agrees to be part of her act. At the club, Pepito the Clown is doing a routine. Jerry ([[Jerry Hausner]]) tells Ricky that there is a couple that want to audition. Lucy is wearing a large hoop dress and Ethel is dressed as a man. They do their song. At home, Lucy tells Ethel that Ricky turned them down because she's expecting a baby. Ethel says that Ricky turned her and Fred down as well. Ricky decides that he, Fred and Ethel will be part of the Barber Shop Quartet. The fourth person will be George Watson. It's the night of the show. Ricky, Fred and Ethel are surprised when Lucy is there instead of George. They do what they can to prevent Lucy from singing.
+
+'''Songs:''' Lucy and Vivian sing "[[By the Light of the Silvery Moon (song)|By the Light of the Silvery Moon]]". Desi, Lucy, William and Vivian sing "[[Sweet Adeline (song)|Sweet Adeline]]". William and Vivian sing "[[Carolina in the Morning]]".
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=48
+| EpisodeNumber2=13
+| Title=Lucy Hires an English Tutor
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 24, 1952
+| OriginalAirDate={{Start date|1952|12|29}}
+| ShortSummary=Lucy is having strange food cravings. Both Ricky and Lucy say they don't care if the baby is a boy or a girl. Lucy finds a box Ricky brought home full of toys for a boy. Ricky then finds Lucy has a box of things for a girl. Lucy starts studying books because she wants to be able to answer any question the baby may ask. Lucy wants her baby to be raised hearing nothing but perfect English [[diction]]. Lucy wants to hire a tutor to teach her, Ricky, and the Mertzes. Percy Livermore ([[Hans Conried]]) is to arrive soon. Fred comes by dressed as a little boy. Just then Percy shows up. Percy realizes he has quite a challenge ahead of him. Percy turns out to be an aspiring entertainer. He tells Ricky that the deal he made with Lucy is that in lieu of pay, he gets a chance to sing in Ricky's nightclub. Ricky has a plan and it involves Percy losing his perfect English and using slang.
+
+'''Songs:''' Desi sings "Havana U. Fight Song". William sings "[[School Days (Will D. Cobb and Gus Edwards song)|School Days]]". Hans Conried sings "Tippy Tippy Toe" and "[[Babalú]]".
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=49
+| EpisodeNumber2=14
+| Title=Ricky Has Labor Pains
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 31, 1952
+| OriginalAirDate={{Start date|1953|1|5}}
+| ShortSummary=Ricky is expecting Fred and a couple of the guys over to watch the ball game. Lucy says they can't come over as some of her friends are giving her a baby shower there. After the baby shower, Lucy and Ethel are going through the gifts. Ricky comes by and asks about dinner, which Lucy hasn't started yet. Fred says there's an article about Ricky in the paper, but it's mostly about Lucy. Lucy isn't able to make dinner and she also didn't pick up Ricky's clothes from the laundry. The next day, Ricky, frustrated and overwhelmed, begins to develop psychosomatic pregnancy symptoms of his own. Dr. Rabwin ([[Lou Merrill]]) advises Lucy and Ethel to give Ricky some special attention as a cure. After something that Ethel says, her and Lucy ask Fred to give a men-only "daddy shower" for Ricky. Lucy becomes concerned when Fred calls it a "[[Bachelor party|stag party]]". Curiosity gets the best of her and she must find a way for her and Ethel to sneak into the event. The daddy shower starts and the men put the presents on a table. The presents are all bottles of beer. Lucy and Ethel arrive dressed as a reporter and photographer. Ricky isn't fooled, but he, Fred and Jerry play along. Ricky finally lets the ladies know he's on to them. Later after Ricky learns that the doctor told the ladies to make him feel better, Ricky starts to get the symptoms again.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=50
+| EpisodeNumber2=15
+| Title=Lucy Becomes a Sculptress
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 7, 1952
+| OriginalAirDate={{Start date|1953|1|12}}
+| ShortSummary=Lucy figures that if the baby wants to be a musician, Ricky can teach him. If the baby wants to be an artist, Lucy will have to learn art. Lucy goes to an art store. The Clerk ([[Leon Belasco]]) believes Lucy has the hands of a sculptor. He gives her some clay to work with. The Clerk then has William Abbott ([[Shepard Menken]]), the owner, look at her work. Abbott claims Lucy has a great talent and he sells her what she'll need. After she leaves, it's clear that they said all those things just to make a sale. At home, neither Ricky nor Ethel can guess what Lucy sculpted. Lucy somehow gets Ethel to model for her. She then gets Fred to pose for her and he gets stuck in his bent over position. Ricky will get an art critic from one of the papers to look at Lucy's work. If he says she has talent, Ricky will get her anything she needs. Lucy wants to make a bust of her head, but things go wrong. She ends up disguising herself as the bust in an attempt to fool the critic. Ricky brings Mr. Harvey ([[Paul Harvey (actor)|Paul Harvey]]) by. Mr. Harvey is very impressed and wants to buy the bust. Ethel tries to talk him out of it, but Mr. Harvey offers Ricky $500. Lucy reveals herself.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=51
+| EpisodeNumber2=16
+| Title=[[Lucy Goes to the Hospital]]
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 14, 1952
+| OriginalAirDate={{Start date|1953|1|19}}
+| ShortSummary=With the baby due at any moment, Ricky is completely on edge. Ricky forgets that he's opening a new show that night. Lucy insists he go to the club. Lucy calls Ethel and asks her and Fred to come over and calm Ricky down. But Ethel and Fred are just as anxious. Ricky and the Mertzes carefully rehearse the trip to the hospital. But when the big moment actually comes, things do not go quite so smoothly. They eventually get there and it's Ricky they bring in on a wheelchair. Ricky is in the waiting room with a Mr. Stanley ([[Charles Lane (actor, born 1905)|Charles Lane]]). Mr. Stanley isn't excited as he's had six girls before. He hopes this baby will be his last. Mr. Stanley learns his wife had triplets and they're all girls. Ricky calls Fred and asks him to bring his makeup for the voodoo number. Fred and a Nurse ([[Barbara Pepper]]) are startled when they see Ricky in full tribal face makeup. Ricky is performing at the club when he gets the call and he rushes to the hospital. Ricky has to explain to a policeman and some of the staff why he's dressed the way he is. Ricky learns Lucy had a boy. [[Adele Longmire]] as Nurse. [[Peggy Rea]] as Nurse.
+
+'''Note:''' ''This episode aired the same day Lucille Ball's son [[Desi Arnaz Jr.]] was born. For the five episodes following this one, any scene featuring Lucy was filmed in advance to accommodate Ball's leave, with "flashback" opening scenes featuring only the other cast members filmed closer to the actual airdate.''
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=52
+| EpisodeNumber2=17
+| Title=Sales Resistance
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=August 29, 1952
+| OriginalAirDate={{Start date|1953|1|26}}
+| ShortSummary=Lucy is still in the hospital. Ricky tells Fred and Ethel that Lucy bought a tape recorder from a woman in the hospital. She wants to record the baby's first words. The three reminisce about when Lucy bought a new kitchen gadget called the Handy Dandy Kitchen Helper. Flashback to when Lucy tries to demonstrate the device to Ricky and it doesn't go well. Ricky tells Fred that women have no sales resistance. Ricky makes Lucy call the salesman to take it back. Harry Martin ([[Sheldon Leonard]]), from the Handy Dandy Company, arrives. Harry flatters Lucy and then tricks her into buying a vacuum cleaner for $102. Later, Ethel comes by and is surprised at what Lucy did. They hear Ricky coming and hide the vacuum. Ricky finds the vacuum and tells Lucy to have the man take it back. Lucy tells Ethel that if she calls Mr. Martin, she'll just wind up buying something else. Lucy decides to try and sell the vacuum. Lucy goes to the home of a Mrs. Simpsons ([[Verna Felton]]) and gives her the same sales pitch that Harry used. Things do not go well there. Lucy finally comes home with the vacuum and Ricky calls Harry. Ricky winds up buying a refrigerator and Fred buys a washing machine from Harry.
+
+'''Song:''' "There's a Brand New Baby in Our House" Written and Performed by Desi Arnaz.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=53
+| EpisodeNumber2=18
+| Title=The Inferiority Complex
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 6, 1952
+| OriginalAirDate={{Start date|1953|2|2}}
+| ShortSummary=Ricky shows Fred and Ethel the presents he's going to bring Lucy at the hospital because she's been a little depressed. Ricky reminisces about the time Lucy had an inferiority complex. Flashback to that time. Lucy is trying to tell a funny story to Ricky, Fred and Ethel, but she keeps forgetting parts of it. Ricky teases Lucy a little and Lucy starts to cry. They decide to play bridge, but then Lucy feels no one wants to be her partner. The next morning, Lucy messes up breakfast. She feels she can't do anything right. Ricky goes to see Dr. Henry Molin ([[Gerald Mohr]]), a psychologist. Ricky says that Lucy believes that he's in love with someone else. Henry says he'll find someone to come over and make Lucy feel attractive and better about herself. Henry tells Ricky to introduce the man as an old friend, Chuck Stewart. That night, Ricky is surprised that the man turns out to be Henry. "Chuck" pays Lucy a lot of compliments and then dances with her. Ricky is getting a little jealous and reveals that Chuck is really Dr. Henry Molin. The next day, Ricky tells Fred and Ethel that Lucy feels even worse. They find a way to really cheer up Lucy.
+
+'''Song:''' Lucy sings "[[Who? (song)|Who]]".
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=54
+| EpisodeNumber2=19
+| Title=The Club Election
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 12, 1952
+| OriginalAirDate={{Start date|1953|2|16}}
+| ShortSummary=Ricky is feeding little Ricky when Ethel comes by. Ethel mentions that the Wednesday Afternoon Fine Arts League will be meeting on Friday to nominate officers. Ricky asks her if she remembers what happened the last time they nominated officers. Flashback to then. Lucy tells Ricky that her club is meeting here. Lucy is sure she'll be nominated for some office. Lucy hopes that Ruth Knickerbocker gets admitted to the club. Lillian Appleby ([[Doris Singleton]]) comes by. Lillian is about to gossip about Marion Strong ([[Margie Liszt]]) when Marion arrives. The other ladies then show up. They vote to admit Ruth. Ethel is nominated to be the next president. Lucy bribes Lillian into nominating her as well. Lucy and Ethel's campaigns end up taking a nasty turn. They soon discover that the deciding vote will be from the club's newest member, Ruth. Ricky and Fred each campaign separately for the other woman to win. At the club, Ricky sings to and dances with a woman he thinks is Ruth. Lucy and Ethel come by and say that Ruth didn't vote so they are co-presidents. Ricky learns he was wooing Ruth's Mother-In-Law ([[Ida Moore]]). [[Lurene Tuttle]] as Club President. [[Peggy Rea]] as Club member. [[Jerry Hausner]] as Baby Ricky (voice).
+
+'''Songs:''' Desi sings "Cuban Cabby" and "[[Cielito Lindo]]".
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=55
+| EpisodeNumber2=20
+| Title=The Black Eye
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 19, 1952
+| OriginalAirDate={{Start date|1953|3|9}}
+| ShortSummary=Ethel accidentally slams the door against Fred's nose. Fred is worried that he may get a black eye. Ricky reminds Ethel about the time Lucy had a black eye and Ethel didn't believe how it happened. Flashback to that time. Lucy and Ricky are both reading the same thrilling novel. They decide to read it aloud to enjoy it at the same time. Fred and Ethel are outside the door and hear the dramatic dialogue. They think Lucy and Ricky are fighting. Ricky tosses the book to Lucy for her to put it away. It accidentally hits her in the face, giving her a black eye. When Fred and Ethel see the black eye, both Lucy and Ricky joke that he hit her. They tell them what really happened, but Fred and Ethel don't believe them. The next day Ethel will still not accept the truth. Lucy decides to concoct a "juicy story" about her falling in love with another man and Ricky got violent. When Ricky doesn't have time to send Lucy flowers, Fred decides to send them. With the flowers, Fred sends a romantic note. He later realizes he signed his name and not Ricky's. Ethel is there when Lucy opens the box of flowers and sees Fred's note. The misunderstanding escalates to where Ethel gives Fred a black eye and Fred gives Ricky a black eye. Fred and Ethel finally believe Lucy's story when Fred tosses a book to Ethel and gives her a black eye.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=56
+| EpisodeNumber2=21
+| Title=Lucy Changes Her Mind
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 26, 1952
+| OriginalAirDate={{Start date|1953|3|30}}
+| ShortSummary=Ethel comes by and Ricky tells her that Lucy rearranged the furniture again. Ricky says Lucy always changes her mind. He asks Ethel if she remembers the time they went to the Roof Garden for dinner. Flashback to that time. Lucy took all day to get ready. It takes a while to decide where to go. Once at the restaurant, Lucy wants to switch tables. Henry the Waiter ([[Frank Nelson (actor)|Frank Nelson]]) gets confused. Lucy changes her order several times. Lucy wants to switch tables again. The next day, Lucy tells Ethel that from now on she is going to finish things she started. Ethel says she heard Ricky yelling at her. Lucy shows Ethel a love letter she wrote to Tom Henderson ([[John Hart (actor)|John Hart]]) years ago, but never finished. Tom owns a fur salon now. Lucy wants to play a trick on Ricky with the letter. However, Fred finds out from Ethel and warns Ricky of Lucy's plot. Ricky plays along and tells Lucy he'll mail the letter to Tom, but he really won't. Lucy and Ethel go to the Fur Salon to explain things to Tom. Lucy sees short and bald Harry Henderson ([[Phil Arnold]]) and thinks it's Tom. Ricky and Fred come by. Lucy confesses about the trick with the letter. Handsome Tom comes out from the back.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=57
+| EpisodeNumber2=22
+| Title=No Children Allowed
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 20, 1953
+| OriginalAirDate={{Start date|1953|4|20}}
+| ShortSummary=Lucy is having a hard time getting Little Ricky to stop crying. Ethel comes by and they hear Mrs. Trumbull ([[Elizabeth Patterson (actress)|Elizabeth Patterson]]), from upstairs, pounding on the floor. Fred gets Little Ricky to stop crying and go to sleep. It's late and Ricky comes home. The baby starts crying again. The next morning, Lucy and Ethel plan a Bridge party. Mrs. Trumbull comes by and mentions the lease does not allow children in the building. Despite Mrs. Trumbull threatening to move out, Ethel stands up for Lucy. Ethel starts bragging to everyone about how she stood up for Lucy. The Women's Club members come by for the bridge game. Ethel brags to them about telling off Mrs. Trumbull. Lucy has finally had enough and her and Ethel get into an argument. Mrs. Trumbull threatens to call the police because of the baby. The husbands get Lucy and Ethel to apologize to each other. Fred and Ricky then get into an argument. The wives get them to apologize. While this is going on, Mrs. Trumbull has a change of heart and actually begins to like Little Ricky. [[Vivi Janiss]] as Clubwoman. [[Charlotte Lawrence (actress)|Charlotte Lawrence]] as Clubwoman. [[Margie Liszt]] as Clubwoman. [[Peggy Rea]] as Clubwoman.
+
+'''Note:''' This episode marked the beginning of recurring character Mrs. Trumbull.   
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=58
+| EpisodeNumber2=23
+| Title=Lucy Hires a Maid
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 27, 1953
+| OriginalAirDate={{Start date|1953|4|27}}
+| ShortSummary=Lucy is exhausted from staying up nights with Little Ricky. Fred and Ethel come over to play Bridge, but Lucy is sleeping. Ricky decides to get Lucy a maid. The next morning Ricky tells Lucy the type of questions she needs to ask the potential maid. Lucy needs to be firm with the woman. Lucy practices on Ethel. Mrs. Porter ([[Verna Felton]]) comes by and she's the one that's firm with Lucy. She won't take care of the baby. Lucy tells Ethel that Mrs. Porter walks all over her, she gets most of the time off and eats most of the food. Ethel says she should fire Mrs. Porter, but Lucy is afraid. Lucy goes to fire Mrs. Porter, but gets cold feet. Ricky can't get up the nerve to fire her either. Lucy and Ethel wind up trashing the apartment to make Mrs. Porter want to leave. Fred even helps mess the place up. Ricky comes home and says he fired Mrs. Porter an hour ago.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=59
+| EpisodeNumber2=24
+| Title=The Indian Show
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 3, 1953
+| OriginalAirDate={{Start date|1953|5|4}}
+| ShortSummary=Lucy suggested that Ricky study up on American history so one day he can tell it to Little Ricky. Fred sees Ricky reading a book about Native Americans. Ricky wants to do a Native American show at the club. Fred asks if he can be in it, but Ricky doesn't think it would work. Ricky figures that motherhood has ended Lucy's show business ambitions, but he is wrong. Ricky tells her she can't be in the show. Lucy and Ethel are frightened when a Tall Native American ([[Richard Reeves (actor)|Richard Reeves]]) and a Short Native American ([[Frank Gerstle]]) arrive at the door. They knock the men out by hitting them on the head with vases. Fred comes by and says they are actors who came to audition for Ricky. The men wind up being OK and go to the club. Fred tells Ethel that Ricky has a spot for them in the show. Lucy brings Little Ricky to the club where the rehearsal is going on. Lucy persuades Juanita ([[Carol Richards]]), the female vocalist, to switch places with her because Juanita wants to spend time with her baby. Ricky is surprised when Lucy appears instead of Juanita. Little Ricky ends up in the show too.
+
+'''Songs:''' Desi, William and Vivian sing "Pass That Peace Pipe". Desi, Carol Richards and Lucy sing "[[By the Waters of the Minnetonka]]".
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=60
+| EpisodeNumber2=25
+| Title=Lucy's Last Birthday
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 10, 1953
+| OriginalAirDate={{Start date|1953|5|11}}
+| ShortSummary=Mrs. Trumbull comes by to wish Lucy a happy birthday. Lucy says she stopped having birthdays. Lucy does say that Ricky never forgets her birthday. Ricky leaves for the club and doesn't mention Lucy's birthday. Ricky checks with Fred to make sure he ordered the cake for Lucy's surprise party at the club. Lucy becomes very depressed when Ethel doesn't remember her birthday. Lucy decides to throw her own birthday party, but none of her friends can make it. Mrs. Trumbull wants to celebrate with Lucy, but Lucy wants to take a walk. Mrs. Trumbull calls Ricky and learns about the party. Lucy is in the park. She meets the "Friends of the Friendless". They all march to Ricky's club to protest. Lucy is surprised and thrilled when she sees all the people there for her birthday. [[Ransom Sherman]] as Man in the Park. [[Byron Foulger]] as Leader of the Band. [[Barbara Pepper]] as Friends of the Friendless Member.
+
+'''Songs:''' Elizabeth Patterson, Lucy and Byron Foulger sing "[[Happy Birthday to You]]". Lucy and Byron Foulger sing "Friends of the Friendless".
+
+'''Note:''' ''This episode features Ricky singing "I Love Lucy," a version of the show's theme song with lyrics.''
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=61
+| EpisodeNumber2=26
+| Title=The Ricardos Change Apartments
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 16, 1953
+| OriginalAirDate={{Start date|1953|5|18}}
+| ShortSummary=Lucy tells Ethel that she's been trying to talk Ricky into moving to a bigger apartment now that they have the baby. Ethel says they don't have a larger apartment vacant. Lucy says that it doesn't matter as Ricky says they can't afford it. Ricky is finding things in places they shouldn't be. Lucy says there just isn't any room in this apartment. Lucy learns from Ethel that neighbor Mrs. Benson ([[Norma Varden]]) has an extra room now that her daughter has married. Lucy comes up with the idea to swap apartments with Mr. and Mrs. Benson. Ricky says he won't do it as the Benson apartment costs more. The next day, Lucy hints to Fred and Ethel that she could move to the Benson apartment if the rent were the same as what they're paying now. Fred and Ethel say they can't do it. To get Ricky on board, Lucy fills up their apartment with junk to show him how small it is. That plan doesn't work. Lucy and Ethel go to see Mrs. Benson and Lucy talks her into trading apartments. Lucy tells Mrs. Benson she'll arrange to have the furniture moved. Lucy gets Fred and Ethel to help. They finally get everything moved and go get something to eat. When they get back the furniture is back in the original place. Turns out Ricky wanted to surprise Lucy and had movers switch the furniture. They didn't know it had already been switched.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=62
+| EpisodeNumber2=27
+| Title=Lucy Is Matchmaker
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 25, 1953
+| OriginalAirDate={{Start date|1953|5|25}}
+| ShortSummary=Lucy and some girlfriends are playing Bridge and gossiping about Sylvia Collins. All the men are always fawning over her. Lucy thinks they need to find Sylvia a husband. Later, Ricky tells Lucy that they have to entertain a bachelor friend of Fred's. Ricky says he's some kind of traveling salesman. Ricky wants no matchmaking. Eddie Grant ([[Hal March]]) arrives and tells Ricky he sells [[lingerie]]. Lucy starts in right away about Eddie meeting a beautiful woman. Fred comes by and Eddie leaves with him. Later, Lucy calls Sylvia, who agrees to meet Eddie. Lucy calls Eddie and he thinks Lucy wants a date with him. Eddie calls Fred and says he can't have lunch as he has a date. Fred calls Ricky and says they should go see what the woman Eddie has a date with looks like. Meanwhile, Ethel tells Lucy that Sylvia can't make the date. Lucy will go and tell Eddie. Fred is in the hotel lobby when Lucy comes by and tells Eddie that Sylvia can't make it. Ricky arrives and Eddie leaves. Lucy does get Eddie and Sylvia together. There's another misunderstanding, but Ricky and Fred teach the wives a lesson. [[Phil Arnold]] as Man in Hotel. [[Peggy Rea]] as Card player. [[Doris Singleton]] as Caroline Appleby.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=63
+| EpisodeNumber2=28
+| Title=Lucy Wants New Furniture
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 1, 1953
+| OriginalAirDate={{Start date|1953|6|1}}
+| ShortSummary=When Lucy buys a new sofa and coffee table without Ricky's permission, he says she will have to pay for it out of her allowance. To save money, Lucy attempts to make her own dress and gives herself a home perm, which soon makes Ricky regret his words. 
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=64
+| EpisodeNumber2=29
+| Title=The Camping Trip
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 8, 1953
+| OriginalAirDate={{Start date|1953|6|8}}
+| ShortSummary=Determined to prove to friends from her [[Contract bridge|bridge]] club that she and Ricky have not grown apart, Lucy starts spending all of her time with Ricky. When she wants to join him and Fred on a summer camping trip, Ricky takes Lucy into the wilderness for a practice trip to make her hate camping, but Lucy and Ethel team up to thwart his plan.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=65
+| EpisodeNumber2=30
+| Title=Ricky and Fred Are TV Fans
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 22, 1953
+| OriginalAirDate={{Start date|1953|6|22}}
+| ShortSummary=Ricky and Fred are excited about watching a lengthy boxing match on TV. While Ricky and Fred stay glued to the set, Lucy and Ethel are mistaken for thieves and taken to the police station, while their husbands do not realize they are gone. [[Frank Nelson (actor)|Frank Nelson]] and [[Allen Jenkins]] guest-star.
+| LineColor=E7CC58
+}}
+{{Episode list
+| EpisodeNumber=66
+| EpisodeNumber2=31
+| Title=Never Do Business With Friends
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 29, 1953
+| OriginalAirDate={{Start date|1953|6|29}}
+| ShortSummary=The Ricardos sell their old washing machine to the Mertzes, where it breaks down in their possession.  They demand that the Ricardos take it back, but then change their minds when they find out how much a repairman is willing to pay for it. [[Herb Vigran]] guest-stars.
+| LineColor=E7CC58
+}}
+}}
+
+===Season 3 (1953–54)===
+{{Episode table
+|background=#8AC1FF
+|overall=5
+|season=2
+|title=24
+|writer=21
+|director=16
+|aux3=15
+|aux3T=Film date
+|airdate=15
+|episodes=
+
+{{Episode list
+| EpisodeNumber=67
+| EpisodeNumber2=1
+| Title=Ricky's 'Life' Story
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=May 15, 1953
+| OriginalAirDate={{Start date|1953|10|5}}
+| ShortSummary=[[Life (magazine)|''Life'']] magazine does a picture story on Ricky, but Lucy is not in it, leaving her feeling resentful of Ricky for not letting her have a career in show business. To teach Lucy a lesson that show business is not all just glamour and stardom, Ricky tells Lucy that she will be the star in his new show at the club, and works her very hard during rehearsals, with no intention of actually using her in the show. When Fred inadvertently tells Lucy about Ricky's scheme, Lucy decides to upstage Ricky during his "Lady in Spain" number. 
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=68
+| EpisodeNumber2=2
+| Title=The Girls Go Into Business
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 11, 1953
+| OriginalAirDate={{Start date|1953|10|12}}
+| ShortSummary=Lucy and Ethel purchase a dress shop behind their husbands' backs, but soon find that they are not making the profits that they anticipated. They ultimately sell the shop, but in their haste to do so, they miss out on a much more profitable offer. 
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=69
+| EpisodeNumber2=3
+| Title=Lucy and Ethel Buy the Same Dress
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 17, 1953
+| OriginalAirDate={{Start date|1953|10|19}}
+| ShortSummary=Lucy and Ethel are going to appear on TV with their women's club, and choose to sing [[Cole Porter]]'s "Friendship" together. In addition, Lucy manages to use reverse psychology to get Ricky to host the event. All is well until the two women buy the same dress for the occasion, sparking a rivalry between them.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=70
+| EpisodeNumber2=4
+| Title=Equal Rights
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 24, 1953
+| OriginalAirDate={{Start date|1953|10|26}}
+| ShortSummary=Tired of Ricky and Fred's attitude towards them, the girls demand equal rights. Ricky and Fred turn the tables on them when, out to dinner, they call for separate checks. Since Ethel and Lucy have no money, they must wash dishes to pay for their meals. To get even, they call their husbands from the restaurant and fake a robbery to scare them, but Ricky and Fred soon see through the scheme and get back at them by impersonating the fake robbers, only to get mistaken for real ones by the police. Lucy and Ethel get one last jab in by playing along with Ricky's ruse before everyone makes amends.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=71
+| EpisodeNumber2=5
+| Title=Baby Pictures
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 1, 1953
+| OriginalAirDate={{Start date|1953|11|2}}
+| ShortSummary=The Ricardos have decided they are not going to brag about their baby Little Ricky. That changes when Carolyn and Charlie Appleby start to brag about their own baby, Stevie. A television appearance Charlie offers to Ricky is jeopardized when Lucy and Carolyn end up in a hostile feud over the children.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=72
+| EpisodeNumber2=6
+| Title=Lucy Tells the Truth
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 8, 1953
+| OriginalAirDate={{Start date|1953|11|9}}
+| ShortSummary=Ricky and the Mertzes bet Lucy that she cannot go twenty-four hours without telling a fib, thinking that it will be an easy win. They begin to regret their bet when Lucy starts being brutally frank with everyone.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=73
+| EpisodeNumber2=7
+| Title=The French Revue
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 15, 1953
+| OriginalAirDate={{Start date|1953|11|16}}
+| ShortSummary=After Lucy gets French lessons from a struggling entertainer (Alberto Morin), Ricky is inspired to stage a French [[Revue]] at his club and Lucy bets him fifty dollars that she can sneak into the act when he refuses to let her attend.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=74
+| EpisodeNumber2=8
+| Title=Redecorating the Mertzes' Apartment
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 22, 1953
+| OriginalAirDate={{Start date|1953|11|23}}
+| ShortSummary=Because Ethel is ashamed to host a women's club meeting in her drab apartment and Ricky refuses to let Lucy host it in theirs, the Ricardos offer to help the Mertzes redecorate their apartment, including painting the walls and reupholstering the furniture (with disastrous results). Ricky ends up having to go back on his promise to buy Lucy a mink stole in order to replace their furniture, which they gave to the Mertzes to replace what was ruined.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=75
+| EpisodeNumber2=9
+| Title=Too Many Crooks
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 29, 1953
+| OriginalAirDate={{Start date|1953|11|30}}
+| ShortSummary=The police are looking for "Madame X," the mysterious burglar. Due to misunderstandings, Ethel suspects that Lucy is Madame X, while Lucy suspects that Ethel is the burglar. When the real Madame X breaks into the Ricardos' apartment, Lucy believes her to be Ethel and bravely tussles with her. But then Ethel enters the apartment and things become chaotic. 
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=76
+| EpisodeNumber2=10
+| Title=Changing the Boys' Wardrobe
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 5, 1953
+| OriginalAirDate={{Start date|1953|12|7}}
+| ShortSummary=Ricky and Fred anger Lucy and Ethel by wearing their old clothes in public. The wives secretly sell their husbands' clothes to a second-hand clothes dealer but the men find their clothes there and buy them all back.  In the meantime, Ricky receives an honor as one of the best-dressed men in the country and wants to surprise Lucy with the news in public. Summoned to the club without knowing the reason, Lucy and Ethel try to teach their husbands a lesson by showing up in ragged clothes, only to find Ricky and Fred dressed to the nines and a photographer there to take pictures.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=77
+| EpisodeNumber2=11
+| Title=Lucy Has Her Eyes Examined
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 12, 1953
+| OriginalAirDate={{Start date|1953|12|14}}
+| ShortSummary= After a visit to the eye doctor leaves Lucy's vision hopelessly blurred for the rest of the day, she decides to go through a jitterbug number at an audition at Ricky's club.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=78
+| EpisodeNumber2=12
+| Title=Ricky's Old Girlfriend
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 19, 1953
+| OriginalAirDate={{Start date|1953|12|21}}
+| ShortSummary=While taking a couples' quiz from a magazine, Lucy wants to know about Ricky's old girlfriends, so he invents one from Cuba named Carlota Romero. The next day, a singer from Cuba with that same name shows up in town. Lucy has a nightmare in which Carlota steals Ricky away from her. However, the photo of Carlota is an old one, and when she comes to the apartment, her looks have clearly faded, putting Lucy's mind at ease. [[Jerry Mathers]] appears in a non-speaking role as a slightly older Little Ricky in Lucy's dream sequence. 
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=79
+| EpisodeNumber2=13
+| Title=The Million Dollar Idea
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 26, 1953
+| OriginalAirDate={{Start date|1954|1|11}}
+| ShortSummary=Lucy has a salad dressing recipe that was given to her by her aunt Martha, and Fred tells her she should sell it. Thinking that they will become millionaires, they market the product as "Aunt Martha's Old Fashioned Salad Dressing," but have priced the product so cheaply that it will cost them rather than make them money. They then try to make the salad dressing look awful so no one will buy it, but that just encourages more people to buy it. Lucy and Ethel end up having to relabel store-bought salad dressing to fill all their orders.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=80
+| EpisodeNumber2=14
+| Title=Ricky Minds the Baby
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 3, 1953
+| OriginalAirDate={{Start date|1954|1|18}}
+| ShortSummary=Ricky has a week off from the club, so he decides to take care of Little Ricky, who wanders into the Mertzes' apartment while Ricky is distracted. Finding Little Ricky, Lucy decides to teach Ricky a lesson that he will never forget by calling to ask about the baby and watching Ricky panic when he cannot find him. However, Fred finds Little Ricky in his own apartment and brings him back to the Ricardos' without anyone else knowing. Lucy, Ricky and Ethel are confused when they find Little Ricky back in his crib.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=81
+| EpisodeNumber2=15
+| Title=The Charm School
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 10, 1953
+| OriginalAirDate={{Start date|1954|1|25}}
+| ShortSummary=After seeing Ricky and Fred give pretty girl Eve Whitney the eye during a party, Lucy and Ethel decide to go to charm school. But Ricky and Fred are more shocked than charmed by their wives' transformations. [[Natalie Schafer]] appears as the charm school instructor.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=82
+| EpisodeNumber2=16
+| Title=Sentimental Anniversary
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr. 
+| Aux3=December 17, 1953
+| OriginalAirDate={{Start date|1954|2|1}}
+| ShortSummary=It is the Ricardos' wedding anniversary, and they plan to spend it home alone. The Mertzes however, have planned a surprise anniversary party for them.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=83
+| EpisodeNumber2=17
+| Title=Fan Magazine Interview
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 7, 1954
+| OriginalAirDate={{Start date|1954|2|8}}
+| ShortSummary=While being interviewed and photographed throughout the day by a reporter from a magazine, Lucy and Ricky put on their best manners and clothes. However, complications arise when Lucy finds a letter in Ricky's coat pocket, and thinks that Ricky is seeing another woman. In actuality, the letter is just part of a publicity stunt concocted by Ricky's agent Jerry. Lucy ultimately realizes the truth when she discovers the "other woman" is elderly. 
+
+'''Note:''' ''This was [[Jerry Hausner]]'s last appearance on the series.''
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=84
+| EpisodeNumber2=18
+| Title=Oil Wells
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 14, 1954
+| OriginalAirDate={{Start date|1954|2|15}}
+| ShortSummary=The Ricardos and Mertzes learn that their new neighbor owns stock in a Texas oil well. They decide to invest, until Lucy suspects he is a swindler. She gets all the money back, only to discover it was not a scam and they have now missed out on a fortune.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=85
+| EpisodeNumber2=19
+| Title=Ricky Loses His Temper
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 21, 1954
+| OriginalAirDate={{Start date|1954|2|22}}
+| ShortSummary=Ricky bets Lucy that he can control his temper longer than she can keep from buying a new hat. However, while at the hat store, Lucy cannot help herself and orders a new hat. She then attempts to get Ricky to lose his temper before the new hat is delivered. Ricky manages to keep his temper in check despite Lucy's best efforts. However, when trying to hire a new performer at his club, Ricky ends up saving a large amount of money by keeping his cool, and tells Lucy he will buy her a new hat himself as a thank you. However, the hat she ordered arrives at that very moment and Ricky realizes what was going on.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=86
+| EpisodeNumber2=20
+| Title=Home Movies
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=January 28, 1954
+| OriginalAirDate={{Start date|1954|3|1}}
+| ShortSummary=Ricky's TV pilot film that he plans to show for a television producer inspires Lucy and the Mertzes to make their own.  When Ricky refuses to let them show their film, Lucy splices their footage into Ricky's film. Although the final result is a mess, the producer loves it anyway.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=87
+| EpisodeNumber2=21
+| Title=Bonus Bucks
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 4, 1954
+| OriginalAirDate={{Start date|1954|3|8}}
+| ShortSummary=After seeing Lucy and Ethel search their dollar bills for a newspaper's "Bonus Bucks" contest, Ricky finds out that one of his dollars is the winning bill, and decides to plant it in Lucy's purse to let her find it herself. After it inadvertently gets sent to the laundry, the Ricardos and Mertzes have to get it back before the contest is over. They succeed, but not before Lucy falls in the starch vat and causes damage that requires nearly all the prize money to pay for.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=88
+| EpisodeNumber2=22
+| Title=Ricky's Hawaiian Vacation
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 11, 1954
+| OriginalAirDate={{Start date|1954|3|22}}
+| ShortSummary=Ricky and his band get an offer to play in [[Honolulu]]. Lucy disguises herself an elderly mother and goes on a TV game show to try to win a trip to Honolulu for her and the Mertzes, but Ricky thwarts her fraudulent plan.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=89
+| EpisodeNumber2=23
+| Title=Lucy Is Envious
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 16, 1954
+| OriginalAirDate={{Start date|1954|3|29}}
+| ShortSummary=After Lucy and Ethel each accidentally pledge a five-hundred dollar donation to a charity run by Lucy's rich high-school friend, they must now earn the money to pay their donation. They end up earning the money by pretending to be aliens for a publicity stunt, but when Ricky and Fred learn of this, they impersonate aliens themselves and take the money from the girls. [[Herb Vigran]] and [[Mary Jane Croft]] guest-star.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=90
+| EpisodeNumber2=24
+| Title=Lucy Writes a Novel
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 4, 1954
+| OriginalAirDate={{Start date|1954|4|5}}
+| ShortSummary=Lucy reads about a housewife who makes a fortune writing a novel, so she takes a crack at it by writing her first novel, "Real Gone with the Wind." However, Ricky, Ethel, and Fred do not like the way Lucy has portrayed them and try to stop the book from being published.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=91
+| EpisodeNumber2=25
+| Title=Lucy's Club Dance
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 11, 1954
+| OriginalAirDate={{Start date|1954|4|12}}
+| ShortSummary=Lucy, Ethel, and their friends from the Wednesday Afternoon Fine Arts League decide to raise money for their club by sponsoring a dance. They decide to form their own all-girl orchestra for the occasion, but they sound so terrible that Lucy convinces Ricky to give them some pointers, leading to unwanted publicity for Ricky.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=92
+| EpisodeNumber2=26
+| Title=The Black Wig
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 25, 1954
+| OriginalAirDate={{Start date|1954|4|19}}
+| ShortSummary=After Ricky forbids Lucy to cut her hair short in an Italian style haircut, Lucy dons a black wig at the beauty salon to try out the look. She then decides test Ricky's marital fidelity by pretending to be another woman and flirts with him. However, Ricky, having been tipped-off of Lucy's plan by the salon owner, pretends not to recognize her and flirts back. Lucy convinces Ethel to try the same trick with Fred, only for the men to confess they knew the truth all along. [[Eve McVeagh]] guest-stars.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=93
+| EpisodeNumber2=27
+| Title=The Diner
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 18, 1954
+| OriginalAirDate={{Start date|1954|4|26}}
+| ShortSummary=Fed up with show business, Ricky quits the club, and the Ricardos and the Mertzes buy a diner and run it together. The Mertzes struggle with all the difficult cooking, while Ricky and Lucy only serve as greeters. They soon decide to split the diner down the middle, with each couple running their own restaurant.  
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=94
+| EpisodeNumber2=28
+| Title=Tennessee Ernie Visits
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 1, 1954
+| OriginalAirDate={{Start date|1954|5|3}}
+| ShortSummary=Lucy's mother writes to inform Lucy and Ricky that her friend's roommate's cousin's son Ernie Ford will be arriving from Tennessee to visit them in New York. To the Ricardos' surprise, Ernie has no place to stay and must sleep in their living room since he cannot afford a hotel or a trip back home. Ernie winds up upending the Ricardos' lives and Lucy's efforts to get rid of him have the opposite effect. [[Tennessee Ernie Ford]] guest-stars as cousin Ernie.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=95
+| EpisodeNumber2=29
+| Title=Tennessee Ernie Hangs On
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 8, 1954
+| OriginalAirDate={{Start date|1954|5|10}}
+| ShortSummary=Ernie is still living with the Ricardos, much to their annoyance. The Ricardos and Mertzes try different schemes to get Ernie to leave on his own accord. They finally manage to send Ernie on his way by appearing with him in a talent contest.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=96
+| EpisodeNumber2=30
+| Title=The Golf Game
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 15, 1954
+| OriginalAirDate={{Start date|1954|5|17}}
+| ShortSummary=Ricky and Fred have taken up golf as their hobby, and Lucy and Ethel want to join them. To scare them off, the men invent complicated and bizarre rules for the game. Professional golfer [[Jimmy Demaret]], appearing as himself, sets the women straight and helps them turn the tables on Ricky and Fred.
+| LineColor=8AC1FF
+}}
+{{Episode list
+| EpisodeNumber=97
+| EpisodeNumber2=31
+| Title=The Sublease
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 22, 1954
+| OriginalAirDate={{Start date|1954|5|24}}
+| ShortSummary=The Ricardos are taking a summer trip to Maine after Ricky's band is booked there, so they sublet their apartment for the summer. After the booking is canceled, the Ricardos need their apartment back, but the subtenant refuses to leave. Since the subtenant is in witness protection, Lucy and Ethel successfully scare him off by faking a murder, but Fred has already found a new apartment for the Ricardos and Ricky got a new booking.
+| LineColor=8AC1FF
+}}
+}}
+
+===Season 4 (1954–55)===
+{{Episode table
+|background=#973838
+|overall=5
+|season=2
+|title=24
+|writer=21
+|director=16
+|aux3=15
+|aux3T=Film date
+|airdate=15
+|episodes=
+
+{{Episode list
+| EpisodeNumber=98
+| EpisodeNumber2=1
+| Title=The Business Manager
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=June 17, 1954
+| OriginalAirDate={{Start date|1954|10|4}}
+| ShortSummary=Tired of Lucy being unable to pay the bills, Ricky hires business manager Mr. Hickox ([[Charles Lane (actor, born 1905)|Charles Lane]]), who only gives Lucy five dollars a month as an allowance. Since Mr. Hickox arranges a line of credit for Lucy to charge her groceries at the store, she offers to buy groceries for everyone in her apartment building, secretly charging everything on her account and keeping all of the cash for herself.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=99
+| EpisodeNumber2=2
+| Title=Mertz and Kurtz
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=July 1, 1954
+| OriginalAirDate={{Start date|1954|10|11}}
+| ShortSummary=To help Fred impress his world-traveling ex-vaudeville partner, Barney Kurtz ([[Charles Winninger]]), Ethel talks Lucy into posing as their maid.  It turns out that Barney is not as successful as he had been letting on; he has been exaggerating to impress his young grandson. Lucy and Ricky give Barney and Fred a part in Ricky's act to keep up appearances for the boy. 
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=100
+| EpisodeNumber2=3
+| Title=Lucy Cries Wolf
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=June 3, 1954
+| OriginalAirDate={{Start date|1954|10|18}}
+| ShortSummary=To find out how much Ricky loves her, Lucy calls him twice during his rehearsals and says there is a burglar in the apartment, hiding on the outside ledge the second time to make it appear she was kidnapped. Ricky and the Mertzes fall for it at first, but a neighbor tips them off about Lucy's whereabouts, and they get back at her by acting unconcerned about her disappearance while making sure she overhears. Lucy later gets kidnapped for real and Ricky and the Mertzes overhear it, but do nothing because they think she is faking again.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=101
+| EpisodeNumber2=4
+| Title=The Matchmaker
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=June 10, 1954
+| OriginalAirDate={{Start date|1954|10|25}}
+| ShortSummary=Lucy attempts to help her friend Dorothy get married by inviting Dorothy and her beau Sam to a romantic dinner at the Ricardos' apartment, hoping to present Sam with a positive example of married and parenting life. However, Ricky is not amused at Lucy's matchmaking attempts, and the evening does not go as planned, causing the Ricardos to have a fight. Dorothy and Sam end up getting married anyway and Lucy and Ricky patch things up in the end.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=102
+| EpisodeNumber2=5
+| Title=Mr. and Mrs. TV Show
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=June 24, 1954
+| OriginalAirDate={{Start date|1954|11|1}}*
+| ShortSummary=Ricky has a chance to do an at-home TV show, and Lucy wants to be in it. Things go well until Lucy discovers Ricky only let her do the show because the sponsor insisted. 
+
+'''*Note:''' ''This episode's original scheduled network broadcast was pre-empted. It eventually aired on Monday, April 11, 1955 with a newly-filmed opening segment with Lucy in her Hollywood hotel room on the phone, introducing the events of the episode via flashback.''
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=103
+| EpisodeNumber2=6
+| Title=Ricky's Movie Offer
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 16, 1954
+| OriginalAirDate={{Start date|1954|11|8}}
+| ShortSummary=A [[Cinema of the United States|Hollywood]] [[talent agent|talent scout]] ([[Frank Nelson (actor)|Frank Nelson]]) wants Ricky to audition for a movie about the life of [[Don Juan]], and everyone wants to get into the act and audition. 
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=104
+| EpisodeNumber2=7
+| Title=Ricky's Screen Test
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 23, 1954
+| OriginalAirDate={{Start date|1954|11|15}}
+| ShortSummary=Lucy appears with Ricky in his screen test, with the hope that she will get discovered by a Hollywood executive. However, the scene is set up so that the camera never sees Lucy's face.  
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=105
+| EpisodeNumber2=8
+| Title=Lucy's Mother-In-Law
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=September 30, 1954
+| OriginalAirDate={{Start date|1954|11|22}}
+| ShortSummary= When Ricky's mother (Mary Emery) visits, Lucy desperately tries to impress her, but the language barrier gets in her way.
+'''Note:''' ''William Frawley does not appear in this episode, but his voice is heard off-screen calling for Ethel.''
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=106
+| EpisodeNumber2=9
+| Title=Ethel's Birthday
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 7, 1954
+| OriginalAirDate={{Start date|1954|11|29}}
+| ShortSummary=Fred asks Lucy to choose something special for him to give Ethel for her birthday. However, Lucy's choice of a gift leaves her feeling insulted when Ethel does not like it. Ricky and Fred end up having to force the women to sit together during a night at the theater to bring them back together.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=107
+| EpisodeNumber2=10
+| Title=Ricky's Contract
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 14, 1954
+| OriginalAirDate={{Start date|1954|12|6}}
+| ShortSummary=Ricky is still waiting for the results of his screen test, and his anxious attitude is worrying Lucy and the Mertzes. To calm Ricky down, Fred leaves a note saying that Ricky got the job, but the call still has yet to come. Lucy reads the note and calls Ricky at the club to tell him. However, Ricky actually did get the job.
+'''Note:''' ''This episode was, according to a CBS press release of August 14, 1954, to be broadcast in color, but ultimately plans to film it in color were abandoned.''
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=108
+| EpisodeNumber2=11
+| Title=Getting Ready
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 21, 1954
+| OriginalAirDate={{Start date|1954|12|13}}
+| ShortSummary=The Ricardos prepare for their road trip to [[California]] and invite the Mertzes to come along. However, when Fred is tasked with buying the car for the trip, he ends up buying a dilapidated antique. Lucy, Ricky, and Ethel's scheme in order to trick Fred into getting rid of the car ultimately backfires.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=109
+| EpisodeNumber2=12
+| Title=Lucy Learns To Drive
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=October 28, 1954
+| OriginalAirDate={{Start date|1955|1|3}}
+| ShortSummary=Ricky trades in the antique car and buys a brand new Pontiac for the trip to California, but makes the mistake of teaching Lucy to drive in it. This leads to Lucy ultimately damaging both cars, and she and Ethel desperately try to hide the damage from their husbands.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=110
+| EpisodeNumber2=13
+| Title=California, Here We Come!
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 4, 1954
+| OriginalAirDate={{Start date|1955|1|10}}
+| ShortSummary=Lucy and Ricky are ready to start their trip to [[Los Angeles]] with Little Ricky and the Mertzes when complications develop: Lucy's mother decides to join them on their trip. Ricky starts complaining about all the extra guests, sparking a debate about who is going and who is not. Eventually everything gets sorted out, with Lucy's mother and Little Ricky taking a plane while the Ricardos and Mertzes drive. [[Kathryn Card]] appears as Lucy's mother Mrs. McGillicuddy.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=111
+| EpisodeNumber2=14
+| Title=First Stop
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 11, 1954
+| OriginalAirDate={{Start date|1955|1|17}}
+| ShortSummary=After a long day of non-stop driving, the Ricardos and the Mertzes pull into "One Oak Cabins and Cafe," a run-down establishment near [[Cincinnati]] that has nothing to eat but stale cheese sandwiches. The proprietor (played by [[Olin Howland]]) offers the foursome accommodation in a single-room cabin with bathroom; however, the accommodations are far from restful. When the couples try to leave, the owner attempts to keep them there, but ultimately lets them go - though he makes sure they have to pay for the room. 
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=112
+| EpisodeNumber2=15
+| Title=Tennessee Bound
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 18, 1954
+| OriginalAirDate={{Start date|1955|1|24}}
+| ShortSummary=After Lucy gets lost while driving and ends up in [[Tennessee]], Ricky races through [[Bent Fork]] in an attempt to avoid running into their friend Ernie Ford ([[Tennessee Ernie Ford]]), and gets fined for speeding. Lucy's defiant attitude upsets the town sheriff and he puts her in jail. Ernie soon arrives to help, and gets everyone in more trouble. [[Aaron Spelling]] has a bit role as a gas station attendant. 
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=113
+| EpisodeNumber2=16
+| Title=Ethel's Home Town
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=November 25, 1954
+| OriginalAirDate={{Start date|1955|1|31}}
+| ShortSummary=The Ricardos and the Mertzes arrive in Ethel's home town of [[Albuquerque, New Mexico]] to visit and stay with her father. Lucy, Ricky, and Fred are shocked when the townsfolk and local media give Ethel a big welcome, as Ethel told her father she was the star headed for Hollywood. When Ethel is asked to give an impromptu performance before leaving, her husband and friends teach her a lesson.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=114
+| EpisodeNumber2=17
+| Title=L.A. at Last
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 2, 1954
+| OriginalAirDate={{Start date|1955|2|7}}
+| ShortSummary=Arriving in Hollywood, Lucy and the Mertzes go star-hunting at the [[Brown Derby]] restaurant. While there, Ethel has an interaction with [[Eve Arden]], while Lucy annoys [[William Holden]] by staring at him from behind a potted plant and then accidentally getting him hit in the face with a pie. Ricky later meets Holden and brings him to their hotel room to meet Lucy, who must avoid being recognized. She wears a fake nose made of putty, but winds up setting it on fire and has to remove it. Holden makes up a cover story for Ricky to show Lucy there is no hard feelings.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=115
+| EpisodeNumber2=18
+| Title=Don Juan and the Starlets
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 9, 1954
+| OriginalAirDate={{Start date|1955|2|14}}
+| ShortSummary=Ricky leaves Lucy at their hotel and goes out to a movie premiere with four starlets. He then gets in trouble with Lucy when she thinks that he was out all night.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=116
+| EpisodeNumber2=19
+| Title=Lucy Gets Into Pictures
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 16, 1954
+| OriginalAirDate={{Start date|1955|2|21}}
+| ShortSummary=Since Lucy is longing to appear in a movie, Ricky arranges for her to appear as a murdered showgirl in a film from his studio [[Metro-Goldwyn-Mayer|MGM]], but the role and the costume are more than she can handle. Her big scene ends up being cut out and she is only seen on camera covered with a sheet.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=117
+| EpisodeNumber2=20
+| Title=The Fashion Show
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=December 23, 1954
+| OriginalAirDate={{Start date|1955|2|28}}
+| ShortSummary=Lucy is determined to own a [[Don Loper]] gown and winds up being part of a "Hollywood Wives" fashion show while having a bad sunburn. To make matters worse, the dress she is modeling is made of tweed.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=118
+| EpisodeNumber2=21
+| Title=The Hedda Hopper Story
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 3, 1955
+| OriginalAirDate={{Start date|1955|3|14}}
+| ShortSummary= Lucy's mother arrives in California with the baby, while Ricky's agent concocts a publicity stunt designed to land Ricky in [[Hedda Hopper]]'s celebrity gossip column. They plan for Ricky to "save" Lucy from drowning in the hotel pool. However, they end up doing the stunt before Hopper arrives, and by the time they realize their mistake, it is too late for a do-over.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=119
+| EpisodeNumber2=22
+| Title=''Don Juan'' Is Shelved
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 10, 1955
+| OriginalAirDate={{Start date|1955|3|21}}
+| ShortSummary=When Lucy finds out from a ''[[Variety (magazine)|Variety]]'' article that MGM has shelved Ricky's film ''Don Juan'', she schemes with her mother and the Mertzes to create public demand for Ricky's talent by having someone portray a fake talent scout. However, that someone inadvertently ends up being producer [[Dore Schary]], but he finds the plan so hilarious he goes along with it. When the truth comes out, Schary informs Ricky that even though the studio is indeed shelving ''Don Juan'', they want to keep Ricky on contract, and will star him in a film as soon as they can find the right one. [[Vivian Vance]]'s then-husband, [[Philip Ober]], appears as Schary.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=120
+| EpisodeNumber2=23
+| Title=Bull Fight Dance
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 17, 1955
+| OriginalAirDate={{Start date|1955|3|28}}
+| ShortSummary=When Lucy gets to write answers to questions about what it is like to be married to Ricky for ''[[Photoplay]]'' magazine, she [[blackmail]]s him to let her appear in his "Heart Fund" show. However, when Lucy's singing skills are not up to par, Ricky arranges for her to wear a bull costume for his bull fight number.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=121
+| EpisodeNumber2=24
+| Title=Hollywood Anniversary
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=February 24, 1955
+| OriginalAirDate={{Start date|1955|4|4}}
+| ShortSummary=Lucy and Ricky's wedding anniversary is approaching, and Ricky has forgotten the date, but he has a plan to convince Lucy that he knew it all along, telling her that he had planned an anniversary party at the [[Mocambo (nightclub)|Mocambo]] nightclub. She is elated until she learns that the entire party is a sham.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=122
+| EpisodeNumber2=25
+| Title=The Star Upstairs
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 3, 1955
+| OriginalAirDate={{Start date|1955|4|18}}
+| ShortSummary=Lucy poses as a bellboy to get a glimpse of [[Cornel Wilde]], who is staying at the hotel. When this does not work, Lucy manages to get a bellboy's help to sneak into Wilde's hotel room. However, getting out of his room proves to be more difficult.
+'''Note:''' ''William Frawley does not appear in this episode.''
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=123
+| EpisodeNumber2=26
+| Title=In Palm Springs
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 17, 1955
+| OriginalAirDate={{Start date|1955|4|25}}
+| ShortSummary=Upset by a quarrel with their husbands over annoying spouse habits, Lucy, her mother, Ethel, and Little Ricky leave for a weekend in [[Palm Springs, California|Palm Springs]]. While there, Lucy and Ethel meet [[Rock Hudson]].
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=124
+| EpisodeNumber2=27
+| Title=The Dancing Star
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 31, 1955
+| OriginalAirDate={{Start date|1955|5|2}}
+| ShortSummary=Carolyn Appleby, one of Lucy's friends from New York, is visiting and wants to meet some of the movie stars that Lucy has bragged about befriending, starting with [[Van Johnson]], who is appearing at the hotel.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=125
+| EpisodeNumber2=28
+| Title=Harpo Marx
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=March 24, 1955
+| OriginalAirDate={{Start date|1955|5|9}}
+| ShortSummary=Before Carolyn leaves Hollywood, she wants to see all of the celebrities that Lucy claimed would show up for a get-together. Dressing up with masks of [[Clark Gable]], [[Gary Cooper]], [[Jimmy Durante]], and other celebrities, Lucy manages to fool the near-sighted Carolyn. However, [[Harpo Marx]] shows up and soon discovers Lucy dressed up as him.
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=126
+| EpisodeNumber2=29
+| Title=Ricky Needs an Agent
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 7, 1955
+| OriginalAirDate={{Start date|1955|5|16}}
+| ShortSummary=Growing tired of Ricky's constant publicity appearances, Lucy fears that MGM will never give him a film, so she pretends to be his agent and tries to bluff a studio executive ([[Parley Baer]]) into starring Ricky in a movie by telling him that Ricky has an offer on Broadway, only to get Ricky released from his contract. 
+| LineColor=973838
+}}
+{{Episode list
+| EpisodeNumber=127
+| EpisodeNumber2=30
+| Title=The Tour
+| DirectedBy=William Asher
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh and Bob Carroll, Jr.
+| Aux3=April 14, 1955
+| OriginalAirDate={{Start date|1955|5|30}}
+| ShortSummary=After Ricky forbids Lucy to join him for lunch with [[Richard Widmark]] at [[Michael Romanoff#Romanoff's restaurant|Romanoff's]], Lucy and Ethel take a bus tour of movie stars' homes in [[Beverly Hills]], and Lucy ends up picking a grapefruit from Widmark's backyard, where she gets trapped. [[Benny Rubin ]] as the bus driver.
+| LineColor=973838
+}}
+}}
+
+===Season 5 (1955–56)===
+{{Episode table |background=#38B27E |overall=5 |season=2 |title=24 |writer=21 |director=16 |aux3=15 |aux3T=Film date |airdate=15 |episodes={{Episode list
+| EpisodeNumber=128
+| EpisodeNumber2=1
+| Title=Lucy Visits Grauman's
+| DirectedBy=[[James V. Kern]]
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=September 9, 1955
+| OriginalAirDate={{Start date|1955|10|3}}
+| ShortSummary=Ricky has completed his movie for [[Metro-Goldwyn-Mayer|MGM]], but Lucy and the Mertzes convince him to let them stay in [[Hollywood, Los Angeles|Hollywood]] for one more week. While sight-seeing, Lucy discovers that the cement slab with [[John Wayne]]'s footprints and signature in front of [[Grauman's Chinese Theater]] has become loose. Lucy talks Ethel into helping her steal the slab to keep as a souvenir, and as they make their get-away, Lucy gets her foot caught in a bucket of cement. Ricky demands that they return the slab to the theater forecourt, but while trying to return it, Lucy and Ethel accidentally destroy it. 
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=129
+| EpisodeNumber2=2
+| Title=Lucy and John Wayne
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=September 15, 1955
+| OriginalAirDate={{Start date|1955|10|10}}
+| ShortSummary=The police have been called to investigate the missing cement slab of John Wayne's footprints and signature. Ricky gets Wayne to help by having him create a duplicate slab with his footprints and signature to replace it, but in the process they encounter several setbacks. John Wayne guest-stars.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=130
+| EpisodeNumber2=3
+| Title=Lucy and the Dummy
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=September 22, 1955
+| OriginalAirDate={{Start date|1955|10|17}}
+| ShortSummary=MGM asks Ricky to help entertain executives at a studio party. Ricky has plans to go deep-sea fishing, but as far as Lucy is concerned, "the show must go on." She performs with a dummy and ends up being offered a contract.
+
+'''Note:''' ''In the original broadcast of this episode, there was an additional scene at the studio party before Lucy comes on stage, in which the audience was given a preview of the musical number "Adelaide" from MGM's upcoming film'' [[Guys and Dolls (film)|Guys and Dolls]].<ref>{{cite news|url=https://papermoonloveslucy.tumblr.com/post/121263123193/lucy-and-the-dummy|title="Lucy and the Dummy"|website=papermoonloveslucy.tumblr.com|date=June 11, 2015|access-date=January 3, 2023}}</ref>
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=131
+| EpisodeNumber2=4
+| Title=Ricky Sells the Car
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=September 29, 1955
+| OriginalAirDate={{Start date|1955|10|24}}
+| ShortSummary=Ricky sells the car and buys train tickets for the trip back to New York, but he forgets about Fred and Ethel, leading to a rift between the friends.  After Lucy informs Ricky of his error, he is able to buy tickets for the Mertzes, but Lucy worries when she finds out that the Mertzes' tickets are a lower class than theirs. 
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=132
+| EpisodeNumber2=5
+| Title=The Great Train Robbery
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=October 6, 1955
+| OriginalAirDate={{Start date|1955|10|31}}
+| ShortSummary=Lucy gets mixed up with a jewel thief while on the train trip back to New York and develops a reputation for constantly pulling the train's emergency brake.  [[Frank Nelson (actor)|Frank Nelson]] guest-stars as the train conductor.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=133
+| EpisodeNumber2=6
+| Title=Homecoming
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=October 20, 1955
+| OriginalAirDate={{Start date|1955|11|7}}
+| ShortSummary=Back in [[Manhattan]], Ricky is surrounded by excited friends wanting to know about his movie. After being influenced by a reporter, Lucy starts treating him like a star too.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=134
+| EpisodeNumber2=7
+| Title=Face to Face
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=October 20, 1955
+| OriginalAirDate={{Start date|1955|11|14}}
+| ShortSummary=Ricky gets a new agent after signing a contract with the Associated Artist talent agency. As a result, Ricky and Lucy are scheduled to appear on Ed Warren's ([[Elliott Reid]]) TV interview show, "Face to Face", from their home. But Ricky's new agent calls their apartment a "dump," insulting the Mertzes in the process. 
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=135
+| EpisodeNumber2=8
+| Title=Lucy Goes to a Rodeo
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=October 27, 1955
+| OriginalAirDate={{Start date|1955|11|28}}
+| ShortSummary=Ricky is upset when he learns that he signed up to do not a radio show, but a [[rodeo]] show. When there are no acts available, he has to reluctantly turn to Lucy and the Mertzes since they are planning their own Western show for Fred's lodge.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=136
+| EpisodeNumber2=9
+| Title=Nursery School
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=November 3, 1955
+| OriginalAirDate={{Start date|1955|12|5}}
+| ShortSummary=Lucy is not happy about the idea of being separated from Little Ricky, but Ricky insists that now that their son is three years old, he must start [[nursery school]]. Lucy then becomes worried when Little Ricky gets sick with [[tonsillitis]] and must be hospitalized. 
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=137
+| EpisodeNumber2=10
+| Title=Ricky's European Booking
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=November 10, 1955
+| OriginalAirDate={{Start date|1955|12|12}}
+| ShortSummary=Ricky's band gets booked in Europe, and Fred is recruited as Ricky's band manager. Lucy and Ethel can only go if they can come up with enough money to pay their own way. They run a raffle benefiting a phony charity and nearly get arrested for the fraud. [[Barney Phillips]] guest-stars as the District Attorney. 
+
+'''Note:''' ''Ricky and [[The Pied Pipers]] sing "Forever, Darling" in the episode, the theme song of the upcoming Ball-Arnaz [[Forever, Darling|picture of the same name]].''
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=138
+| EpisodeNumber2=11
+| Title=The Passports
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=November 17, 1955
+| OriginalAirDate={{Start date|1955|12|19}}
+| ShortSummary=Lucy needs her birth certificate in order to get her passport, but [[Jamestown, New York|Jamestown]] has no record of her being born there. She devises a way to sneak to Europe with the others: hide in a large steamer trunk. While trying it out, she ends up locked in the trunk with the key in her pocket. Lucy ends up receiving her birth certificate in the mail from her mother, and learns from her childhood doctor that she was actually born in [[Jamestown West, New York|West Jamestown]].
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=139
+| EpisodeNumber2=12
+| Title=Staten Island Ferry
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=November 24, 1955
+| OriginalAirDate={{Start date|1956|1|2}}
+| ShortSummary=The Ricardos and Mertzes are all ready to leave for Europe, until Fred announces that he gets seasick, so Ricky suggests seasick pills. [[Charles Lane (actor, born 1905)|Charles Lane]] guest-stars as the passport office clerk.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=140
+| EpisodeNumber2=13
+| Title=Bon Voyage
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=December 1, 1955
+| OriginalAirDate={{Start date|1956|1|16}}
+| ShortSummary=After boarding the ocean liner [[SS Constitution|SS ''Constitution'']], Lucy goes ashore just one more time to kiss Little Ricky goodbye, and misses the boat. As a result, she ends up hiring a helicopter to drop her off on the ship. [[Jack Albertson]] appears as a helicopter dispatcher. This episode inspired the later Desilu series ''[[Whirlybirds]]'', with [[Kenneth Tobey]]. 
+
+'''Note:''' ''Desi Arnaz claims in several interviews that this was the most expensive episode produced.''{{citation needed|date=January 2025}}
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=141
+| EpisodeNumber2=14
+| Title=Second Honeymoon
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=December 8, 1955
+| OriginalAirDate={{Start date|1956|1|23}}
+| ShortSummary=Lucy plans to make the ocean voyage a second honeymoon, but Ricky has previous shipboard engagements with his band. When she has had enough, she devises a plan with Ethel to trap Ricky in the room.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=142
+| EpisodeNumber2=15
+| Title=Lucy Meets the Queen
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=December 15, 1955
+| OriginalAirDate={{Start date|1956|1|30}}
+| ShortSummary=Lucy and Ethel go looking for [[Elizabeth II|Queen Elizabeth II]] on their first day in London. Ethel manages to get a glimpse of the Queen, but Lucy misses seeing her. Eventually, Lucy finds out that she can be presented to the Queen if she is one of the performers in Ricky's show at the [[London Palladium]]. [[Nancy Kulp]] appears as a chambermaid.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=143
+| EpisodeNumber2=16
+| Title=The Fox Hunt
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=December 22, 1955
+| OriginalAirDate={{Start date|1956|2|6}}
+| ShortSummary=Lucy wants to spend a weekend on a British estate. With the Mertzes' help, she manages to get an invitation from Sir Clive Richardson, with whom Ricky is scheduled to talk business.  [[Hillary Brooke]] guest-stars.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=144
+| EpisodeNumber2=17
+| Title=Lucy Goes to Scotland
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=January 6, 1956
+| OriginalAirDate={{Start date|1956|2|20}}
+| ShortSummary=In this [[Brigadoon]]-inspired episode, complete with musical numbers, Lucy dreams that she visits her ancestral village in [[Scotland]].  The villagers are delighted at her arrival, as it is once again the year when they must sacrifice a McGillicuddy to a man-eating, two-headed dragon (Fred and Ethel)--and until Lucy showed up, the clan was believed to be extinct. Lucy hopes that Scotty McTavish McDougal McCardo (Ricky) will be able to fight the dragon to save her life. (Goof: McGillicuddy is an Irish surname.)
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=145
+| EpisodeNumber2=18
+| Title=Paris at Last
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=January 12, 1956
+| OriginalAirDate={{Start date|1956|2|27}}
+| ShortSummary=The Ricardos and the Mertzes arrive in [[Paris]], and when a man outside the American Express office offers to exchange money for Lucy, she ends up in jail for passing counterfeit francs.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=146
+| EpisodeNumber2=19
+| Title=Lucy Meets Charles Boyer
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=January 19, 1956
+| OriginalAirDate={{Start date|1956|3|5}}
+| ShortSummary=Ricky has a luncheon engagement with [[Charles Boyer]], and he wants to keep Lucy away from him.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=147
+| EpisodeNumber2=20
+| Title=Lucy Gets a Paris Gown
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=February 16, 1956
+| OriginalAirDate={{Start date|1956|3|19}}
+| ShortSummary=After Lucy is exposed for faking a hunger strike to get an original Paris gown from Jacques Marcel, Ricky and Fred decide to teach the girls a lesson by creating faux original gowns from potato sacks.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=148
+| EpisodeNumber2=21
+| Title=Lucy in the Swiss Alps
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=February 23, 1956
+| OriginalAirDate={{Start date|1956|3|26}}
+| ShortSummary=While in [[Lucerne]], the Ricardos and the Mertzes go mountain climbing in the [[Swiss Alps]], and are stuck in a cabin with little to eat after a sudden [[avalanche]].
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=149
+| EpisodeNumber2=22
+| Title=Lucy Gets Homesick in Italy
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=March 1, 1956
+| OriginalAirDate={{Start date|1956|4|9}}
+| ShortSummary=Lucy, while in [[Florence]], gets homesick for Little Ricky on his third birthday.  To lift her spirits, she hosts an impromptu party for several Italian children who all claim it is their birthday too.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=150
+| EpisodeNumber2=23
+| Title=Lucy's Italian Movie
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=March 8, 1956
+| OriginalAirDate={{Start date|1956|4|16}}
+| ShortSummary=En route to [[Rome]], an Italian movie producer offers Lucy a role in a color film called ''Bitter Grapes''. Not realizing that it is a symbolic title, Lucy decides to take a job in a vineyard to do research for the role. She ends up stomping grapes and picks a fight with her fellow stomper. She then misses out being selected for the role due to being stained blue from the grape vat.
+
+In 1997, TV Guide ranked this episode #18 on its list of the [[TV Guide's 100 Greatest Episodes of All-Time|100 Greatest Episodes]].<ref name="autogenerated1997"/>
+
+In the April 9, 2020 episode of ''[[Will & Grace]]'', [[Megan Mullally]] as Lucy and [[Leslie Jordan]] as the Italian woman recreate the grape-stomping scene.<ref name="Rice">{{cite news|url=https://ew.com/tv/2019/11/25/will-and-grace-i-love-lucy-episode/|title=Will & Grace to air a special I Love Lucy-themed episode|last=Rice|first=Lynette|work=[[ew.com]]|date=2019-11-25|access-date=2020-04-15}}</ref><ref>{{cite web|url=https://www.nbc.com/will-and-grace/video/karen-reenacts-i-love-lucys-grape-stomping-scene-will-grace/4148155|title=Karen Reenacts I Love Lucy's Grape Stomping Scene|work=[[NBC]]|access-date=2020-04-15}}</ref><ref>{{cite web|url=https://www.yahoo.com/entertainment/grace-scenes-love-lucy-165807623.html|title=Will & Grace: Scenes From I Love Lucy|publisher=[[Yahoo]]|access-date=2020-04-15}}</ref>
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=151
+| EpisodeNumber2=24
+| Title=Lucy's Bicycle Trip
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=March 22, 1956
+| OriginalAirDate={{Start date|1956|4|23}}
+| ShortSummary=Lucy organizes a bicycle trip for her, Ricky and the Mertzes from the [[Italian Riviera]] to [[Nice]]. But when she cannot find her passport, the border guard refuses to let her through the checkpoint.
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=152
+| EpisodeNumber2=25
+| Title=Lucy Goes to Monte Carlo
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=March 29, 1956
+| OriginalAirDate={{Start date|1956|5|7}}
+| ShortSummary=Ricky has declared the [[Monte Carlo Casino]] out-of-bounds for Lucy, but she and Ethel decide to eat dinner there. When Lucy accidentally wins a fortune, she tries to hide it from Ricky, but soon Ricky finds the cash in Ethel's suitcase and believes Fred is an embezzler.  
+| LineColor=38B27E
+}}
+{{Episode list
+| EpisodeNumber=153
+| EpisodeNumber2=26
+| Title=Return Home from Europe
+| DirectedBy=James V. Kern
+| WrittenBy=Jess Oppenheimer, Madelyn Pugh, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=April 5, 1956
+| OriginalAirDate={{Start date|1956|5|14}}
+| ShortSummary= In order to make it home from Europe in time for Ricky and his band to perform at the [[Roxy Theatre (New York City)|Roxy Theatre]], everyone must travel back to New York by plane. Lucy tries to get out of paying duties by disguising a twenty-five pound piece of Italian cheese as a swaddled baby, much to the frustration of Ricky. Frank Nelson and [[Mary Jane Croft]] guest-star.
+| LineColor=38B27E
+}}
+}}
+
+===Season 6 (1956–57)===
+{{Episode table
+|background=#AE85CF
+|overall=5
+|season=2
+|title=24
+|writer=21
+|director=16
+|aux3=15
+|aux3T=Film date
+|airdate=15
+|episodes=
+
+{{Episode list
+| EpisodeNumber=154
+| EpisodeNumber2=1
+| Title=Lucy and Bob Hope
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=June 5, 1956
+| OriginalAirDate={{Start date|1956|10|1}}
+| ShortSummary=Sighting [[Bob Hope]] at [[Yankee Stadium (1923)|Yankee Stadium]], Lucy hopes to persuade him to appear at Ricky's club (now named Club Babalú) unaware that Hope has already agreed to appear. She ends up joining Hope and Ricky in performing at Club Babalú. [[Richard Keith (actor)|Richard Keith]] makes his first appearance as Little Ricky, who is now depicted as four years old.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=155
+| EpisodeNumber2=2
+| Title=Little Ricky Learns to Play the Drums
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=June 28, 1956
+| OriginalAirDate={{Start date|1956|10|8}}
+| ShortSummary=Little Ricky's non-stop drum playing threatens the Ricardos' and Mertzes' friendship.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=156
+| EpisodeNumber2=3
+| Title=Lucy Meets Orson Welles
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=June 14, 1956
+| OriginalAirDate={{Start date|1956|10|15}}
+| ShortSummary=Lucy wrangles a job as [[Orson Welles]]'s assistant when he appears at Ricky's club. He is doing a magic act, but Lucy is doing [[Shakespeare]].
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=157
+| EpisodeNumber2=4
+| Title=Little Ricky Gets Stage Fright
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=June 21, 1956
+| OriginalAirDate={{Start date|1956|10|22}}
+| ShortSummary=Little Ricky gets stage fright before his first school music recital. [[Howard McNear]] guest-stars.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=158
+| EpisodeNumber2=5
+| Title=Visitor from Italy
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=September 24, 1956
+| OriginalAirDate={{Start date|1956|10|29}}
+| ShortSummary=When a Venetian gondolier ([[Jay Novello]] in his third and final appearance) that the Ricardos and the Mertzes met in Europe shows up in New York, a series of mishaps result in Lucy working at a [[pizza parlor]]. 
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=159
+| EpisodeNumber2=6
+| Title=Off to Florida
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=September 13, 1956
+| OriginalAirDate={{Start date|1956|11|12}}
+| ShortSummary=Driving to [[Miami]] to meet their husbands after Ricky's band is booked in [[Florida]], the girls share the drive with a strange lady ([[Elsa Lanchester]]) they suspect is an ax murderess. [[Strother Martin]] appears as a store clerk.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=160
+| EpisodeNumber2=7
+| Title=Deep-Sea Fishing
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=September 27, 1956
+| OriginalAirDate={{Start date|1956|11|19}}
+| ShortSummary=While in Miami, the boys bet the girls that they will catch bigger fish on a planned deep-sea fishing trip. To win the bet, the men and the women each buy large tunas to pass off as their catch. The only problem is hiding the fish from their spouses.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=161
+| EpisodeNumber2=8
+| Title=Desert Island
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=October 4, 1956
+| OriginalAirDate={{Start date|1956|11|26}}
+| ShortSummary=Still in Miami, Lucy and Ethel's scheme to prevent the boys from judging a bathing beauty contest leaves the Ricardos and the Mertzes marooned on a desert island. [[Claude Akins]] guest-stars as himself.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=162
+| EpisodeNumber2=9
+| Title=The Ricardos Visit Cuba
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=October 18, 1956
+| OriginalAirDate={{Start date|1956|12|3}}
+| ShortSummary=Lucy is bent on impressing Ricky's family when they leave Florida and visit [[Havana, Cuba]], but she cannot seem to say or do anything right.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=163
+| EpisodeNumber2=10
+| Title=Little Ricky's School Pageant
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=October 25, 1956
+| OriginalAirDate={{Start date|1956|12|17}}
+| ShortSummary=Back in New York, the Ricardos and the Mertzes sign on as extra cast members in Little Ricky's school play, "The Enchanted Forest".
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=164
+| EpisodeNumber2=11
+| Title=I Love Lucy Christmas Show
+| DirectedBy=James V. Kern <br />(Flashback Segments directed by William Asher)
+| WrittenBy=Madelyn Pugh Davis, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf <br />(Flashback Segments written by Jess Oppenheimer, Madelyn Pugh Davis and Bob Carroll, Jr.)
+| Aux3=November 22, 1956
+| OriginalAirDate={{Start date|1956|12|24}}
+| ShortSummary=Lucy, Ricky, Fred and Ethel reminisce (via flashbacks of previous episodes) as they trim the tree on Christmas Eve. The flashbacks, all from season 2, include Lucy telling Ricky about her pregnancy in "Lucy Is Enceinte," Lucy, Ricky, Fred and Ethel singing in a barbershop quartet in "Lucy's Showbiz Swan Song," and Ricky, Fred and Ethel frantically preparing for Lucy's impending labor in "[[Lucy Goes to the Hospital]]".
+
+Because this was a "special" episode, it is not included in the syndication package. 
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=165
+| EpisodeNumber2=12
+| Title=Lucy and the Loving Cup
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=November 1, 1956
+| OriginalAirDate={{Start date|1957|1|7}}
+| ShortSummary=Lucy jokingly dons a loving cup on her head that Ricky is supposed to present to jockey [[Johnny Longden]], but then she cannot get it off.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=166
+| EpisodeNumber2=13
+| Title=[[Lucy and Superman]]
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=November 15, 1956
+| OriginalAirDate={{Start date|1957|1|14}}
+| ShortSummary=Lucy promises to produce [[Superman (1952 TV series)|Superman]] ([[George Reeves]]) for Little Ricky's fifth birthday party, but must make alternate plans when he is unable to attend. She hastily tries to impersonate Superman herself, but gets locked out on the ledge of the apartment.
+
+Note: George Reeves did originally receive voice-over screen credit for this episode, although it was subsequently cut from the syndicated version. After the closing credits, the disclaimer appeared on the screen that said: Superman Character, Feats and Narrative Copyrighted by National Comics Publications, Inc., 1956
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=167
+| EpisodeNumber2=14
+| Title=Little Ricky Gets a Dog
+| DirectedBy=James V. Kern
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=November 8, 1956
+| OriginalAirDate={{Start date|1957|1|21}}
+| ShortSummary=Little Ricky's new puppy prompts complaints by a grouchy new tenant. [[June Foray]] plays the Voice of the Dog.<ref>''Nick at Nite's Classic TV Companion'', edited by Tom Hill, copyright 1996 by [[Viacom International]], pp.295-296; this book numbers episodes of ''I Love Lucy'' in the order in which they were produced, not aired and this episode is therefore listed as Episode 165</ref> 
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=168
+| EpisodeNumber2=15
+| Title=Lucy Wants to Move to the Country
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=December 6, 1956
+| OriginalAirDate={{Start date|1957|1|28}}
+| ShortSummary=Fed up with city life, Lucy yearns for the suburban life. Ricky buys an old Colonial house in suburban [[Westport, Connecticut]] as a surprise for their anniversary.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=169
+| EpisodeNumber2=16
+| Title=Lucy Hates to Leave
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=December 13, 1956
+| OriginalAirDate={{Start date|1957|2|4}}
+| ShortSummary=The Mertzes rent the Ricardo's apartment to a young newlywed couple named Mr. and Mrs. Taylor. Lucy and Ricky decide to sell their furniture to the Taylors, but when Lucy finds out that the Taylors plan to make alterations the furniture, she buys all of it back from them. Then when the Ricardos find out that the Connecticut house's title search has been delayed for two weeks, they find themselves, and all their belongings, living with the Mertzes while they wait to move into their new home.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=170
+| EpisodeNumber2=17
+| Title=Lucy Misses the Mertzes
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=December 20, 1956
+| OriginalAirDate={{Start date|1957|2|11}}
+| ShortSummary=The Ricardos move into their new home in Connecticut. While Little Ricky is at a sleepover, Lucy and Ricky decide to take the train to New York to surprise the Mertzes. But Fred and Ethel have the same idea, and are on their way to Connecticut.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=171
+| EpisodeNumber2=18
+| Title=Lucy Gets Chummy With the Neighbors
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=January 10, 1957
+| OriginalAirDate={{Start date|1957|2|18}}
+| ShortSummary=Lucy's new neighbor, Betty Ramsey, talks Lucy into buying all new furniture, and it all ends up costing over three thousand dollars. When Ricky finds out, he demands that Lucy return it. However, she is too embarrassed to admit to Betty that they cannot afford the new furniture, which leads Betty to assume that Lucy thinks that she has bad taste. Eventually, the Mertzes arrive and help clear up the misunderstanding, and Betty's husband Ralph gives Ricky a job on a television show that pays thirty-five hundred dollars, which will be enough to pay for furniture. [[Frank Nelson (actor)|Frank Nelson]] and [[Mary Jane Croft]] make their first appearance as Ralph and Betty Ramsey.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=172
+| EpisodeNumber2=19
+| Title=Lucy Raises Chickens
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=January 17, 1957
+| OriginalAirDate={{Start date|1957|3|4}}
+| ShortSummary=Lucy and Ricky decide to raise chickens and sell their eggs to help make ends meet. They hire the Mertzes to help and let them live in the guest house. Soon the Ricardo's house is overrun with a flock of baby chicks, on the day a photographer from ''[[House & Garden (magazine)|House & Garden]]'' magazine is due to visit.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=173
+| EpisodeNumber2=20
+| Title=Lucy Does the Tango
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=February 7, 1957
+| OriginalAirDate={{Start date|1957|3|11}}
+| ShortSummary=Lucy and Ethel try to boost egg production by buying several dozen eggs and pretending they are homegrown. But their plan to hide them in their clothing to sneak them into the hen house goes awry when Ricky asks Lucy to rehearse a tango number. This resulted in one of the longest sustained audience laughter sequences in sitcoms.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=174
+| EpisodeNumber2=21
+| Title=Ragtime Band
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=February 14, 1957
+| OriginalAirDate={{Start date|1957|3|18}}
+| ShortSummary=Lucy promises that Ricky will play at a local benefit, but he refuses. So she and the Mertzes put together their own combo—featuring Ricky Ricardo, Jr.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=175
+| EpisodeNumber2=22
+| Title=Lucy's Night in Town
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=February 21, 1957
+| OriginalAirDate={{Start date|1957|3|25}}
+| ShortSummary=In [[Manhattan]] for dinner and a hit Broadway show ("[[The Most Happy Fella]]"), Lucy discovers that their tickets were instead for the matinée performance. [[Joseph Kearns]] has a minor role. Desilu Productions owned a large portion of the show, and was cross-promoting in this episode.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=176
+| EpisodeNumber2=23
+| Title=Housewarming
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=February 28, 1957
+| OriginalAirDate={{Start date|1957|4|1}}
+| ShortSummary=Ethel is jealous of Lucy's friendship with Betty Ramsey. But when Betty reveals that she is from Ethel's home town of Albuquerque, the two become fast friends, and now it is Lucy who feels left out.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=177
+| EpisodeNumber2=24
+| Title=Building a B-B-Q
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=March 14, 1957
+| OriginalAirDate={{Start date|1957|4|8}}
+| ShortSummary= In order to keep Ricky busy while he is on vacation, Lucy and Ethel get him and Fred to start building a backyard barbecue. Things go wrong when Lucy cannot find her wedding ring and decides to take apart the entire brick barbecue when she thinks that it might have fallen into the cement used to build it.
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=178
+| EpisodeNumber2=25
+| Title=Country Club Dance
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=March 21, 1957
+| OriginalAirDate={{Start date|1957|4|22}}
+| ShortSummary=At a club dance, Ricky, Fred, and Ralph Ramsey shower attention on a sultry young blonde (portrayed by [[Barbara Eden]]), much to the chagrin of their wives. Frank Nelson makes his second and final appearance as Ralph Ramsey. 
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=179
+| EpisodeNumber2=26
+| Title=Lucy Raises Tulips
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=March 28, 1957
+| OriginalAirDate={{Start date|1957|4|29}}
+| ShortSummary=Lucy is determined to beat Betty Ramsey in Westport's "best-looking garden" contest, and she accidentally runs over Betty's tulip garden with a lawn mower.  
+| LineColor=AE85CF
+}}
+{{Episode list
+| EpisodeNumber=180
+| EpisodeNumber2=27
+| Title=The Ricardos Dedicate a Statue
+| DirectedBy=William Asher
+| WrittenBy=Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3=April 4, 1957
+| OriginalAirDate={{Start date|1957|5|6}}
+| ShortSummary=Ricky has been chosen to dedicate a new [[American Revolutionary War|Revolutionary War]] statue in the Westport [[Town Square]]. But there is a problem: Lucy has accidentally destroyed the statue. [[Desi Arnaz Jr.]] appears as an extra in the episode's final scene.<ref>''Nick at Nite's Classic TV Companion'', edited by Tom Hill, copyright 1996 by [[Viacom International]], p. 300: "two little kids standing with Little Ricky...[a]re actually little Lucie and Desi Junior, in the only appearance the Arnaz children ever made on ''I Love Lucy''."</ref>
+| LineColor=AE85CF
+}}
+}}
+
+==''[[The Lucy–Desi Comedy Hour]]'' episodes==
+After six seasons, the series was renamed ''[[The Lucy–Desi Comedy Hour|The Lucille Ball-Desi Arnaz Show]]'' for its original broadcast run and rather than airing as weekly half hour series, hour-long episodes were produced to run occasionally during the year. There were thirteen hour-long shows.  The first five were broadcast as specials during the 1957–58 television season.  The other eight episodes were broadcast as part of the ''[[Westinghouse Desilu Playhouse]]'' from October 6, 1958, to April 1, 1960. The series was subsequently broadcast in syndication as ''The Lucy-Desi Comedy Hour'' and ''We Love Lucy''. This show had the same cast as ''[[I Love Lucy]]'', employed several of the same recurring actors, and every episode featured at least one celebrity guest star. Of the original ''I Love Lucy'' cast, besides the principals, Lucy's mother Mrs. McGillicuddy appeared in one ''Comedy Hour'' episode; "The Ricardos Go To Japan" in season 3 as Little Ricky's babysitter.
+
+===Season 1 (1957–58)===
+{{Episode table
+|background=#1B548A
+|overall=
+|season=
+|title=24
+|writer=21
+|director=16
+|aux3=15
+|aux3T=Film date
+|airdate=15
+|episodes=
+{{Episode list
+| EpisodeNumber = 1
+| EpisodeNumber2 = 1
+| Title = Lucy Takes a Cruise to Havana
+| DirectedBy = [[Jerry Thorpe]]
+| WrittenBy = Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3 = {{Start date|1957|6|28}}
+| OriginalAirDate = {{Start date|1957|11|6}}
+| ShortSummary = Hollywood columnist [[Hedda Hopper]] wants to know how Lucy and Ricky met. In a flashback to 1940, Lucy McGillicuddy and her best friend Susie MacNamara ([[Ann Sothern]] whose character makes a crossover appearance from her CBS show ''[[Private Secretary (TV series)|Private Secretary]]'') are cruising Havana, where they encounter two tour guides, Ricky Ricardo and his friend, Carlos Garcia ([[Cesar Romero]]). Second honeymooners Fred and Ethel Mertz and crooner [[Rudy Vallee]] are along for the ride.
+Note: This was originally shown as a 75-minute episode. All repeats were edited to an hour's length, with the original opening and closing sequences (featuring Hedda Hopper) deleted, replaced by Desi's brief narration at the beginning and end. This is the only episode aside from the ''Make Room for Daddy'' crossover where the celebrity guest stars (with the exception of Hopper and Vallee) do not portray themselves.
+| LineColor = 1B548A
+}}
+{{Episode list
+| EpisodeNumber = 2
+| EpisodeNumber2 = 2
+| Title = The Celebrity Next Door
+| DirectedBy = Jerry Thorpe
+| WrittenBy = Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3 = {{Start date|1957|9|27}}
+| OriginalAirDate = {{Start date|1957|12|3}}
+| ShortSummary = [[Tallulah Bankhead]] moves in next door to the Ricardos. Once Lucy discovers that a celebrity is in her midst, she tries to win her friendship by inviting her to an elegant dinner party—with Fred and Ethel posing as hired help. Before long Lucy has gotten Ms. Bankhead and Ricky and the Mertzes involved with a local PTA show.
+
+Note: [[Bette Davis]] was originally booked as the next-door celebrity, but suffered a horseback riding accident. Bankhead was the producers' second choice.<ref>{{cite book|last1=Kanfer|first1=Stefan|title=Ball of Fire: The Tumultuous Life and Comic Art of Lucille Ball|date=2003|publisher=Alfred A. Knopf|location=New York|isbn=0-375-41315-4|page=[https://archive.org/details/balloffiretumult00kanf/page/198 198]|ref=kanfer|url-access=registration|url=https://archive.org/details/balloffiretumult00kanf}}</ref>
+| LineColor = 1B548A
+}}
+{{Episode list
+| EpisodeNumber = 3
+| EpisodeNumber2 = 3
+| Title = Lucy Hunts Uranium
+| DirectedBy = Jerry Thorpe
+| WrittenBy = Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3 = {{Start date|1957|11|15}}<br> (Studio portions)
+| OriginalAirDate = {{Start date|1958|1|3}}
+| ShortSummary = Ricky and his band have been booked to play at the [[Sands Casino]] in [[Las Vegas Valley|Las Vegas]], and Lucy hopes the trip will allow her an opportunity to go uranium hunting. Fred and Ethel are keen on the idea but Ricky forbids it, until mysterious headlines put the entire town in a uproar. Soon the Ricardos, the Mertzes, and [[Fred MacMurray]] set out together to strike it rich. It soon becomes a race to see who can get to the claims office first. (Also appearing in this show is MacMurray's wife, [[June Haver]].)
+Note: This is the first episode that Lucy sports a new short haircut that she will keep for the remainder of the series.
+| LineColor = 1B548A
+}}
+{{Episode list
+| EpisodeNumber = 4
+| EpisodeNumber2 = 4
+| Title = Lucy Wins a Racehorse
+| DirectedBy = Jerry Thorpe
+| WrittenBy = Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3 = December 1957
+| OriginalAirDate = {{Start date|1958|2|3}}
+| ShortSummary = Lucy wins a race horse for Little Ricky. In order to keep the horse, Lucy enters the horse in a race at [[Roosevelt Raceway (harness racing)|Roosevelt Raceway]] with the help of [[Betty Grable]]. [[Harry James]], Betty's husband, also appears.
+| LineColor = 1B548A
+}}
+{{Episode list
+| EpisodeNumber = 5
+| EpisodeNumber2 = 5
+| Title = Lucy Goes to Sun Valley
+| DirectedBy = Jerry Thorpe
+| WrittenBy = Madelyn Martin, Bob Carroll, Jr., Bob Schiller and Bob Weiskopf
+| Aux3 = February 1958
+| OriginalAirDate = {{Start date|1958|4|14}}
+| ShortSummary = Lucy and Ethel go to [[Sun Valley, Idaho|Sun Valley]] without Ricky and Fred. While in Sun Valley, the girls meet [[Fernando Lamas]] and Lucy hatches a scheme to make Ricky jealous enough to join them.
+
+Note: Several days of location filming for this episode had to be reshot after the initial footage was misplaced after shipment from Sun Valley to Los Angeles. The lost film was found several months later in a Desilu studio vehicle.
+
+| LineColor = 1B548A
+}}
+}}
+
+===Season 2 (1958–59)===
+{{Episode table
+|background=#B8B6AD
+|overall=
+|season=
+|title=24
+|writer=21
+|director=16
+|aux3=15
+|aux3T=Film date
+|airdate=15
+|episodes=
+{{Episode list
+| EpisodeNumber = 6
+| EpisodeNumber2 = 1
+| Title = Lucy Goes to Mexico
+| DirectedBy = [[Jerry Thorpe]]
+| WrittenBy = Bob Schiller, Bob Weiskopf and [[Everett Freeman]]
+| Aux3 = {{Start date|1958|6|16}}<br> (Completed)
+| OriginalAirDate = {{Start date|1958|10|6}}
+| ShortSummary = Lucy and the Mertzes go with Ricky to Mexico, where he is scheduled to appear in a show with [[Maurice Chevalier]]. Meanwhile, Lucy ends up finding herself in a [[bullfight]].
+| LineColor = B8B6AD
+}}
+{{Episode list
+| EpisodeNumber = 7
+| EpisodeNumber2 = 2
+| Title = Lucy Makes Room for Danny
+| DirectedBy = Jerry Thorpe
+| WrittenBy = Bob Schiller and Bob Weiskopf
+| Aux3 = {{Start date|1958|9|19}}
+| OriginalAirDate = {{Start date|1958|12|1}}
+| ShortSummary = The Williams family from ''[[The Danny Thomas Show]]'' ([[Danny Thomas]], [[Marjorie Lord]], [[Rusty Hamer]] and [[Angela Cartwright]]) rent Lucy and Ricky's house because the Ricardos are going to Hollywood. When the Hollywood trip is cancelled, the Ricardos end up staying with the Mertzes in the guest house. [[Gale Gordon]] also guest-stars, as a civil court judge.
+
+Note: Ball and Arnaz subsequently appeared as the Ricardos on an episode of ''[[The Danny Thomas Show]]'' ("Lucy Upsets the Williams Household") which aired on January 5, 1959.
+
+| LineColor = B8B6AD
+}}
+{{Episode list
+| EpisodeNumber = 8
+| EpisodeNumber2 = 3
+| Title = Lucy Goes to Alaska
+| DirectedBy = Jerry Thorpe
+| WrittenBy = Bob Schiller and Bob Weiskopf
+| Aux3 = {{Start date|1958|12|19}}<br>(Completed)
+| OriginalAirDate = {{Start date|1959|2|9}}
+| ShortSummary = The Ricardos and Mertzes go to [[Alaska]], where Lucy does a show with [[Red Skelton]]. Lucy repeatedly falls out of a hammock in their overcrowded hotel bedroom, and panics while flying a small bush airplane with Skelton.
+| LineColor = B8B6AD
+}}
+{{Episode list
+| EpisodeNumber = 9
+| EpisodeNumber2 = 4
+| Title = Lucy Wants a Career
+| DirectedBy = Jerry Thorpe
+| WrittenBy = Bob Schiller and Bob Weiskopf
+| Aux3 = {{Start date|1959|3|6}}<br> (Copyrighted)
+| OriginalAirDate = {{Start date|1959|4|13}}
+| ShortSummary = Lucy does not want to be a housewife any longer and appears on [[Paul Douglas (actor)|Paul Douglas]]' "Early Bird Show" as his "Girl Friday." 
+Note: This episode mirrored life for the Arnazes in the 1940s, as Lucy would meet Desi at the train station as she was leaving for work at a movie studio, while Desi would be headed home after working at a nightclub.{{fact|date=February 2026}}
+| LineColor = B8B6AD
+}}
+{{Episode list
+| EpisodeNumber = 10
+| EpisodeNumber2 = 5
+| Title = Lucy's Summer Vacation
+| DirectedBy = Jerry Thorpe
+| WrittenBy = Bob Schiller and Bob Weiskopf
+| Aux3 = {{Start date|1959|5|5}}<br>(Copyrighted)
+| OriginalAirDate = {{Start date|1959|6|8}}
+| ShortSummary = Lucy and Ricky go on a vacation and end up sharing their cabin with [[Howard Duff]] and [[Ida Lupino]].
+| LineColor = B8B6AD
+}}
+}}
+
+===Season 3 (1959–60)===
+{{Episode table
+|background=#784E46
+|overall=
+|season=
+|title=24
+|writer=21
+|director=16
+|aux3=15
+|aux3T=Film date
+|airdate=15
+|episodes=
+{{Episode list
+| EpisodeNumber = 11
+| EpisodeNumber2 = 1
+| Title = Milton Berle Hides Out at the Ricardos
+| DirectedBy = [[Desi Arnaz]]
+| WrittenBy = Bob Schiller and Bob Weiskopf
+| Aux3 = June 1959
+| OriginalAirDate = {{Start date|1959|9|25}}
+| ShortSummary = Lucy tries to let [[Milton Berle]] work on his book in peace while he is at the Ricardos' house.
+| LineColor = 784E46
+}}
+{{Episode list
+| EpisodeNumber = 12
+| EpisodeNumber2 = 2
+| Title = The Ricardos Go to Japan
+| DirectedBy = Desi Arnaz
+| WrittenBy = Bob Schiller and Bob Weiskopf
+| Aux3 = September 1959
+| OriginalAirDate = {{Start date|1959|11|27}}
+| ShortSummary = Lucy, Ricky, and the Mertzes visit [[Tokyo]], Japan, and meet [[Bob Cummings]]. Meanwhile, Lucy wants to buy some real pearls. When a mix-up occurs over the real pearls and some fake ones, Lucy and Ethel find themselves disguised as [[geisha]] girls.
+| LineColor = 784E46
+}}
+{{Episode list
+| EpisodeNumber = 13
+| EpisodeNumber2 = 3
+| Title = Lucy Meets the Mustache
+| DirectedBy = Desi Arnaz
+| WrittenBy = Bob Schiller and Bob Weiskopf
+| Aux3 = 2 March 1960<br> (Completed)
+| OriginalAirDate = {{Start date|1960|4|1}}
+| ShortSummary = Ricky is depressed because he has not been getting any TV offers lately, so Lucy, Fred, and Ethel try to cheer him up. [[Ernie Kovacs]] and his wife [[Edie Adams]] guest-star.
+'''Note''': This is the final episode of the show. Ball filed for divorce the day after the final episode was filmed, on March 3. Ball and Arnaz divorced two months later.{{fact|date=February 2026}}
+| LineColor = 784E46
+}}
+}}
+
+==References==
+{{reflist}}
+
+==Further reading==
+*{{cite book|last=Andrews|first=Bart|title=The "I Love Lucy" Book|publisher=Doubleday|location=New York|year=1985|isbn=0-385-19033-6|url-access=registration|url=https://archive.org/details/ilovelucybook00andr}}
+*{{cite book|last=Edwards|first=Elisabeth|title=I love Lucy: Celebrating 50 Years of Love and Laughter|year=2010|orig-year=2001|publisher=Running Press|location=Philadelphia|isbn=978-0-7624-3983-6}}
+
+{{I Love Lucy}}
+
+{{DEFAULTSORT:List Of I Love Lucy Episodes}}
+[[Category:I Love Lucy episodes| ]]
+[[Category:Lists of American sitcom episodes|I Love Lucy]]

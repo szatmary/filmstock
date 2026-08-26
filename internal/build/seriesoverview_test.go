@@ -313,3 +313,48 @@ func TestNotApplicableIsNotAFigure(t *testing.T) {
 			s9.Rank, s9.Rating, s9.Viewers)
 	}
 }
+
+// Two series can name the same episode-list article — 51 lists in the corpus
+// are claimed by 530 series between them. Resolving that by map iteration order
+// changed the owner between runs over identical input, which is how I Love
+// Lucy's six seasons attached to it on one run and to The Lucy–Desi Comedy Hour
+// on the next, with nothing in either output saying so.
+func TestWholeArticleClaimBeatsSectionClaim(t *testing.T) {
+	whole := listClaim{series: 4319219, fragment: false}
+	section := listClaim{series: 144832, fragment: true}
+	if !betterClaim(whole, section) {
+		t.Error("a section claim won against a whole-article claim")
+	}
+	if betterClaim(section, whole) {
+		t.Error("a section claim beat a whole-article claim")
+	}
+}
+
+// Among equal claims the answer must be the same on every run, and it must be
+// decided by page_id rather than by anything displayed.
+func TestEqualClaimsResolveDeterministically(t *testing.T) {
+	lo := listClaim{series: 100, fragment: false}
+	hi := listClaim{series: 999, fragment: false}
+	if !betterClaim(lo, hi) || betterClaim(hi, lo) {
+		t.Error("equal claims did not resolve to the lower page_id")
+	}
+	both := listClaim{series: 100, fragment: true}
+	other := listClaim{series: 999, fragment: true}
+	if !betterClaim(both, other) || betterClaim(other, both) {
+		t.Error("equal section claims did not resolve to the lower page_id")
+	}
+}
+
+// A multiseries overview must yield nothing rather than merging two shows.
+// Both nested blocks number their seasons from one, so reading them into a list
+// keyed by season number alone gives one show's Nielsen rank to the other's
+// season. Absent data is recoverable; misattributed data is not.
+func TestMultiseriesOverviewIsSkippedNotMerged(t *testing.T) {
+	b, err := os.ReadFile("testdata/overview-i-love-lucy.wikitext")
+	if err != nil {
+		t.Skip("fixture not present")
+	}
+	if got := parseSeriesOverview(string(b)); len(got) != 0 {
+		t.Errorf("got %d seasons from a multiseries overview; two shows would be merged", len(got))
+	}
+}

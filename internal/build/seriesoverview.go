@@ -58,10 +58,33 @@ var (
 )
 
 // parseSeriesOverview reads every {{Series overview}} on a page.
+//
+// Templates carrying "multiseries" are skipped, deliberately. Shows that share
+// an episode list nest one overview per series inside an outer one:
+//
+//	{{Series overview | infoA = Rank | multiseries =
+//	  {{Series overview | series = ''[[I Love Lucy]]''            | episodes1 = 35 …}}
+//	  {{Series overview | series = ''[[The Lucy–Desi Comedy Hour]]'' | episodes1 = 13 …}}
+//	}}
+//
+// Both blocks number their seasons from one, and this function returns a flat
+// list that the caller keys by season number alone. Reading them without
+// routing each block to the series it names would merge two shows' seasons —
+// giving I Love Lucy's rank to a Lucy–Desi season and vice versa. Absent data
+// is recoverable; data attributed to the wrong show is not, and nothing
+// downstream could tell.
+//
+// Doing this properly means carrying the "series" parameter through to the
+// collector so each block attaches to the series it names. Until then the outer
+// template yields nothing, which is what it did before this file existed.
 func parseSeriesOverview(text string) []*filmstock.Season {
 	var out []*filmstock.Season
 	for _, body := range wikitext.FindAllTemplates(text, "Series overview") {
-		out = append(out, overviewSeasons(wikitext.ParseInfobox(body))...)
+		ib := wikitext.ParseInfobox(body)
+		if strings.TrimSpace(ib["multiseries"]) != "" {
+			continue
+		}
+		out = append(out, overviewSeasons(ib)...)
 	}
 	return out
 }
