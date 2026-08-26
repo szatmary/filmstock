@@ -139,6 +139,29 @@ changes if the article is later created. 32% of people, ~10% of credits, ~1.9
 credits each. Either they are credits on a film rather than person records, or
 they stay and the exception is permanent. Only the project owner can decide.
 
+**It is now losing people, not just theoretically able to.** Diffing two exports
+found key `-2070761073` holding **Issa Abdessamie** in one run and **Costache
+Ciubotaru** in the other — two unrelated people, one record, the loser silently
+overwritten.
+
+`PersonRecordPathID` is FNV-1a masked to 31 bits. At 77,457 redlinks the
+birthday expectation is ~1.4 collisions; one is observed. It grows with the
+SQUARE of the redlink count, so 150k redlinks is ~5 and 300k is ~21. The
+existing comment says the hash "is never an identity — the identity is the link
+target itself, which is stored in the record", and that is true of the record's
+contents and false of its key: gitdb keys are unique, so a collision is a
+deletion.
+
+Three ways out, in increasing order of work:
+
+1. **Key redlinks by the link target string.** gitdb keys are already strings;
+   only `storeWriter.put` insists on an integer. Removes the collision entirely
+   and keeps the record. Still a display string, so it still changes if the
+   article is created.
+2. **Widen the hash.** Cheapest, and only buys time — quadratic growth resumes.
+3. **Drop redlink person records**, leaving them as credits on the film. This is
+   the option that makes every identity in the database canonical.
+
 ### `omitempty` on published records — DECISION NEEDED
 
 Absent keys rather than empty values. Smaller records, meaningful across 165k in
