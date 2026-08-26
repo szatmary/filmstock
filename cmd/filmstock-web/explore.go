@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"sync"
 
 	"github.com/szatmary/filmstock"
@@ -49,15 +50,27 @@ type cellJSON struct {
 	Score  float32 `json:"score"`
 	X      float32 `json:"x"`
 	Y      float32 `json:"y"`
+
+	genre, country, language string // for naming the axes, not for the client
 }
 
 type viewJSON struct {
-	Session string     `json:"session"`
-	Center  cellJSON   `json:"center"`
-	Cells   []cellJSON `json:"cells"`
-	AxisVar [2]float32 `json:"axis_var"`
-	Trail   []cellJSON `json:"trail"`
-	Steps   int        `json:"steps"`
+	Session string      `json:"session"`
+	Center  cellJSON    `json:"center"`
+	Cols    int         `json:"cols"`
+	Rows    int         `json:"rows"`
+	Grid    []*cellJSON `json:"grid"` // row-major, cols*rows, nil where empty
+	AxisVar [2]float32  `json:"axis_var"`
+	// What the two directions appear to MEAN here, read off the films at each
+	// end. Latent axes have no given name; this is the nearest honest thing.
+	AxisNames struct {
+		LeftEnd  string `json:"left"`
+		RightEnd string `json:"right"`
+		DownEnd  string `json:"down"`
+		UpEnd    string `json:"up"`
+	} `json:"axis_names"`
+	Trail []cellJSON `json:"trail"`
+	Steps int        `json:"steps"`
 }
 
 func (s *server) fillCell(r *http.Request, pageID int, score, x, y float32) cellJSON {
@@ -67,6 +80,9 @@ func (s *server) fillCell(r *http.Request, pageID int, score, x, y float32) cell
 		if len(m.ReleaseDates) > 0 && len(m.ReleaseDates[0]) >= 4 {
 			c.Year, _ = strconv.Atoi(m.ReleaseDates[0][:4])
 		}
+		c.genre = strings.Join(m.Genre, " · ")
+		c.country = strings.Join(filmstock.Names(m.Country), " · ")
+		c.language = strings.Join(filmstock.Names(m.Language), " · ")
 	}
 	if c.Title == "" {
 		c.Title = fmt.Sprintf("#%d", pageID)
@@ -134,11 +150,64 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	out := viewJSON{Session: session, AxisVar: view.AxisVar}
-	out.Center = s.fillCell(r, view.Center, 1, 0, 0)
-	for _, c := range view.Cells {
-		out.Cells = append(out.Cells, s.fillCell(r, c.PageID, c.Score, c.X, c.Y))
+	// A grid, not a scatter. The axes are continuous and two records often want
+	// the same corner, so drawn at their raw positions they overlap in clumps
+	// and leave holes — which is unreadable, and worse, the eye cannot follow a
+	// title from one press to the next. Grid assigns each slot the nearest
+	// unplaced record, working outward from the middle.
+	cols, rows := 7, 4
+	if v := q.Get("cols"); v != "" {
+		if n, err := strconv.Atoi(v); err == nil && n > 0 && n <= 12 {
+			cols = n
+		}
 	}
+	if v := q.Get("rows"); v != "" {
+		if n, err := strconv.Atoi(v); err == nil && n > 0 && n <= 8 {
+			rows = n
+		}
+	}
+	out := viewJSON{Session: session, AxisVar: view.AxisVar, Cols: cols, Rows: rows}
+	out.Center = s.fillCell(r, view.Center, 1, 0, 0)
+	for _, row := range view.Grid(cols, rows) {
+		for _, c := range row {
+			if c == nil {
+				out.Grid = append(out.Grid, nil)
+				continue
+			}
+			cell := s.fillCell(r, c.PageID, c.Score, c.X, c.Y)
+			out.Grid = append(out.Grid, &cell)
+		}
+	}
+	// Name the axes from the neighbourhood, using every cell rather than only
+	// the ones that won a grid slot: the grid is a display choice and the axis
+	// means what it means regardless of how many squares are free.
+	{
+		all := make([]cellJSON, 0, len(view.Cells))
+		facets := map[int][]string{}
+		for _, c := range view.Cells {
+			cj := s.fillCell(r, c.PageID, c.Score, c.X, c.Y)
+			all = append(all, cj)
+			facets[cj.PageID] = attrsOf(cj, cj.genre, cj.country, cj.language)
+		}
+		split := func(axis func(cellJSON) float32) (lo, hi []cellJSON) {
+			for _, c := range all {
+				switch v := axis(c); {
+				case v < -0.33:
+					lo = append(lo, c)
+				case v > 0.33:
+					hi = append(hi, c)
+				}
+			}
+			return
+		}
+		lo, hi := split(func(c cellJSON) float32 { return c.X })
+		l, h := describeEnds(lo, hi, facets)
+		out.AxisNames.LeftEnd, out.AxisNames.RightEnd = axisLabel(l), axisLabel(h)
+		lo, hi = split(func(c cellJSON) float32 { return c.Y })
+		l, h = describeEnds(lo, hi, facets)
+		out.AxisNames.DownEnd, out.AxisNames.UpEnd = axisLabel(l), axisLabel(h)
+	}
+
 	trail := e.Trail()
 	out.Steps = len(trail) - 1
 	for _, id := range trail {
