@@ -34,6 +34,11 @@ type walk struct {
 	trail      []int
 	grid       []*cellJSON
 	cols, rows int
+
+	// The neighbourhood we were in before this step, so the step can be
+	// described by what changed rather than by what is here.
+	prevFacets map[string]int
+	prevN      int
 }
 
 type explorers struct {
@@ -81,6 +86,18 @@ type viewJSON struct {
 	AxisVar [2]float32  `json:"axis_var"`
 	// What the two directions appear to MEAN here, read off the films at each
 	// end. Latent axes have no given name; this is the nearest honest thing.
+	// What this step gained and lost against the one before it. Empty on the
+	// first view, when there is nothing to have moved from.
+	Step struct {
+		Gained []string `json:"gained"`
+		Lost   []string `json:"lost"`
+		// What set this film apart from the three you passed over. A preference
+		// against named alternatives, which is narrower and more telling than a
+		// change in the surrounding region.
+		Only     []string `json:"only"`
+		Shared   []string `json:"shared"`
+		Rejected []string `json:"rejected"`
+	} `json:"step"`
 	AxisNames struct {
 		LeftEnd  string `json:"left"`
 		RightEnd string `json:"right"`
@@ -127,6 +144,12 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 
 	session := q.Get("s")
 	wk := s.ex.byID[session]
+	// The four films the arrows offered, captured BEFORE the move, because the
+	// grid is replaced by it.
+	var offered map[string]int
+	if wk != nil {
+		offered = wk.candidates()
+	}
 	if start := q.Get("start"); start != "" || wk == nil {
 		id, err := strconv.Atoi(start)
 		if err != nil {
@@ -137,6 +160,14 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 		session = strconv.Itoa(s.ex.next)
 		wk = &walk{cur: id, trail: []int{id}}
 		s.ex.byID[session] = wk
+	} else if to := q.Get("goto"); to != "" {
+		// Clicking a film is a STEP, not a restart. It was starting a new
+		// session, which threw away the trail and the neighbourhood being
+		// stepped from — so a click could never be described as a move.
+		if id, err := strconv.Atoi(to); err == nil && id != wk.cur {
+			wk.cur = id
+			wk.trail = append(wk.trail, id)
+		}
 	} else if dir := q.Get("move"); dir == "back" {
 		// Left is not the inverse of right, and cannot be: the grid is
 		// recomputed at each film, so the film that was to your right is not
@@ -208,6 +239,34 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 	wk.grid, wk.cols, wk.rows = out.Grid, cols, rows
 
 	s.nameAxes(r, view, &out)
+
+	// What moving here changed. Compared with the neighbourhood we came from,
+	// so the context both places share cancels out — which is what makes a step
+	// between two science-fiction films legible as "comedy" rather than as
+	// "science fiction" twice.
+	now, nNow := s.facetCounts(r, view)
+	if wk.prevFacets != nil {
+		out.Step.Gained, out.Step.Lost = describeStep(wk.prevFacets, now, wk.prevN, nNow)
+	}
+	wk.prevFacets, wk.prevN = now, nNow
+
+	// What was distinctive about the film taken, against the ones passed over.
+	if len(offered) > 1 {
+		var rejected [][]string
+		for _, id := range sortedIDs(offered) {
+			if id == wk.cur {
+				continue
+			}
+			c := s.fillCell(r, id, 0, 0, 0)
+			rejected = append(rejected, attrsOf(c, c.genre, c.country, c.language))
+			out.Step.Rejected = append(out.Step.Rejected, c.Title)
+		}
+		if len(rejected) > 0 {
+			cc := s.fillCell(r, wk.cur, 0, 0, 0)
+			out.Step.Only, out.Step.Shared = describeChoice(
+				attrsOf(cc, cc.genre, cc.country, cc.language), rejected)
+		}
+	}
 	out.Steps = len(wk.trail) - 1
 	for _, id := range wk.trail {
 		out.Trail = append(out.Trail, s.fillCell(r, id, 0, 0, 0))
@@ -270,6 +329,45 @@ func (s *server) handleExplore(w http.ResponseWriter, r *http.Request) {
 	if err := pages.ExecuteTemplate(w, "explore.html", r.URL.Query().Get("id")); err != nil {
 		http.Error(w, err.Error(), 500)
 	}
+}
+
+// candidates lists the films the four arrows currently offer.
+func (wk *walk) candidates() map[string]int {
+	out := map[string]int{}
+	for _, d := range []string{"left", "right", "up", "down"} {
+		if id, ok := wk.neighbour(d); ok {
+			out[d] = id
+		}
+	}
+	return out
+}
+
+// sortedIDs returns the candidate ids in a fixed direction order, so the
+// rejected list reads the same way every time.
+func sortedIDs(m map[string]int) []int {
+	var out []int
+	for _, d := range []string{"left", "right", "up", "down"} {
+		if id, ok := m[d]; ok {
+			out = append(out, id)
+		}
+	}
+	return out
+}
+
+// facetCounts tallies the attributes of everything in the neighbourhood.
+func (s *server) facetCounts(r *http.Request, view *filmstock.View) (map[string]int, int) {
+	m := map[string]int{}
+	for _, c := range view.Cells {
+		cj := s.fillCell(r, c.PageID, c.Score, c.X, c.Y)
+		seen := map[string]bool{}
+		for _, a := range attrsOf(cj, cj.genre, cj.country, cj.language) {
+			if !seen[a] {
+				seen[a] = true
+				m[a]++
+			}
+		}
+	}
+	return m, len(view.Cells)
 }
 
 // nameAxes reads what the two directions mean here off the films at their ends.

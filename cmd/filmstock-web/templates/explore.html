@@ -137,6 +137,11 @@ $('#search').addEventListener('input', async e => {
 });
 
 async function start(id) { session = null; await load('start=' + id); }
+// Clicking is a step: it keeps the trail and can be described as a move.
+async function goTo(id) {
+  if (!session) return start(id);
+  await load('s=' + session + '&goto=' + id);
+}
 async function move(dir) { if (session) await load('s=' + session + '&move=' + dir); }
 
 async function load(qs) {
@@ -189,7 +194,7 @@ function draw(v) {
     d.innerHTML =
       (cell.poster ? '<img src="' + cell.poster + '" loading="lazy" alt="">' : '<img alt="">') +
       '<div class="t">' + esc(cell.title) + (cell.year ? '<br>' + cell.year : '') + '</div>';
-    d.onclick = () => start(cell.page_id);
+    d.onclick = () => goTo(cell.page_id);
     g.appendChild(d);
   }
 
@@ -198,6 +203,18 @@ function draw(v) {
     '<span>' + esc(a.up) + ' \u2191</span></div>');
   $('#ax0').style.width = Math.round(v.axis_var[0] * 100) + '%';
   $('#ax1').style.width = Math.round(v.axis_var[1] * 100) + '%';
+  const st = v.step || {};
+  const line = (label, xs, colour) => xs && xs.length
+    ? '<div style="margin-bottom:4px"><span class="dim">' + label + '</span> ' +
+      '<span style="color:' + colour + '">' + esc(xs.join(' · ')) + '</span></div>' : '';
+  $('#step').innerHTML =
+    (line('chose', st.only, 'var(--hot)') ||
+     (st.gained && st.gained.length ? '' : '<div class="dim">—</div>')) +
+    line('over', st.rejected, 'var(--dim)') +
+    line('also shared', st.shared, 'var(--dim)') +
+    line('region gained', st.gained, 'var(--fg)') +
+    line('region lost', st.lost, 'var(--dim)');
+
   $('#trail').innerHTML = (v.trail || []).map(t => '<div>' + esc(t.title) + '</div>').join('');
   $('#status').textContent = v.steps + ' step' + (v.steps === 1 ? '' : 's');
 }
