@@ -17,6 +17,8 @@ func main() {
 		build.CmdImport(os.Args[2:])
 	case "export":
 		build.CmdExport(os.Args[2:])
+	case "diff-stores":
+		build.CmdDiffStores(os.Args[2:])
 	case "vectors":
 		build.CmdVectors(os.Args[2:])
 	case "catchup":
@@ -71,6 +73,7 @@ Usage:
   filmstock build-qidmap   -pageprops F -index IDX -db DB      title/page_id -> Q-id
   filmstock import -dumps DUMPS -inter intermediate.db          dumps -> the intermediate (pass 1)
   filmstock export -inter intermediate.db -out RECORDS         the intermediate -> records (pass 2)
+  filmstock diff-stores OLD NEW                                compare two record trees field by field
   filmstock extract -dumps DUMPS -out RECORDS -cache wikidata.db
                                                                dumps -> the record tree
   filmstock extract ... -text DIR                              put the corpus elsewhere
