@@ -211,3 +211,45 @@ func TestWholeEpisodeValueBeatsSegmentValues(t *testing.T) {
 		t.Errorf("directors %v, want the episode-wide value", n)
 	}
 }
+
+// An anthology broadcast is one episode of several named segments, and the
+// article names them separately: Rugrats' second episode is "Barbecue Story"
+// and "Waiter, There's a Baby in My Soup". With no unsuffixed Title the row
+// produced no episode at all — 6,630 of them across the corpus. Joined without
+// a separator the two names run together into one wrong title.
+func TestSegmentTitlesAreJoinedReadably(t *testing.T) {
+	got := parseEpisodeRows(map[string]string{
+		"numparts": "2", "episodenumber2": "2",
+		"title_1": "[[Barbecue Story]]",
+		"title_2": "[[Waiter, There's a Baby in My Soup]]",
+	})
+	if len(got) != 1 {
+		t.Fatalf("got %d episodes, want 1 — an anthology is one broadcast", len(got))
+	}
+	if want := "Barbecue Story / Waiter, There's a Baby in My Soup"; got[0].Title != want {
+		t.Errorf("title %q, want %q", got[0].Title, want)
+	}
+}
+
+// A segment whose title is only markup is not a segment. Joining it anyway
+// manufactures a title of "/ /" and with it an episode the article never listed.
+func TestEmptySegmentTitlesDoNotMakeAnEpisode(t *testing.T) {
+	got := parseEpisodeRows(map[string]string{
+		"numparts": "3", "episodenumber2": "5",
+		"title_1": "<!-- -->", "title_2": "{{n/a}}", "title_3": "  ",
+	})
+	if len(got) != 0 {
+		t.Errorf("got %d episodes with titles %q, want none", len(got), got[0].Title)
+	}
+}
+
+// One real segment among empty ones still names the episode.
+func TestOneNamedSegmentIsEnough(t *testing.T) {
+	got := parseEpisodeRows(map[string]string{
+		"numparts": "2", "episodenumber2": "5",
+		"title_1": "[[Real Segment]]", "title_2": "<!-- -->",
+	})
+	if len(got) != 1 || got[0].Title != "Real Segment" {
+		t.Fatalf("got %+v", got)
+	}
+}

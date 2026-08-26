@@ -89,6 +89,9 @@ var reSeasonHeading = regexp.MustCompile(`(?im)^=+\s*(?:Season|Series)\s+(\d+)`)
 // reEpisodePart matches a per-part parameter suffix: EpisodeNumber_1, Viewers_2.
 var reEpisodePart = regexp.MustCompile(`_(\d+)$`)
 
+// segmentTitle are the fields naming a segment rather than describing it.
+var segmentTitle = map[string]bool{"title": true, "rtitle": true, "englishtitle": true}
+
 // maxEpisodeParts bounds NumParts. Three is the most any real article uses;
 // the ceiling is only here so a vandalised or mistyped value cannot make one
 // row into thousands of episodes.
@@ -188,6 +191,27 @@ func mergeEpisodeParts(ib map[string]string, n int) map[string]string {
 		}
 	}
 	for base, vs := range joined {
+		if segmentTitle[base] {
+			// "Barbecue Story / Waiter, There's a Baby in My Soup" — one Rugrats
+			// broadcast of two named segments, written the way the article
+			// renders it. Joined any other way the two run together into a
+			// title that reads as one wrong name.
+			//
+			// Segments whose title is only markup — an empty template, a
+			// comment — are left out rather than joined as nothing, which
+			// manufactures a title of "/ /" and with it an episode that the
+			// article never listed.
+			named := vs[:0]
+			for _, v := range vs {
+				if wikitext.CleanText(v) != "" {
+					named = append(named, v)
+				}
+			}
+			if len(named) > 0 {
+				out[base] = strings.Join(named, " / ")
+			}
+			continue
+		}
 		// <br /> rather than a comma: SplitPeople deliberately does not split on
 		// commas, because names carry them — "Robert Downey, Jr." is one person.
 		out[base] = strings.Join(vs, "<br />")
