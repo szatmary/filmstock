@@ -246,6 +246,19 @@ the shape of the problem (one show, two numbering eras) will recur.
 Deduplication by episode NUMBER alone used to hide this: same-numbered episodes
 from the two eras collapsed to roughly one each, which is how it read as 291.
 
+### One person, two link targets
+
+The same human is sometimes linked under two spellings that differ only in
+punctuation — `John "Dusty" King` and `John 'Dusty' King`, one of which is a
+redirect. Each becomes its own row: the one with an article carries the
+page_id, the other becomes a credit with no record.
+
+Not new, and not made worse by anything here: it is the same fact that makes a
+link target a weaker identity than a page_id. Wikidata's Q-id would merge them,
+and 99% of people already resolve to one, so merging on Q-id where both sides
+have one would close most of it. Worth doing when the redlink question is
+settled, not before.
+
 ### 56 schedule articles still yield nothing
 
 232 of 288 read. The remainder are the overnight, morning and afternoon variants.
