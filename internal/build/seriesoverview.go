@@ -107,13 +107,28 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 	sort.Strings(keys)
 
 	// What each lettered column means, taken from the article's own headings.
+	//
+	// The first column to claim a role keeps it. Articles do carry two columns
+	// measuring the same thing — Charmed has "Rank" and "Network Rank", Once
+	// Upon a Time has "Viewers rank" and "18-49 rank" — and both matched, so
+	// both wrote Season.Rank and the later one silently replaced the primary
+	// figure with a qualified one. In every case in the corpus the primary
+	// column comes first, which is also the convention these tables follow.
+	//
+	// Four of 402 episode-list pages have two columns claiming rank, two have
+	// two claiming viewers.
 	role := map[string]string{}
+	claimed := map[string]bool{}
 	for _, k := range keys {
-		if m := reInfoTitle.FindStringSubmatch(k); m != nil {
-			if r := overviewRole(ib[k]); r != "" {
-				role[m[1]] = r
-			}
+		m := reInfoTitle.FindStringSubmatch(k)
+		if m == nil {
+			continue
 		}
+		r := overviewRole(ib[k])
+		if r == "" || claimed[r] {
+			continue
+		}
+		role[m[1]], claimed[r] = r, true
 	}
 
 	byNum := map[int]*filmstock.Season{}

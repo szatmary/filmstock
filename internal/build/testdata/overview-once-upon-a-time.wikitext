@@ -1,0 +1,489 @@
+{{Short description|None}}
+{{DISPLAYTITLE:List of ''Once Upon a Time'' episodes}}
+{{Use American English|date=March 2026}}
+{{Use mdy dates|date=February 2025}}
+[[File:Once Upon A Time logo.svg|right|200x200px]]
+''[[Once Upon a Time (TV series)|Once Upon a Time]]'' is an American [[fairy tale]] drama television series created by [[Edward Kitsis]] and [[Adam Horowitz]], who also serve as executive producers alongside [[Steve Pearlman]]. The series begins by introducing a [[Bail bondsman|bail bondswoman]], [[Emma Swan]] ([[Jennifer Morrison]]) and her son, [[Henry Mills (Once Upon a Time)|Henry Mills]] ([[Jared S. Gilmore]]), who discover that a town named Storybrooke in [[Maine]] is a remnant of a parallel [[fantasy world]] that was cursed by Henry's adoptive mother, the [[Evil Queen]] / [[Regina Mills]] ([[Lana Parrilla]]), and that all the characters from the fairy tales have no memories of who they were, including Emma's parents, [[Snow White]] / [[Mary Margaret Blanchard]] ([[Ginnifer Goodwin]]) and [[Prince Charming]] / [[David Nolan (Once Upon a Time)|David Nolan]] ([[Josh Dallas]]), who sent her to the real world to save their world and break the curse.
+
+{{Aired episodes|showpage=Once Upon a Time (TV series)|finished=all|seasons=7|2011|10|23|2018|5|18}}
+
+==Series overview==
+<onlyinclude>{{Series overview
+| infoA      = Viewers<br />(millions)
+| infoB      = Viewers<br />rank
+| infoC      = 18–49<br />rating/share
+| infoD      = 18-49<br />rank
+
+| color1     = #323D5F
+| link1      = <includeonly>List of Once Upon a Time episodes</includeonly>#Season 1 (2011–12)
+| episodes1  = 22
+| start1     = {{Start date|2011|10|23}}
+| end1       = {{End date|2012|5|13}}
+| infoA1     = 11.71
+| infoB1     = 28<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2012/05/24/complete-list-of-2011-12-season-tv-show-viewership-sunday-night-football-tops-followed-by-american-idol-ncis-dancing-with-the-stars/135785/|archive-url=https://web.archive.org/web/20120527223446/http://tvbythenumbers.zap2it.com/2012/05/24/complete-list-of-2011-12-season-tv-show-viewership-sunday-night-football-tops-followed-by-american-idol-ncis-dancing-with-the-stars/135785/|url-status=dead|archive-date=May 27, 2012|title=Complete List of 2011–12 Season TV Show Viewership: 'Sunday Night Football' Tops, Followed By 'American Idol', 'NCIS' & 'Dancing With The Stars'|last=Gorman|first=Bill|work=TV by the Numbers|date=May 24, 2012|access-date=May 25, 2012}}</ref>
+| infoC1     = 4.1/10
+| infoD1     = 18<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2012/05/24/final-list-of-2011-12-season-tv-show-ratings-sunday-night-football-tops-followed-by-american-idol-the-voice-modern-family/135747/|archive-url=https://web.archive.org/web/20120525183657/http://tvbythenumbers.zap2it.com/2012/05/24/final-list-of-2011-12-season-tv-show-ratings-sunday-night-football-tops-followed-by-american-idol-the-voice-modern-family/135747/|url-status=dead|archive-date=May 25, 2012|title=Complete List of 2011–12 Season TV Show Ratings: 'Sunday Night Football' Tops, Followed By 'American Idol', 'The Voice' & 'Modern Family'|last=Gorman|first=Bill|work=TV By the Numbers|date=May 24, 2012|access-date=May 24, 2012}}</ref>
+
+| color2     = #B87BF6
+| link2      = <includeonly>List of Once Upon a Time episodes</includeonly>#Season 2 (2012–13)
+| episodes2  = 22
+| start2     = {{Start date|2012|9|30}}
+| end2       = {{End date|2013|5|12}}
+| infoA2     = 10.24
+| infoB2     = 35<ref name="Patten">{{cite web|url=https://deadline.com/2014/05/tv-season-series-rankings-2013-full-list-2-733762/|title=Full 2012–2013 TV Season Series Rankings|website=Deadline Hollywood|last=Patten|first=Dominic|date=May 23, 2013|access-date=May 24, 2013}}</ref>
+| infoC2     = 3.6/9
+| infoD2     = 18<ref name="zap2it">{{cite web|url=http://tvbythenumbers.zap2it.com/2013/05/29/complete-list-of-2012-13-season-tv-show-ratings-sunday-night-football-tops-followed-by-the-big-bang-theory-the-voice-modern-family/184774/|archive-url=https://web.archive.org/web/20130607112816/http://tvbythenumbers.zap2it.com/2013/05/29/complete-list-of-2012-13-season-tv-show-ratings-sunday-night-football-tops-followed-by-the-big-bang-theory-the-voice-modern-family/184774/|url-status=dead|archive-date=June 7, 2013|title=Complete List Of 2012-13 Season TV Show Ratings: 'Sunday Night Football' Tops, Followed By 'The Big Bang Theory,' 'The Voice' & 'Modern Family' – Ratings – TVbytheNumbers|access-date=January 11, 2014}}</ref>
+
+| color3     = #7D0F08
+| link3      = <includeonly>List of Once Upon a Time episodes</includeonly>#Season 3 (2013–14)
+| episodes3  = 22
+| start3     = {{Start date|2013|9|29}}
+| end3       = {{End date|2014|5|11}}
+| infoA3     = 9.38
+| infoB3     = 35<ref name="deadline">{{cite web|url=https://deadline.com/2014/05/tv-season-series-rankings-2013-full-list-2-733762/|title=Full 2013-2014 TV Season Series Rankings|date=May 22, 2014|website=Deadline Hollywood|access-date=December 3, 2014}}</ref>
+| infoC3     = 4.2/8
+| infoD3     = 12<ref name="Top50">{{cite web|url=https://www.ew.com/article/2014/05/20/top-50-broadcast-tv-shows-of-2013-14|title=Top 50 broadcast TV shows of 2013-14|date=May 20, 2014|publisher=Entertainment Weekly|access-date=February 19, 2020|archive-date=January 18, 2021|archive-url=https://web.archive.org/web/20210118072925/https://ew.com/article/2014/05/20/top-50-broadcast-tv-shows-of-2013-14/|url-status=dead}}</ref>
+
+| color4     = #77B5FE
+| link4      = <includeonly>List of Once Upon a Time episodes</includeonly>#Season 4 (2014–15)
+| episodes4  = 22
+| start4     = {{Start date|2014|9|28}}
+| end4       = {{End date|2015|5|10}}
+| infoA4     = 8.98
+| infoB4     = 50<ref name="Season4Ratings" />
+| infoC4     = 3.2/7
+| infoD4     = 17<ref name="Season4Ratings">{{cite web|url=https://deadline.com/2015/05/2014-15-full-tv-season-ratings-shows-rankings-1201431167/ |title=Full 2014-15 TV Season Series Rankings: Football & 'Empire' Ruled |last=de Moraes |first=Lisa |website=[[Deadline Hollywood]] |date=May 21, 2015 |access-date=May 22, 2015 |archive-url=https://web.archive.org/web/20150522054915/http://deadline.com/2015/05/2014-15-full-tv-season-ratings-shows-rankings-1201431167/ |archive-date=May 22, 2015 |url-status=dead }}</ref>
+
+| color5     = #0D090A
+| link5      = <includeonly>List of Once Upon a Time episodes</includeonly>#Season 5 (2015–16)
+| episodes5  = 23
+| start5     = {{Start date|2015|9|27}}
+| end5       = {{End date|2016|5|15}}
+| infoA5     = 6.32
+| infoB5     = 69<ref name="Season5Ratings">{{cite web|url=https://deadline.com/2016/05/tv-season-2015-2016-series-rankings-shows-full-list-1201763189/|title=Full 2015-16 TV Season Series Rankings: 'Blindspot', 'Life In Pieces' & 'Quantico' Lead Newcomers|last=de Moraes|first=Lisa|website=[[Deadline Hollywood]]|date=May 26, 2016|access-date=May 26, 2016}}</ref>
+| infoC5     = 2.2
+| infoD5     = 34<ref name="Season5Ratings" />
+
+| color6     = #E0C4AD
+| link6      = <includeonly>List of Once Upon a Time episodes</includeonly>#Season 6 (2016–17)
+| episodes6  = 22
+| start6     = {{Start date|2016|9|25}}
+| end6       = {{End date|2017|5|14}}
+| infoA6     = 4.39
+| infoB6     = 105<ref name="Season6Ratings">{{cite web|url=https://deadline.com/2017/05/2016-2017-tv-season-ratings-series-rankings-list-1202102340/|title=Final 2016-17 TV Rankings: 'Sunday Night Football' Winning Streak Continues|last=de Moraes|first=Lisa|website=[[Deadline Hollywood]]|date=May 26, 2017|access-date=May 26, 2017}}</ref>
+| infoC6     = 1.5/5
+| infoD6     = 70<ref name="Season6Ratings" />
+
+| color7     = #2E5392
+| link7      = <includeonly>List of Once Upon a Time episodes</includeonly>#Season 7 (2017–18)
+| episodes7  = 22
+| start7     = {{Start date|2017|10|6}}
+| end7       = {{End date|2018|5|18}}
+| infoA7     = 3.41
+| infoB7     = 120<ref name="s7average">{{cite web |last1=Porter |first1=Rick |title=Final Live +7 viewer averages for 2017-18: 'Roseanne,' 'Big Bang Theory' surpass 'SNF' |url=http://tvbythenumbers.zap2it.com/more-tv-news/final-live-7-viewer-averages-for-2017-18-roseanne-big-bang-theory-surpass-snf/ |archive-url=https://web.archive.org/web/20180612142325/http://tvbythenumbers.zap2it.com/more-tv-news/final-live-7-viewer-averages-for-2017-18-roseanne-big-bang-theory-surpass-snf/ |url-status=dead |archive-date=June 12, 2018 |website=[[TV by the Numbers]] |access-date=June 13, 2018 |date=June 11, 2018}}</ref>
+| infoC7     = 0.9
+| infoD7     = 115<ref name="s7average2">{{cite web |last1=Porter |first1=Rick |title=Final Live +7 18-49 ratings for 2017-18: 'This is Us' gets the biggest bump |url=http://tvbythenumbers.zap2it.com/more-tv-news/final-live-7-adults-18-49-ratings-for-2017-18-this-is-us-gets-the-biggest-bump/ |archive-url=https://web.archive.org/web/20180612160523/http://tvbythenumbers.zap2it.com/more-tv-news/final-live-7-adults-18-49-ratings-for-2017-18-this-is-us-gets-the-biggest-bump/ |url-status=dead |archive-date=June 12, 2018 |website=[[TV by the Numbers]] |access-date=June 13, 2018 |date=June 11, 2018}}</ref>
+}}</onlyinclude>
+
+==Episodes==
+
+=== Season 1 (2011–12) ===
+{{Main|Once Upon a Time season 1|l1 = ''Once Upon a Time'' season 1}}
+{{:Once Upon a Time season 1}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+=== Season 2 (2012–13) ===
+{{Main|Once Upon a Time season 2|l1 = ''Once Upon a Time'' season 2}}
+{{:Once Upon a Time season 2}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+=== Season 3 (2013–14) ===
+{{Main|Once Upon a Time season 3|l1 = ''Once Upon a Time'' season 3}}
+{{:Once Upon a Time season 3}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+=== Season 4 (2014–15) ===
+{{Main|Once Upon a Time season 4|l1 = ''Once Upon a Time'' season 4}}
+{{:Once Upon a Time season 4}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+=== Season 5 (2015–16) ===
+{{Main|Once Upon a Time season 5|l1 = ''Once Upon a Time'' season 5}}
+{{:Once Upon a Time season 5}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+=== Season 6 (2016–17) ===
+{{Main|Once Upon a Time season 6|l1 = ''Once Upon a Time'' season 6}}
+{{:Once Upon a Time season 6}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+=== Season 7 (2017–18)===
+{{Main|Once Upon a Time season 7|l1 = ''Once Upon a Time'' season 7}}
+{{:Once Upon a Time season 7}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+==Specials==
+{{Episode table |anchor=Specials |background=#E06EFA |overall=5 |title=27 |aux1=17 |aux2=27 |airdate=14 |viewers=10 |country=US |aux1T=Narrator |aux2T=Aired between |episodes=
+{{Episode list
+ |EpisodeNumber   = 1
+ |Title           = Magic Is Coming
+ |OriginalAirDate = {{Start date|2012|9|30}}
+ |Aux1            = [[Giancarlo Esposito]]
+ |Aux2            = "[[A Land Without Magic]]"<br />"[[Broken (Once Upon a Time)|Broken]]"
+ |Viewers         = 6.04<ref name="MagicIsComing">{{cite web|url=http://tvbythenumbers.zap2it.com/2012/10/02/sunday-final-ratings-once-upon-a-time-the-simpsons-bobs-burgers-adjusted-up-666-park-avenue-60-minutes-adjusted-down-final-football-numbers/150988/ |title=Sunday Final Ratings: 'Once Upon A Time', 'The Simpsons', 'Bob's Burgers' Adjusted Up; '666 Park Avenue', '60 Minutes' Adjusted Down & Final Football Numbers |last=Bibel |first=Sara |work=TV By the Numbers |date=October 2, 2012 |access-date=November 2, 2015 |url-status=dead |archive-url=https://web.archive.org/web/20121004225412/http://tvbythenumbers.zap2it.com/2012/10/02/sunday-final-ratings-once-upon-a-time-the-simpsons-bobs-burgers-adjusted-up-666-park-avenue-60-minutes-adjusted-down-final-football-numbers/150988/ |archive-date=October 4, 2012 }}</ref>
+ |LineColor       = E06EFA     
+}}
+{{Episode list
+ |EpisodeNumber   = 2
+ |Title           = The Price of Magic 
+ |OriginalAirDate = {{Start date|2013|4|14}}
+ |Aux1            = [[Alan Dale]]
+ |Aux2            = "[[Selfless, Brave and True]]"<br />"[[Lacey (Once Upon a Time)|Lacey]]"
+ |Viewers         = 5.17<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2013/04/16/sunday-final-ratings-the-cleveland-show-once-upon-a-time-the-amazing-race-family-guy-celebrity-apprentice-60-minutes-adjusted-down-final/177861/|archive-url=https://web.archive.org/web/20130419033035/http://tvbythenumbers.zap2it.com/2013/04/16/sunday-final-ratings-the-cleveland-show-once-upon-a-time-the-amazing-race-family-guy-celebrity-apprentice-60-minutes-adjusted-down-final/177861/|url-status=dead|archive-date=April 19, 2013|title=Sunday Final Ratings: 'The Cleveland Show', 'Once Upon a Time', 'The Amazing Race', 'Family Guy', 'Celebrity Apprentice' & 'American Dad' Adjusted Up; '60 Minutes' Adjusted Down + Final Golf Numbers|last=Bibel|first=Sara|work=TV By the Numbers|date=April 16, 2013|access-date=April 16, 2013}}</ref>
+ |LineColor       = E06EFA     
+}}
+{{Episode list
+ |EpisodeNumber   = 3
+ |Title           = Journey to Neverland
+ |OriginalAirDate = {{Start date|2013|9|29}}
+ |Aux1            = [[Alfred Molina]]
+ |Aux2            = "[[And Straight On 'til Morning]]"<br />"[[The Heart of the Truest Believer]]"
+ |Viewers         = 5.07<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2013/09/30/tv-ratings-sundayomce-upon-a-time-revenge-the-simpsons-family-guy-return-down-betrayal-premieres-low/205507/|archive-url=https://web.archive.org/web/20130930160333/http://tvbythenumbers.zap2it.com/2013/09/30/tv-ratings-sundayomce-upon-a-time-revenge-the-simpsons-family-guy-return-down-betrayal-premieres-low/205507/|url-status=dead|archive-date=September 30, 2013|title=TV Ratings Sunday: 'Once Upon a Time', 'Revenge', 'The Simpsons' & 'Family Guy' Return Down, 'Betrayal' Premieres Low|work=TV by the Numbers|date=September 30, 2013|access-date=October 1, 2013|author=Bibel, Sara}}</ref>
+ |LineColor       = E06EFA     
+}}
+{{Episode list
+ |EpisodeNumber   = 4
+ |Title           = Wicked Is Coming
+ |OriginalAirDate = {{Start date|2014|3|9}}
+ |Aux1            = [[Dan Stevens]]
+ |Aux2            = "[[Going Home (Once Upon a Time)|Going Home]]"<br />"[[New York City Serenade (Once Upon a Time)|New York City Serenade]]"
+ |Viewers         = 4.44<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2014/03/11/sunday-final-ratings-resurrection-once-upon-a-time-the-amazing-race-adjusted-up/243619/|archive-url=https://web.archive.org/web/20140311193417/http://tvbythenumbers.zap2it.com/2014/03/11/sunday-final-ratings-resurrection-once-upon-a-time-the-amazing-race-adjusted-up/243619/|url-status=dead|archive-date=March 11, 2014|title=Sunday Final Ratings: 'Resurrection', 'Once Upon a Time' & 'The Amazing Race' Adjusted Up|last=Kondolojy|first=Amanda|work=TV by the Numbers|date=March 11, 2014|access-date=March 11, 2014}}</ref>
+ |LineColor       = E06EFA     
+}}
+{{Episode list
+ |EpisodeNumber   = 5
+ |Title           = Storybrooke Has Frozen Over
+ |OriginalAirDate = {{Start date|2014|9|28}}
+ |Aux1            = [[John Rhys-Davies]]
+ |Aux2            = "[[There's No Place Like Home (Once Upon a Time)|There's No Place Like Home]]"<br />"[[A Tale of Two Sisters (Once Upon a Time)|A Tale of Two Sisters]]"
+ |Viewers         = 5.50<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2014/09/30/abcs-sunday-sees-big-increases-in-final-national-ratings/308937/|title=ABC's Sunday Sees Big Increases in Final National Ratings|last=Bibel|first=Sara|work=TV by the Numbers|date=September 30, 2014|access-date=September 30, 2014|url-status=dead|archive-url=https://web.archive.org/web/20141002083532/http://tvbythenumbers.zap2it.com/2014/09/30/abcs-sunday-sees-big-increases-in-final-national-ratings/308937/|archive-date=October 2, 2014}}</ref>
+ |LineColor       = E06EFA     
+}}
+{{Episode list
+ |EpisodeNumber   = 6
+ |Title           = Secrets of Storybrooke
+ |OriginalAirDate = {{Start date|2015|3|1}}
+ |Aux1            = [[Jennifer Morrison]]
+ |Aux2            = "[[Heroes and Villains (Once Upon a Time)|Heroes and Villains]]"<br />"[[Darkness on the Edge of Town (Once Upon a Time)|Darkness on the Edge of Town]]"
+ |Viewers         = 4.45<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2015/03/03/sunday-final-ratings-the-last-man-on-earth-dateline-adjusted-up/369595/|archive-url=https://web.archive.org/web/20150305222209/http://tvbythenumbers.zap2it.com/2015/03/03/sunday-final-ratings-the-last-man-on-earth-dateline-adjusted-up/369595/|url-status=dead|archive-date=March 5, 2015|title=Sunday Final Ratings: 'The Last Man on Earth' & 'Dateline' Adjusted Up|last=Bibel|first=Sara|date=March 3, 2015|work=TV by the Numbers|access-date=March 3, 2015}}</ref>
+ |LineColor       = E06EFA     
+}}
+{{Episode list
+ |EpisodeNumber   = 7
+ |Title           = Dark Swan Rises: A ''Once Upon a Time'' Fan Celebration
+ |OriginalAirDate = {{Start date|2015|9|27}}
+ |Aux1            = Howard Parker
+ |Aux2            = "[[Operation Mongoose (Once Upon a Time)|Operation Mongoose, Part 2]]"<br />"[[The Dark Swan]]"
+ |Viewers         = 3.20<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2015/09/29/sunday-final-ratings-bobs-burgers-adjusted-down-60-minutes-adjusted-up-sunday-night-football/473898/|archive-url=https://web.archive.org/web/20150930221125/http://tvbythenumbers.zap2it.com/2015/09/29/sunday-final-ratings-bobs-burgers-adjusted-down-60-minutes-adjusted-up-sunday-night-football/473898/|url-status=dead|archive-date=September 30, 2015|title=Sunday Final Ratings: 'Bob's Burgers' Adjusted Down, '60 Minutes' Adjusted Up + 'Sunday Night Football'|last=Dixon|first=Dani|date=September 29, 2015|work=TVbytheNumbers|access-date=September 29, 2015}}</ref>
+ |LineColor       = E06EFA     
+}}
+{{Episode list
+ |EpisodeNumber   = 8
+ |Title           = Evil Reigns Once More
+ |OriginalAirDate = {{Start date|2016|9|25}}
+ |Aux1            = Howard Parker
+ |Aux2            = "[[An Untold Story]]"<br />"[[The Savior (Once Upon a Time)|The Savior]]"
+ |Viewers         = 2.86<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/2016/09/27/sunday-final-ratings-sept-25-2016/|archive-url=https://web.archive.org/web/20160928162621/http://tvbythenumbers.zap2it.com/2016/09/27/sunday-final-ratings-sept-25-2016/|url-status=dead|archive-date=September 28, 2016|title=Sunday final ratings: 'Once Upon a Time' and 'NCIS: LA' adjust up, FOX shows adjust down|last=Porter|first=Rick|date=September 27, 2016|work=TVbytheNumbers|access-date=September 27, 2016}}</ref>
+ |LineColor       = E06EFA     
+}}
+{{Episode list
+ |EpisodeNumber   = 9
+ |Title           = The Final Battle Begins
+ |OriginalAirDate = {{Start date|2017|5|14}}
+ |Aux1            = Howard Parker
+ |Aux2            = "[[The Song in Your Heart]]"<br />"[[The Final Battle (Once Upon a Time)|The Final Battle]]"
+ |Viewers         = 2.82<ref>{{cite web|url=http://tvbythenumbers.zap2it.com/daily-ratings/sunday-final-ratings-may-14-2017/|archive-url=https://web.archive.org/web/20170517014431/http://tvbythenumbers.zap2it.com/daily-ratings/sunday-final-ratings-may-14-2017/|url-status=dead|archive-date=May 17, 2017|title='NCIS: Los Angeles' finale adjusts up: Sunday final ratings|last=Porter|first=Rick|date=May 16, 2017|work=TVbytheNumbers|access-date=May 16, 2017}}</ref>
+ |LineColor       = E06EFA     
+}}
+}}
+
+==Home media releases==
+{| class="wikitable" style="text-align:center;"
+|-
+! colspan="2" rowspan="2" | Season
+! rowspan="2" | Episodes
+! colspan="3" | [[DVD]] and [[Blu-ray]] release date
+|-
+! [[DVD region code#1|Region 1]]
+! [[DVD region code#2|Region 2]]
+! [[DVD region code#4|Region 4]]
+|-
+| style="background:#1D2951"|
+| [[#Season 1 (2011–12)|1]]
+| 22
+| August 28, 2012<ref>{{cite web|url=http://www.tvshowsondvd.com/news/Time-Season-1/16905|title=Once Upon a Time - Magical Blu-rays and DVDs are Announced for {{'}}''The Complete 1st Season''{{'}}|work=TVShowsonDVD.com|last=Lambert|first=David|date=May 4, 2012|access-date=May 14, 2012|url-status=dead|archive-url=https://web.archive.org/web/20120517211755/http://www.tvshowsondvd.com/news/Time-Season-1/16905|archive-date=May 17, 2012}}</ref>
+| October 31, 2012<ref>{{cite web|author=Fraktklasse A |url=http://cdon.no/film/once_upon_a_time_-_sesong_1-15269133 |title=Once Upon A Time - Sesong 1 - DVD - Film - CDON.COM |publisher=Cdon.no |access-date=2012-09-15}}</ref>
+| October 17, 2012<ref>{{cite web|url=http://www.ezydvd.com.au/blu-ray/once-upon-a-time-the-complete-1st-season/dp/6117578|title=Once Upon a Time: The Complete 1st Season|work=Ezy DVD|access-date=August 1, 2012}}</ref>
+|-
+| style="background:#B87BF6"|
+| [[#Season 2 (2012–13)|2]]
+| 22
+| August 13, 2013<ref>{{cite web|url=http://tvshowsondvd.com/news/Time-Season-2/18444|title=Once Upon a Time - Finalized Street Date, Cover Art for 'The Complete 2nd Season' on DVD, Blu-ray|work=TVShowsonDVD.com|last=Lambert|first=David|date=May 10, 2013|access-date=May 10, 2013|url-status=dead|archive-url=https://web.archive.org/web/20130607174014/http://www.tvshowsondvd.com/news/Time-Season-2/18444|archive-date=June 7, 2013}}</ref>
+| November 18, 2013<ref>{{cite web|url=https://www.amazon.co.uk/dp/B00DSOODH6/|title=Once Upon A Time - Season 2 [Blu-ray]|work=Amazon.co.uk|access-date=July 5, 2013}}</ref>
+| October 16, 2013<ref name="region4b">{{cite web|url=http://www.ezydvd.com.au/blu-ray/once-upon-a-time-season-2/dp/6144243|title=Once Upon a Time: Season 2|work=Ezy DVD|access-date=August 17, 2013}}</ref>
+|-
+| style="background:#7D0F08;"|
+| [[#Season 3 (2013–14)|3]]
+| 22
+| August 19, 2014<ref name="region_1a">{{cite web|url=http://www.tvshowsondvd.com/news/Time-Season-3-Press-Release/19889|title=Once Upon a Time - Blu-ray Discs, DVDs Announced for {{'}}''The Complete 3rd Season''{{'}}|work=TVShowsonDVD.com|last=Lambert|first=David|date=June 6, 2014|access-date=June 7, 2014|url-status=dead|archive-url=https://web.archive.org/web/20140609053905/http://www.tvshowsondvd.com/news/Time-Season-3-Press-Release/19889|archive-date=June 9, 2014}}</ref>
+| March 14, 2016<ref>{{cite web|url=https://www.amazon.co.uk/dp/B01BGPU2XW|title=Once Upon A Time Season 3 [DVD]|work=Amazon.co.uk|access-date=March 9, 2016}}</ref>
+| November 12, 2014<ref>{{cite web|url=http://www.ezydvd.com.au/DVD/once-upon-a-time-season-3/dp/6156611|title=Once Upon a Time: Season 3|work=Ezy DVD|access-date=September 7, 2014|archive-url=https://web.archive.org/web/20140907191344/http://www.ezydvd.com.au/DVD/once-upon-a-time-season-3/dp/6156611|archive-date=September 7, 2014|url-status=dead|df=mdy-all}}</ref>
+|-
+| style="background:#77B5FE;"|
+| [[#Season 4 (2014–15)|4]]
+| 22
+| August 18, 2015<ref>{{cite web|url=http://www.tvshowsondvd.com/news/Time-Season-4/21086|title=Once Upon a Time - Wishes Come True: We've Got a Date for the '4th Season' on DVD, Blu-ray!|work=TVShowsonDVD.com|last=Lambert|first=David|date=May 11, 2015|access-date=January 21, 2016|url-status=dead|archive-url=https://web.archive.org/web/20160130200307/http://www.tvshowsondvd.com/news/Time-Season-4/21086|archive-date=January 30, 2016}}</ref>
+| May 9, 2016<ref>{{cite web|url=https://www.amazon.co.uk/dp/B016BEA9C2|title=Once Upon A Time Season 4 [Blu-ray] [2016]|work=Amazon.co.uk|access-date=March 21, 2016}}</ref>
+| August 17, 2016<ref>{{cite web|url=https://www.jbhifi.com.au/movies-tv-shows/movies-tv-shows-on-sale/tv-fantasy/once-upon-a-time-season-4/967475/|title=Once Upon A Time - Season 4|work=jbhifi.com.au|access-date=June 26, 2016}}</ref>
+|-
+| style="background:#0D090A;"|
+| [[#Season 5 (2015–16)|5]]
+| 23
+| August 16, 2016<ref>{{cite web|url=http://www.tvshowsondvd.com/news/Time-Season-5/22266|title=Once Upon a Time - Blu-rays, DVDs this Summer for 'The Complete 5th Season'|work=TVShowsonDVD.com|last=Lambert|first=David|date=May 13, 2016|access-date=May 14, 2016|url-status=dead|archive-url=https://web.archive.org/web/20160527022548/http://www.tvshowsondvd.com/news/Time-Season-5/22266|archive-date=May 27, 2016}}</ref>
+| October 17, 2016<ref>{{cite web|url=https://www.amazon.co.uk/d/DVD-Blu-ray/Once-Upon-Time-Season-5-Jennifer-Morrison/B01K1Y7A16/|title=Once Upon A Time Season 5 [DVD]|work=Amazon.co.uk|access-date=November 14, 2016}}</ref>
+| December 7, 2016<ref>{{cite web|url=https://www.jbhifi.com.au/movies-tv-shows/movies-tv-shows-on-sale/tv-fantasy/once-upon-a-time-season-5/314676/|title=Once Upon A Time - Season 5|work=jbhifi.com.au|access-date=November 14, 2016}}</ref>
+|-
+| style="background:#E0C4AD;"|
+| [[#Season 6 (2016–17)|6]]
+| 22
+| August 15, 2017<ref>{{cite web|url=http://www.tvshowsondvd.com/news/Time-Season-6-Press-Release/23467|title=Once Upon a Time - 'The Complete 6th Season' Press Release for DVD, Blu-ray Disc|work=TVShowsonDVD.com|last=Lambert|first=David|date=July 17, 2017|access-date=July 20, 2017|url-status=dead|archive-url=https://web.archive.org/web/20170720171812/http://tvshowsondvd.com/news/Time-Season-6-Press-Release/23467|archive-date=July 20, 2017}}</ref>
+| October 16, 2017<ref>{{cite web|url=https://www.amazon.co.uk/Once-Upon-Time-S6-DVD/dp/B075B3CXC3/|title=Once Upon A Time Season 6 [DVD]|work=Amazon.co.uk|date=16 October 2017|access-date=October 28, 2017}}</ref>
+| November 8, 2017<ref>{{cite web|url=https://www.jbhifi.com.au/movies-tv-shows/movies-tv-shows-on-sale/tv-fantasy/once-upon-a-time-season-6/510667/|title=Once Upon A Time - Season 6|work=jbhifi.com.au|access-date=October 28, 2017}}</ref>
+|-
+| style="background:#2E5392;"|
+| [[#Season 7 (2017–18)|7]]
+| 22
+| August 28, 2018<ref>{{cite web|url=https://www.amazon.com/Once-Upon-Time-Complete-Seventh/dp/B07DQ9JMMX/ |title=Once Upon A Time: The Complete Seventh Season [Blu-ray&#93; : Ginnifer Goodwin, Jennifer Morrison, Lana Parrilla, Josh Dallas, Emilie de Ravin, Colin O'Donoghue, Jared S. Gilmore: Movies & TV |website=Amazon |date= 28 August 2018|accessdate=2022-03-20}}</ref>
+| October 8, 2018<ref>{{cite web |url=http://dvdhall.com/once-upon-a-time-season-7-region-2 |title=Once Upon a Time: Season 7 - Region 2 - DVD wholesale |website=dvdhall.com |url-status=dead |archive-url=https://web.archive.org/web/20190306042728/http://dvdhall.com/once-upon-a-time-season-7-region-2 |archive-date=2019-03-06}}</ref>
+| July 11, 2018<ref>[http://www.ebay.com.au/itm/ONCE-UPON-A-TIME-SEASON-7-AUSTRALIAN-RELEASE-REGION-4-BRAND-NEW-SEALED/264163740894]{{dead link|date=August 2022}}</ref>
+|}
+
+==Ratings==
+===Seasons 1–4===
+{{Television ratings graph
+| title        = Once Upon a Time
+| width        = 950
+| country      = U.S.
+| color1       = #323D5F
+| color2       = #B87BF6
+| color3       = #7D0F08
+| color4       = #77B5FE
+| bar_width    = 4
+| x_intervals  = 10
+| y_intervals  = 3
+| average      = y
+|-
+<!-- S01E01 -->| 12.94
+<!-- S01E02 -->| 11.74
+<!-- S01E03 -->| 11.45
+<!-- S01E04 -->| 11.36
+<!-- S01E05 -->| 10.69
+<!-- S01E06 -->| 9.66
+<!-- S01E07 -->| 8.92
+<!-- S01E08 -->| 10.35
+<!-- S01E09 -->| 9.83
+<!-- S01E10 -->| 9.33
+<!-- S01E11 -->| 10.91
+<!-- S01E12 -->| 8.65
+<!-- S01E13 -->| 9.84
+<!-- S01E14 -->| 10.67
+<!-- S01E15 -->| 9.29
+<!-- S01E16 -->| 8.69
+<!-- S01E17 -->| 8.82
+<!-- S01E18 -->| 8.36
+<!-- S01E19 -->| 9.08
+<!-- S01E20 -->| 9.20
+<!-- S01E21 -->| 8.95
+<!-- S01E22 -->| 9.67
+<!-- S01_AV -->| 9.93
+|-
+<!-- S02E01 -->| 11.36
+<!-- S02E02 -->| 9.84
+<!-- S02E03 -->| 9.45
+<!-- S02E04 -->| 9.89
+<!-- S02E05 -->| 9.85
+<!-- S02E06 -->| 10.15
+<!-- S02E07 -->| 8.75
+<!-- S02E08 -->| 8.82
+<!-- S02E09 -->| 9.10
+<!-- S02E10 -->| 9.10
+<!-- S02E11 -->| 8.24
+<!-- S02E12 -->| 7.68
+<!-- S02E13 -->| 7.08
+<!-- S02E14 -->| 7.61
+<!-- S02E15 -->| 7.39
+<!-- S02E16 -->| 7.64
+<!-- S02E17 -->| 7.45
+<!-- S02E18 -->| 7.38
+<!-- S02E19 -->| 7.37
+<!-- S02E20 -->| 7.16
+<!-- S02E21 -->| 7.50
+<!-- S02E22 -->| 7.33
+<!-- S02_AV -->| 8.46
+|-
+<!-- S03E01 -->| 8.52
+<!-- S03E02 -->| 8.00
+<!-- S03E03 -->| 7.53
+<!-- S03E04 -->| 7.05
+<!-- S03E05 -->| 7.23
+<!-- S03E06 -->| 7.55
+<!-- S03E07 -->| 6.71
+<!-- S03E08 -->| 6.66
+<!-- S03E09 -->| 6.64
+<!-- S03E10 -->| 6.94
+<!-- S03E11 -->| 6.44
+<!-- S03E12 -->| 7.66
+<!-- S03E13 -->| 7.75
+<!-- S03E14 -->| 6.91
+<!-- S03E15 -->| 6.64
+<!-- S03E16 -->| 7.26
+<!-- S03E17 -->| 6.50
+<!-- S03E18 -->| 5.95
+<!-- S03E19 -->| 7.34
+<!-- S03E20 -->| 6.86
+<!-- S03E21 -->| 6.80
+<!-- S03E22 -->| 6.80
+<!-- S03_AV -->| 7.08
+|-
+<!-- S04E01 -->| 10.20
+<!-- S04E02 -->| 9.24
+<!-- S04E03 -->| 7.92
+<!-- S04E04 -->| 8.07
+<!-- S04E05 -->| 6.87
+<!-- S04E06 -->| 7.54
+<!-- S04E07 -->| 7.42
+<!-- S04E08 -->| 6.80
+<!-- S04E09 -->| 6.43
+<!-- S04E10 -->| 6.20
+<!-- S04E11 -->| 5.69
+<!-- S04E12 -->| 6.66
+<!-- S04E13 -->| 6.72
+<!-- S04E14 -->| 5.88
+<!-- S04E15 -->| 5.79
+<!-- S04E16 -->| 5.48
+<!-- S04E17 -->| 5.17
+<!-- S04E18 -->| 5.12
+<!-- S04E19 -->| 5.21
+<!-- S04E20 -->| 5.31
+<!-- S04E21 -->| 5.51
+<!-- S04E22 -->| 5.51
+<!-- S04_AV -->| 6.58
+}}
+
+===Seasons 5–7===
+{{Television ratings graph
+| title        = Once Upon a Time
+| width        = 950
+| country      = U.S.
+| color1       = #0D090A
+| color2       = #E0C4AD
+| color3       = #2E5392
+| legend1     = 5
+| legend2     = 6
+| legend3     = 7
+| bar_width    = 4
+| x_intervals  = 10
+| y_intervals  = 3
+| average      = y
+|-
+<!-- S05E01 -->| 5.93
+<!-- S05E02 -->| 5.38
+<!-- S05E03 -->| 5.28
+<!-- S05E04 -->| 4.92
+<!-- S05E05 -->| 5.12
+<!-- S05E06 -->| 4.83
+<!-- S05E07 -->| 4.88
+<!-- S05E08 -->| 4.85
+<!-- S05E09 -->| 4.85
+<!-- S05E10 -->| 4.38
+<!-- S05E11 -->| 4.56
+<!-- S05E12 -->| 4.01
+<!-- S05E13 -->| 4.31
+<!-- S05E14 -->| 3.54
+<!-- S05E15 -->| 3.51
+<!-- S05E16 -->| 3.78
+<!-- S05E17 -->| 3.75
+<!-- S05E18 -->| 3.76
+<!-- S05E19 -->| 3.85
+<!-- S05E20 -->| 3.77
+<!-- S05E21 -->| 3.75
+<!-- S05E22 -->| 4.07
+<!-- S05E23 -->| 4.07
+<!-- S05_AV -->| 4.40
+|-
+<!-- S06E01 -->| 3.99
+<!-- S06E02 -->| 3.72
+<!-- S06E03 -->| 4.11
+<!-- S06E04 -->| 3.53
+<!-- S06E05 -->| 3.40
+<!-- S06E06 -->| 3.06
+<!-- S06E07 -->| 3.56
+<!-- S06E08 -->| 3.40
+<!-- S06E09 -->| 3.28
+<!-- S06E10 -->| 3.27
+<!-- S06E11 -->| 3.03
+<!-- S06E12 -->| 3.06
+<!-- S06E13 -->| 2.71
+<!-- S06E14 -->| 2.85
+<!-- S06E15 -->| 2.80
+<!-- S06E16 -->| 2.60
+<!-- S06E17 -->| 2.51
+<!-- S06E18 -->| 2.69
+<!-- S06E19 -->| 3.05
+<!-- S06E20 -->| 2.87
+<!-- S06E21 -->| 2.95
+<!-- S06E22 -->| 2.95
+<!-- S06_AV -->| 3.15
+|-
+<!-- S07E01 -->| 3.26
+<!-- S07E02 -->| 2.74
+<!-- S07E03 -->| 2.49
+<!-- S07E04 -->| 2.44
+<!-- S07E05 -->| 2.29
+<!-- S07E06 -->| 2.37
+<!-- S07E07 -->| 2.28
+<!-- S07E08 -->| 2.28
+<!-- S07E09 -->| 2.45
+<!-- S07E10 -->| 2.29
+<!-- S07E11 -->| 2.14
+<!-- S07E12 -->| 2.22
+<!-- S07E13 -->| 2.38
+<!-- S07E14 -->| 2.11
+<!-- S07E15 -->| 2.03
+<!-- S07E16 -->| 2.15
+<!-- S07E17 -->| 2.18
+<!-- S07E18 -->| 2.12
+<!-- S07E19 -->| 1.98
+<!-- S07E20 -->| 1.98
+<!-- S07E21 -->| 2.26
+<!-- S07E22 -->| 2.27
+<!-- S07_AV -->| 2.31
+}}
+
+==Notes==
+{{Notelist}}
+
+==References==
+{{reflist|30em}}
+
+==External links==
+*{{Official website|http://abc.go.com/shows/once-upon-a-time}}{{dead link|date=January 2025}}
+*{{IMDb episodes|1843230|Once Upon a Time}}
+
+{{Once Upon a Time (TV series)}}
+{{Once Upon a Time episodes}}
+
+{{DEFAULTSORT:Once Upon a Time episodes}}
+[[Category:Once Upon a Time (TV series) episodes| ]]
+[[Category:Lists of American drama television series episodes]]
+[[Category:Lists of American fantasy television series episodes]]

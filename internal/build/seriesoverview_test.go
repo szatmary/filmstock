@@ -433,3 +433,61 @@ func TestPartFiguresDoNotOverwriteTheSeason(t *testing.T) {
 		t.Errorf("season 14 viewers %v, want 6.24 — the season's own figure, not the specials'", s14.Viewers)
 	}
 }
+
+// Articles carry two columns measuring the same thing. Charmed has "Rank" and
+// "Network Rank"; Once Upon a Time has "Viewers rank" and "18-49 rank". Both
+// matched, so both wrote Season.Rank and the later one silently replaced the
+// primary figure with a qualified one — and which was "later" was map order.
+func TestPrimaryColumnKeepsItsRole(t *testing.T) {
+	cases := []struct {
+		file   string
+		season int
+		rank   int
+		note   string
+	}{
+		// infoB = Rank (117), infoC = Network Rank (2). 117 is the answer.
+		{"overview-charmed", 3, 117, "Network Rank must not replace Rank"},
+		// infoB = Viewers rank (50), infoD = 18-49 rank (17). The overall
+		// viewership rank is the season's rank; the 18-49 demo rank is a
+		// different measure this record does not model.
+		{"overview-once-upon-a-time", 4, 50, "the demo rank must not replace the overall rank"},
+	}
+	for _, c := range cases {
+		b, err := os.ReadFile("testdata/" + c.file + ".wikitext")
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got *filmstock.Season
+		for _, s := range parseSeriesOverview(string(b)) {
+			if s.Season == c.season {
+				got = s
+			}
+		}
+		if got == nil {
+			t.Errorf("%s: no season %d", c.file, c.season)
+			continue
+		}
+		if got.Rank != c.rank {
+			t.Errorf("%s season %d: rank %d, want %d — %s",
+				c.file, c.season, got.Rank, c.rank, c.note)
+		}
+	}
+}
+
+// And it must be the same answer every time, which one parse cannot show.
+func TestOverviewParsingIsRepeatable(t *testing.T) {
+	for _, f := range []string{"overview-charmed", "overview-once-upon-a-time",
+		"overview-vera", "overview-er", "overview-the-simpsons"} {
+		b, err := os.ReadFile("testdata/" + f + ".wikitext")
+		if err != nil {
+			t.Fatal(err)
+		}
+		want, _ := json.Marshal(parseSeriesOverview(string(b)))
+		for range 25 {
+			got, _ := json.Marshal(parseSeriesOverview(string(b)))
+			if !bytes.Equal(got, want) {
+				t.Fatalf("%s parses differently between runs:\n  %s\n  %s", f, want, got)
+			}
+		}
+	}
+}
