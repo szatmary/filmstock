@@ -1,6 +1,125 @@
 # filmstock — outstanding work
 
-Status as of 2026-08-04, after the extract/index rewrite.
+Status as of 2026-08-26.
+
+Current data (2026-08-01 dump, re-extracted 2026-08-26):
+165,740 films · 61,342 series · 572,847 episodes · 234,778 people ·
+4,705 events · 232 schedule grids (48,535 slots). Extract 41 min with the
+resolver cache warm; 70 min cold, the difference being the 96 GB Wikidata pass.
+
+---
+
+## Open
+
+### Daily updates cannot add people — ARCHITECTURAL
+
+`applyBiography` only ever updates a person already in the store; the daily path
+has no equivalent of `notePeople`/`flushPeople`. A film added today brings a cast
+list, and any genuinely new person in it gets an index row from the credit but no
+store record, no page_id, and no biography.
+
+Measured: 478 such people arrived across 23 daily updates, none with a canonical
+identity. ~21/day, monotonic, never reconciled without a full re-extract. It
+matters more than the rate suggests because new releases are what gets looked up.
+
+Under discussion: a two-pass import/export split with an intermediary store, so a
+daily update has the whole corpus to resolve against rather than one day of it.
+See "Two-pass restructure" below.
+
+### 56 schedule articles still yield nothing
+
+232 of 288 read. The remainder are the overnight, morning and afternoon variants.
+Every schedule bug so far has been format variance that fails *silently* —
+uppercase "7:00 PM" (cost the 1950s entirely), a second `{{small|…}}` note
+(cost every Nielsen figure in a cell with a tie), day RANGES and level-3
+headings (cost 154 articles each, independently). Assume another shape.
+
+### The schedules dictionary is a placeholder
+
+Bootstrapped from five parsed articles at a 7× source:dictionary ratio, which
+zstd warned about; it is now compressing 232 grids. Retrain from the full set.
+
+### 77,457 people have no canonical identity — DECISION NEEDED
+
+A credit whose link target has no article has no page_id and no Q-id, so it is
+keyed by a hash of the link target: a display string two people can share, which
+changes if the article is later created. 32% of people, ~10% of credits, ~1.9
+credits each. Either they are credits on a film rather than person records, or
+they stay and the exception is permanent. Only the project owner can decide.
+
+### `omitempty` on published records — DECISION NEEDED
+
+Absent keys rather than empty values. Smaller records, meaningful across 165k in
+git, but every consumer must treat missing as unknown. Grindhouse hit this
+looking for `plot`, which exists for 68.5% of films where `overview` exists for
+100%. First real consumer, so the trade is now judgeable.
+
+### Deletions
+
+A page that disappears from Wikipedia is never removed: adds-changes dumps say
+what changed, never what went away. Only a full pass can reconcile it. The
+two-pass restructure would make this fall out for free.
+
+### Wikidata cache staleness
+
+The resolver cache is rebuilt only with a full extract, so television
+relationships stated since are unknown — 1,726 unresolved seasons and drifting.
+wikidatawiki publishes daily incrementals; the cache could be brought forward a
+day at a time instead of rebuilt in 46 minutes.
+
+### Infrastructure
+
+- **SSD move.** 227 GB on five USB disks in raidz1 (~20 IOPS each). Measured 15×
+  on the workload that hurt: moving one file off it took a 13-hour projection to
+  51 minutes. NVMe has 2.3 TB free. Leave the 47 GB of cold ColBERT stores.
+  RAM/tmpfs measured only ~15% over NVMe here — not worth it, the workload is
+  CPU-bound in `lbzcat` and SQLite already runs `synchronous=OFF`.
+- **CI workflow.** Everything it needs exists: `catchup` is one command, the slim
+  cache is 1.03 GB (fits the 10 GB Actions cache), peak runner disk ~2.3 GB of
+  ~14. Continuous publishing was chosen, so it can push.
+- **Data push.** 23 commits and a full rebuild uncommitted. Wants compact +
+  squash first: ~434 MB in one commit rather than 605 MB of history.
+
+### Smaller
+
+- 11 film titles still carry an odd parenthetical the disambiguator regex leaves.
+- `filmstock search` covers only films; the library covers all five kinds.
+- Episode search ranks by text alone, so five series sharing an episode title
+  come back in arbitrary order — "Ozymandias" returns *Slacker Cats* above
+  *Breaking Bad*.
+- The browser resolves person images by display name over the live Wikipedia API
+  on every request — a display-string lookup and a network call in the request
+  path.
+- Per-file in-place compaction. Compaction currently repacks globally, so file
+  boundaries cascade and the diff is the whole store: +131 MB of history to
+  reclaim 95 MB of tree, even after `repack --window=250`. Per-file compaction
+  would make the diff pure deletions. Not urgent — squash-and-force-push
+  reclaims everything, and `SyncStore` follows a rewritten history.
+
+---
+
+## Settled by measurement — do not re-litigate
+
+- **Ship no index.** 22 consecutive daily updates produced zero deleted lines;
+  a client rebuilds in 60 s from a scan it needs for FTS anyway. `.idx` cost
+  ~38% of daily growth and scaled with store size, not change size.
+- **Tail-append beats hash placement**, 137–342× at matched file count: a day's
+  changes land in 4 tail files instead of scattering across ~1,400.
+- **Compaction is a net loss in git**: +131 MB history to reclaim 95 MB of tree.
+- **int8 with a PER-DIMENSION scale** for vectors: 166 MB at 0.994 neighbour
+  overlap. A global scale keeps about half. int4 0.905, int2 0.597.
+- **Identity is the page_id, for every kind including people.** A Q-id is equally
+  stable but only 63.5% of people have one, and it made identity depend on
+  Wikidata for no gain.
+- **Don't switch the payload to protobuf/flatbuffers.** JSON is ~40% of decode
+  cost, zlib is more, and the whole decode is ~5 s across the cores extract
+  uses. It would also cost a dependency and weaken the trained dictionary.
+- **ColBERT won retrieval** (MRR 0.575 vs 0.198 lexical) but needs 13.25 GB and
+  is server-only. Fusion loses to its better input; the store must stay int8.
+- **Read the article, don't infer.** Four separate bugs came from assuming a
+  convention the article states explicitly: time columns at a fixed offset,
+  guessed season-article titles, `{{Episode list}}` vs its Lua module form,
+  single-day headings.
 
 Pipeline today:
 
