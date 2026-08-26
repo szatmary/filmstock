@@ -1,0 +1,303 @@
+package build
+
+import (
+	"database/sql"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
+	"time"
+)
+
+// The intermediate store: everything the dump said, before anything decides what
+// it means.
+//
+// Reading the dump and shaping records are different jobs that change at
+// different rates, and fusing them means paying a 41-minute re-parse every time a
+// question about record shape is asked. This holds the parse so the shaping can
+// be re-run in minutes.
+//
+// Three tiers:
+//
+//	wikitext   the source of every page we recognise   — a parser fix re-parses this
+//	entities   what the parsers made of it             — a shape change re-exports this
+//	records    what gets published
+//
+// It is build-time infrastructure, like the resolver cache. It is never
+// published and can be rebuilt from a dump at any time.
+//
+// It keeps EVERY person, not the credited ones. A daily update cannot resolve a
+// new film's cast today precisely because the cast's articles were not edited
+// that day and we discarded them on the last full pass — 721,211 person articles
+// seen and dropped because, at that moment, nothing had asked for them.
+type Inter struct {
+	db   *sql.DB
+	path string
+
+	insPage *sql.Stmt
+	insLink *sql.Stmt
+	tx      *sql.Tx
+	n       int
+}
+
+const interSchema = `
+PRAGMA journal_mode=OFF;
+PRAGMA synchronous=OFF;
+
+-- One row per page any recogniser claimed.
+--
+-- kind is what claimed it, and a page can be claimed by more than one thing: an
+-- article may carry both a film infobox and a person infobox, and deciding which
+-- wins is export's problem, not import's.
+CREATE TABLE IF NOT EXISTS pages(
+    page_id   INTEGER NOT NULL,
+    kind      TEXT    NOT NULL,
+    title     TEXT    NOT NULL,
+    wikitext  BLOB,              -- the source, so a parser fix never needs the dump
+    infobox   TEXT,              -- the complete parameter map, values untouched
+    lead      TEXT,
+    plot      TEXT,
+    parsed    TEXT,              -- what the parser made of it, as JSON
+    PRIMARY KEY (page_id, kind)
+);
+CREATE INDEX IF NOT EXISTS idx_pages_title ON pages(title);
+CREATE INDEX IF NOT EXISTS idx_pages_kind  ON pages(kind);
+
+-- Every link a page states, with the field it came from.
+--
+-- This is the reference graph, and it is what makes incremental export possible:
+-- adding a film has to mark its cast for re-export, and without recorded
+-- references there is no way to know what went stale. Getting this wrong emits a
+-- stale record silently, which is this codebase's characteristic failure.
+CREATE TABLE IF NOT EXISTS links(
+    from_id INTEGER NOT NULL,
+    field   TEXT    NOT NULL,   -- director, starring, list_episodes, next_season…
+    target  TEXT    NOT NULL,   -- the link target, unresolved
+    PRIMARY KEY (from_id, field, target)
+);
+CREATE INDEX IF NOT EXISTS idx_links_target ON links(target);
+
+-- What this intermediate was built from, so a stale one is detectable rather
+-- than silently mixed with a newer dump.
+CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY, value TEXT);
+`
+
+// OpenInter opens or creates an intermediate store.
+func OpenInter(path string) (*Inter, error) {
+	if dir := filepath.Dir(path); dir != "" {
+		if err := os.MkdirAll(dir, 0o777); err != nil {
+			return nil, err
+		}
+	}
+	db, err := sql.Open("sqlite", path)
+	if err != nil {
+		return nil, fmt.Errorf("intermediate %s: %w", path, err)
+	}
+	// One connection: the PRAGMAs above are per-connection, and a pooled second
+	// one would quietly run with synchronous=FULL.
+	db.SetMaxOpenConns(1)
+	if _, err := db.Exec(interSchema); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("intermediate %s: %w", path, err)
+	}
+	return &Inter{db: db, path: path}, nil
+}
+
+func (in *Inter) Close() error {
+	if in.tx != nil {
+		if err := in.commit(); err != nil {
+			in.db.Close()
+			return err
+		}
+	}
+	return in.db.Close()
+}
+
+// SetSource records which dump this was built from.
+func (in *Inter) SetSource(dump string) error {
+	_, err := in.db.Exec(
+		`INSERT OR REPLACE INTO meta VALUES('source',?),('built',?)`,
+		dump, time.Now().UTC().Format(time.RFC3339))
+	return err
+}
+
+// Source reports the dump this intermediate was built from.
+func (in *Inter) Source() (string, error) {
+	var s string
+	err := in.db.QueryRow(`SELECT value FROM meta WHERE key='source'`).Scan(&s)
+	if err == sql.ErrNoRows {
+		return "", nil
+	}
+	return s, err
+}
+
+// A Page is one entity as imported.
+type Page struct {
+	PageID   int
+	Kind     string
+	Title    string
+	Wikitext string
+	Infobox  map[string]string
+	Lead     string
+	Plot     string
+	Parsed   any               // the parser's output, stored as JSON
+	Links    map[string]string // field -> link target
+}
+
+// Put writes one page. Repeated writes of the same (page_id, kind) replace, so a
+// daily update is an upsert and re-importing is idempotent.
+func (in *Inter) Put(p *Page) error {
+	if err := in.begin(); err != nil {
+		return err
+	}
+	var ib, parsed []byte
+	var err error
+	if len(p.Infobox) > 0 {
+		if ib, err = json.Marshal(p.Infobox); err != nil {
+			return err
+		}
+	}
+	if p.Parsed != nil {
+		if parsed, err = json.Marshal(p.Parsed); err != nil {
+			return err
+		}
+	}
+	if _, err := in.insPage.Exec(p.PageID, p.Kind, p.Title,
+		[]byte(p.Wikitext), string(ib), p.Lead, p.Plot, string(parsed)); err != nil {
+		return fmt.Errorf("intermediate: page %d (%s): %w", p.PageID, p.Kind, err)
+	}
+	for field, target := range p.Links {
+		if target = strings.TrimSpace(target); target == "" {
+			continue
+		}
+		if _, err := in.insLink.Exec(p.PageID, field, target); err != nil {
+			return fmt.Errorf("intermediate: link %d %s: %w", p.PageID, field, err)
+		}
+	}
+	in.n++
+	// Commit periodically. One transaction across a million pages would hold the
+	// whole import in memory and lose all of it on a failure.
+	if in.n%50_000 == 0 {
+		return in.commit()
+	}
+	return nil
+}
+
+func (in *Inter) begin() error {
+	if in.tx != nil {
+		return nil
+	}
+	tx, err := in.db.Begin()
+	if err != nil {
+		return err
+	}
+	in.tx = tx
+	if in.insPage, err = tx.Prepare(
+		`INSERT OR REPLACE INTO pages(page_id,kind,title,wikitext,infobox,lead,plot,parsed)
+		 VALUES(?,?,?,?,?,?,?,?)`); err != nil {
+		return err
+	}
+	in.insLink, err = tx.Prepare(
+		`INSERT OR REPLACE INTO links(from_id,field,target) VALUES(?,?,?)`)
+	return err
+}
+
+func (in *Inter) commit() error {
+	if in.tx == nil {
+		return nil
+	}
+	in.insPage.Close()
+	in.insLink.Close()
+	err := in.tx.Commit()
+	in.tx, in.insPage, in.insLink = nil, nil, nil
+	return err
+}
+
+// Flush commits whatever is pending.
+func (in *Inter) Flush() error { return in.commit() }
+
+// Counts reports how many pages of each kind were imported.
+func (in *Inter) Counts() (map[string]int, error) {
+	if err := in.commit(); err != nil {
+		return nil, err
+	}
+	rows, err := in.db.Query(`SELECT kind, COUNT(*) FROM pages GROUP BY kind`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	out := map[string]int{}
+	for rows.Next() {
+		var k string
+		var n int
+		if err := rows.Scan(&k, &n); err != nil {
+			return nil, err
+		}
+		out[k] = n
+	}
+	return out, rows.Err()
+}
+
+// ByTitle resolves a title to the page_id of a given kind, which is how export
+// turns a stated link into an identity without ever comparing display strings.
+func (in *Inter) ByTitle(title, kind string) (int, bool) {
+	var id int
+	err := in.db.QueryRow(
+		`SELECT page_id FROM pages WHERE title = ? AND kind = ?`, title, kind).Scan(&id)
+	return id, err == nil
+}
+
+// Referrers returns the pages that link to a title. Incremental export uses this
+// to find what a change made stale.
+func (in *Inter) Referrers(target string) ([]int, error) {
+	rows, err := in.db.Query(`SELECT DISTINCT from_id FROM links WHERE target = ?`, target)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []int
+	for rows.Next() {
+		var id int
+		if err := rows.Scan(&id); err != nil {
+			return nil, err
+		}
+		out = append(out, id)
+	}
+	return out, rows.Err()
+}
+
+// Each visits every page of a kind. Wikitext is skipped unless asked for: it is
+// the bulk of the store and most passes do not need it.
+func (in *Inter) Each(kind string, withWikitext bool, fn func(*Page) error) error {
+	if err := in.commit(); err != nil {
+		return err
+	}
+	cols := `page_id,title,infobox,lead,plot,parsed,''`
+	if withWikitext {
+		cols = `page_id,title,infobox,lead,plot,parsed,wikitext`
+	}
+	rows, err := in.db.Query(`SELECT `+cols+` FROM pages WHERE kind = ?`, kind)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var p Page
+		var ib, parsed, wt sql.NullString
+		if err := rows.Scan(&p.PageID, &p.Title, &ib, &p.Lead, &p.Plot, &parsed, &wt); err != nil {
+			return err
+		}
+		p.Kind, p.Wikitext = kind, wt.String
+		if ib.String != "" {
+			json.Unmarshal([]byte(ib.String), &p.Infobox)
+		}
+		if parsed.String != "" {
+			p.Parsed = json.RawMessage(parsed.String)
+		}
+		if err := fn(&p); err != nil {
+			return err
+		}
+	}
+	return rows.Err()
+}
