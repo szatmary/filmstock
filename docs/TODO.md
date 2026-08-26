@@ -148,9 +148,28 @@ producing it daily and we know whether at-rest size is a real constraint.
 Everything below is measured, so the decision can be reopened without redoing
 the work.
 
-**Sizes.** The database is 409 MB: 174 MB content, 152 MB FTS5, 82 MB indexes.
-Adding the synopses the records carry (70 MB overview + 183 MB plot) and the
-embedding vectors (170,421 x 1024 int8 = 175 MB) takes it to roughly 705 MB.
+**Sizes, as built.** Without synopses the database was 409 MB (174 content, 152
+FTS5, 82 indexes) and compressed to 204 MB. With them it is **974 MB on disk and
+308 MB compressed** — prose compresses 3.2x, far better than the rest. Adding
+the embedding vectors (170,421 x 1024 int8, effectively incompressible) would
+make it ~1.15 GB on disk and ~480 MB to download.
+
+The text is 462 MB, and 157 MB of it is episode summaries — 583,401 of them,
+which is easy to overlook next to the films:
+
+| column | size |
+|---|---|
+| movies.plot | 174 MB |
+| episodes.summary | 157 MB |
+| movies.overview | 66 MB |
+| tv.plot | 34 MB |
+| tv.overview | 31 MB |
+
+**A split may serve better than compression.** Core / text / vectors as three
+files, ATTACHed into one logical database: a consumer wanting a media database
+takes 204 MB, one wanting synopses adds them, one doing ML search adds the
+vectors. It also keeps daily patches per-file. Worth weighing against
+compression rather than after it.
 
 | approach | result |
 |---|---|

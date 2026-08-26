@@ -32,7 +32,8 @@ CREATE TABLE television_series(
   first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
   network TEXT, num_seasons TEXT, num_episodes TEXT,
   seasons_count INTEGER, episodes_count INTEGER,
-  cover_image_file TEXT, wikipedia_url TEXT
+  cover_image_file TEXT, wikipedia_url TEXT,
+  overview TEXT, plot TEXT
 );
 CREATE INDEX idx_television_title ON television_series(title);
 CREATE VIRTUAL TABLE television_fts USING fts5(
@@ -60,7 +61,7 @@ CREATE TABLE television_episodes(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   series_id INTEGER, season INTEGER,
   number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT,
-  viewers REAL
+  viewers REAL, summary TEXT
 );
 CREATE INDEX idx_television_ep_series ON television_episodes(series_id);
 CREATE VIRTUAL TABLE television_episodes_fts USING fts5(
@@ -114,11 +115,12 @@ func CIndexTelevision(args []string) {
 	tx, _ := db.Begin()
 	stmt, _ := tx.Prepare(`INSERT OR REPLACE INTO television_series
 		(id,title,year,first_aired,last_aired,genre,creator,starring,network,
-		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,wikipedia_url)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,
+		 wikipedia_url,overview,plot)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	epStmt, _ := tx.Prepare(`INSERT INTO television_episodes
-		(series_id,season,number_in_season,number_overall,title,air_date,viewers)
-		VALUES(?,?,?,?,?,?,?)`)
+		(series_id,season,number_in_season,number_overall,title,air_date,viewers,summary)
+		VALUES(?,?,?,?,?,?,?,?)`)
 	seStmt, _ := tx.Prepare(`INSERT INTO television_seasons
 		(series_id,season,page_id,num_episodes,first_aired,last_aired,
 		 network,starring,image,rank,rating,viewers)
@@ -144,7 +146,7 @@ func CIndexTelevision(args []string) {
 		stmt.Exec(s.PageID, cleanName, year, s.FirstAired, s.LastAired,
 			join(s.Genre), joinP(s.Creator), joinP(s.Starring), join(filmstock.Names(s.Network)),
 			s.NumSeasons, s.NumEpisodes, len(s.Seasons), epCount,
-			s.CoverImageFile, s.WikiURL)
+			s.CoverImageFile, s.WikiURL, s.Overview, s.Plot)
 
 		seen := map[string]bool{}
 		pb.credit(seen, s.Creator, s.PageID, "television", "Creator")
@@ -173,7 +175,7 @@ func CIndexTelevision(args []string) {
 				pb.credit(seen, e.DirectedBy, s.PageID, "television", "Director")
 				pb.credit(seen, e.WrittenBy, s.PageID, "television", "Writer")
 				epStmt.Exec(s.PageID, se.Season, e.NumberInSeason, e.NumberOverall,
-					e.Title, e.AirDate, e.Viewers)
+					e.Title, e.AirDate, e.Viewers, e.Summary)
 				nEp++
 			}
 		}
