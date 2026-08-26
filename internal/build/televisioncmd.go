@@ -50,12 +50,24 @@ func parseTelevisionPage(p dump.Page) []televisionMsg {
 		var meta *filmstock.Season
 		if body, ok := wikitext.FindTemplate(text, "Infobox television season"); ok {
 			ib := wikitext.ParseInfobox(body)
-			meta = &filmstock.Season{Season: season}
+			// PageID: a season article is a real page, so a season is
+			// addressable like everything else rather than being reachable only
+			// as an index into its series.
+			meta = &filmstock.Season{Season: season, PageID: p.ID}
 			if d := parseReleaseDates(ib["first_aired"]); len(d) > 0 {
 				meta.FirstAired = d[0]
 			}
 			if d := parseReleaseDates(ib["last_aired"]); len(d) > 0 {
 				meta.LastAired = d[0]
+			}
+			// The season's own cast, which the series-level list cannot express:
+			// one flat Starring for a fifteen-season run asserts that everyone
+			// who ever appeared was in it throughout.
+			meta.Starring = wikitext.SplitPeople(ib["starring"])
+			meta.Network = wikitext.CleanText(ib["network"])
+			meta.Image = strings.TrimSpace(ib["image"])
+			if n := firstInt(ib["num_episodes"]); n > 0 {
+				meta.NumEpisodes = n
 			}
 		}
 		var eps []*filmstock.Episode
@@ -81,12 +93,31 @@ func parseTelevisionPage(p dump.Page) []televisionMsg {
 		// Episodes listed inside the series article belong to that series by
 		// construction — no resolution needed.
 		msgs = append(msgs, episodesByHeading(text, p.ID, p.Title, p.ID)...)
+		msgs = append(msgs, overviewMsgs(text, p.ID, p.Title, p.ID)...)
 		return msgs
 	}
 
 	// "List of X episodes" article. Its owner is not stated here either.
 	if reListEpisodes.MatchString(p.Title) {
 		msgs = append(msgs, episodesByHeading(text, p.ID, p.Title, 0)...)
+		msgs = append(msgs, overviewMsgs(text, p.ID, p.Title, 0)...)
+	}
+	return msgs
+}
+
+// overviewMsgs turns a page's {{Series overview}} into per-season metadata.
+//
+// It is the only place the corpus states a season's Nielsen standing, and it
+// covers seasons that have no article of their own — which is most seasons of
+// most shows, and so most of what this adds.
+func overviewMsgs(text string, srcID int, srcTitle string, seriesID int) []televisionMsg {
+	var msgs []televisionMsg
+	for _, sea := range parseSeriesOverview(text) {
+		if sea.Season <= 0 {
+			continue
+		}
+		msgs = append(msgs, televisionMsg{srcID: srcID, srcTitle: srcTitle,
+			seriesID: seriesID, season: sea.Season, seasonMeta: sea})
 	}
 	return msgs
 }
@@ -170,7 +201,15 @@ func (c *televisionCollector) add(m televisionMsg) {
 				mm = map[int]*filmstock.Season{}
 				c.smeta[m.srcID] = mm
 			}
-			mm[m.season] = m.seasonMeta
+			// Merge: one page can state a season twice — an episode-list
+			// article carries both a {{Series overview}} row and, further down,
+			// the season's own heading. Overwriting keeps whichever arrived
+			// last and drops the other's fields.
+			if old, ok := mm[m.season]; ok {
+				mergeSeason(old, m.seasonMeta)
+			} else {
+				mm[m.season] = m.seasonMeta
+			}
 		}
 		c.srcTitle[m.srcID] = m.srcTitle
 		if m.seriesID != 0 {
@@ -254,6 +293,17 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 		for snum, list := range authSeasons {
 			seasons[snum] = list // authoritative overrides inline for this season
 		}
+		// A season stated only by {{Series overview}} is still a season. Before
+		// this, seasons were enumerated from episode lists alone, so a show
+		// whose overview gives twenty seasons of counts, dates and ratings but
+		// whose episode rows would not parse produced no seasons at all.
+		for _, src := range srcs {
+			for snum := range c.smeta[src] {
+				if _, ok := seasons[snum]; !ok {
+					seasons[snum] = nil
+				}
+			}
+		}
 		for snum, list := range seasons {
 			seen := map[string]bool{}
 			var ded []*filmstock.Episode
@@ -275,13 +325,21 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 				return ded[i].NumberOverall < ded[j].NumberOverall
 			})
 			sea := &filmstock.Season{Season: snum, Episodes: ded, NumEpisodes: len(ded)}
+			// Every source, not the first: the season's own article knows its
+			// cast, network and page_id, while the series overview knows its
+			// Nielsen standing, and neither knows the other's. Stopping at the
+			// first source that mentions the season keeps whichever happened to
+			// be visited first and discards the rest.
 			for _, src := range srcs {
-				if mm := c.smeta[src]; mm != nil {
-					if meta, ok := mm[snum]; ok {
-						sea.FirstAired, sea.LastAired = meta.FirstAired, meta.LastAired
-						break
-					}
+				if meta, ok := c.smeta[src][snum]; ok {
+					mergeSeason(sea, meta)
 				}
+			}
+			// The stated count only when no episodes parsed. Where rows did
+			// parse, NumEpisodes must agree with Episodes or the record
+			// contradicts itself.
+			if len(ded) > 0 {
+				sea.NumEpisodes = len(ded)
 			}
 			s.Seasons = append(s.Seasons, sea)
 			st.Episodes += len(ded)
@@ -291,6 +349,47 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 	}
 	st.Series = len(out)
 	return out, st
+}
+
+// mergeSeason fills dst's empty fields from src, and never overwrites.
+//
+// Season data arrives from two places that know different things — the season
+// article for cast, network, image and its own page_id; {{Series overview}} for
+// rank, rating and viewers — so combining them is addition, not replacement.
+func mergeSeason(dst, src *filmstock.Season) {
+	if src == nil || dst == nil {
+		return
+	}
+	if dst.PageID == 0 {
+		dst.PageID = src.PageID
+	}
+	if dst.FirstAired == "" {
+		dst.FirstAired = src.FirstAired
+	}
+	if dst.LastAired == "" {
+		dst.LastAired = src.LastAired
+	}
+	if dst.Network == "" {
+		dst.Network = src.Network
+	}
+	if dst.Image == "" {
+		dst.Image = src.Image
+	}
+	if len(dst.Starring) == 0 {
+		dst.Starring = src.Starring
+	}
+	if dst.NumEpisodes == 0 {
+		dst.NumEpisodes = src.NumEpisodes
+	}
+	if dst.Rank == 0 {
+		dst.Rank = src.Rank
+	}
+	if dst.Rating == 0 {
+		dst.Rating = src.Rating
+	}
+	if dst.Viewers == 0 {
+		dst.Viewers = src.Viewers
+	}
 }
 
 var reTelevisionSlug = reSlug

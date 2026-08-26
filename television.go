@@ -55,11 +55,38 @@ type TelevisionSeries struct {
 
 // Season groups episodes; SeasonNum is the season/series number.
 type Season struct {
-	Season      int        `json:"season"`
-	NumEpisodes int        `json:"num_episodes"`
-	FirstAired  string     `json:"first_aired,omitempty"`
-	LastAired   string     `json:"last_aired,omitempty"`
-	Episodes    []*Episode `json:"episodes,omitempty"`
+	Season      int    `json:"season"`
+	NumEpisodes int    `json:"num_episodes"`
+	FirstAired  string `json:"first_aired,omitempty"`
+	LastAired   string `json:"last_aired,omitempty"`
+
+	// PageID is the season's own article, when it has one. Seasons are real
+	// pages with real ids, so a season is addressable like everything else here
+	// rather than being reachable only as an index into its series.
+	PageID int `json:"page_id,omitempty"`
+
+	// Starring is this season's cast, which is the thing a series-level cast
+	// list cannot express. TelevisionSeries.Starring is one flat list for a
+	// show's whole run, so a fifteen-season series asserts that everyone who
+	// ever appeared was in it throughout — Clooney was in ER for five seasons of
+	// fifteen. That is not missing coverage, it is a modelling error recorded as
+	// fact.
+	Starring []Person `json:"starring,omitempty"`
+
+	// Network can change mid-run: a show cancelled by one network and picked up
+	// by another keeps its title and its series record.
+	Network string `json:"network,omitempty"`
+	Image   string `json:"image,omitempty"`
+
+	// Nielsen figures for the season as a whole, from {{Series overview}}.
+	// Per SEASON, deliberately: an episode inherits these by membership rather
+	// than carrying a copy, because attaching a season's rank to each of its
+	// episodes would invent precision the source does not have.
+	Rank    int     `json:"rank,omitempty"`
+	Rating  float64 `json:"rating,omitempty"`
+	Viewers float64 `json:"viewers,omitempty"`
+
+	Episodes []*Episode `json:"episodes,omitempty"`
 }
 
 // Episode is one episode row parsed from an {{Episode list}} template.
