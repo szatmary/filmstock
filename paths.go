@@ -28,7 +28,8 @@ const (
 	KindTelevision = "television"
 	KindPerson     = "people"
 	KindText       = "text"
-	KindEvent      = "events" // award ceremonies and film festivals
+	KindEvent      = "events"    // award ceremonies and film festivals
+	KindSchedule   = "schedules" // network television schedule grids
 
 	shardCount = 256
 )

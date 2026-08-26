@@ -242,6 +242,7 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 		rec.handleFilm(p)
 		rec.handleEvent(p)
 		rec.handlePerson(p)
+		rec.handleSchedule(p)
 		for _, m := range parseTelevisionPage(p) {
 			msgs <- m
 		}
@@ -302,6 +303,7 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 		rec.handleSeries(s)
 	}
 	withQID, withBio, nPeople, noIdentity := rec.flushPeople(d.cache)
+	nSched, nSlots, nLinked := rec.flushSchedules(d.cache)
 	if err := rec.pool.close(); err != nil {
 		rec.fail(err)
 	}
@@ -334,6 +336,14 @@ func extractRecords(d *dumpSet, outDir, textDir string, workers int, wantText bo
 	}
 	fmt.Fprintf(os.Stderr, "  biographies=%d of %d people (%d%%)  from %d person articles in the dump\n",
 		withBio, nPeople, bioPct, len(rec.bios))
+	if nSched > 0 {
+		pct := 0
+		if nSlots > 0 {
+			pct = 100 * nLinked / nSlots
+		}
+		fmt.Fprintf(os.Stderr, "  schedules=%d grids, %d slots, %d linked to a series (%d%%)\n",
+			nSched, nSlots, nLinked, pct)
+	}
 	// What the store actually took. An ingest that leaves most records alone is
 	// the whole point of the format; saying so makes a regression visible.
 	if un, up, ins := rec.store.Counts(); un+up+ins > 0 {
@@ -367,7 +377,12 @@ type recordWriter struct {
 	// from wiki_qid so that a person whose article carries no Wikidata item still
 	// gets a canonical id.
 	bioPage map[string]int
-	err     error
+
+	// schedules are held until the pass is over: their show ids resolve through
+	// the same cache the people pass uses, and doing it per cell would be a
+	// query for every slot in every season.
+	schedules []*filmstock.Schedule
+	err       error
 }
 
 func (w *recordWriter) fail(e error) {
@@ -457,6 +472,23 @@ func (w *recordWriter) handleEvent(p dump.Page) {
 	atomic.AddInt64(&w.events, 1)
 }
 
+// handleSchedule keeps a network television schedule grid.
+//
+// Show ids are not resolved here: a season repeats the same programme in dozens
+// of slots and the resolver cache is a per-lookup query, so it is done once for
+// the whole run after the pass, alongside the other cache work.
+func (w *recordWriter) handleSchedule(p dump.Page) {
+	sc := buildSchedule(p)
+	if sc == nil {
+		return
+	}
+	sc.WikiURL = "https://en.wikipedia.org/wiki/" +
+		strings.ReplaceAll(url.PathEscape(p.Title), "%20", "_")
+	w.mu.Lock()
+	w.schedules = append(w.schedules, sc)
+	w.mu.Unlock()
+}
+
 func (w *recordWriter) handleSeries(s *filmstock.TelevisionSeries) {
 	w.store.put(filmstock.KindTelevision, int64(s.PageID), s)
 	// EVERY person-bearing field has to be noted here. Noting only some of them
@@ -477,6 +509,42 @@ func (w *recordWriter) handleSeries(s *filmstock.TelevisionSeries) {
 			w.notePeople(e.DirectedBy, e.WrittenBy)
 		}
 	}
+}
+
+// flushSchedules resolves every slot's show to a page_id and stores the grids.
+func (w *recordWriter) flushSchedules(cachePath string) (grids, slots, linked int) {
+	if len(w.schedules) == 0 {
+		return
+	}
+	db, err := sql.Open("sqlite", cachePath)
+	if err != nil {
+		w.fail(err)
+		return
+	}
+	defer db.Close()
+	stmt, err := db.Prepare(`SELECT page_id FROM wiki_qid WHERE title = ?`)
+	if err != nil {
+		w.fail(err)
+		return
+	}
+	defer stmt.Close()
+	lookup := func(title string) int {
+		var id int
+		stmt.QueryRow(title).Scan(&id)
+		return id
+	}
+	for _, sc := range w.schedules {
+		ResolveShows(sc, lookup)
+		for _, e := range sc.Entries {
+			slots++
+			if e.ShowID != 0 {
+				linked++
+			}
+		}
+		w.store.put(filmstock.KindSchedule, int64(sc.PageID), sc)
+		grids++
+	}
+	return grids, slots, linked
 }
 
 // flushPeople resolves each person's Q-id from the link target and writes one

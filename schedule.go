@@ -27,12 +27,12 @@ type Schedule struct {
 // same slot has a different occupant in Fall, Winter and Spring. Part carries
 // which, and is empty when the article gives only one arrangement.
 type ScheduleEntry struct {
-	Day     string `json:"day"`             // Monday … Sunday
-	Network string `json:"network"`         // as written: ABC, CBS, NBC, Fox …
-	Start   string `json:"start"`           // "20:00", 24-hour
-	End     string `json:"end"`             // "20:30"; from how many columns it spans
-	Part    string `json:"part,omitempty"`  // Fall, Winter, Spring, Summer
-	Title   string `json:"title"`           // as written, links resolved to text
+	Day     string `json:"day"`               // Monday … Sunday
+	Network string `json:"network"`           // as written: ABC, CBS, NBC, Fox …
+	Start   string `json:"start"`             // "20:00", 24-hour
+	End     string `json:"end"`               // "20:30"; from how many columns it spans
+	Part    string `json:"part,omitempty"`    // Fall, Winter, Spring, Summer
+	Title   string `json:"title"`             // as written, links resolved to text
 	ShowID  int    `json:"show_id,omitempty"` // page_id when the cell links a show
 
 	// Rerun is a slot the article marks (R): the network filled it with a
@@ -44,6 +44,12 @@ type ScheduleEntry struct {
 	// entries and for every year the article does not annotate.
 	Rank   int     `json:"rank,omitempty"`
 	Rating float64 `json:"rating,omitempty"`
+
+	// LinkTarget is the wikilink destination, used during extraction to resolve
+	// ShowID and never stored: the recorded answer is the page_id, and a title
+	// kept beside it would be a second identity for the same thing. Exported
+	// only because the builder lives in another package.
+	LinkTarget string `json:"-"`
 }
 
 // Slots returns every entry for one network on one night, in time order.

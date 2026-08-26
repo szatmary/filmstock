@@ -13,7 +13,15 @@ import (
 // buildTelevisionSeries constructs a series record from an {{Infobox television}} map.
 func buildTelevisionSeries(title string, pageID int, ib map[string]string) *filmstock.TelevisionSeries {
 	s := &filmstock.TelevisionSeries{
-		Title:   title,
+		// Display title, as for films: "(TV series)" is Wikipedia namespacing,
+		// not part of the name. Identity stays the page_id and the page name
+		// survives in WikiURL, built below from the raw title.
+		//
+		// Nothing may key on this. Stripping the disambiguator once WAS used to
+		// join series to episodes, and two shows differing only by disambiguator
+		// collapsed into one with the loser silently dropped — the BBC's House of
+		// Cards, PBS Frontline, every non-US Big Brother.
+		Title:   filmstock.CleanTelevisionTitle(title),
 		PageID:  pageID,
 		Type:    "television",
 		WikiURL: "https://en.wikipedia.org/wiki/" + strings.ReplaceAll(url.PathEscape(title), "%20", "_"),

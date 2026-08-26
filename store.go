@@ -56,6 +56,13 @@ var dictPeople []byte
 //go:embed dict/events.dict
 var dictEvents []byte
 
+// Bootstrapped from five parsed schedule articles, which is a thin sample —
+// zstd wants ten times the dictionary size and got seven. Retrain from the full
+// set once all 288 grids have been extracted.
+//
+//go:embed dict/schedules.dict
+var dictSchedules []byte
+
 // Dictionary returns the compression dictionary a kind's store is built with.
 // Exposed so a tool opening a store directly passes the same one.
 func Dictionary(kind string) []byte {
@@ -68,6 +75,8 @@ func Dictionary(kind string) []byte {
 		return dictPeople
 	case KindEvent:
 		return dictEvents
+	case KindSchedule:
+		return dictSchedules
 	}
 	return nil
 }
@@ -137,7 +146,7 @@ func WriteDictionaries(root string) error {
 	if err := os.MkdirAll(root, 0o755); err != nil {
 		return err
 	}
-	for _, kind := range []string{KindMovie, KindTelevision, KindPerson, KindEvent} {
+	for _, kind := range []string{KindMovie, KindTelevision, KindPerson, KindEvent, KindSchedule} {
 		p := filepath.Join(root, DictionaryName(kind))
 		if _, err := os.Stat(p); err == nil {
 			continue // already seeded; never overwrite what a store was built with
@@ -279,7 +288,7 @@ func OpenStoreWithDictionary(root, kind string, dict []byte) (*gitdb.DB, error) 
 // show up. It is a staleness hint, not a checksum.
 func StoreFingerprint(root string) (string, error) {
 	h := sha256.New()
-	for _, kind := range []string{KindMovie, KindTelevision, KindPerson, KindEvent} {
+	for _, kind := range []string{KindMovie, KindTelevision, KindPerson, KindEvent, KindSchedule} {
 		files, err := filepath.Glob(filepath.Join(root, kind, "*.gitdb"))
 		if err != nil {
 			return "", err

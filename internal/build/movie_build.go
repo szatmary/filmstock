@@ -90,7 +90,12 @@ func pad(s string) string {
 // buildMovie constructs a Movie from a page title/id and its infobox params.
 func buildMovie(title string, pageID int, ib map[string]string) *filmstock.Movie {
 	m := &filmstock.Movie{
-		Title:   title,
+		// The stored title is the DISPLAY title, with Wikipedia's disambiguator
+		// removed: a third of film titles carry one, and "(1985 film)" is
+		// namespacing rather than part of the name. Nothing may key on it —
+		// identity is the page_id — and the page name itself survives in
+		// WikiURL, which is built below from the raw title before this runs.
+		Title:   filmstock.CleanTitle(title),
 		PageID:  pageID,
 		WikiURL: "https://en.wikipedia.org/wiki/" + strings.ReplaceAll(url.PathEscape(title), "%20", "_"),
 		Raw:     ib,

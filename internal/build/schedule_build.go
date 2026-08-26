@@ -85,6 +85,28 @@ func buildSchedule(p dump.Page) *filmstock.Schedule {
 	return s
 }
 
+// ResolveShows fills in ShowID for every entry whose cell linked an article.
+//
+// Done as one pass over the finished schedule rather than per cell, because a
+// season repeats the same programme in dozens of slots and each lookup is a
+// query. Titles are canonicalised the same way the rest of the extractor does,
+// so a link written with an underscore or a leading lower case still joins.
+func ResolveShows(s *filmstock.Schedule, lookup func(title string) int) {
+	seen := map[string]int{}
+	for i := range s.Entries {
+		t := s.Entries[i].LinkTarget
+		if t == "" {
+			continue
+		}
+		id, ok := seen[t]
+		if !ok {
+			id = lookup(wikitext.CanonTitle(t))
+			seen[t] = id
+		}
+		s.Entries[i].ShowID = id
+	}
+}
+
 func daypartOf(title string) string {
 	switch {
 	case strings.Contains(title, "(daytime)"):
@@ -166,10 +188,12 @@ func readGrid(tb *wikitext.Table, day string) []filmstock.ScheduleEntry {
 				Day: day, Network: network, Part: part, Start: start,
 				End: addMinutes(start, slotMinutes*c.ColSpan),
 			}
-			e.Title, e.ShowID, e.Rerun, e.Rank, e.Rating = readSlot(c.Text)
+			var target string
+			e.Title, target, e.Rerun, e.Rank, e.Rating = readSlot(c.Text)
 			if e.Title == "" {
 				continue
 			}
+			e.LinkTarget = target
 			out = append(out, e)
 		}
 	}
@@ -177,7 +201,12 @@ func readGrid(tb *wikitext.Table, day string) []filmstock.ScheduleEntry {
 }
 
 // readSlot pulls a programme out of one cell.
-func readSlot(raw string) (title string, showID int, rerun bool, rank int, rating float64) {
+//
+// target is the wikilink's destination, which is what resolves to a page_id.
+// It differs from the displayed title far more often than not — a cell reads
+// [[Murder One (TV series)|Murder One]] — and joining on the display text would
+// miss every disambiguated show, which is most of them.
+func readSlot(raw string) (title, target string, rerun bool, rank int, rating float64) {
 	for _, blk := range reSmall.FindAllStringSubmatch(raw, -1) {
 		for _, g := range reParen.FindAllStringSubmatch(blk[1], -1) {
 			inner := strings.TrimSpace(g[1])
@@ -193,7 +222,8 @@ func readSlot(raw string) (title string, showID int, rerun bool, rank int, ratin
 	}
 	// The first wikilink is the programme; later ones are footnotes or networks.
 	if m := reLink.FindStringSubmatch(raw); m != nil {
-		title = m[1]
+		target = strings.TrimSpace(m[1])
+		title = target
 		if m[2] != "" {
 			title = m[2]
 		}
@@ -203,7 +233,7 @@ func readSlot(raw string) (title string, showID int, rerun bool, rank int, ratin
 	} else {
 		title = cleanCell(title)
 	}
-	return title, 0, rerun, rank, rating
+	return title, target, rerun, rank, rating
 }
 
 // cleanCell reduces wikitext to the text a reader sees.

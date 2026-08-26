@@ -91,11 +91,21 @@ func FindAllTemplates(text, name string) []string {
 	var out []string
 	lower := strings.ToLower(text)
 	target := "{{" + strings.ToLower(name)
+	// Wikipedia migrated several list templates to Lua modules, so the same data
+	// now appears as {{#invoke:Episode list|sublist|...}} with identical
+	// parameters. Matching only the template form silently skipped every article
+	// that had been converted — ER's 331 episodes among them, which is how a
+	// fifteen-season series came to have none.
+	invoke := "{{#invoke:" + strings.ToLower(name)
 	idx := 0
 	for {
 		rel := strings.Index(lower[idx:], target)
-		if rel < 0 {
+		relInv := strings.Index(lower[idx:], invoke)
+		if rel < 0 && relInv < 0 {
 			break
+		}
+		if rel < 0 || (relInv >= 0 && relInv < rel) {
+			rel = relInv
 		}
 		start := idx + rel
 		depth, i, end := 0, start, -1
