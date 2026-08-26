@@ -43,26 +43,29 @@ func CIndexRecords(args []string) {
 
 	// Films first: `index` recreates the database from scratch, so it must run
 	// before index-television adds the television tables to the same file.
-	fmt.Fprintf(os.Stderr, "[1/5] films -> %s\n", out)
+	fmt.Fprintf(os.Stderr, "[1/6] films -> %s\n", out)
 	CIndex([]string{
 		"-records", *records,
 		"-db", out,
 	})
 
-	fmt.Fprintf(os.Stderr, "[2/5] television -> %s\n", out)
+	fmt.Fprintf(os.Stderr, "[2/6] television -> %s\n", out)
 	CIndexTelevision([]string{
 		"-records", *records,
 		"-db", out,
 	})
 
-	fmt.Fprintf(os.Stderr, "[3/5] events -> %s\n", out)
+	fmt.Fprintf(os.Stderr, "[3/6] events -> %s\n", out)
 	CIndexEvents([]string{"-records", *records, "-db", out})
 
-	fmt.Fprintf(os.Stderr, "[4/5] schedules -> %s\n", out)
+	fmt.Fprintf(os.Stderr, "[4/6] schedules -> %s\n", out)
 	CIndexSchedules([]string{"-records", *records, "-db", out})
 
-	fmt.Fprintf(os.Stderr, "[5/5] external identifiers -> %s\n", out)
+	fmt.Fprintf(os.Stderr, "[5/6] external identifiers -> %s\n", out)
 	CIndexExternalIDs([]string{"-db", out, "-cache", *cache})
+
+	fmt.Fprintf(os.Stderr, "[6/6] franchises and sequels -> %s\n", out)
+	CIndexSeries([]string{"-db", out, "-cache", *cache})
 
 	// Stamp the store state this index was built from, so a later `git pull`
 	// that leaves the index behind can be detected instead of silently

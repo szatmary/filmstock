@@ -30,6 +30,8 @@ import (
 const (
 	propPartOfSeries = "P179"
 	propSeason       = "P4908"
+	propFollows      = "P155"
+	propFollowedBy   = "P156"
 )
 
 // External identifiers, published as the join keys they are.
@@ -170,10 +172,19 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	db.Exec(`DROP TABLE IF EXISTS wd_part_of_series`)
 	db.Exec(`DROP TABLE IF EXISTS wd_episode_season`)
 	db.Exec(`DROP TABLE IF EXISTS wd_external_id`)
+	db.Exec(`DROP TABLE IF EXISTS wd_sequel`)
 	// Drop any wd_text left by an older build; see the note below.
 	db.Exec(`DROP TABLE IF EXISTS wd_text`)
 	if _, err := db.Exec(`CREATE TABLE wd_part_of_series(item_qid INTEGER, series_qid INTEGER)`); err != nil {
 		return err
+	}
+	// Pairwise order within a series: P155 "follows" and P156 "followed by".
+	// Stored one way round — item -> next — with P155 inverted on the way in, so
+	// a consumer asking "what came after this" has one query rather than two.
+	// Wikidata states both directions and does not always state both, so
+	// inverting P155 recovers pairs P156 alone would miss.
+	if _, err := db.Exec(`CREATE TABLE wd_sequel(item_qid INTEGER, next_qid INTEGER)`); err != nil {
+		fatal(err)
 	}
 	if _, err := db.Exec(`CREATE TABLE wd_external_id(item_qid INTEGER, source TEXT, value TEXT)`); err != nil {
 		fatal(err)
@@ -193,6 +204,8 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	needle179 := []byte(`"` + propPartOfSeries + `":`)
 	needle4908 := []byte(`"` + propSeason + `":`)
 	needleEnwiki := []byte(`"enwiki":`)
+	needle155 := []byte(`"` + propFollows + `":`)
+	needle156 := []byte(`"` + propFollowedBy + `":`)
 	// One needle per external-identifier property, in a fixed order so the
 	// prefilter costs the same on every run.
 	extProps := make([]string, 0, len(externalIDProps))
@@ -210,6 +223,7 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	// serial. Reading stays on one goroutine to preserve stdin order cheaply.
 	type edge struct {
 		season bool // false = P179 part-of-series, true = P4908 episode-season
+		sequel bool // an ordering edge: from is followed by to
 		from   int64
 		to     int64
 		// An external identifier instead of a relation, when source is set.
@@ -229,6 +243,8 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 				has179 := bytes.Contains(line, needle179)
 				has4908 := bytes.Contains(line, needle4908)
 				hasEn := bytes.Contains(line, needleEnwiki)
+				has155 := bytes.Contains(line, needle155)
+				has156 := bytes.Contains(line, needle156)
 				hasExt := false
 				for _, nd := range needlesExt {
 					if bytes.Contains(line, nd) {
@@ -236,7 +252,7 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 						break
 					}
 				}
-				if !has179 && !has4908 && !hasEn && !hasExt {
+				if !has179 && !has4908 && !hasEn && !hasExt && !has155 && !has156 {
 					continue
 				}
 				line = bytes.TrimRight(line, ",\n\r")
@@ -259,6 +275,17 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 						edges <- edge{season: true, from: from, to: to}
 					}
 				}
+				if has156 {
+					for _, to := range claimTargets(e.Claims[propFollowedBy]) {
+						edges <- edge{sequel: true, from: from, to: to}
+					}
+				}
+				if has155 {
+					// Inverted: "this follows that" is "that is followed by this".
+					for _, to := range claimTargets(e.Claims[propFollows]) {
+						edges <- edge{sequel: true, from: to, to: from}
+					}
+				}
 				if hasExt {
 					// In sorted property order: ranging the map would emit the
 					// identifiers in a different order on every run, and this
@@ -276,17 +303,18 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 
 	start := time.Now()
 	done := make(chan struct{})
-	var nSeries, nSeason, nExt int64
+	var nSeries, nSeason, nExt, nSeq int64
 	go func() {
 		defer close(done)
 		tx, _ := db.Begin()
-		prep := func() (*sql.Stmt, *sql.Stmt, *sql.Stmt) {
+		prep := func() (*sql.Stmt, *sql.Stmt, *sql.Stmt, *sql.Stmt) {
 			a, _ := tx.Prepare(`INSERT INTO wd_part_of_series(item_qid,series_qid) VALUES(?,?)`)
 			b, _ := tx.Prepare(`INSERT INTO wd_episode_season(item_qid,season_qid) VALUES(?,?)`)
 			c, _ := tx.Prepare(`INSERT INTO wd_external_id(item_qid,source,value) VALUES(?,?,?)`)
-			return a, b, c
+			d, _ := tx.Prepare(`INSERT INTO wd_sequel(item_qid,next_qid) VALUES(?,?)`)
+			return a, b, c, d
 		}
-		insSeries, insSeason, insExt := prep()
+		insSeries, insSeason, insExt, insSeq := prep()
 		n := 0
 		bump := func() {
 			// Commit periodically so a long run is not one giant transaction.
@@ -294,11 +322,12 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 				insSeries.Close()
 				insSeason.Close()
 				insExt.Close()
+				insSeq.Close()
 				if err := tx.Commit(); err != nil {
 					panic(err)
 				}
 				tx, _ = db.Begin()
-				insSeries, insSeason, insExt = prep()
+				insSeries, insSeason, insExt, insSeq = prep()
 			}
 		}
 		for edges != nil {
@@ -309,6 +338,9 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 					continue
 				}
 				switch {
+				case e.sequel:
+					insSeq.Exec(e.from, e.to)
+					atomic.AddInt64(&nSeq, 1)
 				case e.source != "":
 					insExt.Exec(e.from, e.source, e.value)
 					atomic.AddInt64(&nExt, 1)
@@ -325,6 +357,7 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 		insSeries.Close()
 		insSeason.Close()
 		insExt.Close()
+		insSeq.Close()
 		if err := tx.Commit(); err != nil {
 			panic(err)
 		}
@@ -354,9 +387,10 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	db.Exec(`CREATE INDEX idx_wd_pos_item ON wd_part_of_series(item_qid)`)
 	db.Exec(`CREATE INDEX idx_wd_eps_item ON wd_episode_season(item_qid)`)
 	db.Exec(`CREATE INDEX idx_wd_ext_item ON wd_external_id(item_qid)`)
+	db.Exec(`CREATE INDEX idx_wd_seq_item ON wd_sequel(item_qid)`)
 
 	fmt.Fprintf(os.Stderr,
-		"DONE: entities=%d parsed=%d P179=%d P4908=%d external_ids=%d elapsed=%.1fm\n",
-		entities, parsed, nSeries, nSeason, nExt, time.Since(start).Minutes())
+		"DONE: entities=%d parsed=%d P179=%d P4908=%d sequels=%d external_ids=%d elapsed=%.1fm\n",
+		entities, parsed, nSeries, nSeason, nSeq, nExt, time.Since(start).Minutes())
 	return nil
 }
