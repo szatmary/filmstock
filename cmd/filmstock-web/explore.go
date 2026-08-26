@@ -19,10 +19,27 @@ import (
 	"github.com/szatmary/filmstock"
 )
 
+// A walk is a film you are standing on and how you got there.
+//
+// The arrows step from film to film, not through the space. Moving a POINT by
+// some distance and taking whatever lands nearest means you cannot tell where a
+// press will put you — the film to your right is not necessarily the one you
+// arrive at. Stepping to the film you can see makes the control honest: what is
+// two to the right is what two presses reach.
+//
+// The last grid is kept because that is what "to the right" refers to. It is a
+// property of the layout the user is looking at, not of the vector space.
+type walk struct {
+	cur        int
+	trail      []int
+	grid       []*cellJSON
+	cols, rows int
+}
+
 type explorers struct {
 	mu   sync.Mutex
 	coll *filmstock.Collection
-	byID map[string]*filmstock.Explorer
+	byID map[string]*walk
 	next int
 }
 
@@ -37,7 +54,7 @@ func newExplorers(v *filmstock.Vectors, known []int) *explorers {
 	coll, missing := v.Collect(known)
 	fmt.Fprintf(os.Stderr, "explorer: %d films with vectors (%d in the database have none)\n",
 		coll.Len(), missing)
-	return &explorers{coll: coll, byID: map[string]*filmstock.Explorer{}}
+	return &explorers{coll: coll, byID: map[string]*walk{}}
 }
 
 // cellJSON is one film on the surface: where the axes put it, and enough to
@@ -100,75 +117,60 @@ func (s *server) fillCell(r *http.Request, pageID int, score, x, y float32) cell
 // property the feature exists to provide.
 func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
+	cols, rows := gridDims(q)
 	n, _ := strconv.Atoi(q.Get("n"))
-	if n <= 0 {
-		n = 24
+	if n < cols*rows+8 {
+		n = cols*rows + 8
 	}
 	s.ex.mu.Lock()
 	defer s.ex.mu.Unlock()
 
-	var e *filmstock.Explorer
 	session := q.Get("s")
-	switch {
-	case q.Get("start") != "":
-		id, err := strconv.Atoi(q.Get("start"))
+	wk := s.ex.byID[session]
+	if start := q.Get("start"); start != "" || wk == nil {
+		id, err := strconv.Atoi(start)
 		if err != nil {
-			http.Error(w, "bad start id", 400)
-			return
-		}
-		e, err = s.ex.coll.Explore(id)
-		if err != nil {
-			http.Error(w, err.Error(), 404)
+			http.Error(w, "unknown session; start again", 400)
 			return
 		}
 		s.ex.next++
 		session = strconv.Itoa(s.ex.next)
-		s.ex.byID[session] = e
-	default:
-		e = s.ex.byID[session]
-		if e == nil {
-			http.Error(w, "unknown session; start again", 400)
-			return
+		wk = &walk{cur: id, trail: []int{id}}
+		s.ex.byID[session] = wk
+	} else if dir := q.Get("move"); dir == "back" {
+		// Left is not the inverse of right, and cannot be: the grid is
+		// recomputed at each film, so the film that was to your right is not
+		// where "left" points once you are standing on it. Going back needs the
+		// trail, which is the only record of where you actually came from.
+		if len(wk.trail) > 1 {
+			wk.trail = wk.trail[:len(wk.trail)-1]
+			wk.cur = wk.trail[len(wk.trail)-1]
+		}
+	} else if dir != "" {
+		next, ok := wk.neighbour(dir)
+		if !ok {
+			// Nothing that way: the edge of the grid, or an empty slot with no
+			// film beyond it. Redraw where we are rather than pretending.
+			next = wk.cur
+		}
+		if next != wk.cur {
+			wk.cur = next
+			wk.trail = append(wk.trail, next)
 		}
 	}
 
-	var view *filmstock.View
-	var err error
-	switch q.Get("move") {
-	case "left":
-		view, err = e.Move(filmstock.Left, n)
-	case "right":
-		view, err = e.Move(filmstock.Right, n)
-	case "up":
-		view, err = e.Move(filmstock.Up, n)
-	case "down":
-		view, err = e.Move(filmstock.Down, n)
-	default:
-		view, err = e.View(n)
+	// The axes are recomputed at the film we are standing on, every time.
+	e, err := s.ex.coll.Explore(wk.cur)
+	if err != nil {
+		http.Error(w, err.Error(), 404)
+		return
 	}
+	view, err := e.View(n)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
 
-	// A grid, not a scatter. The axes are continuous and two records often want
-	// the same corner, so drawn at their raw positions they overlap in clumps
-	// and leave holes — which is unreadable, and worse, the eye cannot follow a
-	// title from one press to the next. Grid assigns each slot the nearest
-	// unplaced record, working outward from the middle.
-	// Odd on both sides, so there is a true middle slot for the current
-	// position to occupy.
-	cols, rows := 7, 5
-	if v := q.Get("cols"); v != "" {
-		if n, err := strconv.Atoi(v); err == nil && n > 0 && n <= 12 {
-			cols = n
-		}
-	}
-	if v := q.Get("rows"); v != "" {
-		if n, err := strconv.Atoi(v); err == nil && n > 0 && n <= 8 {
-			rows = n
-		}
-	}
 	out := viewJSON{Session: session, AxisVar: view.AxisVar, Cols: cols, Rows: rows}
 	out.Center = s.fillCell(r, view.Center, 1, 0, 0)
 	out.Center.Centre = true
@@ -182,13 +184,8 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 			out.Grid = append(out.Grid, &cell)
 		}
 	}
-	// The current position goes in the middle slot, always.
-	//
-	// Without it the arrows have nothing to act on: the grid simply becomes a
-	// different grid and there is no cursor, no anchor, no sense of having
-	// moved rather than reloaded. Where the centre already won a slot elsewhere
-	// it is swapped with whatever holds the middle, so nothing is lost and the
-	// middle is always where you are.
+	// The film we are standing on takes the middle slot, always: without it the
+	// arrows have no cursor to move.
 	if mid := (rows/2)*cols + cols/2; mid < len(out.Grid) {
 		at := -1
 		for i, c := range out.Grid {
@@ -208,43 +205,64 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 			out.Grid[mid] = &c
 		}
 	}
-	// Name the axes from the neighbourhood, using every cell rather than only
-	// the ones that won a grid slot: the grid is a display choice and the axis
-	// means what it means regardless of how many squares are free.
-	{
-		all := make([]cellJSON, 0, len(view.Cells))
-		facets := map[int][]string{}
-		for _, c := range view.Cells {
-			cj := s.fillCell(r, c.PageID, c.Score, c.X, c.Y)
-			all = append(all, cj)
-			facets[cj.PageID] = attrsOf(cj, cj.genre, cj.country, cj.language)
-		}
-		split := func(axis func(cellJSON) float32) (lo, hi []cellJSON) {
-			for _, c := range all {
-				switch v := axis(c); {
-				case v < -0.33:
-					lo = append(lo, c)
-				case v > 0.33:
-					hi = append(hi, c)
-				}
-			}
-			return
-		}
-		lo, hi := split(func(c cellJSON) float32 { return c.X })
-		l, h := describeEnds(lo, hi, facets)
-		out.AxisNames.LeftEnd, out.AxisNames.RightEnd = axisLabel(l), axisLabel(h)
-		lo, hi = split(func(c cellJSON) float32 { return c.Y })
-		l, h = describeEnds(lo, hi, facets)
-		out.AxisNames.DownEnd, out.AxisNames.UpEnd = axisLabel(l), axisLabel(h)
-	}
+	wk.grid, wk.cols, wk.rows = out.Grid, cols, rows
 
-	trail := e.Trail()
-	out.Steps = len(trail) - 1
-	for _, id := range trail {
+	s.nameAxes(r, view, &out)
+	out.Steps = len(wk.trail) - 1
+	for _, id := range wk.trail {
 		out.Trail = append(out.Trail, s.fillCell(r, id, 0, 0, 0))
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(out)
+}
+
+// neighbour returns the film one slot along from the middle.
+//
+// If that slot is empty it keeps going in the same direction rather than
+// stopping, so a gap in the layout does not make the control feel broken.
+func (wk *walk) neighbour(dir string) (int, bool) {
+	if wk.grid == nil || wk.cols == 0 {
+		return 0, false
+	}
+	r0, c0 := wk.rows/2, wk.cols/2
+	dr, dc := 0, 0
+	switch dir {
+	case "left":
+		dc = -1
+	case "right":
+		dc = 1
+	case "up":
+		dr = -1
+	case "down":
+		dr = 1
+	default:
+		return 0, false
+	}
+	for r, c := r0+dr, c0+dc; r >= 0 && r < wk.rows && c >= 0 && c < wk.cols; r, c = r+dr, c+dc {
+		if cell := wk.grid[r*wk.cols+c]; cell != nil {
+			return cell.PageID, true
+		}
+	}
+	return 0, false
+}
+
+func gridDims(q map[string][]string) (int, int) {
+	get := func(k string, def, lo, hi int) int {
+		if v, ok := q[k]; ok && len(v) > 0 {
+			if n, err := strconv.Atoi(v[0]); err == nil && n >= lo && n <= hi {
+				return n
+			}
+		}
+		return def
+	}
+	cols, rows := get("cols", 7, 3, 11), get("rows", 5, 3, 7)
+	if cols%2 == 0 {
+		cols--
+	}
+	if rows%2 == 0 {
+		rows--
+	}
+	return cols, rows
 }
 
 func (s *server) handleExplore(w http.ResponseWriter, r *http.Request) {
@@ -252,4 +270,36 @@ func (s *server) handleExplore(w http.ResponseWriter, r *http.Request) {
 	if err := pages.ExecuteTemplate(w, "explore.html", r.URL.Query().Get("id")); err != nil {
 		http.Error(w, err.Error(), 500)
 	}
+}
+
+// nameAxes reads what the two directions mean here off the films at their ends.
+//
+// Every cell in the neighbourhood, not only the ones that won a grid slot: the
+// grid is a display choice, and the axis means what it means regardless of how
+// many squares happened to be free.
+func (s *server) nameAxes(r *http.Request, view *filmstock.View, out *viewJSON) {
+	all := make([]cellJSON, 0, len(view.Cells))
+	facets := map[int][]string{}
+	for _, c := range view.Cells {
+		cj := s.fillCell(r, c.PageID, c.Score, c.X, c.Y)
+		all = append(all, cj)
+		facets[cj.PageID] = attrsOf(cj, cj.genre, cj.country, cj.language)
+	}
+	split := func(axis func(cellJSON) float32) (lo, hi []cellJSON) {
+		for _, c := range all {
+			switch v := axis(c); {
+			case v < -0.33:
+				lo = append(lo, c)
+			case v > 0.33:
+				hi = append(hi, c)
+			}
+		}
+		return
+	}
+	lo, hi := split(func(c cellJSON) float32 { return c.X })
+	l, h := describeEnds(lo, hi, facets)
+	out.AxisNames.LeftEnd, out.AxisNames.RightEnd = axisLabel(l), axisLabel(h)
+	lo, hi = split(func(c cellJSON) float32 { return c.Y })
+	l, h = describeEnds(lo, hi, facets)
+	out.AxisNames.DownEnd, out.AxisNames.UpEnd = axisLabel(l), axisLabel(h)
 }

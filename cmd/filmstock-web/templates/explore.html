@@ -84,8 +84,9 @@
     <div class="trail" id="trail"></div>
     <h2>Keys</h2>
     <div class="dim" style="font-size:12px">
-      <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> move<br>
-      <kbd>click</kbd> a film to recentre on it
+      <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> step to that film<br>
+      <kbd>⌫</kbd> back along the trail<br>
+      <kbd>click</kbd> jump to any film
     </div>
   </aside>
 </main>
@@ -213,7 +214,8 @@ addEventListener('resize', () => {
 });
 
 addEventListener('keydown', e => {
-  const k = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down'}[e.key];
+  const k = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down',
+             Backspace:'back'}[e.key];
   if (k && session) { e.preventDefault(); move(k); }
 });
 
