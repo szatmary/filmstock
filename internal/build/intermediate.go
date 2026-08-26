@@ -89,6 +89,24 @@ CREATE INDEX IF NOT EXISTS idx_links_target ON links(target);
 CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY, value TEXT);
 `
 
+// rd is what reads must go through.
+//
+// The store holds ONE connection, because the PRAGMAs are per-connection and a
+// pooled second one would quietly run with synchronous=FULL. That makes a read
+// issued while a write transaction is open a deadlock rather than a slow query:
+// the transaction holds the only connection and the read waits for it forever.
+// The daily update reads and writes interleaved, page by page, so this is not a
+// corner case — it is the normal path.
+func (in *Inter) rd() interface {
+	Query(string, ...any) (*sql.Rows, error)
+	QueryRow(string, ...any) *sql.Row
+} {
+	if in.tx != nil {
+		return in.tx
+	}
+	return in.db
+}
+
 // OpenInter opens or creates an intermediate store.
 func OpenInter(path string) (*Inter, error) {
 	if dir := filepath.Dir(path); dir != "" {
@@ -131,7 +149,7 @@ func (in *Inter) SetSource(dump string) error {
 // Source reports the dump this intermediate was built from.
 func (in *Inter) Source() (string, error) {
 	var s string
-	err := in.db.QueryRow(`SELECT value FROM meta WHERE key='source'`).Scan(&s)
+	err := in.rd().QueryRow(`SELECT value FROM meta WHERE key='source'`).Scan(&s)
 	if err == sql.ErrNoRows {
 		return "", nil
 	}
@@ -261,7 +279,7 @@ func (in *Inter) Counts() (map[string]int, error) {
 // turns a stated link into an identity without ever comparing display strings.
 func (in *Inter) ByTitle(title, kind string) (int, bool) {
 	var id int
-	err := in.db.QueryRow(
+	err := in.rd().QueryRow(
 		`SELECT page_id FROM pages WHERE title = ? AND kind = ?`, title, kind).Scan(&id)
 	return id, err == nil
 }
@@ -269,7 +287,7 @@ func (in *Inter) ByTitle(title, kind string) (int, bool) {
 // Referrers returns the pages that link to a title. Incremental export uses this
 // to find what a change made stale.
 func (in *Inter) Referrers(target string) ([]int, error) {
-	rows, err := in.db.Query(`SELECT DISTINCT from_id FROM links WHERE target = ?`, target)
+	rows, err := in.rd().Query(`SELECT DISTINCT from_id FROM links WHERE target = ?`, target)
 	if err != nil {
 		return nil, err
 	}
@@ -405,6 +423,71 @@ func (in *Inter) Pages() (int, error) {
 		return 0, err
 	}
 	var n int
-	err := in.db.QueryRow(`SELECT COUNT(DISTINCT page_id) FROM pages`).Scan(&n)
+	err := in.rd().QueryRow(`SELECT COUNT(DISTINCT page_id) FROM pages`).Scan(&n)
 	return n, err
+}
+
+// Replace makes the store's view of one page match the claims given, which is
+// what a daily update needs and Put alone cannot do.
+//
+// Two things Put would get wrong:
+//
+//   - a page that stops qualifying. An infobox is removed, so a film is no
+//     longer a film, and recognise claims nothing for it. Put writes nothing
+//     and the old row survives — the store then states as fact something the
+//     encyclopaedia no longer says.
+//   - links that go away. A cast member removed from an infobox leaves a row in
+//     the reference graph pointing at a credit that no longer exists, and the
+//     graph is what export uses to decide what went stale.
+//
+// So the page's rows are reconciled rather than added to: kinds no longer
+// claimed are dropped, and its links are rewritten wholesale.
+func (in *Inter) Replace(pageID int, claims []*Page) error {
+	if err := in.begin(); err != nil {
+		return err
+	}
+	if _, err := in.tx.Exec(`DELETE FROM links WHERE from_id = ?`, pageID); err != nil {
+		return fmt.Errorf("intermediate: clearing links for %d: %w", pageID, err)
+	}
+	kinds := make([]any, 0, len(claims)+1)
+	kinds = append(kinds, pageID)
+	holes := ""
+	for _, c := range claims {
+		if holes != "" {
+			holes += ","
+		}
+		holes += "?"
+		kinds = append(kinds, c.Kind)
+	}
+	q := `DELETE FROM pages WHERE page_id = ?`
+	if holes != "" {
+		q += ` AND kind NOT IN (` + holes + `)`
+	}
+	if _, err := in.tx.Exec(q, kinds...); err != nil {
+		return fmt.Errorf("intermediate: dropping unclaimed kinds for %d: %w", pageID, err)
+	}
+	for _, c := range claims {
+		if err := in.Put(c); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// Kinds reports which kinds a page is currently stored under.
+func (in *Inter) Kinds(pageID int) ([]string, error) {
+	rows, err := in.rd().Query(`SELECT kind FROM pages WHERE page_id = ?`, pageID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []string
+	for rows.Next() {
+		var k string
+		if err := rows.Scan(&k); err != nil {
+			return nil, err
+		}
+		out = append(out, k)
+	}
+	return out, rows.Err()
 }

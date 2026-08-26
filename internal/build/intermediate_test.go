@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 func openInter(t *testing.T) *Inter {
@@ -228,5 +229,113 @@ func TestInterReadsUncompressedWikitext(t *testing.T) {
 	}
 	if got != "plain text" {
 		t.Errorf("got %q, want the uncompressed blob back", got)
+	}
+}
+
+// Reading while a write transaction is open must not deadlock. The store holds
+// one connection; a read that goes to the pool instead of the transaction waits
+// on a connection the transaction is holding, forever. The daily update reads
+// and writes interleaved, page by page, so this is the normal path.
+func TestReadDuringOpenTransaction(t *testing.T) {
+	in := openInter(t)
+	if err := in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat"}); err != nil {
+		t.Fatal(err)
+	}
+	// No Flush: the transaction is deliberately still open.
+	done := make(chan error, 1)
+	go func() {
+		_, err := in.Kinds(1)
+		if err == nil {
+			_, err = in.Referrers("x")
+		}
+		done <- err
+	}()
+	select {
+	case err := <-done:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-time.After(5 * time.Second):
+		t.Fatal("read deadlocked against the open write transaction")
+	}
+}
+
+// A page that stops qualifying must stop being stored. An infobox is removed,
+// so a film is no longer a film; Put writes nothing and the old row survives,
+// leaving the store asserting something the encyclopaedia no longer says.
+func TestReplaceDropsKindsNoLongerClaimed(t *testing.T) {
+	in := openInter(t)
+	in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat"})
+	in.Put(&Page{PageID: 1, Kind: "people", Title: "Heat"})
+	in.Flush()
+
+	// Re-imported, now claimed only as a person.
+	if err := in.Replace(1, []*Page{{PageID: 1, Kind: "people", Title: "Heat"}}); err != nil {
+		t.Fatal(err)
+	}
+	in.Flush()
+	got, err := in.Kinds(1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != 1 || got[0] != "people" {
+		t.Errorf("kinds %v, want [people] — a stale claim survived", got)
+	}
+}
+
+// A page claimed by nothing at all is removed entirely.
+func TestReplaceWithNoClaimsRemovesThePage(t *testing.T) {
+	in := openInter(t)
+	in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat",
+		Links: []PageLink{{"director", "Michael Mann"}}})
+	in.Flush()
+	if err := in.Replace(1, nil); err != nil {
+		t.Fatal(err)
+	}
+	in.Flush()
+	if got, _ := in.Kinds(1); len(got) != 0 {
+		t.Errorf("page still stored as %v", got)
+	}
+	if got, _ := in.Referrers("Michael Mann"); len(got) != 0 {
+		t.Errorf("links survived the page: %v", got)
+	}
+}
+
+// Links are rewritten wholesale. A cast member removed from an infobox must
+// leave the reference graph, which is what export uses to decide what is stale.
+func TestReplaceClearsStaleLinks(t *testing.T) {
+	in := openInter(t)
+	in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat", Links: []PageLink{
+		{"starring", "Al Pacino"}, {"starring", "Robert De Niro"}}})
+	in.Flush()
+	if err := in.Replace(1, []*Page{{PageID: 1, Kind: "movies", Title: "Heat",
+		Links: []PageLink{{"starring", "Al Pacino"}}}}); err != nil {
+		t.Fatal(err)
+	}
+	in.Flush()
+	if got, _ := in.Referrers("Robert De Niro"); len(got) != 0 {
+		t.Errorf("removed cast member still in the reference graph: %v", got)
+	}
+	if got, _ := in.Referrers("Al Pacino"); len(got) != 1 {
+		t.Errorf("kept cast member lost from the graph: %v", got)
+	}
+}
+
+// Replace updates in place rather than duplicating.
+func TestReplaceUpdatesContent(t *testing.T) {
+	in := openInter(t)
+	in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat", Wikitext: "old"})
+	in.Flush()
+	in.Replace(1, []*Page{{PageID: 1, Kind: "movies", Title: "Heat (1995 film)", Wikitext: "new"}})
+	in.Flush()
+	var n int
+	var title, text string
+	in.db.QueryRow(`SELECT COUNT(*) FROM pages WHERE page_id=1`).Scan(&n)
+	if n != 1 {
+		t.Fatalf("%d rows, want 1", n)
+	}
+	in.Each("movies", true, func(p *Page) error { title, text = p.Title, p.Wikitext; return nil })
+	if title != "Heat (1995 film)" || text != "new" {
+		t.Errorf("got %q/%q, want the updated values", title, text)
 	}
 }

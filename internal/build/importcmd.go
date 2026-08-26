@@ -33,8 +33,13 @@ func CmdImport(args []string) {
 	workers := fs.Int("workers", 18, "parallel parsers")
 	noText := fs.Bool("no-wikitext", false, "skip storing wikitext (smaller, but a parser fix then needs the dump again)")
 	limit := fs.Int("limit", 0, "stop after this many pages (0 = all); for smoke tests")
+	incr := fs.String("incr", "", "apply one adds-changes dump instead of a full dump")
 	fs.Parse(args)
 
+	if *incr != "" {
+		importIncr(*incr, *out, *workers, !*noText)
+		return
+	}
 	d, err := findDumps(*dumps)
 	if err != nil {
 		fatal(err)
@@ -268,4 +273,78 @@ func defaultInterPath() string {
 		return d + "/filmstock/intermediate.db"
 	}
 	return "intermediate.db"
+}
+
+// importIncr applies one day of changes to the intermediate.
+//
+// This is the whole reason for the two-pass split. The daily path could not add
+// a person: a day's dump carries the pages edited that day, and a new film's
+// cast were not edited that day — their articles sit unchanged in a dump nobody
+// is reading, and the last full pass discarded them because at that moment
+// nothing had asked for them. 478 such people accumulated over 23 daily
+// updates, none with a canonical identity.
+//
+// Here the day's pages land in a store that already holds every person in the
+// encyclopaedia, so export resolves the new film's cast against articles it
+// never had to see today.
+//
+// Pages are reconciled, not merely added: an adds-changes dump is the only
+// place a page that stopped qualifying shows up, and it shows up as a page with
+// its infobox removed rather than as a deletion.
+func importIncr(path, interPath string, workers int, keepText bool) {
+	in, err := OpenInter(interPath)
+	if err != nil {
+		fatal(err)
+	}
+	defer in.Close()
+	if n, err := in.Pages(); err != nil {
+		fatal(err)
+	} else if n == 0 {
+		fatal(fmt.Errorf("import: %s is empty — a day of changes applied to nothing "+
+			"would produce a store holding only that day", interPath))
+	}
+
+	rc, err := dump.OpenBz2(path, workers)
+	if err != nil {
+		fatal(err)
+	}
+	defer rc.Close()
+
+	start := time.Now()
+	var pages, ns0, claimed, dropped int64
+	err = dump.RunStream(rc, func(p dump.Page) {
+		pages++
+		if p.NS != 0 {
+			return
+		}
+		ns0++
+		claims := recognise(p, keepText)
+		// Only pages we already hold, or newly claim, are worth a write. The
+		// rest of a day's 100k+ edits are articles this project has never had
+		// an opinion about.
+		if len(claims) == 0 {
+			had, err := in.Kinds(p.ID)
+			if err != nil {
+				fatal(err)
+			}
+			if len(had) == 0 {
+				return
+			}
+			dropped += int64(len(had))
+		}
+		claimed += int64(len(claims))
+		if err := in.Replace(p.ID, claims); err != nil {
+			fatal(err)
+		}
+	})
+	if err != nil {
+		fatal(err)
+	}
+	if err := in.Flush(); err != nil {
+		fatal(err)
+	}
+	fmt.Fprintf(os.Stderr, "applied %s in %.1fs\n", path, time.Since(start).Seconds())
+	fmt.Fprintf(os.Stderr, "  pages=%d (ns0=%d) claims written=%d, stopped qualifying=%d\n",
+		pages, ns0, claimed, dropped)
+	fmt.Fprintln(os.Stderr, "  run `filmstock export` to rebuild the records")
 }
