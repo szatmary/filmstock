@@ -2,6 +2,7 @@ package build
 
 import (
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -90,12 +91,26 @@ func parseSeriesOverview(text string) []*filmstock.Season {
 }
 
 // overviewSeasons turns one template's parameters into seasons.
+//
+// Parameters are visited in sorted order, never in map order. Wherever two keys
+// write the same field the last one seen wins, and in map order "last" is a
+// different key on every run — Vera's infoA14 and infoA14S both wrote season
+// 14's viewership and the same text parsed twice gave different answers. The
+// specific collision is handled below; sorting means the next one is at worst
+// wrong the same way every time, which is a bug that can be found rather than a
+// record that quietly moves.
 func overviewSeasons(ib map[string]string) []*filmstock.Season {
+	keys := make([]string, 0, len(ib))
+	for k := range ib {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
 	// What each lettered column means, taken from the article's own headings.
 	role := map[string]string{}
-	for k, v := range ib {
+	for _, k := range keys {
 		if m := reInfoTitle.FindStringSubmatch(k); m != nil {
-			if r := overviewRole(v); r != "" {
+			if r := overviewRole(ib[k]); r != "" {
 				role[m[1]] = r
 			}
 		}
@@ -113,7 +128,8 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 	// Episode counts stated only per part, summed. Used only where the season
 	// does not state its own total, which it usually does.
 	partEps := map[int]int{}
-	for k, v := range ib {
+	for _, k := range keys {
+		v := ib[k]
 		m := reOverviewParam.FindStringSubmatch(k)
 		if m == nil || strings.TrimSpace(v) == "" {
 			continue
@@ -172,14 +188,19 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 		}
 	}
 
-	var out []*filmstock.Season
-	for n, s := range byNum {
+	nums := make([]int, 0, len(byNum))
+	for n := range byNum {
+		nums = append(nums, n)
+	}
+	sort.Ints(nums)
+	out := make([]*filmstock.Season, 0, len(nums))
+	for _, n := range nums {
+		s := byNum[n]
 		if s.NumEpisodes == 0 {
 			s.NumEpisodes = partEps[n]
 		}
 		out = append(out, s)
 	}
-	sortSeasons(out)
 	return out
 }
 
@@ -217,12 +238,4 @@ func firstFloat(s string) float64 {
 
 func clean(s string) string {
 	return strings.ReplaceAll(wikitext.CleanText(s), ",", "")
-}
-
-func sortSeasons(s []*filmstock.Season) {
-	for i := 1; i < len(s); i++ {
-		for j := i; j > 0 && s[j].Season < s[j-1].Season; j-- {
-			s[j], s[j-1] = s[j-1], s[j]
-		}
-	}
 }
