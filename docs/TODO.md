@@ -11,23 +11,38 @@ resolver cache warm; 70 min cold, the difference being the 96 GB Wikidata pass.
 
 ## Open
 
-### Daily updates cannot add people — ARCHITECTURAL
+### Daily updates cannot add people — BUILT, NOT YET PROVEN
 
-`applyBiography` only ever updates a person already in the store; the daily path
-has no equivalent of `notePeople`/`flushPeople`. A film added today brings a cast
-list, and any genuinely new person in it gets an index row from the credit but no
-store record, no page_id, and no biography.
+`applyBiography` only ever updated a person already in the store; the daily path
+had no equivalent of `notePeople`/`flushPeople`. A film added today brought a
+cast list, and any genuinely new person in it got an index row from the credit
+but no store record, no page_id, and no biography.
 
 Measured: 478 such people arrived across 23 daily updates, none with a canonical
 identity. ~21/day, monotonic, never reconciled without a full re-extract. It
 matters more than the rate suggests because new releases are what gets looked up.
 
-Designed in [TWO-PASS.md](TWO-PASS.md): split import (dump → intermediate) from
-export (intermediate → records), keeping every person rather than only the
-credited ones, so a daily update resolves against the whole corpus instead of one
-day of it. ~3.1 GB intermediate, build-time only. Also fixes deletions, makes
-shape decisions reversible, and turns a 41-minute re-extract into a minutes-long
-re-export for anything that changes records rather than parsing.
+Built as designed in [TWO-PASS.md](TWO-PASS.md):
+
+    filmstock import -dumps DUMPS -inter intermediate.db     pass 1, full dump
+    filmstock import -incr DAY.xml.bz2 -inter intermediate.db  pass 1, one day
+    filmstock export -inter intermediate.db -out RECORDS      pass 2
+
+Import keeps every person rather than only the credited ones, so a daily update
+resolves a new film's cast against the whole corpus instead of one day of it.
+Export is `extract`'s second half reading the intermediate through the same
+`pageSource` the dump satisfies — one implementation, two readers, because a
+second copy of the shaping logic would drift silently.
+
+**What remains before this can be believed:**
+
+1. The first full import is running. Rate climbed past 4,700 pages/s once into
+   the body of the dump; ~11.7 kB per kept page gzipped.
+2. Export has never been run against real data. The claim that a record built
+   from the intermediate is the record `extract` would have built is tested only
+   on synthetic pages so far. **Diff a full export against the current records
+   before trusting it.**
+3. `-incr` has never been run against a real day.
 
 ### 56 schedule articles still yield nothing
 
@@ -41,6 +56,20 @@ headings (cost 154 articles each, independently). Assume another shape.
 
 Bootstrapped from five parsed articles at a 7× source:dictionary ratio, which
 zstd warned about; it is now compressing 232 grids. Retrain from the full set.
+
+### Seasons — DONE
+
+Seasons are first class: `PageID`, `Rank`, `Rating`, `Viewers`, `Network`,
+`Starring`, `Image`, from `{{Series overview}}` (never parsed before) and the
+full `{{Infobox television season}}` (previously read for two dates only).
+
+Per-season `Starring` is the one that mattered. `TelevisionSeries.Starring` is
+one flat list for a show's whole run, so a fifteen-season series asserted that
+everyone who ever appeared was in it throughout — Clooney was in ER for five
+seasons of fifteen. Not missing coverage: a modelling error recorded as fact.
+
+Still unverified against real data, like everything else above — the parser has
+tests but the corpus has not been run through it.
 
 ### 77,457 people have no canonical identity — DECISION NEEDED
 
@@ -102,6 +131,15 @@ day at a time instead of rebuilt in 46 minutes.
 ---
 
 ## Settled by measurement — do not re-litigate
+
+**Import throughput, on an identical 300,000-page prefix.** 470 pages/s
+recognising on the decode goroutine (`RunStream` calls its handler serially, so
+every parser sat behind one core); 2,065 on the multistream reader; 2,921 with
+lazy lead extraction (92% of pages are claimed by nothing, so eager extraction
+did the work for twelve pages in thirteen and threw it away). Store 977 MB, then
+409 MB with the wikitext gzipped — wikitext is 92.7% of the bytes. Lead and plot
+are NOT duplicated wikitext: only 8 of 24,550 leads appear verbatim in their
+source, because the markup is stripped. Do not "save space" by dropping them.
 
 - **Ship no index.** 22 consecutive daily updates produced zero deleted lines;
   a client rebuilds in 60 s from a scan it needs for FTS anyway. `.idx` cost
