@@ -2,6 +2,7 @@ package build
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -22,7 +23,7 @@ func TestInterRoundTrip(t *testing.T) {
 		Wikitext: "{{Infobox film|director=[[Ridley Scott]]}}",
 		Infobox:  map[string]string{"director": "[[Ridley Scott]]"},
 		Lead:     "Blade Runner is a 1982 science fiction film.",
-		Links:    map[string]string{"director": "Ridley Scott"},
+		Links:    []PageLink{{Field: "director", Target: "Ridley Scott"}},
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -100,9 +101,9 @@ func TestInterKeepsBothKindsOfOnePage(t *testing.T) {
 func TestInterReferrers(t *testing.T) {
 	in := openInter(t)
 	in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat",
-		Links: map[string]string{"director": "Michael Mann", "starring": "Al Pacino"}})
+		Links: []PageLink{{"director", "Michael Mann"}, {"starring", "Al Pacino"}}})
 	in.Put(&Page{PageID: 2, Kind: "movies", Title: "Collateral",
-		Links: map[string]string{"director": "Michael Mann"}})
+		Links: []PageLink{{"director", "Michael Mann"}}})
 	in.Flush()
 
 	got, err := in.Referrers("Michael Mann")
@@ -141,5 +142,91 @@ func TestInterRecordsItsSource(t *testing.T) {
 	got, err := in.Source()
 	if err != nil || got != "enwiki-20260801" {
 		t.Errorf("Source = %q, %v", got, err)
+	}
+}
+
+// A film states many starring links. Anything keyed by field alone keeps one.
+func TestInterKeepsEveryLinkInAField(t *testing.T) {
+	in := openInter(t)
+	err := in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat", Links: []PageLink{
+		{"starring", "Al Pacino"},
+		{"starring", "Robert De Niro"},
+		{"starring", "Val Kilmer"},
+		{"director", "Michael Mann"},
+	}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	in.Flush()
+	for _, who := range []string{"Al Pacino", "Robert De Niro", "Val Kilmer", "Michael Mann"} {
+		got, err := in.Referrers(who)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(got) != 1 {
+			t.Errorf("%s: %d referrers, want 1 — a cast member was dropped", who, len(got))
+		}
+	}
+}
+
+// One person credited twice on the same film keeps both roles: writer-directors
+// are common and export needs to know they did both.
+func TestInterKeepsOnePersonInTwoFields(t *testing.T) {
+	in := openInter(t)
+	in.Put(&Page{PageID: 1, Kind: "movies", Title: "X", Links: []PageLink{
+		{"director", "Quentin Tarantino"},
+		{"writer", "Quentin Tarantino"},
+	}})
+	in.Flush()
+	var n int
+	rows, err := in.db.Query(`SELECT field FROM links WHERE target = ?`, "Quentin Tarantino")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		n++
+	}
+	if n != 2 {
+		t.Errorf("kept %d roles, want 2 (director and writer)", n)
+	}
+}
+
+// Wikitext is stored compressed; it must come back byte-identical, since the
+// whole point of keeping it is re-parsing without the dump.
+func TestInterWikitextSurvivesCompression(t *testing.T) {
+	in := openInter(t)
+	text := strings.Repeat("{{Infobox film\n| name = Heat\n}}\n''Heat'' is a 1995 film.\n", 200)
+	if err := in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat", Wikitext: text}); err != nil {
+		t.Fatal(err)
+	}
+	in.Flush()
+	var got string
+	in.Each("movies", true, func(p *Page) error { got = p.Wikitext; return nil })
+	if got != text {
+		t.Fatalf("wikitext round-trip lost data: %d bytes back, %d in", len(got), len(text))
+	}
+	var stored int
+	in.db.QueryRow(`SELECT LENGTH(wikitext) FROM pages WHERE page_id=1`).Scan(&stored)
+	if stored >= len(text) {
+		t.Errorf("stored %d bytes for %d of text — not compressed", stored, len(text))
+	}
+}
+
+// A store written before wikitext was compressed still reads: the blob is
+// self-describing via gzip's magic bytes.
+func TestInterReadsUncompressedWikitext(t *testing.T) {
+	in := openInter(t)
+	in.Put(&Page{PageID: 1, Kind: "movies", Title: "Heat"})
+	in.Flush()
+	if _, err := in.db.Exec(`UPDATE pages SET wikitext=? WHERE page_id=1`, []byte("plain text")); err != nil {
+		t.Fatal(err)
+	}
+	var got string
+	if err := in.Each("movies", true, func(p *Page) error { got = p.Wikitext; return nil }); err != nil {
+		t.Fatal(err)
+	}
+	if got != "plain text" {
+		t.Errorf("got %q, want the uncompressed blob back", got)
 	}
 }

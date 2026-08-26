@@ -13,6 +13,8 @@ func main() {
 		usage()
 	}
 	switch os.Args[1] {
+	case "import":
+		build.CmdImport(os.Args[2:])
 	case "vectors":
 		build.CmdVectors(os.Args[2:])
 	case "catchup":
@@ -65,6 +67,7 @@ The index is derived from it and rebuilds in about two minutes.
 Usage:
   filmstock build-wd-edges -db wikidata.db < ENTITIES.json     P179/P4908 edges (stdin)
   filmstock build-qidmap   -pageprops F -index IDX -db DB      title/page_id -> Q-id
+  filmstock import -dumps DUMPS -inter intermediate.db          dumps -> the intermediate (pass 1)
   filmstock extract -dumps DUMPS -out RECORDS -cache wikidata.db
                                                                dumps -> the record tree
   filmstock extract ... -text DIR                              put the corpus elsewhere

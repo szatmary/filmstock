@@ -22,6 +22,13 @@ import (
 // scalar, so decoding keeps the last, and revisions are in chronological order,
 // so the last is the newest. See TestMultipleRevisionsKeepTheNewest.
 func RunStream(r io.Reader, handle func(Page)) error {
+	return RunStreamUntil(r, func(p Page) bool { handle(p); return true })
+}
+
+// RunStreamUntil is RunStream with an early exit: handle returns false to stop
+// reading. A limit that only skips pages still decompresses the whole 25 GB, so
+// a "first 100k pages" smoke test would cost the same 41 minutes as a full run.
+func RunStreamUntil(r io.Reader, handle func(Page) bool) error {
 	dec := xml.NewDecoder(bufio.NewReaderSize(r, 1<<20))
 	for {
 		tok, err := dec.Token()
@@ -39,7 +46,9 @@ func RunStream(r io.Reader, handle func(Page)) error {
 		if err := dec.DecodeElement(&p, &se); err != nil {
 			return fmt.Errorf("dump: decoding page: %w", err)
 		}
-		handle(p)
+		if !handle(p) {
+			return nil
+		}
 	}
 }
 

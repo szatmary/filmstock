@@ -1,12 +1,16 @@
 package build
 
 import (
+	"bytes"
+	"compress/gzip"
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -54,7 +58,7 @@ CREATE TABLE IF NOT EXISTS pages(
     page_id   INTEGER NOT NULL,
     kind      TEXT    NOT NULL,
     title     TEXT    NOT NULL,
-    wikitext  BLOB,              -- the source, so a parser fix never needs the dump
+    wikitext  BLOB,              -- gzipped source, so a parser fix never needs the dump
     infobox   TEXT,              -- the complete parameter map, values untouched
     lead      TEXT,
     plot      TEXT,
@@ -141,8 +145,15 @@ type Page struct {
 	Infobox  map[string]string
 	Lead     string
 	Plot     string
-	Parsed   any               // the parser's output, stored as JSON
-	Links    map[string]string // field -> link target
+	Parsed   any        // the parser's output, stored as JSON
+	Links    []PageLink // every link the page states, with the field it came from
+}
+
+// A PageLink is one stated link. A slice rather than a map keyed by field: a
+// film states many starring links and a map would keep one of them.
+type PageLink struct {
+	Field  string // director, starring, list_episodes, next_season…
+	Target string // the link target, unresolved
 }
 
 // Put writes one page. Repeated writes of the same (page_id, kind) replace, so a
@@ -163,16 +174,21 @@ func (in *Inter) Put(p *Page) error {
 			return err
 		}
 	}
+	wt, err := squash(p.Wikitext)
+	if err != nil {
+		return err
+	}
 	if _, err := in.insPage.Exec(p.PageID, p.Kind, p.Title,
-		[]byte(p.Wikitext), string(ib), p.Lead, p.Plot, string(parsed)); err != nil {
+		wt, string(ib), p.Lead, p.Plot, string(parsed)); err != nil {
 		return fmt.Errorf("intermediate: page %d (%s): %w", p.PageID, p.Kind, err)
 	}
-	for field, target := range p.Links {
-		if target = strings.TrimSpace(target); target == "" {
+	for _, l := range p.Links {
+		t := strings.TrimSpace(l.Target)
+		if t == "" {
 			continue
 		}
-		if _, err := in.insLink.Exec(p.PageID, field, target); err != nil {
-			return fmt.Errorf("intermediate: link %d %s: %w", p.PageID, field, err)
+		if _, err := in.insLink.Exec(p.PageID, l.Field, t); err != nil {
+			return fmt.Errorf("intermediate: link %d %s: %w", p.PageID, l.Field, err)
 		}
 	}
 	in.n++
@@ -285,10 +301,14 @@ func (in *Inter) Each(kind string, withWikitext bool, fn func(*Page) error) erro
 	for rows.Next() {
 		var p Page
 		var ib, parsed, wt sql.NullString
+		var err error
 		if err := rows.Scan(&p.PageID, &p.Title, &ib, &p.Lead, &p.Plot, &parsed, &wt); err != nil {
 			return err
 		}
-		p.Kind, p.Wikitext = kind, wt.String
+		p.Kind = kind
+		if p.Wikitext, err = unsquash([]byte(wt.String)); err != nil {
+			return err
+		}
 		if ib.String != "" {
 			json.Unmarshal([]byte(ib.String), &p.Infobox)
 		}
@@ -300,4 +320,45 @@ func (in *Inter) Each(kind string, withWikitext bool, fn func(*Page) error) erro
 		}
 	}
 	return rows.Err()
+}
+
+// Wikitext is 93% of this store's bytes and compresses about 3.5:1, which is the
+// difference between an intermediate that fits beside everything else on the
+// NVMe and one that does not. gzip because the rest of the project already uses
+// it, and because its magic bytes make the blob self-describing: a store written
+// before this change still reads.
+var gzPool = sync.Pool{New: func() any { return gzip.NewWriter(nil) }}
+
+func squash(s string) ([]byte, error) {
+	if s == "" {
+		return nil, nil
+	}
+	var buf bytes.Buffer
+	buf.Grow(len(s) / 3)
+	zw := gzPool.Get().(*gzip.Writer)
+	defer gzPool.Put(zw)
+	zw.Reset(&buf)
+	if _, err := io.WriteString(zw, s); err != nil {
+		return nil, err
+	}
+	if err := zw.Close(); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
+func unsquash(b []byte) (string, error) {
+	if len(b) == 0 {
+		return "", nil
+	}
+	if len(b) < 2 || b[0] != 0x1f || b[1] != 0x8b {
+		return string(b), nil // written before wikitext was compressed
+	}
+	zr, err := gzip.NewReader(bytes.NewReader(b))
+	if err != nil {
+		return "", err
+	}
+	defer zr.Close()
+	out, err := io.ReadAll(zr)
+	return string(out), err
 }
