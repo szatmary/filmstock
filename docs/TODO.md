@@ -22,9 +22,12 @@ Measured: 478 such people arrived across 23 daily updates, none with a canonical
 identity. ~21/day, monotonic, never reconciled without a full re-extract. It
 matters more than the rate suggests because new releases are what gets looked up.
 
-Under discussion: a two-pass import/export split with an intermediary store, so a
-daily update has the whole corpus to resolve against rather than one day of it.
-See "Two-pass restructure" below.
+Designed in [TWO-PASS.md](TWO-PASS.md): split import (dump → intermediate) from
+export (intermediate → records), keeping every person rather than only the
+credited ones, so a daily update resolves against the whole corpus instead of one
+day of it. ~3.1 GB intermediate, build-time only. Also fixes deletions, makes
+shape decisions reversible, and turns a 41-minute re-extract into a minutes-long
+re-export for anything that changes records rather than parsing.
 
 ### 56 schedule articles still yield nothing
 
