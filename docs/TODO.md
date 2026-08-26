@@ -59,11 +59,27 @@ the current records hold 4,685. The number was stale, not a loss.
    before trusting it.**
 3. `-incr` has never been run against a real day.
 
-### Records vary between identical runs — PARTLY FIXED
+### Records vary between identical runs — FIXED
 
 Exporting the same intermediate twice, with the same binary, gave different
-records: 174 television and 454 people. Movies and events were stable. Two
-causes found and fixed; whether any remains is being measured.
+records: 174 television and 454 people. Movies and events were stable. Five
+causes, all the same shape — a Go map iterated in random order with two keys
+writing one field — found by diffing export pairs:
+
+| after fixing | television | people |
+|---|---|---|
+| (baseline) | 174 | 454 |
+| episode-list ownership | 164 | 453 |
+| person name, source merge order | 36 | 1 |
+| part figures (`infoA14S`) | 9 | 0 |
+| column roles (`Network Rank`) | **0** | 1 (see below) |
+
+The one remaining people record is not an ordering bug: it is the redlink hash
+collision, which has its own entry.
+
+None of these were visible before. Finding them needs the pipeline re-run
+against a fixed input and diffed against itself, which took 41 minutes and a
+dump before the intermediate existed and now takes six minutes.
 
 **Episode-list ownership was decided by map iteration order.** More than one
 series can name the same episode-list article — 51 lists claimed by 530 series
@@ -78,14 +94,34 @@ run flipped between spellings of their own name — "Bob Colleary"/"R.J.
 Colleary", "Yvette González-Nacer"/"Yvette Gonzalez-Nacer". Identity never
 moved; only the label. The name now comes from the article title.
 
+**A part's Nielsen figure overwrote the season's.** Vera writes `infoA14 = 6.24`
+for season 14 and `infoA14S = 3.11` for its specials; both matched the parameter
+pattern, so the same text parsed twice in the same process gave different
+answers. Introduced by accepting a trailing letter so split seasons keep their
+air dates.
+
+**Two columns claimed the same role.** Charmed's overview has "Rank" and
+"Network Rank"; Once Upon a Time has "Viewers rank" and "18-49 rank". Both
+wrote `Season.Rank`. The first column to claim a role now keeps it — the
+primary figure comes first in every case in the corpus.
+
 This matters more than the counts suggest: the store is distributed as a git
 history, so every run rewrote hundreds of records that had not changed.
 
-### Bands are being parsed as people
+### Bands are being parsed as people — FIXED
 
-6,981 person articles are disambiguated "(band)". `buildBiography` is claiming
-group articles as biographies. Found while tabulating person disambiguators;
-not investigated further.
+6,981 person articles are disambiguated "(band)". `{{Infobox musical artist}}`
+serves both individuals and groups and says which — `background =
+group_or_band` — and `buildBiography` never asked, so X Japan and Wolfmother
+carried biographies with unfilled birth-date parameters. 589 records lost a
+biography they should never have had.
+
+Only where the article states it: about half the "(band)" articles omit the
+parameter, and a title is a display string, not evidence. Those are untouched.
+
+They remain PersonRecords — a band credited for a film's music is a real
+credit — they simply no longer claim to be a person. Whether a credited group
+should be its own kind is a separate question.
 
 ### Multiseries {{Series overview}} yields nothing
 
