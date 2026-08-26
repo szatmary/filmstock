@@ -33,6 +33,8 @@ func main() {
 		build.CSearch(os.Args[2:])
 	case "television-debug":
 		build.CTelevisionDebug(os.Args[2:])
+	case "lint":
+		build.CLint(os.Args[2:])
 	case "index-series":
 		build.CIndexSeries(os.Args[2:])
 	case "index-vectors":
