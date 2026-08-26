@@ -9,7 +9,9 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 	"strconv"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -30,6 +32,24 @@ const (
 	propSeason       = "P4908"
 )
 
+// External identifiers, published as the join keys they are.
+//
+// These are statements ON Wikidata — CC0 facts about a work — not content taken
+// from the services they name. Shipping the identifier lets a consumer join
+// whatever they are separately licensed to hold: IMDb's non-commercial datasets
+// are for personal use only and could never be redistributed here, but anyone
+// entitled to a copy can ATTACH it and join on imdb_id in one statement.
+//
+// So filmstock supplies the key and never the data, which keeps every byte we
+// publish under Wikipedia's and Wikidata's own licences.
+var externalIDProps = map[string]string{
+	"P345":  "imdb",
+	"P4947": "tmdb_movie",
+	"P4983": "tmdb_tv",
+	"P4835": "tvdb",
+	"P1258": "rotten_tomatoes",
+}
+
 // wdEntity decodes only what we need. Claims stays raw so that the decoder does
 // not build structures for the hundreds of properties on a typical item; only
 // the two properties we care about are unmarshalled further.
@@ -39,6 +59,40 @@ type wdEntity struct {
 	Sitelinks map[string]struct {
 		Title string `json:"title"`
 	} `json:"sitelinks"`
+}
+
+// wdStringClaim reads an external-identifier claim, whose datavalue is a plain
+// string rather than the entity reference wdClaim expects.
+type wdStringClaim struct {
+	Rank     string `json:"rank"`
+	Mainsnak struct {
+		SnakType  string `json:"snaktype"`
+		DataValue struct {
+			Value string `json:"value"`
+		} `json:"datavalue"`
+	} `json:"mainsnak"`
+}
+
+// claimStrings returns the identifier values for a property, skipping
+// deprecated statements and valueless snaks.
+func claimStrings(raw json.RawMessage) []string {
+	if len(raw) == 0 {
+		return nil
+	}
+	var claims []wdStringClaim
+	if json.Unmarshal(raw, &claims) != nil {
+		return nil
+	}
+	var out []string
+	for _, c := range claims {
+		if c.Rank == "deprecated" || c.Mainsnak.SnakType != "value" {
+			continue
+		}
+		if v := strings.TrimSpace(c.Mainsnak.DataValue.Value); v != "" {
+			out = append(out, v)
+		}
+	}
+	return out
 }
 
 type wdClaim struct {
@@ -120,6 +174,9 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	if _, err := db.Exec(`CREATE TABLE wd_part_of_series(item_qid INTEGER, series_qid INTEGER)`); err != nil {
 		return err
 	}
+	if _, err := db.Exec(`CREATE TABLE wd_external_id(item_qid INTEGER, source TEXT, value TEXT)`); err != nil {
+		fatal(err)
+	}
 	if _, err := db.Exec(`CREATE TABLE wd_episode_season(item_qid INTEGER, season_qid INTEGER)`); err != nil {
 		return err
 	}
@@ -135,6 +192,17 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	needle179 := []byte(`"` + propPartOfSeries + `":`)
 	needle4908 := []byte(`"` + propSeason + `":`)
 	needleEnwiki := []byte(`"enwiki":`)
+	// One needle per external-identifier property, in a fixed order so the
+	// prefilter costs the same on every run.
+	extProps := make([]string, 0, len(externalIDProps))
+	for p := range externalIDProps {
+		extProps = append(extProps, p)
+	}
+	sort.Strings(extProps)
+	needlesExt := make([][]byte, 0, len(extProps))
+	for _, p := range extProps {
+		needlesExt = append(needlesExt, []byte(`"`+p+`":`))
+	}
 
 	// Decompression (lbzip2, ~860 MB/s across 20 cores) outruns a single-threaded
 	// scanner, so the line parsers are fanned out and only the SQLite writer is
@@ -143,6 +211,9 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 		season bool // false = P179 part-of-series, true = P4908 episode-season
 		from   int64
 		to     int64
+		// An external identifier instead of a relation, when source is set.
+		source string
+		value  string
 	}
 	lines := make(chan []byte, 4096)
 	edges := make(chan edge, 8192)
@@ -157,7 +228,14 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 				has179 := bytes.Contains(line, needle179)
 				has4908 := bytes.Contains(line, needle4908)
 				hasEn := bytes.Contains(line, needleEnwiki)
-				if !has179 && !has4908 && !hasEn {
+				hasExt := false
+				for _, nd := range needlesExt {
+					if bytes.Contains(line, nd) {
+						hasExt = true
+						break
+					}
+				}
+				if !has179 && !has4908 && !hasEn && !hasExt {
 					continue
 				}
 				line = bytes.TrimRight(line, ",\n\r")
@@ -172,12 +250,22 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 				atomic.AddInt64(&parsed, 1)
 				if has179 {
 					for _, to := range claimTargets(e.Claims[propPartOfSeries]) {
-						edges <- edge{false, from, to}
+						edges <- edge{from: from, to: to}
 					}
 				}
 				if has4908 {
 					for _, to := range claimTargets(e.Claims[propSeason]) {
-						edges <- edge{true, from, to}
+						edges <- edge{season: true, from: from, to: to}
+					}
+				}
+				if hasExt {
+					// In sorted property order: ranging the map would emit the
+					// identifiers in a different order on every run, and this
+					// table is published.
+					for _, prop := range extProps {
+						for _, v := range claimStrings(e.Claims[prop]) {
+							edges <- edge{from: from, source: externalIDProps[prop], value: v}
+						}
 					}
 				}
 			}
@@ -187,27 +275,29 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 
 	start := time.Now()
 	done := make(chan struct{})
-	var nSeries, nSeason int64
+	var nSeries, nSeason, nExt int64
 	go func() {
 		defer close(done)
 		tx, _ := db.Begin()
-		prep := func() (*sql.Stmt, *sql.Stmt) {
+		prep := func() (*sql.Stmt, *sql.Stmt, *sql.Stmt) {
 			a, _ := tx.Prepare(`INSERT INTO wd_part_of_series(item_qid,series_qid) VALUES(?,?)`)
 			b, _ := tx.Prepare(`INSERT INTO wd_episode_season(item_qid,season_qid) VALUES(?,?)`)
-			return a, b
+			c, _ := tx.Prepare(`INSERT INTO wd_external_id(item_qid,source,value) VALUES(?,?,?)`)
+			return a, b, c
 		}
-		insSeries, insSeason := prep()
+		insSeries, insSeason, insExt := prep()
 		n := 0
 		bump := func() {
 			// Commit periodically so a long run is not one giant transaction.
 			if n++; n%500_000 == 0 {
 				insSeries.Close()
 				insSeason.Close()
+				insExt.Close()
 				if err := tx.Commit(); err != nil {
 					panic(err)
 				}
 				tx, _ = db.Begin()
-				insSeries, insSeason = prep()
+				insSeries, insSeason, insExt = prep()
 			}
 		}
 		for edges != nil {
@@ -217,19 +307,23 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 					edges = nil
 					continue
 				}
-				if e.season {
+				switch {
+				case e.source != "":
+					insExt.Exec(e.from, e.source, e.value)
+					atomic.AddInt64(&nExt, 1)
+				case e.season:
 					insSeason.Exec(e.from, e.to)
 					atomic.AddInt64(&nSeason, 1)
-				} else {
+				default:
 					insSeries.Exec(e.from, e.to)
 					atomic.AddInt64(&nSeries, 1)
 				}
-				bump()
 				bump()
 			}
 		}
 		insSeries.Close()
 		insSeason.Close()
+		insExt.Close()
 		if err := tx.Commit(); err != nil {
 			panic(err)
 		}
@@ -258,9 +352,10 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	<-done
 	db.Exec(`CREATE INDEX idx_wd_pos_item ON wd_part_of_series(item_qid)`)
 	db.Exec(`CREATE INDEX idx_wd_eps_item ON wd_episode_season(item_qid)`)
+	db.Exec(`CREATE INDEX idx_wd_ext_item ON wd_external_id(item_qid)`)
 
 	fmt.Fprintf(os.Stderr,
-		"DONE: entities=%d parsed=%d P179=%d P4908=%d elapsed=%.1fm\n",
-		entities, parsed, nSeries, nSeason, time.Since(start).Minutes())
+		"DONE: entities=%d parsed=%d P179=%d P4908=%d external_ids=%d elapsed=%.1fm\n",
+		entities, parsed, nSeries, nSeason, nExt, time.Since(start).Minutes())
 	return nil
 }
