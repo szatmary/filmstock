@@ -74,10 +74,24 @@ func CmdExport(args []string) {
 		*textDir = *outDir
 	}
 	start := time.Now()
-	if err := extractRecords(d, interSource(in, n, *workers), *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
+	if err := runExport(in, d, *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "export complete in %.1f min\n", time.Since(start).Minutes())
+}
+
+// runExport rebuilds the record tree from the intermediate. Shared with the
+// daily update, which is the same operation after a day has been applied — one
+// implementation, so a day's records are the records a full export produces.
+func runExport(in *Inter, d *dumpSet, outDir, textDir string, workers int, wantText bool, limit int) error {
+	n, err := in.Pages()
+	if err != nil {
+		return err
+	}
+	if n == 0 {
+		return fmt.Errorf("export: %s holds no pages — run `filmstock import` first", in.path)
+	}
+	return extractRecords(d, interSource(in, n, workers), outDir, textDir, workers, wantText, limit)
 }
 
 // interSource replays the intermediate's pages, parsing them across workers.

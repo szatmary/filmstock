@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -33,11 +34,20 @@ const retentionDays = 42
 
 var incrDayRe = regexp.MustCompile(`href="(\d{8})/"`)
 
+// CmdCatchup runs the daily update once per day the store is behind.
+//
+// A day at a time, deliberately, even when 23 days behind. Applying them in one
+// batch and exporting once would be faster, and would exercise a path that runs
+// only while the project is being built and never again. The daily job is what
+// will run every day forever, so that is the job that gets run.
 func CmdCatchup(args []string) {
 	fs := flag.NewFlagSet("catchup", flag.ExitOnError)
 	records := fs.String("records", "filmstock-data", "record store to update in place")
 	cache := fs.String("cache", defaultCachePath(), "Wikidata resolver cache")
 	dumps := fs.String("dumps", "dump/incr", "where to keep downloaded dailies")
+	full := fs.String("full-dumps", "dump", "directory holding the full dump set")
+	inter := fs.String("inter", defaultInterPath(), "intermediate store the days are applied to")
+	workers := fs.Int("workers", 18, "parallel workers")
 	from := fs.String("from", "", "first day to apply (YYYYMMDD); default is the day after the store's last")
 	maxDays := fs.Int("max", 0, "stop after this many days (0 = all available)")
 	commit := fs.Bool("commit", true, "commit each day to the record store's repository")
@@ -103,7 +113,8 @@ func CmdCatchup(args []string) {
 			// hole that nothing downstream would ever detect.
 			fatal(fmt.Errorf("%s: %w\nstopping; the store is consistent through the previous day", d, err))
 		}
-		cargs := []string{"-incr", path, "-records", *records, "-cache", *cache}
+		cargs := []string{"-incr", path, "-records", *records, "-cache", *cache,
+			"-inter", *inter, "-dumps", *full, "-workers", strconv.Itoa(*workers)}
 		if *commit {
 			cargs = append(cargs, "-commit")
 		}

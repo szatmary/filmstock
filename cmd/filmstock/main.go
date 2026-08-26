@@ -73,6 +73,7 @@ Usage:
   filmstock build-qidmap   -pageprops F -index IDX -db DB      title/page_id -> Q-id
   filmstock import -dumps DUMPS -inter intermediate.db          dumps -> the intermediate (pass 1)
   filmstock export -inter intermediate.db -out RECORDS         the intermediate -> records (pass 2)
+  filmstock update -incr DAY.xml.bz2 -records DIR            one day: into the intermediate, then re-export
   filmstock diff-stores OLD NEW                                compare two record trees field by field
   filmstock extract -dumps DUMPS -out RECORDS -cache wikidata.db
                                                                dumps -> the record tree
