@@ -218,10 +218,11 @@ func recognise(p dump.Page, keepText bool) []*Page {
 	case hasSeriesInfobox(p.Text):
 		body, _ := wikitext.FindTemplateExact(p.Text, "Infobox television")
 		ib := wikitext.ParseInfobox(body)
-		add(filmstock.KindTelevision, buildTelevisionSeries(p.Title, p.ID, ib), ib,
-			linksOf(ib, "creator", "starring", "composer", "director", "producer",
-				"executive_producer", "writer", "editor", "cinematography",
-				"presenter", "narrator", "network", "list_episodes"))
+		links := linksOf(ib, "creator", "starring", "composer", "director",
+			"producer", "executive_producer", "writer", "editor",
+			"cinematography", "presenter", "narrator", "network")
+		links = append(links, titleLinksOf(ib, "list_episodes", "related")...)
+		add(filmstock.KindTelevision, buildTelevisionSeries(p.Title, p.ID, ib), ib, links)
 	case reListEpisodes.MatchString(p.Title):
 		add(kindEpisodeList, nil, nil, nil)
 	}
@@ -263,6 +264,50 @@ func linksOf(ib map[string]string, fields ...string) []PageLink {
 			if l.Wiki != "" {
 				out = append(out, PageLink{Field: f, Target: l.Wiki})
 			}
+		}
+	}
+	return out
+}
+
+// titleLinksOf reads fields whose value IS a page title rather than a wikilink.
+//
+// A few infobox fields name an article without linking it: list_episodes is
+// written "List of I Love Lucy episodes", not "[[List of I Love Lucy
+// episodes]]". SplitLinks requires brackets, so the reference graph held 0 of
+// 61,342 list_episodes edges — and that graph is what incremental export will
+// use to decide what a change made stale. A missing edge there is a record that
+// stays stale silently, which is this codebase's characteristic failure.
+//
+// Kept separate from linksOf rather than folded in as a fallback. Reading an
+// unbracketed value as a page title is only correct where the field is defined
+// to hold one: doing it for starring would turn every unlinked cast name into
+// an edge pointing at an article that does not exist.
+func titleLinksOf(ib map[string]string, fields ...string) []PageLink {
+	if ib == nil {
+		return nil
+	}
+	var out []PageLink
+	for _, f := range fields {
+		v, ok := ib[f]
+		if !ok {
+			continue
+		}
+		// Comments first: 57 series leave the template's own placeholder in
+		// place — "<!-- name of list of episodes article goes here -->" — and it
+		// would otherwise become a target.
+		v = strings.TrimSpace(wikitext.ReComment.ReplaceAllString(v, ""))
+		if v == "" {
+			continue
+		}
+		if ls := wikitext.SplitLinks(v); len(ls) > 0 && ls[0].Wiki != "" {
+			out = append(out, PageLink{Field: f, Target: ls[0].Wiki})
+			continue
+		}
+		// CanonTitle drops a leading "#Episode List" — an anchor into the same
+		// page, naming no article — and anything in the File:/Category:
+		// namespaces.
+		if t := wikitext.CanonTitle(v); t != "" {
+			out = append(out, PageLink{Field: f, Target: t})
 		}
 	}
 	return out

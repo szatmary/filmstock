@@ -126,3 +126,55 @@ func TestRecogniseStillExtractsLead(t *testing.T) {
 		t.Errorf("lead %q does not look extracted", got[0].Lead)
 	}
 }
+
+// list_episodes names an article without linking it: "List of I Love Lucy
+// episodes", not "[[List of I Love Lucy episodes]]". SplitLinks needs brackets,
+// so the reference graph held 0 of 61,342 such edges — and that graph is what
+// incremental export uses to decide what a change made stale.
+func TestBareTitleFieldsBecomeLinks(t *testing.T) {
+	p := dump.Page{ID: 144832, Title: "I Love Lucy", Text: `{{Infobox television
+| starring = [[Lucille Ball]]
+| list_episodes = List of I Love Lucy episodes
+}}`}
+	got := recognise(p, true)
+	if len(got) != 1 {
+		t.Fatalf("got %d entities", len(got))
+	}
+	seen := map[string]string{}
+	for _, l := range got[0].Links {
+		seen[l.Field] = l.Target
+	}
+	if seen["list_episodes"] != "List of I Love Lucy episodes" {
+		t.Errorf("list_episodes edge = %q, want the article title", seen["list_episodes"])
+	}
+	if seen["starring"] != "Lucille Ball" {
+		t.Errorf("bracketed fields still work: starring = %q", seen["starring"])
+	}
+}
+
+// The template's own placeholder is not an article. 57 series leave it in.
+func TestPlaceholderIsNotALink(t *testing.T) {
+	for _, v := range []string{
+		"<!-- name of list of episodes article goes here -->",
+		"#Episode List",
+		"#List of episodes",
+		"",
+		"   ",
+	} {
+		got := titleLinksOf(map[string]string{"list_episodes": v}, "list_episodes")
+		if len(got) != 0 {
+			t.Errorf("%q became a link target: %v", v, got)
+		}
+	}
+}
+
+// A bracketed value in a title field still reads as a link, and only the first:
+// the field names one article.
+func TestTitleFieldPrefersTheLink(t *testing.T) {
+	got := titleLinksOf(map[string]string{
+		"list_episodes": "[[List of ER episodes|episodes]] and [[something else]]",
+	}, "list_episodes")
+	if len(got) != 1 || got[0].Target != "List of ER episodes" {
+		t.Errorf("got %v, want one edge to List of ER episodes", got)
+	}
+}
