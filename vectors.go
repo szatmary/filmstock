@@ -185,3 +185,30 @@ func (v *Vectors) nearest(q []float32, n int, skip map[int]bool, only []int32) [
 	}
 	return out
 }
+
+// Scale returns the per-dimension dequantisation: the low bound and the span of
+// each dimension. A quantised vector cannot be read back without them.
+func (v *Vectors) Scale() (lo, span []float32) { return v.lo, v.span }
+
+// Raw returns the quantised bytes of one row, in file order, without
+// dequantising. For copying vectors somewhere else — a database row, another
+// file — where the values are to be stored exactly as they are.
+func (v *Vectors) Raw(i int) (id int32, raw []uint8, ok bool) {
+	if i < 0 || i >= len(v.ids) {
+		return 0, nil, false
+	}
+	off := i * v.dims
+	return v.ids[i], v.data[off : off+v.dims], true
+}
+
+// Each visits every row in file order, handing out the quantised bytes. The
+// slice is a view into the loaded data and is only valid for the call.
+func (v *Vectors) Each(fn func(id int32, raw []uint8) error) error {
+	for i := range v.ids {
+		id, raw, _ := v.Raw(i)
+		if err := fn(id, raw); err != nil {
+			return err
+		}
+	}
+	return nil
+}
