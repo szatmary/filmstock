@@ -236,8 +236,14 @@ func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers 
 	// Encoding stays on the parser workers; only syscalls go to the pool. Depth is
 	// generous because the array sustains only a few hundred IOPS and the parsers
 	// must be free to run far ahead of it.
+	sw := newStoreWriter(outDir)
+	// A complete run derives every record, so it can also say which are gone.
+	// A -limit run has not reached most of them and must not sweep.
+	if limit == 0 {
+		sw.wrote = map[string]map[string]bool{}
+	}
 	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText,
-		store: newStoreWriter(outDir), people: map[string]*filmstock.PersonRecord{},
+		store: sw, people: map[string]*filmstock.PersonRecord{},
 		bios:    map[string]*filmstock.PersonBio{},
 		bioPage: map[string]int{},
 		pool:    newWritePool(8, 16384)}
@@ -326,6 +332,10 @@ func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers 
 	}
 	withQID, withBio, nPeople, noIdentity := rec.flushPeople(d.cache)
 	nSched, nSlots, nLinked := rec.flushSchedules(d.cache)
+	// After everything is written, and only then: what is left is stale.
+	if removed := rec.store.sweep(); removed > 0 {
+		fmt.Fprintf(os.Stderr, "  swept %d records the encyclopaedia no longer supports\n", removed)
+	}
 	if err := rec.pool.close(); err != nil {
 		rec.fail(err)
 	}

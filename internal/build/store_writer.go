@@ -24,9 +24,13 @@ type storeWriter struct {
 	// information the store holds and a title alone cannot give, unlike the
 	// identity -> store-id map that used to sit beside it: format 6 keys records
 	// by identity, so that one no longer exists.
-	byWiki    map[string]int64
-	root      string
-	err       error
+	byWiki map[string]int64
+	root   string
+	err    error
+	// wrote records every key the run produced, per kind, so a complete export
+	// can remove the ones it did not. Nil disables the sweep, which is what a
+	// partial run wants.
+	wrote     map[string]map[string]bool
 	unchanged int
 	updated   int
 	inserted  int
@@ -127,6 +131,14 @@ func (w *storeWriter) put(kind string, identity int64, v any) {
 		return
 	}
 	key := filmstock.StoreKey(identity)
+	if w.wrote != nil {
+		seen := w.wrote[kind]
+		if seen == nil {
+			seen = map[string]bool{}
+			w.wrote[kind] = seen
+		}
+		seen[key] = true
+	}
 	if d.Has(key) {
 		// Only write when the bytes actually changed. A Put appends a new line
 		// regardless of content, so writing unconditionally makes a re-ingest of
@@ -149,6 +161,44 @@ func (w *storeWriter) put(kind string, identity int64, v any) {
 		return
 	}
 	w.inserted++
+}
+
+// sweep removes every record the run did not produce.
+//
+// An export derives the COMPLETE set of records from the intermediate, so a key
+// that survives in the store without being written this time is a record the
+// encyclopaedia no longer supports: a page whose infobox was removed, a person
+// whose article appeared so their credit now resolves to a page_id and their
+// old hash-keyed record is orphaned, a film that turned out to be a
+// disambiguation page.
+//
+// Without this an export into an EXISTING store could only ever add. A fresh
+// export into an empty directory looked correct because the stale records
+// simply were not written; running the same export over yesterday's store kept
+// every one of them, and nothing said so.
+//
+// Only safe for a complete export. A partial run has not written the records it
+// did not reach, and sweeping would delete the entire rest of the store.
+func (w *storeWriter) sweep() (removed int) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	if w.err != nil || w.wrote == nil {
+		return 0
+	}
+	for kind, d := range w.stores {
+		seen := w.wrote[kind]
+		for _, key := range d.Keys() {
+			if seen[key] {
+				continue
+			}
+			if err := d.Delete(key); err != nil {
+				w.err = fmt.Errorf("sweep %s %s: %w", kind, key, err)
+				return removed
+			}
+			removed++
+		}
+	}
+	return removed
 }
 
 // delete removes a record. Used when a page stops qualifying — an infobox is
