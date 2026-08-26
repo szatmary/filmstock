@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -32,6 +33,7 @@ func CmdExport(args []string) {
 	fs := flag.NewFlagSet("export", flag.ExitOnError)
 	inter := fs.String("inter", defaultInterPath(), "intermediate store to read")
 	dumps := fs.String("dumps", "dump", "directory holding the dumps (for the wikidata cache)")
+	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
 	outDir := fs.String("out", "records", "record tree to write")
 	textDir := fs.String("text", "", "corpus directory (default: alongside the records)")
 	workers := fs.Int("workers", 18, "parallel workers")
@@ -42,6 +44,9 @@ func CmdExport(args []string) {
 	d, err := findDumps(*dumps)
 	if err != nil {
 		fatal(err)
+	}
+	if *cache != "" {
+		d.cache = *cache
 	}
 	in, err := OpenInter(*inter)
 	if err != nil {
@@ -69,32 +74,50 @@ func CmdExport(args []string) {
 		*textDir = *outDir
 	}
 	start := time.Now()
-	if err := extractRecords(d, interSource(in, n), *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
+	if err := extractRecords(d, interSource(in, n, *workers), *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "export complete in %.1f min\n", time.Since(start).Minutes())
 }
 
-// interSource replays the intermediate's pages.
+// interSource replays the intermediate's pages, parsing them across workers.
 //
-// Serial, and unapologetically so: this reads a local SQLite file rather than
-// decompressing 25 GB of bzip2, and the parallelism in the dump path exists to
-// hide decompression that no longer happens. The handlers it feeds are the same
-// ones the dump path feeds, and they are already safe to call concurrently, so
-// this can be widened if it ever turns out to matter.
-func interSource(in *Inter, total int) pageSource {
+// The fan-out is not optional. Reading rows out of SQLite is cheap; what costs
+// is the same thing that costs in extract — running every recogniser over every
+// page and shaping the records. Handing pages to the handler on the reading
+// goroutine measured 339 pages/s against extract's thousands, an hour to do
+// what the import does in 39 minutes, which would have made the cheap pass the
+// expensive one.
+//
+// The row read stays serial because the store holds one connection. Only the
+// handler fans out, and it is already safe to call concurrently: extract has
+// always called it from one worker per bz2 sub-stream.
+func interSource(in *Inter, total, workers int) pageSource {
 	return pageSource{name: in.path, total: int64(total),
 		run: func(handle func(dump.Page), stop func() bool, prog *atomic.Int64) error {
+			pages := make(chan dump.Page, 1024)
+			var wg sync.WaitGroup
+			for range workers {
+				wg.Add(1)
+				go func() {
+					defer wg.Done()
+					for p := range pages {
+						handle(p)
+						if prog != nil {
+							prog.Add(1)
+						}
+					}
+				}()
+			}
 			err := in.EachPage(func(p dump.Page) error {
 				if stop != nil && stop() {
 					return errStopExport
 				}
-				handle(p)
-				if prog != nil {
-					prog.Add(1)
-				}
+				pages <- p
 				return nil
 			})
+			close(pages)
+			wg.Wait()
 			if err == errStopExport {
 				return nil
 			}
