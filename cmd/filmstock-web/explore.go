@@ -50,6 +50,7 @@ type cellJSON struct {
 	Score  float32 `json:"score"`
 	X      float32 `json:"x"`
 	Y      float32 `json:"y"`
+	Centre bool    `json:"centre,omitempty"`
 
 	genre, country, language string // for naming the axes, not for the client
 }
@@ -155,7 +156,9 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 	// and leave holes — which is unreadable, and worse, the eye cannot follow a
 	// title from one press to the next. Grid assigns each slot the nearest
 	// unplaced record, working outward from the middle.
-	cols, rows := 7, 4
+	// Odd on both sides, so there is a true middle slot for the current
+	// position to occupy.
+	cols, rows := 7, 5
 	if v := q.Get("cols"); v != "" {
 		if n, err := strconv.Atoi(v); err == nil && n > 0 && n <= 12 {
 			cols = n
@@ -168,6 +171,7 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 	}
 	out := viewJSON{Session: session, AxisVar: view.AxisVar, Cols: cols, Rows: rows}
 	out.Center = s.fillCell(r, view.Center, 1, 0, 0)
+	out.Center.Centre = true
 	for _, row := range view.Grid(cols, rows) {
 		for _, c := range row {
 			if c == nil {
@@ -176,6 +180,32 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 			}
 			cell := s.fillCell(r, c.PageID, c.Score, c.X, c.Y)
 			out.Grid = append(out.Grid, &cell)
+		}
+	}
+	// The current position goes in the middle slot, always.
+	//
+	// Without it the arrows have nothing to act on: the grid simply becomes a
+	// different grid and there is no cursor, no anchor, no sense of having
+	// moved rather than reloaded. Where the centre already won a slot elsewhere
+	// it is swapped with whatever holds the middle, so nothing is lost and the
+	// middle is always where you are.
+	if mid := (rows/2)*cols + cols/2; mid < len(out.Grid) {
+		at := -1
+		for i, c := range out.Grid {
+			if c != nil && c.PageID == out.Center.PageID {
+				at = i
+				break
+			}
+		}
+		switch {
+		case at == mid:
+			out.Grid[mid].Centre = true
+		case at >= 0:
+			out.Grid[at], out.Grid[mid] = out.Grid[mid], out.Grid[at]
+			out.Grid[mid].Centre = true
+		default:
+			c := out.Center
+			out.Grid[mid] = &c
 		}
 	}
 	// Name the axes from the neighbourhood, using every cell rather than only

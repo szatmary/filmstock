@@ -23,15 +23,21 @@
   #centre img { width:58px; height:84px; object-fit:cover; border-radius:4px;
                 border:1px solid var(--hot); background:#1b1d24; }
   #centre .n { font-size:17px; font-weight:600; color:var(--hot); }
-  #grid { display:grid; gap:10px; align-content:start; }
+  #grid { display:grid; gap:10px 10px; align-content:start; padding-top:10px; }
   #axes { display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
           gap:10px; font-size:11px; }
   #axes .l { text-align:right; } #axes .r { text-align:left; }
   #axes b { color:var(--hot); font-weight:600; }
   .vax { display:flex; justify-content:space-between; font-size:11px; color:var(--dim);
          border-top:1px dashed var(--line); padding-top:6px; margin-top:2px; }
-  .cell { cursor:pointer; text-align:center; }
+  .cell { cursor:pointer; text-align:center; position:relative; }
   .cell.empty { visibility:hidden; }
+  .cell.here img { border-color:var(--hot); box-shadow:0 0 0 3px rgba(224,179,65,.35); }
+  .cell.here .t { color:var(--hot); font-weight:600; }
+  .cell.here::after { content:"you are here"; position:absolute; left:50%; top:-9px;
+      transform:translateX(-50%); background:var(--hot); color:#141414; font-size:9px;
+      letter-spacing:.06em; text-transform:uppercase; padding:1px 6px; border-radius:3px;
+      white-space:nowrap; }
   .cell img { width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:4px;
               background:#1b1d24; display:block; margin:0 auto 4px; border:1px solid var(--line); }
   .cell:hover img { border-color:var(--hot); }
@@ -119,7 +125,7 @@ async function load(qs) {
   if (busy) return;
   busy = true;
   try {
-    const r = await fetch('/api/explore?' + qs + '&n=40&cols=7&rows=4');
+    const r = await fetch('/api/explore?' + qs + '&n=40&cols=7&rows=5');
     if (!r.ok) { $('#status').textContent = await r.text(); return; }
     draw(await r.json());
   } finally { busy = false; }
@@ -137,7 +143,8 @@ function draw(v) {
   $('#centre').innerHTML =
     (c.poster ? '<img src="' + c.poster + '" alt="">' : '<img alt="">') +
     '<div><div class="n">' + esc(c.title) + '</div>' +
-    '<div class="dim" style="font-size:12px">' + (c.year || '') + '</div></div>';
+    '<div class="dim" style="font-size:12px">' + (c.year || '') +
+    ' &middot; use \u2190 \u2192 \u2191 \u2193 to move from here</div></div>';
 
   // A grid, because the axes are continuous and the eye cannot read a cloud.
   // Empty slots stay in place rather than collapsing, so a title keeps its
@@ -157,8 +164,8 @@ function draw(v) {
   for (const cell of v.grid) {
     const d = document.createElement('div');
     if (!cell) { d.className = 'cell empty'; g.appendChild(d); continue; }
-    d.className = 'cell';
-    d.style.opacity = 0.5 + 0.5 * Math.max(0, Math.min(1, cell.score));
+    d.className = 'cell' + (cell.centre ? ' here' : '');
+    d.style.opacity = cell.centre ? 1 : 0.5 + 0.5 * Math.max(0, Math.min(1, cell.score));
     d.innerHTML =
       (cell.poster ? '<img src="' + cell.poster + '" loading="lazy" alt="">' : '<img alt="">') +
       '<div class="t">' + esc(cell.title) + (cell.year ? '<br>' + cell.year : '') + '</div>';
