@@ -31,7 +31,15 @@ var (
 	// "7:00 p.m.". A case-sensitive match silently found no time columns at
 	// all in the earliest decades, so those articles produced nothing.
 	reTimeHeader = regexp.MustCompile(`(?i)^(\d{1,2}):(\d{2})\s*([ap])\.?m`)
-	reDayHeading = regexp.MustCompile(`(?m)^==\s*(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\s*==\s*$`)
+	// A day heading, or a RANGE of them. Daytime and late-night schedules are
+	// organised as "Monday–Friday" rather than one section per night — 154 of
+	// the 288 articles — so matching only single days found no sections at all
+	// in more than half the corpus.
+	// Two or more equals signs: prime-time articles put the nights at level 2,
+	// while daytime and late-night nest them at level 3 under a "Schedule"
+	// heading. Requiring exactly level 2 found nothing in either.
+	reDayHeading = regexp.MustCompile(`(?m)^={2,}\s*(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)` +
+		`(?:\s*[–—-]\s*(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday))?\s*={2,}\s*$`)
 	// A {{small|...}} block, then the parenthesised groups inside it. Matching
 	// "(...)}}" directly missed every cell that carries more than one note —
 	// {{small|(4/16.9)<br/>(Tied with ''[[3rd Rock from the Sun]]'')}} silently
@@ -67,7 +75,12 @@ func buildSchedule(p dump.Page) *filmstock.Schedule {
 	// different shape, and reading both would double every entry.
 	locs := reDayHeading.FindAllStringSubmatchIndex(p.Text, -1)
 	for i, loc := range locs {
-		day := p.Text[loc[2]:loc[3]]
+		first := p.Text[loc[2]:loc[3]]
+		last := first
+		if loc[4] >= 0 {
+			last = p.Text[loc[4]:loc[5]]
+		}
+		days := expandDays(first, last)
 		end := len(p.Text)
 		if i+1 < len(locs) {
 			end = locs[i+1][0]
@@ -76,7 +89,9 @@ func buildSchedule(p dump.Page) *filmstock.Schedule {
 			end = loc[1] + next
 		}
 		for _, tb := range wikitext.FindTables(p.Text[loc[1]:end]) {
-			s.Entries = append(s.Entries, readGrid(tb, day)...)
+			for _, day := range days {
+				s.Entries = append(s.Entries, readGrid(tb, day)...)
+			}
 		}
 	}
 	if len(s.Entries) == 0 {
@@ -105,6 +120,38 @@ func ResolveShows(s *filmstock.Schedule, lookup func(title string) int) {
 		}
 		s.Entries[i].ShowID = id
 	}
+}
+
+// weekOrder is the week as these articles present it, starting Sunday.
+var weekOrder = []string{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
+
+// expandDays turns a heading into the days it covers. "Monday–Friday" is five
+// nights of the same grid, not one night called "Monday–Friday": a consumer
+// asking what aired on Wednesday should find it without parsing a range.
+func expandDays(first, last string) []string {
+	if last == "" || last == first {
+		return []string{first}
+	}
+	fi, li := -1, -1
+	for i, d := range weekOrder {
+		if d == first {
+			fi = i
+		}
+		if d == last {
+			li = i
+		}
+	}
+	if fi < 0 || li < 0 {
+		return []string{first}
+	}
+	var out []string
+	for i := fi; ; i = (i + 1) % len(weekOrder) { // wraps, e.g. Saturday–Sunday
+		out = append(out, weekOrder[i])
+		if i == li || len(out) > 7 {
+			break
+		}
+	}
+	return out
 }
 
 func daypartOf(title string) string {

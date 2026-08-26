@@ -1,0 +1,623 @@
+{{Short description|none}}
+{{Use mdy dates|date=March 2025}}
+{{USTV|1996}}
+The '''1996–97 daytime network television schedule''' for the six major English-language commercial broadcast networks in the United States covers the weekday and weekend daytime hours from September 1996 to August 1997. The schedule is followed by a [[#By network|list per network]] of returning series, new series, and series canceled after the [[1995–96 United States network television schedule (daytime)|1995–96 season]].
+
+Affiliates fill time periods not occupied by network programs with local or syndicated programming. [[PBS]] – which offers daytime programming through a children's program block, branded as PTV at the time – is not included, as its member television stations have local flexibility over most of their schedules and broadcast times for network shows may vary.
+
+==Legend==
+{{Plainlist|
+* {{Color box|#FFFF66|border=darkgray}} Light yellow indicates talk shows.
+* {{Color box|#7fff00|border=darkgray}} Green indicates soap operas.
+* {{Color box|#ffc0cb|border=darkgray}} Pink indicates game shows.
+* {{Color box|#ffd700|border=darkgray}} Gold indicates news and public affairs programming.
+* {{Color box|#99ccff|border=darkgray}} Light teal indicates sporting events.
+* {{Color box|#ffffff|border=darkgray}} White indicates local programming.
+* {{Color box|#bf9fef|border=darkgray}} Light purple indicates children's and/or [[Regulations on children's television programming in the United States|E/I-compliant]] programming.
+* {{Color box|#C0C0C0|border=darkgray}} Gray indicates encore programming (e.g., reruns of prime-time programming).
+* {{Color box|aquamarine|border=darkgray}} White with red border indicates other programs not applicable to the above categorizations.
+}}
+* New series are highlighted in '''bold'''.
+
+==Schedule==
+* All times correspond to [[Eastern Time Zone|U.S. Eastern]] and [[Pacific Time Zone|Pacific Time]] scheduling (except for some live sports or events). Except where affiliates slot certain programs outside their network-dictated timeslots, subtract one hour for [[Central Time Zone|Central]], [[Mountain Time Zone|Mountain]], [[Alaska Time Zone|Alaska]], and [[Hawaii–Aleutian Time Zone|Hawaii-Aleutian]] times.
+* Local schedules may differ, as [[network affiliate|affiliates]] have the option to pre-empt or delay network programs.<ref>[http://tv.yahoo.com/listings - TV listings - Yahoo.com]</ref> Such scheduling may be limited to preemptions caused by local or national breaking news or weather coverage (which may force stations to tape delay certain programs in overnight timeslots or defer them to a [[sister station|co-operated]] or contracted station in their regular timeslot) and any major sports events scheduled to air in a weekday timeslot (mainly during major holidays). Stations may air shows at other times at their preference.
+
+===Monday–Friday===
+{| class=wikitable
+ !bgcolor="#C0C0C0" colspan="2"|Network
+ !width="13%" bgcolor="#C0C0C0"|6:00 am
+ !width="14%" bgcolor="#C0C0C0"|6:30 am
+ !width="13%" bgcolor="#C0C0C0"|7:00 am
+ !width="14%" bgcolor="#C0C0C0"|7:30 am
+ !width="13%" bgcolor="#C0C0C0"|8:00 am
+ !width="14%" bgcolor="#C0C0C0"|8:30 am
+ !width="13%" bgcolor="#C0C0C0"|9:00 am
+ !width="14%" bgcolor="#C0C0C0"|9:30 am
+ !width="13%" bgcolor="#C0C0C0"|10:00 am
+ !width="14%" bgcolor="#C0C0C0"|10:30 am
+ !width="13%" bgcolor="#C0C0C0"|11:00 am
+ !width="14%" bgcolor="#C0C0C0"|11:30 am
+ !width="13%" bgcolor="#C0C0C0"|noon
+ !width="14%" bgcolor="#C0C0C0"|12:30 pm
+ !width="13%" bgcolor="#C0C0C0"|1:00 pm
+ !width="14%" bgcolor="#C0C0C0"|1:30 pm
+ !width="13%" bgcolor="#C0C0C0"|2:00 pm
+ !width="14%" bgcolor="#C0C0C0"|2:30 pm
+ !width="13%" bgcolor="#C0C0C0"|3:00 pm
+ !width="14%" bgcolor="#C0C0C0"|3:30 pm
+ !width="13%" bgcolor="#C0C0C0"|4:00 pm
+ !width="14%" bgcolor="#C0C0C0"|4:30 pm
+ !width="14%" bgcolor="#C0C0C0"|5:00 pm
+ !width="14%" bgcolor="#C0C0C0"|5:30 pm
+ !width="13%" bgcolor="#C0C0C0"|6:00 pm
+ !width="13%" bgcolor="#C0C0C0"|6:30 pm
+ |-
+ !bgcolor="#C0C0C0" rowspan="3"|[[American Broadcasting Company|ABC]]
+! Fall
+ |bgcolor="gold" colspan="2" rowspan="3"|''[[America This Morning|ABC World News This Morning]]''
+ |bgcolor="gold" colspan="4" rowspan="3"|''[[Good Morning America]]''
+ | rowspan="3" colspan=4 bgcolor="white" |Local/syndicated programming
+|bgcolor="yellow" colspan="2" rowspan="2"|''[[Caryl & Marilyn: Real Friends]]''
+ |bgcolor="white" rowspan="3"|Local/syndicated programming
+ |bgcolor="chartreuse" rowspan="1"|''[[The City (1995 TV series)|The City]]''
+ |bgcolor="chartreuse" colspan="2" rowspan="3"|''[[All My Children]]''
+ |bgcolor="chartreuse" colspan="2" rowspan="3"|''[[One Life to Live]]''
+ |bgcolor="chartreuse" colspan="2" rowspan="3"|''[[General Hospital]]''
+ |bgcolor="white" colspan="5" rowspan="3"|Local/syndicated programming
+ |bgcolor="gold" colspan="1" rowspan="3"|''[[ABC World News Tonight|ABC World News Tonight with Peter Jennings]]''
+|-
+! Spring
+ |bgcolor="C0C0C0" rowspan="1"|''[[All My Children]]'' / ''[[One Life to Live]]'' / ''[[General Hospital]]'' Classics (3/31)
+|-
+! Summer
+ |bgcolor="yellow" colspan="2" rowspan="1"|'''''[[The View (American TV series)|The View]]''''' (8/11)
+ |bgcolor="chartreuse" rowspan="1"|'''''[[Port Charles]]''''' (6/1)
+ |-
+ !bgcolor="#C0C0C0" colspan="2"|[[CBS]]
+ |bgcolor="gold" colspan="2"|''[[CBS Morning News]]''
+ |bgcolor="gold" colspan="4"|''[[CBS This Morning]]''
+ |bgcolor="white" colspan="4"|Local/syndicated programming
+ |bgcolor="pink" colspan="2"|''[[The Price Is Right (American game show)|The Price Is Right]]''
+ |bgcolor="white"|Local/syndicated programming
+ |bgcolor="chartreuse" colspan="2"|''[[The Young and the Restless]]''
+ |bgcolor="chartreuse"|''[[The Bold and the Beautiful]]''
+ |bgcolor="chartreuse" colspan="2"|''[[As the World Turns]]''
+ |bgcolor="chartreuse" colspan="2"|''[[Guiding Light]]''
+ |bgcolor="white" colspan="5"|Local/syndicated programming
+ |bgcolor="gold"|''[[CBS Evening News|CBS Evening News with Dan Rather]]''
+ |-
+ !bgcolor="#C0C0C0" rowspan="2"|[[NBC]]
+! Fall
+ |bgcolor="gold" colspan="2" rowspan="2"|''[[NBC News at Sunrise]]''
+ |bgcolor="gold" colspan="4" rowspan="2"|''[[Today (American TV program)|Today]]''
+ |bgcolor="white" colspan="2" rowspan="1"|Local/syndicated programming
+ |bgcolor="yellow" colspan="2" rowspan="1"|''[[Real Life with Jane Pauley]]''
+ |bgcolor="yellow" colspan="2" rowspan="2"|''[[Leeza]]''
+ |bgcolor="white" colspan="2" rowspan="1"|Local/syndicated programming
+ |bgcolor="chartreuse" colspan="2" rowspan="2"|''[[Days of Our Lives]]''
+ |bgcolor="chartreuse" colspan="2" rowspan="2"|''[[Another World (TV series)|Another World]]''
+ |bgcolor="white" colspan="7" rowspan="2"|Local/syndicated programming
+ |bgcolor="gold" rowspan="2"|''[[NBC Nightly News|NBC Nightly News with Tom Brokaw]]''
+|-
+! Winter
+ |bgcolor="white" colspan="4" rowspan="1"|Local/syndicated programming
+ |bgcolor="chartreuse" colspan="2" rowspan="1"|'''''[[Sunset Beach (TV series)|Sunset Beach]]''''' (1/6)
+ |-
+ ! rowspan="6" bgcolor="#C0C0C0" |[[Fox Broadcasting Company|Fox]]
+! Fall
+ |colspan="3" rowspan="6" bgcolor="white"|Local/syndicated programming
+ |bgcolor="bf9fef" rowspan="2"|''[[Bobby's World]]''
+ |bgcolor="bf9fef" rowspan="1"|''[[Where on Earth Is Carmen Sandiego?]]''
+ |rowspan="6" bgcolor="white"|Local/syndicated programming
+ | colspan="2" rowspan="5" bgcolor="yellow" |'''''[[FX (TV channel)#1994–97: Early years|Fox After Breakfast]]'''''
+ | colspan="10" rowspan="6" bgcolor="white"|Local/syndicated programming
+|bgcolor="bf9fef" rowspan="1"|''[[Eek! The Cat|Eek! Stravaganza]]''
+ |bgcolor="bf9fef" rowspan="1"|''[[Batman: The Animated Series|The Adventures of Batman & Robin]]''
+ |rowspan="6" bgcolor="bf9fef"|'''''[[Big Bad Beetleborgs]]'''''
+ |bgcolor="bf9fef" rowspan="2"|''[[Power Rangers Zeo]]''<sup>+</sup>
+ |colspan="4" rowspan="6" bgcolor="white"|Local/syndicated programming
+|-
+! Winter
+ |bgcolor="bf9fef" rowspan="1"|''[[Fox's Peter Pan & the Pirates]]''
+ |bgcolor="bf9fef" rowspan="1"|''[[Batman: The Animated Series|The Adventures of Batman & Robin]]''
+ |bgcolor="bf9fef" rowspan="1"|''[[Spider-Man (1994 TV series)|Spider-Man]]''
+ |-
+! Spring
+ |bgcolor="bf9fef" rowspan="1"|''[[Spider-Man (1994 TV series)|Spider-Man]]''
+ |bgcolor="bf9fef" rowspan="1"|''[[Batman: The Animated Series|The Adventures of Batman & Robin]]''
+ |bgcolor="bf9fef" rowspan="1"|''[[Bobby's World]]''
+ |bgcolor="bf9fef" rowspan="1"|Various programs
+ |bgcolor="bf9fef" rowspan="1"|''[[Power Rangers Zeo]]'' / '''''[[Power Rangers Turbo]]''''' / ''[[Mighty Morphin Power Rangers]]''
+ |-
+! Summer
+ | colspan="2" rowspan="3" bgcolor="bf9fef"|''[[Bobby's World]]''
+| rowspan="3" bgcolor="bf9fef" |''[[Batman: The Animated Series|The Adventures of Batman & Robin]]''
+ | rowspan="3" bgcolor="bf9fef" |''[[Eek! The Cat|Eek! Stravaganza]]''
+ | bgcolor="bf9fef" rowspan="1"|''[[Mighty Morphin Power Rangers]]'' {{small|(Mon.-Thu.)}}<br>''[[Power Rangers Turbo]]'' {{small|(Fri.)}}
+|-
+!July
+| bgcolor="bf9fef" rowspan="2"|'''''[[Round the Twist]]''''' {{small|(Mon.-Thu.)}}<br>'''''[[Stickin' Around]]''''' {{small|(Fri.)}}
+|-
+! August
+ | colspan="2" rowspan="1" bgcolor="yellow" |'''''[[Vicki Lawrence|The Vicki Lawrence Show]]'''''
+|-
+ ! colspan="1" rowspan=3 bgcolor="#C0C0C0" |[[The WB]]
+ ! Fall
+ | colspan="20" rowspan=3 bgcolor="white"|Local and/or<br>syndicated programming
+ | bgcolor="bf9fef"|''[[Bugs 'n' Daffy]]''
+ | bgcolor="bf9fef"|''[[Animaniacs]]''
+ | colspan="4" rowspan=3 bgcolor="white"|Local and/or<br>syndicated programming
+ |-
+ ! November
+ | bgcolor=bf9fef|''[[Bugs 'n' Daffy]]'' {{small|(Mon.-Thu.)}}<br>''[[Freakazoid!]]'' {{small|(Fri.)}}
+ | bgcolor=bf9fef|''[[Animaniacs]]'' {{small|(Mon.-Thu.)}}<br>''[[Freakazoid!]]'' {{small|(Fri.)}}
+ |-
+ ! February
+ | bgcolor=bf9fef|''[[Bugs 'n' Daffy]]''
+ | bgcolor=bf9fef|''[[Animaniacs]]''
+ |}
+ 
+'''Notes:'''
+* ABC, NBC and CBS offered their early morning newscasts via a looping feed (usually running as late as 10:00&nbsp;a.m. Pacific Time) to accommodate local scheduling in the westernmost contiguous time zones or for use a filler programming for stations that do not offer a local morning newscast; some stations without a morning newscast may air syndicated or time-lease programs instead of the full newscast loop.
+* NBC allowed owned-and-operated and affiliated stations the preference of airing ''Another World'' and ''Days of Our Lives'' in reverse order from the network's recommended scheduling.
+* ''Sunset Beach'' debuted on NBC on January 6, 1997, and was made available to affiliates at either noon/11:00 CT or 3:00/2:00 CT. Some NBC affiliates did not air ''Sunset Beach'' in the noon timeslot, opting to air local news and/or syndicated programming instead, and often placing the soap opera in a late morning or afternoon time slot.
+* ''The City'' aired its last episode on ABC on March 28; abbreviated half-hour versions of classic episodes of ''All My Children'', ''One Life to Live'' and ''General Hospital'' filled the timeslot in the interim, until ''Port Charles'' premiered in its place on June 1, 1997; ''The City'' and ''Port Charles'' was fed to affiliates at Noon/11:00&nbsp;a.m. CT or 12:30&nbsp;p.m./11:30&nbsp;a.m. CT, depending on local scheduling preference.
+* (+) [[Fox Kids]] temporarily aired ''[[Mighty Morphin Power Rangers]]'' reruns in the 4:30&nbsp;p.m. ET slot for two non-consecutive weeks during the 1996–97 midseason (one in February and one in March).
+* Fox Kids ran temporary stunt blocks of animated and live-action series in the 3:30&nbsp;p.m. ET time slot during the spring of 1997, including:
+** ''[[Bobby's World]]'' (March 31–April 11)
+** ''[[Spider-Man (1994 TV series)|Spider-Man]]'' (April 14–25)
+** ''[[Goosebumps (1995 TV series)|Goosebumps]]'' (April 28–May 2)
+** ''[[Eerie, Indiana]]'' (May 5–9)
+** ''[[Life with Louie]]'' (May 12–16)
+** ''[[The Spooktacular New Adventures of Casper|Casper]]'' (May 19–23)
+* In July, Fox Kids replaced ''Power Rangers'' reruns at 4:30&nbsp;p.m. ET with ''[[Round the Twist]]'' (Monday–Thursday) and ''[[Stickin' Around]]'' (Friday).
+
+===Saturday===
+{| class=wikitable style="font-size:90%"
+! width="1.5%" bgcolor="#C0C0C0" colspan="2"|Network
+! width="4%" bgcolor="#C0C0C0"|7:00 am
+! width="4%" bgcolor="#C0C0C0"|7:30 am
+! width="4%" bgcolor="#C0C0C0"|8:00 am
+! width="4%" bgcolor="#C0C0C0"|8:30 am
+! width="4%" bgcolor="#C0C0C0"|9:00 am
+! width="4%" bgcolor="#C0C0C0"|9:30 am
+! width="4%" bgcolor="#C0C0C0"|10:00 am
+! width="4%" bgcolor="#C0C0C0"|10:30 am
+! width="4%" bgcolor="#C0C0C0"|11:00 am
+! width="4%" bgcolor="#C0C0C0"|11:30 am
+! width="4%" bgcolor="#C0C0C0"|noon
+! width="4%" bgcolor="#C0C0C0"|12:30 pm
+! width="4%" bgcolor="#C0C0C0"|1:00 pm
+! width="4%" bgcolor="#C0C0C0"|1:30 pm
+! width="4%" bgcolor="#C0C0C0"|2:00 pm
+! width="4%" bgcolor="#C0C0C0"|2:30 pm
+! width="4%" bgcolor="#C0C0C0"|3:00 pm
+! width="4%" bgcolor="#C0C0C0"|3:30 pm
+! width="4%" bgcolor="#C0C0C0"|4:00 pm
+! width="4%" bgcolor="#C0C0C0"|4:30 pm
+! width="4%" bgcolor="#C0C0C0"|5:00 pm
+! width="4%" bgcolor="#C0C0C0"|5:30 pm
+! width="4%" bgcolor="#C0C0C0"|6:00 pm
+! width="4%" bgcolor="#C0C0C0"|6:30 pm
+|-
+! rowspan="5" |[[American Broadcasting Company|ABC]]
+!Fall
+| rowspan="5" colspan=2 bgcolor="white" |Local and/or<br>syndicated<br>programming
+| rowspan="1" bgcolor="bf9fef" |''[[The New Adventures of Winnie the Pooh]]''
+| rowspan="5" bgcolor="bf9fef" |'''''[[Doug (TV series)|Brand Spanking New! Doug]]'''''
+| rowspan="2" bgcolor="bf9fef" |'''''[[The Mighty Ducks (TV series)|The Mighty Ducks]]'''''
+| rowspan="2" bgcolor="bf9fef" |'''''[[Street Sharks]]'''''
+| colspan="2" rowspan="5" bgcolor="bf9fef" |''[[The Bugs Bunny Show|The Bugs Bunny and Tweety Show]]'' / ''[[Schoolhouse Rock!]]'' (10:56 am)
+| rowspan="4" bgcolor="bf9fef" |'''''[[Bone Chillers]]'''''
+| rowspan="4" bgcolor="bf9fef" |'''''[[Gargoyles: The Goliath Chronicles]]'''''
+| rowspan="3" bgcolor="bf9fef" |'''''[[Flash Forward (1996 TV series)|Flash Forward]]'''''
+| rowspan="5" bgcolor="bf9fef" |''[[ABC Weekend Special]]''
+| colspan="12" rowspan="3" bgcolor="99ccff" |[[ABC Sports]] and/or local programming
+|-
+! October
+| rowspan="4" bgcolor="bf9fef" |'''''[[Jungle Cubs]]'''''
+|-
+! November
+| bgcolor="bf9fef" rowspan="3"|''[[Doug (TV series)|Brand Spanking New! Doug]]''
+| bgcolor="bf9fef" rowspan="3"|''[[The Mighty Ducks (TV series)|The Mighty Ducks]]''
+|-
+! Winter
+| rowspan="2" bgcolor="bf9fef" |''[[The New Adventures of Winnie the Pooh]]''
+| bgcolor="99ccff" colspan="4" rowspan="2"|[[ABC Sports]] and/or local programming
+| bgcolor="99ccff" colspan="6" rowspan="2"|[[ABC Sports]] programming
+| bgcolor="gold" rowspan="2"|Local news
+| bgcolor="gold" rowspan="2"|''[[ABC World News Tonight|ABC World News Saturday]]''
+|-
+! Spring
+| bgcolor="bf9fef" rowspan="1"|'''''[[Nightmare Ned (TV series)|Nightmare Ned]]'''''
+| bgcolor="bf9fef" rowspan="1"|'''''[[DuckTales (1987 TV series)|DuckTales]]'''''
+|-
+! rowspan="4" bgcolor="#C0C0C0" |[[CBS]]
+! Fall
+| rowspan="4" colspan=2 bgcolor="white" |Local and/or<br>syndicated<br>programming
+| rowspan="1" bgcolor="bf9fef" |''[[The Twisted Tales of Felix the Cat]]''
+| rowspan="4" bgcolor="bf9fef" |''[[Timon & Pumbaa (TV series)|The Lion King's Timon & Pumbaa]]''
+| rowspan="4" bgcolor="bf9fef" |''[[The Mask: Animated Series]]''
+| rowspan="4" bgcolor="bf9fef" |'''''[[Project G.e.e.K.e.R.]]'''''
+| rowspan="4" bgcolor="bf9fef" |''[[Ace Ventura: Pet Detective (TV series)|Ace Ventura: Pet Detective]]''
+| rowspan="4" bgcolor="bf9fef" |'''''[[Bailey Kipper's P.O.V.]]'''''
+| rowspan="4" bgcolor="bf9fef" |'''''[[Secrets of the Cryptkeeper's Haunted House]]'''''
+| rowspan="4" bgcolor="bf9fef" |''[[Teenage Mutant Ninja Turtles (1987 TV series)|Teenage Mutant Ninja Turtles]]''
+| rowspan="3" bgcolor="bf9fef" |''[[Beakman's World]]''
+| rowspan="4" bgcolor="bf9fef" |''[[CBS Storybreak]]''
+| colspan="12" rowspan="2" bgcolor="99ccff" |[[SEC on CBS]]
+|-
+!November
+| rowspan="1" bgcolor="bf9fef" |''[[The Mask: Animated Series]]''
+|-
+!Spring
+| rowspan="1" bgcolor="bf9fef" |''[[The Twisted Tales of Felix the Cat]]''
+| colspan=4 rowspan=2 bgcolor=99ccff |[[CBS Sports]] and/or local programming
+| colspan=6 rowspan=2 bgcolor=99ccff |[[CBS Sports]] programming
+|bgcolor=gold rowspan=2|Local news
+|bgcolor=gold rowspan=2|''[[CBS Evening News]]''
+|-
+! July
+| rowspan="1" bgcolor="bf9fef" |''[[Beakman's World]]''
+| rowspan="1" bgcolor="bf9fef" |''[[The Twisted Tales of Felix the Cat]]''
+|-
+! bgcolor="#C0C0C0" colspan="2"|[[NBC]]
+| colspan="2" |Local and/or<br>syndicated<br>programming
+| bgcolor="gold" colspan="4" |''[[Weekend Today|Today]]''
+| bgcolor="bf9fef"|''[[Saved by the Bell: The New Class]]''
+| bgcolor="bf9fef"|''[[Hang Time (TV series)|Hang Time]]''
+| bgcolor="bf9fef"|''[[California Dreams]]''
+| bgcolor="bf9fef"|''[[Saved by the Bell: The New Class]]''
+| bgcolor="bf9fef"|''[[NBA Inside Stuff]]''
+| bgcolor="99ccff" colspan="5"|[[NBC Sports]] and/or local programming
+| bgcolor="99ccff" colspan="6"|[[NBC Sports]] programming
+| bgcolor="gold"|Local news
+| bgcolor="gold"|''[[NBC Nightly News]]''
+|-
+! bgcolor="#C0C0C0" rowspan="4"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| bgcolor="white" colspan="2" rowspan="4"|Local and/or<br>syndicated<br>programming
+| bgcolor="bf9fef" rowspan="4"|'''''[[C Bear and Jamal]]'''''
+| bgcolor="bf9fef" rowspan="2"|'''''[[Big Bad Beetleborgs]]'''''
+| bgcolor="bf9fef" rowspan="1"|''[[The Spooktacular New Adventures of Casper]]''
+| bgcolor="bf9fef" rowspan="1"|''[[Spider-Man (1994 TV series)|Spider-Man]]''
+| bgcolor="bf9fef" rowspan="4"|''[[Goosebumps (1995 TV series)|Goosebumps]]''
+| bgcolor="bf9fef" rowspan="1"|''[[Life with Louie]]''
+| bgcolor="bf9fef" rowspan="1"|''[[X-Men: The Animated Series|X-Men]]''
+| bgcolor="bf9fef" rowspan="1"|''[[The Tick (1994 TV series)|The Tick]]''
+| bgcolor="white" rowspan="2"colspan="14"|Local and/or<br>syndicated<br>programming
+|-
+! Winter
+| bgcolor="bf9fef" rowspan="1"|''[[Spider-Man (1994 TV series)|Spider-Man]]''
+| bgcolor="bf9fef" rowspan="1"|''[[The Spooktacular New Adventures of Casper]]''
+| bgcolor="bf9fef" rowspan="3"|'''''[[Eerie, Indiana]]'''''
+| bgcolor="bf9fef" rowspan="3"|''[[Life with Louie]]''
+| bgcolor="bf9fef" rowspan="3"|''[[X-Men: The Animated Series|X-Men]]''
+|-
+! May
+| bgcolor="bf9fef" rowspan="1"|''[[The Spooktacular New Adventures of Casper]]''
+| bgcolor="bf9fef" rowspan="1"|'''''[[Power Rangers Turbo]]'''''
+| bgcolor="bf9fef" rowspan="1"|''[[Spider-Man (1994 TV series)|Spider-Man]]''
+| bgcolor="white" rowspan="2"|Local and/or<br>syndicated<br>programming
+| bgcolor="99ccff" rowspan="2"|''[[Fox Major League Baseball|In the Zone]]''
+| bgcolor="99ccff" rowspan="2"colspan="10"|[[Fox Sports]] and/or local programming
+| bgcolor="white" rowspan="2"colspan="2"|Local and/or<br>syndicated<br>programming
+|-
+! Summer
+| bgcolor="bf9fef" rowspan="1"|''[[Power Rangers Turbo]]''
+| bgcolor="bf9fef" rowspan="1"|''[[Spider-Man (1994 TV series)|Spider-Man]]''
+| bgcolor="bf9fef" rowspan="1"|''[[The Spooktacular New Adventures of Casper]]''
+|-
+! bgcolor="#C0C0C0" rowspan="3"|[[The WB]]
+! Fall
+| bgcolor="white" colspan="2" rowspan="3"|Local and/or<br>syndicated programming
+| bgcolor="bf9fef" rowspan="1"|''[[The Sylvester & Tweety Mysteries]]''
+| bgcolor="bf9fef" colspan="2" rowspan="1"|''[[Animaniacs]]''
+| bgcolor="bf9fef" rowspan="1"|''[[Pinky and the Brain]]''
+| bgcolor="bf9fef" rowspan="1"|'''''[[Superman: The Animated Series]]'''''
+| bgcolor="bf9fef" rowspan="1"|'''''[[Road Rovers]]'''''
+| bgcolor="bf9fef" rowspan="1"|''[[Freakazoid!]]''
+| bgcolor="bf9fef" rowspan="1"|''[[Earthworm Jim (TV series)|Earthworm Jim]]''
+| colspan="16" rowspan="3" bgcolor="white" |Local and/or<br>syndicated programming
+|-
+! October
+| bgcolor="bf9fef" rowspan="1"|''[[Freakazoid!]]''
+| bgcolor="bf9fef" rowspan="1"|''[[Earthworm Jim (TV series)|Earthworm Jim]]''
+| bgcolor="bf9fef" rowspan="2"|''[[Superman: The Animated Series]]''
+| bgcolor="bf9fef" rowspan="2"|''[[Road Rovers]]''
+| bgcolor="bf9fef" rowspan="2"|'''''[[Waynehead]]'''''
+| bgcolor="bf9fef" rowspan="2"|''[[Pinky and the Brain]]''
+| bgcolor="bf9fef" rowspan="2"|''[[Animaniacs]]''
+| bgcolor="bf9fef" rowspan="2"|''[[The Sylvester & Tweety Mysteries]]''
+|-
+! November
+| bgcolor="bf9fef" rowspan="1"|'''''[[Bugs 'n' Daffy#The Daffy Duck Show|The Daffy Duck Show]]'''''
+| bgcolor="bf9fef" rowspan="1"|''[[Animaniacs]]''
+|}
+
+[[CBS]] note: ''[[The Twisted Tales of Felix the Cat]]'' and ''[[Beakman's World]]'' switched timeslots on July 12.
+
+===Sunday===
+{| class=wikitable
+! width="1.5%" bgcolor="#C0C0C0" colspan="2"|Network
+! width="4%" bgcolor="#C0C0C0"|7:00 am
+! width="4%" bgcolor="#C0C0C0"|7:30 am
+! width="4%" bgcolor="#C0C0C0"|8:00 am
+! width="4%" bgcolor="#C0C0C0"|8:30 am
+! width="4%" bgcolor="#C0C0C0"|9:00 am
+! width="4%" bgcolor="#C0C0C0"|9:30 am
+! width="4%" bgcolor="#C0C0C0"|10:00 am
+! width="4%" bgcolor="#C0C0C0"|10:30 am
+! width="4%" bgcolor="#C0C0C0"|11:00 am
+! width="4%" bgcolor="#C0C0C0"|11:30 am
+! width="4%" bgcolor="#C0C0C0"|noon
+! width="4%" bgcolor="#C0C0C0"|12:30 pm
+! width="4%" bgcolor="#C0C0C0"|1:00 pm
+! width="4%" bgcolor="#C0C0C0"|1:30 pm
+! width="4%" bgcolor="#C0C0C0"|2:00 pm
+! width="4%" bgcolor="#C0C0C0"|2:30 pm
+! width="4%" bgcolor="#C0C0C0"|3:00 pm
+! width="4%" bgcolor="#C0C0C0"|3:30 pm
+! width="4%" bgcolor="#C0C0C0"|4:00 pm
+! width="4%" bgcolor="#C0C0C0"|4:30 pm
+! width="4%" bgcolor="#C0C0C0"|5:00 pm
+! width="4%" bgcolor="#C0C0C0"|5:30 pm
+! width="4%" bgcolor="#C0C0C0"|6:00 pm
+! width="4%" bgcolor="#C0C0C0"|6:30 pm
+|-
+! bgcolor="#C0C0C0" colspan="2"|[[American Broadcasting Company|ABC]]
+| bgcolor="white" colspan="2"|Local and/or<br>syndicated programming
+| bgcolor="gold" colspan="2"|''[[Good Morning America|Good Morning America Sunday]]''
+| bgcolor="gold" colspan="2"|''[[This Week (American TV program)|This Week]]''
+| bgcolor="white" colspan="2"|Local and/or<br>syndicated programming
+| bgcolor="99ccff" colspan="14"|[[ABC Sports]] and/or local programming
+| bgcolor="gold"|Local news
+| bgcolor="gold"|''[[ABC World News Tonight|ABC World News Sunday]]''
+|-
+! bgcolor="#C0C0C0" colspan="2"|[[CBS]]
+| bgcolor="white" colspan="4"|Local and/or<br>syndicated programming
+| bgcolor="gold" colspan="3"|''[[CBS News Sunday Morning]]''
+| bgcolor="gold" colspan="1"|''[[Face the Nation]]''
+| bgcolor="white" colspan="2"|Local and/or<br>syndicated programming
+| bgcolor="99ccff" colspan="12"|[[CBS Sports]] and/or local programming
+| bgcolor="gold"|Local news
+| bgcolor="gold"|''[[CBS Evening News]]''
+|-
+! bgcolor="#C0C0C0" rowspan="2"|[[NBC]]
+! Fall
+| bgcolor="white" colspan="2" rowspan="2"|Local and/or<br>syndicated programming
+| bgcolor="gold" colspan="2" rowspan="2"|''[[Weekend Today|Today]]''
+| bgcolor="gold" colspan="2" rowspan="2"|''[[Meet the Press]]''
+| bgcolor="white" colspan="4" rowspan="2"|Local and/or<br>syndicated programming
+| bgcolor="99ccff" colspan="14" rowspan="1"|[[NFL on NBC]]
+|-
+! Mid-winter
+| bgcolor="99ccff" colspan="12" rowspan="1"|[[NBC Sports]] and/or local programming
+| bgcolor="gold" rowspan="1"|Local news
+| bgcolor="gold" rowspan="1"|''[[NBC Nightly News]]''
+|-
+! bgcolor="#C0C0C0" rowspan="2"|[[Fox Broadcasting Company|Fox]]
+! Fall
+| bgcolor="white" colspan="4" rowspan="2"|Local and/or<br>syndicated programming
+| bgcolor="gold" colspan="2" rowspan="2"|''[[Fox News Sunday]]''
+| bgcolor="white" colspan="4" rowspan="2"|Local and/or<br>syndicated programming
+| bgcolor="99ccff" colspan="2"|[[Fox NFL Sunday]]
+| bgcolor="99ccff" colspan="12"|[[Fox NFL]]
+|-
+! Mid-winter
+| bgcolor="99ccff" colspan="12"|[[Fox Sports (United States)|Fox Sports]] and/or local programming
+| bgcolor="white" colspan="2"|Local and/or<br>syndicated programming
+|-
+! bgcolor="#C0C0C0" colspan="2"|[[UPN]]
+| bgcolor="white" colspan="4"|Local and/or<br>syndicated programming
+| bgcolor="bf9fef"|'''''[[Jumanji (TV series)|Jumanji]]'''''
+| bgcolor="bf9fef"|'''''[[The Mouse and the Monster]]'''''
+| bgcolor="bf9fef"|'''''[[The Incredible Hulk (1996 TV series)|The Incredible Hulk]]'''''
+| bgcolor="bf9fef"|'''''[[Bureau of Alien Detectors]]'''''
+| bgcolor="white" colspan="18"|Local and/or<br>syndicated programming
+|}
+
+==By network==
+===[[American Broadcasting Company|ABC]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series:'''
+*''[[ABC Weekend Special]]''
+*''[[America This Morning|ABC World News This Morning]]''
+*''[[ABC World News Tonight|ABC World News Tonight with Peter Jennings]]''
+*''[[All My Children]]''
+*''[[The Bugs Bunny Show|The Bugs Bunny and Tweety Show]]''
+*''[[Caryl & Marilyn: Real Friends]]''
+*''[[The City (1995 TV series)|The City]]''
+*''[[General Hospital]]''
+*''[[Good Morning America]]''
+*''[[Good Morning America|Good Morning America Sunday]]''
+*''[[The New Adventures of Winnie the Pooh]]'' {{small|(reruns)}}
+*''[[One Life to Live]]''
+*''[[Schoolhouse Rock!]]'' {{small|(reruns)}}
+*''[[This Week (American TV program)|This Week]]''
+{{col-3}}
+'''New series:'''
+*'''''[[Bone Chillers]]'''''
+*'''''[[Doug (TV series)|Brand Spanking New! Doug]]'''''
+*'''''[[DuckTales (1987 TV series)|DuckTales]]'''''
+*'''''[[Flash Forward (1996 TV series)|Flash Forward]]'''''
+*'''''[[Gargoyles: The Goliath Chronicles]]'''''
+*'''''[[Jungle Cubs]]'''''
+*'''''[[The Mighty Ducks (TV series)|The Mighty Ducks]]'''''
+*'''''[[Nightmare Ned (TV series)|Nightmare Ned]]'''''
+*'''''[[Port Charles]]'''''
+*'''''[[Street Sharks]]'''''
+*'''''[[The View (U.S. TV series)|The View]]'''''
+{{col-3}}
+'''Not returning from [[1995-96 United States network television schedule (daytime)|1995-96]]:'''
+*''[[Bump in the Night (TV series)|Bump in the Night]]''
+*''[[Dumb and Dumber (TV series)|Dumb and Dumber]]''
+*''[[Free Willy (TV series)|Free Willy]]'' {{small|(reruns)}}
+*''[[Fudge (TV series)|Fudge]]''
+*''[[George of the Jungle]]'' (reruns)
+*''[[Hypernauts]]''
+*''[[Loving (TV series)|Loving]]''
+*''[[Mike and Maty]]''
+*''[[The New Adventures of Madeline]]''
+*''[[ReBoot]]''
+*''[[What-a-Mess]]''
+{{col-end}}
+
+===[[CBS]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series:'''
+*''[[Ace Ventura: Pet Detective (TV series)|Ace Ventura: Pet Detective]]''
+*''[[As the World Turns]]''
+*''[[Beakman's World]]''
+*''[[The Bold and the Beautiful]]''
+*''[[CBS Evening News]]''
+*''[[CBS Morning News]]''
+*''[[CBS News Sunday Morning]]''
+*''[[CBS Storybreak]]'' {{small|(reruns)}}
+*''[[Face the Nation]]''
+*''[[Guiding Light]]''
+*''[[The Mask: Animated Series]]''
+*''[[The Price Is Right (American game show)|The Price Is Right]]''
+*''[[Teenage Mutant Ninja Turtles (1987 TV series)|Teenage Mutant Ninja Turtles]]''
+*''[[Timon & Pumbaa (TV series)|The Lion King's Timon & Pumbaa]]''
+*''[[The Twisted Tales of Felix the Cat]]''
+*''[[The Young and the Restless]]''
+{{col-3}}
+'''New series:'''
+*'''''[[Bailey Kipper's P.O.V.]]'''''
+*'''''[[Project Geeker]]'''''
+*'''''[[Secrets of the Cryptkeeper's Haunted House]]'''''
+{{col-3}}
+'''Not returning from [[1995-96 United States network television schedule (daytime)|1995-96]]:'''
+*''[[The Adventures of Hyperman (TV series)|The Adventures of Hyperman]]''
+*''[[Aladdin (animated TV series)|Aladdin]]''
+*''[[Garfield and Friends]]''
+*''[[Really Wild Animals]]''
+*''[[Santo Bugito]]''
+{{col-end}}
+
+===[[Fox Broadcasting Company|Fox]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series:'''
+*[[Fox Kids|Fox Kids Network]]
+**''[[Batman: The Animated Series|The Adventures of Batman & Robin]]''
+**''[[Bobby's World]]''
+**''[[Eek! The Cat|Eek! Stravaganza]]''
+**''[[Goosebumps (1995 TV series)|Goosebumps]]''
+**''[[Life With Louie]]''
+**''[[Mighty Morphin Power Rangers]]'' {{small|(reruns)}}
+**''[[Fox's Peter Pan & the Pirates]]'' {{small|(reruns)}}
+**''[[Power Rangers Zeo]]''
+**''[[Spider-Man (1994 TV series)|Spider-Man]]''
+**''[[The Spooktacular New Adventures of Casper]]''
+**''[[The Tick (1994 TV series)|The Tick]]''
+**''[[Where on Earth Is Carmen Sandiego?]]''
+**''[[X-Men: The Animated Series|X-Men]]''
+*''[[Fox News Sunday]]''
+*''[[Fox Major League Baseball|In the Zone]]''
+
+{{col-3}}
+'''New series:'''
+*'''''[[FX (TV channel)#1994-97: Early years|Fox After Breakfast]]'''''
+*'''''[[Vicki Lawrence|The Vicki Lawrence Show]]'''''
+*[[Fox Kids|Fox Kids Network]]
+**'''''[[Big Bad Beetleborgs]]'''''
+**'''''[[C Bear and Jamal]]'''''
+**'''''[[Eerie, Indiana]]''''' {{small|(reruns)}}
+**'''''[[Power Rangers Turbo]]'''''
+**'''''[[Round the Twist]]'''''
+**'''''[[Stickin' Around]]'''''
+{{col-3}}
+'''Not returning from [[1995-96 United States network television schedule (daytime)|1995-96]]:'''
+*[[Fox Kids|Fox Kids Network]]
+**''[[Attack of the Killer Tomatoes (TV series)|Attack of the Killer Tomatoes]]'' {{small|(reruns)}}
+**''[[The Fox Cubhouse]]''
+**''[[Masked Rider (TV series)|Masked Rider]]''
+**''[[Siegfried & Roy: Masters of the Impossible]]''
+**''[[Taz-Mania]]''
+{{col-end}}
+
+===[[NBC]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series:'''
+*''[[Another World (TV series)|Another World]]''
+*''[[Days of Our Lives]]''
+*''[[Leeza]]''
+*''[[Meet the Press]]''
+*''[[NBC News at Sunrise]]''
+*''[[NBC Nightly News]]''
+*''[[Real Life with Jane Pauley]]''
+*''[[Today (U.S. TV program)|Today with Katie Couric and Bryant Gumbel / Matt Lauer]]''
+*[[TNBC]]
+**''[[California Dreams]]''
+**''[[Hang Time (TV series)|Hang Time]]''
+**''[[NBA Inside Stuff]]''
+**''[[Saved by the Bell: The New Class]]''
+{{col-3}}
+'''New series:'''
+*'''''[[Sunset Beach (TV series)|Sunset Beach]]'''''
+{{col-3}}
+'''Not returning from [[1995-96 United States network television schedule (daytime)|1995-96]]:'''
+*''[[Weekend Today|Saturday Today]]''
+*''[[Weekend Today|Sunday Today]]''
+{{col-end}}
+
+===[[UPN]]===
+{{col-begin}}
+{{col-3}}
+'''New series:'''
+*'''''[[Bureau of Alien Detectors]]'''''
+*'''''[[The Incredible Hulk (1996 TV series)|The Incredible Hulk]]'''''
+*'''''[[Jumanji (TV series)|Jumanji]]'''''
+*'''''[[The Mouse and the Monster]]'''''
+{{col-3}}
+'''Not returning from [[1995-96 United States network television schedule (daytime)|1995-96]]:'''
+*''[[Space Strikers]]''
+*''[[Teknoman]]'' 
+{{col-end}}
+
+===[[The WB]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series:'''
+*[[Kids WB!]]
+**''[[Animaniacs]]''
+**''[[Bugs 'n' Daffy]]''
+**''[[Earthworm Jim (TV series)|Earthworm Jim]]''
+**''[[Freakazoid!]]''
+**''[[Pinky and the Brain]]''
+**''[[The Sylvester & Tweety Mysteries]]''
+{{col-3}}
+'''New series:'''
+*[[Kids WB!]]
+**'''''[[Bugs 'n' Daffy#The Daffy Duck Show|The Daffy Duck Show]]'''''
+**'''''[[Road Rovers]]'''''
+**'''''[[Superman: The Animated Series]]'''''
+**'''''[[Waynehead]]'''''
+{{col-end}}
+
+==See also==
+*[[1996-97 United States network television schedule]] (prime-time)
+*[[1996-97 United States network television schedule (late night)]]
+
+==References==
+{{Reflist}}
+
+==Sources==
+*https://web.archive.org/web/20071015122215/http://curtalliaume.com/abc_day.html
+*https://web.archive.org/web/20071015122235/http://curtalliaume.com/cbs_day.html
+*https://web.archive.org/web/20071012211242/http://curtalliaume.com/nbc_day.html
+*https://kidsblockblog.wordpress.com/2012/10/25/fox-kids-weekday-lineups-1995-1997/
+*https://www.cs.cmu.edu/~aarong/from-andrew/wb/kidswb-schedule.html
+
+{{US TV weekday schedule}}
+
+{{DEFAULTSORT:1996-97 United States network television schedule (weekday)}}
+[[Category:United States weekday network television schedules]]
+[[Category:1996 in American television]]
+[[Category:1997 in American television]]

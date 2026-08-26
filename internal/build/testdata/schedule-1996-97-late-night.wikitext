@@ -1,0 +1,159 @@
+{{Short description|none}}
+
+{{More citations needed|date=August 2026}}
+
+{{Use mdy dates|date=March 2025}}
+{{USTV|1996}}
+These are the late night schedules for the four United States broadcast networks that offer programming during this time period, from September 1996 to August 1997. All times are Eastern or Pacific. Affiliates will fill non-network schedule with local, syndicated, or paid programming. Affiliates also have the option to preempt or delay network programming at their discretion.
+
+In February 1997, [[Jay Leno]] took [[NBC]]'s ''[[The Tonight Show with Jay Leno|The Tonight Show]]'' on the road for a week, hosting his late-night television show at the [[MGM Grand Las Vegas]].<ref name=":0">{{Cite news |date=February 3, 1997 |title=Leno's 'Tonight Show' spends week on road |url=https://www.newspapers.com/article/the-springfield-news-leader-lenos-toni/204352664/ |access-date=2026-08-22 |work=The Springfield News-Leader |via=[[Newspapers.com]]}}</ref> Meanwhile on [[CBS]], [[David Letterman]] held a month-long celebration on ''[[Late Show with David Letterman|The Late Show]]'' celebrating his 15 years in [[Late-night television in the United States|American late-night television]].<ref name=":0" />
+
+==Legend==
+{{plainlist|
+*{{Color box|#abbfff|border=darkgray}} Light blue indicates Local programming.
+*{{Color box|#C0C0C0|border=darkgray}} Gray indicates encore programming.
+*{{Color box|yellow|border=darkgray}} Yellow indicates late night talk or variety shows.
+*{{Color box|gold|border=darkgray}} Gold indicates network news programming.
+}}
+
+== Schedule ==
+===Monday-Friday===
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! colspan="2" style="background-color:#C0C0C0;text-align:center"|Network
+! style="background-color:#C0C0C0;text-align:center"|11:00 PM
+! style="background-color:#C0C0C0;text-align:center"|11:35 PM
+! style="background-color:#C0C0C0;text-align:center"|12:00 AM
+! style="background-color:#C0C0C0;text-align:center"|12:30 AM
+! style="background-color:#C0C0C0;text-align:center"|1:00 AM
+! style="background-color:#C0C0C0;text-align:center"|1:30/1:35 AM
+! style="background-color:#C0C0C0;text-align:center"|2:00 AM
+! style="background-color:#C0C0C0;text-align:center"|2:30 AM
+! style="background-color:#C0C0C0;text-align:center"|3:00 AM
+! style="background-color:#C0C0C0;text-align:center"|3:30 AM
+! style="background-color:#C0C0C0;text-align:center"|4:00 AM
+! style="background-color:#C0C0C0;text-align:center"|4:30 AM
+! style="background-color:#C0C0C0;text-align:center"|5:00 AM
+! style="background-color:#C0C0C0;text-align:center"|5:30 AM
+|-
+! colspan="1" rowspan="2"|[[American Broadcasting Company|ABC]]
+! Fall
+| colspan="1" rowspan="2" style="background:#abbfff"|Local Programming
+| colspan="1" rowspan="2" style="background:gold"|  ''[[Nightline]]'' 
+| colspan="1" style="background:yellow"|  ''[[ABC in Concert]]'' (Friday)
+| colspan="3" style="background:#abbfff"|Local Programming
+| colspan="3" rowspan="2" style="background:gold"|  ''[[ABC World News Now]]''
+| colspan="4" rowspan="2" style="background:#abbfff"|Local Programming
+| colspan="1" rowspan="2" style="background:gold"|  ''[[America This Morning|ABC World News This Morning]]''
+|-
+! Winter
+| colspan="1" style="background:yellow"|  '''''[[Politically Incorrect|Politically Incorrect with Bill Maher]]''''' (12:07)
+| colspan="1" style="background:yellow"|  ''[[ABC in Concert]]'' (Friday)
+| colspan="2" style="background:#abbfff"|Local Programming
+|-
+! colspan="2"|[[CBS]]
+| colspan="1" style="background:#abbfff"|Local Programming
+| colspan="2" style="background:yellow"| ''[[Late Show with David Letterman]]''
+| colspan="2" style="background:yellow"| ''[[The Late Late Show with Tom Snyder]]''
+| colspan="1" style="background:#abbfff"|Local Programming
+| colspan="2" style="background:gold"| ''[[CBS Overnight News#Up to the Minute|Up to the Minute]]''
+| colspan="5" style="background:#abbfff"|Local Programming
+| colspan="1" style="background:gold"| ''[[CBS Morning News]]''
+|-
+! colspan="2"|[[NBC]]
+| colspan="1" style="background:#abbfff"|Local Programming
+| colspan="2" style="background:yellow"| ''[[The Tonight Show with Jay Leno]]'' 
+| colspan="2" style="background:yellow"| ''[[Late Night with Conan O'Brien]]''
+| colspan="1" style="background:yellow"| ''[[Later (talk show)|Later]]'' (Monday-Thursday) <br> ''[[Friday Night Videos|Friday Night]]'' (Friday, 1:35-2:35)
+| colspan="3" style="background:gold"| ''[[NBC Nightside]]''
+| colspan="4" style="background:#abbfff"|Local Programming
+| colspan="1" style="background:gold"| ''[[NBC News at Sunrise]]''
+|-
+|}
+
+===Saturday===
+{| class="wikitable" style="width:100%;margin-right:0;text-align:center"
+|-
+! style="background-color:#C0C0C0;text-align:center" colspan="2" |Network
+! style="background-color:#C0C0C0;text-align:center"|11:00 PM
+! style="background-color:#C0C0C0;text-align:center"|11:30 PM
+! style="background-color:#C0C0C0;text-align:center"|12:00 AM
+! style="background-color:#C0C0C0;text-align:center"|12:30 AM
+! style="background-color:#C0C0C0;text-align:center"|1:00 AM
+! style="background-color:#C0C0C0;text-align:center"|1:30 AM
+! style="background-color:#C0C0C0;text-align:center"|2:00 AM
+! style="background-color:#C0C0C0;text-align:center"|2:30 AM
+! style="background-color:#C0C0C0;text-align:center"|3:00 AM
+! style="background-color:#C0C0C0;text-align:center"|3:30 AM
+! style="background-color:#C0C0C0;text-align:center"|4:00 AM
+! style="background-color:#C0C0C0;text-align:center"|4:30 AM
+! style="background-color:#C0C0C0;text-align:center"|5:00 AM
+! style="background-color:#C0C0C0;text-align:center"|5:30 AM
+|-
+! colspan="2"|[[NBC]]
+| style="background:#abbfff" |Local Programming
+| colspan="3" style="background:yellow" |''[[Saturday Night Live]]''
+| colspan="10" style="background:#abbfff" |Local Programming 
+|-
+! colspan="2"|[[Fox Broadcasting Company|Fox]]
+| colspan="2" style="background:yellow"| ''[[Mad TV|MADtv]]'' 
+| colspan="12" style="background:#abbfff"|Local Programming
+|-
+|}
+
+==By network==
+===[[American Broadcasting Company|ABC]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series'''
+*''[[ABC in Concert]]''
+*''[[ABC World News Now]]''
+*''[[ABC World News This Morning]]''
+*''[[Nightline]]''
+{{col-3}}
+'''New series'''
+*'''''[[Politically Incorrect|Politically Incorrect with Bill Maher]]''''' {{small|(moved from [[Comedy Central]])}}
+{{col-end}}
+
+===[[CBS]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series'''
+*''[[CBS Morning News]]''
+*''[[Late Night with David Letterman]]''
+*''[[The Late Late Show with Tom Snyder]]''
+*''[[Up to the Minute]]''
+{{col-end}}
+
+===[[Fox Broadcasting Company|Fox]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series'''
+*''[[Mad TV|MADtv]]''
+{{col-3}}
+'''Not returning from [[1995-96 United States network television schedule (late night)|1995-96]]:'''
+*''[[Saturday Night Special (TV series)|Saturday Night Special]]''
+{{col-end}}
+
+===[[NBC]]===
+{{col-begin}}
+{{col-3}}
+'''Returning series'''
+*''[[Friday Night Videos|Friday Night]]''
+*''[[Late Night with Conan O'Brien]]''
+*''[[Later (talk show)|Later]]''
+*''[[NBC News at Sunrise]]''
+*''[[NBC Nightside]]''
+*''[[Saturday Night Live]]''
+*''[[The Tonight Show with Jay Leno]]''
+{{col-end}}
+
+==References==
+{{reflist}}
+
+{{US TV schedule (late night)}}
+
+{{DEFAULTSORT:1996-97 United States network television schedule (late night)}}
+[[Category:United States late night network television schedules]]
+[[Category:1996 in American television]]
+[[Category:1997 in American television]]

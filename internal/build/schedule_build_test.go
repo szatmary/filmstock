@@ -3,6 +3,7 @@ package build
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/szatmary/filmstock/internal/dump"
@@ -14,11 +15,18 @@ func loadSchedule(t *testing.T, year string) *dump.Page {
 	if err != nil {
 		t.Skipf("no fixture for %s", year)
 	}
-	return &dump.Page{
-		ID: 1, NS: 0,
-		Title: year + " United States network television schedule",
-		Text:  string(b),
+	// Reproduce the real page title, including the daypart suffix: daypartOf
+	// reads it, and a synthetic title would silently label every fixture
+	// "prime time".
+	title := year + " United States network television schedule"
+	for _, dp := range []string{"daytime", "late-night"} {
+		if strings.HasSuffix(year, "-"+dp) {
+			title = strings.TrimSuffix(year, "-"+dp) +
+				" United States network television schedule (" +
+				strings.ReplaceAll(dp, "-", " ") + ")"
+		}
 	}
+	return &dump.Page{ID: 1, NS: 0, Title: title, Text: string(b)}
 }
 
 // Ground truth. NBC's Thursday in 1996-97 was Must See TV: Friends at 8:00,
@@ -108,5 +116,50 @@ func TestOppositeFindsTheCompetition(t *testing.T) {
 	}
 	if len(seinfeld) < 2 {
 		t.Errorf("found %d competitors, expected several networks", len(seinfeld))
+	}
+}
+
+// Daytime and late-night schedules are organised as "Monday–Friday", not one
+// section per night. Matching only single day names found no sections at all in
+// 154 of the 288 articles — more than half the corpus produced nothing.
+func TestScheduleReadsDayRanges(t *testing.T) {
+	for _, v := range []string{"daytime", "late-night"} {
+		s := buildSchedule(*loadSchedule(t, "1996-97-"+v))
+		if s == nil {
+			t.Errorf("%s: nothing built", v)
+			continue
+		}
+		days := map[string]int{}
+		for _, e := range s.Entries {
+			days[e.Day]++
+		}
+		t.Logf("  %-11s daypart=%-11q %4d entries across %d days",
+			v, s.Daypart, len(s.Entries), len(days))
+		// A weekday strip must appear on each weekday, not on a day called
+		// "Monday–Friday".
+		for _, d := range []string{"Monday", "Wednesday", "Friday"} {
+			if days[d] == 0 {
+				t.Errorf("%s: nothing on %s", v, d)
+			}
+		}
+		if days["Monday–Friday"] > 0 {
+			t.Errorf("%s: a range was stored as a day", v)
+		}
+	}
+}
+
+func TestExpandDays(t *testing.T) {
+	for _, c := range []struct {
+		a, b string
+		want int
+	}{
+		{"Monday", "", 1},
+		{"Monday", "Friday", 5},
+		{"Saturday", "Sunday", 2}, // wraps the week
+		{"Sunday", "Saturday", 7},
+	} {
+		if got := expandDays(c.a, c.b); len(got) != c.want {
+			t.Errorf("expandDays(%q,%q) = %v, want %d days", c.a, c.b, got, c.want)
+		}
 	}
 }
