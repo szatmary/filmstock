@@ -4,6 +4,7 @@
 package main
 
 import (
+	"database/sql"
 	"embed"
 	"encoding/json"
 	"errors"
@@ -22,11 +23,15 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-type server struct{ fs *filmstock.DB }
+type server struct {
+	fs *filmstock.DB
+	ex *explorers
+}
 
 func main() {
 	dbPath := flag.String("db", "index.db", "the index")
 	records := flag.String("records", "filmstock-data", "record tree produced by `filmstock extract`")
+	vectors := flag.String("vectors", "", "embedding vectors, to enable /explore")
 	addr := flag.String("addr", ":8080", "listen address")
 	flag.Parse()
 
@@ -45,6 +50,17 @@ func main() {
 	}
 
 	s := &server{fs: db}
+	if *vectors != "" {
+		v, err := filmstock.OpenVectors(*vectors)
+		if err != nil {
+			fatal(err)
+		}
+		ids, err := filmIDs(*dbPath)
+		if err != nil {
+			fatal(err)
+		}
+		s.ex = newExplorers(v, ids)
+	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", s.handleIndex)
 	mux.HandleFunc("/api/search", s.handleAPISearch)
@@ -57,11 +73,42 @@ func main() {
 	mux.HandleFunc("/television", s.handleTelevision)
 	mux.HandleFunc("/person", s.handlePerson)
 	mux.HandleFunc("/event", s.handleEventPage)
+	if s.ex != nil {
+		mux.HandleFunc("/explore", s.handleExplore)
+		mux.HandleFunc("/api/explore", s.handleAPIExplore)
+	}
 
+	if s.ex == nil {
+		fmt.Fprintln(os.Stderr, "explorer: disabled (pass -vectors FILE to enable /explore)")
+	}
 	fmt.Fprintf(os.Stderr, "filmstock browser listening on http://localhost%s\n", *addr)
 	if err := http.ListenAndServe(*addr, mux); err != nil {
 		fatal(err)
 	}
+}
+
+// filmIDs lists every film in the database, so the explorer can be restricted
+// to records it can actually display.
+func filmIDs(dbPath string) ([]int, error) {
+	db, err := sql.Open("sqlite", dbPath)
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
+	rows, err := db.Query(`SELECT id FROM movies`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []int
+	for rows.Next() {
+		var id int
+		if err := rows.Scan(&id); err != nil {
+			return nil, err
+		}
+		out = append(out, id)
+	}
+	return out, rows.Err()
 }
 
 func fatal(err error) {
