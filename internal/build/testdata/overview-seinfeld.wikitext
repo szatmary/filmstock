@@ -1,0 +1,371 @@
+{{Short description|none}}
+{{DISPLAYTITLE:List of ''Seinfeld'' episodes}}
+{{Use American English|date=March 2026}}
+{{Use mdy dates|date=June 2021}}
+[[File:Seinfeld logo.svg|230px|right]]
+
+''[[Seinfeld]]'' is an American [[television sitcom]] created by [[Jerry Seinfeld]] and [[Larry David]]. ''Seinfeld'' has been described by some as a "show about nothing",<ref>{{cite journal|doi=10.1177/004057369805500201|title=Editorial: Good-bye Seinfeld|journal=Theology Today|volume=55|issue=2|pages=147–151|last=Miller|first=Patrick D.|date=July 1998|s2cid=171062886}}</ref> similar to the self-parodying "show within a show" of [[Seinfeld season 4|fourth-season]] episode "[[The Pilot (Seinfeld)|The Pilot]]". Jerry Seinfeld is the lead character and played as [[Jerry Seinfeld (character)|a fictionalized version of himself]]. Set predominantly in an apartment block on New York City's [[Upper West Side]], the show features a host of Jerry's friends and acquaintances, which include [[George Costanza]], [[Elaine Benes]], and [[Cosmo Kramer]], who are portrayed by [[Jason Alexander]], [[Julia Louis-Dreyfus]], and [[Michael Richards]], respectively.<ref>{{cite news|title=Seinfeld and nihilism |url=http://www.nd.edu/~observer/12031999/News/5.html |date=1999-12-03 |access-date=2007-12-12 |url-status=dead |archive-url=https://web.archive.org/web/20071217191703/http://www.nd.edu/~observer/12031999/News/5.html |archive-date=2007-12-17 }}</ref>
+
+The series debuted on July 5, 1989, on [[NBC]], as ''[[The Seinfeld Chronicles]]''.<ref>{{cite web|url=http://www.sonypictures.com/tv/shows/seinfeld/episode_guide/?sl=episode&ep=101 |title=The Seinfeld Chronicles episode at Seinfeld Official Site |publisher=Sony Pictures |access-date=2008-03-23 |url-status=dead |archive-url=https://web.archive.org/web/20081025011046/http://www.sonypictures.com/tv/shows/seinfeld/episode_guide/?sl=episode&ep=101 |archive-date=2008-10-25}}</ref> The [[pilot episode]] was met with poor reviews, and as a result, NBC passed on the show. However, NBC executive [[Rick Ludwin]] believed that the series had potential and therefore gave ''Seinfeld'' a budget to create four more episodes, which formed the rest of [[Seinfeld season 1|season 1]] and began airing on May 31, 1990.<ref>{{cite web|last=Boudreaux |first=Jonathan |url=http://www.tvdvdreviews.com/seinfeld1.html |title=Seinfeld: Season 1 & 2 DVD Review |publisher=tvdvdreviews.com |date=2004-11-24 |access-date=2008-03-19 |url-status=dead |archive-url=https://web.archive.org/web/20080418075527/http://www.tvdvdreviews.com/seinfeld1.html |archive-date=2008-04-18 }}</ref><ref name="tvgs1">{{cite web|url=http://www.tvguide.com/detail/tv-show.aspx?tvobjectid=100389&more=ucepisodelist|title=Seinfeld Episodes|publisher=[[TV Guide]]|access-date=2008-03-20|archive-date=May 5, 2008|archive-url=https://web.archive.org/web/20080505004503/http://www.tvguide.com/detail/tv-show.aspx?tvobjectid=100389&more=ucepisodelist|url-status=live}}</ref> The first season is considered the smallest sitcom order in [[television]] history.<ref>{{cite video|title=Seinfeld Seasons 1 & 2: Notes about Nothing – "The Contest"|medium=DVD|publisher=Sony Pictures Home Entertainment|date=2004-11-23}}</ref> During its nine-year run, 180 episodes of ''Seinfeld'' were produced. The count includes both halves of three one-hour episodes, including [[The Finale (Seinfeld)|the finale]], and two retrospective episodes, each split into two parts: "[[The Highlights of 100]]", covering the first 100 episodes; and "[[The Clip Show]]", also known as "The Chronicle", which aired before the series finale. On November 25, 2004, a special titled ''The Seinfeld Story'' was broadcast. This marked the first appearance of ''Seinfeld'' on NBC since its series finale in 1998.<ref>{{cite web|url=https://www.today.com/popculture/seinfeld-story-tells-improbable-tale-wbna6567628|title=The Seinfeld Story|access-date=2021-12-10|author=Richmond, Ray|date=2004-11-23|publisher=Today.com|archive-date=March 20, 2022|archive-url=https://web.archive.org/web/20220320101926/https://www.today.com/popculture/seinfeld-story-tells-improbable-tale-wbna6567628|url-status=live}}</ref> All nine seasons are available on [[DVD]], [[Blu-ray]] and [[Ultra HD Blu-ray]],<ref>{{cite web|url=https://variety.com/2024/shopping/news/seinfeld-blu-ray-4k-uhd-release-buy-online-1236195542/ |title='Seinfeld' Releases on Blu-ray and 4K UHD |publisher=Variety |access-date=2025-01-07 }}</ref> and the show is still re-run regularly in [[Broadcast syndication|syndication]].<ref>{{cite web|url=http://www.sonypictures.com/tv/shows/seinfeld/about/ |title=Seinfeld show description from the Official Site |publisher=Sony Pictures |access-date=2008-03-22 |url-status=dead |archive-url=https://web.archive.org/web/20080403111613/http://www.sonypictures.com/tv/shows/seinfeld/about/ |archive-date=2008-04-03 }}</ref> The final episode aired on May 14, 1998.<ref name="tvgs1"/> The streaming rights for all 180 episodes of the series transferred from [[Hulu]] to [[Netflix]] in 2021.<ref>{{cite web|title=Seinfeld is heading to Netflix in 2021|url=https://www.theverge.com/2019/9/16/20868736/seinfeld-netflix-2021-hulu-friends-streaming-wars|date=September 16, 2019|access-date=March 13, 2021|website=[[The Verge]]|archive-date=September 18, 2019|archive-url=https://web.archive.org/web/20190918040432/https://www.theverge.com/2019/9/16/20868736/seinfeld-netflix-2021-hulu-friends-streaming-wars|url-status=live}}</ref>
+
+==Series overview==
+<onlyinclude>{{Series overview
+| infoA        = Rank
+| infoB        = Rating
+| infoC        = Viewers (millions)
+
+| color1       = #339BE9
+| link1        = <includeonly>List of Seinfeld episodes</includeonly>#Season 1 (1989–90)
+| episodes1    = 5
+| start1       = {{Start date|1989|7|5}}
+| end1         = {{End date|1990|6|21}}
+| infoA1       = {{n/a}}
+| infoB1       = {{n/a}}
+| infoC1       = 19.2
+
+| color2       = #F7D712
+| link2        = <includeonly>List of Seinfeld episodes</includeonly>#Season 2 (1991)
+| episodes2    = 12
+| start2       = {{Start date|1991|1|23}}
+| end2         = {{End date|1991|6|26}}
+| infoA2       = 46
+| infoB2       = 12.5
+| infoC2       = 18.1
+
+| color3       = #244D8D
+| link3        = <includeonly>List of Seinfeld episodes</includeonly>#Season 3 (1991–92)
+| episodes3    = 23
+| start3       = {{Start date|1991|9|18}}
+| end3         = {{End date|1992|5|6}}
+| infoA3       = 43
+| infoB3       = 12.5
+| infoC3       = 17.7
+
+| color4       = #49A9A3
+| link4        = <includeonly>List of Seinfeld episodes</includeonly>#Season 4 (1992–93)
+| episodes4    = 24
+| start4       = {{Start date|1992|8|12}}
+| end4         = {{End date|1993|5|20}}
+| infoA4       = 25<ref>{{Cite web|url=http://www.classictvhits.com/tvratings/1992.htm|title=TV Ratings - 1992|website=ClassicTVHits.com|access-date=January 2, 2021|archive-date=January 15, 2010|archive-url=https://web.archive.org/web/20100115170154/http://classictvhits.com/tvratings/1992.htm|url-status=live}}</ref>
+| infoB4       = 13.7
+| infoC4       = 20.9
+
+| color5       = #4C5385
+| link5        = <includeonly>List of Seinfeld episodes</includeonly>#Season 5 (1993–94)
+| episodes5    = 22
+| start5       = {{Start date|1993|9|16}}
+| end5         = {{End date|1994|5|19}}
+| infoA5       = 3<ref>{{Cite web|url=http://www.classictvhits.com/tvratings/1993.htm|title=TV Ratings - 1993|website=ClassicTVHits.com|access-date=January 2, 2021|archive-date=January 6, 2010|archive-url=https://web.archive.org/web/20100106211654/http://www.classictvhits.com/tvratings/1993.htm|url-status=live}}</ref>
+| infoB5       = 19.4
+| infoC5       = 29.4
+
+| color6       = #6D9CB3
+| link6        = <includeonly>List of Seinfeld episodes</includeonly>#Season 6 (1994–95)
+| episodes6    = 24
+| start6       = {{Start date|1994|9|22}}
+| end6         = {{End date|1995|5|18}}
+| infoA6       = 1<ref>{{Cite web|url=http://www.classictvhits.com/tvratings/1994.htm|title=TV Ratings - 1994|website=ClassicTVHits.com|access-date=January 2, 2021|archive-date=October 26, 2009|archive-url=https://web.archive.org/web/20091026022514/http://www.classictvhits.com/tvratings/1994.htm|url-status=live}}</ref>
+| infoB6       = 20.6
+| infoC6       = 31.3
+
+| color7       = #5F5758
+| link7        = <includeonly>List of Seinfeld episodes</includeonly>#Season 7 (1995–96)
+| episodes7    = 24
+| start7       = {{Start date|1995|9|21}}
+| end7         = {{End date|1996|5|16}}
+| infoA7       = 2<ref>{{Cite web|url=http://www.classictvhits.com/tvratings/1995.htm|title=TV Ratings - 1995|website=ClassicTVHits.com|access-date=January 2, 2021|archive-date=November 9, 2009|archive-url=https://web.archive.org/web/20091109205105/http://www.classictvhits.com/tvratings/1995.htm|url-status=live}}</ref>
+| infoB7       = 21.2
+| infoC7       = 33.2
+
+| color8       = #B5B7BC
+| link8        = <includeonly>List of Seinfeld episodes</includeonly>#Season 8 (1996–97)
+| episodes8    = 22
+| start8       = {{Start date|1996|9|19}}
+| end8         = {{End date|1997|5|15}}
+| infoA8       = 2<ref>{{Cite web|url=http://www.classictvhits.com/tvratings/1996.htm|title=TV Ratings - 1996|website=ClassicTVHits.com|access-date=January 2, 2021|archive-date=January 6, 2010|archive-url=https://web.archive.org/web/20100106211716/http://www.classictvhits.com/tvratings/1996.htm|url-status=live}}</ref>
+| infoB8       = 20.5
+| infoC8       = 32.3
+
+| color9       = #68471A
+| link9        = <includeonly>List of Seinfeld episodes</includeonly>#Season 9 (1997–98)
+| episodes9    = 24
+| start9       = {{Start date|1997|9|25}}
+| end9         = {{End date|1998|5|14}}
+| infoA9       = 1<ref>{{Cite web|url=http://www.classictvhits.com/tvratings/1997.htm|title=TV Ratings - 1997|website=ClassicTVHits.com|access-date=January 2, 2021|archive-date=January 3, 2010|archive-url=https://web.archive.org/web/20100103220626/http://www.classictvhits.com/tvratings/1997.htm|url-status=live}}</ref>
+| infoB9       = 22.0
+| infoC9       = 38.1
+}}</onlyinclude>
+
+==Episodes==
+
+===Season 1 (1989–90)===
+{{main|Seinfeld season 1}}
+{{:Seinfeld (season 1)}}
+
+===Season 2 (1991)===
+{{main|Seinfeld season 2}}
+{{:Seinfeld (season 2)}}
+
+"[[The Bet (Seinfeld)|The Bet]]" is an unproduced episode of ''Seinfeld'' which was supposed to air in place of Episode 4 this season.
+
+===Season 3 (1991–92)===
+{{main|Seinfeld season 3}}
+{{:Seinfeld (season 3)}}
+
+===Season 4 (1992–93)===
+{{main|Seinfeld season 4}}
+{{:Seinfeld (season 4)}}
+
+===Season 5 (1993–94)===
+{{main|Seinfeld season 5}}
+{{:Seinfeld (season 5)}}
+
+===Season 6 (1994–95)===
+{{main|Seinfeld season 6}}
+{{:Seinfeld (season 6)}}
+
+===Season 7 (1995–96)===
+{{main|Seinfeld season 7}}
+{{:Seinfeld (season 7)}}
+
+===Season 8 (1996–97)===
+{{main|Seinfeld season 8}}
+{{:Seinfeld (season 8)}}
+
+===Season 9 (1997–98)===
+{{main|Seinfeld season 9}}
+{{:Seinfeld (season 9)}}
+
+== Ratings ==
+<div style="overflow: auto">
+{{Television ratings graph
+| title      = Seinfeld
+| country    = U.S.
+| color1     = #339be9
+| color2     = #f7d712
+| color3     = #244d8d
+| color4     = #49a9a3
+| color5     = #4c5385
+| color6     = #6d9cb3
+| color7     = #5f5758
+| color8     = #b5b7bc
+| color9     = #68471a
+| bar_width  = 3
+| x_intervals= 10
+| no_graph   = y
+|-
+<!-- S01E01 -->| 15.4
+<!-- S01E02 -->| 22.5
+<!-- S01E03 -->| 19.7
+<!-- S01E04 -->| 19.1
+<!-- S01E05 -->| 19.4
+|-
+<!-- S02E01 -->| 15.6
+<!-- S02E02 -->| 15.2
+<!-- S02E03 -->| 14.8
+<!-- S02E04 -->| 13.6
+<!-- S02E05 -->| 24.7
+<!-- S02E06 -->| 23.3
+<!-- S02E07 -->| 19.6
+<!-- S02E08 -->| 20.6
+<!-- S02E09 -->| 22.9
+<!-- S02E10 -->| 17.2
+<!-- S02E11 -->| 16.8
+<!-- S02E12 -->| 12.5
+|-
+<!-- S03E01 -->| 21.7
+<!-- S03E02 -->| 16.7
+<!-- S03E03 -->| 15.1
+<!-- S03E04 -->| 17.2
+<!-- S03E05 -->| 16.4
+<!-- S03E06 -->| 17.0
+<!-- S03E07 -->| 16.4
+<!-- S03E08 -->| 15.8
+<!-- S03E09 -->| 16.3
+<!-- S03E10 -->| 18.6
+<!-- S03E11 -->| 18.0
+<!-- S03E12 -->| 17.9
+<!-- S03E13 -->| 18.7
+<!-- S03E14 -->| 19.2
+<!-- S03E15 -->| 16.9
+<!-- S03E16 -->| 18.5
+<!-- S03E17 -->| 17.0
+<!-- S03E18 -->| 17.0
+<!-- S03E19 -->| 19.5
+<!-- S03E20 -->| 16.1
+<!-- S03E21 -->| 22.3
+<!-- S03E22 -->| 17.8
+<!-- S03E23 -->| 16.4
+|-
+<!-- S04E01 -->| 16.3
+<!-- S04E02 -->| 15.1
+<!-- S04E03 -->| 17.6
+<!-- S04E04 -->| 17.6
+<!-- S04E05 -->| 17.6
+<!-- S04E06 -->| 15.2
+<!-- S04E07 -->| 17.1
+<!-- S04E08 -->| 15.1
+<!-- S04E09 -->| 16.7
+<!-- S04E10 -->| 16.2
+<!-- S04E11 -->| 18.5
+<!-- S04E12 -->| 14.5
+<!-- S04E13 -->| 16.2
+<!-- S04E14 -->| 17.6
+<!-- S04E15 -->| 
+<!-- S04E16 -->| 26.9
+<!-- S04E17 -->| 28.0
+<!-- S04E18 -->| 22.7
+<!-- S04E19 -->| 27.4
+<!-- S04E20 -->| 26.4
+<!-- S04E21 -->| 25.0
+<!-- S04E22 -->| 27.6
+<!-- S04E23 -->| 32.8
+<!-- S04E24 -->| 32.8
+|-
+<!-- S05E01 -->| 28.2
+<!-- S05E02 -->| 29.5
+<!-- S05E03 -->| 28.7
+<!-- S05E04 -->| 28.4
+<!-- S05E05 -->| 28.7
+<!-- S05E06 -->| 31.0
+<!-- S05E07 -->| 31.1
+<!-- S05E08 -->| 29.7
+<!-- S05E09 -->| 27.7
+<!-- S05E10 -->| 29.6
+<!-- S05E11 -->| 28.3
+<!-- S05E12 -->| 35.0
+<!-- S05E13 -->| 33.0
+<!-- S05E14 -->| 35.0
+<!-- S05E15 -->| 25.4
+<!-- S05E16 -->| 25.4
+<!-- S05E17 -->| 30.7
+<!-- S05E18 -->| 29.6
+<!-- S05E19 -->| 29.6
+<!-- S05E20 -->| 27.6
+<!-- S05E21 -->| 24.5
+<!-- S05E22 -->| 30.1
+|-
+<!-- S06E01 -->| 32.8
+<!-- S06E02 -->| 32.4
+<!-- S06E03 -->| 29.8
+<!-- S06E04 -->| 29.2
+<!-- S06E05 -->| 28.0
+<!-- S06E06 -->| 30.6
+<!-- S06E07 -->| 29.6
+<!-- S06E08 -->| 32.4
+<!-- S06E09 -->| 29.7
+<!-- S06E10 -->| 26.8
+<!-- S06E11 -->| 36.6
+<!-- S06E12 -->| 36.2
+<!-- S06E13 -->| 33.4
+<!-- S06E14 -->| 34.0
+<!-- S06E15 -->| 34.0
+<!-- S06E16 -->| 32.9
+<!-- S06E17 -->| 33.4
+<!-- S06E18 -->| 33.4
+<!-- S06E19 -->| 31.1
+<!-- S06E20 -->| 30.7
+<!-- S06E21 -->| 28.2
+<!-- S06E22 -->| 28.9
+<!-- S06E23 -->| 26.5
+<!-- S06E24 -->| 29.8
+|-
+<!-- S07E01 -->| 37.6
+<!-- S07E02 -->| 34.5
+<!-- S07E03 -->| 34.6
+<!-- S07E04 -->| 32.3
+<!-- S07E05 -->| 32.6
+<!-- S07E06 -->| 33.1
+<!-- S07E07 -->| 33.9
+<!-- S07E08 -->| 33.4
+<!-- S07E09 -->| 32.3
+<!-- S07E10 -->| 31.4
+<!-- S07E11 -->| 35.1
+<!-- S07E12 -->| 32.0
+<!-- S07E13 -->| 37.1
+<!-- S07E14 -->| 35.9
+<!-- S07E15 -->| 35.9
+<!-- S07E16 -->| 32.3
+<!-- S07E17 -->| 32.9
+<!-- S07E18 -->| 32.7
+<!-- S07E19 -->| 30.5
+<!-- S07E20 -->| 28.5
+<!-- S07E21 -->| 32.4
+<!-- S07E22 -->| 32.4
+<!-- S07E23 -->| 29.9
+<!-- S07E24 -->| 33.2
+|-
+<!-- S08E01 -->| 33.72
+<!-- S08E02 -->| 33.24
+<!-- S08E03 -->| 31.62
+<!-- S08E04 -->| 32.24
+<!-- S08E05 -->| 30.13
+<!-- S08E06 -->| 30.33
+<!-- S08E07 -->| 32.01
+<!-- S08E08 -->| 34.09
+<!-- S08E09 -->| 34.35
+<!-- S08E10 -->| 29.65
+<!-- S08E11 -->| 34.48
+<!-- S08E12 -->| 37.34
+<!-- S08E13 -->| 33.50
+<!-- S08E14 -->| 33.82
+<!-- S08E15 -->| 32.00
+<!-- S08E16 -->| 33.83
+<!-- S08E17 -->| 31.27
+<!-- S08E18 -->| 32.22
+<!-- S08E19 -->| 31.64
+<!-- S08E20 -->| 29.30
+<!-- S08E21 -->| 31.09
+<!-- S08E22 -->| 29.80
+|-
+<!-- S09E01 -->| 37.78
+<!-- S09E02 -->| 30.93
+<!-- S09E03 -->| 30.15
+<!-- S09E04 -->| 31.45
+<!-- S09E05 -->| 30.24
+<!-- S09E06 -->| 31.64
+<!-- S09E07 -->| 32.77
+<!-- S09E08 -->| 33.99
+<!-- S09E09 -->| 30.47
+<!-- S09E10 -->| 30.79
+<!-- S09E11 -->| 32.86
+<!-- S09E12 -->| 33.48
+<!-- S09E13 -->| 33.19
+<!-- S09E14 -->| 31.63
+<!-- S09E15 -->| 30.51
+<!-- S09E16 -->| 30.92
+<!-- S09E17 -->| 29.60
+<!-- S09E18 -->| 30.66
+<!-- S09E19 -->| 33.32
+<!-- S09E20 -->| 38.78
+<!-- S09E21 -->| 58.53
+<!-- S09E22 -->| 58.53
+<!-- S09E23 -->| 76.26
+<!-- S09E24 -->| 76.26
+}}
+</div>
+
+==References==
+General sources
+* {{cite web|url=http://www.sonypictures.com/tv/shows/seinfeld/|title=''Seinfeld'' Official Site|publisher=Sony Pictures|access-date=2008-03-20}}
+* {{cite web|url=http://www.tbs.com/stories/story/0,,69059,00.html |title=''Seinfeld'' Episode Guide |publisher=TBS |access-date=2011-09-05 |url-status=dead |archive-url=https://web.archive.org/web/20110928011203/http://www.tbs.com/stories/story/0%2C%2C69059%2C00.html |archive-date=2011-09-28 }}
+
+== Notes ==
+{{notelist}}
+Specific sources and notes
+{{reflist|30em}}
+
+==External links==
+* {{Official website|http://www.sonypictures.com/tv/shows/seinfeld/}}
+* {{Imdb episodes|0098904|Seinfeld}}
+
+{{Seinfeld}}
+{{Seinfeld episodes}}
+{{Jerry Seinfeld}}
+{{Larry David}}
+
+{{featured list}}
+
+{{DEFAULTSORT:List Of Seinfeld Episodes}}
+[[Category:Lists of American sitcom episodes|Seinfeld]]
+[[Category:Seinfeld episodes| ]]

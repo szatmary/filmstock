@@ -1,6 +1,7 @@
 package build
 
 import (
+	"os"
 	"testing"
 
 	"github.com/szatmary/filmstock"
@@ -14,9 +15,9 @@ const erOverview = `
 | episodes1 = 25
 | start1 = {{Start date|1994|9|19}}
 | end1 = {{End date|1995|5|18}}
-| infoAtitle = Rank
-| infoBtitle = Rating
-| infoCtitle = Viewers<br />(millions)
+| infoA = Rank
+| infoB = Rating
+| infoC = Viewers<br />(millions)
 | infoA1 = 2
 | infoB1 = 20.0
 | infoC1 = 30.1
@@ -57,8 +58,8 @@ func TestSeriesOverviewReadsEverySeason(t *testing.T) {
 // and undetectably.
 func TestSeriesOverviewColumnsAreReadByTheirHeadings(t *testing.T) {
 	swapped := `{{Series overview
-| infoAtitle = Viewers (millions)
-| infoBtitle = Rank
+| infoA = Viewers (millions)
+| infoB = Rank
 | episodes1 = 10
 | infoA1 = 30.1
 | infoB1 = 2
@@ -91,7 +92,7 @@ func TestHeadingNamingBothIsARank(t *testing.T) {
 // Cells carry footnotes and references; parsing the whole cell yields zero.
 func TestNumbersSurviveTheirFootnotes(t *testing.T) {
 	got := parseSeriesOverview(`{{Series overview
-| infoAtitle = Rank
+| infoA = Rank
 | infoBtitle = Viewers
 | episodes1 = 25<ref name="abc" />
 | infoA1 = 2{{efn|Tied with ''Seinfeld''.}}
@@ -109,7 +110,7 @@ func TestNumbersSurviveTheirFootnotes(t *testing.T) {
 // An unlabelled extra column is left alone rather than guessed at.
 func TestUnlabelledColumnIsIgnored(t *testing.T) {
 	got := parseSeriesOverview(`{{Series overview
-| infoAtitle = Timeslot
+| infoA = Timeslot
 | episodes1 = 10
 | infoA1 = 22
 }}`)
@@ -205,5 +206,110 @@ func TestNumEpisodesAgreesWithEpisodes(t *testing.T) {
 		if s.Season == 1 && s.NumEpisodes != len(s.Episodes) {
 			t.Errorf("num_episodes=%d but %d episodes carried", s.NumEpisodes, len(s.Episodes))
 		}
+	}
+}
+
+// Real articles, because the synthetic fixture above encoded my own assumption
+// about the template and so agreed with a parser that read no real Nielsen
+// figure at all. These are the wikitext of five episode-list articles as
+// Wikipedia serves it.
+func TestRealSeriesOverviews(t *testing.T) {
+	type want struct {
+		seasons             int
+		s1Eps               int
+		s1First, s1Last     string
+		s1Rank              int
+		s1Rating, s1Viewers float64
+	}
+	cases := map[string]want{
+		// Fifteen seasons, almost none of which have an article of their own —
+		// which is the point: without the overview they do not exist at all.
+		"er": {15, 25, "1994-09-19", "1995-05-18", 2, 20.0, 30.1},
+		// No info columns whatsoever. Zeros here are the correct answer, not a
+		// parse failure, and the test says so.
+		"breaking-bad": {5, 7, "2008-01-20", "2008-03-09", 0, 0, 0},
+		"cheers":       {11, 22, "1982-09-30", "1983-03-31", 74, 13.1, 10.9},
+		"the-simpsons": {38, 13, "1989-12-17", "1990-05-13", 30, 14.5, 13.4},
+	}
+	for name, w := range cases {
+		b, err := os.ReadFile("testdata/overview-" + name + ".wikitext")
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := parseSeriesOverview(string(b))
+		if len(got) != w.seasons {
+			t.Errorf("%s: %d seasons, want %d", name, len(got), w.seasons)
+			continue
+		}
+		s := got[0]
+		if s.Season != 1 {
+			t.Errorf("%s: first season is %d", name, s.Season)
+		}
+		if s.NumEpisodes != w.s1Eps {
+			t.Errorf("%s s1: %d episodes, want %d", name, s.NumEpisodes, w.s1Eps)
+		}
+		if s.FirstAired != w.s1First || s.LastAired != w.s1Last {
+			t.Errorf("%s s1: %s..%s, want %s..%s", name, s.FirstAired, s.LastAired, w.s1First, w.s1Last)
+		}
+		if s.Rank != w.s1Rank || s.Rating != w.s1Rating || s.Viewers != w.s1Viewers {
+			t.Errorf("%s s1: rank=%d rating=%v viewers=%v, want %d/%v/%v",
+				name, s.Rank, s.Rating, s.Viewers, w.s1Rank, w.s1Rating, w.s1Viewers)
+		}
+	}
+}
+
+// Breaking Bad's fifth season is split: episodes5A/5B with their own dates and
+// no start5 or end5 at all. Requiring the parameter to end in a digit parses
+// the total episode count and silently drops every date the season has.
+func TestSplitSeasonSpansItsParts(t *testing.T) {
+	b, err := os.ReadFile("testdata/overview-breaking-bad.wikitext")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var s5 *filmstock.Season
+	for _, s := range parseSeriesOverview(string(b)) {
+		if s.Season == 5 {
+			s5 = s
+		}
+	}
+	if s5 == nil {
+		t.Fatal("no season 5")
+	}
+	if s5.NumEpisodes != 16 {
+		t.Errorf("episodes %d, want 16 (the stated total, not a part)", s5.NumEpisodes)
+	}
+	if s5.FirstAired != "2012-07-15" {
+		t.Errorf("first aired %q, want 2012-07-15 — the earlier part", s5.FirstAired)
+	}
+	if s5.LastAired != "2013-09-29" {
+		t.Errorf("last aired %q, want 2013-09-29 — the later part", s5.LastAired)
+	}
+}
+
+// {{n/a}} is not a number. Seinfeld's first season has a Viewers figure but
+// writes {{n/a}} for rank and rating, and a parser that took the first digits
+// out of the raw cell would invent them.
+func TestNotApplicableIsNotAFigure(t *testing.T) {
+	b, err := os.ReadFile("testdata/overview-seinfeld.wikitext")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := parseSeriesOverview(string(b))
+	if len(got) != 9 {
+		t.Fatalf("%d seasons, want 9", len(got))
+	}
+	s1 := got[0]
+	if s1.Rank != 0 || s1.Rating != 0 {
+		t.Errorf("season 1: rank=%d rating=%v, want both absent — the article says {{n/a}}",
+			s1.Rank, s1.Rating)
+	}
+	if s1.Viewers != 19.2 {
+		t.Errorf("season 1: viewers %v, want 19.2 — the one figure it does state", s1.Viewers)
+	}
+	// And the season that does have figures still has them.
+	s9 := got[8]
+	if s9.Rank != 1 || s9.Rating != 22.0 || s9.Viewers != 38.1 {
+		t.Errorf("season 9: rank=%d rating=%v viewers=%v, want 1/22/38.1",
+			s9.Rank, s9.Rating, s9.Viewers)
 	}
 }

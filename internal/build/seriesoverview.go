@@ -20,22 +20,40 @@ import (
 // The awkward part is that its extra columns are self-labelling. infoA is Rank
 // on one show, Viewers on another, and "18–49 demo" on a third:
 //
-//	| infoAtitle = Rank            | infoA1 = 2
-//	| infoBtitle = Rating          | infoB1 = 20.0
-//	| infoCtitle = Viewers<br />(millions)  | infoC1 = 30.1
+//	| infoA = Rank                  | infoA1 = 2
+//	| infoB = Rating                | infoB1 = 20.0
+//	| infoC = Viewers (millions)    | infoC1 = 30.1
+//
+// The heading is the un-numbered parameter and the per-season values carry the
+// season number. Nothing distinguishes them but that digit.
+//
+// A season can also be SPLIT, and then the parts carry a letter as well:
+//
+//	| episodes5 = 16 | episodes5A = 8 | start5A = … | end5A = …
+//	                 | episodes5B = 8 | start5B = … | end5B = …
+//
+// Breaking Bad's fifth season is written that way, and so is most of modern
+// cable and streaming. Requiring the parameter to end in a digit parses the
+// total episode count and then silently drops every air date the season has.
 //
 // So the column has to be identified by what the article calls it, not by its
 // position. Reading infoA as Rank because it usually is would record a show's
 // viewership as its rank on every series that orders the columns differently —
 // wrong, and wrong in a way nothing downstream could detect.
 //
-// The letters are matched in lower case because ParseInfobox lower-cases every
-// key, so "infoAtitle" arrives as "infoatitle". Matching [A-Z] here reads the
-// episode counts and air dates perfectly and silently finds no Nielsen figures
-// at all, which is the shape of failure this file exists to avoid.
+// Two ways to get this wrong, both of which produce perfect episode counts and
+// air dates alongside no Nielsen figures whatsoever:
+//
+//   - ParseInfobox lower-cases every key, so the letters must be matched in
+//     lower case.
+//   - the heading parameter is "infoA", not "infoAtitle". "infoAtitle" is what
+//     the template's documentation suggests and what I assumed; across real
+//     articles it does not occur once. Both are accepted because accepting the
+//     documented spelling costs nothing, but the un-numbered form is the one
+//     reality uses.
 var (
-	reOverviewParam = regexp.MustCompile(`^(episodes|start|end|link|info([a-z]))(\d+)$`)
-	reInfoTitle     = regexp.MustCompile(`^info([a-z])title$`)
+	reOverviewParam = regexp.MustCompile(`^(episodes|start|end|link|info([a-z]))(\d+)([a-z]?)$`)
+	reInfoTitle     = regexp.MustCompile(`^info([a-z])(?:title)?$`)
 	reFirstNumber   = regexp.MustCompile(`\d+(?:\.\d+)?`)
 )
 
@@ -69,6 +87,9 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 		}
 		return s
 	}
+	// Episode counts stated only per part, summed. Used only where the season
+	// does not state its own total, which it usually does.
+	partEps := map[int]int{}
 	for k, v := range ib {
 		m := reOverviewParam.FindStringSubmatch(k)
 		if m == nil || strings.TrimSpace(v) == "" {
@@ -78,18 +99,31 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 		if err != nil || n <= 0 {
 			continue
 		}
+		split := m[4] != "" // a part of a split season: 5A, 5B
 		switch m[1] {
 		case "episodes":
-			if c := firstInt(v); c > 0 {
+			c := firstInt(v)
+			if c <= 0 {
+				continue
+			}
+			if split {
+				partEps[n] += c
+			} else {
 				season(n).NumEpisodes = c
 			}
 		case "start":
+			// A split season starts when its FIRST part does.
 			if d := parseReleaseDates(v); len(d) > 0 {
-				season(n).FirstAired = d[0]
+				if cur := season(n).FirstAired; cur == "" || d[0] < cur {
+					season(n).FirstAired = d[0]
+				}
 			}
 		case "end":
+			// …and ends when its LAST part does.
 			if d := parseReleaseDates(v); len(d) > 0 {
-				season(n).LastAired = d[0]
+				if cur := season(n).LastAired; cur == "" || d[0] > cur {
+					season(n).LastAired = d[0]
+				}
 			}
 		case "link":
 			// Recorded only as a join hint; the identity is the page_id the
@@ -107,7 +141,10 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 	}
 
 	var out []*filmstock.Season
-	for _, s := range byNum {
+	for n, s := range byNum {
+		if s.NumEpisodes == 0 {
+			s.NumEpisodes = partEps[n]
+		}
 		out = append(out, s)
 	}
 	sortSeasons(out)

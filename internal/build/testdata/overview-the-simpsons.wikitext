@@ -1,0 +1,605 @@
+{{Use American English|date=May 2025}}
+{{Short description|None}}
+{{Italic title|string=The Simpsons}}
+{{Redirect|The Simpsons episode guide|list of published episode guides for the series|The Simpsons episode guides}}
+{{Use mdy dates|date=September 2016}}
+
+[[File:The Simpsons yellow logo.svg|thumb|right|Series logo]]
+
+<section begin=head/>''[[The Simpsons]]'' is an American [[animated sitcom]] created by [[Matt Groening]] for the [[Fox Broadcasting Company]]. It is a [[satirical]] depiction of a [[dysfunctional family|dysfunctional]] middle-class American lifestyle starring the eponymous [[Simpson family|family]]: [[Homer Simpson|Homer]], [[Marge Simpson|Marge]], [[Bart Simpson|Bart]], [[Lisa Simpson|Lisa]], and [[Maggie Simpson|Maggie]]. Set in the town of [[Springfield (The Simpsons)|Springfield]], the show lampoons both [[Culture of the United States|American culture]] and the [[human condition]].<ref name="americasfirstfamily">{{cite video |year=2000 |title=The Simpsons: America's First Family |medium=television documentary |publisher=BBC}} Later released on the 2001 DVD ''The Simpsons&nbsp;– The Complete First Season'' by [[20th Century Fox]].</ref> The family was conceived by Groening shortly before a pitch for a series of [[The Simpsons shorts|animated shorts]] with producer [[James L. Brooks]]. Groening named each character (other than Bart) after members of his own family. The shorts became part of the Fox series ''[[The Tracey Ullman Show]]'' on April 19, 1987.<ref name="americasfirstfamily" /><ref name=inter>{{cite interview |last=Groening |first=Matt |author-link=Matt Groening |interviewer=Bianculli, David |title=Fresh Air |work=[[NPR]] |publisher=[[WHYY-FM|WHYY]] |url=https://www.npr.org/templates/story/story.php?storyId=1162008 |location=Philadelphia |date=February 14, 2003 |access-date=July 30, 2012 |archive-url=https://web.archive.org/web/20071213045217/http://www.npr.org/templates/story/story.php?storyId=1162008 |archive-date=December 13, 2007 |url-status=live }}</ref> After a three-season run, the sketch was developed into a half-hour primetime hit show.<ref>{{cite news |url=https://www.nytimes.com/1990/02/21/movies/bad-language-hurt-feelings-and-success.html |title=Bad Language, Hurt Feelings and Success |date=February 21, 1990 |access-date=July 30, 2012 |last=Gerard |first=Jeremy |work=[[The New York Times]] |archive-url=https://web.archive.org/web/20120802021225/http://www.nytimes.com/1990/02/21/movies/bad-language-hurt-feelings-and-success.html |archive-date=August 2, 2012 |url-status=live }}</ref>
+
+The show holds several American television longevity records. It is the longest-running [[List of American prime time animated television series#1990s|primetime animated series]] and longest-running sitcom in the United States.<ref name="longsitcom">Owen, Rob (January 21, 2003). "[http://old.post-gazette.com/tv/20030121tvnote0121p5.asp TV Notes: 'Simpsons' breaks record with contract renewal] {{Webarchive|url=https://web.archive.org/web/20110102173422/http://www.post-gazette.com/tv/20030121tvnote0121p5.asp |date=January 2, 2011 }}". ''[[Pittsburgh Post-Gazette]]''. Retrieved January 22, 2022.</ref> With its [[The Simpsons season 21|21st season]] (2009–10), the series surpassed ''[[Gunsmoke]]'' (which had 20 seasons) to claim the spot as the longest-running [[List of longest-running scripted American primetime television series|American primetime scripted television series]], and later also surpassed ''Gunsmoke'' (which had 635 episodes) for episode count in this category, starting with the [[The Simpsons season 29|29th-season]] episode "[[Forgive and Regret]]" on April 29, 2018.
+
+Episodes of ''The Simpsons'' have won dozens of awards, including 37 [[Emmy Awards|Emmys]] (ten for [[Primetime Emmy Award for Outstanding Animated Program|Outstanding Animated Program]]), 30 [[Annie Awards|Annies]], and a [[Peabody Awards|Peabody]].<ref name=awards>{{cite web|title=The Simpsons&nbsp;– Synopsis |url=http://www.foxflash.com/div.php/main/page?aID=1z2z2z176z5z3 |publisher=[[Fox Broadcasting Company|Fox Flash]] |access-date=August 2, 2012 |url-status=dead |archive-url=https://web.archive.org/web/20120427183544/http://www.foxflash.com/div.php/main/page?aID=1z2z2z176z5z3 |archive-date=April 27, 2012 }}</ref> ''[[The Simpsons Movie]]'', a feature-length film, was released in theaters worldwide on July 26 and 27, 2007, and grossed US$526.2 million worldwide.<ref name="box office">{{cite web |url=https://www.boxofficemojo.com/movies/?id=simpsons.htm |title=The Simpsons Movie |access-date=April 8, 2009 |website=[[Box Office Mojo]] |archive-url=https://web.archive.org/web/20121008092246/http://www.boxofficemojo.com/movies/?id=simpsons.htm |archive-date=October 8, 2012 |url-status=live }}</ref> The first 20 seasons are available on [[DVD]] in [[DVD region code|regions]] 1, 2, and 4, with the twentieth season released on both DVD and [[Blu-ray]] in 2010 to celebrate the 20th anniversary of the series. On April 8, 2015, showrunner [[Al Jean]] announced that there would be no more DVD or Blu-ray releases, shifting focus to digital distribution,<ref>{{cite news | url=https://www.hollywoodreporter.com/tv/tv-news/fox-end-simpsons-seasonal-dvd-787648/ | work=The Hollywood Reporter | title=Fox to End 'The Simpsons' Seasonal DVD Production | date=April 9, 2015 | access-date=January 22, 2022| archive-url=https://web.archive.org/web/20150412202852/http://www.hollywoodreporter.com/live-feed/fox-end-simpsons-seasonal-dvd-787648 | archive-date=April 12, 2015 | url-status=live }}</ref> although this was later reversed on July 22, 2017.<ref>{{cite magazine | url=https://ew.com/tv/2017/07/22/simpsons-dvds-season-18-comic-con/ | magazine=Entertainment Weekly | title=The Simpsons to bring back DVDs | access-date=July 27, 2017 | archive-url=https://web.archive.org/web/20170726150743/http://ew.com/tv/2017/07/22/simpsons-dvds-season-18-comic-con/ | archive-date=July 26, 2017 | url-status=live }}</ref> Almost two years later, on July 20, 2019, it was announced that Season 19 would be released on December 3, 2019, on DVD or Blu-ray.<ref>{{cite news| url=https://variety.com/2019/tv/news/simpsons-dvd-season-19-disney-1203274456/| work=Variety| title=The Simpsons Will Finally Release Season 19 on DVD, Helping Out Purist Collectors| date=20 July 2019| access-date=July 26, 2019| archive-url=https://web.archive.org/web/20190721173131/https://variety.com/2019/tv/news/simpsons-dvd-season-19-disney-1203274456/amp/| archive-date=July 21, 2019| url-status=live}}</ref>
+
+On April 28, 1994, ''The Simpsons'' reached [[Sweet Seymour Skinner's Baadasssss Song|its 100th episode]] in its [[The Simpsons season 5|5th season]]. On April 26, 1998, ''The Simpsons'' reached [[Trash of the Titans|its 200th episode]] in its [[The Simpsons season 9|9th season]]. On February 2, 2003, ''The Simpsons'' reached [[The Strong Arms of the Ma|its 300th episode]] in its [[The Simpsons season 14|14th season]]. On May 20, 2007, ''The Simpsons'' reached [[You Kent Always Say What You Want|its 400th episode]] in its [[The Simpsons season 18|18th season]]. On February 19, 2012, ''The Simpsons'' reached [[At Long Last Leave|its 500th episode]] in its [[The Simpsons season 23|23rd season]].<ref name="Snierson-assange">Snierson, Dan (January 30, 2012). "[https://ew.com/article/2012/01/30/simpsons-wikileaks-julian-assange/ WikiLeaks' Julian Assange to guest on 'The Simpsons'] {{Webarchive|url=https://web.archive.org/web/20120728002354/http://insidetv.ew.com/2012/01/30/simpsons-wikileaks-julian-assange/ |date=July 28, 2012 }}". ''[[Entertainment Weekly]]''. Retrieved January 22, 2022.</ref> On October 16, 2016, ''The Simpsons'' reached [[Treehouse of Horror XXVII|its 600th episode]] in its [[The Simpsons season 28|28th season]]. On March 21, 2021, ''The Simpsons'' reached [[Manger Things|its 700th episode]] in its [[The Simpsons season 32|32nd season]].<ref>{{cite web|title=Fox Sets Fall Premiere Dates For ''The Simpsons'', ''Family Guy'', ''Bob's Burgers'', ''Bless The Harts''|url=https://deadline.com/2020/07/the-simpsons-2020-premiere-dates-family-guy-bobs-burgers-bless-the-harts-fox-1202992116/|work=[[Deadline Hollywood]]|date=July 22, 2020|access-date=July 22, 2020|last=Hipes|first=Patrick|archive-date=July 22, 2020|archive-url=https://web.archive.org/web/20200722194532/https://deadline.com/2020/07/the-simpsons-2020-premiere-dates-family-guy-bobs-burgers-bless-the-harts-fox-1202992116/|url-status=live}}</ref> On December 7, 2025, ''The Simpsons'' reached [[Guess Who's Coming to Skinner|its 800th episode]] in its [[The Simpsons season 37|37th season]].{{efn|name=Episode800|Multiple episodes are considered the 800th episode. See {{slink|The Simpsons season 37|display=''The Simpsons'' season 37|800th episode}} for further details.}}
+
+{{Aired episodes|2026|2|15|showpage=The Simpsons|title=The Simpsons|airing=37}} On April 2, 2025, ''The Simpsons'' was renewed through Season 40.<ref>{{Cite web |last=Otterson |first=Joe |date=2025-04-02 |title='The Simpsons,' 'Family Guy,' 'Bob's Burgers' Renewed for Four More Seasons, 'American Dad' Officially Returning to Fox |url=https://variety.com/2025/tv/news/the-simpsons-family-guy-bobs-burgers-american-dad-renewed-four-seasons-1236355159/ |access-date=2025-04-03 |website=Variety |language=en-US}}</ref>
+{{TOC right}}
+{{Horizontal TOC|title=Seasons|links=
+* [[The Simpsons shorts|Early Shorts]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 1 (1989–1990)|1]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 2 (1990–1991)|2]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 3 (1991–1992)|3]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 4 (1992–1993)|4]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 5 (1993–1994)|5]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 6 (1994–1995)|6]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 7 (1995–1996)|7]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 8 (1996–1997)|8]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 9 (1997–1998)|9]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 10 (1998–1999)|10]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 11 (1999–2000)|11]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 12 (2000–2001)|12]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 13 (2001–2002)|13]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 14 (2002–2003)|14]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 15 (2003–2004)|15]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 16 (2004–2005)|16]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 17 (2005–2006)|17]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 18 (2006–2007)|18]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 19 (2007–2008)|19]]
+* [[List of The Simpsons episodes (seasons 1–20)#Season 20 (2008–2009)|20]]
+* [[List of The Simpsons episodes (season 21–present)#Season 21 (2009–2010)|21]]
+* [[List of The Simpsons episodes (season 21–present)#Season 22 (2010–2011)|22]]
+* [[List of The Simpsons episodes (season 21–present)#Season 23 (2011–2012)|23]]
+* [[List of The Simpsons episodes (season 21–present)#Season 24 (2012–2013)|24]]
+* [[List of The Simpsons episodes (season 21–present)#Season 25 (2013–2014)|25]]
+* [[List of The Simpsons episodes (season 21–present)#Season 26 (2014–2015)|26]]
+* [[List of The Simpsons episodes (season 21–present)#Season 27 (2015–2016)|27]]
+* [[List of The Simpsons episodes (season 21–present)#Season 28 (2016–2017)|28]]
+* [[List of The Simpsons episodes (season 21–present)#Season 29 (2017–2018)|29]]
+* [[List of The Simpsons episodes (season 21–present)#Season 30 (2018–2019)|30]]
+* [[List of The Simpsons episodes (season 21–present)#Season 31 (2019–2020)|31]]
+* [[List of The Simpsons episodes (season 21–present)#Season 32 (2020–2021)|32]]
+* [[List of The Simpsons episodes (season 21–present)#Season 33 (2021–2022)|33]]
+* [[List of The Simpsons episodes (season 21–present)#Season 34 (2022–2023)|34]]
+* [[List of The Simpsons episodes (season 21–present)#Season 35 (2023–2024)|35]]
+* [[List of The Simpsons episodes (season 21–present)#Season 36 (2024–2025)|36]]
+* [[List of The Simpsons episodes (season 21–present)#Season 37 (2025–2026)|37]]
+* [[#Film|Film]]
+* [[#Shorts|Shorts]]
+* [[#Specials|Specials]]
+* [[#Ratings|Ratings]]
+}}
+
+== Series overview ==
+<!-- DO NOT REINSTATE THE DVD AND BLU-RAY RELEASE DATES, IT IS NOW A VIOLATION OF WP:TVOVERVIEW -->
+* Seasons 1–11 are ranked by ''households'' (in millions).
+* Seasons 12–35 are ranked by ''total viewers'' (in millions).
+<onlyinclude>{{#invoke:Series overview|main
+| infoheader = [[Nielsen ratings]]<ref>{{cite book |last1=Brooks |first1=Tim |last2=Marsh |first2=Earle |date=2007 |title=The Complete Directory to Prime Time Network and Cable TV Shows 1946–Present |publisher=Ballantine Books |pages=1692–1695 |isbn=978-0-345-49773-4 |edition=Ninth }}</ref>
+| infoA      = {{nowrap|Households / viewers}}
+| infoB      = Rank
+| infoC      = Rating
+
+| color1     = #B8CACF
+| link1      = List of The Simpsons episodes (seasons 1–20)#Season 1 (1989–1990)
+| episodes1  = 13
+| start1     = {{Start date|1989|12|17}}
+| end1       = {{End date|1990|5|13}}
+| network1   = [[Fox Broadcasting Company|Fox]] 
+| infoA1     = 13.4m h.{{ref label|april|n1}}<ref name="season1">{{cite news |title=Nielsen's top 50 shows |work=[[USA Today]] |page=3D |date=April 18, 1990}}</ref>
+| infoB1     = 30
+| infoC1     = 14.5
+
+| color2     = #D3EDF2
+| link2      = List of The Simpsons episodes (seasons 1–20)#Season 2 (1990–1991)
+| episodes2  = 22
+| start2     = {{Start date|1990|10|11}}
+| end2       = {{End date|1991|7|11}}
+| infoA2     = 12.2m h.{{ref label|april|n1}}{{ref label|season2note|n2}}
+| infoB2     = 38<ref name="season2">{{cite news |title=Nielsen ratings |work=[[The Tampa Tribune]] |page=4 |date=April 17, 1991}}</ref>
+| infoC2     = 8
+
+| color3     = #CCA7C4
+| link3      = List of The Simpsons episodes (seasons 1–20)#Season 3 (1991–1992)
+| episodes3  = 24
+| start3     = {{Start date|1991|9|19}}
+| end3       = {{End date|1992|8|27}}
+| infoA3     = 12m h.{{ref label|april|n1}}{{ref label|season3note|n3}}
+| infoB3     = 33<ref name="season3">{{cite news |title=CBS' historic jump |work=[[USA Today]] |author=Gable, Donna |page=3D |date=April 15, 1992}}</ref>
+| infoC3     = {{N/A|N/A}}
+
+| color4     = #189FDD
+| link4      = List of The Simpsons episodes (seasons 1–20)#Season 4 (1992–1993)
+| episodes4  = 22
+| start4     = {{Start date|1992|9|24}}
+| end4       = {{End date|1993|5|13}}
+| infoA4     = 12.1m h.{{ref label|april|n1}}<ref name="Year-end ratings">{{cite news |title=Year-end ratings |work=[[Deseret News]] |page=C6 |date=April 22, 1993}}</ref>
+| infoB4     = 30
+| infoC4     = 13
+
+| color5     = #B11618
+| link5      = List of The Simpsons episodes (seasons 1–20)#Season 5 (1993–1994)
+| episodes5  = 22
+| start5     = {{Start date|1993|9|30}}
+| end5       = {{End date|1994|5|19}}
+| infoA5     = 10.5m h.{{ref label|april|n1}}{{ref label|season5|n4}}
+| infoB5     = 53<ref name="season5">{{cite news |title=Nielsen ratings |work=[[The Tampa Tribune]] |agency=Associated Press |page=4 |date=April 21, 1994}}</ref>
+| infoC5     = {{N/A|N/A}}
+
+| color6     = #575959
+| link6      = List of The Simpsons episodes (seasons 1–20)#Season 6 (1994–1995)
+| episodes6  = 25
+| start6     = {{Start date|1994|9|4}}
+| end6       = {{End date|1995|5|21}}
+| infoA6     = 9m h.{{ref label|april|n1}}<ref name="season6" />
+| infoB6     = 67<ref name="season6">{{cite news |title=They're not laughing at CBS after drop from 1st to worst |work=[[Deseret News]] |author=Pierce, Scott D. |page=C6 |date=April 19, 1995}}</ref>
+| infoC6     = {{N/A|N/A}}
+
+| color7     = #4B498F
+| link7      = List of The Simpsons episodes (seasons 1–20)#Season 7 (1995–1996)
+| episodes7  = 25
+| start7     = {{Start date|1995|9|17}}
+| end7       = {{End date|1996|5|19}}
+| infoA7     = 8m h.{{ref label|april|n1}}<ref name="season7" />
+| infoB7     = 75<ref name="season7">{{cite news |title=NBC lands 6 series in season's top 10 |work=[[Daily Breeze]] |page=D3 |date=May 26, 1996}}</ref>
+| infoC7     = {{N/A|N/A}}
+
+| color8     = #58A5AD
+| link8      = List of The Simpsons episodes (seasons 1–20)#Season 8 (1996–1997)
+| episodes8  = 25
+| start8     = {{Start date|1996|10|27}}
+| end8       = {{End date|1997|5|18}}
+| infoA8     = 8.6m h.<ref name="season8" />
+| infoB8     = 53<ref name="season8">{{cite book |last=Moses |first=Robert |author2=Rowen, Beth |title=The 1998 A & E Entertainment Almanac |year=1997 |publisher=[[Houghton Mifflin Harcourt]] |pages=496–515 |isbn=978-0-395-88277-1}}</ref>
+| infoC8     = {{N/A|N/A}}
+
+| color9     = #7A335D
+| link9      = List of The Simpsons episodes (seasons 1–20)#Season 9 (1997–1998)
+| episodes9  = 25
+| start9     = {{Start date|1997|9|21}}
+| end9       = {{End date|1998|5|17}}
+| infoA9     = 9.1m h.<ref>{{cite news |title=Final Ratings for '97–'98 TV Season |work=[[San Francisco Chronicle]] |page=E4 |date=May 25, 1998}}</ref>
+| infoB9     = 30
+| infoC9     = 9.2
+
+| color10     = #A79548
+| link10      = List of The Simpsons episodes (seasons 1–20)#Season 10 (1998–1999)
+| episodes10  = 23
+| start10     = {{Start date|1998|8|23}}
+| end10       = {{End date|1999|5|16}}
+| infoA10     = 7.9m h.<ref name="season10" />
+| infoB10     = 46<ref name="season10">{{cite news |title=Nielsen rankings for 1998–99 |work=[[San Francisco Chronicle]] |page=C5 |date=May 28, 1999}}</ref>
+| infoC10     = {{N/A|N/A}}
+
+| color11     = #2E5C82
+| link11      = List of The Simpsons episodes (seasons 1–20)#Season 11 (1999–2000)
+| episodes11  = 22
+| start11     = {{Start date|1999|9|26}}
+| end11       = {{End date|2000|5|21}}
+| infoA11     = 8.2m h.<ref name="season11" />
+| infoB11     = 44<ref name="season11">{{cite news |title=Nielsen rankings for 1999–2000 |work=[[San Francisco Chronicle]] |page=C17 |date=May 26, 2000}}</ref>
+| infoC11     = {{N/A|N/A}}
+
+| color12     = #993129
+| link12      = List of The Simpsons episodes (seasons 1–20)#Season 12 (2000–2001)
+| episodes12  = 21
+| start12     = {{Start date|2000|11|1}}
+| end12       = {{End date|2001|5|20}}
+| infoA12     = 14.7m v.<ref name="season12" />
+| infoB12     = 21<ref name="season12">{{cite news |title=The Bitter End |url=https://ew.com/article/2001/06/01/bitter-end/ |access-date=January 22, 2022 |newspaper=[[Entertainment Weekly]] |date=June 1, 2001 |archive-url=https://web.archive.org/web/20120718141929/http://www.ew.com/ew/article/0,,256435,00.html |archive-date=July 18, 2012 |url-status=live }}</ref>
+| infoC12     = {{N/A|N/A}}
+
+| color13     = #593285
+| link13      = List of The Simpsons episodes (seasons 1–20)#Season 13 (2001–2002)
+| episodes13  = 22
+| start13     = {{Start date|2001|11|6}}
+| end13       = {{End date|2002|5|22}}
+| infoA13     = 12.4m v.<ref name="season13" />
+| infoB13     = 30<ref name="season13">{{cite news |title=How did your favorite show rate? |url=https://www.usatoday.com/life/television/2002/2002-05-28-year-end-chart.htm |access-date=September 10, 2011 |newspaper=[[USA Today]] |date=May 28, 2002 |archive-url=https://web.archive.org/web/20170222174856/http://usatoday30.usatoday.com/life/television/2002/2002-05-28-year-end-chart.htm |archive-date=February 22, 2017 |url-status=live }}</ref>
+| infoC13     = {{N/A|N/A}}
+
+| color14     = #000000
+| link14      = List of The Simpsons episodes (seasons 1–20)#Season 14 (2002–2003)
+| episodes14  = 22
+| start14     = {{Start date|2002|11|3}}
+| end14       = {{End date|2003|5|18}}
+| infoA14     = 13.4m v.<ref name="season14" />
+| infoB14     = 25<ref name="season14">{{cite news |title=Nielsen numbers |work=[[The Star-Ledger]] |author=Sepinwall, Alan |author2=Seitz, Matt Zoller |page=31 |date=May 29, 2003}}</ref>
+| infoC14     = {{N/A|N/A}}
+
+| color15     = #7BB842
+| link15      = List of The Simpsons episodes (seasons 1–20)#Season 15 (2003–2004)
+| episodes15  = 22
+| start15     = {{Start date|2003|11|2}}
+| end15       = {{End date|2004|5|23}}
+| infoA15     = 10.6m v.<ref name="season15" />
+| infoB15     = 42<ref name="season15">{{cite web |title=Season to date program ratings |url=http://www.abcmedianet.com/pressrel/dispDNR.html?id=060204_11 |publisher=[[American Broadcasting Company|ABC Medianet]] |access-date=September 10, 2011 |archive-url=https://web.archive.org/web/20070208132303/http://www.abcmedianet.com/pressrel/dispDNR.html?id=060204_11 |url-status=dead |archive-date=February 8, 2007 |date=June 2, 2004}}</ref>
+| infoC15     = {{N/A|N/A}}
+
+| color16     = #9D296E
+| link16      = List of The Simpsons episodes (seasons 1–20)#Season 16 (2004–2005)
+| episodes16  = 21
+| start16     = {{Start date|2004|11|7}}
+| end16       = {{End date|2005|5|15}}
+| infoA16     = 9.6m v.<ref name="season16" />
+| infoB16     = 52<ref name="season16">{{cite web |title=Season program ratings |url=http://www.abcmedianet.com/pressrel/dispDNR.html?id=060105_05 |publisher=[[American Broadcasting Company|ABC Medianet]] |access-date=September 10, 2011 |archive-url=https://web.archive.org/web/20070310210208/http://www.abcmedianet.com/pressrel/dispDNR.html?id=060105_05 |url-status=dead |archive-date=March 10, 2007 |date=June 1, 2005}}</ref>
+| infoC16     = {{N/A|N/A}}
+
+| color17     = #005B9C
+| link17      = List of The Simpsons episodes (seasons 1–20)#Season 17 (2005–2006)
+| episodes17  = 22
+| start17     = {{Start date|2005|9|11}}
+| end17       = {{End date|2006|5|21}}
+| infoA17     = 9.1m v.<ref name="season17" />
+| infoB17     = 62<ref name="season17">{{cite web |title=Season program ratings |url=http://www.abcmedianet.com/pressrel/dispDNR.html?id=053106_05 |publisher=[[American Broadcasting Company|ABC Medianet]] |access-date=September 10, 2011 |archive-url=https://web.archive.org/web/20070310210300/http://www.abcmedianet.com/pressrel/dispDNR.html?id=053106_05 |archive-date=March 10, 2007 |date=May 31, 2006}}</ref>
+| infoC17     = 3.2
+
+| color18     = #544b42
+| link18      = List of The Simpsons episodes (seasons 1–20)#Season 18 (2006–2007)
+| episodes18  = 22
+| start18     = {{Start date|2006|9|10}}
+| end18       = {{End date|2007|5|20}}
+| infoA18     = 8.6m v.<ref name="season18" />
+| infoB18     = 60<ref name="season18">{{cite news |title=2006-07 primetime wrap|url=https://www.hollywoodreporter.com/business/business-news/2006-07-primetime-wrap-137223/ |work=[[The Hollywood Reporter]] |access-date=January 22, 2022 |archive-url=https://web.archive.org/web/20100129154626/http://www.hollywoodreporter.com/hr/content_display/television/features/e3ifbfdd1bcb53266ad8d9a71cad261604f |archive-date=January 29, 2010 |date=May 25, 2007}}</ref>
+| infoC18     = 4.1
+
+| color19     = #87CEEB
+| link19      = List of The Simpsons episodes (seasons 1–20)#Season 19 (2007–2008)
+| episodes19  = 20
+| start19     = {{Start date|2007|9|23}}
+| end19       = {{End date|2008|5|18}}
+| infoA19     = 8m v.<ref name="season19" />
+| infoB19     = 87<ref name="season19">{{cite web|title=Season program ratings |url=http://abcmedianet.com/web/dnr/dispDNR.aspx?id=052808_06 |publisher=[[American Broadcasting Company|ABC Medianet]] |access-date=September 10, 2011 |date=May 28, 2008 |url-status=dead |archive-url=https://web.archive.org/web/20100413172935/http://abcmedianet.com/web/dnr/dispDNR.aspx?id=052808_06 |archive-date=April 13, 2010 }}</ref>
+| infoC19     = {{N/A|N/A}}
+
+| color20     = #E8E7E3
+| link20      = List of The Simpsons episodes (seasons 1–20)#Season 20 (2008–2009)
+| episodes20  = 21
+| start20     = {{Start date|2008|9|28}}
+| end20       = {{End date|2009|5|17}}
+| infoA20     = 6.9m v.<ref name="season20" />
+| infoB20     = 77<ref name="season20">{{cite web|title=Season program ratings |url=http://abcmedianet.com/web/dnr/dispDNR.aspx?id=051909_05 |publisher=[[American Broadcasting Company|ABC Medianet]] |access-date=September 10, 2011 |date=May 19, 2009 |url-status=dead |archive-url=https://web.archive.org/web/20090623063544/http://abcmedianet.com/web/dnr/dispDNR.aspx?id=051909_05 |archive-date=June 23, 2009 }}</ref>
+| infoC20     = {{N/A|N/A}}
+
+| color21     = #A90E63
+| link21      = List of The Simpsons episodes (season 21–present)#Season 21 (2009–2010)
+| episodes21  = 23
+| start21     = {{Start date|2009|9|27}}
+| end21       = {{End date|2010|5|23}}
+| infoA21     = 7.2m v.<ref name="season21" />
+| infoB21     = 61<ref name="season21">{{cite news |last=Andreeva |first=Nellie |title=Full Series Rankings For The 2009–10 Broadcast Season |url=https://deadline.com/2010/05/full-series-rankings-for-the-2009-10-broadcast-season-44277/ |access-date=September 10, 2011 |website=[[Deadline Hollywood]] |date=May 27, 2010 |archive-url=https://web.archive.org/web/20120213174556/http://www.deadline.com/2010/05/full-series-rankings-for-the-2009-10-broadcast-season/ |archive-date=February 13, 2012 |url-status=live }}</ref>
+| infoC21     = 3.4
+
+| color22     = #E06EFA
+| link22      = List of The Simpsons episodes (season 21–present)#Season 22 (2010–2011)
+| episodes22  = 22
+| start22     = {{Start date|2010|9|26}}
+| end22       = {{End date|2011|5|22}}
+| infoA22     = 7.3m v.<ref name="season22" />
+| infoB22     = 65<ref name="season22">{{cite news |last=Andreeva |first=Nellie |title=Full 2010–11 TV Season Series Rankings |url=https://deadline.com/2011/05/full-2010-11-season-series-rankers-135917/ |access-date=September 10, 2011 |website=Deadline Hollywood |date=May 27, 2011 |archive-url=https://web.archive.org/web/20121008190741/http://www.deadline.com/2011/05/full-2010-11-season-series-rankers/ |archive-date=October 8, 2012 |url-status=live }}</ref>
+| infoC22     = 3.3
+
+| color23     = #5EA6F8
+| link23      = List of The Simpsons episodes (season 21–present)#Season 23 (2011–2012)
+| episodes23  = 22
+| start23     = {{Start date|2011|9|25}}
+| end23       = {{End date|2012|5|20}}
+| infoA23     = 7m v.<ref name="season23" />
+| infoB23     = 69<ref name="season23">{{cite news |last=Andreeva |first=Nellie |title=Full 2011–2012 TV Season Series Rankings |url=https://deadline.com/2012/05/full-2011-2012-tv-season-series-rankings-277941/ |access-date=May 25, 2012 |website=Deadline Hollywood |date=May 24, 2012 |archive-url=https://web.archive.org/web/20140424020321/http://www.deadline.com/2012/05/full-2011-2012-tv-season-series-rankings/ |archive-date=April 24, 2014 |url-status=live }}</ref>
+| infoC23     = 3.3
+
+| color24     = #1E6157
+| link24      = List of The Simpsons episodes (season 21–present)#Season 24 (2012–2013)
+| episodes24  = 22
+| start24     = {{Start date|2012|9|30}}
+| end24       = {{End date|2013|5|19}}
+| infoA24     = 6.3m v.<ref name="season24" />
+| infoB24     = 70<ref name="season24">{{cite news |author=Dominic Patten |title=Full 2012–2013 TV Season Series Rankings |url=https://deadline.com/2013/05/tv-season-series-rankings-2013-full-list-506970/ |access-date=May 25, 2013 |newspaper=deadline |date=May 23, 2013 |archive-url=https://web.archive.org/web/20171016155911/http://deadline.com/2013/05/tv-season-series-rankings-2013-full-list-506970/ |archive-date=October 16, 2017 |url-status=live }}</ref>
+| infoC24     = 2.9
+
+| color25     = #fcd959
+| link25      = List of The Simpsons episodes (season 21–present)#Season 25 (2013–2014)
+| episodes25  = 22
+| start25     = {{Start date|2013|9|29}}
+| end25       = {{End date|2014|5|18}}
+| infoA25     = 5.6m v.<ref name="season25" />
+| infoB25     = 81<ref name="season25">{{cite web |url=https://deadline.com/2014/05/tv-season-series-rankings-2013-full-list-2-733762/ |title=Primetime TV Series 2013 Ratings & Rankings – Full List |website=Deadline Hollywood |date=May 22, 2014 |access-date=August 3, 2014 |archive-url=https://web.archive.org/web/20140525201152/http://www.deadline.com/2014/05/tv-season-series-rankings-2013-full-list-2/ |archive-date=May 25, 2014 |url-status=live }}</ref>
+| infoC25     = {{N/A|N/A}}
+
+| color26     = #1DD9FC
+| link26      = List of The Simpsons episodes (season 21–present)#Season 26 (2014–2015)
+| episodes26  = 22
+| start26     = {{Start date|2014|9|28}}
+| end26       = {{End date|2015|5|17}}
+| infoA26     = 5.6m v.<ref name="entertainment2015" />
+| infoB26     = 100<ref name="entertainment2015">{{cite web|url=https://deadline.com/2015/05/2014-15-full-tv-season-ratings-shows-rankings-1201431167/ |title=Full 2014–15 Series Rankings |website=Deadline Hollywood |date=May 22, 2015 |access-date=May 22, 2015 |url-status=dead |archive-url=https://web.archive.org/web/20150522054915/http://deadline.com/2015/05/2014-15-full-tv-season-ratings-shows-rankings-1201431167/ |archive-date=May 22, 2015 }}</ref>
+| infoC26     = 2.6
+
+| color27     = #7F1790
+| link27      = List of The Simpsons episodes (season 21–present)#Season 27 (2015–2016)
+| episodes27  = 22
+| start27     = {{Start date|2015|9|27}}
+| end27       = {{End date|2016|5|22}}
+| infoA27     = 4.7m v.<ref name="entertainment2016" />
+| infoB27     = 102<ref name="entertainment2016">{{cite web|url=https://deadline.com/2016/05/tv-season-2015-2016-series-rankings-shows-full-list-1201763189/|title=Full 2015–16 Series Rankings|website=Deadline Hollywood|date=May 26, 2016|access-date=May 26, 2016|archive-date=November 17, 2020|archive-url=https://web.archive.org/web/20201117180843/https://deadline.com/2016/05/tv-season-2015-2016-series-rankings-shows-full-list-1201763189/|url-status=live}}</ref>
+| infoC27     = 2.1
+
+| color28     = #A80F11
+| link28      = List of The Simpsons episodes (season 21–present)#Season 28 (2016–2017)
+| episodes28  = 22
+| start28     = {{Start date|2016|9|25}}
+| end28       = {{End date|2017|5|21}}
+| infoA28     = 4.8m v.<ref name="entertainment2017" />
+| infoB28     = 92<ref name="entertainment2017">{{cite web|url=https://deadline.com/2017/05/2016-2017-tv-season-ratings-series-rankings-list-1202102340/|title=Final 2016–17 TV Rankings: 'Sunday Night Football' Winning Streak Continues|website=Deadline Hollywood|date=May 26, 2017|access-date=May 26, 2017|archive-url=https://web.archive.org/web/20170530115026/http://deadline.com/2017/05/2016-2017-tv-season-ratings-series-rankings-list-1202102340/|archive-date=May 30, 2017|url-status=live}}</ref>
+| infoC28     = 2.1
+
+| color29     = #375383
+| link29      = List of The Simpsons episodes (season 21–present)#Season 29 (2017–2018)
+| episodes29  = 21
+| start29     = {{Start date|2017|10|1}}
+| end29       = {{End date|2018|5|20}}
+| infoA29     = 4.1m v.<ref name="entertainment2018" />
+| infoB29     = 122<ref name="entertainment2018">{{cite web|url=https://deadline.com/2018/05/2017-2018-tv-series-ratings-rankings-full-list-of-shows-1202395851/|title=2017–18 TV Series Ratings Rankings: NFL Football, 'Big Bang' Top Charts|website=Deadline Hollywood|date=May 22, 2018|access-date=May 23, 2018|archive-url=https://web.archive.org/web/20180523031012/http://deadline.com/2018/05/2017-2018-tv-series-ratings-rankings-full-list-of-shows-1202395851/|archive-date=May 23, 2018|url-status=live}}</ref>
+| infoC29     = 1.7
+
+| color30     = #D770D2
+| link30      = List of The Simpsons episodes (season 21–present)#Season 30 (2018–2019)
+| episodes30  = 23
+| start30     = {{Start date|2018|9|30}}
+| end30       = {{End date|2019|5|12}}
+| infoA30     = 3.7m v.<ref name="entertainment2019" />
+| infoB30     = 126<ref name="entertainment2019">{{Cite web|url=https://deadline.com/2019/05/tv-ratings-2018-2019-season-totals-viewers-demo-cbs-nbc-1202620062/|title=2018–19 TV Season Ratings: CBS Wraps 11th Season At No. 1 In Total Viewers, NBC Tops Demo; 'Big Bang Theory' Most Watched Series|last=de Moraes|first=Lisa|date=2019-05-21|website=Deadline|language=en|access-date=2019-05-22|archive-url=https://web.archive.org/web/20190521235535/https://deadline.com/2019/05/tv-ratings-2018-2019-season-totals-viewers-demo-cbs-nbc-1202620062/|archive-date=May 21, 2019|url-status=live}}</ref>
+| infoC30     = 1.4
+
+| color31     = #3901A4
+| link31      = List of The Simpsons episodes (season 21–present)#Season 31 (2019–2020)
+| episodes31  = 22
+| start31     = {{Start date|2019|9|29}}
+| end31       = {{End date|2020|5|17}}
+| infoA31     = 3m v.<ref name="entertainment2020" />
+| infoB31     = 103<ref name="entertainment2020">{{Cite web|title=TV Ratings: 7-Day Season Averages for Every 2019–20 Broadcast Series|url=https://www.hollywoodreporter.com/tv/tv-news/tv-ratings-7-day-season-averages-2019-20-broadcast-series-1297228/|access-date=January 22, 2022|website=The Hollywood Reporter|date=June 4, 2020|language=en|archive-date=June 6, 2020|archive-url=https://web.archive.org/web/20200606003358/https://www.hollywoodreporter.com/live-feed/tv-ratings-7-day-season-averages-2019-20-broadcast-series-1297228|url-status=live}}</ref>
+| infoC31     = 1.1
+
+| color32     = #00A5BB
+| link32      = List of The Simpsons episodes (season 21–present)#Season 32 (2020–2021)
+| episodes32  = 22
+| start32     = {{Start date|2020|9|27}}
+| end32       = {{Start date|2021|5|23}}
+| infoA32     = 2.4m v.<ref name="entertainment2021" />
+| infoB32     = 117<ref name="entertainment2021">{{Cite web|last=Porter|first=Rick|title=2020-21 TV Ratings: Complete 7-Day Ratings for Broadcast Network Series|url=https://www.hollywoodreporter.com/tv/tv-news/2020-21-tv-ratings-every-network-show-ranked-1234964854/|work=[[The Hollywood Reporter]]|date=June 8, 2021|archive-date=June 8, 2021|archive-url=https://web.archive.org/web/20210608225741/https://www.hollywoodreporter.com/tv/tv-news/2020-21-tv-ratings-every-network-show-ranked-1234964854/|url-status=live}}</ref>
+| infoC32     = 0.8
+
+| color33     = #192870
+| link33      = List of The Simpsons episodes (season 21–present)#Season 33 (2021–2022)
+| episodes33  = 22
+| start33     = {{Start date|2021|9|26}}
+| end33       = {{End date|2022|5|22}}
+| infoA33     = 2.3m v.<ref name="ratings2022" />
+| infoB33     = 98<ref name="ratings2022">{{Cite web |last=Porter |first=Rick |date=2022-06-09 |title=2021-22 TV Ratings: Final Seven-Day Numbers for Every Network Series |url=https://www.hollywoodreporter.com/tv/tv-news/2021-22-tv-ratings-every-network-series-ranked-1235161738/ |access-date=2022-06-13 |website=[[The Hollywood Reporter]] |language=en}}</ref>
+| infoC33     = 0.7
+
+| color34     = #7600EC
+| link34      = List of The Simpsons episodes (season 21–present)#Season 34 (2022–2023)
+| episodes34  = 22
+| start34     = {{Start date|2022|9|25}}
+| end34       = {{End date|2023|5|21}}
+| infoA34     = 2.1m v.<ref name="ratings2023">{{cite press release|title=TV Ratings 2022–23: Final Seven-Day Averages for Every Network Series|url=https://www.hollywoodreporter.com/tv/tv-news/tv-ratings-2022-23-every-primetime-network-show-ranked-1235508593/|date=June 7, 2023|access-date=June 7, 2023}}</ref>
+| infoB34     = 98<ref name="ratings2023" />
+| infoC34     = 0.65
+
+| color35     = #3BD2E5
+| link35      = List of The Simpsons episodes (season 21–present)#Season 35 (2023–2024)
+| episodes35  = 18
+| start35     = {{Start date|2023|10|1}}
+| end35       = {{End date|2024|5|19}}
+| infoA35     = 1.99m v.<ref name="ratings2024">{{cite press release|title= TV Ratings 2023-24: Final Numbers for (Almost) Every Network Series |url=https://www.hollywoodreporter.com/tv/tv-news/tv-ratings-2023-24-primetime-network-show-rankings-1235919819/|date=June 11, 2024|access-date=June 11, 2024}}</ref>
+| infoB35     = 106<ref name="ratings2024" />
+| infoC35     = 0.58
+
+| color36     = #CCA2D8
+| link36      = List of The Simpsons episodes (season 21–present)#Season 36 (2024–2025)
+| episodes36  = 22{{ref label|season36|n5}}
+| start36     = {{Start date|2024|9|29}}
+| end36       = {{End date|2025|5|18}}
+| network36   = Fox<br>[[Disney+]]
+| infoA36     = {{N/A|N/A}}
+| infoB36     = {{N/A|N/A}}
+| infoC36     = {{N/A|N/A}}
+
+| color37     = #FFD700
+| link37      = List of The Simpsons episodes (season 21–present)#Season 37 (2025–2026)
+| episodes37  = 19{{ref label|season37to40|n6}}
+| start37     = {{Start date|2025|9|28}}
+| end37       = {{End date|2026|8|26}}
+| infoA37     = {{N/A|N/A}}
+| infoB37     = {{N/A|N/A}}
+| infoC37     = {{N/A|N/A}}
+
+| color38     = #4A97F6
+| link38      = List of The Simpsons episodes (season 21–present)#Season 38
+| episodes38  = 17{{ref label|season37to40|n6}}
+| start38     = {{Start date|2026|9|27}}<ref>{{cite web|first=Erik|last=Pedersen|date=July 14, 2026|title=Fox Sets Fall Premiere Dates For 'Best Medicine,' 'Doc' & More As 'Animal Control' Joins Sunday Animation Block|url=https://deadline.com/2026/07/fox-fall-premiere-dates-2026-1236982140/|website=[[Deadline Hollywood]]|access-date=July 27, 2026}}</ref>
+| end38       = 
+| infoA38     = {{N/A|N/A}}
+| infoB38     = {{N/A|N/A}}
+| infoC38     = {{N/A|N/A}}
+}}
+
+=== Notes ===
+# {{note label|april}} Until the [[1996–97 United States network television schedule|1996–97 television season]], ratings were calculated over 30 weeks from September to mid-April. Episodes that aired after mid-April were not part of the overall average and ranking.<ref>{{cite news |title=The big three networks took a big ratings hit this season |work=[[The Charleston Gazette]] |author=Storm, Jonathan |page=P6B |date=May 31, 1997}}</ref>
+# {{note label|season2note}} Season one had approximately 13.4 million viewing households.<ref name="season1" /> Season two dropped 9%,<ref>{{cite news |title=Network series take beatings in ratings |work=[[Tulsa World]] |page=2C |date=April 23, 1991}}</ref> resulting in an average of approximately 12.2 million viewing households.
+# {{note label|season3note}} Season three had an average rating of 13.0 points.<ref name="season3" /> For the [[1991–92 United States network television schedule|1991–92 season]], each point represented 921,000 viewing households,<ref>{{cite news |title=CBS toasts its win of season ratings |work=[[Tampa Bay Times|St. Petersburg Times]] |author=Williams, Scott |page=17 |date=April 17, 1992}}</ref> resulting in a total average of approximately 12.0 million viewing households.
+# {{note label|season5}} Season four had approximately 12.1 million viewing households.<ref name="Year-end ratings" /> Season five dropped 13%,<ref>{{cite news |title=''Home Improvement'' improves to no. 1 spot |work=[[South Florida Sun-Sentinel]] |author=Jicha, Tom |page=1E |date=April 20, 1994}}</ref> resulting in an average of approximately 10.5 million viewing households.<section end=head/>
+# {{note label|season36}} Season 36 had eighteen episodes broadcast on Fox, and four are Disney+ exclusives that are not a part of the normal season.
+# {{note label|season37}} Season 37 had fifteen episodes broadcast on Fox, and will have a further four Disney+ exclusives that are not a part of the normal season
+# {{note label|season38to40}} Seasons 38 through 40 will have fifteen episodes each broadcast on Fox, with an additional two Disney+ exclusives per season that are not a part of the normal season.<ref>{{cite web|first=Jamie|last=Lang|date=June 12, 2025|title='The Fans Are More Intense Than Ever': Matt Groening, David Silverman and Matt Selman on 'The Simpsons' Enduring Appeal|url=https://variety.com/2025/tv/global/the-simpsons-matt-groening-david-silverman-matt-selman-1236429217/|website=[[Variety (magazine)|Variety]]|access-date=July 7, 2025}}</ref> </onlyinclude>
+
+== List of episodes ==
+=== Seasons 1–20 (1989–2009) ===
+{{Main|List of The Simpsons episodes (seasons 1–20)}}
+
+=== Seasons 21–present (2009–present) ===
+{{Main|List of The Simpsons episodes (season 21–present)}}
+
+== Films ==
+{{#invoke:Episode table|main
+|background  = #fada00
+|title       = 14
+|director    = 11
+|writer      = 51
+|airdate     = 12
+|airdateT    = Release date<br />(U.S.)
+|episodes    = 
+{{#invoke:Episode list|list
+|RTitle          = ''[[The Simpsons Movie]]''
+|DirectedBy      = [[David Silverman (animator)|David Silverman]]
+|WrittenBy       = [[James L. Brooks]], [[Matt Groening]], [[Al Jean]], [[Ian Maxtone-Graham]], [[George Meyer]], [[David Mirkin]], [[Mike Reiss]], [[Mike Scully]], [[Matt Selman]], [[John Swartzwelder]] and [[Jon Vitti]]
+|OriginalAirDate = {{Start date|2007|7|27}}
+}}
+{{#invoke:Episode list|list
+|RTitle          = ''[[The New Simpsons Movie]]''
+|DirectedBy      = 
+|WrittenBy       = 
+|OriginalAirDate = {{Start date|2027|9|3}}<ref>{{cite web | title=The Simpsons Movie 2's Release Date Changes With Hilarious Homer Announcement | website=[[Screen Rant]] | date=September 29, 2025 | url=https://screenrant.com/the-simpsons-movie-2-release-date-change-2027-homer-announcement/ }}</ref>
+}}
+}}
+
+=== ''The Simpsons Movie'' (2007) ===
+{{Main|The Simpsons Movie}}
+
+=== ''The New Simpsons Movie'' (2027) ===
+{{main|The New Simpsons Movie}}
+In August 2026 at [[D23 (Disney)#2026|the 2026 D23 Expo]], ''[[The New Simpsons Movie]]'' was announced for release in September 2027.<ref>{{Cite web |last=Bonno-Smith |first=Rianna de |date=December 5, 2025 |title=The Simpsons Movie 2's Release Date Changes With Hilarious Homer Announcement |url=https://screenrant.com/the-simpsons-movie-2-release-date-change-2027-homer-announcement/ |access-date=December 5, 2025 |website=[[ScreenRant]]}}</ref>
+
+== Shorts ==
+=== ''The Tracey Ullman Show'' ===
+{{Main|The Simpsons shorts}}
+
+=== Theatrical ===
+{{#invoke:Episode table|main
+|background  = #fada00
+|title       = 14
+|director    = 11
+|writer      = 22
+|airdate     = 12
+|airdateT    = Original release date
+|dontclose = y}}
+{{#invoke:Episode list|list
+|RTitle          = ''[[The Longest Daycare]]''
+|DirectedBy      = [[David Silverman (animator)|David Silverman]]
+|WrittenBy       = [[James L. Brooks]], [[Matt Groening]], [[Al Jean]], <br />[[David Mirkin]], [[Joel H. Cohen]] & [[Michael Price (writer)|Michael Price]]
+|OriginalAirDate = {{Start date|2012|7|13}}
+}}
+{{#invoke:Episode list|list
+|RTitle          = ''[[Playdate with Destiny]]''
+|DirectedBy      = David Silverman
+|WrittenBy       = Al Jean, [[Tom Gammill and Max Pross|Tom Gammill, Max Pross]], <br />James L. Brooks, Matt Groening, Michael Price, <br />[[Matt Selman]] & David Silverman
+|OriginalAirDate = {{Start date|2020|3|6}}
+}}
+{{End|html=y|Episode table}}
+
+=== Disney+ ===
+{{Main|The Simpsons Disney+ shorts}}
+{{:The Simpsons Disney+ shorts}}
+
+=== Miscellaneous ===
+{{#invoke:Episode table|main
+|background  = #fada00
+|title       = 14
+|director    = 11
+|writer      = 22
+|airdate     = 12
+|airdateT    = Original release date
+|dontclose = y}}
+{{#invoke:Episode list|list
+|RTitle          = ''Trumptastic Voyage''
+|DirectedBy      = [[David Silverman (animator)|David Silverman]]
+|WrittenBy       = [[Al Jean]]
+|OriginalAirDate = {{Start date|2015|7|7}}
+}}
+{{#invoke:Episode list|list
+|RTitle          = ''[[The Simpsons Balenciaga|The Simpsons <nowiki>|</nowiki> Balenciaga]]''
+|DirectedBy      = David Silverman
+|WrittenBy       = [[Joel H. Cohen]], Al Jean & [[Michael Price (writer)|Michael Price]]
+|OriginalAirDate = {{Start date|2021|10|2}}
+}}
+{{#invoke:Episode list|list
+|RTitle          = ''[[Te Deseo Lo Mejor]]''
+|DirectedBy      = David Silverman
+|WrittenBy       = Joel H. Cohen, Al Jean, <br />[[Ryan Koh]] & [[Christine Nangle]]
+|OriginalAirDate = {{Start date|2021|12|24}}
+}}
+{{End|html=y|Episode table}}
+
+== Specials ==
+{{#invoke:Episode table|main
+|background=#FADA00
+|title=
+|director=
+|writer=
+|airdate=
+|prodcode=
+|viewers=
+|country=U.S.
+|dontclose = y}}
+{{#invoke:Episode list|list
+|OriginalAirDate={{Start date|1995|9|17}}
+|Title=[[Who Shot Mr. Burns?#Springfield's Most Wanted|Springfield's Most Wanted]]
+|DirectedBy=Bill Brown
+|WrittenBy=Jack Parmeter & Bob Bain
+|ProdCode=SP−9611<ref>{{cite web|url=https://www.bcdb.com/cartoon/5494-Springfields-Most-Wanted|title= Springfield's Most Wanted (1995) Season 7 Episode SP-9611- The Simpsons Cartoon Episode Guide|access-date=February 8, 2023|publisher=[[The Big Cartoon Database]]}}{{dead link|date=January 2024|bot=medic}}{{cbignore|bot=medic}}</ref>
+|Viewers= 14.0<ref>{{#invoke:cite|news|title=A scrambling CBS slips behind Fox|department=Life|work=[[USA Today]]|date=September 20, 1995|page=3D|author=Graham, Jefferson}}</ref>
+|ShortSummary= In a parody of ''[[America's Most Wanted]]'', host [[John Walsh (television host)|John Walsh]] explores the mystery behind who shot [[Mr. Burns]], laying out the potential clues and identifying the possible suspects.
+'''Note:''' The special aired immediately before the Season 7 premiere of "[[Who Shot Mr. Burns?]] (Part Two)."
+| LineColor = FADA00
+}}
+{{#invoke:Episode list|list
+|OriginalAirDate={{Start date|2010|1|10}}
+|Title=[[The Simpsons 20th Anniversary Special – In 3-D! On Ice!]]
+|DirectedBy=[[Morgan Spurlock]]
+|WrittenBy=Jeremy Chilnick & Morgan Spurlock
+|ProdCode=LABF21
+|Viewers= 11.43<ref>{{#invoke:cite|web|url=http://tvbythenumbers.zap2it.com/2010/01/12/tv-ratings-pro-and-college-football-and-the-simpsons-and-ncistop-weekly-viewing/38517/ |archive-url=https://web.archive.org/web/20110207021408/http://tvbythenumbers.zap2it.com/2010/01/12/tv-ratings-pro-and-college-football-and-the-simpsons-and-ncistop-weekly-viewing/38517 |url-status=dead |archive-date=February 7, 2011 |title=TV Ratings: Pro and College Football and The Simpsons and NCIS top weekly viewing|first=Robert|last=Seidman|website=[[TV by the Numbers]]|date=January 12, 2010|access-date=October 2, 2014}}</ref>
+|ShortSummary= The film examines the "cultural phenomenon" of ''The Simpsons'' and includes interviews with both the cast and some fans of the show.<ref name="wsj">{{Cite web|url=https://blogs.wsj.com/speakeasy/2009/07/13/morgan-spurlock-spills-the-beans-on-his-upcoming-simpsons-doc/|title=Morgan Spurlock Spills the Beans on his Upcoming "Simpsons" Doc|date=2009-07-13|access-date=2009-07-15|author=Kung, Michelle|work=[[The Wall Street Journal]]|archive-url=https://web.archive.org/web/20171126140153/https://blogs.wsj.com/speakeasy/2009/07/13/morgan-spurlock-spills-the-beans-on-his-upcoming-simpsons-doc/|archive-date=November 26, 2017|url-status=live}}</ref>
+'''Note:''' The special aired immediately following "[[Once Upon a Time in Springfield]]", was assigned production number LABF21 and technically counts as a component of the 20th production season (and of the 21st broadcast season). It does not, however, count towards the series' official episode count.
+| LineColor = FADA00
+}}
+{{#invoke:Episode list|list
+|OriginalAirDate={{Start date|2017|10|22}}
+|Title=Springfield of Dreams: The Legend of Homer Simpson
+|DirectedBy= Morgan Spurlock
+|WrittenBy=Eric Brewster, Jeremy Chilnick & Morgan Spurlock
+|ProdCode=N/A
+|Viewers=
+|ShortSummary= An hourlong [[mockumentary]] in the style of [[Ken Burns]]' Baseball, aired on Fox to commemorate the 25th anniversary of the episode "[[Homer at the Bat]]", as well as Homer's induction into the [[National Baseball Hall of Fame and Museum]].
+'''Note:''' The special was produced by [[Fox Sports]].
+| LineColor = FADA00
+}}
+{{End|html=y|Episode table}}
+
+== Ratings ==
+{{See also|The Simpsons#Reception and achievements}}
+
+With its first season, ''The Simpsons'' became the Fox network's first series to rank among the top thirty highest-rated shows of a television season.<ref name="season1" /> Due to this success, Fox decided to switch ''The Simpsons''{{'}} timeslot in hopes of higher ratings for the shows airing after it.<ref name="Steals">{{cite news |title='Simpsons' steals away Cosby viewers |date=September 5, 1991 |page=4 |newspaper=[[Los Angeles Times]] |first=Daniel |last=Cerone}}</ref> The series moved from 8:00&nbsp;p.m. eastern time on Sundays to the same time on Thursdays, where it competed with ''[[The Cosby Show]]'', the [[Nielsen ratings#Annual Top-Rated Shows|number-one show]] at the time.<ref name="ReissCosby">{{cite video |people=Reiss, Mike |date=2002 |title=Commentary for "[[Bart Gets an "F"|Bart Gets an 'F']]{{-"}}, in The Simpsons: The Complete Second Season |medium=DVD |publisher=[[20th Century Fox]]}}</ref>
+
+Many of the producers were against the move, as ''The Simpsons'' had been in the top ten while airing on Sunday, and they felt the move would destroy its ratings.<ref name="GroeningCosby">{{cite video |people=Groening, Matt |date=2002 |title=Commentary for "[[Bart Gets an "F"|Bart Gets an 'F']]{{-"}}, in The Simpsons: The Complete Second Season |medium=DVD |publisher=[[20th Century Fox]]}}</ref> Ratings-wise, new episodes of ''The Cosby Show'' beat ''The Simpsons'' every time during the second season, and ''The Simpsons'' eventually fell out of the top ten.<ref name="JeanCosby">{{cite video |people=Jean, Al |date=2003 |title=Commentary for "[[Homer at the Bat]]", in The Simpsons: The Complete Third Season |medium=DVD |publisher=[[20th Century Fox]]}}</ref> At the end of the season, ''Cosby'' averaged as the fifth-highest-rated show on television, while ''The Simpsons'' was thirty-eighth.<ref name="Steals" />
+
+The show continued in its Thursday timeslot until the [[The Simpsons season 6|sixth season]], which is when, in 1994, it reverted to its original slot on Sunday. It has remained there ever since.<ref name="ReissCosby" /><ref>{{cite news |title=Fifth Season Finds 'The Simpsons' Still Fresh, Funny |work=[[Pittsburgh Post-Gazette]] |author=Duffy, Mike |page=C–8 |date=September 3, 1994}}</ref>
+
+== Notes ==
+{{reflist|group=lower-alpha}}
+
+== References ==
+{{reflist}}
+
+== External links ==
+* {{IMDb episodes|0096697|The Simpsons}}
+* {{epguides|Simpsons|The Simpsons}}
+
+{{The Simpsons episodes|state=expanded}}
+{{The Simpsons}}
+{{Navboxes
+|title=''The Simpsons'' episodes
+|list1=
+{{Simpsons Sideshow Bob}}
+{{Simpsons Christmas episodes}}
+{{Treehouse of Horror}}
+}}
+<section end=tail/>
+
+{{DEFAULTSORT:Simpsons episodes, List of The}}
+[[Category:Lists of American adult animated television series episodes]]
+[[Category:Lists of American sitcom episodes]]
+[[Category:The Simpsons episodes| ]]
+[[Category:The Simpsons lists|Episodes]]

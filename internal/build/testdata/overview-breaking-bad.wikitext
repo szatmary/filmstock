@@ -1,0 +1,442 @@
+{{Short description|Episodes of American television drama}}
+{{Use American English|date=March 2026}}
+{{Use mdy dates|date=January 2024}}
+[[File:Breaking Bad logo.svg|right|250px]]
+''[[Breaking Bad]]'' is an American [[television drama series]] created by [[Vince Gilligan]] for the cable network [[AMC (TV channel)|AMC]]. The series follows [[Walter White (Breaking Bad)|Walter White]] ([[Bryan Cranston]]), a 50-year-old [[secondary education in the United States|high school]] [[chemistry]] teacher in [[Albuquerque, New Mexico]]. After White is diagnosed with terminal [[lung cancer]], he uses his chemistry expertise to cook [[Methamphetamine|crystal meth]], assisted by his former student [[Jesse Pinkman]] ([[Aaron Paul]]), to secure his family's (played by [[Anna Gunn]] and [[RJ Mitte]]) inheritance before he dies.
+
+{{aired episodes|showpage=Breaking Bad|finished=all|seasons=5}} The [[Pilot (Breaking Bad)|pilot episode]] first aired on January 20, 2008, and the [[Felina (Breaking Bad)|series finale]] first aired on September 29, 2013. ''Breaking Bad: Original Minisodes'', which consisted of several one- to five-minute clips, released 17 short episodes over the course of three years throughout ''Breaking Bad''{{'}}s run.<ref name="minisodes">{{cite web|last=Harding|first=Amanda|url=https://www.cheatsheet.com/entertainment/breaking-bad-17-secret-episodes-fans-dont-know-about.html/|title='Breaking Bad' Has 17 Secret Episodes Most Fans Don't Know About|work=Showbiz Cheatsheet|date=September 27, 2021|access-date=October 23, 2021}}</ref> 
+
+On October 11, 2019, [[Netflix]] released ''[[El Camino: A Breaking Bad Movie]]'', a feature film continuation of ''Breaking Bad'', written and directed by Gilligan.<ref name="ElCamino">{{cite news |last1=Itzkoff |first1=Dave |title='Breaking Bad' Movie, Starring Aaron Paul, Coming to Netflix in October |url=https://www.nytimes.com/2019/08/24/arts/television/breaking-bad-movie-starring-aaron-paul-coming-to-netflix-in-october.html |access-date=August 24, 2019 |work=The New York Times |date=August 24, 2019}}</ref> An additional short film ''[[Snow Globe: A Breaking Bad Short]]'' was released on February 17, 2020.<ref name="snowglobe">{{Cite web |last=Dick |first=Jeremy |date=February 17, 2020 |title=Snow Globe: A Breaking Bad Short Gives Us More of Todd from El Camino |url=https://movieweb.com/snow-globe-breaking-bad-short-todd-el-camino/ |url-status=live |archive-url=https://web.archive.org/web/20200218144133/https://movieweb.com/snow-globe-breaking-bad-short-todd-el-camino/ |archive-date=February 18, 2020 |access-date=February 18, 2020 |website=[[MovieWeb]]}}</ref>
+
+==Series overview==
+<onlyinclude>{{Series overview
+| color1       = #2FAAC3
+| link1        = <includeonly>List of Breaking Bad episodes</includeonly>#Season 1 (2008)
+| episodes1    = 7
+| start1       = {{Start date|2008|01|20}}
+| end1         = {{End date|2008|03|09}}
+
+| color2       = #2C6576
+| link2        = <includeonly>List of Breaking Bad episodes</includeonly>#Season 2 (2009)
+| episodes2    = 13
+| start2       = {{Start date|2009|03|08}}
+| end2         = {{End date|2009|05|31}}
+
+| color3       = #555555
+| link3        = <includeonly>List of Breaking Bad episodes</includeonly>#Season 3 (2010)
+| episodes3    = 13
+| start3       = {{Start date|2010|03|21}}
+| end3         = {{End date|2010|06|13}}
+
+| color4       = #C58F10
+| link4        = <includeonly>List of Breaking Bad episodes</includeonly>#Season 4 (2011)
+| episodes4    = 13
+| start4       = {{Start date|2011|07|17}}
+| end4         = {{End date|2011|10|09}}
+
+| link5        = <includeonly>List of Breaking Bad episodes</includeonly>#Season 5 (2012–13)
+| episodes5    = 16
+| color5A      = #016640
+| episodes5A   = 8
+| start5A      = {{Start date|2012|07|15}}
+| end5A        = {{End date|2012|09|02}}
+| color5B      = #016640
+| episodes5B   = 8
+| start5B      = {{Start date|2013|08|11}}
+| end5B        = {{End date|2013|09|29}}
+
+| color5S      = #972412
+| link5S       = <includeonly>List of Breaking Bad episodes</includeonly>#Film
+| linkT5S      = Film
+| released5S      = {{Start date|2019|10|11}}
+}}</onlyinclude>
+
+== Episodes ==
+=== Season 1 (2008) ===
+{{Main|Breaking Bad season 1|label1=''Breaking Bad'' season 1}}
+{{:Breaking Bad season 1}}
+
+=== Season 2 (2009) ===
+{{Main|Breaking Bad season 2|label1=''Breaking Bad'' season 2}}
+{{:Breaking Bad season 2}}
+
+=== Season 3 (2010) ===
+{{Main|Breaking Bad season 3|label1=''Breaking Bad'' season 3}}
+{{:Breaking Bad season 3}}
+
+=== Season 4 (2011) ===
+{{Main|Breaking Bad season 4|label1=''Breaking Bad'' season 4}}
+{{:Breaking Bad season 4}}
+
+=== Season 5 (2012–13) ===
+{{Main|Breaking Bad season 5|label1=''Breaking Bad'' season 5}}
+{{:Breaking Bad season 5}}
+
+==Film==
+=== ''El Camino: A Breaking Bad Movie'' (2019) ===
+{{Main|El Camino: A Breaking Bad Movie|label1=''El Camino: A Breaking Bad Movie''}}
+''El Camino: A Breaking Bad Movie'' is a film written and directed by series creator [[Vince Gilligan]] that serves as a continuation of the television series.<ref name="ElCamino"/> It was released on October 11, 2019, on [[Netflix]] and was broadcast on [[AMC (TV channel)|AMC]] on February 16, 2020.<ref name="ElCamino"/><ref>{{cite web |url=https://www.tvline.com/news/breaking-bad-movie-amc-premiere-date-full-series-marathon-1142131/ |title=Breaking Bad Movie Gets AMC Premiere Date, Following a Full Series Marathon |website=TVLine |first=Matt Webb |last=Mitovich |date=January 7, 2020 |access-date=January 7, 2020}}</ref> The film centers around [[Jesse Pinkman]], and takes place both during his captivity at the hands of the Aryan Brotherhood and after his escape in the [[Felina (Breaking Bad)|''Breaking Bad'' series finale]].<ref name="ElCamino"/>
+ 
+{{Episode table |background=#972412 |title=30 |director=18 |writer=27 |airdate=15 |viewers=10 |country=U.S. |episodes=
+{{Episode list
+ |RTitle = ''[[El Camino: A Breaking Bad Movie]]''
+ |DirectedBy = [[Vince Gilligan]]
+ |WrittenBy = Vince Gilligan
+ |OriginalAirDate = {{Start date|2019|10|11}}
+ |Viewers = 2.65{{efn|2.65 million viewers on the first day of release and 6.54 million over the first three days.<ref name="THR ratings">{{Cite web |url=https://www.hollywoodreporter.com/live-feed/breaking-bad-movie-el-camino-draws-strong-opening-weekend-viewing-1248585 |title='El Camino' Draws Solid Opening-Weekend Viewing, Nielsen Says |last=Porter |first=Rick |date=October 17, 2019 |website=[[The Hollywood Reporter]] |access-date=October 17, 2019}}</ref>}}
+ |ShortSummary =
+ |LineColor = 972412
+}}
+}}
+
+== Other media ==
+===''Breaking Bad: Original Minisodes'' (2009–2011)===
+''Breaking Bad: Original Minisodes'' is a [[web series]] based on the television series ''Breaking Bad''. A total of 17 "minisodes", which are more comedy-oriented than most full episodes, were released over the course of three years.<ref name="minisodes" />
+
+====Season 1 (2009)====
+On February 17, 2009, five "mini-episodes" were made available online before the premiere of the show's second season.<ref>{{Cite magazine |last=Snierson |first=Dan |date=February 19, 2009 |title='Breaking Bad' minisodes: Something to satisfy your craving |url=https://ew.com/article/2009/02/19/breaking-bad-mi/ |access-date=January 11, 2024 |magazine=Entertainment Weekly |language=en}}</ref> These five were eventually included with ''Breaking Bad: The Complete Second Season''.<ref>{{cite web |url=https://www.blu-ray.com/movies/Breaking-Bad-The-Complete-Second-Season-Blu-ray/8966/#Review |title=Breaking Bad: The Complete Second Season Blu-ray |website=Blu-ray.com |first=Martin |last=Liebman |date=March 3, 2010 |access-date=January 9, 2024}}</ref>
+{{Episode table |background=#135C6B |overall=5 |season=5 |title=25 |director=18 |writer=27 |airdate=15 |aux4=10
+|aux4T=Running time |episodes=
+{{Episode list
+ |EpisodeNumber = 1
+ |EpisodeNumber2 = 1
+ |Title = Good Cop / Bad Cop
+ |DirectedBy = [[John Shiban]]
+ |WrittenBy = Suzanne Potts
+ |OriginalAirDate = {{Start date|2009|02|17}}
+ |Aux4=2:53
+ |ShortSummary = Hank and Marie celebrate Valentine's Day.
+ |LineColor = 135C6B
+}}
+{{Episode list
+ |EpisodeNumber = 2
+ |EpisodeNumber2 = 2
+ |Title = Wedding Day
+ |DirectedBy = John Shiban
+ |WrittenBy = Kate Powers
+ |OriginalAirDate = {{Start date|2009|02|17}}
+ |Aux4= 4:50
+ |ShortSummary = Hank and Walt have a discussion on Hank and Marie's wedding day.
+ |LineColor = 135C6B
+}}
+{{Episode list
+ |EpisodeNumber = 3
+ |EpisodeNumber2 = 3
+ |Title = TwaüghtHammër
+ |DirectedBy = John Shiban
+ |WrittenBy = [[Gennifer Hutchison]]
+ |OriginalAirDate = {{Start date|2009|02|17}}
+ |Aux4=4:13
+ |ShortSummary = Jesse explains the origins of his band, TwaüghtHammër.
+ |LineColor = 135C6B
+}}
+{{Episode list
+ |EpisodeNumber = 4
+ |EpisodeNumber2 = 4
+ |Title = Marie's Confession
+ |DirectedBy = John Shiban
+ |WrittenBy = [[Vince Gilligan]]
+ |OriginalAirDate = {{Start date|2009|02|17}}
+ |Aux4=2:47
+ |ShortSummary = Marie confesses about her shop-lifting.
+ |LineColor = 135C6B
+}}
+{{Episode list
+ |EpisodeNumber = 5
+ |EpisodeNumber2 = 5
+ |Title = The Break-In
+ |DirectedBy = John Shiban
+ |WrittenBy = Gennifer Hutchison
+ |OriginalAirDate = {{Start date|2009|02|17}}
+ |Aux4=4:49
+ |ShortSummary = Walt asks for help from Badger to break into an old woman's house and get his vacuum cleaner back.
+ |LineColor = 135C6B
+}}
+}}
+
+====Season 2 (2010)====
+Before ''Breaking Bad''{{'}}s third season, ten more webisodes were released, each mostly focused on Saul Goodman.<ref name="minisodes" />
+{{Episode table |background=#555555 |overall=5 |season=5 |title=25 |director=18 |writer=27 |airdate=15 |aux4=10
+|aux4T=Running time |episodes=
+{{Episode list
+ |EpisodeNumber = 6
+ |EpisodeNumber2 = 1
+ |Title = Live Saul Cam
+ |DirectedBy = {{TableTBA|N/A}}
+ |WrittenBy = {{TableTBA|N/A}}
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=5:05
+ |ShortSummary = Surveillance camera footage showcasing what Saul does in his free time at his office, including receiving fellatio from a prostitute.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 7
+ |EpisodeNumber2 = 2
+ |Title = Fernando
+ |DirectedBy = [[Peter Gould]]
+ |WrittenBy = Peter Gould
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4= 1:19
+ |ShortSummary = Fernando, accused of stealing a truck, appears in an advert for Saul.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 8
+ |EpisodeNumber2 = 3
+ |Title = Carl
+ |DirectedBy = Peter Gould
+ |WrittenBy = Peter Gould
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=1:23
+ |ShortSummary = Carl's story about how Saul helped him with a problem involving his ex.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 9
+ |EpisodeNumber2 = 4
+ |Title = Wendy
+ |DirectedBy = Peter Gould
+ |WrittenBy = Peter Gould
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=1:28
+ |ShortSummary = Wendy's story about how Saul got her out of jail.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 10
+ |EpisodeNumber2 = 5
+ |Title = Badger
+ |DirectedBy = Peter Gould
+ |WrittenBy = Peter Gould
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=1:56
+ |ShortSummary = Badger recalls how Saul got him out of trouble after he was selling meth.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 11
+ |EpisodeNumber2 = 6
+ |Title = Wayfarer 515
+ |DirectedBy = Peter Gould
+ |WrittenBy = Peter Gould
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=2:14
+ |ShortSummary = The advert that Saul used to appeal to victims of the Wayfarer 515 accident.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 12
+ |EpisodeNumber2 = 7
+ |Title = Letters to Saul
+ |DirectedBy = [[Bob Odenkirk]]
+ |WrittenBy = Peter Gould
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=1:52
+ |ShortSummary = Saul opens some letters that he receives from criminals.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 13
+ |EpisodeNumber2 = 8
+ |Title = Tiger Trouble? Better Call Saul!
+ |DirectedBy = Peter Gould
+ |WrittenBy = Peter Gould
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=1:50
+ |ShortSummary = An advert Saul used to appeal to illegal tiger owners.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 14
+ |EpisodeNumber2 = 9
+ |Title = Saul Says: "Sue 'Em Now"
+ |DirectedBy = Bob Odenkirk
+ |WrittenBy = Peter Gould
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=1:37
+ |ShortSummary = An advert that Saul used to make people want to come to him to sue companies.
+ |LineColor = 555555
+}}
+{{Episode list
+ |EpisodeNumber = 15
+ |EpisodeNumber2 = 10
+ |Title = Team S.C.I.E.N.C.E.
+ |DirectedBy = {{TableTBA|N/A}}
+ |WrittenBy = {{TableTBA|N/A}}
+ |OriginalAirDate = {{Start date|2010}}
+ |Aux4=3:51
+ |ShortSummary = Jesse imagines all of his friends as one team, Team SCIENCE.
+ |LineColor = 555555
+}}
+}}
+
+====Season 3 (2011)====
+Additional minisodes were produced before the premiere of ''Breaking Bad''{{'}}s fourth season; two would eventually be released.<ref name="minisodes" /><ref>{{Cite web|url=https://deadline.com/2010/08/breaking-bad-wont-be-back-until-2011-plans-for-mini-episodes-on-amc-website-59782/|title='Breaking Bad' Won't Be Back Until July 2011: Plans For Mini-Episodes Online|work=Deadline Hollywood|date=August 4, 2010|access-date=February 23, 2011}}</ref>
+{{Episode table |background=#C58F10 |overall=5 |season=5 |title=25 |writer=27 |airdate=15 |aux4=10
+|aux4T=Running time |episodes=
+{{Episode list
+ |EpisodeNumber = 16
+ |EpisodeNumber2 = 1
+ |Title = Fatty Fat Fat
+ |WrittenBy = Aubrey Husar & [[Gordon Smith (screenwriter)|Gordon Smith]]
+ |OriginalAirDate = {{Start date|2011}}
+ |Aux4=0:57
+ |ShortSummary = Saul appears in an advert which appeals to overweight people to come to him for advice on how to lose weight.
+ |LineColor = C58F10
+}}
+{{Episode list
+ |EpisodeNumber = 17
+ |EpisodeNumber2 = 2
+ |Title = Fighting for You
+ |WrittenBy = Aubrey Husar & Gordon Smith
+ |OriginalAirDate = {{Start date|2011}}
+ |Aux4= 1:09
+ |ShortSummary = Saul's story about how two boxers came to him for compensation.
+ |LineColor = C58F10
+}}
+}}
+
+===''Snow Globe: A Breaking Bad Short'' (2020)===
+{{Main|Snow Globe: A Breaking Bad Short|label1=''Snow Globe: A Breaking Bad Short''}}
+In conjunction with the television premiere of ''[[El Camino: A Breaking Bad Movie]]'' on AMC, the network released a three-minute short film ''Snow Globe: A Breaking Bad Short'' on its official YouTube account on February 17, 2020.<ref name="snowglobe" />
+
+{{Episode table |background=#972412 |title=25 |director=18 |writer=27 |airdate=15 |aux4=10
+|aux4T=Running time |episodes=
+{{Episode list
+ |RTitle = ''[[Snow Globe: A Breaking Bad Short]]''
+ |DirectedBy = Eric Schmidt
+ |WrittenBy = Melissa Ng
+ |OriginalAirDate = {{Start date|2020|02|17}}
+ |Aux4=2:45
+ |ShortSummary = Todd assembles a custom snow globe which includes his and Lydia's likenesses, as he tries to call her to ask her on a date.
+ |LineColor = 972412
+}}
+}}
+
+== Ratings ==
+{{Television ratings graph
+| title       = Breaking Bad
+| country     = U.S.
+| color1      = #2FAAC3
+| color2      = #2C6576
+| color3      = #555555
+| color4      = #C58F10
+| color5      = #016640
+| color6      = #A9A9A9
+
+| legend1   = 1
+| legend2   = 2
+| legend3   = 3
+| legend4   = 4
+| legend5   = 5A
+| legend6   = 5B
+| x_intervals = 5
+| bar_width   = 10
+| average     = y
+| refs        = <ref>
+----
+For the first season, see {{cite web |url=http://www.adweek.com/news/television/breaking-bad-finale-draws-103-million-viewers-152804 |title=Breaking Bad Finale Draws 10.3 Million Viewers |work=Adweek |first=Anthony |last=Crupi |date=September 30, 2013 |url-status=live |archive-url=https://web.archive.org/web/20130930215002/http://www.adweek.com/news/television/breaking-bad-finale-draws-103-million-viewers-152804 |archive-date=September 30, 2013 |access-date=June 15, 2015}}
+----
+For the second season, see {{cite magazine |url=https://www.ew.com/article/2012/07/16/breaking-bad-ratings-2 |title='Breaking Bad' returns to record premiere ratings |magazine=Entertainment Weekly |first=James |last=Hibberd |date=July 16, 2012 |url-status=live |archive-url=https://web.archive.org/web/20150920133343/https://www.ew.com/article/2012/07/16/breaking-bad-ratings-2 |archive-date=September 20, 2015 |access-date=June 16, 2015}}
+----
+For the third season, see {{cite web |url=http://www.thefutoncritic.com/news/2011/01/24/2010-year-in-review-2011-year-in-preview-amc-558111/9082/ |title=2010 Year in Review/2011 Year in Preview: AMC |publisher=The Futon Critic |date=January 24, 2011 |access-date=June 15, 2015}}
+----
+For the fourth season, see {{cite web |url=http://www.thefutoncritic.com/ratings/2011/10/10/amcs-breaking-bad-breaks-records-by-growing-more-than-any-other-season-4-drama-in-basic-cable-history-for-adults-18-49-935013/20111010amc01/ |title=AMC's "Breaking Bad" Breaks Records by Growing More Than Any Other Season 4 Drama in Basic Cable History for Adults 18–49 |publisher=The Futon Critic |date=October 10, 2011 |access-date=June 15, 2015}}
+----
+For the fifth season, see {{cite web |url=http://tvseriesfinale.com/tv-show/breaking-bad-season-five-ratings-23805/ |title=Breaking Bad: Season Five Ratings |publisher=TV Series Finale |date=October 2, 2013 |access-date=June 14, 2015}}</ref>
+| -
+<!-- S01E01 -->| 1.41
+<!-- S01E02 -->| 1.49
+<!-- S01E03 -->| 1.08
+<!-- S01E04 -->| 1.09
+<!-- S01E05 -->| 0.97
+<!-- S01E06 -->| 1.07
+<!-- S01E07 -->| 1.50
+<!-- S01_AV -->| 1.23
+| -
+<!-- S02E01 -->| 1.66
+<!-- S02E02 -->| 1.60
+<!-- S02E03 -->| 1.13
+<!-- S02E04 -->| 1.29
+<!-- S02E05 -->| 1.21
+<!-- S02E06 -->| 1.41
+<!-- S02E07 -->| 1.20
+<!-- S02E08 -->| 1.04
+<!-- S02E09 -->| 1.27
+<!-- S02E10 -->| 1.19
+<!-- S02E11 -->| 1.29
+<!-- S02E12 -->| 1.19
+<!-- S02E13 -->| 1.50
+<!-- S02_AV -->| 1.30
+|-
+<!-- S03E01 -->| 1.95
+<!-- S03E02 -->| 1.55
+<!-- S03E03 -->| 1.33
+<!-- S03E04 -->| 1.46
+<!-- S03E05 -->| 1.61
+<!-- S03E06 -->| 1.64
+<!-- S03E07 -->| 1.52
+<!-- S03E08 -->| 1.78
+<!-- S03E09 -->| 1.61
+<!-- S03E10 -->| 1.20
+<!-- S03E11 -->| 1.32
+<!-- S03E12 -->| 1.19
+<!-- S03E13 -->| 1.56
+<!-- S03_AV -->| 1.52
+|-
+<!-- S04E01 -->| 2.58
+<!-- S04E02 -->| 1.97
+<!-- S04E03 -->| 1.71
+<!-- S04E04 -->| 1.83
+<!-- S04E05 -->| 1.75
+<!-- S04E06 -->| 1.67
+<!-- S04E07 -->| 1.91
+<!-- S04E08 -->| 1.98
+<!-- S04E09 -->| 1.89
+<!-- S04E10 -->| 1.80
+<!-- S04E11 -->| 1.55
+<!-- S04E12 -->| 1.73
+<!-- S04E13 -->| 1.90
+<!-- S04_AV -->| 1.87
+|-
+<!-- S05E01 -->| 2.93
+<!-- S05E02 -->| 2.29
+<!-- S05E03 -->| 2.20
+<!-- S05E04 -->| 2.29
+<!-- S05E05 -->| 2.48
+<!-- S05E06 -->| 2.81
+<!-- S05E07 -->| 2.98
+<!-- S05E08 -->| 2.78
+<!-- S05_AV -->| 2.60
+|-
+<!-- S05E09 -->| 5.92
+<!-- S05E10 -->| 4.77
+<!-- S05E11 -->| 4.85
+<!-- S05E12 -->| 4.41
+<!-- S05E13 -->| 5.11
+<!-- S05E14 -->| 6.37
+<!-- S05E15 -->| 6.58
+<!-- S05E16 -->| 10.28
+<!-- S05_AV -->| 6.04
+}}
+
+==See also==
+* [[List of Better Call Saul episodes|List of ''Better Call Saul'' episodes]]
+
+==Notes==
+{{notelist}}
+
+==References==
+{{reflist}}
+
+== External links ==
+* {{IMDb episodes|0903747|Breaking Bad}}
+
+{{Breaking Bad}}
+{{Breaking Bad (franchise)}}
+
+{{DISPLAYTITLE:List of ''Breaking Bad'' episodes}}
+
+{{DEFAULTSORT:Breaking Bad}}
+[[Category:Breaking Bad episodes| ]]
+[[Category:Lists of American crime drama television series episodes]]

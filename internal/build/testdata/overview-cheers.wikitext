@@ -1,0 +1,226 @@
+{{Short description|None}}
+{{DISPLAYTITLE:List of ''Cheers'' episodes}}
+{{Use American English|date=March 2026}}
+{{Use mdy dates|date=January 2025}}
+''[[Cheers]]'' originally aired on [[NBC]] from September 30, 1982 to May 20, 1993. Over the series run, 275 original episodes aired, an average of around 25 episodes per season. In the early 1990s, 20 volumes of [[VHS]] cassettes were released; each had three half-hour episodes.<ref name=vhs>Hunt, Dennis. {{Deprecated archive|url=https://archive.today/20130201080758/http://pqasb.pqarchiver.com/latimes/access/60290220.html?FMT=ABS&FMTS=ABS:FT|title="Cheer Up! 'Cheers' Lives via Mail Order"}}. ''[[Los Angeles Times]]'' 14 May 1993: F18. Web. 1 June 2012. {{subscription required}}</ref> The whole series is available on multi-disc sets on [[DVD]], two to four per season. The series is also available on [[iTunes]], on [[Paramount+]] and Seasons 1–4 are on [[Hulu]]. Episodes aired on C4 and C4+1 on weekdays.
+
+==Series overview==
+<onlyinclude>{{Series overview
+| infoA      = Rank<ref name="classicsitcoms.com">{{Cite web|url=https://classicsitcoms.com/shows/cheershome.html|title=The Classic Sitcoms Guide to...Cheers}}</ref>
+| infoB      = Rating<ref name="classicsitcoms.com">{{Cite web|url=https://classicsitcoms.com/shows/cheershome.html|title=The Classic Sitcoms Guide to...Cheers}}</ref> 
+| infoC      = Households (seasons 1-6)/<br>Viewers (seasons 7–11)<br>(millions)
+
+| color1     = #e38181
+| link1      = <includeonly>List of Cheers episodes</includeonly>#Season 1 (1982–83)
+| episodes1  = 22
+| start1     = {{Start date|1982|9|30}}
+| end1       = {{End date|1983|3|31}}
+| infoA1     = 74
+| infoB1     = 13.1
+| infoC1     = 10.9
+
+| color2     = #e2a482
+| link2      = <includeonly>List of Cheers episodes</includeonly>#Season 2 (1983–84)
+| episodes2  = 22
+| start2     = {{Start date|1983|9|29}}
+| end2       = {{End date|1984|5|10}}
+| infoA2     = 34
+| infoB2     = 16.6{{refn|Tied with ''[[Goodnight, Beantown]]''.|group=lower-alpha}}
+| infoC2     = 13.8
+
+| color3     = #e3cd81
+| link3      = <includeonly>List of Cheers episodes</includeonly>#Season 3 (1984–85)
+| episodes3  = 25
+| start3     = {{Start date|1984|9|27}}
+| end3       = {{End date|1985|5|9}}
+| infoA3     = 13
+| infoB3     = 19.7
+| infoC3     = 16.7
+
+| color4     = #b4e381
+| link4      = <includeonly>List of Cheers episodes</includeonly>#Season 4 (1985–86)
+| episodes4  = 26
+| start4     = {{Start date|1985|9|26}}
+| end4       = {{End date|1986|5|15}}
+| infoA4     = 5
+| infoB4     = 23.7
+| infoC4     = 20.4
+
+| color5     = #81e393
+| link5      = <includeonly>List of Cheers episodes</includeonly>#Season 5 (1986–87)
+| episodes5  = 26
+| start5     = {{Start date|1986|9|25}}
+| end5       = {{End date|1987|5|7}}
+| infoA5     = 3
+| infoB5     = 27.2
+| infoC5     = 23.8
+
+
+| color6     = #81e3d4
+| link6      = <includeonly>List of Cheers episodes</includeonly>#Season 6 (1987–88)
+| episodes6  = 25
+| start6     = {{Start date|1987|9|24}}
+| end6       = {{End date|1988|5|5}}
+| infoA6     = 3
+| infoB6     = 23.4
+| infoC6     = 20.7
+
+| color7     = #81a6e3
+| link7      = <includeonly>List of Cheers episodes</includeonly>#Season 7 (1988–89)
+| episodes7  = 22
+| start7     = {{Start date|1988|10|27}}
+| end7       = {{End date|1989|5|4}}
+| infoA7     = 4
+| infoB7     = 22.3
+| infoC7     = 33.9
+
+| color8     = #AAAAAA
+| link8      = <includeonly>List of Cheers episodes</includeonly>#Season 8 (1989–90)
+| episodes8  = 26
+| start8     = {{Start date|1989|9|21}}
+| end8       = {{End date|1990|5|3}}
+| infoA8     = 3
+| infoB8     = 22.7
+| infoC8     = 34.7
+
+| color9     = #0F1D8E
+| link9      = <includeonly>List of Cheers episodes</includeonly>#Season 9 (1990–91)
+| episodes9  = 26
+| start9     = {{Start date|1990|9|20}}
+| end9       = {{End date|1991|5|2}}
+| infoA9     = 1
+| infoB9     = 21.3
+| infoC9     = 32.7
+
+| color10    = #fee72c
+| link10     = <includeonly>List of Cheers episodes</includeonly>#Season 10 (1991–92)
+| episodes10 = 26
+| start10    = {{Start date|1991|9|19}}
+| end10      = {{End date|1992|5|14}}
+| infoA10    = 4
+| infoB10    = 17.6
+| infoC10    = 27.3
+
+| color11    = #80c1e0
+| link11     = <includeonly>List of Cheers episodes</includeonly>#Season 11 (1992–93)
+| episodes11 = 28
+| start11    = {{Start date|1992|9|24}}
+| end11      = {{End date|1993|5|20}}
+| infoA11    = 8
+| infoB11    = 16.1{{refn|Tied with The [[CBS Sunday Movie]].|group=lower-alpha}}
+| infoC11    = 28.2
+}}</onlyinclude>
+
+==Episodes==
+
+===Season 1 (1982–83)===
+{{Main|Cheers season 1|label1=''Cheers'' season 1}}
+<small>(Note: DVD Season 1 Disc 1 of the box-set episodes are out of sequence.  The following is the correct airing order)</small>{{:Cheers season 1}}
+<!-- To edit the episodes in this section, you need to edit the article listed above-->
+
+===Season 2 (1983–84)===
+{{Main|Cheers season 2|label1=''Cheers'' season 2}}
+{{:Cheers season 2}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+===Season 3 (1984–85)===
+{{Main|Cheers season 3|label1=''Cheers'' season 3}}
+{{:Cheers season 3}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+===Season 4 (1985–86)===
+{{Main|Cheers season 4|label1=''Cheers'' season 4}}
+{{:Cheers season 4}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+===Season 5 (1986–87)===
+{{Main|Cheers season 5|label1=''Cheers'' season 5}}
+{{:Cheers season 5}}
+<!-- To edit the episodes in this section, you need to edit the article listed above. -->
+
+===Season 6 (1987–88)===
+{{Main|Cheers season 6|label1=''Cheers'' season 6}}
+{{:Cheers season 6}}
+<!-- To edit the episodes in this section, you need to edit the article listed above-->
+
+===Season 7 (1988–89)===
+{{Main|Cheers season 7|label1=''Cheers'' season 7}}
+{{:Cheers season 7}}
+<!-- To edit the episodes in this section, you need to edit the article listed above-->
+
+===Season 8 (1989–90)===
+{{Main|Cheers season 8|label1=''Cheers'' season 8}}
+{{:Cheers season 8}}
+
+===Season 9 (1990–91)===
+{{Main|Cheers season 9|label1=''Cheers'' season 9}}
+{{:Cheers season 9}}
+
+===Season 10 (1991–92)===
+{{Main|Cheers season 10|label1=''Cheers'' season 10}}
+{{:Cheers season 10}}
+
+===Season 11 (1992–93)===
+{{Main|Cheers season 11|label1=''Cheers'' season 11}}
+{{:Cheers season 11}}
+
+== Notes ==
+{{notelist}}
+{{reflist|2|refs=
+<ref name=1983superbowl>{{cite news|title=Cast of ''Cheers'' with special material about the Super Bowl|at=Part VI (Calendar), page 7|newspaper=[[Los Angeles Times]]|date=February 2, 1983}} Microfilm.</ref>
+}}
+
+===References===
+<!--
+*{{cite book|isbn=0-89950-962-2|first=Dennis A.|last=Bjorklund|publisher=McFarland & Company|year=1997|location=Jefferson, NC|title=Toasting Cheers: An Episode Guide, 1982–1993}}
+*{{cite book|isbn=978-0-9679852-3-7|first=Dennis A.|last=Bjorklund|publisher=Praetorian Publishing|title=Cheers: A Comprehensive Reference|year=2008}}
+-->
+*{{cite book |last=Bjorklund |first=Dennis A. |url=https://books.google.com/books?id=pEN6sTeG20AC |title=Cheers TV Show: A Comprehensive Reference |publisher=Praetorian Publishing |year=1993|isbn=9780967985237 }} [https://books.google.com/books?id=hKbxOW2ONGEC Another edition]
+* {{cite book|last=Bjorklund|first=Dennis A|edition=e-Book|orig-year=First published in 1993 as print edition|publisher=Praetorian Publishing|title=Cheers TV Show: A Comprehensive Reference|url=https://books.google.com/books?id=pEN6sTeG20AC|access-date=June 27, 2012|isbn=9780967985237|date=September 2014}}
+* {{cite book|last=Bjorklund|first=Dennis A|edition=e-Book|publisher=Praetorian Publishing|title=Cheers TV Show: A Comprehensive Reference|year= 2017 |isbn=9780967985237 |url=https://books.google.com/books?id=pEN6sTeG20AC|accessdate=June 27, 2012}}
+
+=== Ratings notes ===
+; Season 1
+According to ''[[Los Angeles Times]]'', ratings from 1982 to 1983 were based on 83.3 million households with at least one television set. "Television Ratings" column list is located at Part VI, "Calendar" section. Below sources originated from ''Los Angeles Times'', republished in [[microform|microfilm]] copies, which may be located in your local library.
+{{reflist|2|group=rat1}}
+
+;Season 2
+Except where noted, they were originally published in print editions of ''[[The Miami Herald]]'' newspaper.
+{{reflist|2|group=rat2}}
+
+;Season 3
+According to ''[[Los Angeles Times]]'', [[Nielsen ratings]] of 1984&ndash;85 were based on 84.9 million households.
+{{reflist|2|group=rat3}}
+
+;Season 4
+According to the ''[[Daily Breeze]]'', a newspaper from [[Torrance, California]], the 1985–86 ratings are based on 85.9 million households with at least one television.
+{{reflist|2|group=rat4}}
+
+;Season 5
+According to [https://news.google.com/newspapers?id=g18iAAAAIBAJ&sjid=AqsFAAAAIBAJ&pg=2404%2C1458319 the 15 May 1987 article] from ''[[The Argus-Press]]'', the 1986–87 ratings were based on 87.4 million households with at least one television set. Unless otherwise, the sources were of the newspaper ''[[Pittsburgh Post-Gazette]]''.
+{{reflist|2|group=rat5}}
+
+;Season 6
+Unless otherwise, the main source of [[Nielsen ratings]] is the newspaper ''[[Pittsburgh Post-Gazette]]''. According to that main source, ratings of 1987–88 were based on 88.6 million households that have at least one television.
+{{reflist|2|group=rat6}}
+
+;Season 7
+Unless otherwise, the main source of [[Nielsen ratings]] is the newspaper ''[[Pittsburgh Post-Gazette]]''. According to that main source, ratings of 1988–89 were based on 90.4 million households that have at least one television.
+{{reflist|group=rat7|2}}
+
+;Season 8
+According to many newspapers, including the main source ''[[USA Today]]'', the 1989–90 [[Nielsen ratings]] are based on 92.1 million households that have at least one television.
+{{reflist|group=rat8|2}}
+
+==External links==
+* {{cite web|url=http://tv.msn.com/tv/series-episodes/cheers|title=Cheers: Episode Guide|publisher=[[MSN TV]]|access-date=April 5, 2010|archive-url=https://web.archive.org/web/20110116175658/http://tv.msn.com/tv/series-episodes/cheers/|archive-date=January 16, 2011|url-status=dead}}
+* {{cite web|url=https://www.tvguide.com/detail/tv-show.aspx?tvobjectid=100083&more=ucepisodelist|archive-url=https://web.archive.org/web/20110613194845/http://www.tvguide.com/tvshows/cheers/episodes-season-11/100083|url-status=dead|archive-date=June 13, 2011<!-- Note: The url listed here automatically redirects to the latest season for each TV program so, please, do not change to a direct season link. -->|title=Cheers episode guide|publisher=[[TV Guide]]|access-date=April 5, 2010}}
+*{{IMDb episodes|0083399|Cheers}}
+
+{{Cheers}}
+
+{{DEFAULTSORT:Cheers}}
+[[Category:Cheers episodes| ]]
+[[Category:Lists of American sitcom episodes]]
+
+[[it:Episodi di Cin cin (prima stagione)]]
