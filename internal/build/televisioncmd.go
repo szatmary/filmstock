@@ -95,6 +95,18 @@ func parseTelevisionPage(p dump.Page) []televisionMsg {
 		return msgs
 	}
 
+	// An anime franchise article: {{Infobox animanga/Video}} rather than
+	// {{Infobox television}}. Checked after the television infobox, so a page
+	// carrying both is read as television.
+	if ib, ok := FindAnimangaSeries(text); ok {
+		s := buildTelevisionSeries(p.Title, p.ID, ib)
+		s.Overview, s.Plot = wikitext.ExtractLeadAndPlot(text)
+		msgs = append(msgs, televisionMsg{series: s})
+		msgs = append(msgs, episodesByHeading(text, p.ID, p.Title, p.ID)...)
+		msgs = append(msgs, overviewMsgs(text, p.ID, p.Title, p.ID)...)
+		return msgs
+	}
+
 	// "List of X episodes" article. Its owner is not stated here either.
 	if reListEpisodes.MatchString(p.Title) {
 		msgs = append(msgs, episodesByHeading(text, p.ID, p.Title, 0)...)

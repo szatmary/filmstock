@@ -1,0 +1,517 @@
+{{Short description|Japanese anime television series}}
+{{Redirect|Code Geass: Lelouch of the Rebellion|the film series|Code Geass Lelouch of the Rebellion{{!}}''Code Geass Lelouch of the Rebellion''}}
+{{Redirect|Geass|the taboo or vow|Geas}}
+{{Infobox animanga/Header
+| name = Code Geass: Lelouch of the Rebellion
+| image = Code Geass R1 box set cover.jpg
+| caption = Cover of ''Code Geass: Lelouch of the Rebellion'' [[Blu-ray]] box set
+| ja_kanji = コードギアス 反逆のルルーシュ
+| ja_romaji = Kōdo Giasu: Hangyaku no Rurūshu
+| genre = {{ubl|[[Alternate history]]<ref>{{cite web|last=Ming Cha|first=Kai|date=March 1, 2010|title=Code Geass Manga Expands at Bandai|url=https://www.publishersweekly.com/pw/by-topic/industry-news/comics/article/42283-code-geass-manga-expands-at-bandai.html|url-status=live|archive-url=https://web.archive.org/web/20190204122454/https://www.publishersweekly.com/pw/by-topic/industry-news/comics/article/42283-code-geass-manga-expands-at-bandai.html|archive-date=February 4, 2019|access-date=February 4, 2019|website=[[Publishers Weekly]]}}</ref>|[[Mecha anime and manga|Mecha]]<ref>{{cite web|last=Osmond|first=Andrew|author-link=Andrew Osmond (journalist)|date=February 24, 2006|title=Netflix Adds Code Geass|url=https://www.animenewsnetwork.com/news/2016-02-24/netflix-adds-code-geass/.99033|url-status=live|archive-url=https://web.archive.org/web/20190521041954/https://www.animenewsnetwork.com/news/2016-02-24/netflix-adds-code-geass/.99033|archive-date=May 21, 2019|access-date=July 22, 2018|website=[[Anime News Network]]}}</ref>|[[Military fiction]]<ref>{{cite web|last1=Loo|first1=Egan|date=December 8, 2007|title=Code Geass to Air on America's Adult Swim in Spring (Updated)|url=http://www.animenewsnetwork.com/news/2007-12-08/code-geass-to-air-on-adult-swim-in-usa|url-status=live|archive-url=https://web.archive.org/web/20071209233018/http://www.animenewsnetwork.com/news/2007-12-08/code-geass-to-air-on-adult-swim-in-usa|archive-date=December 9, 2007|access-date=November 2, 2019|website=[[Anime News Network]]}}</ref>}}<!-- Note: Use and cite reliable sources to identify genre/s, not personal interpretation. Please don't include more than three genres (per [[MOS:A&M]]). -->
+| creator = {{ubl|[[Gorō Taniguchi]]|[[Ichirō Ōkouchi]]}}
+}}
+{{Infobox animanga/Video
+| type = tv series
+| title = Code Geass: Lelouch of the Rebellion
+| director = Gorō Taniguchi
+| producer = {{Unbulleted list|Hiroshi Morotomi|Yoshitaka Kawaguchi|Takuo Minegishi|Atsushi Yukawa}}
+| writer = Ichirō Ōkouchi<!-- Head writer only -->
+| music = {{Unbulleted list|[[Kōtarō Nakagawa]]|Hitomi Kuroishi}}
+| studio = [[Sunrise (company)|Sunrise]]
+| licensee = {{ubl|[[Crunchyroll]]{{efn|name=Crunchyroll|In [[North America]] through [[Crunchyroll, LLC]] (formerly known as Funimation), in the [[United Kingdom]] through [[Crunchyroll UK and Ireland]] (formerly known as [[Manga Entertainment]]) and in [[Australia]] through [[Crunchyroll Store Australia|Crunchyroll Pty. Ltd.]] (formerly known as [[Madman Entertainment|Madman Anime]]).}}|{{English anime licensee| SEA = {{ubl|[[Odex]]|[[Medialink]]}}}}}}
+| network = [[Japan News Network|JNN]] ([[Mainichi Broadcasting System|MBS]], [[TBS Television (Japan)|TBS]])
+| network_en = {{English anime network
+| AU = [[ABC TV Plus|ABC2]]
+| PH = [[TV5 (Philippine TV channel)|TV5]], [[Hero (TV channel)|Hero]]
+| US = [[Adult Swim]], [[Crunchyroll Channel]]<ref>{{cite web|date=October 11, 2023|title=Crunchyroll Launches 24/7 Anime Channel in the US|url=https://www.crunchyroll.com/news/announcements/2023/10/11/crunchyroll-launches-24-7-anime-channel-in-the-us|url-status=live|archive-url=https://web.archive.org/web/20231011133618/https://www.crunchyroll.com/news/announcements/2023/10/11/crunchyroll-launches-24-7-anime-channel-in-the-us|archive-date=October 11, 2023|access-date=October 11, 2023|website=[[Crunchyroll]]}}</ref>
+}}
+| first = October 6, 2006
+| last = July 29, 2007
+| episodes = 25
+| episode_list = Code Geass season 1
+}}
+{{Infobox animanga/Video
+| type = tv series
+| title = Code Geass: Lelouch of the Rebellion R2
+| producer = {{Unbulleted list|Hiroshi Morotomi|Yoshitaka Kawaguchi|Takuo Minegishi|Atsushi Yukawa}}
+| director = Gorō Taniguchi
+| writer = Ichirō Ōkouchi
+| music = {{Unbulleted list|Kōtarō Nakagawa|Hitomi Kuroishi}}
+| studio = Sunrise
+| licensee = {{ubl|Crunchyroll{{efn|name=Crunchyroll}}|{{English anime licensee| SEA = Odex}}}}
+| network = JNN (MBS, TBS)
+| network_en = {{English anime network
+| PH = TV5, Hero
+| US = Adult Swim, Crunchyroll Channel
+}}
+| first = April 6, 2008
+| last = September 28, 2008
+| episodes = 25
+| episode_list = Code Geass season 2
+}}
+{{collapsed infobox section begin}}
+{{Infobox animanga/Video
+| type = ova
+| title = {{ubl|Code Geass: Lelouch of the Rebellion|Special Edition "Black Rebellion"}}
+| director = Gorō Taniguchi
+| writer = Ichirō Ōkouchi
+| music = {{ubl|Kōtarō Nakagawa|Hitomi Kuroishi}}
+| studio = Sunrise
+| released = February 22, 2008
+| runtime = 118 minutes
+}}
+{{Infobox animanga/Video
+| type = ova
+| title = Code Geass: Lelouch of the Rebellion R2 Special Edition "Zero Requiem"
+| director = Gorō Taniguchi
+| writer = Ichirō Ōkouchi
+| music = {{ubl|Kōtarō Nakagawa|Hitomi Kuroishi}}
+| studio = Sunrise
+| released = July 24, 2009
+| runtime = 118 minutes
+}}
+{{Infobox animanga/Print
+| type = light novel
+| title = Code Geass: Lelouch of the Rebellion
+| author = Mamoru Iwasa
+| publisher = [[Kadokawa Shoten]]
+| publisher_en = {{English manga publisher
+| NA = [[Bandai Visual]]
+}}
+| imprint =
+| magazine = [[The Sneaker]]
+| first = April 28, 2007
+| last = March 1, 2008
+| volumes = 5
+| volume_list = List of Code Geass light novels#Code Geass: Lelouch of the Rebellion
+}}
+{{Infobox animanga/Game
+| title = Code Geass: Lelouch of the Rebellion Lost Colors
+| developer =
+| publisher =
+| genre = [[Visual novel]]
+| platforms = {{ubl|[[PlayStation 2]]|[[PlayStation Portable]]}}
+| released = {{vgrelease|JP|March 27, 2008}}
+}}
+{{Infobox animanga/Print
+| type = light novel
+| title = Code Geass: Lelouch of the Rebellion Red Tracks
+| author = Mamoru Iwasa
+| publisher = Kadokawa Shoten
+| imprint =
+| magazine = The Sneaker
+| published = April 1, 2008
+| volumes = 1
+| volume_list = List of Code Geass light novels#Red Tracks
+}}
+{{Infobox animanga/Print
+| type = light novel
+| title = Code Geass: Lelouch of the Rebellion R2
+| author = Mamoru Iwasa
+| publisher = Kadokawa Shoten
+| imprint =
+| magazine = The Sneaker
+| first = June 1, 2008
+| last = March 1, 2009
+| volumes = 4
+| volume_list = List of Code Geass light novels#Second episode
+}}
+{{Infobox animanga/Print
+| type = manga
+| title = Code Geass: Lelouch of the Rebellion
+| author = Ichirō Ōkouchi
+| illustrator = Majiko!
+| publisher = Kadokawa Shoten
+| publisher_en = {{English manga publisher
+| NA = [[Bandai Entertainment]] (expired)
+}}
+| magazine = [[Monthly Asuka]]
+| first = December 26, 2006
+| last = February 24, 2010
+| volumes = 8
+| volume_list = List of Code Geass chapters#Code Geass: Lelouch of the Rebellion
+}}
+{{Infobox animanga/Print
+| type = manga
+| title = Code Geass: Suzaku of the Counterattack
+| author = Atsuro Yomino
+| publisher = Kadokawa Shoten
+| publisher_en = {{English manga publisher
+| NA = Bandai Entertainment (expired)
+}}
+| magazine = Beans Ace
+| first = October 10, 2006
+| last = August 9, 2008
+| volumes = 2
+| volume_list = List of Code Geass chapters#Code Geass: Suzaku of the Counterattack
+}}
+{{Infobox animanga/Print
+| type = manga
+| title = Code Geass: Nightmare of Nunnally
+| author = Takuma Tomomasa
+| publisher = Kadokawa Shoten
+| publisher_en = {{English manga publisher
+| NA = Bandai Entertainment (expired)
+}}
+| magazine = [[Comp Ace]]
+| first = June 26, 2007
+| last = April 25, 2009
+| volumes = 5
+| volume_list = List of Code Geass chapters#Code Geass: Nightmare of Nunnally
+}}
+{{Infobox animanga/Print
+| type = manga
+| title = Code Geass: Tales of an Alternate Shogunate
+| author = Ganjii
+| publisher = Kadokawa Shoten
+| magazine = [[Kerokero Ace]]
+| first = May 26, 2008
+| last = August 26, 2008
+| volumes = 1
+| volume_list = List of Code Geass chapters#Code Geass: Tales of an Alternate Shogunate
+}}
+{{Infobox animanga/Print
+| type = manga
+| title = Code Geass: Renya of Darkness
+| author = Takuma Tomomasa
+| publisher = Kadokawa Shoten
+| magazine = [[Shōnen Ace]]
+| first = May 26, 2010
+| last = August 26, 2013
+| volumes = 7
+| volume_list = List of Code Geass chapters#Code Geass: Renya of Darkness
+}}
+{{Infobox animanga/Print
+| type = manga
+| title = Code Geass: Oz the Reflection
+| author = Chika Tojo
+| illustrator =
+| publisher = Kadokawa
+| magazine = {{ubl|Newtype Ace|Comp Ace}}
+| first = April 10, 2012
+| last = July 26, 2014
+| volumes = 5
+| volume_list = List of Code Geass chapters#Code Geass: OZ the Reflection
+}}
+{{Infobox animanga/Print
+| type = light novel
+| title = Code Geass: Oz the Reflection
+| author = Shigeru Morita
+| illustrator = Eiji Nakata
+| publisher = [[Hobby Japan]]
+| imprint =
+| magazine =
+| first = May 25, 2012
+| last = April 25, 2016
+| volumes = 5
+| volume_list = List of Code Geass light novels#Code Geass: OZ the Reflection
+}}
+{{Infobox animanga/Video
+| type = ova
+| title = Code Geass: Nunnally in Wonderland
+| director = Makoto Baba
+| writer = Yuuichi Nomura
+| music = Kotaro Nakagawa
+| studio = Sunrise
+| released = July 27, 2012
+| runtime = 28 minutes
+}}
+{{Infobox animanga/Video
+| type = ova
+| title = [[Code Geass: Akito the Exiled]]
+| director = [[Kazuki Akane]]
+| producer = {{ubl|Hirofumi Inagaki|Yoshitaka Kawaguchi|Jun Yukawa|Osamu Hosokawa (1–2)|Shuusaku Iba (1–2)|Nobuaki Abe (3–6)|Hirotsugu Ogisu (3–6)}}
+| writer = [[Hiroshi Ōnogi]]
+| music = [[Ichiko Hashimoto (musician)|Ichiko Hashimoto]]
+| studio = Sunrise
+| licensee = Crunchyroll{{efn|name=Crunchyroll}}
+| first = August 4, 2012
+| last = February 6, 2016
+| runtime =
+| episodes = 5
+| episode_list = List of Code Geass episodes#Code Geass: Akito the Exiled
+}}
+{{Infobox animanga/Print
+| type = light novel
+| title = Code Geass: Akito the Exiled
+| author = [[Ukyō Kodachi]]
+| publisher = Kadokawa Shoten
+| imprint =
+| magazine =
+| first = July 6, 2013
+| last = June 25, 2016
+| volumes = 3
+| volume_list = List of Code Geass light novels#Code Geass: Akito the Exiled
+}}
+{{Infobox animanga/Print
+| type = manga
+| title = Code Geass: Oz the Reflection O2
+| author = Chika Tojo
+| illustrator =
+| publisher = Kadokawa
+| magazine = Comp Ace
+| first = August 26, 2014
+| last = February 26, 2016
+| volumes = 5
+| volume_list = List of Code Geass chapters#Code Geass: OZ the Reflection O2
+}}
+{{Infobox animanga/Other
+| title = Manga
+| content =
+* ''[[Code Black: Hayabiki no Lelouch]]'' (2014–15)
+}}
+{{Infobox animanga/Other
+| title = Films
+| content =
+* ''[[Code Geass Lelouch of the Rebellion]]'' (2017–18)
+* ''[[Code Geass Lelouch of the Re;surrection]]'' (2019)
+* ''[[Code Geass: Rozé of the Recapture]]'' (2024)
+}}
+{{collapsed infobox section end}}
+{{Infobox animanga/Footer|portal=yes}}
+
+{{Nihongo|'''''Code Geass: Lelouch of the Rebellion'''''|コードギアス 反逆のルルーシュ|Kōdo Giasu: Hangyaku no Rurūshu|lead=yes}}, often referred to as simply '''''Code Geass''''', is a Japanese [[anime]] television series produced by [[Sunrise (company)|Sunrise]]. It was directed by [[Gorō Taniguchi]] and written by [[Ichirō Ōkouchi]], with original character designs by [[Clamp (manga artists)|Clamp]]. It follows the exiled prince [[Lelouch Lamperouge]], who obtains the "power of absolute obedience" from a mysterious woman named [[C.C. (Code Geass)|C.C.]]. Using this [[supernatural]] power, known as Geass, he leads a rebellion against the rule of the authoritarian [[List of Code Geass characters#Holy Britannian Empire|Holy Britannian Empire]], commanding a series of [[mecha]] battles.
+
+''Code Geass'' was broadcast in Japan on [[Mainichi Broadcasting System|MBS]] from October 2006 to July 2007. Its sequel series, ''Code Geass: Lelouch of the Rebellion R2'', ran as a simulcast on MBS and [[Tokyo Broadcasting System Television|TBS]] from April to September 2008. The series has also been adapted into various [[manga]] and [[light novel]]s.
+
+[[Code Geass Lelouch of the Rebellion|''Initiation'', ''Transgression'', and ''Glorification'']], a three-part [[compilation film]] recapping the events of both anime series' seasons, was released between 2017 and 2018. A new original film titled ''[[Code Geass Lelouch of the Re;surrection]]'', taking place after the Zero Requiem, was released in theaters in February 2019. ''[[Code Geass: Rozé of the Recapture]]'', was announced in December 2020 as part of a 10-year plan. On 7 December 2024, after the screening of ''Code Geass: Rozé of the Recapture'', series producer Taniguchi revealed that multiple sequels are being produced.<ref>{{Cite web|date=2024-12-07|title=コードギアス: 複数の新作制作 劇場版連続上映イベント開催|url=https://mantan-web.jp/article/20241207dog00m200037000c.html|access-date=2024-12-09|website=MANTANWEB(まんたんウェブ)|language=ja-JP|archive-date=2024-12-08|archive-url=https://web.archive.org/web/20241208130707/https://mantan-web.jp/article/20241207dog00m200037000c.html|url-status=live}}</ref>
+
+[[Bandai Entertainment]] licensed most parts of the franchise for English release in December 2007, airing the series English-dubbed on [[Adult Swim]] in the United States. Most manga and light novels have also been published in North America by Bandai.
+
+''Code Geass'' has been well-received in Japan, selling over a million DVD and Blu-ray discs. Both seasons have won several awards at the [[Tokyo International Anime Fair]], the ''[[Animage]]'' Anime Grand Prix, and the [[Animation Kobe]] event. The series received critical acclaim for its story, voice acting, large audience appeal, the conflicts among its main characters, and the moral questions it presented. It is considered to be [[List of anime series considered the best|one of the best anime series of all time]].<ref>{{cite web|date=13 December 2024|title=50 Best Anime Series of All Time, Ranked|url=https://screenrant.com/best-anime-series-ranked/|website=[[Screen Rant]]|access-date=7 July 2025|archive-date=18 July 2025|archive-url=https://web.archive.org/web/20250718012547/https://screenrant.com/best-anime-series-ranked/|url-status=live}}</ref><ref>{{cite web|date=7 December 2020|title=The 25 Essential Anime Series To Watch Now|url=https://editorial.rottentomatoes.com/article/essential-anime-series/|website=[[Rotten Tomatoes]]|access-date=7 July 2025|archive-date=13 May 2022|archive-url=https://web.archive.org/web/20220513055505/https://editorial.rottentomatoes.com/article/essential-anime-series/|url-status=live}}</ref><ref>{{cite web|date=9 April 2025|title=Top 25 Best Anime Series of All Time|url=https://www.ign.com/articles/top-25-best-anime-series-of-all-time|website=[[IGN]]|access-date=7 July 2025|archive-date=4 January 2023|archive-url=https://web.archive.org/web/20230104212936/https://www.ign.com/articles/top-25-best-anime-series-of-all-time|url-status=live}}</ref>
+
+{{TOC limit|limit=3}}
+
+== Synopsis ==
+{{See also|List of Code Geass characters}}
+
+=== Setting ===
+[[File:Holy Britannian Empire.svg|upright|thumb|left|Flag of the Holy Britannian Empire]]
+<!-- Please do not add 55 years differences - official date is 2017 a.t.b. as Revolution Year 228. Revolution Year is started on Storming of the Bastille, 2017-228=1789. -->
+The world is divided into three [[superpower]]s (similar to the world of ''[[Nineteen Eighty-Four]]'' by [[George Orwell]]): the Holy Britannian Empire (the Americas; also called Britannia), the [[Federalism in China|Chinese Federation]] (Asia), and the [[European Federation|Europa United]] (Europe and Africa). The story takes place after the Holy Britannian Empire's conquest of Japan on August 10, 2010, a.t.b., by means of Britannia's newest weapon, the "Autonomous Armored Knight," or "Knightmare Frame." In turn, Britannia effectively strips Japan and its citizens of all rights and freedoms and renames the country Area 11, with its citizens referred to as Elevens.
+
+The main [[point of divergence]] for this [[Parallel universe (fiction)|timeline]] appears to be that during the reign of Elizabeth I, though the queen remained unmarried, she bore a son (the fictional ancestor of the Britannian Emperors, Henry IX). However, several alternative timelines exist in the Code Geass universe, and the point of divergence may differ between each. The most common point of divergence in all timelines is [[Julius Caesar's invasions of Britain]] between 55 and 54 BC ending in failure when the British Celts unite under Alwin the First. Alwin forces the Romans out and establishes the First United British Kingdom in 54 BC, which becomes the first year of the Britannian Calendar (1 a.t.b, first year of Ascension Throne Britannia, with 55 BC as 1 b.t.b., the first year Before Throne Britannia). While other Roman invasions follow, by 43 a.t.b. (12 BC) Britannia is recognized as an independent kingdom by the Roman Empire. As a result, while many events in the Code Geass universe take place on nominally similar dates to actual history, they occur in fact half a century earlier (as with the French Revolution of 1789 a.t.b., or 1734 AD). Almost all timelines share a version of the Geass Order/Cult/Directorate, an organization that controls Geass users and abilities, and which is heavily involved with the Britannian Imperial Family.
+
+=== Plot ===
+[[Lelouch vi Britannia]] is an exiled Britannian prince, the son of Emperor [[Charles zi Britannia]] and his royal consort [[Marianne vi Britannia]]. Lelouch has a younger sister, [[Nunnally vi Britannia]]. Marianne was brutally murdered in the palace, and Nunnally, who witnessed the murder of their mother, was so traumatized that she lost her sight, and stray bullets to her lower body took away her ability to walk. Lelouch is furious with his father, believing he failed his mother and sister by turning a blind eye to their mother's death and failing to pursue their mother's killer.
+
+Lelouch and Nunnally are sent as political pawns to Japan to lull the Japanese government into a false sense of security. After the siblings are sent to Japan, Japan is attacked and defeated by Britannia. With the ruins of Japan as a background, Lelouch vows to his Japanese friend [[Suzaku Kururugi]] that he will one day obliterate Britannia as an act of vengeance against his father.
+
+Seven years later, Lelouch, now under the alias of Lelouch Lamperouge, is a popular yet withdrawn student at Ashford Academy. Lelouch becomes involved in a terrorist attack and finds a mysterious girl known only as [[C.C. (Code Geass)|C.C.]] (C2), who saves Lelouch's life from the Britannian Royal Guard by making a contract with him and granting Lelouch a power known as {{Nihongo|Geass|ギアス|Giasu}}. This power, also known as the {{Nihongo|"Power of Kings"|王の力|Ō no Chikara}}, allows him to command anyone to do whatever he wants, including bending their will to live, fight, or die for him. This power can affect an individual just once and only through direct eye contact. Lelouch decides to use his Geass to find his mother's murderers, destroy the Britannian Empire, and create a better world where Nunnally can live happily. In the process, Lelouch becomes Zero, a masked vigilante and the leader of the resistance group known as the Black Knights in the rebellion against Britannia's tyranny, gaining popularity and support among much of the Japanese. However, this comes with a great cost; caught up in a conflict where he does not know the full extent of his powers, Lelouch navigates various conflicts with Suzaku, a resistance member named [[Kallen Stadtfeld]], the incredibly powerful Britannian army (the strongest in the world), his own half-siblings, and many others in a battle that will forever change the world.
+
+== Production ==
+''Code Geass'' began as a concept developed at Sunrise by [[Ichirō Ōkouchi]] and [[Gorō Taniguchi]], who proposed it to producer Yoshitaka Kawaguchi. Kawaguchi had previously approached Okouchi and Taniguchi during the production of ''[[Planetes]]''.<ref name="ōkouchi-interview">{{cite news|title=Interview with Ichirō Ōkouchi|work=Code Geass DVD Volume 1|publisher=[[Sunrise (company)|Sunrise]]}}</ref> The basic idea for the plot consisted of a "hero" who led a secret organization, which later developed into a conflict between two characters with different values and who belonged to the same military unit, who eventually became [[Lelouch Lamperouge]] and [[Suzaku Kururugi]].<ref name="ōkouchi-interview" />
+
+During these initial planning stages, Kawaguchi also contacted the noted [[Mangaka|manga artist]] group [[Clamp (manga artists)|Clamp]].<ref name="ōkouchi-interview"/> This was the first time Clamp had ever been requested to design the characters of an anime series.<ref name="taniguchi-ōkawa-interview">{{cite news|title=Interview with Gorō Taniguchi and Ageha Ōkawa, head writer of Clamp|work=[[Newtype]], May 2007 issue}}</ref> Clamp signed onto the project early during these development stages and provided numerous ideas, which helped develop the series' setting and characters.<ref name="taniguchi-ōkawa-interview"/>
+
+While developing the character designs for Lelouch, the protagonist of the series, Clamp originally designed his hair color to be white.<ref name="taniguchi-ōkawa-interview"/> [[Nanase Ohkawa|Ageha Ohkawa]], head writer at Clamp, said she had visualized him as a character to which "everyone" could relate as being "cool," and literally, a "beauty."<ref name="taniguchi-ōkawa-interview"/> During these planning stages, Clamp and the Sunrise staff discussed a number of possible inspirations for the characters, including [[KinKi Kids]] and [[Tackey & Tsubasa]].<ref name="taniguchi-ōkawa-interview"/> They had wanted to create a "hit show," a series that would appeal to "everyone."<ref name="taniguchi-ōkawa-interview"/> Lelouch's alter ego, Zero, was one of the earliest developed characters, with Ōkouchi having wanted a mask to be included as a part of the series, feeling it was necessary for it to be a Sunrise show, and Clamp wanting a unique design never prior seen in any Sunrise series (said mask was nicknamed "[[tulip]]" for its distinctive design).<ref name="taniguchi-ōkawa-interview"/>
+
+The concept for the Geass may have been inspired by the Irish and Welsh legends of "[[Geas]]" or "Geis." A geas is a compulsion laid on someone to do or not do something. While the geas itself does not lie on any spectrum, the benefits or actions of it may be decidedly benevolent or malevolent. The concept fits into the wider fictional world of the series and its lore of British inspirations.
+
+Clamp's finalized original character design art, illustrated by its lead artist [[Mokona]], was subsequently converted into animation character designs for the series by Sunrise's character designer [[Takahiro Kimura]], who had previously spent "every day" analyzing Clamp's art and style from their art books and manga series.<ref name="taniguchi-ōkawa-interview"/> In working on the animation character designs, he focused on designing them so as to enable the series' other animators to apply them without deviating from Clamp's original art style.<ref name="taniguchi-ōkawa-interview"/>
+
+The music for the series was composed by [[Kōtarō Nakagawa]] and Hitomi Kuroishi, who had earlier worked with the series' core staff in ''Planetes'' and Taniguchi's earlier work, ''[[Gun X Sword]]''. In addition to the [[incidental music]] featured in each episode, Kuroishi also composed numerous insert songs for the series, including "Stories," "Masquerade," "Alone," and "Innocent Days," which were each performed by Kuroishi herself, while "Picaresque" and "Callin'" were performed by the singer-songwriter [[Mikio Sakai]], who had also earlier worked with Nakagawa and Kuroishi in ''Planetes''. The bands [[Flow (Japanese band)|FLOW]], [[Ali Project]], [[Jinn (band)|Jinn]], [[SunSet Swish]], [[Access (group)|Access]], and [[Orange Range]] provided songs for the opening and ending sequences in the original broadcast.<ref name="offsite-cd">{{cite web|script-title=ja:コードギアス 反逆のルルーシュ 公式サイト|url=http://www.geass.jp/cd.html|url-status=dead|archive-url=https://web.archive.org/web/20070306031842/http://www.geass.jp/cd.html|archive-date=2007-03-06|access-date=2007-03-10|language=ja}}<!--https://web.archive.org/20090618055424/http://www.geass.jp/cd.html--></ref><ref name="flowwe-news">{{cite web|title=8/13 New Single｢World End｣発売決定 !!|url=http://www.flow.mu/07/news/detail.php|url-status=dead|archive-url=https://web.archive.org/web/20080323145627/http://www.flow.mu/07/news/detail.php|archive-date=2008-03-23|access-date=2008-06-07|language=ja}}</ref>
+
+When the series was being developed for broadcast on [[MBS TV]], it had been given the network's Sunday evening prime time slot, which was later changed to a Thursday [[late night anime|late-night time]] slot. Due to this change, the overall outlook and some elements of the series were changed and further developed to suit the more mature, late-night audience.<ref name="ōkouchi-interview"/> The supernatural "Geass" ability finally came into the show at this point and was first conceived as a special power granted by an "angel" to the main character, though this last part was also modified.<ref name="ōkouchi-interview" />
+
+== Media ==
+=== Anime ===
+{{Main|List of Code Geass: Lelouch of the Rebellion episodes|List of Code Geass: Lelouch of the Rebellion R2 episodes}}
+
+''Code Geass'' officially premiered on the Mainichi Broadcasting System (MBS) television station on October 5, 2006 (01:25 [[Japan Standard Time|JST]] on October 6, 2006). Its satellite television premiere across Japan was on November 7, 2006 on [[Animax]].<ref name="moonphase">{{cite web|title=MoonPhase.cc – Anime|url=http://www.moonphase.cc/Html/anime.html|url-status=dead|archive-url=http://arquivo.pt/wayback/20090703072101/http://www.moonphase.cc/Html/anime.html|archive-date=2009-07-03|access-date=2007-06-11}}</ref><ref>{{cite web|title=ANIMAX アニメ見るならアニマックス: 新番組|trans-title=Animax's featured new lineup of November|url=http://www.animax.co.jp/newlineup/index.php?cmd=next|url-status=dead|archive-url=https://web.archive.org/web/20061012203044/http://www.animax.co.jp/newlineup/index.php?cmd=next|archive-date=2006-10-12|work=Animax|language=ja}}</ref> Upon the airing of the first 23 episodes, the series went on hiatus on March 29, 2007,<ref name="moonphase"/><ref name="taniguchi-interview">{{cite news|title=Interview with Gorō Taniguchi|work=Animedia, April 2007 issue}}</ref> and completed the broadcast of the first series with a contiguous one-hour broadcast of episodes 24 and 25 on Saturday, July 28, 2007.<ref>{{cite web|date=2007-07-05|title=Random Musings – Suzumiya Haruhi S2 and Code Geass Finale Airdate|url=http://randomc.animeblogger.net/2007/07/05/random-musings-suzumiya-haruhi-season-two/|url-status=dead|archive-url=https://web.archive.org/web/20070708184325/http://randomc.animeblogger.net/2007/07/05/random-musings-suzumiya-haruhi-season-two/|archive-date=2007-07-08|access-date=2007-07-09|publisher=Random Curiosity}}</ref>
+
+''Code Geass: Lelouch of the Rebellion'' was widely popular in Japan, and it was followed with the development of its sequel, {{Nihongo|''Code Geass: Lelouch of the Rebellion R2''|コードギアス 反逆のルルーシュR2|Kōdo Giasu Hangyaku no Rurūshu Āru Tsū}}, which was first announced in the March 2007 issue of ''[[Newtype]]'' and later confirmed by Sunrise producer Yoshitaka Kawaguchi on the series' official staff blog on March 9, 2007.<ref name="random-geass">{{cite web|date=2007-03-07|title=Random Musings – Code Geass News Overload Edition|url=http://randomc.animeblogger.net/2007/03/07/random-musings-code-geass-news-overload-edition/|url-status=dead|archive-url=https://web.archive.org/web/20070519082023/http://randomc.animeblogger.net/2007/03/07/random-musings-code-geass-news-overload-edition/|archive-date=2007-05-19|access-date=2007-07-09|publisher=Random Curiosity}}</ref><ref name="blog-sequel">{{cite web|date=2007-03-09|script-title=ja:速報! 続編制作が決定 !! 【コードギアス 反逆のルルーシュ】/ウェブリブログ|url=http://geass.at.webry.info/200703/article_3.html|url-status=live|archive-url=https://web.archive.org/web/20070313170506/http://geass.at.webry.info/200703/article_3.html|archive-date=2007-03-13|access-date=2007-03-09|publisher=[[Sunrise (company)|Sunrise]]|language=ja}} (official ''Code Geass'' blog)</ref>
+
+''Code Geass: Lelouch of the Rebellion R2'' premiered on all Japan News Network (JNN) member stations (like MBS and TBS) on April 6, 2008, in the primetime anime timeslot, with the timeslot changing from 18:00 JST on Saturdays to 17:00 JST on Sundays.<ref name="moonphase-nt">{{cite web|date=2007-12-06|title=2007-12-06 – D.Hatena.ne.jp 雑記|url=http://d.hatena.ne.jp/moonphase/20071206|url-status=dead|archive-url=https://web.archive.org/web/20071208142201/http://d.hatena.ne.jp/moonphase/20071206|archive-date=2007-12-08|access-date=2007-12-06|publisher=Moonphase}}</ref><ref name="tbs-move">{{cite web|title=Japan's TBS Confirms Anime's Move from Saturday, 6 p.m.|url=http://www.animenewsnetwork.com/news/2008-02-05/japans-tbs-confirms-animes-move-from-saturday-6-p.m|url-status=live|archive-url=https://web.archive.org/web/20170702050804/http://www.animenewsnetwork.com/news/2008-02-05/japans-tbs-confirms-animes-move-from-saturday-6-p.m|archive-date=2017-07-02|access-date=2008-02-06|website=[[Anime News Network]]}}</ref> Prior to the series' television broadcast, three private preview screenings of episode 1 were held on March 15 and March 16 in [[Osaka]] and Tokyo respectively, which was attended by the series' Japanese [[Seiyū|voice actors]] as well as a pool of 3,800 randomly selected applicants. On April 15, 2008, at 17:00 [[Japan Standard Time|JST]], the last 6 minutes of the then unaired third episode was accidentally posted onto the Internet due to an error by [[Bandai Channel]], Bandai's online broadcast channel and online distributor, in the midst of testing a system preventing illegal online uploads.<ref name="official-site-statement">{{cite web|date=2008-04-16|title=コードギアス 反逆のルルーシュR2 公式サイト|url=https://geass.jp/enter/enter.html|url-status=live|archive-url=https://web.archive.org/web/20100330013130/http://www.geass.jp/enter/enter.html|archive-date=2010-03-30|access-date=2008-04-16|publisher=[[Sunrise (company)|Sunrise]]}}</ref>
+
+The {{Nihongo|''Code Geass: The Miraculous Birthday''|コードギアス 反逆のルルーシュ キセキの誕生日|Kōdo Giasu: Kiseki no Tanjōbi}} drama film was based on a live event held in Tokyo, Japan, on Lelouch's birthday.{{citation needed|date=September 2012}}
+
+An [[original video animation]] (OVA) anime release titled {{Nihongo|''Code Geass: Nunnally in Wonderland''|コードギアス 反逆のルルーシュ: ナナリーinワンダーランド|Kōdo Giasu Hangyaku no Rurūshu: Nanarī in wandārando}} was announced and revealed through the anime's official website. [[Takahiro Kimura]] did the character designs for the series. Makoto Baba was assigned as the director of the OVA, while episode scriptwriter Yuuichi Nomura and composer [[Kotaro Nakagawa]] returned for the project. In the story, Lelouch makes the ultimate use of his Geass for his sister Nunnally, who loves Alice in Wonderland.<ref>{{cite web|date=2012-01-12|title=Code Geass: Nunnally in Wonderland Video Anime Revealed|url=http://www.animenewsnetwork.com/news/2012-01-12/code-geass/nunnally-in-wonderland-video-anime-revealed|url-status=live|archive-url=https://web.archive.org/web/20150924202333/http://www.animenewsnetwork.com/news/2012-01-12/code-geass/nunnally-in-wonderland-video-anime-revealed|archive-date=2015-09-24|access-date=2015-10-11|work=Anime News Network}}</ref> The [[Blu-ray Disc|Blu-ray]] edition was released by [[Bandai Visual]] on July 27, 2012, with English subtitles and bundled with a 40-page picture book.<ref>{{cite web|date=2012-02-02|title=Code Geass: Nunnally in Wonderland to Have English Subs|url=http://www.animenewsnetwork.com/news/2012-02-02/code-geass/nunnally-in-wonderland-to-have-english-subs|url-status=live|archive-url=https://web.archive.org/web/20150924202641/http://www.animenewsnetwork.com/news/2012-02-02/code-geass/nunnally-in-wonderland-to-have-english-subs|archive-date=2015-09-24|access-date=2015-10-11|work=Anime News Network}}</ref>
+
+==== ''Akito the Exiled'' ====
+{{main|Code Geass: Akito the Exiled}}
+
+A new ''Code Geass'' series was first revealed on December 5, 2009.<ref>{{cite web|date=December 4, 2009|title=New Code Geass Project's Launch Revealed|url=http://www.animenewsnetwork.com/news/2009-12-04/new-code-geass-project-launch-revealed|url-status=live|archive-url=https://web.archive.org/web/20160124165413/http://www.animenewsnetwork.com/news/2009-12-04/new-code-geass-project-launch-revealed|archive-date=2016-01-24|access-date=2016-02-08|work=Anime News Network}}</ref> In April 2010, it was officially revealed that a new ''Code Geass'' side story anime called {{Nihongo|''[[Code Geass: Akito the Exiled]]''|コードギアス 亡国のアキト|Kōdo Giasu: Bōkoku no Akito}} would be directed by [[Kazuki Akane]] (''[[The Vision of Escaflowne]]''). The side story is an OVA series set in Europe during the Britannian invasion of the continent between ''Lelouch of the Rebellion''{{'}}s two seasons.<ref>{{cite web|date=2010-04-22|title=Code Geass Gaiden: Bōkoku no Akito Anime Announced|url=http://www.animenewsnetwork.com/news/2010-04-22/code-geass-gaiden-bokoku-no-akito-project-announced|url-status=live|archive-url=https://web.archive.org/web/20100925232831/http://www.animenewsnetwork.com/news/2010-04-22/code-geass-gaiden-bokoku-no-akito-project-announced|archive-date=2010-09-25|access-date=2010-07-25|website=[[Anime News Network]]}}</ref> Originally intended to be released in four chapters, production of a fifth ''Akito the Exiled'' episode was announced after the Japanese debut of the third entry on May 2, 2015.<ref>{{cite web|date=2015-05-15|title=Code Geass: Akito the Exiled 4th Episode's Trailer Streamed|url=http://www.animenewsnetwork.com/news/2015-05-15/code-geass-akito-the-exiled-4th-episode-trailer-streamed/.88192|url-status=live|archive-url=https://web.archive.org/web/20150517174809/http://www.animenewsnetwork.com/news/2015-05-15/code-geass-akito-the-exiled-4th-episode-trailer-streamed/.88192|archive-date=2015-05-17|access-date=2015-05-21|website=[[Anime News Network]]}}</ref> Along with the two seasons of the television series, the OVAs are licensed by [[Funimation]]. In January 2016, [[Manga Entertainment]], which licensed the series in the UK, listed that they would release the first two episodes on Blu-ray with an English dub on December 5, 2016. They later changed the date to April 10, 2017, but the date was once again pushed back to October 1, 2017.<ref>{{cite web|title=Code Geass Akito The Exiled: Part 1 And 2|url=https://www.amazon.co.uk/Code-Geass-Akito-Exiled-Blu-ray/dp/B018I8RFVM/ref=sr_1_4?ie=UTF8&qid=1470731687&sr=8-4&keywords=code+geass|url-status=live|archive-url=https://web.archive.org/web/20200923151355/https://www.amazon.co.uk/Code-Geass-Akito-Exiled-Blu-ray/dp/B018I8RFVM/ref=sr_1_4?ie=UTF8&qid=1470731687&sr=8-4&keywords=code+geass|archive-date=September 23, 2020|access-date=August 27, 2016|website=Amazon.com}}</ref> [[Madman Entertainment]] has also released the first three episodes on DVD. Funimation announced it would release the series in early 2017. On March 15, 2017, Funimation officially announced a pre-order and release date of June 27, 2017. It was released as a Blu-ray and DVD combo pack with both subbed and dubbed audio.<ref name="Funimation - Blog!">{{Cite news|date=2017-03-15|title=Code Geass: Akito the Exiled Pre-Order Announcement – Funimation – Blog!|url=https://www.funimation.com/blog/2017/03/15/code-geass-akito-the-exiled-pre-order-announcement/|url-status=live|archive-url=https://web.archive.org/web/20170406020614/https://www.funimation.com/blog/2017/03/15/code-geass-akito-the-exiled-pre-order-announcement/|archive-date=2017-04-06|access-date=2017-03-16|work=Funimation – Blog!|language=en-US}}</ref> The OVAs have been released in only Japan and Italy.
+
+==== Films ====
+{{main|Code Geass Lelouch of the Rebellion{{!}}''Code Geass Lelouch of the Rebellion''|Code Geass Lelouch of the Re;surrection{{!}}''Code Geass Lelouch of the Re;surrection''|Code Geass: Rozé of the Recapture{{!}}''Code Geass: Rozé of the Recapture''}}
+
+A [[Code Geass Lelouch of the Rebellion|three-part theatrical compilation anime film]] of the TV series was released, with the first film titled {{Nihongo|''Code Geass: Lelouch of the Rebellion I – Initiation''|コードギアス 反逆のルルーシュ 興道|Code Geass – Hangyaku no Lelouch – Kōdō|"Code Geass: Lelouch of the Rebellion: The Awakening Path"}} released on October 21, 2017.<ref>{{cite web|date=July 28, 2017|title=Code Geass Compilation Film Trilogy Reveals Visual, Teaser Video, Dates|url=https://www.animenewsnetwork.com/news/2017-07-28/code-geass-compilation-film-trilogy-reveals-visual-teaser-video-dates/.119436|url-status=live|archive-url=https://web.archive.org/web/20170730221823/http://www.animenewsnetwork.com/news/2017-07-28/code-geass-compilation-film-trilogy-reveals-visual-teaser-video-dates/.119436|archive-date=July 30, 2017|access-date=August 2, 2017|website=[[Anime News Network]]}}</ref> The second film titled {{Nihongo|''Code Geass: Lelouch of the Rebellion II – Transgression''|コードギアス 反逆のルルーシュ 叛道|Code Geass – Hangyaku no Lelouch – Handō|"Code Geass: Lelouch of the Rebellion: The Rebellion Path"}} was released on February 10, 2018. The film placed 8th in the mini-theater ranking on its opening weekend. The third compilation film, titled {{Nihongo|''Code Geass: Lelouch of the Rebellion III – Glorification''|コードギアス 反逆のルルーシュ 皇道|Code Geass – Hangyaku no Lelouch – Ōdō|"Code Geass: Lelouch of the Rebellion: The Imperial Path"}}, was released in theaters on May 26, 2018.<ref>{{cite web|date=2018-02-14|title=2nd Code Geass Film Opens at #8, Macross Delta Film Tops Mini-Theater Ranking|url=https://www.animenewsnetwork.com/news/2018-02-14/2nd-code-geass-film-opens-at-no.8-macross-delta-film-tops-mini-theater-ranking/.127765|url-status=live|archive-url=https://web.archive.org/web/20180214113808/https://www.animenewsnetwork.com/news/2018-02-14/2nd-code-geass-film-opens-at-no.8-macross-delta-film-tops-mini-theater-ranking/.127765|archive-date=2018-02-14|access-date=2018-02-14|work=Anime News Network}}</ref> Each film recounts the events of the two seasons of the animated series and the third film concluding the series and the movie's storyline.<ref>{{cite web|date=May 30, 2018|title='Code Geass' Director, Writer Confirm Return For Next Project|url=https://comicbook.com/anime/2018/05/30/code-geass-anime-sequel-films-director-writer/|url-status=live|archive-url=https://web.archive.org/web/20180604064153/http://comicbook.com/anime/2018/05/30/code-geass-anime-sequel-films-director-writer|archive-date=June 4, 2018|access-date=June 4, 2018|website=ComicBook.com}}</ref><ref>{{cite web|date=May 29, 2018|title=Code Geass Writer, Director Confirm Return for 'Next' Sequel|url=https://www.animenewsnetwork.com/news/2018-05-29/code-geass-writer-director-confirm-return-for-next-sequel/.132177|url-status=live|archive-url=https://web.archive.org/web/20180530095800/https://www.animenewsnetwork.com/news/2018-05-29/code-geass-writer-director-confirm-return-for-next-sequel/.132177|archive-date=May 30, 2018|access-date=June 4, 2018|website=[[Anime News Network]]}}</ref>
+
+{{Nihongo|''[[Code Geass: Lelouch of the Re;surrection]]''|コードギアス 復活のルルーシュ|Kōdo Giasu: Fukkatsu no Rurūshu}} movie was announced on November 27, 2016.<ref>{{cite web|title=Code Geass Gets New Sequel & Anime Compilation Film Trilogy|url=http://www.animenewsnetwork.com/news/2016-11-27/code-geass-gets-new-sequel-and-anime-compilation-film-trilogy/.109224|url-status=live|archive-url=https://web.archive.org/web/20161128130506/http://www.animenewsnetwork.com/news/2016-11-27/code-geass-gets-new-sequel-and-anime-compilation-film-trilogy/.109224|archive-date=2016-11-28|access-date=November 28, 2016|website=[[Anime News Network]]}}</ref><ref>{{cite web|title=Code Geass 10th Project|url=http://www.geass.jp/lelouch_10th/|url-status=live|archive-url=https://web.archive.org/web/20161129192001/http://geass.jp/lelouch_10th/|archive-date=2016-11-29|access-date=2016-11-30|website=Geass.jp}}</ref><ref>{{cite web|date=November 28, 2016|title="Code Geass" Compilation Movies To Prepare For New Sequel|url=http://www.crunchyroll.com/anime-news/2016/11/27/code-geass-compilation-movies-to-prepare-for-new-sequel?referrer=community|url-status=live|archive-url=https://web.archive.org/web/20170813184119/http://www.crunchyroll.com/anime-news/2016/11/27/code-geass-compilation-movies-to-prepare-for-new-sequel?referrer=community|archive-date=August 13, 2017|access-date=November 28, 2016|publisher=[[Crunchyroll]]}}</ref><ref>{{cite web|date=November 28, 2016|title=Code Geass Lelouch of the Resurrection & Lead Up Compilation Movie Announced|url=http://nagamedigital.com/2016/11/28/code-geass-lelouch-of-the-resurrection/|url-status=dead|archive-url=https://web.archive.org/web/20161208093538/http://nagamedigital.com/2016/11/28/code-geass-lelouch-of-the-resurrection/|archive-date=December 8, 2016|access-date=November 28, 2016|publisher=nagamedigital.com}}</ref> It was released in theaters in Japan on February 9, 2019.<ref>{{cite news|date=August 3, 2018|title=「コードギアス」新作劇場版は2019年2月公開!ティザービジュアル&特報公開|url=https://news.mynavi.jp/article/20180803-673859/|url-status=live|archive-url=https://web.archive.org/web/20180803134030/https://news.mynavi.jp/article/20180803-673859/|archive-date=August 3, 2018|access-date=August 3, 2018|website=マイナビニュース}}</ref><ref>{{cite web|date=October 4, 2018|title=Code Geass: Lelouch of the Re;surrection Sequel Film's Trailer Reveals New Characters, February 9 Debut|url=https://www.animenewsnetwork.com/news/2018-10-04/code-geass-lelouch-of-the-re-surrection-sequel-film-trailer-reveals-new-characters-february-9-debut/.137708|url-status=live|archive-url=https://web.archive.org/web/20181004202912/https://www.animenewsnetwork.com/news/2018-10-04/code-geass-lelouch-of-the-re-surrection-sequel-film-trailer-reveals-new-characters-february-9-debut/.137708|archive-date=2018-10-04|access-date=2018-10-04|work=Anime News Network}}</ref><ref>{{cite web|date=August 3, 2018|title=「コードギアス 復活のルルーシュ」完全新作劇場版が2019年2月公開&特報などが解禁|url=https://www.animatetimes.com/news/details.php?id=1533283160|url-status=live|archive-url=https://web.archive.org/web/20180803133823/https://www.animatetimes.com/news/details.php?id=1533283160|archive-date=August 3, 2018|access-date=August 3, 2018|website=Animate Times}}</ref> and is a sequel to the "Zero Requiem" arc of that continuity.<ref name="polygon">{{cite web|last=Haasch|first=Palmer|date=June 12, 2018|title=The Code Geass recap movies are key to new sequel's confusing timeline|url=https://www.polygon.com/2018/6/12/17453146/code-geass-resurrection-r3-timeline-r2-recap-movies-anime|url-status=live|archive-url=https://web.archive.org/web/20180612220836/https://www.polygon.com/2018/6/12/17453146/code-geass-resurrection-r3-timeline-r2-recap-movies-anime|archive-date=June 12, 2018|access-date=March 5, 2019|website=Polygon}}</ref>
+
+A new anime titled ''Code Geass: Z of the Recapture'' was announced on December 5, 2020, Lelouch's birthday.<ref name="CodeGeassZ">{{cite web|author1=Patrick Frye|date=December 5, 2020|title=Code Geass: Z of the Recapture release date in 2021: Code Geass sequel Dakkan no Z confirmed by Studio Sunrise|url=https://www.animegeek.com/code-geass-z-of-the-recapture-release-date-2021-code-geass-season-3-r3-sequel-confirmed-studio-sunrise/|url-status=live|archive-url=https://web.archive.org/web/20220127202002/https://www.animegeek.com/code-geass-z-of-the-recapture-release-date-2021-code-geass-season-3-r3-sequel-confirmed-studio-sunrise/|archive-date=January 27, 2022|access-date=December 5, 2020|website=Monsters and Critics}}</ref> The new anime project is part of a new 10-year plan for the franchise by Studio Sunrise, with Yoshimitsu Ohashi is directing the anime, Noboru Kimura writing the scripts, and Takahiro Kimura returning to design the characters.<ref>{{cite web|date=December 5, 2020|title=Code Geass Franchise Gets New Anime Series, Smartphone Game|url=https://www.animenewsnetwork.com/news/2020-12-05/code-geass-franchise-gets-new-anime-series-smartphone-game/.167111|url-status=live|archive-url=https://web.archive.org/web/20201205114631/https://www.animenewsnetwork.com/news/2020-12-05/code-geass-franchise-gets-new-anime-series-smartphone-game/.167111|archive-date=December 5, 2020|access-date=December 5, 2020|work=Anime News Network}}</ref> It was later announced to be a four-part film series titled ''[[Code Geass: Rozé of the Recapture]]'',<ref>{{cite web|last=Dempsey|first=Liam|date=December 18, 2023|title=Code Geass: Rozé of the Recapture Anime Reveals First Trailer, May 2024 Release|url=https://www.crunchyroll.com/news/latest/2023/12/18/code-geass-roze-of-the-recapture-tv-anime-visual-trailer-may-2024-release|access-date=December 18, 2023|website=Crunchyroll|archive-date=December 18, 2023|archive-url=https://web.archive.org/web/20231218133916/https://www.crunchyroll.com/news/latest/2023/12/18/code-geass-roze-of-the-recapture-tv-anime-visual-trailer-may-2024-release|url-status=live}}</ref> with the first part releasing in Japanese theatres on May 10, 2024, the second releasing on June 7, the third releasing on July 5, and the fourth releasing on August 2. The film series was also streamed worldwide on [[Disney+]] streaming service's [[Hulu]] and [[Star (Disney+)|Star]] content hub in a 12-episode series format.<ref>{{cite web|last=Cayanan|first=Joanna|date=March 23, 2024|title=Code Geass: Rozé of the Recapture Anime's 1st Trailer Reveals More Cast, May 10 – August 2 Opening Dates|url=https://www.animenewsnetwork.com/news/2024-03-23/code-geass-roze-of-the-recapture-anime-1st-trailer-reveals-more-cast-may-10-august-2-opening-dates/.209089|access-date=March 23, 2024|website=[[Anime News Network]]|archive-date=March 23, 2024|archive-url=https://web.archive.org/web/20240323055814/https://www.animenewsnetwork.com/news/2024-03-23/code-geass-roze-of-the-recapture-anime-1st-trailer-reveals-more-cast-may-10-august-2-opening-dates/.209089|url-status=live}}</ref> In celebration of the new anime, the ''Code Geass Lelouch of the Re;surrection'' movie was re-released in 4D in Japanese theaters on January 29, 2021.
+
+==== International licensing ====
+Both seasons of ''Code Geass'' have been licensed for release in the United States by [[Bandai Entertainment]],<ref>{{cite web|title=Bandai Entertainment 2008 Convention announcements|url=http://www.animenewsnetwork.com/convention/2008/bandai-entertainment|url-status=live|archive-url=https://web.archive.org/web/20170724211143/http://www.animenewsnetwork.com/convention/2008/bandai-entertainment|archive-date=2017-07-24|access-date=2011-04-25|publisher=Animenewsnetwork.com}}</ref> and the first season began airing on [[Cartoon Network]]'s [[Adult Swim]] programming block in the U.S. on April 27, 2008; the second began airing on November 2, immediately following the first season.<ref>{{cite web|title=Code Geass R2 Anime Sequel to Run on Adult Swim in U.S|url=http://www.animenewsnetwork.com/news/2008-08-13/code-geass-r2-anime-sequel-to-run-on-adult-swim-in-u.s|url-status=live|archive-url=https://web.archive.org/web/20100227054235/http://www.animenewsnetwork.com/news/2008-08-13/code-geass-r2-anime-sequel-to-run-on-adult-swim-in-u.s|archive-date=2010-02-27|access-date=2011-04-25|publisher=Animenewsnetwork}}</ref> The series finale premiered on June 7, 2009, ending the second season and the rest of the story. On April 23, 2010, Adult Swim's broadcast rights to the series expired.{{Citation needed|date=April 2010}}
+
+Following the closure of Bandai Entertainment in 2012, [[Sunrise (company)|Sunrise]] announced at their official panel during [[Otakon]] 2013 that [[Funimation]] had licensed both seasons of ''Code Geass'' and, in addition, licensed ''Akito the Exiled'', along with a handful of other former Bandai Entertainment titles.<ref>{{cite web|title=Funimations Adds Code Geass, Tales of the Abyss, Angel Links, More|url=https://www.animenewsnetwork.com/news/2013-08-10/funimation-adds-code-geass-tales-of-the-abyss-witch-hunter-robin-more|url-status=live|archive-url=https://web.archive.org/web/20190904081015/https://www.animenewsnetwork.com/news/2013-08-10/funimation-adds-code-geass-tales-of-the-abyss-witch-hunter-robin-more|archive-date=2019-09-04|access-date=10 August 2013|website=[[Anime News Network]]}}</ref>
+
+In Australia and New Zealand, the series is sub-licensed to [[Madman Entertainment]] by Bandai Entertainment USA<ref>{{cite web|title=Madman Entertainment July 2008 Newsletter|url=http://www.madman.com.au/htmlmail/newsletters/2008_07_jul/#acquisitions|url-status=dead|archive-url=https://web.archive.org/web/20160323004022/http://www.madman.com.au/htmlmail/newsletters/2008_07_jul/#acquisitions|archive-date=2016-03-23|access-date=2011-04-25|publisher=Madman.com.au}}</ref> and began airing on Australian channel [[ABC2]] on January 19, 2009. As of 2018, it is available on Australian Netflix.
+
+In the Philippines, the first season of ''Code Geass'' premiered on November 10, 2008, weekday nights at 7:30 p.m. [[Philippine Standard Time|PST]], and ended on December 15, 2008, through [[Associated Broadcasting Company|TV5]], while season 2 premiered on May 4, 2009, and ended on June 5, 2009, weekday nights at 6:00 p.m. [[Philippine Standard Time|PST]], with a weekend afternoon recap of the week's episodes also on [[Associated Broadcasting Company|TV5]]. Despite the poor ratings it attained due to competition with local TV newscasts and prime-time soap operas, the series was able to attain a huge following and became one of the most talked-about anime series in the country during its run. ''Code Geass'' had its Philippine cable premiere on July 27, 2010 through [[Hero TV]].
+
+In Italy, the first season aired from September 23, 2009, to February 25, 2010 on [[Rai 4]], while season 2 was broadcast on Rai 4 from March 4, 2010 to August 12, 2010; both seasons were broadcast at about 11:10 p.m..
+
+Sunrise announced at its official panel at [[Anime Boston]] 2018 that [[Funimation]] had licensed the recap film trilogy.<ref>{{cite web|title=Funimation Acquires Code Geass Recap Film Trilogy|url=https://www.animenewsnetwork.com/news/2018-03-30/funimation-acquires-code-geass-recap-film-trilogy/.129745|url-status=live|archive-url=https://web.archive.org/web/20200923151350/https://www.animenewsnetwork.com/news/2018-03-30/funimation-acquires-code-geass-recap-film-trilogy/.129745|archive-date=2020-09-23|access-date=2018-03-30|website=[[Anime News Network]]}}</ref>
+
+[[Funimation]] announced that they had licensed the ''Code Geass Lelouch of the Re;surrection'' film for its North American theatrical release in May 2019.<ref>{{cite web|title=Funimation to Screen Code Geass: Lelouch of the Re;surrection Sequel Anime Film in N. America in 2019|url=https://www.animenewsnetwork.com/news/2018-12-01/funimation-to-screen-code-geass-lelouch-of-the-re-surrection-sequel-anime-film-in-n-america-in-2019/.140239|url-status=live|archive-url=https://web.archive.org/web/20190425074402/https://www.animenewsnetwork.com/news/2018-12-01/funimation-to-screen-code-geass-lelouch-of-the-re-surrection-sequel-anime-film-in-n-america-in-2019/.140239|archive-date=2019-04-25|access-date=25 April 2019|website=[[Anime News Network]]}}</ref>
+
+=== Manga ===
+{{main|List of Code Geass chapters}}
+
+[[Kadokawa Shoten]] has published four separate manga adaptations, each containing an alternate storyline.<ref name="book">{{cite web|title=コードギアス 反逆のルルーシュ 公式サイト|url=http://www.geass.jp/book.html|url-status=dead|archive-url=https://web.archive.org/web/20070704112934/http://www.geass.jp/book.html|archive-date=2007-07-04|access-date=2007-07-09|publisher=[[Sunrise (company)|Sunrise]]}}<!--https://web.archive.org/20090615203408/http://www.geass.jp/book.html--></ref> The first four manga series have been licensed for an English-language release in North America by [[Bandai Entertainment]].<ref name="NYAF">{{cite web|date=2007-12-08|title=New York Anime Festival and ICv2 Conference on Anime and Manga: Code Geass|url=http://www.animenewsnetwork.com/convention/2007/code-geass|url-status=live|archive-url=https://web.archive.org/web/20091227142417/http://www.animenewsnetwork.com/convention/2007/code-geass|archive-date=2009-12-27|access-date=2008-07-06|website=[[Anime News Network]]}}</ref> The first, ''Code Geass: Lelouch of the Rebellion'', by Majiko~! and originally serialized in ''[[Monthly Asuka]]'', focused on the protagonist of the series, [[Lelouch Lamperouge]], with few differences from the anime's basic storyline. The most noticeable difference from the anime version is the absence of the Knightmare frames. Its chapters were collected in eight {{Transliteration|ja|[[tankōbon]]}} volumes released from December 26, 2008, to March 26, 2010.<ref name="firstrebellion">{{cite web|title=KADOKAWA Corporation|script-title=ja:コードギアス 反逆のルルーシュ 第1巻|url=http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200610000016|url-status=live|archive-url=https://web.archive.org/web/20111016223057/http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200610000016|archive-date=October 16, 2011|access-date=March 23, 2011|publisher=Kadokawa Shoten|language=ja}}</ref><ref name="lastrebellion">{{cite web|title=KADOKAWA Corporation|script-title=ja:コードギアス 反逆のルルーシュ 第8巻|url=http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200703000218|url-status=live|archive-url=https://web.archive.org/web/20110917054110/http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200703000218|archive-date=September 17, 2011|access-date=March 23, 2011|publisher=Kadokawa Shoten|language=ja}}</ref> Bandai's English adaptation of the series was published from July 29, 2008,<ref name="engfirst.1">{{cite book|last1=Okouchi|first1=Ichiro|title=Code Geass Manga Volume 1: Lelouch Of The Rebellion|author2=Majiko|last3=Taniguichi|first3=Goro|publisher=Bandai Entertainment|year=2008|isbn=978-1594099731}}</ref> to February 15, 2011.<ref name="lastengrebellion">{{cite book|author1=Majiko|title=Code Geass Manga Volume 8: Lelouch Of The Rebellion|last2=Ohkouchi|first2=Ichiro|last3=Taniguichi|first3=Goro|publisher=Bandai Entertainment|year=2011|isbn=978-1604962055}}</ref>
+
+The second manga is {{Nihongo|''Code Geass: Suzaku of the Counterattack''|コードギアス 反攻のスザク|Kōdo Giasu: Hankō no Suzaku}}. It was written by Atsuro Yomino and serialized in ''Beans A'' magazine. It focuses on the character [[Suzaku Kururugi]] in an alternate reality, where he fights against the criminal organization known as the Black Knights. While initially bearing a strong resemblance to its source, the manga is a [[tokusatsu]] show where the Lancelot mecha is now a bodysuit that Suzaku wears (the suit makes a cameo appearance as a costume in the 21st episode of the first season of the anime); further, the characters of Cecile Croomy and [[Euphemia li Britannia]] are [[Composite character|composited]] as Mariel Lubie. It was released in two volumes on June 26, 2007 and September 26, 2008.<ref name="firstsuzaku">{{cite web|title=KADOKAWA Corporation|script-title=ja:コードギアス 反攻のスザク 第1巻|url=http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200703000220|url-status=live|archive-url=https://web.archive.org/web/20110917011621/http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200703000220|archive-date=September 17, 2011|access-date=March 23, 2011|publisher=Kadokawa Shoten|language=ja}}</ref><ref name="secsuzaku">{{cite web|title=KADOKAWA Corporation|script-title=ja:コードギアス 反攻のスザク 第2巻|url=http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200806000036|url-status=live|archive-url=https://web.archive.org/web/20110917041907/http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200806000036|archive-date=September 17, 2011|access-date=March 23, 2011|publisher=Kadokawa Shoten|language=ja}}</ref> The first English volume was released on January 6, 2009,<ref name="firstengsuzaku">{{cite book|last1=Taniguichi|first1=Goro|title=Code Geass Manga Volume 1: Suzaku Of The Counterattack|last2=Yomino|first2=Atsuro|last3=Okouchi|first3=Ichiro|publisher=Bandai Entertainment|year=2008|isbn=978-1594099779}}</ref> and the second followed it on October 13, 2009.<ref name="secondengsuzaku">{{cite book|last1=Takuma|first1=Tomomasa|title=Code Geass Manga Volume 3: Suzaku Of The Counterattack|last2=Ohkouchi|first2=Ichirou|last3=Taniguichi|first3=Goro|publisher=Bandai Entertainment|year=2009|isbn=978-1594099809}}</ref>
+
+{{Nihongo|''Code Geass: Nightmare of Nunnally''|コードギアス ナイトメア・オブ・ナナリー|Kōdo Giasu Naitomea Obu Nanarī}}, serialized in ''[[Comp Ace]]'' and written by Tomomasa Takuma, focuses on Lelouch's sister, [[Nunnally Lamperouge]], who goes into searching for her missing brother when her health is restored by an entity named Nemo.<ref name="book" /> It was published in five volumes from June 26, 2007<ref name="firstnanually">{{cite web|title=KADOKAWA Corporation|script-title=ja:コードギアス ナイトメア・オブ・ナナリー (1)|url=http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200703000222|url-status=live|archive-url=https://web.archive.org/web/20111019130942/http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200703000222|archive-date=October 19, 2011|access-date=March 23, 2011|publisher=Kadokawa Shoten|language=ja}}</ref> to April 25, 2009.<ref name="lastnunnally">{{cite web|title=KADOKAWA Corporation|script-title=ja:コードギアス ナイトメア・オブ・ナナリー (5)|url=http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200812000335|url-status=live|archive-url=https://web.archive.org/web/20121020052627/http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200812000335|archive-date=October 20, 2012|access-date=March 23, 2011|publisher=Kadokawa Shoten|language=ja}}</ref> The English volumes were published from June 9, 2009,<ref name="engfirstnanually">{{cite book|last1=Taniguichi|first1=Goro|title=Nightmare Of Nunnally Volume 1|last2=Ohkouchi|first2=Ichirou|last3=Takuma|first3=Tomomasa|publisher=Bandai Entertainment|year=2009|isbn=978-1594099793}}</ref> to March 23, 2010.<ref name="lastengnunnally">{{cite book|last1=Takuma|first1=Tomomasa|title=Nightmare Of Nunnally Volume 5|last2=Ohkouchi|first2=Ichirou|last3=Taniguchi|first3=Goro|publisher=Bandai Entertainment|year=2010|isbn=978-1604962048}}</ref>
+
+A fourth manga adaptation, {{Nihongo|''Code Geass: Tales of an Alternate Shogunate''|幕末異聞録 コードギアス 反逆のルルーシュ|Bakumatsu Ibun Roku Kōdo Giasu Hangyaku no Rurūshu}}, was serialized in [[Kerokero Ace]].<ref>{{Cite news|title=Kerokero Ace Magazine to Run Fourth Code Geass Manga|url=http://www.animenewsnetwork.com/news/2008-04-29/kerokero-ace-magazine-to-run-fourth-code-geass-manga|url-status=live|archive-url=https://web.archive.org/web/20170124004529/http://www.animenewsnetwork.com/news/2008-04-29/kerokero-ace-magazine-to-run-fourth-code-geass-manga|archive-date=2017-01-24|access-date=2017-03-30|work=Anime News Network|language=en}}</ref> Set in an alternate 1853, Lelouch is the commander of the [[Shogunate]]'s military counterinsurgence brigade known as the [[Shinsengumi]], which fights the [[Shishi (organization)|Black Revolutionaries]], a rebel group led by a masked individual known as Rei. It was released in a single volume on October 25, 2010,<ref name="firstalter">{{cite web|title=KADOKAWA Corporation|script-title=ja:幕末異聞録 コードギアス 反逆のルルーシュ|url=http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200807000047|url-status=live|archive-url=https://web.archive.org/web/20110908201353/http://www.kadokawa.co.jp/comic/bk_detail.php?pcd=200807000047|archive-date=September 8, 2011|access-date=March 23, 2011|publisher=Kadokawa Shoten|language=ja}}</ref> while the English version was published on May 10, 2011.<ref name="engalter">{{cite book|last1=Okouchi|first1=Ichiro|title=Code Geass: Tales of an Alternate Shogunate|last2=Taniguichi|first2=Goro|publisher=Bandai Entertainment, Incorporated|year=2011|isbn=978-1604962598}}</ref>
+
+In late 2009, Bandai announced a new project greenlit for 2010. A manga, titled {{Nihongo|''Code Geass: Renya of Darkness''|コードギアス 漆黒の連夜|Kōdo Giasu: Shikkoku no Renya}}, was the first product announced. The story takes place in the same official ''Code Geass'' history as the anime, but in a different era, with the anime director [[Goro Taniguchi]] scripting the story. The title character, Renya, is a 17-year-old boy who encounters a mysterious, perpetually young witch named "Reifū C.C." who has appeared in Japan's historical Edo era to seek a new partner for a covenant.<ref>{{cite web|date=2009-12-07|title=Code Geass: Shikkoku no Renya Manga to Launch in 2010ト|url=http://www.animenewsnetwork.com/news/2009-12-07/code-geass/shikkoku-no-renya-manga-to-launch-in-2010|url-status=live|archive-url=https://web.archive.org/web/20100917152032/http://www.animenewsnetwork.com/news/2009-12-07/code-geass/shikkoku-no-renya-manga-to-launch-in-2010|archive-date=2010-09-17|access-date=2010-07-25|website=[[Anime News Network]]}}</ref> It began publication in the May 2010 issue of ''Shōnen Ace''. Bandai Entertainment announced that it will publish the manga in English, as with the other adaptations.<ref>{{cite web|title=Bandai Entertainment Adds Nichijou, Gosick Anime|url=http://www.animenewsnetwork.com/news/2011-07-30/bandai-entertainment-adds-nichijou-gosick-anime|url-status=live|archive-url=https://web.archive.org/web/20111013151435/http://www.animenewsnetwork.com/news/2011-07-30/bandai-entertainment-adds-nichijou-gosick-anime|archive-date=2011-10-13|access-date=31 July 2011|website=[[Anime News Network]]}}</ref> On January 2, 2012, as a part of Bandai Entertainment's announced restructuring, they have since, among other titles, revoked publishing of ''Code Geass: Renya of Darkness'' for English release.<ref>{{cite web|title=Bandai Entertainment to Stop Releasing New DVDs, Blu-ray Discs, and Manga|url=http://www.animenewsnetwork.com/news/2012-01-02/bandai-entertainment-to-stop-releasing-new-dvds-bds-manga|url-status=live|archive-url=https://web.archive.org/web/20120103155039/http://www.animenewsnetwork.com/news/2012-01-02/bandai-entertainment-to-stop-releasing-new-dvds-bds-manga|archive-date=2012-01-03|access-date=2 January 2012|website=[[Anime News Network]]}}</ref>
+
+=== Audio CDs ===
+The series has been adapted into a series of drama CDs called ''Sound Episodes'', the first of which was released in Japan in April 2007 by [[Victor Entertainment]], with new volumes released monthly. Written by many of the same writers as the series, these episodes are set between episodes and feature theme songs performed by the series [[seiyū|voice actors]]. They have also been available online on a limited streaming basis on the Japanese internet website Biglobe.{{Citation needed|date=April 2009}}
+
+In total, twelve drama CDs have been released. The first six, released between April 25, 2007 and September 27, 2007, cover the first season of the series, with the other six focusing on the second season.
+
+==== Soundtrack ====
+<!--SOMEBODY PLEASE MAKE WIKITABLE CONTAINING SOUNDTRACK NAME AND LENGTH-->
+The music for the series, which is composed by [[Kōtarō Nakagawa]] and Hitomi Kuroishi, has been released across two original soundtracks, which are produced by Yoshimoto Ishikawa and released by [[Victor Entertainment]]. The first was released in Japan on December 20, 2006, and the second was released on March 24, 2007.<ref name="offsite-cd"/> The covers and jackets for both soundtracks were illustrated by [[Takahiro Kimura]].<ref name="offsite-cd"/>
+
+=== Light novels ===
+{{main|List of Code Geass light novels}}
+
+''Code Geass'' ('Code Geass') has been additionally novelized into a series of [[light novel]]s. First serialized in [[Kadokawa Shoten]]'s ''[[The Sneaker]]'' magazine, they are divided into two separate series corresponding with the series' two seasons. The first series, ''Code Geass: Lelouch of the Rebellion'', spanned five volumes, with the first, labeled as volume 0, released in Japan on April 28, 2007, and the last on March 1, 2008.<ref name="first">{{cite web|title=コードギアス 反逆のルルーシュSTAGE-0-ENTRANCE|url=http://www.kadokawa.co.jp/lnovel/bk_detail.php?pcd=200610000026|url-status=live|archive-url=https://web.archive.org/web/20121020073030/http://www.kadokawa.co.jp/lnovel/bk_detail.php?pcd=200610000026|archive-date=October 20, 2012|access-date=March 25, 2011|publisher=Kodakawa Shoten|language=ja}}</ref><ref name="last">{{cite book|last1=Iwasa|first1=Mamoru|title=Code Geass, Stage 4: Zeri|last2=Taniguichi|first2=Goro|last3=Ohkouchi|first3=Ichirou|date=October 2009|publisher=Bandai Entertainment, Incorporated|isbn=978-1604961850}}</ref> All five volumes in the first series of novels have been released in English by [[Bandai Visual]].<ref name="NYAF"/> The first volume was released in November 2008, and the last one on February 23, 2010.<ref name="last"/><ref name="engfirst.0">{{cite book|last1=Iwasa|first1=Mamoru|title=Code Geass, Stage 0: Entrance|last2=Taniguichi|first2=Goro|last3=Okouchi|first3=Ichiro|last4=Kumura|first4=Takahir|date=22 September 2008|publisher=Bandai Entertainment|isbn=978-1594099816}}</ref> The first novel acts as a prologue, focusing on how Lelouch befriended [[Suzaku Kururugi]] when the former prince and his sister, [[Nunnally Lamperouge]], were sent to Japan as political hostages.
+
+The second novel series, ''Code Geass: Lelouch of the Rebellion R2'', covers the second season of the anime series, in which Lelouch continues his battle against the Britannian Empire. It was released in four volumes from June 1, 2008, to March 1, 2009.<ref name="firstrtwo">{{cite web|title=コードギアス 反逆のルルーシュR2TURN―1―|url=http://www.kadokawa.co.jp/lnovel/bk_detail.php?pcd=200802000059|url-status=live|archive-url=https://web.archive.org/web/20080928143116/http://www.kadokawa.co.jp/lnovel/bk_detail.php?pcd=200802000059|archive-date=September 28, 2008|access-date=March 25, 2010|publisher=Kadokawa Shoten|language=ja}}</ref><ref name="lastrtwo">{{cite web|title=コードギアス 反逆のルルーシュR2TURN―4―|url=http://www.kadokawa.co.jp/lnovel/bk_detail.php?pcd=200808000137|url-status=live|archive-url=https://web.archive.org/web/20090226124958/http://www.kadokawa.co.jp/lnovel/bk_detail.php?pcd=200808000137|archive-date=February 26, 2009|access-date=March 25, 2010|publisher=Kadokawa Shoten|language=ja}}</ref> A single-volume side story novel, {{Nihongo|''Code Geass: Lelouch of the Rebellion Red Tracks''|コードギアス 反逆のルルーシュ 朱の軌跡|Kōdo Giasu: Hangyaku no Rurūshu Shu no Kiseki}}, was released on April 1, 2008, in Japan. It focuses on the life of teenager [[Kallen Stadtfeld]], who becomes a soldier for the organization the Black Knights under Lelouch's leadership to defeat Britannia.<ref name="redtracks">{{cite web|title=KADOKAWA Corporation|script-title=ja:コードギアス 反逆のルルーシュ|url=http://www.kadokawa.co.jp/lnovel/bk_detail.php?pcd=200708000431|url-status=live|archive-url=https://web.archive.org/web/20121020072922/http://www.kadokawa.co.jp/lnovel/bk_detail.php?pcd=200708000431|archive-date=October 20, 2012|access-date=March 24, 2010|publisher=Kadokawa Shoten|language=ja}}</ref> On January 3, 2012, the English publication of the light novel adaptation of R2 was cancelled as part of Bandai Entertainment's planned restructuring, which had been announced the day before.<ref name="Anime News Network">{{cite web|title=Bandai Will Not Release Nichijō Manga Also|url=http://www.animenewsnetwork.com/news/2012-01-03/bandai-entertainment-will-not-release-nichijo-manga-also|url-status=live|archive-url=https://web.archive.org/web/20120104003538/http://www.animenewsnetwork.com/news/2012-01-03/bandai-entertainment-will-not-release-nichijo-manga-also|archive-date=2012-01-04|access-date=January 3, 2012|website=[[Anime News Network]]}}</ref>
+
+=== Video games ===
+The series was also slated to be adapted into a series of [[video games]], developed for the [[Nintendo DS]],<ref name="game RPG">{{cite web|date=2007-09-28|title=TGS Japanese Trailer|url=http://www.gametrailers.com/player/25755.html|url-status=live|archive-url=https://web.archive.org/web/20071011040954/http://www.gametrailers.com/player/25755.html|archive-date=2007-10-11|access-date=2007-09-28|publisher=[[Namco Bandai Games]]}}</ref> [[PlayStation Portable]], and [[PlayStation 2]] platforms, and published by [[Namco Bandai|Namco Bandai Games]].<ref name="nintendo wii">{{cite web|title=｢コードギアス 反逆のルルーシュ｣がWiiに登場 – Nintendo iNSIDE|url=http://www.nintendo-inside.jp/news/198/19804.html|url-status=dead|archive-url=https://web.archive.org/web/20070508214754/http://www.nintendo-inside.jp/news/198/19804.html|archive-date=2007-05-08|access-date=2007-05-13|language=ja}}</ref><ref>{{cite web|script-title=ja:特集: ｢コードギアス｣ 反逆のヒロイズム (まんたんウェブ)|url=http://mantanweb.mainichi.co.jp/web/2006/10/post_381.html|url-status=dead|archive-url=https://web.archive.org/web/20070504083236/http://mantanweb.mainichi.co.jp/web/2006/10/post_381.html|archive-date=2007-05-04|access-date=2007-05-13|language=ja}}</ref><ref>{{cite web|script-title=ja:はてなブックマーク – コードギアス 反逆のルルーシュ|url=https://b.hatena.ne.jp/keyword/コードギアス%20反逆のルルーシュ|url-status=live|archive-url=https://web.archive.org/web/20161230120828/http://b.hatena.ne.jp/keyword/%E3%82%B3%E3%83%BC%E3%83%89%E3%82%AE%E3%82%A2%E3%82%B9%20%E5%8F%8D%E9%80%86%E3%81%AE%E3%83%AB%E3%83%AB%E3%83%BC%E3%82%B7%E3%83%A5|archive-date=2016-12-30|access-date=2007-05-13|language=ja}}<!--https://web.archive.org/20070911151905/http://mantanweb.mainichi.co.jp/web/2006/10/post_381.html--></ref> A release on the [[Wii]] platform was cancelled for unknown reasons.<ref name="nintendo wii" /> All three games have only been released in Japanese.
+
+The official website for the first Nintendo DS game launched on July 16, 2007, with the game being released a few months later, on October 25.<ref>{{cite web|script-title=ja:コードギアス ゲームサイト|url=http://www.geass-game.jp|url-status=dead|archive-url=https://web.archive.org/web/20070701114056/http://www.geass-game.jp/|archive-date=2007-07-01|access-date=2007-07-02|language=ja}}</ref>
+
+A second game, titled ''Code Geass: Lelouch of the Rebellion Lost Colors'', was developed for the [[PlayStation Portable]] and [[PlayStation 2]] and released in Japan on March 27, 2008.<ref>{{cite web|title=コードギアス 反逆のルルーシュ LOST COLORS|url=http://www.geass-game.jp/ps/index.html|url-status=live|archive-url=https://web.archive.org/web/20110602192951/http://www.geass-game.jp/ps/index.html|archive-date=2011-06-02|access-date=2008-02-12|language=ja}}</ref> It is a [[visual novel]] game that follows a new protagonist named {{Nihongo|Rai|ライ}}, who suffers from amnesia. He has a Geass ability similar to [[Lelouch Lamperouge|Lelouch]]'s but activated by voice.
+
+The third game for the [[Nintendo DS]], titled ''Code Geass: Lelouch of the Rebellion R2 – Geass Theater on the Board'', was released on August 7, 2008. It is a collection of minigames featuring [[Chibi (style)|chibi]] forms of the characters. The player moves along a board through dice rolls, landing on different spots to activate minigames. The minigames are parody-style events with multiple genres.<ref>{{cite web|date=June 6, 2008|script-title=ja:バンダイナムコ、プレーヤーの一手がドラマを創造する DS「コードギアス 反逆のルルーシュR2 盤上のギアス劇場」|url=https://game.watch.impress.co.jp/docs/20080606/r2.htm|url-status=live|archive-url=https://web.archive.org/web/20260210233232/https://game.watch.impress.co.jp/docs/20080606/r2.htm|archive-date=February 10, 2026|access-date=March 4, 2026|website=Impress Watch|publisher=Impress Group|language=ja}}</ref>
+
+''Code Geass R2'' appeared in [[From Software]] (''[[Demon's Souls]]'', ''[[Armored Core]]'') and [[Banpresto]]'s [[PlayStation 3]] exclusive [[mecha]] action game ''[[Another Century's Episode R]]'', released in Japan in August 2010 and in which both versions of Suzaku's Lancelot, Lelouch's Shinkiro, both versions of Kallen's Guren, and C.C.'s Akatsuki are playable. A fourth installment of the ACE franchise for the PlayStation Portable, [[Another Century's Episode Portable]], included Suzaku's Lancelot Albion and Lelouch/Zero's Shinkiro.
+
+''Code Geass'' characters have appeared as costumes in the Japanese version of the PlayStation 3 game ''[[Tales of Graces F]]''. These characters are Zero, Suzaku, C.C., and Kallen. These costumes were never released in the US version for unknown reasons.<ref>{{cite web|author=a745|date=November 1, 2010|title=New Tales of Graces f Costumes Include a Code Geass Set + Narikiri Dolls|url=http://www.abyssalchronicles.com/?fn_mode=comments&fn_id=505|url-status=live|archive-url=https://web.archive.org/web/20101119113859/http://abyssalchronicles.com/?fn_mode=comments&fn_id=505|archive-date=November 19, 2010|access-date=November 3, 2010|publisher=Abyssal Chronicles}}</ref> It was discontinued for download on September 27, 2019.
+
+On December 5, 2020, a mobile game called ''Code Geass: Genesic Re;CODE'' was announced as part of the 10-year plan by Studio Sunrise. Considered a direct sequel, the smartphone game featured stories about the ''Code Geass'' characters, including several new ones.<ref name="Genesic">{{cite web|author1=Patrick Frye|date=December 5, 2020|title=Code Geass: Genesic Re;CODE game, 2021 Code Geass: Z of the Recapture anime projects announced|url=https://www.monstersandcritics.com/anime/code-geass-genesic-recode-code-geass-z-of-the-recapture-anime-project-pics-leaked/|url-status=live|archive-url=https://web.archive.org/web/20201204143347/https://www.monstersandcritics.com/anime/code-geass-genesic-recode-code-geass-z-of-the-recapture-anime-project-pics-leaked/|archive-date=December 4, 2020|access-date=December 5, 2020|website=Monsters and Critics}}</ref> It was released on October 4, 2021. The game's server terminated in April 2023.
+
+''Code Geass: Lost Stories'' is a mobile game developed by f4samurai and DMM Games. It is a social game for smart phones and PCs,<ref>{{cite web|title=Code Geass: Lost Stories|url=https://loststories-en.komoejoy.com/|url-status=live|archive-url=https://web.archive.org/web/20230916174227/https://loststories-en.komoejoy.com/|archive-date=16 September 2023|access-date=15 September 2023|publisher=KOMOE Game Corporation}}</ref> which launched in May 2022.<ref>{{cite news|last1=Mateo|first1=Alex|date=15 September 2023|title=Code Geass: Lost Stories Mobile Game Launches in English|url=https://www.animenewsnetwork.com/news/2023-09-13/code-geass-lost-stories-mobile-game-launches-in-english/.202236|url-status=live|archive-url=https://web.archive.org/web/20230915120816/https://www.animenewsnetwork.com/news/2023-09-13/code-geass-lost-stories-mobile-game-launches-in-english/.202236|archive-date=15 September 2023|access-date=15 September 2023|website=[[Anime News Network]]|language=en}}</ref><ref>{{cite news|last1=Luster|first1=Joseph|date=13 September 2023|title=Code Geass: Lost Stories Mobile Game Launches Around the Globe|url=https://www.crunchyroll.com/news/latest/2023/9/13/code-geass-lost-stories-mobile-game-launches-around-the-globe|url-status=live|archive-url=https://web.archive.org/web/20230929014620/https://www.crunchyroll.com/news/latest/2023/9/13/code-geass-lost-stories-mobile-game-launches-around-the-globe|archive-date=29 September 2023|access-date=15 September 2023|publisher=Crunchyroll}}</ref>
+
+=== Artbooks ===
+Two artbooks featuring illustrations of the series, ''Code Geass Graphics Zero'' ({{ISBN|4048540793}}) and ''Code Geass Graphics Ashford'' ({{ISBN|4048540807}}), have been published in Japan.<ref name="book" /> Coinciding with the release of the second season of ''Code Geass'' was the publication of another artbook, ''Code Geass – Lelouch of the Rebellion illustrations Rebels'' ({{ISBN|4048541692}}), which featured 134 art pieces from the first season. Another 95-page artbook titled ''Code Geass: Lelouch of the Rebellion – The Complete Artbook'' ({{ISBN|9784048541183}}) has also been published. Finally, CLAMP, the well-known manga artist team that did the designs for Code Geass, put out their own artbook, entitled Code Geass x CLAMP: Mutuality.{{Citation needed|date=March 2011}}
+
+=== Internet radio broadcasts ===
+"Code Geass" has also been adapted into a series of weekly [[internet radio]] broadcasts, which were streamed online on the BEAT☆Net Radio! portal, the first of which, {{Nihongo|''Code Geass: The Rebellion Diary''|コードギアス 反逆日記|Kōdo Giasu: Hangyaku Nikki}}, began streaming on October 6, 2006. It featured [[Sayaka Ohara]] (the voice actor of Milly Ashford) and [[Satomi Arai]] (the voice actor of Sayoko Shinazaki). The second, {{Nihongo|''Code Geass – Mountains of the Rebellion''|コードギアス 反逆の山々|Kōdo Giasu Hangyaku no Yamayama}}, was first streamed on December 12, 2006, and was hosted by [[Jun Fukuyama]] (the voice actor of Lelouch) and [[Noriaki Sugiyama]] (the voice actor of Rivalz). During ''R2'', a new show named {{Nihongo|''Code Geass – LuluKuru Station''|コードギアス ルルクルステーション|Kōdo Giasu Rurukuru Suteishōn}} was streamed, hosted by Fukuyama and [[Takahiro Sakurai]] (voice actor of Suzaku). {{Citation needed|date=April 2009}}
+
+== Reception ==
+=== Critical response ===
+''Code Geass'' was met with critical acclaim and commercial success. [[Anime News Network]] (ANN) columnist Todd Ciolek attributed the popularity of ''Code Geass'' to "the series hitting every important fan sector," including a "complex cast of characters and a fast-paced story, told with Goro Taniguchi's capable direction" for "general-interest fans" to "pretty and just-a-little-broken heroes" for "[[yaoi]]-buying female fans."<ref name="ANN_TC_XB">{{cite web|author=Ciolek, Todd|date=2008-08-13|title=The X Button: Revolutionary Jargon|url=http://www.animenewsnetwork.com/the-x-button/2008-08-13|url-status=live|archive-url=https://web.archive.org/web/20100227083255/http://www.animenewsnetwork.com/the-x-button/2008-08-13|archive-date=2010-02-27|access-date=2008-08-13|website=[[Anime News Network]]}}</ref> ANN's Carl Kimlinger also found that the series "has the skill and energy to carry viewers over the top with it, where they can spend a pleasurable few hours reveling in its melodramatic charms."<ref>{{cite web|title=Code Geass: Lelouch of the Rebellion DVD 1–2 – Review|url=http://www.animenewsnetwork.com/review/code-geass-lelouch-of-the-rebellion/dvd-1|url-status=live|archive-url=https://web.archive.org/web/20100927230536/http://www.animenewsnetwork.com/review/code-geass-lelouch-of-the-rebellion/dvd-1|archive-date=2010-09-27|access-date=2011-04-25|website=[[Anime News Network]]}}</ref> He also adds that Taniguchi "executes the excesses of his series with care, skillfully intercutting events as Lelouch's plans come together (or fall apart) and using kinetic mecha combat."<ref>{{cite web|title=Code Geass: Lelouch of the Rebellion DVD Part 3 – Review|url=http://www.animenewsnetwork.com/review/code-geass/lelouch-of-the-rebellion/dvd-part-3|url-status=live|archive-url=https://web.archive.org/web/20101205164311/http://www.animenewsnetwork.com/review/code-geass/lelouch-of-the-rebellion/dvd-part-3|archive-date=2010-12-05|access-date=2011-04-25|website=[[Anime News Network]]}}</ref>
+
+[[THEM Anime Reviews|T.H.E.M. Anime Reviews]] reviewer Dallas Marshall gave the series 6 out of 7 stars, stating that it was, "a melodramatic piece of science fiction that has more than enough going for it in terms of action and visuals but tends to go overboard with its emotionalism. If this minor flaw can be overlooked, there is an epic story to be told with a rather intriguing main character at the helm. Take away one star if that minor 'flaw' cannot be ignored."<ref>{{cite web|title=Code Geass|url=http://www.themanime.org/viewreview.php?id=1486|url-status=live|archive-url=https://web.archive.org/web/20200923151430/http://www.themanime.org/viewreview.php?id=1486|archive-date=September 23, 2020|access-date=January 6, 2017|publisher=[[THEM Anime Reviews|T.H.E.M. Anime Reviews]]}}</ref>
+
+A less favorable review was given by Carlo Santos of ANN, who gave it an overall "C" and wrote that the franchise "in a way, [...] reflects the [[malaise]] of a generation: the realization that old, rich, powerful people have screwed up the world and that the young are helpless to do anything about it." According to him, Lelouch's actions exemplify the wish to see problems like "[[economic collapse]], [[class conflict]], political instability, and [[extremism|radical extremism]]" solved by "Zero's [[vigilante]] methods," but Santos expressed doubt in such an approach and concluded that "the series is at its best when raising questions rather than offering a final solution" (the review focused on the manga adaptation of the story, which has certain differences compared with the original anime).<ref name="ANN_G1_rev">{{cite web|author=Santos, Carlo|date=2008-09-28|title=''Code Geass: Lelouch of the Rebellion GN 1–2'' – Review|url=http://www.animenewsnetwork.com/review/code-geass-lelouch-of-the-rebellion/gn-1|url-status=live|archive-url=https://web.archive.org/web/20100930234632/http://www.animenewsnetwork.com/review/code-geass-lelouch-of-the-rebellion/gn-1|archive-date=2010-09-30|access-date=2008-09-30|website=[[Anime News Network]]}}</ref>
+
+''Code Geass''<nowiki/>' entry in ''[[The Encyclopedia of Science Fiction]]'' notes that the original show was commercially and critically successful, both in Japan and internationally. According to SFE, the show is widely regarded as one of the major science-fictional anime productions of the twenty-first century's first decade, notable for bringing the themes of [[Imperialism]], collaborative guilt, and the ethics of political violence  – familiar from earlier Sunrise mecha series such as the [[Mobile Suit Gundam]] franchise  – to bear within an unusually intricate and psychologically oriented narrative framework, while adding a dash of supernatural in the vein of ''[[Neon Genesis Evangelion|Neon Gensis Evangelion]]'', but with more mature characters. However, the entry also notes that the post-resurrection franchise output has received a mixed critical reception, calling it "mediocre popcorn entertainment", while also stressing that the sequels do not diminish the original that precedes them.<ref name=":0">{{Cite web|last=Konieczny|first=Piotr|date=2025|title=SFE: Code Geass|url=https://sf-encyclopedia.com/entry/code_geass|access-date=2026-05-03|website=The Encyclopedia of Science Fiction|archive-date=2026-04-13|archive-url=https://web.archive.org/web/20260413110111/https://sf-encyclopedia.com/entry/code_geass|url-status=live}}</ref>
+
+=== Home video sales ===
+By August 2008, over 900,000 ''Code Geass'' discs had been sold in Japan.<ref>{{cite web|date=August 23, 2008|title=News: Bandai Visual Ships 100,000+ ''Geass R2'' #1 Discs|url=http://www.animenewsnetwork.com/news/2008-08-23/bandai-visual-ships-100000+geass-r2-no.1-discs|url-status=live|archive-url=https://web.archive.org/web/20120425212945/http://www.animenewsnetwork.com/news/2008-08-23/bandai-visual-ships-100000+geass-r2-no.1-discs|archive-date=April 25, 2012|access-date=April 5, 2011|website=[[Anime News Network]]}}</ref> Reportedly, Bandai Visual shipped over one million DVD and Blu-ray discs of the ''Code Geass'' franchise by November 2008, placing it among the most popular contemporary anime series in both Japan and North America.<ref name="ANN_HF_OST2">{{cite web|author=Carothers, Rachael|date=2008-11-18|title=Hai Fidelity: ''Code Geass R2''|url=http://www.animenewsnetwork.com/hai-fidelity/2008-11-18|url-status=live|archive-url=https://web.archive.org/web/20091225070125/http://www.animenewsnetwork.com/hai-fidelity/2008-11-18|archive-date=2009-12-25|access-date=2008-11-18|website=[[Anime News Network]]}}</ref> In 2008, the first volume of ''R2'' was the fourth-bestselling anime DVD and Blu-ray disc in Japan, according to [[Amazon.com]].<ref>{{cite web|date=December 3, 2008|title=News: Amazon Japan Posts 2008's Top-10 DVDs, CDs, Toys|url=https://www.animenewsnetwork.com/news/2008-12-03/amazon-japan-posts-2008-top-10-dvds-cds-toys|url-status=live|archive-url=https://web.archive.org/web/20080524182344/http://www.videor.co.jp/data/ratedata/backnum/2006/vol15.htm|archive-date=May 24, 2008|access-date=April 5, 2011|website=[[Anime News Network]]}}</ref>
+
+=== Box office ===
+Episodes 1, 3, and 5 of ''Akito the Exiled'' were screened theatrically in Japan between 2012 and 2016, with episode 1 grossing ¥35,112,097 ({{US$|{{To USD|35112097|JPN|year=2012|round=yes}}|long=no}}) in 2012 and episodes 3 and 5 grossing ¥216,957,460 ({{US$|{{To USD|216957460|JPN|year=2016|round=yes}}|long=no}}) during 2015{{ndash}}2016. Combined, the three episodes grossed ¥252,069,557 ({{US$|{{#expr:440056+1994224}}|long=no}}) at the Japanese box office.<ref name="someanithing">{{cite web|title=Box Office Gross, TV Anime Adaptations|url=http://www.someanithing.com/268|url-status=live|archive-url=https://web.archive.org/web/20191210011859/http://www.someanithing.com/268|archive-date=10 December 2019|access-date=25 February 2019|website=Someanithing: Anime DVD/BD Sales in Japan}}</ref>
+
+During 2017–2018, Code Geass launched three theatrical recap movies in Japan (October 21, February 10, and May 26, respectively), across 79 theaters.<ref>{{cite web|title=News: After the Rain Film Debuts at #4, Final Code Geass Trilogy Film Debuts at #9|url=https://www.animenewsnetwork.com/news/2018-05-29/after-the-rain-film-debuts-at-no.4-final-code-geass-trilogy-film-debuts-at-no.9/.132139|url-status=live|archive-url=https://web.archive.org/web/20180530034833/https://www.animenewsnetwork.com/news/2018-05-29/after-the-rain-film-debuts-at-no.4-final-code-geass-trilogy-film-debuts-at-no.9/.132139|archive-date=2018-05-30|access-date=May 30, 2018|website=[[Anime News Network]]}}</ref><ref>{{cite web|title=News: 2nd Code Geass Film Opens at #8, Macross Delta Film Tops Mini-Theater Ranking|url=https://www.animenewsnetwork.com/news/2018-02-14/2nd-code-geass-film-opens-at-no.8-macross-delta-film-tops-mini-theater-ranking/.127765|url-status=live|archive-url=https://web.archive.org/web/20180803195520/https://www.animenewsnetwork.com/news/2018-02-14/2nd-code-geass-film-opens-at-no.8-macross-delta-film-tops-mini-theater-ranking/.127765|archive-date=2018-08-03|access-date=May 30, 2018|website=[[Anime News Network]]}}</ref> The first part, ''The Awakening Path'', grossed ¥67,954,086.40 opening night, rising to number #8 on the charts.<ref>{{cite web|title=News: Japan Box Office October 21–22, 2017|url=http://www.boxofficemojo.com/intl/japan/?yr=2017&wk=42&p=.htm|url-status=live|archive-url=https://web.archive.org/web/20180525030438/http://www.boxofficemojo.com/intl/japan/?yr=2017&wk=42&p=.htm|archive-date=May 25, 2018|access-date=May 30, 2018|publisher=[[Box Office Mojo]]}}</ref> ''The Rebellion Path'' grossed ¥57,241,203.20 during its opening premiere, ranking #7 on the charts.<ref>{{cite web|title=News: Japan Box Office February 10–11, 2018|url=http://www.boxofficemojo.com/intl/japan/?yr=2018&wk=6&p=.htm|url-status=live|archive-url=https://web.archive.org/web/20180601233912/http://www.boxofficemojo.com/intl/japan/?yr=2018&wk=6&p=.htm|archive-date=June 1, 2018|access-date=May 30, 2018|publisher=[[Box Office Mojo]]}}</ref> ''The Imperial Path'' grossed ¥67,864,834,800 on its opening day and debuted at #8 on the charts.<ref>{{cite web|title=News: Japan Box Office May 26–27, 2018|url=http://www.boxofficemojo.com/intl/japan/?yr=2018&wk=21&p=.htm|url-status=live|archive-url=https://web.archive.org/web/20180604192505/http://www.boxofficemojo.com/intl/japan/?yr=2018&wk=21&p=.htm|archive-date=June 4, 2018|access-date=June 5, 2018|publisher=[[Box Office Mojo]]}}</ref> The film trilogy grossed a total of ¥647,802,700 in Japan.<ref name="someanithing"/>
+
+=== Accolades ===
+''Code Geass: Lelouch of the Rebellion'' has garnered numerous awards and accolades since its premiere. At the sixth annual Tokyo Anime Awards held at the 2007 [[Tokyo International Anime Fair]], ''Code Geass'' won the best anime television series award.<ref name="fair">{{cite news|date=2007-03-19|title=Results of 6th Annual Tokyo Anime Awards Out|url=https://www.animenewsnetwork.com/news/2007-03-19/results-anime-awards|url-status=live|archive-url=https://web.archive.org/web/20160430233421/https://www.animenewsnetwork.com/news/2007-03-19/results-anime-awards|archive-date=2016-04-30|access-date=2007-04-18|work=Anime News Network}}</ref> The second season also won the award for "Best Screenplay" at the 2009 Tokyo Anime Fair.<ref>{{cite web|date=February 19, 2009|title=News: Ponyo Wins Tokyo Anime Fair's Animation of the Year|url=http://www.animenewsnetwork.com/news/2009-02-19/ponyo-wins-tokyo-anime-fair-animation-of-the-year|url-status=live|archive-url=https://web.archive.org/web/20100811161523/http://www.animenewsnetwork.com/news/2009-02-19/ponyo-wins-tokyo-anime-fair-animation-of-the-year|archive-date=August 11, 2010|access-date=April 4, 2011|website=[[Anime News Network]]}}</ref> In noted Japanese anime magazine ''[[Animage]]''{{'}}s 29th Annual Anime Grand Prix, ''Code Geass'' won the most popular series award, with [[Lelouch Lamperouge]] also being chosen as the most popular male character and "Colors" being chosen as the most popular song.{{Citation needed|date=May 2009}} At the 30th Annual Anime Grand Prix, Lelouch won first place again, and [[C.C. (Code Geass)|C.C.]] was voted the most popular female character.{{Citation needed|date=May 2009}} At the first [[Seiyu Awards]] held in 2007, [[Jun Fukuyama]] won the award for best voice actor in a leading role for his performance as Lelouch Lamperouge in the series, while [[Ami Koshimizu]] won the award for best voice actress in a supporting role for her performance as [[Kallen Stadtfeld]].<ref>{{cite web|date=March 5, 2007|title=Results of Japan's First Ever Seiyuu Awards Announced|url=http://www.animenewsnetwork.com/news/2007-03-05/results-of-japan's-first-ever-seiyuu-awards-announced|url-status=live|archive-url=https://web.archive.org/web/20121101104842/http://www.animenewsnetwork.com/news/2007-03-05/results-of-japan's-first-ever-seiyuu-awards-announced|archive-date=November 1, 2012|access-date=April 4, 2011|website=[[Anime News Network]]}}</ref>
+
+Furthermore, ''Code Geass'' won the award for Best TV Animation at the twelfth [[Animation Kobe]] event, held annually in [[Kobe]], [[Hyōgo Prefecture]],<ref name="kobe">{{cite news|date=2007-09-27|title=Ghibli's Takahata, Paprika, Geass Win Anime Kobe Awards|url=http://www.animenewsnetwork.com/news/2007-09-27/ghibli's-takahata-paprika-geass-win-anime-kobe-awards|url-status=live|archive-url=https://web.archive.org/web/20171108095306/https://www.animenewsnetwork.com/news/2007-09-27/ghibli%27s-takahata-paprika-geass-win-anime-kobe-awards|archive-date=2017-11-08|access-date=2007-09-27|work=Anime News Network}}</ref> with ''R2'' taking the award the following year.<ref>{{cite web|date=2008-09-24|title=Dennō Coil's Iso, Eva, Geass R2 Win Anime Kobe Awards|url=http://www.animenewsnetwork.com/news/2008-09-24/denno-coil-iso-eva-geass-r2-win-anime-kobe-awards|url-status=live|archive-url=https://web.archive.org/web/20110530131511/http://www.animenewsnetwork.com/news/2008-09-24/denno-coil-iso-eva-geass-r2-win-anime-kobe-awards|archive-date=2011-05-30|access-date=2008-11-13|website=[[Anime News Network]]}}</ref> In the 2009 [[Seiun Award]], ''Code Geass R2'' was a nominee in the category of "Best Media Award."<ref>{{cite web|date=March 5, 2007|title=News: Japanese Science Fiction Con Award Nominees Revealed|url=http://www.animenewsnetwork.com/news/2009-04-14/japanese-science-fiction-con-award-nominees-revealed|url-status=live|archive-url=https://web.archive.org/web/20101227105231/http://www.animenewsnetwork.com/news/2009-04-14/japanese-science-fiction-con-award-nominees-revealed|archive-date=December 27, 2010|access-date=April 14, 2009|website=[[Anime News Network]]}}</ref>
+
+== Notes ==
+{{notelist}}
+
+== References ==
+{{reflist}}
+
+== External links ==
+{{wikiquote}}
+{{Commons category}}
+* [https://www.geass.jp/ Biglobe's Code Geass portal site] {{Webarchive|url=https://web.archive.org/web/20230322131026/https://geass.jp/|date=2023-03-22 }} {{in lang|ja}}
+* [https://mbs.jp/geass/ MBS's official site] {{in lang|ja}}
+* [https://web.archive.org/web/20100420051505/http://www.sunrise-inc.co.jp/geas/index.html Sunrise's official site] {{in lang|ja}}
+* {{Anime News Network|anime|6704|Code Geass: Lelouch of the Rebellion}}
+
+{{Code Geass}}
+{{Navboxes|list=
+{{Clamp}}
+{{Animation Kobe TV Feature Award}}
+{{Anime Grand Prix}}
+{{Sunrise}}
+{{Sunrise OVAs}}
+{{Nichigo}}
+{{Gorō Taniguchi}}
+{{Ichirō Ōkouchi}}
+{{Asuka}}
+{{Monthly Shōnen Ace}}
+}}
+
+[[Category:Code Geass| ]]
+[[Category:2006 anime television series debuts]]
+[[Category:2006 manga]]
+[[Category:2007 Japanese novels]]
+[[Category:2007 manga]]
+[[Category:2008 anime television series debuts]]
+[[Category:2008 Japanese television series endings]]
+[[Category:2009 Japanese television series endings]]
+[[Category:2008 Japanese novels]]
+[[Category:2009 anime OVAs]]
+[[Category:2010 manga]]
+[[Category:2012 anime OVAs]]
+[[Category:Alternate history anime]]
+[[Category:Alternate history animated television series]]
+[[Category:Anime and manga about revenge]]
+[[Category:Anime and manga about terrorism]]
+[[Category:Anime with original screenplays]]
+[[Category:Bandai Entertainment anime titles]]
+[[Category:Bandai Entertainment manga titles]]
+[[Category:Bandai Namco franchises]]
+[[Category:Bandai Visual]]
+[[Category:Crunchyroll anime]]
+[[Category:Cyborgs in anime and manga]]
+[[Category:Fiction about curses]]
+[[Category:Fiction about discrimination]]
+[[Category:Fiction about government]]
+[[Category:Fiction about mind control]]
+[[Category:Fiction about monarchy]]
+[[Category:Fiction about patricide]]
+[[Category:Fiction about regicide]]
+[[Category:Fiction about sororicide]]
+[[Category:Kadokawa Shoten manga]]
+[[Category:Kadokawa Sneaker Bunko]]
+[[Category:Light novels]]
+[[Category:Mainichi Broadcasting System original programming]]
+[[Category:Mecha anime and manga]]
+[[Category:Medialink]]
+[[Category:Military anime and manga]]
+[[Category:Propaganda in fiction]]
+[[Category:Real robot anime and manga]]
+[[Category:Seinen manga]]
+[[Category:Shōjo manga]]
+[[Category:Shōnen manga]]
+[[Category:Sunrise (studio)]]
+[[Category:Tokyo Broadcasting System Television original programming]]
+[[Category:Television series about rebellions]]
+[[Category:Television series about World War III]]
+[[Category:Television series set in 2017]]
+[[Category:Television series set in the 2010s]]
+[[Category:Television shows written by Ichirō Ōkouchi]]
+[[Category:Video games developed in Japan]]
+[[Category:Visual novels]]
+[[Category:Works banned in China]]
+[[Category:Works by Clamp (manga artists)]]
+[[Category:Television series about princes]]

@@ -223,6 +223,12 @@ func recognise(p dump.Page, keepText bool) []*Page {
 			"cinematography", "presenter", "narrator", "network")
 		links = append(links, titleLinksOf(ib, "list_episodes", "related")...)
 		add(filmstock.KindTelevision, buildTelevisionSeries(p.Title, p.ID, ib), ib, links)
+	case hasAnimangaSeries(p.Text):
+		ib, _ := FindAnimangaSeries(p.Text)
+		links := linksOf(ib, "director", "producer", "writer", "music", "composer",
+			"starring", "network", "company")
+		links = append(links, titleLinksOf(ib, "list_episodes")...)
+		add(filmstock.KindTelevision, buildTelevisionSeries(p.Title, p.ID, ib), ib, links)
 	case reListEpisodes.MatchString(p.Title):
 		add(kindEpisodeList, nil, nil, nil)
 	}
@@ -241,6 +247,13 @@ func isSeasonArticle(title, lowerText string) bool {
 
 func hasSeriesInfobox(text string) bool {
 	_, ok := wikitext.FindTemplateExact(text, "Infobox television")
+	return ok
+}
+
+// hasAnimangaSeries reports whether the page is an anime franchise article
+// describing a broadcast series.
+func hasAnimangaSeries(text string) bool {
+	_, ok := FindAnimangaSeries(text)
 	return ok
 }
 
