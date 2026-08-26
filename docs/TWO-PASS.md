@@ -1,6 +1,7 @@
 # Two-pass import/export
 
-A design, not yet built.
+Built. `filmstock import` and `filmstock export` exist; the numbers below marked
+*measured* come from runs, the rest are still estimates.
 
 ## Why
 
@@ -39,6 +40,8 @@ like the resolver cache, and can be rebuilt from a dump at any time.
 
 ### Pass 1 — import
 
+`filmstock import -dumps DUMPS -inter intermediate.db`
+
 Stream every main-namespace page once. For each page that any recogniser claims,
 store what was parsed and nothing derived:
 
@@ -61,6 +64,21 @@ it. Storing all of them is 1.4 GB.
 
 ### Pass 2 — export
 
+`filmstock export -inter intermediate.db -out RECORDS`
+
+This is `extract`'s second half with the dump taken out from under it. The
+recognisers, the collector and the record writer are the same objects doing the
+same work; only where the pages come from has changed, via a `pageSource` that
+the dump and the intermediate both satisfy.
+
+One implementation and two readers, deliberately. The split is only worth
+anything if a record built from the intermediate is the record `extract` would
+have built, and a second copy of the shaping logic would drift — silently, since
+the records still write, they are just quietly different from the expensive
+path's. Everything downstream is shared, which makes *the page export replays is
+the page import saw* the whole of what could differ, and that is what the tests
+pin.
+
 Read the intermediate, resolve, filter, emit the published records. This is where
 every decision that is currently baked into the streaming pass moves to:
 
@@ -77,6 +95,32 @@ Apply the day's pages to the intermediate as an upsert by `page_id`, then
 re-export what changed **and what refers to it**. A new film means exporting a
 person who did not change, because their credit list did.
 
+## What it cost to make fast
+
+Three things, each measured on an identical 300,000-page prefix rather than
+assumed:
+
+| | pages/s | store |
+|---|---|---|
+| first working version | 470 | — |
+| on the multistream reader | 2,065 | 977 MB |
+| lazy lead extraction | 2,921 | 977 MB |
+| gzipped wikitext | 2,921 | 409 MB |
+
+- **Recognising ran on the decode goroutine.** `RunStream` calls its handler
+  serially, so every parser for all 25.8M pages sat behind one core. Import now
+  uses the same multistream reader `extract` does, where the index lets each bz2
+  block be decoded on its own worker.
+- **Lead extraction was eager**, doing the work for twelve pages in thirteen and
+  throwing it away — 92% of pages are claimed by nothing.
+- **Wikitext is 92.7% of the store's bytes**, and gzips 2.4:1. gzip because the
+  project already uses it, and because its magic bytes make the blob
+  self-describing, so a store written before the change still reads.
+
+The first 300,000 page_ids are the oldest and largest articles, so these rates
+understate a full run: it passed 3,700 pages/s once into the body of the dump
+and was still climbing.
+
 ## Size
 
 | | | |
@@ -88,6 +132,9 @@ person who did not change, because their credit list did.
 | episodes | 572,847 | 0.3 GB |
 | events, schedules | 53,240 | 0.03 GB |
 | | | **~20 GB** |
+
+*Measured, part way through the first full import:* 11.7 kB per kept page
+gzipped, which puts ~1.2M recognised pages at roughly 14 GB.
 
 On the NVMe, never shipped, against 2.3 TB free. Comparable to the resolver cache
 before `wd_text` came out of it.
@@ -116,9 +163,9 @@ need a re-import, but the ones that change *shaping* do not.
 
 ## Seasons become first class
 
-A season is currently an anonymous struct nested in a series: number, episode
-count, first and last aired, episodes. Wikipedia has considerably more, in two
-complementary places, and neither is read today.
+**Done.** A season was an anonymous struct nested in a series: number, episode
+count, first and last aired, episodes. Wikipedia states considerably more, in
+two complementary places, and neither was read.
 
 **`{{Series overview}}`**, on the episode-list page, gives every season at once
 and — usefully — declares what its own columns mean:
@@ -148,7 +195,7 @@ network — and its Nielsen figures are properties of a season's arrangement, no
 of an episode. Attaching a season's rank to each of its episodes would invent
 precision the source does not have; episodes inherit by membership instead.
 
-## Decisions to settle first
+## Decisions, settled
 
 **Does the intermediate keep raw wikitext? — YES.**
 
