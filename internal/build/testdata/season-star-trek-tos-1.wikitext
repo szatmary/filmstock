@@ -1,0 +1,420 @@
+{{Use American English|date=May 2025}}
+{{Use mdy dates|date=September 2023}}
+{{Infobox television season
+| season_number = 1
+| bgcolour      = #c7b56b
+| image         = Star Trek The Original Series season 1.png
+| image_alt     =
+| caption       = DVD and [[Blu-ray]] cover
+| starring      = {{Plainlist|
+* [[William Shatner]]
+* [[Leonard Nimoy]]
+* [[DeForest Kelley]]
+}}
+| num_episodes  = 29
+| network       = [[NBC]]
+| first_aired   = {{Start date|1966|09|08}}
+| last_aired    = {{End date|1967|04|13}}
+| next_season   = [[Star Trek: The Original Series season 2|Season 2]]
+| episode_list  = List of Star Trek: The Original Series episodes 
+}}
+
+The first season of the American science-fiction television series ''[[Star Trek: The Original Series|Star Trek]]'', originally created by [[Gene Roddenberry]], premiered on [[NBC]] on September 8, 1966, and concluded on April 13, 1967. The season debuted in [[Canada]] on [[CTV Television Network|CTV]] two days before the American premiere, on September 6, 1966. It consisted of 29 episodes, which is the highest number of episodes in a season for the original series of ''Star Trek''. It features [[William Shatner]] as [[Captain James T. Kirk]], [[Leonard Nimoy]] as [[Spock]], and [[DeForest Kelley]] as [[Leonard McCoy]].
+
+==Broadcast history==
+The season originally aired on Thursdays at 8:30{{nbsp}}pm ([[Eastern Time Zone|ET]]) on NBC.
+
+==Cast==
+{{Main|List of Star Trek: The Original Series cast members}}
+* [[William Shatner]] as Captain [[James T. Kirk]]: Commanding officer of the USS ''Enterprise''
+* [[Leonard Nimoy]] as [[Commander]] [[Spock]]: The ship's half-human/half-[[Vulcan (Star Trek)|Vulcan]] science officer and first/executive officer (i.e. second-in-command)
+* [[DeForest Kelley]] as Lieutenant Commander Dr. [[Leonard McCoy|Leonard "Bones" McCoy]]: The ship's chief medical officer and third officer
+* [[James Doohan]] as [[Lieutenant Commander]] [[Montgomery Scott|Montgomery "Scotty" Scott]]: The ''Enterprise''{{'}}s chief engineer and second officer (i.e. third-in-command)
+* [[Nichelle Nichols]] as Lieutenant [[Nyota Uhura]]: The ship's communications officer
+* [[George Takei]] as Lieutenant [[Hikaru Sulu]]: The ship's helmsman
+* [[Majel Barrett]] as Nurse [[Christine Chapel]]: The ship's head nurse (Barrett, who played the ship's first officer, [[Number One (Star Trek)|Number One]], in "The Cage," also voiced the ship's computer.)
+* [[Grace Lee Whitney]] as [[Janice Rand]]: The captain's [[Yeoman (US Navy)|yeoman]]
+
+==Episodes==
+{{see also|List of Star Trek: The Original Series episodes}}
+The table below lists episodes by order of their original NBC air date, which sometimes differed from the order of filming and production.
+
+<onlyinclude>{{Episode table|background=#C7B56B|overall=5|season=5|title=22|director=12|writer=31|airdate=12|prodcode=5|airdateR=<ref name="airdates">{{cite book|last=Trimble|first=Bjo|author-link=Bjo Trimble|title=Star Trek Concordance|publisher=[[Ballantine Books]]|location=New York|year=1976|pages=37–89|isbn=0-345-25137-7}}</ref> |viewers=|viewersT=U.S. households (in millions) |episodes=
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=1
+|EpisodeNumber2=1
+|Title=[[The Man Trap]]
+|DirectedBy=[[Marc Daniels]]
+|WrittenBy=[[George Clayton Johnson]]
+|OriginalAirDate={{Start date|1966|9|8}}
+|ProdCode=06
+|Viewers=11.36<ref name="drive1">{{cite web|url=https://drive.google.com/file/d/1hDRfsUrtnYPmQv3ZwnXwCElP_7fIEc_e/view|title=1966-67 Primetime.pdf|publisher=[[Google Drive]]|work=[[Nielsen Media Research]]|date=December 30, 2023|access-date=July 8, 2024}}</ref>
+|ShortSummary=The ''Enterprise'' visits planet M-113 for routine medical examinations of the husband-and-wife archaeological team stationed there, but the woman has been replaced by a shape-shifting creature, who survives by assuming a new form depending who it meets and extracting the salt from the bodies, killing them.<ref name="s1_episodes">{{cite web|url=http://www.startrek.com/startrek/view/series/TOS/episodes/index.html?season=1|title=Star Trek: Episodes Season 1|publisher=StarTrek.com|access-date=June 4, 2009|archive-url=https://web.archive.org/web/20090621234357/http://www.startrek.com/startrek/view/series/TOS/episodes/index.html?season=1|archive-date=June 21, 2009}}</ref>
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=2
+|EpisodeNumber2=2
+|Title=[[Charlie X]]
+|DirectedBy=[[Lawrence Dobkin]]
+|WrittenBy={{StoryTeleplay|s=[[Gene Roddenberry]]|t=[[D. C. Fontana]]}}
+|OriginalAirDate={{Start date|1966|9|15}}
+|ProdCode=08
+|Viewers=10.10<ref name="drive1"/>
+|ShortSummary=The ''Enterprise'' picks up Charlie Evans, an unstable 17-year-old boy, who spent 14 years alone on a deserted planet and lacks the training and restraint to handle his superhuman mental powers wisely.<ref name="s1_episodes" /> This episode serves as the backstory for the unofficial miniseries ''[[Star Trek: Of Gods and Men]]''.
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=3
+|EpisodeNumber2=3
+|Title=[[Where No Man Has Gone Before]]
+|DirectedBy=[[James Goldstone]]
+|WrittenBy=[[Samuel A. Peeples]]
+|OriginalAirDate={{Start date|1966|9|22}}
+|ProdCode=02b
+|Viewers=10.38<ref name="drive1"/>
+|ShortSummary=After the ''Enterprise'' attempts to cross the Galactic Barrier at the edge of the [[Milky Way|galaxy]], crew members Gary Mitchell and Elizabeth Dehner develop "godlike" psychic powers, which threaten the safety of the crew.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=4
+|EpisodeNumber2=4
+|Title=[[The Naked Time]]
+|DirectedBy=Marc Daniels
+|WrittenBy=[[John D. F. Black]]
+|OriginalAirDate={{Start date|1966|9|29}}
+|ProdCode=07
+|Viewers=10.05<ref name="drive1"/>
+|ShortSummary=A strange, intoxicating infection, which lowers the crew's emotional inhibitions, spreads throughout the ''Enterprise''. As the madness spreads, the entire ship is endangered.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=5
+|EpisodeNumber2=5
+|Title=[[The Enemy Within (Star Trek: The Original Series)|The Enemy Within]]
+|DirectedBy=[[Leo Penn]]
+|WrittenBy=[[Richard Matheson]]
+|OriginalAirDate={{Start date|1966|10|6}}
+|ProdCode=05
+|Viewers=9.06<ref name="drive1"/>
+|ShortSummary=While beaming up from planet Alpha 177, a transporter accident splits Captain Kirk into two beings: one "good", who is weak and indecisive, and one "evil", who is overly aggressive and domineering.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=6
+|EpisodeNumber2=6
+|Title=[[Mudd's Women]]
+|DirectedBy=[[Harvey Hart]]
+|WrittenBy={{StoryTeleplay|s=[[Gene Roddenberry]]|t=[[Stephen Kandel]]}}
+|OriginalAirDate={{Start date|1966|10|13}}
+|ProdCode=04
+|Viewers=9.83<ref name="drive1"/>
+|ShortSummary=The ''Enterprise'' pursues a vessel and rescues its occupants; Harry Mudd, an interstellar con man, is transporting three mysteriously beautiful women to become the wives of dilithium miners.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=7
+|EpisodeNumber2=7
+|Title=[[What Are Little Girls Made Of?]]
+|DirectedBy=James Goldstone
+|WrittenBy=[[Robert Bloch]]
+|OriginalAirDate={{Start date|1966|10|20}}
+|ProdCode=10
+|Viewers=9.39<ref name="drive1"/>
+|ShortSummary=In search of [[Christine Chapel|Nurse Chapel's]] fiancé, renowned [[Astrobiology|exobiologist]] Roger Korby, the ''Enterprise'' visits the icy planet Exo III, where Korby has discovered an ancient machine that allows him to duplicate any living person with an [[android (robot)|android]] replacement. Korby plans to use the machine to spread controlled androids throughout the [[United Federation of Planets|Federation]], and replaces Captain Kirk with such a duplicate in an effort to take over the ''Enterprise''.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=8
+|EpisodeNumber2=8
+|Title=[[Miri (Star Trek: The Original Series)|Miri]]
+|DirectedBy=[[Vincent McEveety]]
+|WrittenBy=[[Adrian Spies]]
+|OriginalAirDate={{Start date|1966|10|27}}
+|ProdCode=12
+|Viewers=8.95<ref name="drive1"/>
+|ShortSummary=After discovering what appears to be a duplicate of the planet [[Earth]], Captain Kirk and his [[landing party|away team]] find a population ravaged by a strange disease, which only children appear to have survived.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=9
+|EpisodeNumber2=9
+|Title=[[Dagger of the Mind]]
+|DirectedBy=Vincent McEveety
+|WrittenBy=[[Shimon Wincelberg]]{{efn|name=Bar-David|Credited as S. Bar-David}}
+|OriginalAirDate={{Start date|1966|11|3}}
+|ProdCode=11
+|Viewers=9.94<ref name="drive1"/>
+|ShortSummary=While the Enterprise is on a resupply mission to a rehabilitation colony for the criminally insane, a former doctor — now insane — sneaks on board the ship. Beaming down to the planet, Kirk and a female crew member discover that the chief doctor has been using a device that destroys the human mind. Spock performs a [[Vulcan (Star Trek)#Mind melds|mind meld]] for the first time in this episode.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=10
+|EpisodeNumber2=10
+|Title=[[The Corbomite Maneuver]]
+|DirectedBy=[[Joseph Sargent]]
+|WrittenBy=[[Jerry Sohl]]
+|OriginalAirDate={{Start date|1966|11|10}}
+|ProdCode=03
+|Viewers=9.55<ref name="drive1"/>
+|ShortSummary=The ''Enterprise'' is menaced by a gigantic alien ship whose commander condemns the crew to death. The alien ship appears all-powerful, and the alien commander refuses all attempts at negotiation, forcing Kirk to employ an unorthodox strategy to save the ship.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|NumParts=2
+|EpisodeNumber_1=11
+|EpisodeNumber_2=12
+|EpisodeNumber2_1=11
+|EpisodeNumber2_2=12
+|Title=[[The Menagerie (Star Trek: The Original Series)|The Menagerie]]
+|DirectedBy_1=Marc Daniels
+|DirectedBy_2=[[Robert Butler (director)|Robert Butler]]
+|WrittenBy=[[Gene Roddenberry]]
+|OriginalAirDate_1={{Start date|1966|11|17}}
+|OriginalAirDate_2={{Start date|1966|11|24}}
+|ProdCode=16
+|Viewers_1=9.50<ref name="drive1"/>
+|Viewers_2=10.21<ref name="drive1"/>
+|ShortSummary='''Part I:''' Spock hijacks the ''Enterprise'' to take his crippled former captain, [[Christopher Pike (Star Trek)|Christopher Pike]], to the forbidden world of [[Talosians|Talos IV]]. He then demands a court martial, where he uses the events of "[[The Cage (Star Trek: The Original Series)|The Cage]]" to tell the tale of Pike's captivity on the planet years earlier.<ref name="s1_episodes" /><hr>'''Part II:''' After witnessing the Talosians' capabilities of mental illusion, Kirk realizes that Spock intends to return Pike to the planet to live a life of illusion, unencumbered by his crippled condition.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=13
+|EpisodeNumber2=13
+|Title=[[The Conscience of the King]]
+|DirectedBy=[[Gerd Oswald]]
+|WrittenBy=Barry Trivers
+|OriginalAirDate={{Start date|1966|12|8}}
+|ProdCode=13
+|Viewers=8.62<ref name="drive1"/>
+|ShortSummary=While visiting an old friend, Kirk suspects a Shakespearean actor may actually be the murderous former governor of Tarsus IV ("Kodos the Executioner"), where Kirk grew up. Kirk invites the acting troupe aboard the ''Enterprise'' to investigate.  Spock discovers that there had been only nine people who could have identified Kodos, but seven of them were murdered when the troupe was nearby.  He is certain that Captain Kirk and Lieutenant Riley, the only remaining witnesses, are the next targets.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=14
+|EpisodeNumber2=14
+|Title=[[Balance of Terror]]
+|DirectedBy=Vincent McEveety
+|WrittenBy=[[Paul Schneider (writer)|Paul Schneider]]
+|OriginalAirDate={{Start date|1966|12|15}}
+|ProdCode=09
+|Viewers=8.51<ref name="drive1"/>
+|ShortSummary=While investigating a series of destroyed outposts, the ''Enterprise'' discovers a lone [[Romulan]] vessel with a [[cloaking device]]. The Romulans, having never been seen by humans, are revealed to visually resemble [[Vulcan (Star Trek)|Vulcans]], casting doubt on Mr. Spock's loyalty, as the two ships become locked in a cat-and-mouse battle through space.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=15
+|EpisodeNumber2=15
+|Title=[[Shore Leave (Star Trek: The Original Series)|Shore Leave]]
+|DirectedBy=[[Robert Sparr]]
+|WrittenBy=[[Theodore Sturgeon]]
+|OriginalAirDate={{Start date|1966|12|29}}
+|ProdCode=17
+|Viewers=10.10<ref name="drive1"/>
+|ShortSummary=Captain Kirk orders [[shore leave]] for the ''Enterprise'' crew on a seemingly uninhabited planet in the Omicron Delta system. The landing parties begin to see strange sights, such as a [[White Rabbit]] a la "[[Alice in Wonderland]]", [[Don Juan]], and a sword-wielding [[samurai]]. Also, Kirk sees (and fights) an image of Finnegan, a rival from his [[Starfleet Academy]] days. Spock discovers that the planet seems to be drawing a large amount of energy from the ship's engines, placing the ''Enterprise'' in danger.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=16
+|EpisodeNumber2=16
+|Title=[[The Galileo Seven]]
+|DirectedBy=[[Robert Gist]]
+|WrittenBy={{StoryTeleplay|s=[[Oliver Crawford]]|t=Oliver Crawford and Shimon Wincelberg{{efn|name=Bar-David}}}}
+|OriginalAirDate={{Start date|1967|1|5}}
+|ProdCode=14
+|Viewers=8.89<ref name="drive1"/>
+|ShortSummary=Spock and a scientific party are sent to study the Murasaki 312 [[quasar]] aboard the shuttle ''Galileo''. During the survey, the ''Galileo'' is forced to make an emergency landing on the planet Taurus II, where the crew fights the planet's dangerous inhabitants. As the crew begins to make repairs, Scotty determines that the shuttle does not have enough fuel to reach orbit carrying all seven passengers, and Spock must contemplate leaving some of his fellow crew behind.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=17
+|EpisodeNumber2=17
+|Title=[[The Squire of Gothos]]
+|DirectedBy=[[Don McDougall (director)|Don McDougall]]
+|WrittenBy=Paul Schneider
+|OriginalAirDate={{Start date|1967|1|12}}
+|ProdCode=18
+|Viewers=10.82<ref name="drive1"/>
+|ShortSummary=The ''Enterprise'' discovers a [[rogue planet]] drifting through space, inhabited by an [[Eccentricity (behavior)|eccentric]] being named Trelane, who uses his apparently unlimited power over matter and form to manipulate the crew.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=18
+|EpisodeNumber2=18
+|Title=[[Arena (Star Trek: The Original Series)|Arena]]
+|DirectedBy=[[Joseph Pevney]]
+|WrittenBy={{StoryTeleplay|s=[[Fredric Brown]]|t=[[Gene L. Coon]]}}
+|OriginalAirDate={{Start date|1967|1|19}}
+|ProdCode=19
+|Viewers=10.54<ref name="drive1"/>
+|ShortSummary=The ''Enterprise'' comes under attack by unknown aliens while investigating the near-destruction of the Cestus III colony. While chasing the aliens into unexplored space, both ships are captured by the powerful Metrons, who force Kirk and the alien captain (later identified as a member of the [[Gorn]] race) to trial by combat; the winner's vessel will be set free, while the loser's ship will be destroyed.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=19
+|EpisodeNumber2=19
+|Title=[[Tomorrow Is Yesterday]]
+|DirectedBy=[[Michael O'Herlihy]]
+|WrittenBy=[[D. C. Fontana]]
+|OriginalAirDate={{Start date|1967|1|26}}
+|ProdCode=21
+|Viewers=10.98<ref name="drive1"/>
+|ShortSummary=After accidentally traveling back in time to 1969, the ''Enterprise'' rescues [[United States Air Force|USAF]] Captain John Christopher from his crippled fighter jet. The crew struggles to return to their own time, while simultaneously returning Christopher to the Air Force, removing his knowledge of the future and all record of contact with the ''Enterprise''.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=20
+|EpisodeNumber2=20
+|Title=[[Court Martial (Star Trek: The Original Series)|Court Martial]]
+|DirectedBy=Marc Daniels
+|WrittenBy={{StoryTeleplay|s=[[Don M. Mankiewicz]]|t=Don M. Mankiewicz and [[Steven W. Carabatsos]]}}
+|OriginalAirDate={{Start date|1967|2|2}}
+|ProdCode=15
+|Viewers=10.05<ref name="drive1"/>
+|ShortSummary=Captain Kirk is placed on trial for negligence after a crewman is killed during a severe ion storm. Kirk maintains that his actions were proper and should not have led to the officer's death, but the evidence seems strong against him.<!-- Will Kirk's crew be able to save the captain from conviction? --><ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=21
+|EpisodeNumber2=21
+|Title=[[The Return of the Archons]]
+|DirectedBy=Joseph Pevney
+|WrittenBy={{StoryTeleplay|s=Gene Roddenberry|t=Boris Sobelman}}
+|OriginalAirDate={{Start date|1967|2|9}}
+|ProdCode=22
+|Viewers=10.93<ref name="drive1"/>
+|ShortSummary=The ''Enterprise'' discovers a planetary population controlled by a powerful being called Landru. While investigating, Captain Kirk and his landing party are taken captive, and discover that the ''Enterprise'' crew will be the next to be "absorbed" into Landru's control.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=22
+|EpisodeNumber2=22
+|Title=[[Space Seed]]
+|DirectedBy=Marc Daniels
+|WrittenBy={{StoryTeleplay|s=[[Carey Wilber]]|t=Gene L. Coon and Carey Wilber}}
+|OriginalAirDate={{Start date|1967|2|16}}
+|ProdCode=24
+|Viewers=9.94<ref name="drive1"/>
+|ShortSummary=The ''Enterprise'' discovers an ancient [[sleeper ship]], the SS ''Botany Bay'', which escaped from Earth's [[Timeline of Star Trek#Eugenics Wars and World War III|Eugenics Wars]] in the late 20th century. The [[genetic engineering|genetically engineered]] passengers, led by war criminal [[Khan Noonien Singh]], seize control of the ''Enterprise'' and attempt to destroy the ship. (This episode serves as the backstory to the [[Star Trek II: The Wrath of Khan|second Star Trek film]].)<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=23
+|EpisodeNumber2=23
+|Title=[[A Taste of Armageddon]]
+|DirectedBy=Joseph Pevney
+|WrittenBy={{StoryTeleplay|s=Robert Hamner|t=Robert Hamner and Gene L. Coon}}
+|OriginalAirDate={{Start date|1967|2|23}}
+|ProdCode=23
+|Viewers=10.98<ref name="drive1"/>
+|ShortSummary=On Eminiar VII, the ''Enterprise'' finds a civilization at war with its planetary neighbor. Unable to discern any signs of battle from orbit, Captain Kirk leads a landing party to the surface, where he discovers the entire war is fought by computer. Though the war is simulated, citizens who are listed as virtual casualties still report to [[Suicide booth#Star Trek|termination booths]] to be killed for real. After the ''Enterprise'' is destroyed in an attack simulation, Kirk must fight to keep his crew from death.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=24
+|EpisodeNumber2=24
+|Title=[[This Side of Paradise (Star Trek: The Original Series)|This Side of Paradise]]
+|DirectedBy=[[Ralph Senensky]]
+|WrittenBy={{StoryTeleplay|s=Jerry Sohl{{efn|Credited as Nathan Butler}} and D. C. Fontana|t=[[D. C. Fontana]]}}
+|OriginalAirDate={{Start date|1967|3|2}}
+|ProdCode=25
+|Viewers=10.10<ref name="drive1"/>
+|ShortSummary=Despite exposure to fatal [[radiation]], the Federation colony on Omicron Ceti III appears to be thriving. A landing party from the ''Enterprise'' investigates, finding the colony's population to be healthy beyond explanation. Leila Kalomi, an old friend of Mr. Spock's, shows the landing party strange flowers that seem to impose a state of pure bliss and perfect health on all exposed to its [[spore]]s (even Spock), but at the cost of ambition and self-discipline. <!-- Will the ''Enterprise'' crew succumb to the effects? --><ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=25
+|EpisodeNumber2=25
+|Title=[[The Devil in the Dark]]
+|DirectedBy=Joseph Pevney
+|WrittenBy=[[Gene L. Coon]]
+|OriginalAirDate={{Start date|1967|3|9}}
+|ProdCode=26
+|Viewers=10.38<ref name="drive1"/>
+|ShortSummary=Dispatched to the mining colony on Janus VI, the ''Enterprise'' is to investigate rumors of a strange, subterranean creature responsible for destruction of equipment and the deaths of 50 miners. Kirk and Spock discover a [[Hypothetical types of biochemistry#Silicon biochemistry|silicon-based life form]], a Horta, which lives in the surrounding rock. After Kirk and Spock find the strange creature, Spock performs a mind meld, discovering the reason behind the Horta's attacks.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=26
+|EpisodeNumber2=26
+|Title=[[Errand of Mercy]]
+|DirectedBy=[[John Newland]]
+|WrittenBy=[[Gene L. Coon]]
+|OriginalAirDate={{Start date|1967|3|23}}
+|ProdCode=27
+|Viewers=9.50<ref name="drive1"/>
+|ShortSummary=Peace negotiations have collapsed between the Federation and the warlike [[Klingon|Klingon Empire]]. The ''Enterprise'' is ordered to protect Organia, a peaceful planet located near the Klingon border. Kirk and Spock beam to the surface to warn the Organians about the Klingons, but a Klingon fleet soon arrives, forcing the ''Enterprise'' to abandon the duo on the planet. The natives protect Kirk and Spock, even as [[Kor (Star Trek)|Kor]], the new Klingon governor, orders mass executions of the Organian people. As both Federation and Klingon fleets converge above the planet, Kirk and Spock execute a daring raid on the Klingon headquarters in an effort to destabilize their control over the planet.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=27
+|EpisodeNumber2=27
+|Title=[[The Alternative Factor]]
+|DirectedBy=Gerd Oswald
+|WrittenBy=[[Don Ingalls]]
+|OriginalAirDate={{Start date|1967|3|30}}
+|ProdCode=20
+|Viewers=9.33<ref name="drive1"/>
+|ShortSummary=While orbiting an apparently dead planet, the ''Enterprise'' seems to experience a strange moment of "nonexistence". Captain Kirk discovers a man named Lazarus on the planet below, who claims the effect was caused by his "enemy", later revealed to be an insane version of Lazarus from an [[Parallel universe (fiction)|alternate dimension]]. The sane version of Lazarus asks for Kirk's help in defeating his counterpart.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=28
+|EpisodeNumber2=28
+|Title=[[The City on the Edge of Forever]]
+|DirectedBy=Joseph Pevney
+|WrittenBy=[[Harlan Ellison]]
+|OriginalAirDate={{Start date|1967|4|6}}
+|ProdCode=28
+|Viewers=9.39<ref name="drive1"/>
+|ShortSummary=After accidentally overdosing on a powerful stimulant, Dr. McCoy becomes unbalanced and disappears through [[Guardian of Forever|the Guardian of Forever]], a newly discovered [[time portal]] on a remote planet. Kirk and Spock follow after learning that McCoy somehow changed history, removing everything they once knew, including the Enterprise. Arriving in the 1930s, the duo meets Edith Keeler, a New York [[social worker]], who gives them a place to stay. As the days pass, and McCoy is nowhere to be seen, Kirk finds himself falling in love with Keeler, but Spock discovers that Keeler must die to restore the timeline.<ref name="s1_episodes" />
+
+In 1997, ''[[TV Guide]]'' ranked this "[[Hugo Award]]"-winning episode number 92 on its list of the 100 Greatest Episodes.<ref>{{cite journal |year=1997 |title=Special Collector's Issue: 100 Greatest Episodes of All Time |journal=[[TV Guide]] |issue=June 28-July 4 }}</ref> In 2009, it moved to #80.<ref>{{cite web|url=http://rev-views.blogspot.com/2009/06/tv-guides-top-100-episodes.html|title=TV Guide's Top 100 Episodes|publisher=Rev/Views|access-date=July 4, 2016}}</ref>
+|LineColor=c7b56b
+}}
+{{Episode list/sublist|Star Trek: The Original Series season 1
+|EpisodeNumber=29
+|EpisodeNumber2=29
+|Title=[[Operation – Annihilate!]]
+|DirectedBy=[[Herschel Daugherty]]
+|WrittenBy=[[Steven W. Carabatsos]]
+|OriginalAirDate={{Start date|1967|4|13}}
+|ProdCode=29
+|Viewers=9.72<ref name="drive1"/>
+|ShortSummary=The ''Enterprise'' arrives at Deneva - the home of Captain Kirk's brother, Sam, and his family - and discovers that the entire planet has been infested with large, [[Amoeba (genus)|amoeba]]-like aliens that have attacked and killed much of the human population. One of these aliens attaches itself to Spock, who volunteers to become a subject in Dr. McCoy's medical tests.  McCoy and Kirk find a cure in time to save Spock and the remainder of the Denevan population.<ref name="s1_episodes" />
+|LineColor=c7b56b
+}}
+}}
+{{reflist|group=lower-alpha}}</onlyinclude>
+
+==Home media==
+In early 1980, Paramount Home Video issued a limited series of VHS tapes with two episodes per volume, pursuant to the theatrical release of ''[[Star Trek: The Motion Picture]]'', with a selling price of $79.99 per volume.
+
+Beginning in March 1981, a handful of season-one episodes debuted on [[Capacitance Electronic Disc|CED]]. With the release of ''[[Star Trek II: The Wrath of Khan]]'' in theatres in June 1982, Paramount Home Video took a gamble on releasing the season-one episode "[[Space Seed]]" (along with a handful of theatrical titles) on public sale for a reduced price of $29.99, at a time when videotape titles typically sold for around $80.<ref name="startrek.com">{{cite web|url=https://intl.startrek.com/article/space-seed-khan-forever-changed-vhs-releases|title="Space Seed," Khan Forever Changed VHS Releases|date=February 1, 2018|access-date=August 15, 2021}}</ref> The move put the episode into the top sales position for the remainder of the year (helping to establish the “sell-thru” retail market), and into 1983, when ''Star Trek II'' went on public sale for $39.95. A complete set of season-one episodes debuted from 1985 through 1989 on [[laserdisc]], [[VHS]], and [[Betamax]] formats, typically with two episodes per volume (“The Menagerie”, Parts 1 and 2 appeared the year prior on laserdisc). [[Columbia House]] began issuing mail-order volumes featuring episodes in "star date" order in 1986.
+
+The original series pilot, "The Cage", was released to home video in 1986, consisting of black-and-white workprint footage combined with color footage from the season-one, two-part episode [[The Menagerie (Star Trek: The Original Series)|"The Menagerie"]] with a run time of 73 minutes. In 1988, the excised color footage was found and the full-color version of the episode debuted on television and was later given a home-video release for the first time, with a shorter run time of 64 minutes.
+
+Beginning in August 1999, season-one episodes debuted on DVD, with two episodes per volume, completing the entire series, including both versions of "The Cage", in November 1991. A complete-season box set with new bonus features, but without either version of the pilot, was released in August 2004.
+
+Season one was released on the [[HD-DVD]] format as a 10-disc set in late 2007.<ref>{{cite web|url=https://www.engadget.com/2007-07-26-star-trek-the-original-series-hd-dvd-boxed-set-hits-november-20.html|title=Star Trek: The Original Series S1 HD DVD boxed set hits November 20|date=July 26, 2007|access-date=August 15, 2021}}</ref> The set included the series with remastered effects on hybrid DVD/HD-DVD combo discs, which play in DVD players at standard definition, but also on appropriate HD-DVD players.<ref>{{cite web|url=https://trekmovie.com/2008/08/07/cbs-announces-trek-remastered-complete-series-dvd-set/|title=CBS Announces Trek Remastered Complete Series DVD Set|date=August 7, 2008|access-date=August 15, 2021}}</ref> HD-DVD was overall discontinued, so only season one was released on HD-DVD, although the later two seasons were still released as remastered DVD versions. By purchasing a HD-DVD player and a remastered HD-DVD ''Star Trek'' season one, buyers of this special promotion could acquire a remote control shaped like ''Star Trek'' original-series [[Weapons in Star Trek#Phaser|phaser]] prop.<ref>{{cite web|url=https://trekmovie.com/2007/09/21/more-details-on-toshiba-phaser-tos-r-promotion/|title=More Details On Toshiba Phaser TOS-R Promotion|date=September 21, 2007|access-date=August 15, 2021}}</ref> Toshiba had partnered with Paramount to release the original series in remastered format, to support its then-new HD-DVD optical video disc format.<ref>{{cite web|url=https://www.cdrinfo.com/d7/content/toshiba-and-cbs-release-star-trek-original-series-hd-dvddvd-combo-disc|title=Toshiba and CBS to Release "Star Trek: The original Series" in HD DVD/DVD Combo Disc|date=November 22, 2007|access-date=August 15, 2021}}</ref>
+
+The  ''[[Star Trek: Beyond the Final Frontier]]'' documentary was included with the season-one HD DVD box set of ''Star Trek: The Original Series.''<ref>{{Cite web|last=Wright|first=Matt|title=Review – Star Trek: The Original Series Season One HD DVD Box Set [UPDATED]|url=https://trekmovie.com/2007/11/17/review-star-trek-the-original-series-season-one-hd-dvd-box-set/|access-date=March 18, 2021|website=TrekMovie.com|language=en-US}}</ref> However, the documentary was included in the DVD component of the set, not the HD portion.<ref>{{Cite web|title=Star Trek : The Original Series - Season 1 Digitally Remastered (DVD On One Side & HD On The Other) [HD DVD]- Pre-owned|url=https://hddvd-revived.com/index.php?route=product/product&product_id=576|access-date=March 18, 2021|website=hddvd-revived.com}}</ref>
+
+The first season, with remastered effects, debuted on [[Blu-ray]] on April 28, 2009.  On September 6, 2016, it was re-released as part of the Star Trek 50th Anniversary set, which included the three seasons of the original series, original-cast films up to ''Star Trek VI'', and the 1970s animated series on Blu-Ray optical discs.<ref>{{cite web|url=https://cinapse.co/star-trek-50th-anniversary-tv-and-movie-collection-the-complete-adventures-of-kirk-co-ff5c5207909b|title=STAR TREK 50th Anniversary TV and Movie Collection: The Complete Adventures of Kirk & Co. [Blu-review]|date=October 14, 2016|access-date=August 15, 2021}}{{Dead link|date=September 2023 |bot=InternetArchiveBot |fix-attempted=yes }}</ref>
+
+==Reception==
+In 2019, [[Comic Book Resources|CBR]] rated season one of ''Star Trek'' (1966–1969 series) as the 10th-best season of all ''Star Trek'' seasons up to that time, comparing it to seasons of later series.<ref>{{Cite web|url=https://www.cbr.com/every-star-trek-tv-season-ranked/|title=Every Star Trek Season of TV Ever, Ranked from Worst to Best|date=January 4, 2019|website=CBR|language=en-US|access-date=March 16, 2019}}</ref>
+
+==References==
+{{reflist}}
+
+==External links==
+* {{IMDb episodes|0060028||Season 1}}
+* {{Memory Alpha|TOS Season 1|''Star Trek: The Original Series'' season 1}}
+
+{{Star Trek: The Original Series episodes|1}}
+{{Star Trek: The Original Series}}
+
+[[Category:1966 American television seasons]]
+[[Category:1967 American television seasons]]
+[[Category:Star Trek: The Original Series seasons]]

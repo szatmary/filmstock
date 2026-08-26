@@ -86,6 +86,134 @@ var reListEpisodes = regexp.MustCompile(`(?i)^List of (.+) episodes$`)
 var reSeasonHeading = regexp.MustCompile(`(?im)^=+\s*(?:Season|Series)\s+(\d+)`)
 
 // parseEpisodeRow builds an Episode from one {{Episode list}} parameter map.
+// reEpisodePart matches a per-part parameter suffix: EpisodeNumber_1, Viewers_2.
+var reEpisodePart = regexp.MustCompile(`_(\d+)$`)
+
+// maxEpisodeParts bounds NumParts. Three is the most any real article uses;
+// the ceiling is only here so a vandalised or mistyped value cannot make one
+// row into thousands of episodes.
+const maxEpisodeParts = 12
+
+// parseEpisodeRows turns one {{Episode list}} row into the episodes it covers.
+//
+// Usually one. But a multi-part episode is written as a SINGLE row spanning
+// several, with NumParts saying how many and the differing fields suffixed:
+//
+//	|NumParts=2
+//	|EpisodeNumber_1=11              |EpisodeNumber_2=12
+//	|OriginalAirDate_1={{Start date|1966|11|17}}
+//	|OriginalAirDate_2={{Start date|1966|11|24}}
+//	|DirectedBy_1=Marc Daniels       |DirectedBy_2=Robert Butler
+//	|Title=[[The Menagerie...|The Menagerie]]
+//	|WrittenBy=[[Gene Roddenberry]]
+//
+// Reading only the unsuffixed names finds no number, no air date and no
+// viewership, and collapses both episodes into one untitled-by-number entry —
+// Star Trek's "The Menagerie" came out as episode 0 of season 0, and the season
+// reported 28 episodes instead of 29. 10,514 such rows across 908 articles,
+// covering upwards of 21,000 episodes.
+func parseEpisodeRows(ib map[string]string) []*filmstock.Episode {
+	n := atoiSafe(ib["numparts"])
+	if n < 2 {
+		if e := parseEpisodeRow(ib); e != nil {
+			return []*filmstock.Episode{e}
+		}
+		return nil
+	}
+	if n > maxEpisodeParts {
+		n = maxEpisodeParts
+	}
+	// NumParts alone does not mean several episodes. The Simpsons' "Treehouse
+	// of Horror VII" is NumParts=3 for its three SEGMENTS, and states one
+	// EpisodeNumber, one air date and one title — splitting it into three
+	// episodes invents two that never aired, and the season reports 29 instead
+	// of 25.
+	//
+	// What separates the two is whether the parts are numbered as episodes.
+	// The Menagerie gives EpisodeNumber_1=11 and EpisodeNumber_2=12; Treehouse
+	// gives EpisodeNumber=154 once. So: per-part numbers mean per-part
+	// episodes, and anything else is one episode made of segments.
+	if !hasPerPartNumbers(ib, n) {
+		if e := parseEpisodeRow(mergeEpisodeParts(ib, n)); e != nil {
+			return []*filmstock.Episode{e}
+		}
+		return nil
+	}
+	var out []*filmstock.Episode
+	for i := 1; i <= n; i++ {
+		if e := parseEpisodeRow(episodePart(ib, i)); e != nil {
+			out = append(out, e)
+		}
+	}
+	return out
+}
+
+// hasPerPartNumbers reports whether the row numbers its parts as episodes.
+func hasPerPartNumbers(ib map[string]string, n int) bool {
+	for i := 1; i <= n; i++ {
+		sfx := "_" + strconv.Itoa(i)
+		if ib["episodenumber"+sfx] != "" || ib["episodenumber2"+sfx] != "" {
+			return true
+		}
+	}
+	return false
+}
+
+// mergeEpisodeParts folds a segmented episode's per-segment fields into one.
+//
+// Treehouse of Horror VII credits WrittenBy_1, _2 and _3 — one writer per
+// segment — and no unsuffixed WrittenBy at all, so reading only the plain name
+// credits nobody. They are all writers of the one episode, so they are joined.
+// An unsuffixed value, where the row gives one, is what the row says about the
+// episode as a whole and is left alone.
+func mergeEpisodeParts(ib map[string]string, n int) map[string]string {
+	out := make(map[string]string, len(ib))
+	for k, v := range ib {
+		if !reEpisodePart.MatchString(k) {
+			out[k] = v
+		}
+	}
+	joined := map[string][]string{}
+	for i := 1; i <= n; i++ {
+		sfx := "_" + strconv.Itoa(i)
+		for k, v := range ib {
+			if v == "" || !strings.HasSuffix(k, sfx) {
+				continue
+			}
+			base := strings.TrimSuffix(k, sfx)
+			if out[base] != "" {
+				continue // the row already states this for the whole episode
+			}
+			joined[base] = append(joined[base], v)
+		}
+	}
+	for base, vs := range joined {
+		// <br /> rather than a comma: SplitPeople deliberately does not split on
+		// commas, because names carry them — "Robert Downey, Jr." is one person.
+		out[base] = strings.Join(vs, "<br />")
+	}
+	return out
+}
+
+// episodePart presents one part's parameters: the shared unsuffixed fields,
+// then this part's suffixed ones over the top. Another part's fields are left
+// out entirely, so part 2's air date can never be read as part 1's.
+func episodePart(ib map[string]string, i int) map[string]string {
+	want := "_" + strconv.Itoa(i)
+	out := make(map[string]string, len(ib))
+	for k, v := range ib {
+		if !reEpisodePart.MatchString(k) {
+			out[k] = v
+		}
+	}
+	for k, v := range ib {
+		if strings.HasSuffix(k, want) {
+			out[strings.TrimSuffix(k, want)] = v
+		}
+	}
+	return out
+}
+
 func parseEpisodeRow(ib map[string]string) *filmstock.Episode {
 	title := wikitext.CleanText(firstNonEmpty(ib["title"], ib["rtitle"], ib["englishtitle"]))
 	if title == "" {
@@ -167,8 +295,9 @@ func extractEpisodesByHeading(text string) []taggedEpisode {
 			break
 		}
 		idx = next
-		if e := parseEpisodeRow(wikitext.ParseInfobox(body)); e != nil {
-			out = append(out, taggedEpisode{e, seasonAt(start)})
+		season := seasonAt(start)
+		for _, e := range parseEpisodeRows(wikitext.ParseInfobox(body)) {
+			out = append(out, taggedEpisode{e, season})
 		}
 	}
 	return out

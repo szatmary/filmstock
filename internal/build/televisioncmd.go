@@ -72,9 +72,7 @@ func parseTelevisionPage(p dump.Page) []televisionMsg {
 		}
 		var eps []*filmstock.Episode
 		for _, body := range wikitext.FindAllTemplates(text, "Episode list") {
-			if e := parseEpisodeRow(wikitext.ParseInfobox(body)); e != nil {
-				eps = append(eps, e)
-			}
+			eps = append(eps, parseEpisodeRows(wikitext.ParseInfobox(body))...)
 		}
 		if len(eps) > 0 || meta != nil {
 			// The season article names its season but never its series, so the
