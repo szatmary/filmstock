@@ -34,7 +34,9 @@ func CmdExport(args []string) {
 	inter := fs.String("inter", defaultInterPath(), "intermediate store to read")
 	dumps := fs.String("dumps", "dump", "directory holding the dumps (for the wikidata cache)")
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
-	outDir := fs.String("out", "records", "record tree to write")
+	outDir := fs.String("out", "", "record tree to write (the gitdb form)")
+	dbOut := fs.String("db", "", "publish straight to this SQLite database instead")
+	textOut := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	textDir := fs.String("text", "", "corpus directory (default: alongside the records)")
 	workers := fs.Int("workers", 18, "parallel workers")
 	skipText := fs.Bool("no-text", false, "skip the plain-text corpus")
@@ -70,14 +72,45 @@ func CmdExport(args []string) {
 		fmt.Fprintf(os.Stderr, "  imported from %s\n", src)
 	}
 
+	if *outDir == "" && *dbOut == "" {
+		fatal(fmt.Errorf("export needs -db FILE (a database) or -out DIR (a record tree)"))
+	}
 	if *textDir == "" {
 		*textDir = *outDir
 	}
 	start := time.Now()
-	if err := runExport(in, d, *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
+	if *dbOut != "" {
+		if *textOut == "" {
+			*textOut = defaultTextPath(*dbOut)
+		}
+		if err := runExportDB(in, d, *dbOut, *textOut, *workers, *limit); err != nil {
+			fatal(err)
+		}
+	} else if err := runExport(in, d, *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "export complete in %.1f min\n", time.Since(start).Minutes())
+}
+
+// runExportDB publishes straight into the database, with no record tree in
+// between. The record builders are the same; only the sink differs.
+func runExportDB(in *Inter, d *dumpSet, dbPath, textPath string, workers, limit int) error {
+	n, err := in.Pages()
+	if err != nil {
+		return err
+	}
+	if n == 0 {
+		return fmt.Errorf("export: %s holds no pages — run `filmstock import` first", in.path)
+	}
+	w, err := newDBWriter(dbPath, textPath)
+	if err != nil {
+		return err
+	}
+	if err := extractRecordsTo(w, d, interSource(in, n, workers), workers, limit); err != nil {
+		w.Close()
+		return err
+	}
+	return w.Close()
 }
 
 // runExport rebuilds the record tree from the intermediate. Shared with the

@@ -210,12 +210,17 @@ func dumpSource(d *dumpSet, workers int) pageSource {
 
 // extractRecords feeds every page to both the film and the television
 // extractors and writes the record hierarchy.
-func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers int, wantText bool, limit int) error {
-	seasonOf, err := loadSeasonOf(d.cache)
-	if err != nil {
-		return err
-	}
+// extractRecordsTo runs the record builders against any sink.
+//
+// The gitdb tree and the published database differ only in where the finished
+// records go, so this is the whole of the pipeline and the caller supplies the
+// destination. No corpus is written: the plain-text files belong to the record
+// tree, and the database carries the synopses in its own columns.
+func extractRecordsTo(sink recordSink, d *dumpSet, src pageSource, workers, limit int) error {
+	return extractRecordsInner(sink, d, src, "", "", workers, false, limit)
+}
 
+func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers int, wantText bool, limit int) error {
 	// A store carries the dictionary it was written with. Seed a new one from
 	// what this build embeds; an existing store keeps its own, because the
 	// records already in it can only be read with that.
@@ -242,8 +247,16 @@ func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers 
 	if limit == 0 {
 		sw.wrote = map[string]map[string]bool{}
 	}
+	return extractRecordsInner(sw, d, src, outDir, textDir, workers, wantText, limit)
+}
+
+func extractRecordsInner(sink recordSink, d *dumpSet, src pageSource, outDir, textDir string, workers int, wantText bool, limit int) error {
+	seasonOf, err := loadSeasonOf(d.cache)
+	if err != nil {
+		return err
+	}
 	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText,
-		store: sw, people: map[string]*filmstock.PersonRecord{},
+		store: sink, people: map[string]*filmstock.PersonRecord{},
 		bios:      map[string]*filmstock.PersonBio{},
 		bioPage:   map[string]int{},
 		workTitle: map[string]bool{},
