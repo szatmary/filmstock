@@ -141,6 +141,16 @@ func parseEpisodeRows(ib map[string]string) []*filmstock.Episode {
 	// The Menagerie gives EpisodeNumber_1=11 and EpisodeNumber_2=12; Treehouse
 	// gives EpisodeNumber=154 once. So: per-part numbers mean per-part
 	// episodes, and anything else is one episode made of segments.
+	//
+	// Except a SERIAL, which states neither and is neither. Classic Doctor Who
+	// writes a four-part story as one row with Serial=yes, one EpisodeNumber for
+	// the story, and OriginalAirDate_1..4 with Viewers_1..4 — four separate
+	// broadcasts a week apart. Collapsing that keeps one date and one rating and
+	// discards the other three: 142 serials covering 615 broadcast parts, which
+	// is why Doctor Who reported 291 episodes against a real 695.
+	if isSerial(ib["serial"]) {
+		return serialParts(ib, n)
+	}
 	if !hasPerPartNumbers(ib, n) {
 		if e := parseEpisodeRow(mergeEpisodeParts(ib, n)); e != nil {
 			return []*filmstock.Episode{e}
@@ -154,6 +164,55 @@ func parseEpisodeRows(ib map[string]string) []*filmstock.Episode {
 		}
 	}
 	return out
+}
+
+// isSerial reports whether the row says its parts were broadcast separately.
+func isSerial(v string) bool {
+	switch strings.ToLower(strings.TrimSpace(v)) {
+	case "y", "yes", "true", "1":
+		return true
+	}
+	return false
+}
+
+// serialParts turns a serial into one episode per broadcast part.
+//
+// The parts share the story's numbers, because that is all the article states —
+// EpisodeNumber is the story's, not a part's. So the part has to be in the
+// title, or the episodes dedup against each other on (title, number) and three
+// of the four vanish again by another route.
+//
+// The article names the parts itself, in Aux1_1..Aux1_N ("Part One"). Aux1 is a
+// generic column elsewhere, so it is only read here, inside a row that has
+// declared itself a serial.
+func serialParts(ib map[string]string, n int) []*filmstock.Episode {
+	base := parseEpisodeRow(mergeEpisodeParts(ib, n))
+	if base == nil {
+		return nil
+	}
+	out := make([]*filmstock.Episode, 0, n)
+	for i := 1; i <= n; i++ {
+		part := parseEpisodeRow(episodePart(ib, i))
+		if part == nil {
+			continue
+		}
+		part.NumberOverall, part.NumberInSeason = base.NumberOverall, base.NumberInSeason
+		part.Title = base.Title + ": " + serialPartName(ib, i)
+		out = append(out, part)
+	}
+	if len(out) == 0 {
+		return []*filmstock.Episode{base}
+	}
+	return out
+}
+
+// serialPartName is what the article calls one part, falling back to its number
+// where the article names only some of them.
+func serialPartName(ib map[string]string, i int) string {
+	if v := wikitext.CleanText(ib["aux1_"+strconv.Itoa(i)]); v != "" {
+		return strings.Trim(v, `"'`)
+	}
+	return "Part " + strconv.Itoa(i)
 }
 
 // hasPerPartNumbers reports whether the row numbers its parts as episodes.

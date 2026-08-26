@@ -312,10 +312,23 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 			seen := map[string]bool{}
 			var ded []*filmstock.Episode
 			for _, e := range list {
-				key := "t|" + e.Title
-				if e.NumberInSeason > 0 {
-					key = "n|" + strconv.Itoa(e.NumberInSeason)
-				}
+				// Number AND title, not number alone.
+				//
+				// The number alone is enough to recognise the same episode
+				// arriving from two sources, and it was what this used. But a
+				// SERIAL is several distinct episodes that share one number:
+				// classic Doctor Who's "Robot" is four broadcasts numbered as
+				// one story, so three of every four were discarded here even
+				// after being parsed correctly. 615 broadcast parts across 142
+				// serials.
+				//
+				// The looser key can only fail the other way — the same episode
+				// listed twice under different titles surviving twice — and
+				// that is bounded, because an authoritative season article
+				// replaces the inline list for its season rather than merging
+				// with it, so within a season the episodes almost always come
+				// from one source.
+				key := "n|" + strconv.Itoa(e.NumberInSeason) + "|" + e.Title
 				if seen[key] {
 					continue
 				}
