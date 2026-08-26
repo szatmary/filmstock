@@ -221,6 +221,31 @@ need at this scale, and costs the file being openable without it. Per-row blobs
 rather than one matrix, so a daily patch touches the vectors that changed
 instead of rewriting 175 MB.
 
+### Doctor Who mixes its classic and modern eras — ONE SHOW, UNFIXED
+
+There is one `Doctor Who` series record and two parallel sets of season
+articles: `Doctor Who season 1..26` (1963-1989) and `Doctor Who series 1..15`
+(2005-). Both parse to season numbers 1..N and both attach to the same series,
+so classic season 3 (45 episodes) and modern series 3 (13) merge into a "season
+3" of 58. The record reports 806 episodes where the classic run is 695 and the
+two eras are interleaved.
+
+Wikipedia is not wrong here — the revival IS the same show, renumbered — and
+our model keys a season by a bare integer, so they collide by design.
+
+**Exactly one show in 61,342 is affected.** Most British series use "series N"
+as their ordinary word (Peep Show series 3), so the two words cannot be read as
+different eras in general. The only usable signal is that a show has BOTH forms
+for the same number, which is detectable but needs cross-article knowledge at
+collection time — something the intermediate now makes possible.
+
+Not fixed, because a modelling change for one show is a poor trade. Noted
+because it is the most famous British television series there is, and because
+the shape of the problem (one show, two numbering eras) will recur.
+
+Deduplication by episode NUMBER alone used to hide this: same-numbered episodes
+from the two eras collapsed to roughly one each, which is how it read as 291.
+
 ### 56 schedule articles still yield nothing
 
 232 of 288 read. The remainder are the overnight, morning and afternoon variants.
