@@ -42,20 +42,23 @@ func CIndexRecords(args []string) {
 
 	// Films first: `index` recreates the database from scratch, so it must run
 	// before index-television adds the television tables to the same file.
-	fmt.Fprintf(os.Stderr, "[1/3] films -> %s\n", out)
+	fmt.Fprintf(os.Stderr, "[1/4] films -> %s\n", out)
 	CIndex([]string{
 		"-records", *records,
 		"-db", out,
 	})
 
-	fmt.Fprintf(os.Stderr, "[2/3] television -> %s\n", out)
+	fmt.Fprintf(os.Stderr, "[2/4] television -> %s\n", out)
 	CIndexTelevision([]string{
 		"-records", *records,
 		"-db", out,
 	})
 
-	fmt.Fprintf(os.Stderr, "[3/3] events -> %s\n", out)
+	fmt.Fprintf(os.Stderr, "[3/4] events -> %s\n", out)
 	CIndexEvents([]string{"-records", *records, "-db", out})
+
+	fmt.Fprintf(os.Stderr, "[4/4] schedules -> %s\n", out)
+	CIndexSchedules([]string{"-records", *records, "-db", out})
 
 	// Stamp the store state this index was built from, so a later `git pull`
 	// that leaves the index behind can be detected instead of silently

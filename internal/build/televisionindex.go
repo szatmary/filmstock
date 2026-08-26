@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS television_series;
 DROP TABLE IF EXISTS television_fts;
 DROP TABLE IF EXISTS television_episodes;
 DROP TABLE IF EXISTS television_episodes_fts;
+DROP TABLE IF EXISTS television_seasons;
 DELETE FROM credits WHERE work_type='television';
 CREATE TABLE television_series(
   id INTEGER PRIMARY KEY, title TEXT NOT NULL, year INTEGER,
@@ -38,10 +39,28 @@ CREATE VIRTUAL TABLE television_fts USING fts5(
   title, starring, creator,
   content='television_series', content_rowid='id', tokenize='trigram'
 );
+-- Seasons, as their own rows. A season is a real article with a real page_id,
+-- and it carries what only it knows: the cast for that run, the network it was
+-- on, and its Nielsen standing. The series-level cast cannot express any of it
+-- — one flat Starring for a fifteen-season show asserts everyone was in it
+-- throughout.
+--
+-- page_id is 0 for a season with no article of its own, which is most seasons
+-- of most shows: they come from the series overview table on the episode-list
+-- page, and exist here only because of it.
+CREATE TABLE television_seasons(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  series_id INTEGER NOT NULL, season INTEGER NOT NULL, page_id INTEGER,
+  num_episodes INTEGER, first_aired TEXT, last_aired TEXT,
+  network TEXT, starring TEXT, image TEXT,
+  rank INTEGER, rating REAL, viewers REAL
+);
+CREATE INDEX idx_television_seasons_series ON television_seasons(series_id, season);
 CREATE TABLE television_episodes(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   series_id INTEGER, season INTEGER,
-  number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT
+  number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT,
+  viewers REAL
 );
 CREATE INDEX idx_television_ep_series ON television_episodes(series_id);
 CREATE VIRTUAL TABLE television_episodes_fts USING fts5(
@@ -98,14 +117,19 @@ func CIndexTelevision(args []string) {
 		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,wikipedia_url)
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	epStmt, _ := tx.Prepare(`INSERT INTO television_episodes
-		(series_id,season,number_in_season,number_overall,title,air_date) VALUES(?,?,?,?,?,?)`)
+		(series_id,season,number_in_season,number_overall,title,air_date,viewers)
+		VALUES(?,?,?,?,?,?,?)`)
+	seStmt, _ := tx.Prepare(`INSERT INTO television_seasons
+		(series_id,season,page_id,num_episodes,first_aired,last_aired,
+		 network,starring,image,rank,rating,viewers)
+		VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`)
 	// Reuses movie-pass person ids (loads existing people); resolves Q-ids.
 	pb, err := newPeopleBuilder(tx, p2q)
 	if err != nil {
 		fatal(err)
 	}
 
-	n, nEp := 0, 0
+	n, nEp, nSe := 0, 0, 0
 	for it := range items {
 		s := it.s
 		year := 0
@@ -138,10 +162,18 @@ func CIndexTelevision(args []string) {
 		pb.credit(seen, s.Presenter, s.PageID, "television", "Presenter")
 		pb.credit(seen, s.Narrator, s.PageID, "television", "Narrator")
 		for _, se := range s.Seasons {
+			seStmt.Exec(s.PageID, se.Season, se.PageID, se.NumEpisodes,
+				se.FirstAired, se.LastAired, se.Network, joinP(se.Starring), se.Image,
+				se.Rank, se.Rating, se.Viewers)
+			nSe++
+			// A season's own cast, credited to the series: a person who was in
+			// five seasons of fifteen is still in the show.
+			pb.credit(seen, se.Starring, s.PageID, "television", "Cast")
 			for _, e := range se.Episodes {
 				pb.credit(seen, e.DirectedBy, s.PageID, "television", "Director")
 				pb.credit(seen, e.WrittenBy, s.PageID, "television", "Writer")
-				epStmt.Exec(s.PageID, se.Season, e.NumberInSeason, e.NumberOverall, e.Title, e.AirDate)
+				epStmt.Exec(s.PageID, se.Season, e.NumberInSeason, e.NumberOverall,
+					e.Title, e.AirDate, e.Viewers)
 				nEp++
 			}
 		}
@@ -150,7 +182,7 @@ func CIndexTelevision(args []string) {
 	stmt.Close()
 	epStmt.Close()
 	tx.Commit()
-	fmt.Fprintf(os.Stderr, "  inserted %d series, %d episodes. building FTS...\n", n, nEp)
+	fmt.Fprintf(os.Stderr, "  inserted %d series, %d seasons, %d episodes. building FTS...\n", n, nSe, nEp)
 	for _, t := range []string{"television_fts", "television_episodes_fts", "people_fts"} {
 		if _, err := db.Exec(`INSERT INTO ` + t + `(` + t + `) VALUES('rebuild')`); err != nil {
 			fatal(err)
