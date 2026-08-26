@@ -96,13 +96,25 @@ func buildBiography(p dump.Page) *filmstock.PersonBio {
 		return nil
 	}
 	var ib map[string]string
+	var matched string
 	for _, name := range personInfoboxes {
 		if body, ok := wikitext.FindTemplateExact(p.Text, name); ok {
-			ib = wikitext.ParseInfobox(body)
+			ib, matched = wikitext.ParseInfobox(body), name
 			break
 		}
 	}
 	if ib == nil {
+		return nil
+	}
+	// A band is not a person. {{Infobox musical artist}} serves both, and says
+	// which it is: background = group_or_band. Without this, 6,981 person
+	// articles are disambiguated "(band)" — The Beatles filed as a biography,
+	// with a birth date parameter nobody filled in.
+	//
+	// Only where the article states it. Roughly half the "(band)" articles omit
+	// the parameter, and those stay as they are rather than being guessed at
+	// from a title, which is a display string.
+	if matched == "Infobox musical artist" && isGroup(ib["background"]) {
 		return nil
 	}
 
@@ -134,4 +146,13 @@ func buildBiography(p dump.Page) *filmstock.PersonBio {
 		return nil
 	}
 	return b
+}
+
+// isGroup reports whether {{Infobox musical artist}} says this is a group
+// rather than a person. The template's other background values —
+// solo_singer, non_vocal_instrumentalist, non_performing_personnel, person —
+// all describe individuals.
+func isGroup(background string) bool {
+	b := strings.ToLower(strings.TrimSpace(wikitext.CleanText(background)))
+	return b == "group_or_band" || b == "temporary"
 }

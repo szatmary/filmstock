@@ -134,3 +134,46 @@ func TestInlineEpisodesGetTheirOwnSeasons(t *testing.T) {
 		t.Errorf("seasons = %v, want 2 episodes in season 1 and 1 in season 2", seasons)
 	}
 }
+
+// A band is not a person. {{Infobox musical artist}} serves both and says which
+// it is, so 6,981 "(band)" articles were being filed as biographies.
+func TestGroupIsNotABiography(t *testing.T) {
+	band := dump.Page{ID: 1, Title: "The Beatles", Text: `{{Infobox musical artist
+| name = The Beatles
+| background = group_or_band
+| years_active = 1960–1970
+| origin = Liverpool, England
+}}
+The Beatles were an English rock band formed in Liverpool in 1960.`}
+	if got := buildBiography(band); got != nil {
+		t.Errorf("a group was parsed as a biography: %+v", got)
+	}
+}
+
+// A solo musician still is one.
+func TestSoloMusicianIsStillABiography(t *testing.T) {
+	solo := dump.Page{ID: 2, Title: "Paul McCartney", Text: `{{Infobox musical artist
+| name = Paul McCartney
+| background = solo_singer
+| birth_date = {{birth date|1942|6|18}}
+| occupation = Musician
+}}
+Sir Paul McCartney is an English singer and songwriter.`}
+	if buildBiography(solo) == nil {
+		t.Error("a solo musician was dropped")
+	}
+}
+
+// Only where the article states it. About half the "(band)" articles omit the
+// parameter, and a title is a display string, not evidence.
+func TestAbsentBackgroundIsNotAGuess(t *testing.T) {
+	p := dump.Page{ID: 3, Title: "Some Group (band)", Text: `{{Infobox musical artist
+| name = Some Group
+| occupation = Musician
+| birth_date = {{birth date|1970|1|1}}
+}}
+Some Group is a band.`}
+	if buildBiography(p) == nil {
+		t.Error("dropped an article that never said it was a group")
+	}
+}
