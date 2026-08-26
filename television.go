@@ -71,6 +71,13 @@ type Episode struct {
 	DirectedBy     []Person `json:"directed_by,omitempty"`
 	WrittenBy      []Person `json:"written_by,omitempty"`
 	Summary        string   `json:"summary,omitempty"`
+
+	// Viewers is US viewership in millions, as the episode list states it.
+	//
+	// Per EPISODE, unlike the Nielsen rank and rating carried on a schedule
+	// grid, which are per SEASON — a season's rank stamped onto each of its
+	// episodes would invent precision the source does not have.
+	Viewers float64 `json:"viewers,omitempty"`
 }
 
 // reTelevisionDisambig strips a trailing TV disambiguation parenthetical.

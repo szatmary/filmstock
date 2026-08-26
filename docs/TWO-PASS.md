@@ -43,6 +43,7 @@ Stream every main-namespace page once. For each page that any recogniser claims,
 store what was parsed and nothing derived:
 
 - `page_id`, title, kind
+- the **raw wikitext**, so a parser fix never needs the dump again
 - the **complete** infobox map, values unparsed
 - the lead, and the plot section where there is one
 - every link target the page states, with the field it came from
@@ -80,19 +81,19 @@ person who did not change, because their credit list did.
 
 | | | |
 |---|---|---|
+| wikitext of recognised pages | 1,196,509 | 14–18 GB |
 | person articles, all | 955,989 | 1.4 GB |
 | films | 165,740 | 1.1 GB |
 | television series | 61,342 | 0.4 GB |
 | episodes | 572,847 | 0.3 GB |
 | events, schedules | 53,240 | 0.03 GB |
-| | | **~3.1 GB** |
+| | | **~20 GB** |
 
-Uncompressed, on the NVMe, never shipped. Smaller than `index.db` plus the
-vectors, and an eighth of what the resolver cache was before `wd_text` came out.
+On the NVMe, never shipped, against 2.3 TB free. Comparable to the resolver cache
+before `wd_text` came out of it.
 
-The intuition that "we must save all people, so it will be a large database" is
-right about the first half and wrong about the second: the volume is in raw
-wikitext, and the intermediate stores parsed structure instead.
+The parsed half is only ~3 GB; the wikitext is the bulk, and it is worth its
+weight because it is what makes a parser fix cheap.
 
 ## What this fixes beyond people
 
@@ -113,18 +114,72 @@ episode lists, day ranges, level-3 headings, uppercase `PM` — needed a full
 re-extract to take effect. Under this split, the ones that change *parsing* still
 need a re-import, but the ones that change *shaping* do not.
 
+## Seasons become first class
+
+A season is currently an anonymous struct nested in a series: number, episode
+count, first and last aired, episodes. Wikipedia has considerably more, in two
+complementary places, and neither is read today.
+
+**`{{Series overview}}`**, on the episode-list page, gives every season at once
+and — usefully — declares what its own columns mean:
+
+    infoA = Rank   infoB = Rating   infoC = Viewers (millions)
+    episodes1 = 25   start1 = 1994-09-19   end1 = 1995-05-18
+    infoA1 = 2       infoB1 = 20.0         infoC1 = 30.1
+
+Self-labelling matters because shows use the extra columns for different things.
+
+**`{{Infobox television season}}`**, on each season article, gives what only that
+season knows: `season_number`, `num_episodes`, `network`, `first_aired`,
+`last_aired`, `starring`, an image, and prev/next links.
+
+The season-specific cast is the most valuable of these, and the current model
+cannot express it. `TelevisionSeries.Starring` is one flat list for a show's
+whole run, so a fifteen-season series asserts that everyone who ever appeared was
+in it throughout. Clooney was in ER for five seasons of fifteen. That is not
+missing coverage, it is a modelling error being recorded as fact.
+
+So Season gains: `PageID` (season articles are real pages with real ids, so a
+season becomes addressable like everything else), `Rank`, `Rating`, `Viewers`,
+`Network`, `Starring`, `Image`.
+
+It is also the right home for the schedule join. A grid's slot — day, start, end,
+network — and its Nielsen figures are properties of a season's arrangement, not
+of an episode. Attaching a season's rank to each of its episodes would invent
+precision the source does not have; episodes inherit by membership instead.
+
 ## Decisions to settle first
 
-**Does the intermediate keep raw wikitext?**
+**Does the intermediate keep raw wikitext? — YES.**
 
-Against: it is 25 GB and the dump already exists on disk. For: a field nobody
-anticipated needs a re-import without it.
+I first said no, on the grounds that it meant 25 GB. That was wrong twice over.
 
-Recommendation: no. Store the complete infobox map — every key, values
-untouched — plus lead, plot, and all stated link targets. Film and series records
-already carry `Raw map[string]string` for exactly this reason, so the pattern is
-established. A future field that needs something outside that set is rare enough
-to be worth a re-import.
+It is not 25 GB: we recognise 1,196,509 of the dump's 25,792,234 pages, or 4.6%.
+Keeping the wikitext of *those* is 14–18 GB, estimated from the 726 MB of
+extracted plain text we already keep for 165,740 documents, scaled by document
+count and by the ~1.5–2× that markup adds. On the NVMe that is nothing.
+
+And the reason is stronger than insurance against a future field. **With the
+wikitext held, a parser fix stops needing the dump at all.** Three tiers instead
+of two:
+
+    level 0   wikitext of recognised pages     re-parse costs minutes
+    level 1   parsed entities                  re-export costs minutes
+    records   published
+
+    parser bug fixed   ──▶ re-parse from level 0
+    record shape moved ──▶ re-export from level 1
+    new dump           ──▶ re-import, full cost
+
+Every parser bug found on 2026-08-26 — Lua-module episode lists, day ranges,
+level-3 headings, uppercase PM, the dropped `Viewers` field — needed a
+41-minute re-parse of 25 GB to take effect. Under this they are minutes, because
+the 24 GB of pages that are not films, people, series or schedules never has to
+be decompressed again.
+
+It also keeps the door open for model training, which wants source text rather
+than our interpretation of it, and does not want to re-derive it from a dump
+each time.
 
 **What triggers a re-export?**
 

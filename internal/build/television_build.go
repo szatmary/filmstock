@@ -102,7 +102,27 @@ func parseEpisodeRow(ib map[string]string) *filmstock.Episode {
 		e.AirDate = d[0]
 	}
 	e.Summary = wikitext.TrimLen(wikitext.CleanText(ib["shortsummary"]), 1500)
+	e.Viewers = parseViewers(ib["viewers"])
 	return e
+}
+
+// reViewers takes the leading number out of a viewers field.
+//
+// The value is rarely just a number: "23.8<ref name=...>{{cite news|...}}</ref>",
+// "1.23[2]", "9.10&nbsp;million". Anything after the first number is citation or
+// units, and a range ("2.1-2.4") takes its first figure rather than guessing.
+var reViewers = regexp.MustCompile(`^\s*([0-9]+(?:\.[0-9]+)?)`)
+
+func parseViewers(s string) float64 {
+	m := reViewers.FindStringSubmatch(strings.TrimSpace(s))
+	if m == nil {
+		return 0
+	}
+	v, err := strconv.ParseFloat(m[1], 64)
+	if err != nil || v <= 0 || v > 1000 { // millions; anything larger is a parse artefact
+		return 0
+	}
+	return v
 }
 
 // extractEpisodesByHeading pulls every {{Episode list}} row from an article,
