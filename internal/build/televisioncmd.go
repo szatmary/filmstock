@@ -277,6 +277,12 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 	var out []*filmstock.TelevisionSeries
 	for id, s := range c.series {
 		srcs := bySeries[id]
+		// In page_id order. srcs is built by ranging over a map, so without this
+		// the sources are merged in a different order on every run — and where a
+		// season is described by more than one of them, whichever came first won.
+		// That is 164 seasons changing between two runs over identical input,
+		// mostly num_episodes disagreeing by one.
+		sort.Ints(srcs)
 		// Union of season numbers from authoritative and inline sources.
 		seasons := map[int][]*filmstock.Episode{}
 		for _, src := range srcs {

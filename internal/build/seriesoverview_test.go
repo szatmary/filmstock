@@ -358,3 +358,34 @@ func TestMultiseriesOverviewIsSkippedNotMerged(t *testing.T) {
 		t.Errorf("got %d seasons from a multiseries overview; two shows would be merged", len(got))
 	}
 }
+
+// Sources are merged in page_id order. Built by ranging over a map, they arrive
+// in a different order on every run, and where two sources describe the same
+// season the first one seen wins — so the record changed between runs over
+// identical input.
+func TestSeasonSourcesMergeInAFixedOrder(t *testing.T) {
+	build := func() *filmstock.Season {
+		c := newTelevisionCollector()
+		c.add(televisionMsg{series: &filmstock.TelevisionSeries{PageID: 1, Title: "X"}})
+		// Two sources describing season 1 with different episode counts, and no
+		// episode rows, so the count can only come from the metadata.
+		c.add(televisionMsg{srcID: 500, season: 1,
+			seasonMeta: &filmstock.Season{Season: 1, NumEpisodes: 14}})
+		c.add(televisionMsg{srcID: 200, season: 1,
+			seasonMeta: &filmstock.Season{Season: 1, NumEpisodes: 13}})
+		series, _ := c.finish(map[int]int{500: 1, 200: 1}, nil)
+		if len(series) != 1 || len(series[0].Seasons) != 1 {
+			t.Fatalf("unexpected shape: %d series", len(series))
+		}
+		return series[0].Seasons[0]
+	}
+	first := build().NumEpisodes
+	if first != 13 {
+		t.Errorf("num_episodes %d, want 13 — the lower page_id (200) should win", first)
+	}
+	for range 20 {
+		if got := build().NumEpisodes; got != first {
+			t.Fatalf("num_episodes varies between runs: %d then %d", first, got)
+		}
+	}
+}
