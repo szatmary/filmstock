@@ -16,18 +16,23 @@ type Person struct {
 
 // Movie is the structured record we emit as JSON, one file per film.
 type Movie struct {
-	Title               string   `json:"title"`
-	PageID              int      `json:"page_id"`
-	WikiURL             string   `json:"wikipedia_url"`
-	Overview            string   `json:"overview,omitempty"`
-	Plot                string   `json:"plot,omitempty"`
-	Genre               []string `json:"genre,omitempty"`
-	ReleaseDates        []string `json:"release_dates,omitempty"`
-	Director            []Person `json:"director,omitempty"`
-	Producer            []Person `json:"producer,omitempty"`
-	Writer              []Person `json:"writer,omitempty"`
-	Starring            []Person `json:"starring,omitempty"`
-	Music               []Person `json:"music,omitempty"`
+	Title        string   `json:"title"`
+	PageID       int      `json:"page_id"`
+	WikiURL      string   `json:"wikipedia_url"`
+	Overview     string   `json:"overview,omitempty"`
+	Plot         string   `json:"plot,omitempty"`
+	Genre        []string `json:"genre,omitempty"`
+	ReleaseDates []string `json:"release_dates,omitempty"`
+	Director     []Person `json:"director,omitempty"`
+	Producer     []Person `json:"producer,omitempty"`
+	Writer       []Person `json:"writer,omitempty"`
+	Starring     []Person `json:"starring,omitempty"`
+	Music        []Person `json:"music,omitempty"`
+	// Narrator is stated by 4,782 films and was read for television but not for
+	// film — Orson Welles on History of the World, Part I, Richard Burton on
+	// Zulu, Michael Hordern on Barry Lyndon. A narrator is a performance credit
+	// like any other.
+	Narrator            []Person `json:"narrator,omitempty"`
 	Cinematography      []Person `json:"cinematography,omitempty"`
 	Editing             []Person `json:"editing,omitempty"`
 	ProductionCompanies []Link   `json:"production_companies,omitempty"`

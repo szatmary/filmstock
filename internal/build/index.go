@@ -23,8 +23,20 @@ CREATE TABLE movies(
   director TEXT, producer TEXT, writer TEXT, starring TEXT,
   music TEXT, distributor TEXT, country TEXT, language TEXT, genre TEXT,
   runtime TEXT, budget TEXT, gross TEXT,
-  wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT
+  wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT,
+  -- The article title, disambiguator and all.
+  --
+  -- title is the DISPLAY title with Wikipedia's parenthetical removed, because
+  -- "(1985 film)" is namespacing rather than part of the name. But 11,925 titles
+  -- are shared by 31,934 films: six Vertigos, five Heats, two Godfathers — the
+  -- 175-minute cut and the 539-minute television version. Stripped, they are one
+  -- string repeated, and the only thing that ever told them apart was the
+  -- parenthetical.
+  --
+  -- Nothing keys on this. Identity is the page_id, as everywhere else.
+  wiki_title TEXT
 );
+CREATE INDEX idx_movies_wiki_title ON movies(wiki_title);
 -- Lookup by exact title, and by name on the people side, are the two access
 -- paths with no index at all. Locally that hid behind the page cache; over a
 -- remote VFS a title lookup became a 20,120-request, 80 MB table scan, because
@@ -53,6 +65,7 @@ func roleCredits(m *filmstock.Movie) []struct {
 		{"Composer", m.Music},
 		{"Cinematographer", m.Cinematography},
 		{"Editor", m.Editing},
+		{"Narrator", m.Narrator},
 	}
 }
 
@@ -127,8 +140,8 @@ func CIndex(args []string) {
 	stmt, err := tx.Prepare(`INSERT OR REPLACE INTO movies
 		(id,title,year,release_date,director,producer,writer,starring,music,
 		 distributor,country,language,genre,runtime,budget,gross,wikipedia_url,
-		 cover_image_url,cover_image_file)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 cover_image_url,cover_image_file,wiki_title)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	if err != nil {
 		fatal(err)
 	}
@@ -150,6 +163,7 @@ func CIndex(args []string) {
 			joinP(m.Director), joinP(m.Producer), joinP(m.Writer), joinP(m.Starring),
 			joinP(m.Music), join(filmstock.Names(m.Distributor)), join(filmstock.Names(m.Country)), join(filmstock.Names(m.Language)), join(m.Genre),
 			m.Runtime, m.Budget, m.Gross, m.WikiURL, m.CoverImageURL, m.CoverImageFile,
+			filmstock.WikiTitleFromURL(m.WikiURL),
 		); err != nil {
 			fmt.Fprintln(os.Stderr, "insert error:", m.Title, err)
 			continue

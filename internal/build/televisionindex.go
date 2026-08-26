@@ -32,8 +32,12 @@ CREATE TABLE television_series(
   first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
   network TEXT, num_seasons TEXT, num_episodes TEXT,
   seasons_count INTEGER, episodes_count INTEGER,
-  cover_image_file TEXT, wikipedia_url TEXT
+  cover_image_file TEXT, wikipedia_url TEXT,
+  -- As with films: 2,208 titles are shared by 5,215 series. Five different
+  -- shows are called Friends, five are called The Office.
+  wiki_title TEXT
 );
+CREATE INDEX idx_television_wiki_title ON television_series(wiki_title);
 CREATE INDEX idx_television_title ON television_series(title);
 CREATE VIRTUAL TABLE television_fts USING fts5(
   title, starring, creator,
@@ -122,8 +126,8 @@ func CIndexTelevision(args []string) {
 	stmt, _ := tx.Prepare(`INSERT OR REPLACE INTO television_series
 		(id,title,year,first_aired,last_aired,genre,creator,starring,network,
 		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,
-		 wikipedia_url)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 wikipedia_url,wiki_title)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	epStmt, _ := tx.Prepare(`INSERT INTO television_episodes
 		(series_id,season,number_in_season,number_overall,title,air_date,viewers)
 		VALUES(?,?,?,?,?,?,?)`)
@@ -156,7 +160,7 @@ func CIndexTelevision(args []string) {
 		stmt.Exec(s.PageID, cleanName, year, s.FirstAired, s.LastAired,
 			join(s.Genre), joinP(s.Creator), joinP(s.Starring), join(filmstock.Names(s.Network)),
 			s.NumSeasons, s.NumEpisodes, len(s.Seasons), epCount,
-			s.CoverImageFile, s.WikiURL)
+			s.CoverImageFile, s.WikiURL, filmstock.WikiTitleFromURL(s.WikiURL))
 		if s.Overview != "" || s.Plot != "" {
 			tvTxt.Exec(s.PageID, s.Overview, s.Plot)
 		}

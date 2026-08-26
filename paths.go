@@ -4,6 +4,7 @@ import (
 	"compress/gzip"
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -81,4 +82,23 @@ func WalkRecords(root, kind string, fn func(path string) error) error {
 		}
 		return fn(p)
 	})
+}
+
+// WikiTitleFromURL recovers an article's title from its Wikipedia URL.
+//
+// Records store the DISPLAY title, with the disambiguating parenthetical
+// removed — "(1985 film)" is namespacing rather than part of the name. That
+// leaves 31,934 films sharing 11,925 titles, and the parenthetical was the only
+// thing telling them apart. The raw title survives in the URL the record
+// already carries, so nothing new has to be stored to get it back.
+func WikiTitleFromURL(u string) string {
+	const prefix = "https://en.wikipedia.org/wiki/"
+	if !strings.HasPrefix(u, prefix) {
+		return ""
+	}
+	t, err := url.PathUnescape(strings.TrimPrefix(u, prefix))
+	if err != nil {
+		return ""
+	}
+	return strings.ReplaceAll(t, "_", " ")
 }

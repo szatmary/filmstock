@@ -47,7 +47,12 @@ func buildTelevisionSeries(title string, pageID int, ib map[string]string) *film
 	s.NumSeasons = wikitext.CleanText(ib["num_seasons"])
 	s.NumEpisodes = wikitext.CleanText(firstNonEmpty(ib["num_episodes"], ib["episodes"]))
 	s.Runtime = wikitext.CleanText(ib["runtime"])
-	if d := parseReleaseDates(ib["first_aired"]); len(d) > 0 {
+	// released, where there is no first_aired: a television film or special has
+	// one broadcast rather than a run, and {{Infobox television}} takes either.
+	// 9,278 pages state released and nothing else — The Day After, Threads, A
+	// Charlie Brown Christmas, Night Gallery — and had no date at all, which is
+	// 83% of every series in the corpus missing one.
+	if d := parseReleaseDates(firstNonEmpty(ib["first_aired"], ib["released"])); len(d) > 0 {
 		s.FirstAired = d[0]
 	}
 	if d := parseReleaseDates(ib["last_aired"]); len(d) > 0 {

@@ -477,7 +477,8 @@ func (w *recordWriter) handlePerson(p dump.Page) {
 func (w *recordWriter) handleFilmRecord(m *filmstock.Movie, pageID int64) {
 	w.store.put(filmstock.KindMovie, pageID, m)
 	atomic.AddInt64(&w.films, 1)
-	w.notePeople(m.Director, m.Producer, m.Writer, m.Starring, m.Music, m.Cinematography, m.Editing)
+	w.notePeople(m.Director, m.Producer, m.Writer, m.Starring, m.Music,
+		m.Cinematography, m.Editing, m.Narrator)
 }
 
 func (w *recordWriter) handleFilm(p dump.Page) {

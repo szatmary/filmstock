@@ -106,6 +106,7 @@ func buildMovie(title string, pageID int, ib map[string]string) *filmstock.Movie
 	m.Writer = mergePeople(ib["writer"], ib["screenplay"], ib["story"])
 	m.Starring = wikitext.SplitPeople(ib["starring"])
 	m.Music = wikitext.SplitPeople(ib["music"])
+	m.Narrator = wikitext.SplitPeople(ib["narrator"])
 	m.Cinematography = wikitext.SplitPeople(ib["cinematography"])
 	m.Editing = wikitext.SplitPeople(ib["editing"])
 	m.ProductionCompanies = mergeLinks(ib["production_companies"], ib["studio"])

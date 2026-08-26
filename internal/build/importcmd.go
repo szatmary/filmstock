@@ -181,7 +181,7 @@ func recognise(p dump.Page, keepText bool) []*Page {
 	if m := buildFilm(p); m != nil {
 		add(filmstock.KindMovie, m, m.Raw, linksOf(m.Raw,
 			"director", "producer", "writer", "screenplay", "story", "starring",
-			"music", "cinematography", "editing", "distributor", "studio",
+			"music", "narrator", "cinematography", "editing", "distributor", "studio",
 			"production_companies", "based_on", "country", "language"))
 	}
 	if e := buildEvent(p); e != nil {
