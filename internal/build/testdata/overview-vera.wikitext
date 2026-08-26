@@ -1,0 +1,822 @@
+{{Short description|None}}
+{{Use dmy dates|date=September 2023}}
+{{Use British English|date=September 2023}}
+{{DISPLAYTITLE:List of ''Vera'' episodes}}
+''[[Vera (TV series)|Vera]]'' is a [[Television in the United Kingdom|British]] [[crime drama]] series based on the Vera Stanhope series of novels written by crime writer [[Ann Cleeves]]. It was first broadcast on [[ITV (TV network)|ITV]] on 1 May 2011.
+
+{{Aired episodes|2011|5|1|2025|1|2|showpage=Vera (TV series)|finished=all|seasons=14|uk=y}}<ref>{{cite news|url=https://www.radiotimes.com/tv/drama/vera-season-13-release-date/|title=Vera season 13:Release date, cast and latest news|work=[[Radio Times]]|date=27 December 2023|access-date=21 January 2024}}</ref> Following the conclusion of the series, a special documentary was broadcast on 3 January 2025.
+
+==Series overview==
+<onlyinclude>{{Series overview
+| infoA = Average UK viewers{{br}}(millions)
+| color1     = #FF5F5F
+| link1      = List of Vera episodes#Series 1 (2011)
+| episodes1  = 4
+| start1     = {{Start date|2011|05|1|df=y}}
+| end1       = {{End date|2011|05|22|df=y}}
+| infoA1     = 6.60
+
+| color2     = #87D3F8
+| link2      = List of Vera episodes#Series 2 (2012)
+| episodes2  = 4
+| start2     = {{Start date|2012|04|22|df=y}}
+| end2       = {{End date|2012|06|3|df=y}}
+| infoA2     = 6.37
+
+| color3     = #FFEF00
+| link3      = List of Vera episodes#Series 3 (2013)
+| episodes3  = 4
+| start3     = {{Start date|2013|08|25|df=y}}
+| end3       = {{End date|2013|09|15|df=y}}
+| infoA3     = 6.53
+
+| color4     = #32CD32
+| link4      = List of Vera episodes#Series 4 (2014)
+| episodes4  = 4
+| start4     = {{Start date|2014|04|27|df=y}}
+| end4       = {{End date|2014|05|18|df=y}}
+| infoA4     = 6.42
+
+| color5     = #FF7800
+| link5      = List of Vera episodes#Series 5 (2015)
+| episodes5  = 4
+| start5     = {{Start date|2015|04|5|df=y}}
+| end5       = {{End date|2015|04|26|df=y}}
+| infoA5     = 6.19
+
+| color6     = #E659F8
+| link6      = List of Vera episodes#Series 6 (2016)
+| episodes6  = 4
+| start6     = {{Start date|2016|01|31|df=y}}
+| end6       = {{End date|2016|02|21|df=y}}
+| infoA6     = 7.88
+
+| color7     = #48CE9B
+| link7      = List of Vera episodes#Series 7 (2017)
+| episodes7  = 4
+| start7     = {{Start date|2017|03|19|df=y}}
+| end7       = {{End date|2017|04|9|df=y}}
+| infoA7     = 8.07
+
+| color8     = #233775
+| link8      = List of Vera episodes#Series 8 (2018)
+| episodes8  = 4
+| start8     = {{Start date|2018|01|7|df=y}}
+| end8       = {{End date|2018|01|28|df=y}}
+| infoA8     = 9.03
+
+| color9     = #B3002D
+| link9      = List of Vera episodes#Series 9 (2019)
+| episodes9  = 4
+| start9     = {{Start date|2019|01|13|df=y}}
+| end9       = {{End date|2019|02|3|df=y}}
+| infoA9     = 8.48
+
+| color10     = #FF6857
+| link10      = List of Vera episodes#Series 10 (2020)
+| episodes10  = 4
+| start10     = {{Start date|2020|01|12|df=y}}
+| end10       = {{End date|2020|02|2|df=y}}
+| infoA10     = 8.30
+
+| color11     = #FF5A7E
+| link11      = List of Vera episodes#Series 11 (2021&ndash;2023)
+| episodes11  = 6
+| start11     = {{Start date|2021|08|29|df=y}}
+| end11       = {{End date|2023|01|22|df=y}}
+| infoA11     =   {{Avg|round=2|7.66|7.10|7.65|7.58|5.92|5.91}}
+
+| color12      = #FFB90F
+| link12       = List of Vera episodes#Series 12 (2023)
+| episodes12  = 5
+| episodes12A  = 4
+| start12A     = {{Start date|2023|01|29|df=y}}
+| end12A       = {{End date|2023|02|19|df=y}}
+| infoA12A     = 6.02
+| episodes12B   = 1
+| released12B  = {{Start date|2023|12|26|df=y}}
+| infoA12B     = 5.71
+
+| color13    = #40FF00
+| link13     = List of Vera episodes#Series 13 (2024)
+| episodes13 = 3
+| start13    = {{Start date|2024|01|7|df=y}}
+| end13      = {{End date|2024|01|21|df=y}}
+| infoA13    = 6.66
+
+| color14 = #962B65
+| link14     = List of Vera episodes#Series 14 (2025)
+| episodes14 = 2
+| start14    = {{Start date|2025|01|01|df=y}}<ref>{{Cite web |title= Vera final series plot details 'leaked' by ITV as show set for dramatic climax |url= https://www.chroniclelive.co.uk/news/tv/vera-itv-series-brenda-blethyn-30230492 |access-date=2024-10-19 |website=Chronicle Live |language=en-GB}}</ref>
+| end14      = {{End date|2025|01|02|df=y}}
+| infoA14    = 6.24
+
+| color14S = #000000
+| link14S     = List of Vera episodes#Special (2025)
+| linkT14S  = Special
+| released14S    = {{Start date|2025|01|03|df=y}}<ref>{{Cite web |title= Vera gets ITV spin-off as 'sooner than expected' final series confirmed |url= https://www.chroniclelive.co.uk/news/tv/vera-itv-special-brenda-blethyn-30206991 |access-date=2024-10-22 |website=Chronicle Live |language=en-GB}}</ref>
+| infoA14S    = 3.11
+}}</onlyinclude>
+
+==Episodes==
+===Series 1 (2011)===
+{{Episode table |background=#FF5F5F |overall=5 |series=5 |title=17 |writer=17 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 1
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Hidden Depths}}
+ |DirectedBy       = [[Adrian Shergold]]
+ |WrittenBy        = [[Paul Rutman]]
+ |OriginalAirDate  = {{Start date|2011|05|1|df=y}}
+ |Viewers          = 6.75{{#tag:ref|6.465 million on ITV and ITV HD<ref name="BARB1">{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-30? |title=Weekly Top 30 Programmes: ITV w/e 1 May 2011 |publisher=[[Broadcasters' Audience Research Board]] |access-date=2 July 2011 |url-status=dead |archive-url=https://web.archive.org/web/20121215163945/http://www.barb.co.uk/viewing/weekly-top-30? |archive-date=15 December 2012 }}</ref> and 285,000 on ITV+1.<ref name="BARB3">{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV+1 w/e 1 May 2011|publisher=[[Broadcasters' Audience Research Board]]|access-date=2 July 2011}}</ref>|group=nb}}
+ |ShortSummary     =DCI Vera Stanhope has two apparently unrelated murders to solve. Her life is complicated by the death of her father and her decision to live in his home, which sadly contains the cluttered remains of his life.  A third incident – a kidnapping – raises the stakes significantly, and Vera discovers that a missing camera and photos reveal the motive behind all three.  <br> '''''First Appearance of DCI Vera Stanhope, DS Joe Ashworth, DC Holly Lawson and Dr Billy Cartwright'''''
+| LineColor        = FF5F5F
+}}
+{{Episode list
+ |EpisodeNumber    = 2
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Telling Tales}}
+ |DirectedBy       = Peter Hoar
+ |WrittenBy        = Paul Rutman
+ |OriginalAirDate  = {{Start date|2011|05|8|df=y}}
+ |Viewers          = 6.57{{#tag:ref|5.71 million on ITV,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-30? |title=Weekly Top 30 Programmes: ITV w/e 8 May 2011 |publisher=[[Broadcasters' Audience Research Board]] |access-date=2 July 2011 |url-status=dead |archive-url=https://web.archive.org/web/20121215163945/http://www.barb.co.uk/viewing/weekly-top-30? |archive-date=15 December 2012 }}</ref> 480,000 on the ITV HD simulcast,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV HD w/e 8 May 2011|publisher=[[Broadcasters' Audience Research Board]]|access-date=2 July 2011}}</ref> and 374,000 on ITV+1.<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV+1 w/e 8 May 2011|publisher=[[Broadcasters' Audience Research Board]]|access-date=2 July 2011}}</ref>|group=nb}}
+ |ShortSummary     = Jeannie Long escapes from custody, more than 10 years after she was convicted of the murder of Abby, the teenaged daughter of her lover. Coldly rejected by her father when she tries to return home, Jeannie steps in front of a bus and killed. News of her death finally brings evidence that proves she was innocent, as she had long claimed, leading Vera to reopen the case. <br> '''''First Appearance of DC Kenny Lockhart'''''
+| LineColor        = FF5F5F
+}}
+{{Episode list
+ |EpisodeNumber    = 3
+ |EpisodeNumber2   = 3
+ |Title            = {{va|The Crow Trap}}
+ |DirectedBy       = [[Farren Blackburn]]
+ |WrittenBy        = Stephen Brady
+ |OriginalAirDate  = {{Start date|2011|05|15|df=y}}
+ |Viewers          = 6.58{{#tag:ref|5.90 million on ITV,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-30? |title=Weekly Top 30 Programmes: ITV w/e 15 May 2011 |publisher=[[Broadcasters' Audience Research Board]] |access-date=2 July 2011 |url-status=dead |archive-url=https://web.archive.org/web/20121215163945/http://www.barb.co.uk/viewing/weekly-top-30? |archive-date=15 December 2012 }}</ref> 463,000 on the ITV HD simulcast,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV HD w/e 15 May 2011|publisher=[[Broadcasters' Audience Research Board]]|access-date=2 July 2011}}</ref> and 212,000 on ITV+1.<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV+1 w/e 15 May 2011|publisher=[[Broadcasters' Audience Research Board]]|access-date=2 July 2011}}</ref>|group=nb}}
+ |ShortSummary     = Vera investigates when an old associate, Bella Furness, is found bludgeoned to death in the barn of her farmhouse. Environmentalist Ann Preece, who discovered the body, denies having a motive for murder. Suspicion falls upon Bella's stepson, Neville, who stands to inherit the land on which the farmhouse is located. His connections with a local quarrying firm, who plan to demolish the farmhouse to build an access road for a new quarry, further complicates Vera's investigation. Meanwhile, Vera is confronted by a bereaved mother whose son disappeared whilst up at the farmhouse several years previously. As a complex love triangle involving several of the prime suspects begins to unravel, a second murder throws suspicion upon the identity of Bella's killer, and links between the three cases begin to emerge, suggesting a possible motive for murder.
+| LineColor        = FF5F5F
+}}
+{{Episode list
+ |EpisodeNumber    = 4
+ |EpisodeNumber2   = 4
+ |Title            = {{va|Little Lazarus}}
+ |DirectedBy       = Paul Whittington
+ |WrittenBy        = Paul Rutman 
+ |OriginalAirDate  = {{Start date|2011|05|22|df=y}}
+ |Viewers          = 6.51{{#tag:ref|5.87 million on ITV,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-30? |title=Weekly Top 30 Programmes: ITV w/e 22 May 2011 |publisher=[[Broadcasters' Audience Research Board]] |access-date=2 July 2011 |url-status=dead |archive-url=https://web.archive.org/web/20121215163945/http://www.barb.co.uk/viewing/weekly-top-30? |archive-date=15 December 2012 }}</ref> 484,000 on the ITV HD simulcast,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV HD w/e 22 May 2011|publisher=[[Broadcasters' Audience Research Board]]|access-date=2 July 2011}}</ref> and 154,000 on ITV+1.<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV+1 w/e 22 May 2011|publisher=[[Broadcasters' Audience Research Board]]|access-date=2 July 2011}}</ref>|group=nb}}
+ |ShortSummary     = When the body of a badly beaten young mother is found up on the moor, Vera follows a trail of footprints and discovers a young boy submerged in a nearby river, whom she rescues. Vera and Joe set about discovering the woman's identity. A holdall containing £2,000 found in the boot of her car fails to yield any significant clues, and the young boy is unable to recall the events of that night, nor much of his life to date. When the victim is finally identified as 31-year-old Margaret Wilde, a complex web of former relationships and care home abuse begins to unravel. As Vera tries to identify a possible suspect identified only as "The Shiny Man", she begins to cross wires with a local county judge, Patricia Carmichael, who she suspects is more involved with the victim than she cares to elaborate. <br> '''''Guest Appearance of PC Mark Edwards'''''
+| LineColor        = FF5F5F
+}}
+}}
+
+===Series 2 (2012)===
+{{Episode table |background=#87D3F8 |overall=5 |series=5 |title=17 |writer=17 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 5
+ |EpisodeNumber2   = 1
+ |Title            = {{va|The Ghost Position}}
+ |DirectedBy       = Peter Hoar
+ |WrittenBy        = Paul Rutman
+ |OriginalAirDate  = {{Start date|2012|04|22|df=yes}}
+ |Viewers          = 6.12<ref name="Broadcast">{{Cite news|url=http://www.broadcastnow.co.uk/Journals/2012/05/03/b/t/a/Consolidated.pdf |publisher=Broadcast |title=Consolidated figures: 16–22 April 2012|date=2012-05-03|access-date=2012-05-05}}</ref>
+ |ShortSummary     = When an old colleague of DCI Vera Stanhope, Sergeant Stuart Macken, commits suicide at the hospital where his daughter lies critically injured after his home had been firebombed, the investigation leads to a number of suspects: the daughter's stepfather, a missing protester Sergeant Macken had under surveillance, the protester's pregnant girlfriend and an art teacher. Furthermore, a senior officer's affair with Macken comes to light, and a second attempt on the daughter in hospital breaks the case wide open to explain the sergeant's suicide. <br> '''''Final Appearance of DC Holly Lawson'''''
+| LineColor        = 87D3F8
+}}
+{{Episode list
+ |EpisodeNumber    = 6
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Silent Voices}}
+ |DirectedBy       = Paul Whittington 
+ |WrittenBy        = [[Gaby Chiappe]]
+ |OriginalAirDate  = {{Start date|2012|04|29|df=yes}}
+ |Viewers          = 6.53{{#tag:ref|5.75 million on ITV,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-30? |title=Weekly Top 30 Programmes: ITV w/e 29 April 2012 |publisher=[[Broadcasters' Audience Research Board]] |access-date=8 May 2012 |url-status=dead |archive-url=https://web.archive.org/web/20121215163945/http://www.barb.co.uk/viewing/weekly-top-30? |archive-date=15 December 2012 }}</ref> 461,000 on the ITV HD simulcast,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV HD w/e 29 April 2012|publisher=[[Broadcasters' Audience Research Board]]|access-date=8 May 2012}}</ref> and 318,000 on ITV+1.<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV+1 w/e 29 April 2012|publisher=[[Broadcasters' Audience Research Board]]|access-date=8 May 2012}}</ref>|group=nb}}
+ |ShortSummary     = Social worker Jenny Lister is murdered whilst out swimming. Everybody speaks of Jenny as if she was perfect, arousing Vera's suspicions, especially when she learns that Jenny was writing a book about some of her cases. <br> '''''First Appearance of DC Bethany Whelan'''''
+ | LineColor        = 87D3F8
+}}
+{{Episode list
+ |EpisodeNumber    = 7
+ |EpisodeNumber2   = 3
+ |Title            = {{va|A Certain Samaritan}}
+ |DirectedBy       = [[Ed Bazalgette]]
+ |WrittenBy        = Paul Rutman
+ |OriginalAirDate  = {{Start date|2012|05|20|df=yes}} 
+ |Viewers          = 6.98{{#tag:ref|6.08 million on ITV,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-30? |title=Weekly Top 30 Programmes: ITV w/e 20 May 2012 |publisher=[[Broadcasters' Audience Research Board]] |access-date=28 May 2012 |url-status=dead |archive-url=https://web.archive.org/web/20121215163945/http://www.barb.co.uk/viewing/weekly-top-30? |archive-date=15 December 2012 }}</ref> 461,000 on the ITV HD simulcast,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV HD w/e 20 May 2012|publisher=[[Broadcasters' Audience Research Board]]|access-date=28 May 2012}}</ref> and 436,000 on ITV+1.<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV+1 w/e 20 May 2012|publisher=[[Broadcasters' Audience Research Board]]|access-date=28 May 2012}}</ref>|group=nb}}
+ |ShortSummary     = A shoe found in Newcastle matches another on a dead body found in a skip in Portsmouth. The victim had traces of heroin in his bloodstream, a wallet containing £300 and another man's credit card, all of which seem at odds with his character. The investigation includes a possessive mother, a girlfriend, a gay beekeeper dying of leukaemia, and a local drug dealer later found dead on a beach. Vera's private memories about her dead father are also stirred when Joe gives her an address for her father's mistress. <br> '''''Guest Appearance of PC Mark Edwards and Departure of DC Bethany Whelan'''''
+ | LineColor        = 87D3F8
+}}
+{{Episode list
+ |EpisodeNumber    = 8
+ |EpisodeNumber2   = 4
+ |Title            = {{va|Sandancers}}
+ |DirectedBy       = Julian Holmes
+ |WrittenBy        = Colin Teevan
+ |OriginalAirDate  = {{Start date|2012|06|03|df=yes}} 
+ |Viewers          = 5.83{{#tag:ref|5.14 million on ITV,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-30? |title=Weekly Top 30 Programmes: ITV w/e 3 June 2012 |publisher=[[Broadcasters' Audience Research Board]] |access-date=12 June 2012 |url-status=dead |archive-url=https://web.archive.org/web/20121215163945/http://www.barb.co.uk/viewing/weekly-top-30? |archive-date=15 December 2012 }}</ref> 445,000 on the ITV HD simulcast,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV HD w/e 3 June 2012|publisher=[[Broadcasters' Audience Research Board]]|access-date=12 June 2012}}</ref> and 240,000 on ITV+1.<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV+1 w/e 3 June 2012|publisher=[[Broadcasters' Audience Research Board]]|access-date=12 June 2012}}</ref>|group=nb}}
+ |ShortSummary     = Revenge is behind the clinical murder of Staff Sgt James Deverson, a soldier in charge of a bomb disposal unit, The Sandancers. His second in command, Ollie Barton, who was killed in Afghanistan by an improvised explosive device, was having an affair with Deverson's wife. The wife, Ollie's family and other members of the unit all come under suspicion, and the death of another unit member confuses the investigation, which is not helped by the army closing ranks. <br> '''''Guest Appearance of Captain Rebecca Shepherd'''''
+| LineColor        = 87D3F8
+}}
+}}
+
+===Series 3 (2013)===
+{{Episode table |background=#FFEF00 |overall=5 |series=5 |title=17 |writer=17 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 9
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Castles in the Air}}
+ |DirectedBy       = Will Sinclair
+ |WrittenBy        = Paul Rutman & Gaby Chiappe
+ |OriginalAirDate={{Start date|2013|08|25|df=yes}}
+ |Viewers          = 6.29 
+ |ShortSummary     = When a young woman, Lizzie Faulkner, is shot late at night outside the holiday chalet where she and two friends are staying for the weekend, Vera and Joe suspect that her murder is linked to poachers operating in nearby fields. They identify a suspect, Robert Doran, but despite being in the vicinity at the time, he denies being responsible for Lizzie's murder. Vera begins to suspect the woman's death may have been a case of mistaken identity and that the intended victim may have been one of the chalet designers, Corrine Franks, who was meant to have been staying there at the time. A link to a tragic car accident a few months earlier involving Corrine, which led to an innocent woman losing her life, appears to confirm their theory. When Corrine is later killed in a hit-and-run, the team finally get the breakthrough they have been looking for. <br> '''''Return of now-DC Mark Edwards'''''
+ |LineColor        = FFEF00
+}}
+{{Episode list
+ |EpisodeNumber    = 10
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Poster Child}}
+ |DirectedBy       = Paul Cotter
+ |WrittenBy        = Paul Rutman
+ |OriginalAirDate  = {{Start date|2013|09|01|df=yes}}
+ |Viewers          = 6.74 
+ |ShortSummary     = An acclaimed doctor, Dan Marsden, is shot through the skull in the living room of his remote country home, and his two daughters, Karen and Mira, are taken against their will. Meanwhile, a new DC, Barry Kelman, is temporarily assigned to the team to help them with the investigation. Initial suspicion falls upon Jonah Regan, an award-winning photographer who had previously tried to adopt Mira before the Marsden family were granted custody. However, it soon becomes apparent that one of Mira's relatives – her brother, Malik, who was thought to have died in a bomb attack in Baghdad – is in fact alive and well, and has been contacting her through her social media accounts. Malik, however, is determined to flee back to his homeland with Mira in tow – but when he comes face to face with Laura Marsden and DC Kelman, tragedy strikes.
+ |LineColor        = FFEF00
+}}
+{{Episode list
+ |EpisodeNumber    = 11
+ |EpisodeNumber2   = 3
+ |Title            = {{va|Young Gods}}
+ |DirectedBy       = Dušan Lazarević
+ |WrittenBy        = Gaby Chiappe
+ |OriginalAirDate  = {{Start date|2013|09|08|df=yes}} 
+ |Viewers          = 6.54
+ |ShortSummary     = A group of sixth form students from a prestigious local school on a weekend retreat at a leisure centre witness a man on fire who falls from a cliff into the river below. The victim, extreme sports enthusiast Gideon Frane, is discovered to have been a former head boy at the same school but is also known to have been responsible for 97 incidents of harassment and threat against his ex-girlfriend. When Billy discovers Frane was poisoned with atropine, Vera begins to look at the case from a completely different perspective. When the team finally tracks down Gideon's former best friend, Jamie Levinson, both he and Vera fall victim to a further poisoning. Connections start to build when Joe links the case to the death of a former teacher at their school, whose daughter happened to be among the students witnessing Gideon's death. <br> '''''Return of now-DC Rebecca Shepherd'''''
+ |LineColor        = FFEF00
+}}
+{{Episode list
+ |EpisodeNumber    = 12
+ |EpisodeNumber2   = 4
+ |Title            = {{va|Prodigal Son}}
+ |WrittenBy        = Marston Bloom
+ |DirectedBy       = [[Thaddeus O'Sullivan]]
+ |OriginalAirDate  = {{Start date|2013|09|15|df=yes}} 
+ |Viewers          = 6.54
+ |ShortSummary     = Former London Metropolitan Police detective and well-documented ladies man John Warnock is found stabbed in an alleyway adjacent to a quayside pub he had been visiting. Suspicion initially falls on young street thief Reece, who is well known to Kenny, who had arrested him several times in the past. Although Reece admits to lifting the victim's credit card, he denies murder. A complex web of relationships and deceit begins to boil to the surface, and it soon becomes apparent that Warnock had been using his skills as a detective to act as a spy for a local firm of solicitors to uncover the secrets of his current boss, brewery owner Sam Harper. But with Sam, his wife and his daughter all having rock solid alibis for the time of Warnock's murder, Vera is left to decipher just how one of them managed to slip away to commit the crime. <br> '''''Final Appearance of Dr Billy Cartwright'''''
+ |LineColor        = FFEF00
+}}
+}}
+
+===Series 4 (2014)===
+{{Episode table |background=#32CD32 |overall=5 |series=5 |title=17 |writer=17 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 13
+ |EpisodeNumber2   = 1
+ |Title            = {{va|On Harbour Street}}
+ |WrittenBy        = Paul Rutman 
+ |DirectedBy       = [[Thaddeus O'Sullivan]]
+ |OriginalAirDate  = {{Start date|2014|04|27|df=yes}}
+ |Viewers          = 7.00 
+ |ShortSummary     = Joe's daughter is a witness to the death of an elderly woman, who was apparently stabbed on a rush hour train she and her father were travelling on. The woman's seemingly quiet life turns out to be anything but, as Vera's investigation begins to unravel a tangled web of lies and deceit. An old acquaintance of Vera's father appears to hold the key to the entire mystery, which involves unraveling a murder committed thirty years previously, a rape, and an affair which nobody suspected would be likely to have taken place. Vera realises that the answer may lie in events that have started to repeat themselves. <br> '''''First Appearance of Dr Marcus Summer'''''
+ |LineColor        = 32CD32
+}}
+{{Episode list
+ |EpisodeNumber    = 14
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Protected}}
+ |DirectedBy       = Daikin Marsh
+ |WrittenBy        = Martha Hillier
+ |OriginalAirDate  = {{Start date|2014|05|04|df=yes}}
+ |Viewers          = 6.44
+ |ShortSummary     = When a young property developer dies on a beach in Whitley Bay, Vera's investigation begins to tread on many toes. It appears that the victim not only had resumed contact with his estranged sister, he also had confronted a local arcade owner whose son had died at his family's house many years before, having fallen from a flat roof in a supposed "burglary". When the victim's father dies of cardiac arrest, Vera suspects foul play, but it turns out to be natural causes. However, a scam involving the family's rental business may hold the key to the motive behind the victim's death. But in order to place all of the pieces of the puzzle together, Vera has to reveal some long buried – and heartbreaking – secrets, leading to a shocking revelation which points the team firmly in the direction of the real killer.  
+ |LineColor        = 32CD32
+}}
+{{Episode list
+ |EpisodeNumber    = 15
+ |EpisodeNumber2   = 3
+ |Title            = {{va|The Deer Hunters}}
+ |DirectedBy       = Will Sinclair
+ |WrittenBy        = Steve Coombes
+ |OriginalAirDate  = {{Start date|2014|05|11|df=yes}} 
+ |Viewers          = 6.01
+ |ShortSummary     = Shane Thurgood, killed by a single gunshot wound, is found beside his car in a quarry. He had returned to his local village to sell his recently deceased grandfather's property but at the last minute pulled out of the sale to the Peytons, a wealthy couple who own a nearby deer shoot. A second vehicle is found burnt out with the remains of a dead stag in the back, which along with animal feed in Thurgood's car suggests poaching is involved. But the situation proves to be much more complicated. 
+ |LineColor        = 32CD32
+}}
+{{Episode list
+ |EpisodeNumber    = 16
+ |EpisodeNumber2   = 4
+ |Title            = {{va|Death of a Family Man}}
+ |DirectedBy       = David Richards
+ |WrittenBy        = Martha Hillier
+ |OriginalAirDate  = {{Start date|2014|05|18|df=yes}} 
+ |Viewers          = 6.22
+ |ShortSummary     = A man, outwardly happily married, is discovered in the river with his shoe laces tied together suggesting suicide until the post mortem confirms murder. The victim was an informant for Revenue and Customs on a case regarding the smuggling of alcohol which widens the suspects from family to include his business associates, including his best friend. <br> '''''Final Appearance of DC Rebecca Shepherd and Departure of DS Joe Ashworth'''''
+ |LineColor        = 32CD32
+}}
+}}
+
+===Series 5 (2015)===
+{{Episode table |background=#FF7800 |overall=5 |series=5 |title=17 |writer=17 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 17
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Changing Tides}}
+ |DirectedBy       = [[Marek Losey]]
+ |WrittenBy        = Martha Hillier
+ |OriginalAirDate  = {{Start date|2015|04|05|df=yes}}
+ |Viewers          = 6.52{{#tag:ref|5.31 million on ITV,<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-30? |title=Weekly Top 30 Programmes: ITV w/e 5 April 2015 |publisher=[[Broadcasters' Audience Research Board]] |access-date=18 April 2015 |url-status=dead |archive-url=https://web.archive.org/web/20121215163945/http://www.barb.co.uk/viewing/weekly-top-30? |archive-date=15 December 2012 }}</ref> 644,000 on the ITV HD simulcast,<ref>{{cite web|url=http://www.broadcastnow.co.uk/home/digital-editions/broadcast-17-april-2015/5086622.article|title=Broadcast - Digital Edition - 17 April 2015|publisher=Broadcastnow.co.uk|access-date=18 April 2015}}</ref> and 563,000 on ITV+1.<ref>{{cite web|url=http://www.barb.co.uk/viewing/weekly-top-10?|title=Weekly Top 10 Programmes: ITV+1 w/e 5 April 2015|publisher=[[Broadcasters' Audience Research Board]]|access-date=18 April 2015}}</ref>|group=nb}}
+ |ShortSummary     = With Joe now promoted, Vera and her new sergeant, DS Aiden Healy, investigate a fatal explosion at a caravan park that killed Deena Viner, sister of the park's owner, Jim. The mystery deepens when Vera and Aiden discover that Deena died in the caravan before it blew up. <br> '''''First Appearance of DS Aiden Healy and Return of DC Bethany Whelan'''''
+ |LineColor        = FF7800
+}}
+{{Episode list
+ |EpisodeNumber    = 18
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Old Wounds}}
+ |DirectedBy       = Daikin Marsh
+ |WrittenBy        = Martha Hillier
+ |OriginalAirDate  = {{Start date|2015|04|12|df=yes}}
+ |Viewers          = 5.91
+ |ShortSummary     = The discovery of skeletal remains in Hollowthorp Woods leads to Vera re-opening the case of a seventeen-year-old school girl, Carrie Telling, who went missing some thirty years earlier. Found with the body's remains were a camera, a company credit card and a telephone number for an abortion clinic. When another murder occurs, it becomes apparent to Vera that the killer is somebody who had something to hide thirty years ago. <br> '''''First Appearance of Intelligence Officer Helen Milton'''''
+ |LineColor        = FF7800
+}}
+{{Episode list
+ |EpisodeNumber    = 19
+ |EpisodeNumber2   = 3
+ |Title            = {{va|Muddy Waters}}
+ |DirectedBy       = Stewart Svaasand 
+ |WrittenBy        = Glen Laker 
+ |OriginalAirDate  = {{Start date|2015|04|19|df=yes}} 
+ |Viewers          = 6.20
+ |ShortSummary     = Vera and her team investigate the death of a young man dredged up from a slurry pit. Vera discovers the victim was a [[Romanichal|traveller]] who had left his camp following a row with his parents about his being gay. Vera locates the victim's camper van, which contains a wad of notes, suggesting the victim was involved in something illegal. However, it is a deaf little boy who presents Vera with the solution to the case.
+ |LineColor        = FF7800
+}}
+{{Episode list
+ |EpisodeNumber    = 20
+ |EpisodeNumber2   = 4
+ |Title            = {{va|Shadows in the Sky}}
+ |DirectedBy       = Will Sinclair
+ |WrittenBy        = Martha Hillier
+ |OriginalAirDate  = {{Start date|2015|04|26|df=yes}} 
+ |Viewers          = 6.13
+ |ShortSummary     = Vera must uncover a life of secrets and lies when Owen Thorne, a well-loved family man, plummets to his death from a multi-storey car park.
+ |LineColor        = FF7800
+}}
+}}
+
+===Series 6 (2016)===
+{{Episode table |background=#E659F8 |overall=5 |series=5 |title=17 |writer=20 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 21
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Dark Road}}
+ |DirectedBy       = [[Marek Losey]]
+ |WrittenBy        = Martha Hillier
+ |OriginalAirDate  = {{Start date|2016|01|31|df=yes}}
+ |Viewers          = 7.93
+ |ShortSummary     = When Anne-Marie Richards is found dead on the moors without shoes, Vera deduces that she was killed at home and the body was dumped. Later, Vera discovers that Anne-Marie was keeping secrets, including a secret boyfriend and a hidden mobile phone. Suspicion falls on her family – a seemingly respectable teacher married to a veterinarian with a young daughter, and a former drug addict – but the conclusion of the investigation is marked by a deadly attack on one of her team. <br> '''''Final Appearance of DC Bethany Whelan'''''
+ |LineColor        = E659F8
+}}
+{{Episode list
+ |EpisodeNumber    = 22
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Tuesday's Child}}
+ |DirectedBy       = Jill Robertson
+ |WrittenBy        = Glen Laker
+ |OriginalAirDate  = {{Start date|2016|02|07|df=yes}}
+ |Viewers          = 7.91
+ |ShortSummary     = Vera investigates the death of a local lad whose body is found wrapped in plastic bags at a rural teenage hangout. The victim, Jaime Thorne, had been working with a travelling fair in the area and had stayed at a local church during the previous winter. The discovery of a second body in the same area complicates the search for answers.
+ |LineColor        = E659F8
+}}
+{{Episode list
+ |EpisodeNumber    = 23
+ |EpisodeNumber2   = 3
+ |Title            = {{va|The Moth Catcher}}
+ |DirectedBy       = Jamie Childs
+ |WrittenBy        = Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2016|02|14|df=yes}}
+ |Viewers          = 8.14
+ |ShortSummary     = Vera investigates the death of 22-year-old Alex Gartside, victim of a hit and run in a remote Northumberland Valley. Another body – that of Martin Nielsen – is found in the mansion where Alex had been house-sitting. Finding the connection between the two victims reveals a coverup involving two local men. <br> '''''First Appearance of DC Hicham Cherradi'''''
+ |LineColor        = E659F8
+}}
+{{Episode list
+ |EpisodeNumber    = 24
+ |EpisodeNumber2   = 4
+ |Title            = {{va|The Sea Glass}}
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Paul Matthew Thompson & Martha Hillier
+ |OriginalAirDate  = {{Start date|2016|02|21|df=yes}}
+ |Viewers          = 7.55
+ |ShortSummary     = Former trawlerman Tommy Stonnall's corpse is pulled from the sea six weeks after his sons reported him missing. He'd been depressed following his wife's death, with huge debts and an accusation – never proven – by unpopular siblings Ellie and Jay Connock that he burned down their fish market, killing their father. Vera discounts suicide after she finds an abandoned van stained by Tommy's blood and contraband cigarettes in a lodging house where he'd stayed during the missing weeks. She also uncovers a sinister smuggling racket with which Tommy was involved, a secret liaison, and an explanation for the arson attack. <br> '''''Departure of Dr Marcus Summer'''''
+ |LineColor        = E659F8
+}}
+}}
+
+===Series 7 (2017)===
+{{Episode table |background=#48CE9B |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 25
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Natural Selection}}
+ |DirectedBy       = Jamie Childs
+ |WrittenBy        = Helen Jenkins
+ |OriginalAirDate  = {{Start date|2017|03|19|df=yes}}
+ |Viewers          = 8.83
+ |ShortSummary     = Vera is drawn into the suspicious death of Gemma Wyatt on Ternstone, a remote and inaccessible island off the coast of Northumberland. Although the victim's friends and family believe her death was an accident, marks found on her body quickly prove otherwise. As suspicions turn to Gemma's family and workmates, Vera starts to piece together an altogether different portrait of the popular and successful ranger. But as Gemma was left alone on the island overnight, the question remains, who could have made the treacherous journey out to sea and up the island's impenetrable coastline to kill her, and why? <br> '''''First Appearance Dr Anthony Carmichael and Final Appearance of IO Helen Milton'''''
+ |LineColor        = 48CE9B
+}}
+{{Episode list
+ |EpisodeNumber    = 26
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Dark Angel}}
+ |DirectedBy       = Louise Hooper
+ |WrittenBy        = Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2017|03|26|df=yes}}
+ |Viewers          = 7.72
+ |ShortSummary     = The body of a young man is discovered face down in a river, bludgeoned to death. But with no ID on the body, tracing the victim's identity proves difficult for Vera and her team. She is forced to make headway with the only clues they have: a mourning ring worn around the young man's neck, needle marks on the body, and a drugs wrapper with a distinctive stamp – "Dark Angel". Tracing the stamp draws Vera to Gateshead and into Newcastle's criminal underbelly, where the victim, Nathan, had several ties with people both dangerous and vulnerable – all people with good reason to want Nathan out of the picture. But the investigation takes an unexpected turn when a witness sighting leads Vera and DS Aiden Healy to the scene of an old crime, a remote farm in which a brutal murder took place some 13 years ago. Could there be a link between Nathan's murder and the historic crime?
+ |LineColor        = 48CE9B
+}}
+{{Episode list
+ |EpisodeNumber    = 27
+ |EpisodeNumber2   = 3
+ |Title            = {{va|Broken Promise}}
+ |DirectedBy       = Lee Haven Jones
+ |WrittenBy        = Robert Murphy
+ |OriginalAirDate  = {{Start date|2017|04|02|df=yes}}
+ |Viewers          = 7.86
+ |ShortSummary     = Vera is called to the University of Northumberland when Jamie Marshall, a young, promising journalism student, plummets to his death from the top of a disused science building. With no eyewitnesses and no immediate leads, Vera turns to friends and family to glean all she can about Jamie, and to discover who might have wanted him dead. Her investigation delves further into Jamie's academic and personal life, as it becomes apparent that all is not as it seems. His sunny persona is betrayed by [[vlog]] posts that cast Jamie in a different light altogether, with anger and resentment bubbling to the surface. But what was Jamie railing against?
+ |LineColor        = 48CE9B
+}}
+{{Episode list
+ |EpisodeNumber    = 28
+ |EpisodeNumber2   = 4
+ |Title            = {{va|The Blanket Mire}}
+ |DirectedBy       = John Hayes
+ |WrittenBy        = Paul Matthew Thompson & Martha Hillier
+ |OriginalAirDate  = {{Start date|2017|04|09|df=yes}}
+ |Viewers          = 7.87
+ |ShortSummary     = Surveyors out on the Northumberland moors make a shocking discovery: the body of a young woman buried beneath the soil. On the scene, assumptions are that this is the body of local teenager Mia Hinkin, who disappeared six weeks ago. Vera is forced to deliver the terrible news to a broken family, desperate for answers. With her body found so close to home, Vera must re-trace the vulnerable young woman’s footsteps from her isolated rural life and into a dark and tangled web of deceit to track down her killer. <br> '''''Final Appearances of DC Hicham Cherradi and Dr Anthony Carmichael'''''
+ |LineColor        = 48CE9B
+}}
+}}
+
+===Series 8 (2018)===
+
+{{Episode table |background=#233775 |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 29
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Blood and Bone}}
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2018|01|07|df=yes}}
+ |Viewers          = 9.37 
+ |ShortSummary     = Vera is called upon when the charred remains of a body are discovered in an abattoir incinerator. The body is found to be that of DC Harry Fenton, of the Northumberland & City Fraud Unit, who had been on his final day of the job before retirement. After one of Fenton's colleagues, Jac Williams, gives Vera a useful tip-off, Vera looks into one of Harry's fraud cases, and uncovers corrupt cops and treacherous friends. <br> '''''First Appearance of DC Jacqueline 'Jac' Williams and Return of Dr Marcus Summer'''''
+ |LineColor        = 233775
+}}
+{{Episode list
+ |EpisodeNumber    = 30
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Black Ice}}
+ |DirectedBy       = [[David Leon]]
+ |WrittenBy        = Martha Hillier
+ |OriginalAirDate  = {{Start date|2018|01|14|df=yes}}
+ |Viewers          = 9.21
+ |ShortSummary     = Vera is called to the scene of a violent car crash. She quickly realises that the crash was not accidental.  After the victim, Faye Wakeland, dies in hospital, Vera suspects that her murder may be connected to the recent suicide of a local man. But Vera and Aiden find it difficult to get to the truth when everyone they interview seems to be protecting a secret.
+ |LineColor        = 233775
+}}
+{{Episode list
+ |EpisodeNumber    = 31
+ |EpisodeNumber2   = 3
+ |Title            = {{va|Home}}
+ |DirectedBy       = Chris Baugh
+ |WrittenBy        = Paul Logue
+ |OriginalAirDate  = {{Start date|2018|01|21|df=yes}}
+ |Viewers          = 8.97
+ |ShortSummary     = Quiet life in suburbia takes a dark turn when a 43-year-old mother of two, Alison Glenn, is discovered in her back garden by her young son, bludgeoned to death. Vera and Aiden are forced to expand their enquiry when Alison's long-lost family comes out of the woodwork and suspicions begin to mount. Then they discover that the Glenns have skeletons in their cupboards.
+ |LineColor        = 233775
+}}
+{{Episode list
+ |EpisodeNumber    = 32
+ |EpisodeNumber2   = 4
+ |Title            = {{va|Darkwater}}
+ |DirectedBy       = Lee Haven-Jones
+ |WrittenBy        = Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2018|01|28|df=yes}}
+ |Viewers          = 8.55
+ |ShortSummary     = The body of teenager Ethan Dewley is found floating in a reservoir. When Vera and her team discover that Ethan had been missing for three days, they look to a rural community and a lakeside activity centre for answers. A break-in at a nearby home proves to have an unexpected connection. <br> '''''Final Appearance of Dr Marcus Summer'''''
+ |LineColor        = 233775
+}}
+}}
+
+===Series 9 (2019)===
+
+{{Episode table |background=#B3002D |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 33
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Blind Spot}}
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Paul Logue
+ |OriginalAirDate  = {{Start date|2019|01|13|df=yes}}<ref name="Blindspot">{{cite web|url=https://www.itv.com/presscentre/ep1week3/vera|title=Vera Episode 1|publisher=ITV Press Centre|date=27 December 2018|access-date=3 January 2019}}</ref>
+ |Viewers          = 8.63
+ |ShortSummary     = Vera is called to the scene of the murder of trainee forensic psychologist Joanne Caswell, whose body has been found dumped at a landfill site. Vera zeroes in on Joanne's re-examination of an old crime, following the trail of the dead woman's investigation in order to catch her killer. <br> '''''First Appearance of Dr Malcolm Donahue'''''
+ |LineColor        = B3002D
+}}
+{{Episode list
+ |EpisodeNumber    = 34
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Cuckoo}}
+ |DirectedBy       = Lawrence Gough
+ |WrittenBy        = Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2019|01|20|df=yes}}<ref>{{cite web|url=https://www.itv.com/presscentre/ep2week4/vera|title=Vera Episode 2|publisher=ITV Press Centre|date=7 January 2019|access-date=9 January 2019}}</ref>
+ |Viewers          = 8.37
+ |ShortSummary     = Vera is confronted with the sight of Caden Lennon's murder, by knife, in a coastal town's shipyard. The teenager had absconded from his support worker's care six weeks previously but, with few leads, Vera looks into a gang connection and discovers a drugs network. 
+ |LineColor        = B3002D
+}}
+{{Episode list
+ |EpisodeNumber    = 35
+ |EpisodeNumber2   = 3
+ |Title            = {{va|Cold River}}
+ |DirectedBy       = [[Carolina Giammetta]]
+ |WrittenBy        = Martha Hillier
+ |OriginalAirDate  = {{Start date|2019|01|27|df=yes}}<ref>{{cite web|url=https://www.itv.com/presscentre/ep3week5/vera|title=Vera Episode 3|publisher=ITV Press Centre|date= 14 January 2019|access-date=20 January 2019}}</ref>
+ |Viewers          = 8.50
+ |ShortSummary     = Successful businesswoman Lisa Varsey throws a party for her family and friends on the River Tyne. But it goes horribly wrong when her sister Dani is found dead in the water. At first the family believe that Dani's death was an accident but Vera and pathologist Malcolm know that the forensics point to murder. Vera and the team alight on concerning rumours that Dani could have been in an abusive relationship and questions whether this could have led to her death. But the investigation takes a turn when evidence points to the fact that something was rotten in another area of Dani's life. Vera begins to believe that Dani was going to expose an unpalatable truth. Vera must unpick the tightly woven threads that hold the family together to discover who killed an innocent woman.
+ |LineColor        = B3002D
+}}
+{{Episode list
+ |EpisodeNumber    = 36
+ |EpisodeNumber2   = 4
+ |Title            = {{va|The Seagull}}
+ |DirectedBy       = Declan O'Dwyer
+ |WrittenBy        = Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2019|02|03|df=yes}}<ref>{{cite web|url=https://www.itv.com/presscentre/ep4week6/vera|title=Vera Episode 4|publisher=ITV Press Centre|date= 22 January 2019|access-date=24 January 2019}}</ref>
+ |Viewers          = 8.43
+ |ShortSummary     = DCI Vera Stanhope must open up a cold case to find the connection between a skeleton discovered underneath the site of a notorious burnt-out night club and a present-day murder.
+ |LineColor        = B3002D
+}}
+}}
+
+=== Series 10 (2020) ===
+{{Episode table |background=#FF6857 |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 37
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Blood Will Tell}}
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Paul Logue
+ |OriginalAirDate  = {{Start date|2020|01|12|df=yes}}
+ |Viewers          = 8.59 
+ |ShortSummary     = Vera has to unravel the circumstances of self-styled entrepreneur Freddie Gill's death when his body is found by bailiffs attempting to repossess his house.
+ |LineColor        = #FF6857
+}}
+{{Episode list
+ |EpisodeNumber    = 38
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Parent Not Expected}}
+ |DirectedBy       = Rob Evans
+ |WrittenBy        = Colette Kane
+ |OriginalAirDate  = {{Start date|2020|01|19|df=yes}}
+ |Viewers          = 7.98
+ |ShortSummary     = Vera must unravel a tangled web of deceit between two wildly different families when the body of a teenage boy is discovered floating near a Northumberland salmon farm.
+ |LineColor        = #FF6857
+}}
+{{Episode list
+ |EpisodeNumber    = 39
+ |EpisodeNumber2   = 3
+ |Title            = {{va|Dirty}}
+ |DirectedBy       = Delyth Thomas
+ |WrittenBy        = [[Sally Abbott]]
+ |OriginalAirDate  = {{Start date|2020|01|26|df=yes}}
+ |Viewers          = 8.21
+ |ShortSummary     = Luke Sumner's body is discovered close to his flat in Newcastle, but pathology concludes that the killing blow could have occurred several hours before he succumbed to his injuries, prompting Vera to piece together Luke's final hours in order to investigate his murder.
+ |LineColor        = #FF6857
+}}
+{{Episode list
+ |EpisodeNumber    = 40
+ |EpisodeNumber2   = 4
+ |Title            = {{va|The Escape Turn}}
+ |DirectedBy       = [[Carolina Giammetta]]
+ |WrittenBy        = Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2020|02|02|df=yes}}
+ |Viewers          = 8.40
+ |ShortSummary     = When wealthy betting shop magnate Alun Wilmott is shot and killed after returning home early amid a terrifying home invasion, it's assumed that he is the unlucky victim of a burglary gone wrong.  The culprits abscond with a huge amount of cash from Alun's personal safe, leaving his wife and daughter traumatised in their wake.  Vera suspects an inside job and immediately targets the affluent neighbourhood's shady head of private security, Ciaran Duggan, whose history of violent crime calls his reformed character into question.
+ |LineColor        = #FF6857
+}}
+}}
+
+=== Series 11 (2021&ndash;2023) ===
+{{Episode table |background=#FF5A7E |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 41
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Witness}}
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Paul Logue
+ |OriginalAirDate  = {{Start date|2021|08|29|df=yes}}
+ |Viewers          = 7.66
+ |ShortSummary     = A local builder, Jim Tullman, is found dead on the steps of [[Collingwood Monument]] after being attacked. Tullman was scheduled to testify against aspiring footballer Marcus Hynde, who is accused of assaulting Victor Samassi. Vera and the police suspect Marcus's brother Patrick, who has a violent history and also fought Tullman earlier. Malcolm discovers that Tullman had GHB in his body coupled with alcohol. In addition, a betrothal ring is discovered in his throat, having been put there after his death. The police learn that Tullman had been meeting secretly with Leslie Clayton, the wife of his best friend Gary Clayton. Marcus Hynde runs away from home and is captured by police. He tells Vera that he wanted to admit to the assault, but Tullman had offered to change his testimony and clear Marcus of any wrongdoing. Vera questions Tullman's estranged wife about the Fig Tree, a restaurant where the family had gone two years earlier. Outside the restaurant Jim and his son assaulted a young lawyer, Aldo Rossi, who later collapsed and died. 
+ |LineColor        = #FF5A7E
+}}
+{{Episode list
+ |EpisodeNumber    = 42
+ |EpisodeNumber2   = 2
+ |Title            = {{va|Recovery}}
+ |DirectedBy       = Christiana Ebohon-Green
+ |WrittenBy        = Colette Kane
+ |OriginalAirDate  = {{Start date|2021|09|05|df=yes}}
+ |Viewers          = 7.10
+ |ShortSummary     = Vera is called to the scene when the body of addiction support worker Angela Konan is found hidden among the bleak woodlands of Northumberland National Park. Vera and her team must pull back the layers of the introverted victim's life to uncover her closely-guarded secrets and surprising depths. An increasingly erratic Angela had clashed with two clients in the weeks before she died. One of them, Beth Draper, approached Angela's estranged daughter the preceding week. Suspicions also turn to Draper's daughter Maya, who was not home the night Angela was murdered. 
+ |LineColor        = #FF5A7E
+}}
+{{Episode list
+ |EpisodeNumber    = 43
+ |EpisodeNumber2   = 3
+ |Title            = {{va|Tyger Tyger}}
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2022|01|09|df=yes}}
+ |Viewers          = 7.65
+ |ShortSummary     = When security foreman Gary Mallon is fatally wounded during a robbery at a Blyth container port the evidence points to an audacious heist that went awry. Vera begins to suspect an inside job. But the investigation takes an unexpected turn when Gary's ex-wife contacts police with the news that their 13-year-old son is missing. Gary Mallon was acting under duress – the victim of a [[tiger kidnapping]]. His son was being held as collateral – but where is he now? In order to rescue the missing boy, Vera first needs to work out who was behind the robbery. Further complications ensue when she finds herself forced to collaborate with an NCA officer who is working on a covert surveillance operation with links to organised crime. As Vera closes in on the kidnappers a misstep in the investigation leads to tragic repercussions, and she finds herself taken off the case. 
+ |LineColor        = #FF5A7E
+}}
+{{Episode list
+ |EpisodeNumber    = 44
+ |EpisodeNumber2   = 4
+ |Title            = {{va|As the Crow Flies}}
+ |DirectedBy       = Waris Islam
+ |WrittenBy        = Sally Abbott
+ |OriginalAirDate  = {{Start date|2022|01|16|df=yes}}
+ |Viewers          = 7.58
+ |ShortSummary     = Primary school teacher Lizzy Swann is found dead at the bottom of a cliff-side coastal walkway. What appears at first to be an accident becomes a murder investigation when Vera discovers evidence that the body has been tampered with. The murder is the latest in a string of tragedies to befall the Swann family: Lizzy's husband Phil was pensioned out of the army following an injury, his brother died in a car accident and the Swanns' farm is falling into ruin. Vera's interviews paint the picture of a guarded and paranoid woman who in the days leading up to her death seemed to be burning bridges with friends and family alike. Lizzy was recently suspended from work for recklessly accusing a father of physically abusing his son – and her family were kept in the dark. A perpetual feud with her sister-in-law, Rose, clashes with her youngest daughter's willful boyfriend Greg, and a public confrontation with Phil's close friend and tenant, Jamie "Macca" McCarthy, leave no shortage of suspects.
+ |LineColor        = #FF5A7E
+}}
+{{Episode list
+ |EpisodeNumber    = 45
+ |EpisodeNumber2   = 5
+ |Title            = {{va|Vital Signs}}
+ |DirectedBy       = Rob Evans
+ |WrittenBy        = Paul Logue
+ |OriginalAirDate  = {{Start date|2023|01|15|df=yes}}
+ |Viewers          = 5.92
+ |ShortSummary     = Vera is called out to the grim scene of a body found in the back of a burnt out car parked in a quarry. When the body is identified as popular local GP Lucy Yo, the team enters an unexpected web of betrayal and lies. Suspects include a wronged spouse, a senior physician and family, the family of an elderly patient who died, and those perpetuating prescription fraud.
+ |LineColor        = #FF5A7E
+}}
+{{Episode list
+ |EpisodeNumber    = 46
+ |EpisodeNumber2   = 6
+ |Title            = {{va|The Way the Wind Blows}}
+ |DirectedBy       = Chris Foggin
+ |WrittenBy        = Michael Bhim
+ |OriginalAirDate  = {{Start date|2023|01|22|df=yes}}
+ |Viewers          = 5.91
+ |ShortSummary     = The body of Lisa Millworth, an HR adviser of a local turbine company, is washed up on the banks of the River Tyne.  Vera and her team discover a mountain of lies as told by Lisa's family regarding both their own and Lisa's whereabouts and their knowledge of the incident.
+ |LineColor        = #FF5A7E
+}}
+}}
+
+===Series 12 (2023)===
+{{Episode table |background=#FFB90F |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 47
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Against the Tide}}
+ |DirectedBy       = Will Sinclair
+ |WrittenBy        = Lucia Haynes
+ |OriginalAirDate  = {{Start date|2023|01|29|df=yes}}
+ |Viewers          = 5.96
+ |ShortSummary     = DCI Vera Stanhope is called to a remote lighthouse where a body has been discovered lashed to a sailboat. Immediately setting about her investigation, Vera soon discovers that the body is local council enforcement officer and experienced amateur sailor Frank Channing. A family man, with strong friendships, who was well respected at work, surely this really was just an accident? However, it's not long before Vera discovers evidence suggesting foul play. Vera and her team piece together Frank's final days and soon discover that his life wasn't all plain sailing. <br> '''''Final Appearance of Dr Malcolm Donahue'''''
+ |LineColor        = #FFB90F
+}}
+{{Episode list
+ |EpisodeNumber    = 48
+ |EpisodeNumber2   = 2
+ |Title            = {{va|For the Grace of God}}
+ |DirectedBy       = Claire Winyard
+ |WrittenBy        = Sally Abbott
+ |OriginalAirDate  = {{Start date|2023|02|05|df=yes}}
+ |Viewers          = 5.81
+ |ShortSummary     = Lance Corporal Conn Burns (Connail) was a dedicated, diligent and decorated soldier with a loving young family but all of that fell apart when he left the army. Adapting to civilian life was not easy and after a series of bad life choices, Conn found himself desolate, down and out on the streets of Newcastle. Attempting to get his life back on track, Conn had recently been making moves that would see him repay old debts, rebuild relationships and get him off the streets but a dark secret from his past, and betrayal in the present, left his future looking uncertain, and deadly. <br> '''''First Appearance of Dr Paula Bennett'''''
+ |LineColor        = #FFB90F
+}}
+{{Episode list
+ |EpisodeNumber    = 49
+ |EpisodeNumber2   = 3
+ |Title            = {{va|Blue}}
+ |DirectedBy       = Khurrum M. Sultan
+ |WrittenBy        = Paul Logue
+ |OriginalAirDate  = {{Start date|2023|02|12|df=yes}}
+ |Viewers          = 5.86
+ |ShortSummary     = Joel Kingston is a copper's copper from a respected and notable police family but when he is found dead, floating in a park lake, DCI Vera Stanhope finds herself investigating both sides of the thin blue line in order to find his killer. A complex family dynamic, tensions at work, and brushes with the underworld, paint a dark and complex picture. Joel was there to serve and protect but did his stubborn commitment to justice at any price lead to his death? Or, was he killed to stop him revealing a secret that would destroy someone’s life? Vera steps on toes and ruffles a few police feathers as she searches for answers as to why PC Joel Kingston is no longer on the beat. 
+ |LineColor        = #FFB90F
+}}
+{{Episode list
+ |EpisodeNumber    = 50
+ |EpisodeNumber2   = 4
+ |Title            = {{va|The Darkest Evening}}
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Colette Kane
+ |OriginalAirDate  = {{Start date|2023|02|19|df=yes}}
+ |Viewers          = 6.46
+ |ShortSummary     = On the night of a massive storm, trying to get home, DCI Vera Stanhope comes across an abandoned car with a baby inside. With no mobile signal and blocked roads at every turn, Vera is forced to seek refuge somewhere she'd rather not be, Brockburn House, the Stanhopes' ancestral pile. Vera doesn't exactly receive a warm welcome from her estranged family as there’s a function in full swing and her turning up with a baby isn't a great look. Things start to look even worse and take a far sinister turn when a body is found on the track leading to Brockburn House.
+ |LineColor        = #FFB90F
+}}
+{{Episode table/part|subtitle=Special|c=#FFB90F}}
+{{Episode list
+| EpisodeNumber   = 51
+| EpisodeNumber2  = 5
+| Title           = The Rising Tide
+| DirectedBy      = Paul Gay
+| WrittenBy       = Sally Abbott
+| OriginalAirDate = {{Start date|2023|12|17|df=yes}} ([[ABC TV (Australian TV channel)|ABC TV]])<ref>{{cite web|title=Airdate: Vera 2023 Christmas episode|url=https://tvtonight.com.au/2023/11/airdate-vera-2023-christmas-episode.html|website=TVTonight|publisher=David Knox|date=20 November 2023|access-date=17 December 2023}}</ref><br/>{{Start date|2023|12|26|df=yes}}
+| Viewers         = 5.71
+| LineColor       = #FFB90F
+|ShortSummary     = When a group of old school friends gathers on a remote English isle to reunite and commemorate an old school trip, tensions escalate, leading to a tragic incident where one of the members is found dead. DCI Vera Stanhope is summoned to investigate. The grisly scene is initially presumed to be suicide, as Rick Kelsall was recently fired, and the friends claim to have nothing to do with it. <br> '''''Final Appearances of DC Jacqueline 'Jac' Williams and DS Aiden Healy'''''
+}}
+}}
+
+===Series 13 (2024)===
+{{Episode table |background=#40FF00 |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 52
+ |EpisodeNumber2   = 1
+ |Title            = {{va|Fast Love}}
+ |DirectedBy       = Claire Winyard 
+ |WrittenBy        = [[Ann Cleeves]] and Paul Matthew Thompson
+ |OriginalAirDate  = {{Start date|2024|01|07|df=yes}}
+ |Viewers          = 6.85
+ |ShortSummary     = After Aiden departs for Australia, DCI Vera Stanhope and Joe, who has returned as a DI, are called to a quiet country lane where a young man has been found dead following a collision with a car, but it becomes clear on closer inspection it was not an accident and is more complicated than just a hit-and-run. Vera discovers the victim is a popular market trader and heads down to his pitch to start to put together an idea of who he was and why anyone would want him dead. <br> '''''First Appearance of DC Steph Duncan and Return of now-DI Joe Ashworth'''''
+ |LineColor        = #40FF00
+}}
+{{Episode list
+ |EpisodeNumber    = 53
+ |EpisodeNumber2   = 2
+ |Title            = Tender
+ |DirectedBy       = Jermain Julien
+ |WrittenBy        = Phil Mulryne 
+ |OriginalAirDate  = {{Start date|2024|01|14|df=yes}}
+ |Viewers          = 6.71
+ |ShortSummary     = DCI Stanhope investigates an intriguing and puzzling case after the body of a sickly young girl is found in a railway siding in the middle of nowhere. The case soon produces twists and turns that make Vera question who this girl actually was, and wonder whether her weakened state allowed someone to take advantage of her.
+ |LineColor        = #40FF00
+}}
+{{Episode list
+ |EpisodeNumber    = 54
+ |EpisodeNumber2   = 3
+ |Title            = Salt and Vinegar
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Phil Mulryne
+ |OriginalAirDate  = {{Start date|2024|01|21|df=yes}}
+ |Viewers          = 6.42
+ |ShortSummary     = DCI Stanhope investigates when the body of the co-owner of a chip shop is found in his own freezer. The victim is a seemingly successful entrepreneur and dedicated family man, but Vera uncovers secrets, lies and some unforgivable behaviour as she tries to unwrap the case. It soon becomes apparent that the entrepreneur had left behind debts, broken promises, ruined lives and interfered where he shouldn't have.
+ |LineColor        = #40FF00
+}}
+}}
+
+===Series 14 (2025)===
+{{Episode table |background=#962B65 |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes=
+{{Episode list
+ |EpisodeNumber    = 55
+ |EpisodeNumber2   = 1
+ |Title            = Inside 
+ |DirectedBy       = Claire Winyard 
+ |WrittenBy        = Phil Mulryne
+ |OriginalAirDate  = {{Start date|2025|01|01|df=y}}
+ |Viewers          = 6.29
+ |ShortSummary     = Vera is asked to investigate the conviction of former union official Lucas Corbridge, imprisoned for killing his wife 20 years ago and released on appeal because of irregularities with the forensic findings. The morning after Corbridge's release, the body of Zac Martin, recently paroled from the same prison, is found alongside a river. The men had become close inside, and Vera wonders whether there is a connection between the two events. Meanwhile, Joe is having trouble dealing with his father's death, and Vera needs to respond to an unexpected – perhaps unwanted – offer of promotion to superintendent.
+ |LineColor        = #962B65
+}}
+{{Episode list
+ |EpisodeNumber    = 56
+ |EpisodeNumber2   = 2
+ |Title            = The Dark Wives
+ |DirectedBy       = Paul Gay
+ |WrittenBy        = Phil Mulryne
+ |OriginalAirDate  = {{Start date|2025|01|02|df=y}}
+ |Viewers          = 6.19
+ |ShortSummary     = The body of university student Josh Worsten is found beneath a cliff featuring three standing stones called the Dark Wives. The location stirs Vera's memory of climbing the cliff as a young girl at her father's direction to steal eggs from a hawk's nest. Josh volunteered at a children's care home from which 16-year-old Chloe Spencer has now gone missing. Before being taken into care, Chloe had been looking after her mother, who was seriously depressed after the death of her father, reminding Vera of her own experience with her father, who persisted in mourning for her mother. After her team solves the case, Vera goes into the chief superintendent's office and declines the offered promotion. As she clears out her desk, she recalls telling her father that she wanted to join the police force. He tells her "the police is no place for a lass", and challenges her to prove that he is wrong. The next morning, Joe finds a note addressed to him on Vera's desk, telling him "It's time to spread those wings". In the final scene, Vera is seen walking on the beach with a stray dog that had been hanging around outside her home. <br> '''''Final Appearances of DCI Vera Stanhope, DI Joe Ashworth, DC Mark Edwards, DC Kenny Lockhart, DC Steph Duncan and Dr Paula Bennett'''''
+ |LineColor        = #962B65
+}}
+}}
+
+===Special (2025)===
+{{Episode table |background=#000000 |overall=5 |series=5 |title=14 |writer=19 |director=14 |airdate=11 |viewers=9 |country=UK |episodes={{Episode list
+ |EpisodeNumber    = {{TableTBA|N/A}}
+ |EpisodeNumber2   = 1
+ |Title            = Vera... Farewell Pet 
+ |DirectedBy       = Iwan Roberts
+ |WrittenBy        = N/A
+ |OriginalAirDate  = {{Start date|2025|01|03|df=y}}
+ |Viewers          = 3.11
+ |ShortSummary     = Documentary
+ |LineColor        = #000000
+}}
+}}
+
+==Notes==
+{{reflist|group=nb}}
+
+==References==
+{{Reflist}}
+
+==External links==
+* {{IMDb episodes|1693592}}
+
+{{Ann Cleeves}}
+
+[[Category:Lists of British drama television series episodes|Vera]]

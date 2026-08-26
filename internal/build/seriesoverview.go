@@ -152,6 +152,15 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 			// Recorded only as a join hint; the identity is the page_id the
 			// link resolves to, never the title it was written with.
 		default: // infoA1, infoB2, …
+			// Only the season's own figure, never a part's. Vera writes
+			// "infoA14 = 6.24" for the season and "infoA14S = 3.11" for its
+			// specials; both match, both wrote the same field, and which one
+			// survived was decided by Go's map iteration order — so the record
+			// changed between runs over identical input. A part's viewership is
+			// not the season's.
+			if split {
+				continue
+			}
 			switch role[m[2]] {
 			case "rank":
 				season(n).Rank = firstInt(v)

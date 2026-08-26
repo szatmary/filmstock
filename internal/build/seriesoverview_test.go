@@ -1,6 +1,8 @@
 package build
 
 import (
+	"bytes"
+	"encoding/json"
 	"os"
 	"testing"
 
@@ -387,5 +389,47 @@ func TestSeasonSourcesMergeInAFixedOrder(t *testing.T) {
 		if got := build().NumEpisodes; got != first {
 			t.Fatalf("num_episodes varies between runs: %d then %d", first, got)
 		}
+	}
+}
+
+// Vera states "infoA14 = 6.24" for season 14 and "infoA14S = 3.11" for its
+// specials. Both matched the parameter pattern and both wrote the season's
+// viewership, so which survived was decided by Go's map iteration order — the
+// same text parsed twice in one process gave different answers.
+func TestPartFiguresDoNotOverwriteTheSeason(t *testing.T) {
+	b, err := os.ReadFile("testdata/overview-vera.wikitext")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var first []*filmstock.Season
+	for run := range 25 {
+		got := parseSeriesOverview(string(b))
+		if run == 0 {
+			first = got
+			continue
+		}
+		if len(got) != len(first) {
+			t.Fatalf("season count varies: %d then %d", len(first), len(got))
+		}
+		for i := range got {
+			a, _ := json.Marshal(got[i])
+			b, _ := json.Marshal(first[i])
+			if !bytes.Equal(a, b) {
+				t.Fatalf("season %d varies between parses:\n  %s\n  %s",
+					got[i].Season, b, a)
+			}
+		}
+	}
+	var s14 *filmstock.Season
+	for _, s := range first {
+		if s.Season == 14 {
+			s14 = s
+		}
+	}
+	if s14 == nil {
+		t.Fatal("no season 14")
+	}
+	if s14.Viewers != 6.24 {
+		t.Errorf("season 14 viewers %v, want 6.24 — the season's own figure, not the specials'", s14.Viewers)
 	}
 }
