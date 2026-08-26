@@ -32,8 +32,7 @@ CREATE TABLE television_series(
   first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
   network TEXT, num_seasons TEXT, num_episodes TEXT,
   seasons_count INTEGER, episodes_count INTEGER,
-  cover_image_file TEXT, wikipedia_url TEXT,
-  overview TEXT, plot TEXT
+  cover_image_file TEXT, wikipedia_url TEXT
 );
 CREATE INDEX idx_television_title ON television_series(title);
 CREATE VIRTUAL TABLE television_fts USING fts5(
@@ -61,7 +60,7 @@ CREATE TABLE television_episodes(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   series_id INTEGER, season INTEGER,
   number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT,
-  viewers REAL, summary TEXT
+  viewers REAL
 );
 CREATE INDEX idx_television_ep_series ON television_episodes(series_id);
 CREATE VIRTUAL TABLE television_episodes_fts USING fts5(
@@ -72,15 +71,22 @@ CREATE VIRTUAL TABLE television_episodes_fts USING fts5(
 // per-series JSON.gz files. Does not touch the movies tables.
 func CIndexTelevision(args []string) {
 	fs := flag.NewFlagSet("index-television", flag.ExitOnError)
+	textPath := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	dbPath := fs.String("db", "index.db", "the index (shared with movies)")
 	records := fs.String("records", "", "record hierarchy from `extract` (supplies people identities)")
 	fs.Parse(args)
+	if *textPath == "" {
+		*textPath = defaultTextPath(*dbPath)
+	}
 
 	db, err := sql.Open("sqlite", *dbPath)
 	if err != nil {
 		fatal(err)
 	}
 	defer db.Close()
+	if err := attachText(db, *textPath); err != nil {
+		fatal(err)
+	}
 	if _, err := db.Exec(televisionSchema); err != nil {
 		fatal(err)
 	}
@@ -116,11 +122,15 @@ func CIndexTelevision(args []string) {
 	stmt, _ := tx.Prepare(`INSERT OR REPLACE INTO television_series
 		(id,title,year,first_aired,last_aired,genre,creator,starring,network,
 		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,
-		 wikipedia_url,overview,plot)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 wikipedia_url)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	epStmt, _ := tx.Prepare(`INSERT INTO television_episodes
-		(series_id,season,number_in_season,number_overall,title,air_date,viewers,summary)
-		VALUES(?,?,?,?,?,?,?,?)`)
+		(series_id,season,number_in_season,number_overall,title,air_date,viewers)
+		VALUES(?,?,?,?,?,?,?)`)
+	tvTxt, _ := tx.Prepare(`INSERT OR REPLACE INTO synopsis.television_text
+		(id,overview,plot) VALUES(?,?,?)`)
+	epTxt, _ := tx.Prepare(`INSERT OR REPLACE INTO synopsis.episode_text
+		(id,series_id,summary) VALUES(?,?,?)`)
 	seStmt, _ := tx.Prepare(`INSERT INTO television_seasons
 		(series_id,season,page_id,num_episodes,first_aired,last_aired,
 		 network,starring,image,rank,rating,viewers)
@@ -146,7 +156,10 @@ func CIndexTelevision(args []string) {
 		stmt.Exec(s.PageID, cleanName, year, s.FirstAired, s.LastAired,
 			join(s.Genre), joinP(s.Creator), joinP(s.Starring), join(filmstock.Names(s.Network)),
 			s.NumSeasons, s.NumEpisodes, len(s.Seasons), epCount,
-			s.CoverImageFile, s.WikiURL, s.Overview, s.Plot)
+			s.CoverImageFile, s.WikiURL)
+		if s.Overview != "" || s.Plot != "" {
+			tvTxt.Exec(s.PageID, s.Overview, s.Plot)
+		}
 
 		seen := map[string]bool{}
 		pb.credit(seen, s.Creator, s.PageID, "television", "Creator")
@@ -174,8 +187,15 @@ func CIndexTelevision(args []string) {
 			for _, e := range se.Episodes {
 				pb.credit(seen, e.DirectedBy, s.PageID, "television", "Director")
 				pb.credit(seen, e.WrittenBy, s.PageID, "television", "Writer")
-				epStmt.Exec(s.PageID, se.Season, e.NumberInSeason, e.NumberOverall,
-					e.Title, e.AirDate, e.Viewers, e.Summary)
+				res, err := epStmt.Exec(s.PageID, se.Season, e.NumberInSeason,
+					e.NumberOverall, e.Title, e.AirDate, e.Viewers)
+				// The summary is keyed by the episode row's own id, which only
+				// exists once the insert has run.
+				if err == nil && e.Summary != "" {
+					if id, err := res.LastInsertId(); err == nil {
+						epTxt.Exec(id, s.PageID, e.Summary)
+					}
+				}
 				nEp++
 			}
 		}

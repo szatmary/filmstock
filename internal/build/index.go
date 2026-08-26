@@ -23,13 +23,7 @@ CREATE TABLE movies(
   director TEXT, producer TEXT, writer TEXT, starring TEXT,
   music TEXT, distributor TEXT, country TEXT, language TEXT, genre TEXT,
   runtime TEXT, budget TEXT, gross TEXT,
-  wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT,
-  -- The synopses. 70 MB of leads and 183 MB of plot, which the records have
-  -- always carried and the database never did — so anything reading the
-  -- database found no synopsis at all. Stored as text: compressing them here
-  -- would save about half, and whole-file compression on the shipped artifact
-  -- saves more without making a column unreadable.
-  overview TEXT, plot TEXT
+  wikipedia_url TEXT, cover_image_url TEXT, cover_image_file TEXT
 );
 -- Lookup by exact title, and by name on the people side, are the two access
 -- paths with no index at all. Locally that hid behind the page cache; over a
@@ -71,7 +65,14 @@ func CIndex(args []string) {
 	fs := flag.NewFlagSet("index", flag.ExitOnError)
 	dbPath := fs.String("db", "index.db", "the index to write")
 	records := fs.String("records", "", "record hierarchy from `extract` (supplies people identities)")
+	textPath := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	fs.Parse(args)
+	if *textPath == "" {
+		*textPath = defaultTextPath(*dbPath)
+	}
+	if err := os.Remove(*textPath); err != nil && !os.IsNotExist(err) {
+		fatal(err)
+	}
 
 	if err := os.Remove(*dbPath); err != nil && !os.IsNotExist(err) {
 		fatal(err)
@@ -85,6 +86,9 @@ func CIndex(args []string) {
 		fatal(err)
 	}
 	if _, err := db.Exec(peopleSchema); err != nil {
+		fatal(err)
+	}
+	if err := attachText(db, *textPath); err != nil {
 		fatal(err)
 	}
 	// Identities come from the person records, not from a dump or resolver.
@@ -123,8 +127,13 @@ func CIndex(args []string) {
 	stmt, err := tx.Prepare(`INSERT OR REPLACE INTO movies
 		(id,title,year,release_date,director,producer,writer,starring,music,
 		 distributor,country,language,genre,runtime,budget,gross,wikipedia_url,
-		 cover_image_url,cover_image_file,overview,plot)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 cover_image_url,cover_image_file)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+	if err != nil {
+		fatal(err)
+	}
+	txtStmt, err := tx.Prepare(`INSERT OR REPLACE INTO synopsis.movie_text
+		(id,overview,plot) VALUES(?,?,?)`)
 	if err != nil {
 		fatal(err)
 	}
@@ -141,10 +150,16 @@ func CIndex(args []string) {
 			joinP(m.Director), joinP(m.Producer), joinP(m.Writer), joinP(m.Starring),
 			joinP(m.Music), join(filmstock.Names(m.Distributor)), join(filmstock.Names(m.Country)), join(filmstock.Names(m.Language)), join(m.Genre),
 			m.Runtime, m.Budget, m.Gross, m.WikiURL, m.CoverImageURL, m.CoverImageFile,
-			m.Overview, m.Plot,
 		); err != nil {
 			fmt.Fprintln(os.Stderr, "insert error:", m.Title, err)
 			continue
+		}
+		// Only where there is something to say: a row of two empty strings costs
+		// as much to store as it does to read back and find nothing in.
+		if m.Overview != "" || m.Plot != "" {
+			if _, err := txtStmt.Exec(m.PageID, m.Overview, m.Plot); err != nil {
+				fmt.Fprintln(os.Stderr, "synopsis:", m.Title, err)
+			}
 		}
 		seen := map[string]bool{}
 		for _, rc := range roleCredits(m) {
@@ -157,6 +172,7 @@ func CIndex(args []string) {
 		}
 	}
 	stmt.Close()
+	txtStmt.Close()
 	if err := tx.Commit(); err != nil {
 		fatal(err)
 	}
