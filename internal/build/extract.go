@@ -610,6 +610,11 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 			p.PersonBio = b
 			withBio++
 		}
+		// The display name comes from the article title, not from whichever
+		// credit was recorded first: with parsing spread across workers "first"
+		// meant arrival order, and the same person got a different name on
+		// different runs over identical input.
+		p.Name = filmstock.CleanPersonName(p.Wiki)
 		p.WikiURL = "https://en.wikipedia.org/wiki/" +
 			strings.ReplaceAll(url.PathEscape(p.Wiki), "%20", "_")
 		id := int64(p.PageID)

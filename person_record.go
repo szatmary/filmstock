@@ -1,5 +1,10 @@
 package filmstock
 
+import (
+	"regexp"
+	"strings"
+)
+
 // PersonRecord is a person as an entity in its own right, rather than a row
 // synthesized while indexing. It exists only where there is a stated identity —
 // a Q-id, or failing that the wiki article the credit links to. A bare name with
@@ -42,4 +47,30 @@ type PersonBio struct {
 	Nationality string   `json:"nationality,omitempty"`
 	Image       string   `json:"image,omitempty"`
 	Overview    string   `json:"overview,omitempty"`
+}
+
+// rePersonDisambig strips a trailing parenthetical from a person's article
+// title. Unlike films, whose disambiguators are a small vocabulary — "(1985
+// film)", "(film series)" — a person's is an open set of occupations and
+// nationalities: 103,370 person articles carry one across 9,362 distinct forms,
+// and a list of role words covers barely half of them (rower, sport shooter,
+// diplomat, Royal Navy officer, judge). Wikipedia's convention is that the
+// parenthetical is never part of the name, so any trailing one goes.
+var rePersonDisambig = regexp.MustCompile(`\s*\([^()]*\)\s*$`)
+
+// CleanPersonName is a person's display name, taken from their article title.
+//
+// The name used to come from whichever credit was recorded first, and with
+// parsing spread across workers "first" meant arrival order. The same person
+// then got a different name on different runs over identical input — 454 of
+// them per run, flipping between "Bob Colleary" and "R.J. Colleary", between
+// "Yvette González-Nacer" and "Yvette Gonzalez-Nacer", between "Ian \"Dicko\"
+// Dickson" and "Ian Dickson". Identity was never in doubt: page_id and article
+// title agreed every time. Only the label moved.
+//
+// So the label comes from the article title too, which is stable, canonical,
+// and by Wikipedia's own naming convention the person's common name. This is a
+// DISPLAY transform: nothing keys on it, exactly as with film titles.
+func CleanPersonName(articleTitle string) string {
+	return strings.TrimSpace(rePersonDisambig.ReplaceAllString(strings.TrimSpace(articleTitle), ""))
 }
