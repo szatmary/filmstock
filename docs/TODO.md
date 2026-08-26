@@ -175,30 +175,38 @@ changes if the article is later created. 32% of people, ~10% of credits, ~1.9
 credits each. Either they are credits on a film rather than person records, or
 they stay and the exception is permanent. Only the project owner can decide.
 
-**It is now losing people, not just theoretically able to.** Diffing two exports
-found key `-2070761073` holding **Issa Abdessamie** in one run and **Costache
-Ciubotaru** in the other — two unrelated people, one record, the loser silently
-overwritten.
+**The collision is fixed; the policy question is still open.**
 
-`PersonRecordPathID` is FNV-1a masked to 31 bits. At 77,457 redlinks the
-birthday expectation is ~1.4 collisions; one is observed. It grows with the
-SQUARE of the redlink count, so 150k redlinks is ~5 and 300k is ~21. The
-existing comment says the hash "is never an identity — the identity is the link
-target itself, which is stored in the record", and that is true of the record's
-contents and false of its key: gitdb keys are unique, so a collision is a
-deletion.
+Diffing two exports found key `-2070761073` holding **Issa Abdessamie** in one
+run and **Costache Ciubotaru** in the other — two unrelated people, one record,
+the loser silently overwritten. `PersonRecordPathID` was FNV-1a masked to 31
+bits: at 77,457 redlinks that expects ~1.4 collisions and grows with the SQUARE
+of the count.
 
-Three ways out, in increasing order of work:
+It is now 64-bit (masked to 63, because the caller negates it). The same
+population expects 3e-10 collisions, and 1e-8 at ten times the size. That was a
+defect, not a decision, so it is simply fixed.
 
-1. **Key redlinks by the link target string.** gitdb keys are already strings;
-   only `storeWriter.put` insists on an integer. Removes the collision entirely
-   and keeps the record. Still a display string, so it still changes if the
-   article is created.
-2. **Widen the hash.** Cheapest, and only buys time — quadratic growth resumes.
-3. **Drop redlink person records**, leaving them as credits on the film. This is
-   the option that makes every identity in the database canonical.
+Keying them on the link target STRING was the other candidate and was not taken:
+the read path keys `Location.ID` as an int, so it would ripple through the
+index and fetch path — a cross-cutting refactor to support records that may not
+survive the question below.
 
-### `omitempty` on published records — DECISION NEEDED
+**What is still yours to decide:** should a credit whose link target has no
+article be a person record at all? 32% of people, ~10% of credits, ~1.9 credits
+each. The key is sound now but still not canonical — it derives from a display
+string, so it changes if the article is ever created, and two genuinely
+different people credited under one name still share it. Either they are credits
+on a film rather than person records, or the exception is permanent.
+
+### `omitempty` on published records — NOT A DECISION, MEASURED
+
+Nothing to decide: the records already carry no empty fields. Dropping every
+empty and null field from 5,000 movie records changes their size by **0.0%**,
+because 23 of 27 movie fields already have the tag and the four without —
+page_id, title and the like — are always populated. Same shape in the other
+kinds. This entry was stale.
+
 
 Absent keys rather than empty values. Smaller records, meaningful across 165k in
 git, but every consumer must treat missing as unknown. Grindhouse hit this
