@@ -169,6 +169,7 @@ func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	db.Exec(`PRAGMA journal_mode=OFF; PRAGMA synchronous=OFF;`)
 	db.Exec(`DROP TABLE IF EXISTS wd_part_of_series`)
 	db.Exec(`DROP TABLE IF EXISTS wd_episode_season`)
+	db.Exec(`DROP TABLE IF EXISTS wd_external_id`)
 	// Drop any wd_text left by an older build; see the note below.
 	db.Exec(`DROP TABLE IF EXISTS wd_text`)
 	if _, err := db.Exec(`CREATE TABLE wd_part_of_series(item_qid INTEGER, series_qid INTEGER)`); err != nil {
