@@ -187,20 +187,14 @@ func (db *DB) Person(ctx context.Context, id int) (*PersonRecord, error) {
 		return rec, nil
 	}
 	// A person's identity is their article's page_id — the same key every other
-	// kind of record uses. Only a credit whose link target has no article falls
-	// back to a hash of that link target, which is the one non-canonical
-	// identity in the database.
-	recID := pageID.Int64
-	if recID == 0 {
-		if wiki == "" {
-			return rec, nil
-		}
-		recID = -int64(PersonRecordPathID(wiki))
+	// kind of record uses, with no exception. A credit whose link target has no
+	// article has no page_id, and so no record: the credit stands on the work
+	// that states it, and gains a record by itself the day somebody writes the
+	// article.
+	if pageID.Int64 == 0 {
+		return rec, nil
 	}
-	// recID is the person's identity: their Q-id, or a negative id derived from
-	// the article path when Wikidata has no item for them. Either way it is the
-	// store key, so no lookup column is involved.
-	b, err := db.src.Fetch(ctx, Location{Kind: KindPerson, ID: int(recID)})
+	b, err := db.src.Fetch(ctx, Location{Kind: KindPerson, ID: int(pageID.Int64)})
 	if err != nil {
 		return rec, nil // no record on disk is not an error; the identity stands
 	}

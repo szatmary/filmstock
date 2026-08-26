@@ -358,21 +358,10 @@ func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers 
 	if nPeople > 0 {
 		bioPct = 100 * withBio / nPeople
 	}
-	idPct := 0
-	if nPeople > 0 {
-		idPct = 100 * (nPeople - noIdentity) / nPeople
-	}
-	fmt.Fprintf(os.Stderr, "  people=%d  keyed by page_id=%d (%d%%)  with Q-id=%d (%d%%)\n",
-		nPeople, nPeople-noIdentity, idPct, withQID, pct)
-	// The one identity in the database that is not canonical. A credit whose
-	// link target has no article has no page_id and no Q-id, so it is keyed by a
-	// hash of the link target — a display string, which two different people can
-	// share and which changes if the article is later created under another
-	// title. Reported every run so the size of that exception stays visible.
-	if noIdentity > 0 {
-		fmt.Fprintf(os.Stderr, "  no article behind the link=%d (%d%%)  keyed by link target, NOT canonical\n",
-			noIdentity, 100*noIdentity/nPeople)
-	}
+	fmt.Fprintf(os.Stderr, "  people=%d  all keyed by page_id  with Q-id=%d (%d%%)\n",
+		nPeople, withQID, pct)
+	fmt.Fprintf(os.Stderr, "  %d credits had no article and so no record; "+
+		"they remain credits on the works that state them\n", noIdentity)
 	fmt.Fprintf(os.Stderr, "  biographies=%d of %d people (%d%%)  from %d person articles in the dump\n",
 		withBio, nPeople, bioPct, len(rec.bios))
 	if nSched > 0 {
@@ -672,16 +661,29 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 		p.Name = filmstock.CleanPersonName(p.Wiki)
 		p.WikiURL = "https://en.wikipedia.org/wiki/" +
 			strings.ReplaceAll(url.PathEscape(p.Wiki), "%20", "_")
-		id := int64(p.PageID)
-		if id == 0 {
-			// The link target has no article, so there is no page_id and no
-			// Q-id: nothing canonical to key on. The link target itself is all
-			// there is, and it is a display string. Kept, but counted, because
-			// this is the one identity in the database that is not canonical.
-			id = -int64(filmstock.PersonRecordPathID(p.Wiki))
+		// No article means no page_id and no Q-id: nothing canonical to key on.
+		// Such a credit gets no record.
+		//
+		// It loses nothing. The record held name, wiki and a wikipedia_url —
+		// the first two are already on every work that credits the person, and
+		// the third pointed at a page that does not exist. The credit itself
+		// survives where it belongs, on the film, and the index still builds a
+		// searchable person row and their credits from there.
+		//
+		// It relinks by itself. The credit stores the link TARGET, so the day
+		// somebody writes the article a daily update brings that page in, its
+		// page_id comes straight from the dump, and the credit resolves to a
+		// real record with no rekeying and nothing to migrate.
+		//
+		// What this removes is the one identity in the database that was not
+		// canonical: a 31-bit hash of a display string, which put Issa
+		// Abdessamie and Costache Ciubotaru in the same record and would have
+		// changed the moment either article was created.
+		if p.PageID == 0 {
 			noIdentity++
+			continue
 		}
-		w.store.put(filmstock.KindPerson, id, p)
+		w.store.put(filmstock.KindPerson, int64(p.PageID), p)
 		total++
 	}
 	if wereWorks > 0 {

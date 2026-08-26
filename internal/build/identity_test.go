@@ -45,20 +45,29 @@ func TestQIDIsNotThePersonKey(t *testing.T) {
 	}
 }
 
-// The single non-canonical case: a credit whose link target has no article. It
-// keeps a record, keyed by the link target, and extract reports how many there
-// are so the exception stays visible rather than becoming invisible custom.
-func TestPersonWithNoArticleFallsBackToLinkTarget(t *testing.T) {
+// A credit whose link target has no article gets no identity, and so no record.
+//
+// It used to get one: a hash of the link target, the single non-canonical
+// identity in the database. That hash put two unrelated people in the same
+// record, and it would have changed the day either article was created. The
+// credit itself is not lost — it stands on the work that states it, and the
+// index still builds a searchable person row and their credits from there.
+func TestPersonWithNoArticleHasNoIdentity(t *testing.T) {
 	b, _ := json.Marshal(filmstock.PersonRecord{Wiki: "Some_Uncredited_Extra", Name: "Extra"})
+	if got, ok := identityOf(filmstock.KindPerson, b); ok {
+		t.Errorf("identity = %d; a link target alone is a display string, not an identity", got)
+	}
+}
+
+// A person with an article is keyed by its page_id, like every other record.
+func TestPersonWithAnArticleIsKeyedByPageID(t *testing.T) {
+	b, _ := json.Marshal(filmstock.PersonRecord{PageID: 4242, Wiki: "Real Person", Name: "Real Person"})
 	got, ok := identityOf(filmstock.KindPerson, b)
 	if !ok {
-		t.Fatal("a person with a link target but no article should still get an identity")
+		t.Fatal("a person with an article must have an identity")
 	}
-	if got >= 0 {
-		t.Errorf("identity = %d; the fallback must be negative so it cannot collide with a page_id", got)
-	}
-	if want := -int64(filmstock.PersonRecordPathID("Some_Uncredited_Extra")); got != want {
-		t.Errorf("identity = %d, want %d", got, want)
+	if got != 4242 {
+		t.Errorf("identity = %d, want 4242", got)
 	}
 }
 

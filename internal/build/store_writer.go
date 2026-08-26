@@ -64,17 +64,8 @@ func identityOf(kind string, data []byte) (int64, bool) {
 	if json.Unmarshal(data, &probe) != nil {
 		return 0, false
 	}
-	if kind == filmstock.KindPerson && probe.PageID == 0 {
-		// A credit whose link target has no article: no page_id, and no Q-id
-		// either, since a Wikidata item without an enwiki sitelink is not
-		// reachable from here. The link target is the only handle there is, and
-		// it is a display string — two different people can share one, and it
-		// changes if the page is ever created under a different title.
-		if probe.Wiki != "" {
-			return -int64(filmstock.PersonRecordPathID(probe.Wiki)), true
-		}
-		return 0, false
-	}
+	// Every kind, people included, is keyed by page_id. A credit whose link
+	// target has no article has none, and so has no record.
 	return probe.PageID, probe.PageID != 0
 }
 
