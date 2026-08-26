@@ -1,0 +1,508 @@
+{{Use American English|date=May 2025}}
+{{Use mdy dates|date=September 2023}}
+{{Short description|Season of television series}}
+{{Italic title|string=The Simpsons}}
+{{Infobox television season
+| season_number = 8
+| bgcolour      = #58a5ad
+| image         = The Simpsons season 8.jpg
+| caption       = DVD cover featuring the [[Simpson family]] ([[Maggie Simpson|Maggie]], [[Homer Simpson|Homer]], [[Bart Simpson|Bart]], [[Marge Simpson|Marge]], [[Lisa Simpson|Lisa]], [[Santa's Little Helper]] and [[Simpson Family#Cats|Snowball II]])
+| showrunner    = {{plainlist|
+* [[Bill Oakley]]
+* [[Josh Weinstein]] (24 episodes)
+* [[Al Jean]] 
+* [[Mike Reiss]] (3 episodes)
+}}
+| network       = [[Fox Broadcasting Company|Fox]]
+| first_aired   = {{Start date|1996|10|27}}
+| last_aired    = {{End date|1997|5|18}}
+| num_episodes  = 25
+| episode_list  = List of The Simpsons episodes (seasons 1-20)
+}}
+The '''eighth season''' of the American [[animated sitcom]] ''[[The Simpsons]]'' aired on [[Fox Broadcasting Company|Fox]] between October 27, 1996, and May 18, 1997. It began with "[[Treehouse of Horror VII]]". The [[showrunner]]s for the eighth production season were [[Bill Oakley]] and [[Josh Weinstein]], while the season was produced by [[Gracie Films]] and [[20th Century Fox Television]].{{sfn|Richmond & Coffman|1997 |pp=210-211}} The broadcast season contained two episodes with 3F-series production codes, indicating that were hold-over episodes from the [[The Simpsons season 7|seventh production season]], and two episodes with 3G-series production codes, which have never been explicitly confirmed to be part of any specific production season (but are speculated to be relabeled 3F-series episodes).
+
+The [[DVD]] box set was released in [[DVD region code#Region codes and countries|Region 1]] on August 15, 2006, [[DVD region code#Region codes and countries|Region 2]] on October 2, 2006, and [[DVD region code#Region codes and countries|Region 4]] on September 27, 2006. The set was released in two different forms: a Maggie-shaped head to match the Homer and Marge shaped heads of the previous two sets and also a standard rectangular shaped box. Like the seventh season box set, both versions are available for sale separately.
+
+==Voice cast & characters==
+{{Main|List of The Simpsons characters}}
+
+[[File:Johnny_Cash_Promotional_Photo_2.jpg|thumb|upright|[[Johnny Cash]] guest-starred as the Space Coyote in the episode "[[El Viaje Misterioso de Nuestro Jomer (The Mysterious Voyage of Homer)]]". Cash has been named by several critics as one of the best guest voices in ''The Simpsons'' history.]]
+
+===Main cast===
+* [[Dan Castellaneta]] as [[Homer Simpson]], [[Kang and Kodos|Kodos]], [[Blue-Haired Lawyer]], [[Barney Gumble]], [[Bumblebee Man]], [[Krusty the Clown]], [[Sideshow Mel]], [[Mayor Quimby]], [[Grampa Simpson]], [[Hans Moleman]], [[Groundskeeper Willie]], [[Legs and Louie|Louie]], [[The Itchy & Scratchy Show|Itchy]], [[Poochie (The Simpsons)|Poochie]], [[List of recurring The Simpsons characters#Mr. Prince|Mr. Prince]], [[Santa's Little Helper]], and various others
+* [[Julie Kavner]] as [[Marge Simpson]], [[Selma Bouvier]], [[Patty Bouvier]] and various others
+* [[Nancy Cartwright]] as [[Bart Simpson]], [[Nelson Muntz]], [[Kearney Zzyzwicz|Kearney]], [[Ralph Wiggum]], [[A Milhouse Divided|Kearney Junior]], [[Rod Flanders]], [[Todd Flanders]], [[Database]], [[Maggie Simpson]], [[Wendell Borton]] and various others
+* [[Yeardley Smith]] as [[Lisa Simpson]]
+* [[Hank Azaria]] as [[Professor Frink]], [[Apu Nahasapeemapetilon|Apu]], [[Moe Szyslak]], [[Comic Book Guy]], [[Dr. Nick Riviera]], [[Snake Jailbird]], [[Captain McCallister]], [[Chief Wiggum]], [[Superintendent Chalmers]], [[Carl Carlson]], [[Lou (The Simpsons)|Lou]], [[Kirk Van Houten]], [[Disco Stu]], [[Cletus Spuckler]], [[Bumblebee Man]], [[The Itchy & Scratchy Show|Scratchy]], [[List of recurring The Simpsons characters#Benjamin, Doug and Gary|Doug]], [[List of recurring The Simpsons characters#Akira Kurosawa|Akira Kurosawa]], [[Frank Grimes (Simpsons Character)|Frank Grimes]] and various others
+* [[Harry Shearer]] as [[Dr. Hibbert]], [[Principal Skinner]], [[Kang and Kodos|Kang]], [[Kent Brockman]], [[Waylon Smithers]], [[Otto Mann]], [[Ned Flanders]], [[Reverend Lovejoy]], [[Mr. Burns]], [[Lenny Leonard]], [[Eddie (The Simpsons)|Eddie]], [[Rainier Wolfcastle]], [[Jasper Beardsley]], [[Dewey Largo]], [[List of recurring The Simpsons characters#Nedward Flanders, Sr.|Nedward Flanders, Sr.]], [[The Itchy & Scratchy Show|Scratchy]], [[Judge Snyder (The Simpsons)|Judge Snyder]] and various others
+
+===Recurring===
+* [[Pamela Hayden]] as [[Milhouse Van Houten]], [[Jimbo Jones]], [[Janey Powell]], [[Dolph Starbeam|Dolph]] and various others
+* [[Tress MacNeille]] as [[Agnes Skinner]], Belle, [[Brandine Spuckler]], [[Sarah Wiggum]], [[Luann Van Houten]], [[Dolph Starbeam|Dolph]], [[Mrs. Glick]] and various others
+* [[Maggie Roswell]] as [[Helen Lovejoy]], [[Martha Quimby]], [[Luann Van Houten]], [[Maude Flanders]], [[List of recurring The Simpsons characters#Capri Flanders|Capri Flanders]], [[Elizabeth Hoover|Miss Hoover]], Shary Bobbins and various others
+* [[Russi Taylor]] as [[Martin Prince]], [[Sherri and Terri]] and [[Uter Zorker]]
+
+===Guest stars===
+{{main|List of The Simpsons guest stars (seasons 1–20)}}
+{{div col|colwidth=35em}}
+* [[Phil Hartman]] as [[Bill Clinton]] and [[Troy McClure]] (3 episodes)
+* [[Joe Mantegna]] as [[Fat Tony (The Simpsons)|Fat Tony]] (2 episodes)
+* [[Marcia Wallace]] as [[Edna Krabappel]] (4 episodes)
+* [[Frank Welker]] as Santa's Little Helper, Laddie, Baboons and various animals (3 episodes)
+* [[Albert Brooks]] (credited as A. Brooks) as Hank Scorpio ("[[You Only Move Twice]]")
+* [[Sally Stevens]] as 'Scorpio' Singer and "People" (2 episodes; uncredited from "You Only Move Twice")
+* [[Paul Winfield]] as Lucius Sweet ("[[The Homer They Fall]]")
+* [[Michael Buffer]] as himself ("The Homer They Fall")
+* [[Rodney Dangerfield]] as Larry Burns ("[[Burns, Baby Burns]]")
+* [[Jon Lovitz]] as [[Jay Sherman]] ("[[Hurricane Neddy]]")
+* [[Johnny Cash]] as the Space Coyote ("[[El Viaje Misterioso de Nuestro Jomer (The Mysterious Voyage of Homer)]]")
+* [[Leonard Nimoy]] as himself ("[[The Springfield Files]]")
+* [[Gillian Anderson]] as [[Dana Scully]] ("The Springfield Files")
+* [[David Duchovny]] as [[Fox Mulder]] ("The Springfield Files")
+* [[Jack Lemmon]] as Frank Ormand ("[[The Twisted World of Marge Simpson]]")
+* [[Alex Rocco]] as [[List of recurring The Simpsons characters#Roger Meyers Jr.|Roger Meyers Jr.]] ("[[The Itchy & Scratchy & Poochie Show]]")
+* [[John Waters]] as John ("[[Homer's Phobia]]")
+* [[Kelsey Grammer]] as [[Sideshow Bob]] ("[[Brother from Another Series]]")
+* [[David Hyde Pierce]] as [[Cecil Terwilliger]] and "Man in crowd" ("Brother from Another Series")
+* [[Dave Thomas (actor)|Dave Thomas]] as Rex Banner ("[[Homer vs. the Eighteenth Amendment]]")
+* [[Bret Hart]] as himself ("[[The Old Man and the Lisa]]")
+* [[Sab Shimono]] as Mr. Sparkle ("[[In Marge We Trust]]")
+* [[Gedde Watanabe]] as the Factory worker ("In Marge We Trust")
+* [[Karen Maruyama]] and Denice Kumagai as dancers ("In Marge We Trust")
+* [[Tim Conway]] as himself ("[[The Simpsons Spin-Off Showcase]]")
+* [[Gailard Sartain]] as Charles "Big" Daddy ("The Simpsons Spin-Off Showcase")
+* [[Willem Dafoe]] as the Commandant ("[[The Secret War of Lisa Simpson]]")
+
+{{div col end}}
+
+==Reception==
+
+Season eight received critical acclaim and won multiple awards, including two [[Emmy Award]]s: "[[Homer's Phobia]]" won for [[Primetime Emmy Award for Outstanding Animated Program (for Programming Less Than One Hour)|Outstanding Animated Program (for Programming One Hour or Less)]] in 1997,<ref>{{#invoke:cite|web|url=http://www.infoplease.com/ipa/A0151479.html |title=1996–1997 Emmy Awards |access-date=2005-02-13 |publisher=infoplease.com}}</ref> and [[Alf Clausen]] and [[Ken Keeler]] won for "Outstanding Individual Achievement in Music and Lyrics" with the song "We Put the Spring in Springfield" from the episode "[[Bart After Dark]]".<ref name="Keeler">{{cite video |people=Keeler, Ken |date=2005 |title=The Simpsons The Complete Eighth Season DVD commentary for the episode "Bart After Dark" |medium=DVD |publisher=20th Century Fox}}</ref> Clausen also received an Emmy nomination for "Outstanding Music Direction" for "[[Simpsoncalifragilisticexpiala(Annoyed Grunt)cious]]".<ref>{{#invoke:cite|web|url=http://theenvelope.latimes.com/factsheets/awardsdb/env-awards-db-search,0,7169155.htmlstory?searchtype=person&query=Alf+Clausen |title=Every show, every winner, every nominee |access-date=2005-02-10 |publisher=The Envelope}}</ref> "[[Brother from Another Series]]" was nominated for the Emmy for "Sound Mixing For a Comedy Series or a Special".<ref>[[Associated Press]], "49th Annual Primetime Emmy Nominations", ''[[The Globe and Mail]]'', July 25, 1997, pg. C.9.</ref> For "Homer's Phobia", [[Mike B. Anderson|Mike Anderson]] won the Annie Award for Best Individual Achievement: Directing in a TV Production, and the WAC Winner Best Director for Primetime Series at the 1998 World Animation Celebration.<ref>{{#invoke:cite|web|url=http://www.awn.com/mag/issue2.12/2.12pages/2.12wacintro.html |title=The World Animation Celebration: Pasadena's Festival |access-date=2005-05-13 |publisher=Animation World Magazine |last=Kenyon |first=Heather}}</ref> [[GLAAD|Gay & Lesbian Alliance Against Defamation]] awarded the episode the [[GLAAD Media Award]] for "Outstanding TV&nbsp;– Individual Episode".<ref>{{cite book |editor-last=Alberti |editor-first=John  |year=2005 |title=Leaving Springfield: 'The Simpsons' and the Possibility of Oppositional Culture |publisher=Wayne State University Press |isbn=0-8143-2849-0 |page=[https://archive.org/details/leavingspringfie00albe/page/241 241] |url-access=registration |url=https://archive.org/details/leavingspringfie00albe/page/241 }}</ref>  On Rotten Tomatoes, the eighth season of ''The Simpsons'' has a 100% approval rating based on 7 critical  reviews.<ref>{{#invoke:cite|web| url=https://www.rottentomatoes.com/tv/the_simpsons/s08 | title=The Simpsons | website=[[Rotten Tomatoes]] }}</ref>
+
+==Episodes==
+{{see also|List of The Simpsons episodes}}
+<onlyinclude>{{#invoke:Episode table|main
+|background=#58a5ad
+|overall    = 5
+|season     = 5
+|title      = 26
+|director   = 14
+|writer     = 22
+|airdate    = 12
+|prodcode   = 7
+|viewers    = 9
+|country    = U.S.
+|dontclose = y}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|NumParts=3
+|EpisodeNumber=154
+|EpisodeNumber2=1
+|Title=[[Treehouse of Horror VII]]
+|DirectedBy=[[Mike B. Anderson]]
+|WrittenBy_1=[[Ken Keeler]]
+|WrittenBy_2=[[Dan Greaney]]
+|WrittenBy_3=[[David X. Cohen]]
+|OriginalAirDate={{Start date|1996|10|27}}
+|ProdCode=4F02
+|ShortSummary=A [[Treehouse of Horror (series)|Halloween special]] which is divided into three short stories:<br />''The Thing and I''&nbsp;– [[Bart Simpson|Bart]] discovers he has an evil twin, who is living in the Simpsons' attic.<br />''The Genesis Tub''&nbsp;– After intending to prove that sugary drinks will rot teeth, [[Lisa Simpson|Lisa]] creates her own miniature universe.<br />''Citizen Kang''&nbsp;– [[Kang and Kodos]] impersonate presidential candidates [[Bill Clinton]] and [[Bob Dole]] in order to invade Earth.{{sfn|Richmond & Coffman|1997 |pp=210-211}}
+|NoViewersOnMainList=y|Viewers=18.3<ref>{{#invoke:cite|news|title=World Series lineup gives Fox a major win|department=Life|work=[[USA Today]]|date=October 30, 1996|page=3D|last=Bash|first=Alan}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=155
+|EpisodeNumber2=2
+|Title=[[You Only Move Twice]]
+|DirectedBy=Mike B. Anderson
+|WrittenBy=[[John Swartzwelder]]
+|OriginalAirDate={{Start date|1996|11|3}}
+|ProdCode=3F23
+|ShortSummary=When [[Homer Simpson|Homer]] accepts a new job at the Globex Corporation the Simpson family moves to Cypress Creek. Homer enjoys his new work and his easy-going boss Hank Scorpio, but is completely unaware that Scorpio is an evil genius and that the company is a vehicle for international extortion. The rest of the family have trouble settling in Cypress Creek and begin to get homesick, so Homer must make a choice between Cypress Creek and Springfield.{{sfn|Richmond & Coffman|1997 |p=212}}
+|NoViewersOnMainList=y|Viewers=13.9<ref>{{#invoke:cite|news|title=Nielsen ratings|department=Life|work=[[USA Today]]|date=November 6, 1996|page=3D}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=156
+|EpisodeNumber2=3
+|Title=[[The Homer They Fall]]
+|DirectedBy=[[Mark Kirkland]]
+|WrittenBy=[[Jonathan Collier]]
+|OriginalAirDate={{Start date|1996|11|10}}
+|ProdCode=4F03
+|ShortSummary=When Bart is beaten up by school bullies, Homer takes matters into his own hands. Although Homer is unable to make his point, [[Moe Szyslak|Moe]] is impressed by his ability to withstand a beating. Moe talks Homer into becoming a boxer with Moe as his manager. His sole strategy is to let opponents knock themselves out while pounding on Homer. Promoter Lucius Sweet becomes aware of Homer's rise as a boxer and wants him to fight Drederick Tatum, the heavyweight champion.{{sfn|Richmond & Coffman|1997 |p=213}}
+|NoViewersOnMainList=y|Viewers=17.0<ref>{{#invoke:cite|news|title=Nielsen ratings|department=Life|work=[[USA Today]]|date=November 13, 1996|page=3D}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=157
+|EpisodeNumber2=4
+|Title=[[Burns, Baby Burns]]
+|DirectedBy=[[Jim Reardon]]
+|WrittenBy=[[Ian Maxtone-Graham]]
+|OriginalAirDate={{Start date|1996|11|17}}
+|ProdCode=4F05
+|ShortSummary=A man named Larry's jaw drops when he sees his father [[Mr. Burns]] on a train from Yale to Springfield and Larry immediately follows the train. When he arrives at Mr Burns's mansion he identifies himself as Mr. Burns's long lost son. Burns admits that Larry is the result of a one-night stand and accepts him as his own. Soon, however, Larry proves to be an incurable oaf and Burns gets tired of him. Homer befriends Larry because they share similar interests. Together they fake Larry's kidnapping to win back Burns's love. But when Burns is told that Homer has kidnapped his son, Homer and Larry are chased by reporters and the police. When told of the fake kidnapping Burns cannot continue as Larry's father and Larry leaves Springfield to return to his family.{{sfn|Richmond & Coffman|1997 |p=214}}
+|NoViewersOnMainList=y|Viewers=12.6<ref>{{#invoke:cite|news|title=Nielsen ratings|department=Life|work=[[USA Today]]|date=November 20, 1996|page=3D}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=158
+|EpisodeNumber2=5
+|Title=[[Bart After Dark]]
+|DirectedBy=[[Dominic Polcino]]
+|WrittenBy=[[Richard Appel]]
+|OriginalAirDate={{Start date|1996|11|24}}
+|ProdCode=4F06
+|ShortSummary=Bart does property damage to a house and Homer makes him do chores to pay for his misdeed. The house turns out to be a burlesque saloon and a group of concerned citizens confront Homer on Bart's work. [[Marge Simpson|Marge]] agrees with the group and joins them in their attempt to oust the saloon from Springfield. In a town hall meeting, Marge convinces the townspeople to demolish the old house, but when the destruction team begins, Homer sings a song that changes everybody's mind. The demolition stops, but Marge's bulldozer accidentally slips out of gear and damages the house.{{sfn|Richmond & Coffman|1997 |p=215}}
+|NoViewersOnMainList=y|Viewers=14.1<ref>{{#invoke:cite|news|title=Nielsen ratings|department=Life|work=[[USA Today]]|date=November 27, 1996|page=3D}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=159
+|EpisodeNumber2=6
+|Title=[[A Milhouse Divided]]
+|DirectedBy=[[Steven Dean Moore]]
+|WrittenBy=[[Steve Tompkins]]
+|OriginalAirDate={{Start date|1996|12|1}}
+|ProdCode=4F04
+|ShortSummary= [[Marge Simpson|Marge]] decides to host a dinner party at the Simpson house. They invite their friends to it, but the Van Houtens have a very bad time and argue and fight throughout the night until Luann announces that she wants a divorce. Luann happily settles back to single life with Milhouse, and starts dating an American Gladiator named Pyro. Homer is confident that it will never happen to him, but Kirk tells him how quickly things can change. He realizes that he has taken his marriage for granted and overcompensates by smothering Marge. Deciding that their marriage is finished, Homer secretly files for a divorce from Marge. Homer then surprises her by asking her for her hand in marriage again and Marge accepts. Kirk tries the same strategy with Luann, but she refuses.{{sfn|Richmond & Coffman|1997 |pp=216-217}}
+|NoViewersOnMainList=y|Viewers=12.8<ref>{{#invoke:cite|news|title=Nielsen ratings|department=Life|work=[[USA Today]]|date=December 4, 1996|page=3D}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=160
+|EpisodeNumber2=7
+|Title=[[Lisa's Date with Density]]
+|DirectedBy=[[Susie Dietter]]
+|WrittenBy=[[Mike Scully]]
+|OriginalAirDate={{Start date|1996|12|15}}
+|ProdCode=4F01
+|ShortSummary= [[Nelson Muntz|Nelson]] is punished for vandalizing [[List of recurring The Simpsons characters#Superintendent Chalmers|Superintendent Chalmers]]' car and has to help [[Groundskeeper Willie|Willie]] around the schoolyard. When Lisa watches Nelson torment Willie, she finds herself attracted to him and decides to try to change Nelson into a better person. Lisa goes on a date with him and they kiss, but when he is later revealed to be lying about vandalizing [[Principal Skinner|Skinner's]] house, she loses the attraction. Meanwhile, Homer finds an autodialer and starts a telemarketing scam.{{sfn|Richmond & Coffman|1997 |p=218}}
+|NoViewersOnMainList=y|Viewers=12.2<ref>{{#invoke:cite|news|title=Nielsen ratings|department=Life|work=[[USA Today]]|date=December 18, 1996|page=3D}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=161
+|EpisodeNumber2=8
+|Title=[[Hurricane Neddy]]
+|DirectedBy=[[Bob Anderson (director)|Bob Anderson]]
+|WrittenBy=[[Steve Young (writer)|Steve Young]]
+|OriginalAirDate={{Start date|1996|12|29}}
+|ProdCode=4F07
+|ShortSummary=A hurricane strikes through Springfield and spares the Simpsons' home, but destroys only the Flanders' home, forcing them to move into the church basement. The people of Springfield gather to rebuild their house, but when [[Ned Flanders|Ned]] sees the poor workmanship and their failure of rebuilding his house after inspecting their worksmanship, he has a [[Mental disorder|complete breakdown]], releasing out all of his [[Tantrum|long-awaited pent-up rage]] in front of everybody. Ned commits himself to a mental institution and his psychiatrist discovers that Ned's past has taught him to suppress his anger. The psychiatrist then teaches Ned to express his anger with Homer as a role model and Ned gets cured as Ned reunites with the people of Springfield along with the rest of the Simpsons and his family and tells everybody that the next time he does not like, they will hear about it.{{sfn|Richmond & Coffman|1997 |p=219}}
+|NoViewersOnMainList=y|Viewers=14.36<ref>{{#invoke:cite|web|url=http://www.ultimatetv.com/news/nielsen/networks/961223networks.html|title=Top Ranked Programs in Primetime for the Week of 12/23-12/29 as ranked by Nielsen Media Research|publisher=[[UltimateTV (online service)|UltimateTV]]|url-status=dead|archive-url=https://web.archive.org/web/19991118001924/http://www.ultimatetv.com/news/nielsen/networks/961223networks.html|archive-date=November 18, 1999|access-date=June 10, 2023}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=162
+|EpisodeNumber2=9
+|Title=[[El Viaje Misterioso de Nuestro Jomer (The Mysterious Voyage of Homer)]]
+|DirectedBy=Jim Reardon
+|WrittenBy=Ken Keeler
+|OriginalAirDate={{Start date|1997|1|5}}
+|ProdCode=3F24
+|ShortSummary=Homer begins to hallucinate after eating a dish laced with potent Guatemalan peppers at the [[Cook-off|chili cook-off]]. In this hallucination he meets a mystical coyote, which tells him to find his soul mate. After a fight with Marge, he is concerned that she is not really his soul mate. Homer leaves the house and seeks solitude in a lighthouse. Marge arrives at the lighthouse and apologizes and then Homer realizes that Marge is his soul mate after all.{{sfn|Richmond & Coffman|1997 |pp=220-221}}
+|NoViewersOnMainList=y|Viewers=14.85<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/64366020/|title=National Nielsen Viewership (Dec. 30, 1996-Jan. 5, 1997)|date=January 8, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=163
+|EpisodeNumber2=10
+|Title=[[The Springfield Files]]
+|DirectedBy=Steven Dean Moore
+|WrittenBy=[[Reid Harrison]]
+|OriginalAirDate={{Start date|1997|1|12}}
+|ProdCode=3F25<ref>{{#invoke:cite|web|url= https://www.animationconnection.com/view/5065-homer-simpson-drinking-at-moes |title=The Simpson Files" Production Cel |work=[[20th Century Animation]]|publisher=Animation Connection.com |access-date=January 12, 2023}}</ref><br>3G01
+|ShortSummary=Homer walks home one night from [[Springfield (The Simpsons)#Moe's Tavern|Moe's Tavern]]. On his way he sees an eerie glowing creature. The next day Homer's story is printed in the local newspaper. FBI agents Mulder and Scully read the story and go to Springfield to investigate this [[The X-Files|X-file]]. After talking with Homer they find his credibility shaky and quickly leave again. Bart and Homer then set up a camp to videotape the creature. When the creature appears, Lisa reveals that the creature is actually Mr. Burns after a medical treatment by [[Dr. Nick (The Simpsons)|Dr. Nick]].{{sfn|Richmond & Coffman|1997 |p=222}}<BR>
+''Guest stars:'' [[Leonard Nimoy]], [[Gillian Anderson]] and [[David Duchovny]]
+|NoViewersOnMainList=y|Viewers=20.41<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41385853/|title=National Nielsen Viewership (Jan. 6-12, 1997)|date=January 15, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=164
+|EpisodeNumber2=11
+|Title=[[The Twisted World of Marge Simpson]]
+|DirectedBy=[[Chuck Sheetz]]
+|WrittenBy=[[Jennifer Crittenden]]
+|OriginalAirDate={{Start date|1997|1|19}}
+|ProdCode=4F08
+|ShortSummary=Marge starts a new pretzel franchise after being voted out of the Springfield Investorettes for being too conservative. The Investorettes see this and strike back by getting a [[falafel]] van. Homer helps Marge with her business by asking [[Fat Tony (The Simpsons)|Fat Tony]] for assistance. Soon the orders pour while the falafel business mysteriously fails. Fat Tony attempts to collect all of Marge's profit, but she refuses. He then sends his goons to the Simpson house where he meets the Japanese mafia, who was sent by the Investorettes, and it ends in a showdown between the two mafias.{{sfn|Richmond & Coffman|1997 |p=223}}
+|NoViewersOnMainList=y|Viewers=13.98<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/64366020/|title=National Nielsen Viewership (Jan. 13-19, 1997)|date=January 22, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=165
+|EpisodeNumber2=12
+|Title=[[Mountain of Madness]]
+|DirectedBy=Mark Kirkland
+|WrittenBy=John Swartzwelder
+|OriginalAirDate={{Start date|1997|2|2}}
+|ProdCode=4F10
+|ShortSummary=To encourage teamwork, Mr. Burns takes all of his employees to a corporate retreat in the mountains. The employees pair up and Homer becomes Burns's partner. The challenge is to find a cabin on the snowy mountainside. The pair to finish last will be fired. Burns and Homer cheat by using a snowmobile and make it the cabin before everybody else, but an avalanche buries the cabin. Homer and Burns go insane in the cold and get into a fight. In the fight they ignite a propane tank, which rockets the cabin to safety.{{sfn|Richmond & Coffman|1997 |p=224}}
+|NoViewersOnMainList=y|Viewers=17.49<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41294521/|title=National Nielsen Viewership (Jan. 27-Feb. 2, 1997)|date=February 5, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=166
+|EpisodeNumber2=13
+|Title=[[Simpsoncalifragilisticexpiala(Annoyed Grunt)cious]]
+|DirectedBy=Chuck Sheetz
+|WrittenBy=[[Al Jean]] & [[Mike Reiss]]
+|OriginalAirDate={{Start date|1997|2|7}}
+|ProdCode=3F27<ref>{{#invoke:cite|web|url=https://daveknott.files.wordpress.com/2013/07/sheetz-how-to-sheet-timing.pdf|title=Sheetz how-to sheet timing|date=July 2013|access-date=June 20, 2024|author=Chuck Sheetz|publisher=WordPress|work=david knott}}</ref><br>3G03
+|ShortSummary=Marge is stressed by the demands of motherhood and the Simpsons get a magical British nanny, who floats down from the sky holding an umbrella. The nanny is a miracle worker, who teaches Bart and Lisa how to clean and charms everybody. However, the Simpsons cannot stop living their messy ways and the nanny's spirit gets crushed. She leaves the family realizing that she has taught them nothing.{{sfn|Richmond & Coffman|1997 |p=225}}
+|NoViewersOnMainList=y|Viewers=9.10<ref name="d'oh!">{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41304408/|title=National Nielsen Viewership (Feb. 3-9, 1997)|date=February 12, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=167
+|EpisodeNumber2=14
+|Title=[[The Itchy & Scratchy & Poochie Show]]
+|DirectedBy=Steven Dean Moore
+|WrittenBy=David X. Cohen
+|OriginalAirDate={{Start date|1997|2|9}}
+|ProdCode=4F12
+|ShortSummary=A new character, Poochie, is added to ''[[The Itchy & Scratchy Show]]'' as an attempt to boost failing ratings. Bart and Lisa convince Homer to audition for the voice of Poochie. He gets the part and makes public appearances with the voice actor behind Itchy and Scratchy. Poochie's debut is not well received and the producers decide to kill him off. Homer refuses to cooperate and records a different version of the death scene. Homer is convinced that he managed to keep Poochie, but when the episode airs, the character is edited out.{{sfn|Richmond & Coffman|1997 |pp=226-227}}
+|NoViewersOnMainList=y|Viewers=15.67<ref name="d'oh!"/>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=168
+|EpisodeNumber2=15
+|Title=[[Homer's Phobia]]
+|OriginalAirDate={{Start date|1997|2|16}}
+|DirectedBy=Mike B. Anderson
+|WrittenBy=[[Ron Hauge]]
+|ProdCode=4F11
+|ShortSummary=The family tries to sell an old heirloom at a collectibles store and strike up a relationship with John, the store owner. The Simpsons invite John over to their house to assess their other belongings and Homer takes a liking to him. Marge then informs Homer that John is gay and he refuses to see him again. Afterwards, Homer notices changes in Bart's behavior and fears that John has turned him into a homosexual. Trying to make Bart manlier, they go on a hunting trip, but get attacked by a herd of aggressive reindeer. Suddenly, John arrives and saves the day. Homer then thanks John for saving his life and accepts him as a friend.{{sfn|Richmond & Coffman|1997 |p=228}}
+|NoViewersOnMainList=y|Viewers=15.26<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41315405/|title=National Nielsen Viewership (Feb. 10-16, 1997)|date=February 20, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=169
+|EpisodeNumber2=16
+|Title=[[Brother from Another Series]]
+|DirectedBy=[[Pete Michels]]
+|WrittenBy=Ken Keeler
+|OriginalAirDate={{Start date|1997|2|23}}
+|ProdCode=4F14
+|ShortSummary=[[Sideshow Bob]] is released from prison and his brother, Cecil, hires him to supervise the construction of a dam. Bart suspects that Bob is up to something and sneaks into his office along with Lisa. There he discovers a suitcase filled with money. Bob enters and explains his innocence, but Bart and Lisa do not believe him. Cecil now enters and holds them all at gunpoint. His plan is to blow up the dam and walk away with the $15 million he embezzled from the project. Bob would naturally be blamed allowing Cecil to get revenge for Bob stealing his part as Krusty's sidekick. Cecil now locks up Bob, Bart and Lisa, but they manage to escape and stop Cecil.{{sfn|Richmond & Coffman|1997 |p=229}}
+|NoViewersOnMainList=y|Viewers=15.07<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41313412/|title=National Nielsen Viewership (Feb. 17-23, 1997)|date=February 26, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=170
+|EpisodeNumber2=17
+|Title=[[My Sister, My Sitter]]
+|DirectedBy=Jim Reardon
+|WrittenBy=Dan Greaney
+|OriginalAirDate={{Start date|1997|3|2}}
+|ProdCode=4F13
+|ShortSummary=Lisa wants to start babysitting, but Marge thinks she is too young. Flanders urgently needs a babysitter and Lisa gets her first job. When Flanders gives her a glowing review, she starts to get steady work. Then one evening, Lisa is put in charge of babysitting Bart and Maggie. Bart is outraged and embarks on a series of pranks. When Bart refuses to go to bed, Lisa accidentally knocks him down the stairs which dislocates his arm. Lisa tries to help him by transporting him in a wheelbarrow to Dr. Nick. Bart falls out of the wheelbarrow and rolls down a hill. The townspeople are mortified, but Lisa continues to get jobs the following day.{{sfn|Richmond & Coffman|1997 |p=230}}
+|NoViewersOnMainList=y|Viewers=15.10<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/57432618/|title=National Nielsen Viewership (Feb. 24-March 2, 1997)|date=March 5, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=171
+|EpisodeNumber2=18
+|Title=[[Homer vs. the Eighteenth Amendment]]
+|DirectedBy=Bob Anderson
+|WrittenBy=John Swartzwelder
+|OriginalAirDate={{Start date|1997|3|16}}
+|ProdCode=4F15
+|ShortSummary=Alcohol is banned (thanks to a pre-existing law) from Springfield after Bart accidentally gets drunk at a town parade. Rex Banner is appointed to replace [[Chief Wiggum]] as police chief to enforce the new laws and stop Fat Tony from smuggling. Rex is successful, but then Homer starts to smuggle alcohol. Eventually, Homer ends his bootlegging and approaches Wiggum with a plan to expose himself and restore Wiggum's good name. Homer is about to receive punishment by being catapulted, but he is saved by an impassioned speech by Marge. The liquor ban's repeal is then revealed and the town celebrates by getting drunk.{{sfn|Richmond & Coffman|1997 |p=231}}
+|NoViewersOnMainList=y|Viewers=14.60<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41386061/|title=National Nielsen Viewership (March 10-16, 1997)|date=March 19, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=172
+|EpisodeNumber2=19
+|Title=[[Grade School Confidential]]
+|DirectedBy=Susie Dietter
+|WrittenBy=[[Rachel Pulido]]
+|OriginalAirDate={{Start date|1997|4|6}}
+|ProdCode=4F09
+|ShortSummary=Seymour Skinner and [[Edna Krabappel]] strike up a conversation at a party and take a romantic interest in each other. They try to keep their affair a secret, but Bart sees them kiss. The following day the couple hears Bart telling his classmates about it and silences him by deleting his permanent records. Bart becomes their go-between for exchanging love notes, but he gets tired of that and exposes Skinner and Krabappel in the janitor's closet locked in a passionate embrace. The word spreads all over town and Superintendent Chalmers gives Skinner an ultimatum&nbsp;– either end the relationship or face dismissal. Skinner admits that he is in fact a virgin and the matter is cleared up.{{sfn|Richmond & Coffman|1997 |p=232}}
+|NoViewersOnMainList=y|Viewers=13.27<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41386061/|title=National Nielsen Viewership (March 31-April 6, 1997)|date=April 9, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=173
+|EpisodeNumber2=20
+|Title=[[The Canine Mutiny]]
+|DirectedBy=Dominic Polcino
+|WrittenBy=Ron Hauge
+|OriginalAirDate={{Start date|1997|4|13}}
+|ProdCode=4F16
+|ShortSummary=Bart gets a credit card and buys a well trained new dog called Laddie. When Bart could not pay the balance on the credit card the bank repossesses Laddie. Instead of giving them Laddie, Bart gives the repo men [[Santa's Little Helper]]. Feeling guilty, Bart gives Laddie to the police and sets out to find Santa's Little Helper and finds him at a blind man's house. Bart tries to kidnap his dog, but instead the blind man alerts the police. When they arrive, Laddie, who is now a police dog, sniffs out a bag of marijuana and the blind man gets arrested. Bart can then leave with [[Santa's Little Helper]].{{sfn|Richmond & Coffman|1997 |p=233}}
+|NoViewersOnMainList=y|Viewers=13.25<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41386061/|title=National Nielsen Viewership (April 7-13, 1997)|date=April 16, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref><hr>7.9<ref>{{#invoke:cite|news|title=ABC ratings take a record nose dive |work=Sun-Sentinel |agency=Associated Press |page=4E |date=April 17, 1997}}</ref><br><small>(HH){{efn|name=HH|(HH) denotes that the numbers listed are the number of households the episode was viewed in.}}</small>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=174
+|EpisodeNumber2=21
+|Title=[[The Old Man and the Lisa]]
+|DirectedBy=Mark Kirkland
+|WrittenBy=John Swartzwelder
+|OriginalAirDate={{Start date|1997|4|20}}
+|ProdCode=4F17
+|ShortSummary=Mr. Burns loses his fortune in a bad investment. He is not doing well alone and is committed to the Springfield Retirement Castle. Disgusted by his surroundings, he vows to get his fortune back. He then sees Lisa collecting recyclables and remembers her opposition towards him. He believes that the reason for losing his fortune was that he was surrounded by "yes men" and therefore asks Lisa to help him. Lisa introduces Burns to recycling and by collecting these he soon gets enough money to buy a recycling plant. In reality this recycling plant captures all aquatic life and grinds it into all-purpose goo. Lisa is horrified, but Burns regains his fortune and buys back his power plant.{{sfn|Richmond & Coffman|1997 |p=234}}
+|NoViewersOnMainList=y|Viewers=13.97<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41385180/|title=National Nielsen Viewership (April 14-20, 1997)|date=April 23, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=175
+|EpisodeNumber2=22
+|Title=[[In Marge We Trust]]
+|DirectedBy=Steven Dean Moore
+|WrittenBy=[[Donick Cary]]
+|OriginalAirDate={{Start date|1997|4|27}}
+|ProdCode=4F18
+|ShortSummary=Marge is concerned that [[Reverend Lovejoy]] does not meet the needs of his parishioners and becomes the new advice giver at the Church. When Marge gains a loyal following, Lovejoy gets concerned that he has become "shepherd without a flock". Meanwhile, Homer finds an old Japanese product, "Mr. Sparkle", a dish-washing detergent, with a logo that oddly resembles him. When he calls up the company behind the product, he finds Mr. Sparkle is a composite of two company logos. Marge is unable to help Ned Flanders in a crisis and calls up Lovejoy for help. Lovejoy solves the crisis and gets his congregants' interest in his next sermon telling the story.{{sfn|Richmond & Coffman|1997 |p=235}}
+|NoViewersOnMainList=y|Viewers=16.93<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41307854/|title=National Nielsen Viewership (April 21-27, 1997)|date=April 30, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=176
+|EpisodeNumber2=23
+|Title=[[Homer's Enemy]]
+|DirectedBy=Jim Reardon
+|WrittenBy=John Swartzwelder
+|OriginalAirDate={{Start date|1997|5|4}}
+|ProdCode=4F19
+|ShortSummary=Frank Grimes, a new employee at the Nuclear Power Plant, is a hard-working man who has never been given a break in his life. At work, he meets Homer and takes an instant dislike to his poor job performance and attitude. Homer tries to win Grimes' approval by inviting him over for a family dinner. When Grimes sees Homer's accomplishments and home, he becomes even more bitter. When an attempt to humiliate Homer backfires, Grimes ends up Imitating Homer's behavior at work. As he runs amok, he sees high voltage wires and electrocutes himself. Meanwhile, Bart steps into a tax auction and buys an abandoned factory for a dollar, which he uses to play factory with Milhouse.{{sfn|Richmond & Coffman|1997 |p=236}}
+|NoViewersOnMainList=y|Viewers=11.80<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41384884/|title=National Nielsen Viewership (April 28-May 4, 1997)|date=May 7, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|NumParts=3
+|EpisodeNumber=177
+|EpisodeNumber2=24
+|Title=[[The Simpsons Spin-Off Showcase]]
+|DirectedBy=[[Neil Affleck]]
+|WrittenBy_1={{StoryTeleplay|s=Ken Keeler|t=David X. Cohen}}
+|WrittenBy_2={{StoryTeleplay|s=Ken Keeler|t=Dan Greaney}}
+|WrittenBy_3={{StoryTeleplay|s=Ken Keeler|t=Steve Tompkins}}
+|OriginalAirDate={{Start date|1997|5|11}}
+|ProdCode=4F20
+|ShortSummary=[[Troy McClure]] hosts a show which features three ideas for spin-offs to ''The Simpsons'':<br />''Chief Wiggum, P.I.''&nbsp;– Chief Wiggum and Seymour Skinner are detectives in New Orleans.<br />''The Love-Matic Grampa''&nbsp;– [[Grampa Simpson|Grampa's]] soul is contained in Moe's Love Tester machine.<br />''The Simpson Family Smile-Time Variety Hour''&nbsp;– The Simpsons host a 70s variety show.{{sfn|Richmond & Coffman|1997 |p=237}}
+|NoViewersOnMainList=y|Viewers=11.57<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times/41385049/|title=National Nielsen Viewership (May 5-11, 1997)|date=May 14, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{#invoke:Episode list|sublist|The Simpsons season 8
+|EpisodeNumber=178
+|EpisodeNumber2=25
+|Title=[[The Secret War of Lisa Simpson]]
+|DirectedBy=Mike B. Anderson
+|WrittenBy=Richard Appel
+|OriginalAirDate={{Start date|1997|5|18}}
+|ProdCode=4F21
+|ShortSummary=Bart is enrolled in a military school after unintentionally pranking the whole town. After seeing the school, Lisa decides she wants to join too. Lisa is the first female cadet and therefore gets to stay in her own private barracks. This move creates resentment among the boys at the facility and Bart refuses to speak to his sister. Later, Bart secretly apologizes and helps her train for a test. When Lisa has trouble completing the test, Bart publicly encourages her at the expense of his own reputation, and she finally passes it.{{sfn|Richmond & Coffman|1997 |p=238}}
+|NoViewersOnMainList=y|Viewers=12.69<ref>{{#invoke:cite|news|url=https://www.newspapers.com/article/the-los-angeles-times-networksgetmaxim/9566864/|title=National Nielsen Viewership (May 12-18, 1997): "Networks Get Maximum Out of "Odyssey," "Last Don|date=May 21, 1997|access-date=March 2, 2023|work=[[The Los Angeles Times]]|via=[[Newspapers.com]]}}{{free access}}</ref>
+|LineColor=58a5ad
+}}
+{{End|html=y|Episode table}}</onlyinclude>
+
+==Home media==
+[[Image:Simpsons s8 - Maggie.jpg|175px|right|thumb|''The Simpsons'' season 8 DVD digipak, special Maggie head edition]]
+The DVD box set for season eight was released by [[20th Century Fox Home Entertainment]] in the United States and Canada on August 15, 2006, nine years after it had completed broadcast on television. As well as every episode from the season, the DVD release features bonus material including [[deleted scene]]s, [[Traditional animation#Animatic|Animatics]], and commentaries for every episode. As with the previous season, the set was released in two different packagings: a "Collector's Edition" plastic packaging molded to look like Maggie's head, and a standard rectangular cardboard box featuring Maggie looking through a photo album while the rest of the Simpsons family are taking a picture.<ref>{{#invoke:cite|web|url=http://www.tvshowsondvd.com/releaseinfo.cfm?ReleaseID=5875 |title=The Simpsons&nbsp;– The Complete 8th Season (Maggie Head) |access-date=2005-03-14 |publisher=[[TVShowsOnDVD.com]] |url-status=dead |archive-url=https://web.archive.org/web/20060628022109/http://www.tvshowsondvd.com/releaseinfo.cfm?ReleaseID=5875 |archive-date=2006-06-28 }}</ref><ref>{{#invoke:cite|web|url=http://www.tvshowsondvd.com/releaseinfo.cfm?ReleaseID=5874 |title=The Simpsons&nbsp;– The Complete 8th Season (Regular) |access-date=2005-03-14 |publisher=[[TVShowsOnDVD.com]] |url-status=dead |archive-url=https://web.archive.org/web/20120806011918/http://www.tvshowsondvd.com/releases/Simpsons-Complete-8th-Season/5874 |archive-date=2012-08-06 }}</ref> The menus continue the same format from the previous three seasons, and the overall theme is various characters posing for photographs.
+
+{| class="wikitable" style="font-size: 95%;"
+|colspan="5" style="background-color: #58a5ad; color:#000000;" | '''The Complete Eighth Season'''
+|-valign="top"
+|align="center" width="400" colspan="3"| '''Set Details'''<ref name="DVDs8">{{#invoke:cite|web|url=http://www.tvshowsondvd.com/newsitem.cfm?NewsID=5640 |title=The Simpsons&nbsp;– Looking for this? Season 8 Date, Specs, Extras and Box Art |access-date=2005-03-14 |author=Lacey, Gord |date=2005-05-11 |publisher=TV Shows on DVD.com |url-status=dead |archive-url=https://web.archive.org/web/20060614234248/http://www.tvshowsondvd.com/newsitem.cfm?NewsID=5640 |archive-date=2006-06-14 }}</ref><ref name="DVDs82">{{#invoke:cite|web|url=http://www.thesimpsonsshop.com/detail.php?p=12536&v=simfandvd |title=The Simpsons Season 8 DVD |access-date=2005-03-14 |publisher=The Simpsons Shop |url-status=dead |archive-url=https://web.archive.org/web/20080412073650/http://www.thesimpsonsshop.com/detail.php?p=12536 |archive-date=April 12, 2008}}</ref>
+|width="300" align="center" |'''Special Features'''<ref name="DVDs8" /><ref name="DVDs82"/>
+|-valign="top"
+|colspan="3" align="left" width="400"|
+* 25 episodes
+* 4-disc set
+* [[Aspect ratio (image)#4:3 standard|1.33:1 aspect ratio]]
+* AUDIO
+** English 5.1 Dolby Digital
+** Spanish 2.0 Dolby Surround
+** French 2.0 Dolby Surround
+* SUBTITLES
+** English SDH
+** Spanish<ref name="DVDs82"/>
+|rowspan="4" align="left" width="300"|
+* Optional commentaries for all 25 episodes
+* Introduction from [[Matt Groening]]
+* Deleted Scenes
+**[[You Only Move Twice]]
+**[[The Homer They Fall]]
+**[[Burns, Baby Burns]]
+**[[A Milhouse Divided]]
+**[[Lisa's Date with Density]]
+**[[Hurricane Neddy]]
+**[[The Springfield Files]]
+**[[The Twisted World of Marge Simpson]]
+**[[Mountain of Madness]]
+**[[Simpsoncalifragilisticexpiala(Annoyed Grunt)cious]]
+**[[The Itchy & Scratchy & Poochie Show]]
+**[[Homer's Phobia]]
+**[[Brother from Another Series|The Brother from Another Series]]
+**[[My Sister, My Sitter]]
+**[[Homer vs. the Eighteenth Amendment]]
+**[[Grade School Confidential]]
+**[[The Canine Mutiny]]
+**[[The Old Man and the Lisa]]
+**[[In Marge We Trust]]
+**[[The Simpsons Spin-Off Showcase]]
+**[[The Secret War of Lisa Simpson]]
+* Special Language Feature
+** Homer's Enemy
+*** Czech 2.0 Dolby Surround
+*** Japanese 2.0 Dolby Surround
+*** German 2.0 Dolby Surround
+*** French (France) 2.0 Dolby Surround
+* Featurette: "[[The Simpsons house|The Simpsons House]]"
+* Animation showcases
+**[[Treehouse of Horror VII]]
+**[[In Marge We Trust]]
+**[[The Secret War of Lisa Simpson]]
+* Illustrated Commentaries
+**[[Treehouse of Horror VII]]
+**[[Homer vs. the Eighteenth Amendment]]
+**[[Lisa's Date with Density]]
+**[[The Secret War of Lisa Simpson]]
+* Original sketches
+* Promotional spots featuring Matt Groening
+|-
+|colspan="3" align="center" | '''Release Dates'''
+|-
+|align="center" | [[DVD region code#Region codes and countries|Region 1]]
+|align="center" | [[DVD region code#Region codes and countries|Region 2]]
+|align="center" | [[DVD region code#Region codes and countries|Region 4]]
+|-
+|align="center" | August 15, 2006
+|align="center" | October 2, 2006
+|align="center" | September 27, 2006
+|}
+
+==See also==
+{{portal|The Simpsons}}
+* [[List of The Simpsons episodes]]
+
+==References==
+<references />
+;Bibliography
+{{refbegin}}
+*{{cite book |last=Groening |first=Matt |author-link=Matt Groening |editor1-first=Ray |editor1-last=Richmond |editor1-link=Ray Richmond |editor2-first=Antonia |editor2-last=Coffman |title=[[The Simpsons episode guides#The Simpsons: A Complete Guide to Our Favorite Family|The Simpsons: A Complete Guide to Our Favorite Family]]  |edition=1st |year=1997 |location=New York |publisher=[[HarperPerennial]] |lccn=98141857 |ol=433519M |oclc=37796735 |isbn=978-0-06-095252-5 |ref={{harvid|Richmond & Coffman|1997}}}}
+*{{cite book |last=Turner |first=Chris |author-link=Chris Turner (author) |title=[[Planet Simpson|Planet Simpson: How a Cartoon Masterpiece Documented an Era and Defined a Generation]] |others=Foreword by [[Douglas Coupland]]. |edition=1st |year=2005 |location=Toronto |publisher=[[Random House Canada]] |oclc=55682258 |isbn=978-0-679-31318-2}}
+{{refend}}
+
+===Notes===
+{{Notelist|30em}}
+
+==External links==
+{{wikiquote|The Simpsons/Season 8|The Simpsons season 8}}
+* {{Official website|https://www.fox.com/the-simpsons/}}
+* {{IMDb episodes|0096697||season 8}}
+
+{{The Simpsons}}
+{{The Simpsons episodes|8}}
+
+{{DEFAULTSORT:Simpsons season 8}}
+[[Category:The Simpsons seasons|Simpsons season 08]]
+[[Category:1996 American animated television seasons]]
+[[Category:1997 American animated television seasons]]
+[[Category:Television series set in the 1990s]]
