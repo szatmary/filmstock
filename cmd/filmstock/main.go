@@ -33,6 +33,8 @@ func main() {
 		build.CSearch(os.Args[2:])
 	case "television-debug":
 		build.CTelevisionDebug(os.Args[2:])
+	case "index-external-ids":
+		build.CIndexExternalIDs(os.Args[2:])
 	case "index-schedules":
 		build.CIndexSchedules(os.Args[2:])
 	case "index-events":
