@@ -19,6 +19,8 @@ func main() {
 		build.CmdExport(os.Args[2:])
 	case "diff-stores":
 		build.CmdDiffStores(os.Args[2:])
+	case "compose-vectors":
+		build.CmdComposeVectors(os.Args[2:])
 	case "vectors":
 		build.CmdVectors(os.Args[2:])
 	case "catchup":
