@@ -2,6 +2,7 @@ package build
 
 import (
 	"crypto/sha256"
+	"database/sql"
 	"encoding/hex"
 	"encoding/json"
 	"flag"
@@ -10,7 +11,10 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 	"time"
+
+	"github.com/szatmary/filmstock"
 )
 
 // The release manifest: what a consumer fetches first.
@@ -33,14 +37,20 @@ import (
 // the one mutable pointer, and it is a copy rather than a redirect so a single
 // GET answers both "what is current" and "how do I verify it".
 type manifest struct {
-	Dump      string                  `json:"dump"`      // e.g. 20260801
-	Generated string                  `json:"generated"` // RFC 3339, UTC
-	Files     map[string]manifestFile `json:"files"`
+	Dump         string                  `json:"dump"`      // e.g. 20260801
+	Generated    string                  `json:"generated"` // RFC 3339, UTC
+	ContentHashV int                     `json:"content_hash_version,omitempty"`
+	Files        map[string]manifestFile `json:"files"`
 }
 
 type manifestFile struct {
 	Size   int64  `json:"size"`
-	SHA256 string `json:"sha256"`
+	SHA256 string `json:"sha256"` // of the file bytes: verifies the download
+	// Content verifies MEANING: rows in canonical order, storage-independent.
+	// A consumer who applied patches matches this while matching neither the
+	// size nor the file hash, and that is the point.
+	Content       string            `json:"content_hash,omitempty"`
+	ContentTables map[string]string `json:"content_tables,omitempty"`
 }
 
 // CmdManifest hashes a release directory into its manifest.
@@ -59,9 +69,10 @@ func CmdManifest(args []string) {
 	}
 
 	m := manifest{
-		Dump:      *dump,
-		Generated: time.Now().UTC().Format(time.RFC3339),
-		Files:     map[string]manifestFile{},
+		Dump:         *dump,
+		Generated:    time.Now().UTC().Format(time.RFC3339),
+		ContentHashV: filmstock.ContentHashVersion,
+		Files:        map[string]manifestFile{},
 	}
 	entries, err := os.ReadDir(*dir)
 	if err != nil {
@@ -90,9 +101,17 @@ func CmdManifest(args []string) {
 		if err != nil {
 			fatal(err)
 		}
-		m.Files[name] = manifestFile{Size: size, SHA256: hex.EncodeToString(h.Sum(nil))}
-		fmt.Fprintf(os.Stderr, "  %-28s %5d MB  %s\n", name, size/1048576,
-			m.Files[name].SHA256[:16]+"…")
+		mf := manifestFile{Size: size, SHA256: hex.EncodeToString(h.Sum(nil))}
+		if strings.HasSuffix(name, ".db") {
+			ch, tables, err := contentHashOf(path)
+			if err != nil {
+				fatal(fmt.Errorf("content hash of %s: %w", name, err))
+			}
+			mf.Content, mf.ContentTables = ch, tables
+		}
+		m.Files[name] = mf
+		fmt.Fprintf(os.Stderr, "  %-28s %5d MB  file %s  content %s\n", name, size/1048576,
+			mf.SHA256[:12]+"…", short(mf.Content))
 	}
 	b, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {
@@ -102,4 +121,23 @@ func CmdManifest(args []string) {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "  -> %s\n", *out)
+}
+
+func contentHashOf(path string) (string, map[string]string, error) {
+	h, err := sql.Open("sqlite", "file:"+path+"?mode=ro")
+	if err != nil {
+		return "", nil, err
+	}
+	defer h.Close()
+	return filmstock.ContentHash(h)
+}
+
+func short(s string) string {
+	if len(s) > 12 {
+		return s[:12] + "…"
+	}
+	if s == "" {
+		return "—"
+	}
+	return s
 }

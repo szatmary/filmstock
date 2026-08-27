@@ -49,6 +49,8 @@ func main() {
 		build.CIndexEvents(os.Args[2:])
 	case "index-television":
 		build.CIndexTelevision(os.Args[2:])
+	case "builds":
+		build.CmdBuilds(os.Args[2:])
 	case "manifest":
 		build.CmdManifest(os.Args[2:])
 	case "build-image-list":
