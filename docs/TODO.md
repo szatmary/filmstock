@@ -265,6 +265,23 @@ and 99% of people already resolve to one, so merging on Q-id where both sides
 have one would close most of it. Worth doing when the redlink question is
 settled, not before.
 
+### Image URLs: correct, stale-able, and throttled
+
+Poster and portrait URLs go through Special:FilePath, which is correct and
+verified — but three operational facts, all measured:
+
+- **Renames rot them.** The Bourne Legacy's poster was renamed upstream after
+  the 2026-08-01 dump ("The Bourne Legacy Poster.jpg" -> "The Bourne Legacy
+  (2012) poster.jpg"), and non-free files leave no redirect. The daily update
+  heals this — the rename arrives as an article edit. Measured rot is rare:
+  23 of 23 sampled URLs that got past throttling resolve.
+- **Wikipedia throttles Special:FilePath hard** — HTTP 429 at even ~1 req/2s.
+  A first probe misread 30 throttles as "72% dead"; recorded here so the next
+  measurement is not fooled the same way. Consumers (Grindhouse) should
+  resolve each URL once, cache the upload.wikimedia.org target it redirects to
+  (the CDN, built for serving), and put an onerror fallback on the tag.
+- Special:Redirect/file/NAME and Special:FilePath/NAME are equivalent forms.
+
 ### 56 schedule articles still yield nothing
 
 232 of 288 read. The remainder are the overnight, morning and afternoon variants.
