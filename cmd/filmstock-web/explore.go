@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"math/rand/v2"
 	"net/http"
 	"os"
 	"strconv"
@@ -38,18 +39,25 @@ type walk struct {
 }
 
 type explorers struct {
-	mu   sync.Mutex
-	v    *filmstock.Vectors
-	coll *filmstock.Collection
-	byID map[string]*walk
-	next int
+	mu    sync.Mutex
+	v     *filmstock.Vectors
+	coll  *filmstock.Collection
+	known []int // films in both the database and the vector file
+	byID  map[string]*walk
+	next  int
 }
 
 func newExplorers(v *filmstock.Vectors, known []int) *explorers {
 	coll, missing := v.Collect(known)
 	fmt.Fprintf(os.Stderr, "explorer: %d films with vectors (%d in the database have none)\n",
 		coll.Len(), missing)
-	return &explorers{v: v, coll: coll, byID: map[string]*walk{}}
+	usable := make([]int, 0, len(known))
+	for _, id := range known {
+		if _, ok := v.Vector(id); ok {
+			usable = append(usable, id)
+		}
+	}
+	return &explorers{v: v, coll: coll, known: usable, byID: map[string]*walk{}}
 }
 
 type cellJSON struct {
@@ -152,15 +160,34 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 	}
 	switch {
 	case q.Get("start") != "" || wk == nil:
-		id, err := strconv.Atoi(q.Get("start"))
-		if err != nil {
-			http.Error(w, "unknown session; start again", 400)
-			return
+		var id int
+		if st := q.Get("start"); st == "random" || (st == "" && wk == nil) {
+			// A dealt first card, not an empty page. Drawn until one has a
+			// poster: a blank rectangle is a poor opening move.
+			for range 30 {
+				id = s.ex.known[rand.IntN(len(s.ex.known))]
+				if c := s.fillCell(r, id, 0, 0, 0); c.Poster != "" {
+					break
+				}
+			}
+		} else {
+			var err error
+			if id, err = strconv.Atoi(st); err != nil {
+				http.Error(w, "unknown session; start again", 400)
+				return
+			}
 		}
 		s.ex.next++
 		session = strconv.Itoa(s.ex.next)
 		wk = &walk{stack: []int{id}}
 		s.ex.byID[session] = wk
+	case q.Get("pop") != "":
+		// Clicking a card in the stack unwinds to that pick: everything chosen
+		// after it comes off, and the sum reverts to what it was at that
+		// moment. Backspace is the one-step case of this.
+		if i, err := strconv.Atoi(q.Get("pop")); err == nil && i >= 0 && i < len(wk.stack)-1 {
+			wk.stack = wk.stack[:i+1]
+		}
 	case q.Get("goto") != "":
 		if id, err := strconv.Atoi(q.Get("goto")); err == nil && id != wk.top() {
 			wk.stack = append(wk.stack, id)

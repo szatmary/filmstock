@@ -18,12 +18,26 @@
   #results div:hover { background:#222532; }
   main { display:grid; grid-template-columns: 1fr 260px; gap:0; height:calc(100vh - 47px); }
   #surface { display:flex; flex-direction:column; gap:12px; padding:14px 16px; overflow:auto; }
-  #centre { display:flex; gap:16px; align-items:center; padding-bottom:12px;
+  #centre { display:flex; gap:22px; align-items:flex-end; padding:4px 0 14px;
             border-bottom:1px solid var(--line); }
-  #stack { position:relative; height:96px; flex:0 0 auto; }
-  #stack img { position:absolute; bottom:0; width:60px; height:88px; object-fit:cover;
-               border-radius:4px; border:1px solid var(--line); background:#1b1d24; }
-  #stack img.top { border-color:var(--hot); box-shadow:0 0 0 2px rgba(224,179,65,.3); }
+  #stack { position:relative; height:158px; flex:0 0 auto; }
+  #stack .card { position:absolute; bottom:0; width:96px; height:140px; cursor:pointer;
+                 transform-origin:50% 100%;
+                 transition:transform .25s ease, filter .25s ease; }
+  #stack .card img { width:100%; height:100%; object-fit:cover; border-radius:6px;
+                     border:1px solid var(--line); background:#1b1d24;
+                     box-shadow:0 6px 14px rgba(0,0,0,.5); display:block; }
+  #stack .card:hover { transform:translateY(-14px) rotate(0deg) !important; filter:brightness(1.15); }
+  #stack .card:hover::after { content:attr(data-t); position:absolute; left:50%; bottom:104%;
+      transform:translateX(-50%); background:#1b1d24; border:1px solid var(--line);
+      color:var(--fg); font-size:11px; padding:2px 8px; border-radius:4px; white-space:nowrap; }
+  #stack .card.top img { border-color:var(--hot); box-shadow:0 0 0 2px rgba(224,179,65,.4),
+                         0 8px 18px rgba(0,0,0,.6); }
+  #stack .card.top { animation:deal .3s ease; }
+  @keyframes deal { from { transform:translate(46px,-40px) rotate(9deg); opacity:0; } }
+  #stack .plus { position:absolute; bottom:64px; color:var(--hot); font-size:13px;
+                 font-weight:700; opacity:.8; z-index:99; pointer-events:none;
+                 text-shadow:0 1px 3px #000; }
   #centre .n { font-size:17px; font-weight:600; color:var(--hot); }
   .cell.pole img { border-color:#7aa2ff; box-shadow:0 0 0 2px rgba(122,162,255,.3); }
   .cell.pole::after { position:absolute; left:50%; top:-9px; transform:translateX(-50%);
@@ -73,6 +87,8 @@
     <input id="search" placeholder="find a film to start from…" autocomplete="off">
     <div id="results"></div>
   </div>
+  <button id="dice" title="random film" style="background:#171920;border:1px solid var(--line);
+    color:var(--fg);border-radius:5px;padding:4px 10px;cursor:pointer">&#127922; random</button>
   <span class="dim" id="status"></span>
 </header>
 
@@ -153,6 +169,10 @@ async function goTo(id) {
   await load('s=' + session + '&goto=' + id);
 }
 async function move(dir) { if (session) await load('s=' + session + '&move=' + dir); }
+async function popTo(i, isTop) {
+  if (isTop || !session) return;           // the top card is where you already are
+  await load('s=' + session + '&pop=' + i);
+}
 
 async function load(qs) {
   if (busy) return;
@@ -175,24 +195,35 @@ function draw(v) {
     '<div id="grid"></div>';
 
   const c = v.center;
-  // The stack: every selection so far, newest on top. Its SUM is the position
-  // the grid is drawn around — the taste, not any single film.
+  // The deck: every pick so far, fanned like held cards, newest dealt on top.
+  // Its SUM is the position the grid is drawn around. Clicking a card unwinds
+  // the stack back to that pick.
   const tr = v.trail || [];
-  const show = tr.slice(-6);
+  const shown = tr.slice(-8), hidden = tr.length - shown.length;
+  const step = 48, W = 96;
   let stackHTML = '';
-  const W = 60, step = 14;
-  show.forEach((t, i) => {
-    const top = i === show.length - 1;
-    stackHTML += '<img src="' + (t.poster || '') + '" alt="" class="' + (top ? 'top' : '') +
-      '" style="left:' + (i * step) + 'px; z-index:' + i +
-      '; opacity:' + (top ? 1 : 0.55 + 0.08 * i) + '">';
+  shown.forEach((t, i) => {
+    const top = i === shown.length - 1;
+    const rot = top ? 2 : (i - shown.length / 2) * 2.5;
+    stackHTML +=
+      '<div class="card' + (top ? ' top' : '') + '" data-t="' +
+        esc(t.title) + (t.year ? ' (' + t.year + ')' : '') + '"' +
+      ' style="left:' + (i * step) + 'px; z-index:' + (i + 1) +
+      '; transform:rotate(' + rot + 'deg)"' +
+      ' onclick="popTo(' + (hidden + i) + ',' + (top ? 'true' : 'false') + ')">' +
+      '<img src="' + (t.poster || '') + '" alt=""></div>';
+    if (!top) stackHTML += '<div class="plus" style="left:' + (i * step + W - 10) + 'px">+</div>';
   });
   $('#centre').innerHTML =
-    '<div id="stack" style="width:' + (W + step * (show.length - 1)) + 'px">' + stackHTML + '</div>' +
+    '<div id="stack" style="width:' + (W + step * (shown.length - 1) + 8) + 'px">' +
+      stackHTML + '</div>' +
     '<div><div class="n">' + esc(c.title) + '</div>' +
     '<div class="dim" style="font-size:12px">' +
-    (tr.length > 1 ? 'blend of ' + tr.length + ' picks &middot; ' : (c.year || '') + ' &middot; ') +
-    'arrows choose a direction &middot; \u232b un-picks</div></div>';
+    (tr.length > 1
+      ? 'a blend of ' + tr.length + ' picks' + (hidden > 0 ? ' (' + hidden + ' buried)' : '') +
+        ' &middot; click a card to unwind to it'
+      : (c.year || '') + ' &middot; arrows choose a direction') +
+    ' &middot; \u232b un-picks</div></div>';
 
   // A grid, because the axes are continuous and the eye cannot read a cloud.
   // Empty slots stay in place rather than collapsing, so a title keeps its
@@ -254,6 +285,8 @@ addEventListener('resize', () => {
   refit = setTimeout(() => { if (session) load('s=' + session); }, 250);
 });
 
+$('#dice').onclick = () => load('start=random');
+
 addEventListener('keydown', e => {
   const k = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down',
              Backspace:'back'}[e.key];
@@ -261,5 +294,5 @@ addEventListener('keydown', e => {
 });
 
 const boot = {{if .}}{{.}}{{else}}0{{end}};
-if (boot) start(boot);
+if (boot) start(boot); else load('start=random');
 </script>
