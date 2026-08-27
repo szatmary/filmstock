@@ -55,11 +55,11 @@ func main() {
 		if err != nil {
 			fatal(err)
 		}
-		ids, langs, err := filmIDs(*dbPath)
+		ids, langs, decades, err := filmIDs(*dbPath)
 		if err != nil {
 			fatal(err)
 		}
-		s.ex = newExplorers(v, ids, langs)
+		s.ex = newExplorers(v, ids, langs, decades)
 	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", s.handleIndex)
@@ -91,24 +91,25 @@ func main() {
 // filmIDs lists every film in the database, with its primary language, so the
 // explorer can be restricted to records it can display and can tell when a
 // whole neighbourhood speaks one language.
-func filmIDs(dbPath string) ([]int, map[int]string, error) {
+func filmIDs(dbPath string) ([]int, map[int]string, map[int]string, error) {
 	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
 	defer db.Close()
-	rows, err := db.Query(`SELECT id, language FROM movies`)
+	rows, err := db.Query(`SELECT id, language, year FROM movies`)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
 	defer rows.Close()
 	var out []int
 	langs := map[int]string{}
+	decades := map[int]string{}
 	for rows.Next() {
-		var id int
+		var id, year int
 		var lang string
-		if err := rows.Scan(&id, &lang); err != nil {
-			return nil, nil, err
+		if err := rows.Scan(&id, &lang, &year); err != nil {
+			return nil, nil, nil, err
 		}
 		out = append(out, id)
 		if i := strings.IndexByte(lang, '·'); i > 0 {
@@ -117,8 +118,11 @@ func filmIDs(dbPath string) ([]int, map[int]string, error) {
 		if lang = strings.TrimSpace(lang); lang != "" {
 			langs[id] = lang
 		}
+		if year > 1870 {
+			decades[id] = fmt.Sprintf("%d0s", year/10)
+		}
 	}
-	return out, langs, rows.Err()
+	return out, langs, decades, rows.Err()
 }
 
 func fatal(err error) {

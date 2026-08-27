@@ -98,16 +98,17 @@ func (wk *walk) all() []int {
 }
 
 type explorers struct {
-	mu    sync.Mutex
-	v     *filmstock.Vectors
-	coll  *filmstock.Collection
-	known []int          // films in both the database and the vector file
-	lang  map[int]string // primary language per film, for the exit door
-	byID  map[string]*walk
-	next  int
+	mu     sync.Mutex
+	v      *filmstock.Vectors
+	coll   *filmstock.Collection
+	known  []int          // films in both the database and the vector file
+	lang   map[int]string // primary language per film, for the exit doors
+	decade map[int]string // "1960s", likewise
+	byID   map[string]*walk
+	next   int
 }
 
-func newExplorers(v *filmstock.Vectors, known []int, lang map[int]string) *explorers {
+func newExplorers(v *filmstock.Vectors, known []int, lang, decade map[int]string) *explorers {
 	coll, missing := v.Collect(known)
 	fmt.Fprintf(os.Stderr, "explorer: %d films with vectors (%d in the database have none)\n",
 		coll.Len(), missing)
@@ -117,7 +118,8 @@ func newExplorers(v *filmstock.Vectors, known []int, lang map[int]string) *explo
 			usable = append(usable, id)
 		}
 	}
-	return &explorers{v: v, coll: coll, known: usable, lang: lang, byID: map[string]*walk{}}
+	return &explorers{v: v, coll: coll, known: usable, lang: lang, decade: decade,
+		byID: map[string]*walk{}}
 }
 
 type cellJSON struct {

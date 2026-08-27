@@ -95,38 +95,62 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 		}
 		poles = append(poles, best)
 	}
-	// One of the four is guaranteed to speak a different language, when any
-	// near candidate does. Distance sampling escapes most clusters, but a
-	// LANGUAGE cluster is deeper than any reasonable pool — around a Chinese
-	// film, rank 3,000 is still Chinese cinema, and the walk got stuck there
-	// exactly as it had in Japanese. The exit door is the NEAREST candidate in
-	// another language, not the farthest: maximally relevant, merely on the
-	// other side of the wall. If the neighbourhood is already mixed, the
-	// nearest other-language film is close and this is just another pole.
-	anchorLang := s.ex.lang[cands[0].n.PageID]
-	if anchorLang != "" && len(poles) == 4 {
-		exit := -1
-		for i := range cands {
-			if l := s.ex.lang[cands[i].n.PageID]; l != "" && l != anchorLang {
-				exit = i
+	// Every saturated facet gets a door.
+	//
+	// The walk got stuck in Japanese, then in Chinese, then in the 1960s: any
+	// facet the embedding clusters strongly on becomes a wall deeper than the
+	// candidate pool, and distance sampling alone cannot find the way out. So
+	// for each STRUCTURED facet — language, decade, whatever joins the list —
+	// if every pole shares the anchor's value, the nearest candidate that
+	// differs replaces a pole. Nearest, not farthest: maximally relevant,
+	// merely on the other side of the wall. In a mixed neighbourhood the rule
+	// changes nothing.
+	//
+	// Doors compose from the back of the pole list, and a door often serves
+	// several walls at once: a 2023 Bengali film escaping a 1954 Japanese
+	// cluster breaks both the language wall and the decade wall, so the second
+	// check finds itself already satisfied.
+	if len(poles) == 4 {
+		facets := []func(int) string{
+			func(id int) string { return s.ex.lang[id] },
+			func(id int) string { return s.ex.decade[id] },
+		}
+		doorSlot := 3
+		for _, f := range facets {
+			if doorSlot < 1 {
 				break
 			}
-		}
-		if exit >= 0 {
-			already := false
+			anchor := f(cands[poles[0]].n.PageID)
+			if anchor == "" {
+				continue
+			}
+			saturated := true
 			for _, p := range poles {
-				if p == exit {
-					already = true
-					break
-				}
-				if s.ex.lang[cands[p].n.PageID] != "" &&
-					s.ex.lang[cands[p].n.PageID] != anchorLang {
-					already = true // some pole is an exit on its own
+				if v := f(cands[p].n.PageID); v != "" && v != anchor {
+					saturated = false
 					break
 				}
 			}
-			if !already {
-				poles[3] = exit
+			if !saturated {
+				continue
+			}
+			for i := range cands {
+				v := f(cands[i].n.PageID)
+				if v == "" || v == anchor {
+					continue
+				}
+				isPole := false
+				for _, p := range poles {
+					if p == i {
+						isPole = true
+						break
+					}
+				}
+				if !isPole {
+					poles[doorSlot] = i
+					doorSlot--
+				}
+				break
 			}
 		}
 	}
