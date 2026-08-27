@@ -340,7 +340,12 @@ async function openSyn() {
 }
 
 addEventListener('keydown', e => {
-  if (e.key === 'Escape' && synOpen) { closeSyn(); return; }
+  // Backspace out of the synopsis goes back to the grid — the overlay is a
+  // place you went, so the key that means "back" leaves it. It must not fall
+  // through to the walk, or closing the panel would also un-pick a film.
+  if (synOpen && (e.key === 'Escape' || e.key === 'Backspace')) {
+    e.preventDefault(); closeSyn(); return;
+  }
   if (e.key === 'Enter' && document.activeElement === $('#search')) return;
   if (e.key === 'Enter') { e.preventDefault(); synOpen ? closeSyn() : openSyn(); return; }
   if (synOpen) return; // arrows should not walk behind the overlay
