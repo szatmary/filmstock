@@ -148,7 +148,7 @@ func (w *dbWriter) begin() error {
 	w.insSlot = p(`INSERT INTO schedule_slots
 		(schedule_id,day,network,start,end,part,title,show_id,rerun,rank,rating)
 		VALUES(?,?,?,?,?,?,?,?,?,?,?)`)
-	w.insPerson = p(`INSERT INTO people(page_id,qid,name,wiki) VALUES(?,?,?,?)`)
+	w.insPerson = p(`INSERT INTO people(page_id,qid,name,wiki,image_url) VALUES(?,?,?,?,?)`)
 	w.insMovieText = p(`INSERT OR REPLACE INTO synopsis.movie_text(id,overview,plot) VALUES(?,?,?)`)
 	w.insSeriesText = p(`INSERT OR REPLACE INTO synopsis.television_text(id,overview,plot) VALUES(?,?,?)`)
 	w.insEpisodeText = p(`INSERT OR REPLACE INTO synopsis.episode_text(id,series_id,summary) VALUES(?,?,?)`)
@@ -335,7 +335,13 @@ func (w *dbWriter) putSchedule(id int64, s *filmstock.Schedule) {
 }
 
 func (w *dbWriter) putPerson(id int64, p *filmstock.PersonRecord) {
-	if _, err := w.insPerson.Exec(id, p.QID, p.Name, p.Wiki); err != nil {
+	// The biography states a bare filename; the published column is a URL,
+	// resolved through Special:FilePath exactly as film posters are.
+	imageURL := ""
+	if p.PersonBio != nil && p.Image != "" {
+		_, imageURL = filmstock.CoverImageURL(p.Image)
+	}
+	if _, err := w.insPerson.Exec(id, p.QID, p.Name, p.Wiki, imageURL); err != nil {
 		w.fail(err)
 	}
 }

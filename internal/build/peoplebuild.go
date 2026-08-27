@@ -36,7 +36,10 @@ DROP TABLE IF EXISTS people;
 DROP TABLE IF EXISTS credits;
 DROP TABLE IF EXISTS person_alias;
 DROP TABLE IF EXISTS people_fts;
-CREATE TABLE people(id INTEGER PRIMARY KEY, page_id INTEGER, qid INTEGER, name TEXT NOT NULL, wiki TEXT);
+-- image_url resolves through Special:FilePath, exactly as film posters do.
+-- 83% of biographies state a portrait filename; a credit-only person has none.
+CREATE TABLE people(id INTEGER PRIMARY KEY, page_id INTEGER, qid INTEGER,
+  name TEXT NOT NULL, wiki TEXT, image_url TEXT);
 CREATE INDEX idx_people_qid ON people(qid);
 CREATE INDEX idx_people_name ON people(name);
 CREATE TABLE credits(person_id INTEGER, work_id INTEGER, work_type TEXT, role TEXT);
