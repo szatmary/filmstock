@@ -410,10 +410,11 @@ func (w *dbWriter) finish() error {
 	      FROM credit_staging s JOIN person_alias a ON a.wiki = s.wiki`)
 	exec(`DROP TABLE credit_staging`)
 
-	for _, t := range []string{"movies_fts", "television_fts",
-		"television_episodes_fts", "events_fts", "people_fts"} {
-		exec(`INSERT INTO ` + t + `(` + t + `) VALUES('rebuild')`)
-	}
+	// The FTS tables are declared but left EMPTY, deliberately. They are
+	// derived data the consumer rebuilds in seconds (filmstock.RebuildFTS),
+	// and shipping them populated cost 181 MB on disk and nearly half the
+	// compressed download — to provide an index that goes stale on the first
+	// applied patch anyway.
 	return w.err
 }
 

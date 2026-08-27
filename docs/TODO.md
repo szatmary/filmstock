@@ -169,12 +169,19 @@ which is easy to overlook next to the films:
 
 | file | disk | zstd |
 |---|---|---|
-| filmstock.db (core + FTS + external ids + franchises) | 471 MB | 212 MB |
+| filmstock.db (core + external ids + franchises; FTS declared, EMPTY) | 315 MB | 112 MB |
 | filmstock-text.db (synopses, episode summaries) | 614 MB | ~204 MB |
 | filmstock-vectors.db (composed embeddings + meta) | 222 MB | 148 MB |
 
 ATTACHed they are one logical database; separately, nobody downloads what they
-do not want, and daily patches stay per-file. Compression of the files
+do not want, and daily patches stay per-file.
+
+FTS ships DECLARED BUT EMPTY: it is derived data, a patch only updates content
+tables so any patched consumer rebuilds anyway, and shipping it populated cost
+181 MB on disk and nearly half the compressed download to save under ten
+seconds — measured: filmstock.RebuildFTS runs all five indexes in 6.1 s. This
+reverses the earlier prebuild decision; the daily-patch flow changed the
+calculus, not the taste. Compression of the files
 themselves remains deferred per the notes above.
 
 | approach | result |
