@@ -22,6 +22,7 @@ import (
 	"math/rand/v2"
 	"net/http"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -29,13 +30,71 @@ import (
 	"github.com/szatmary/filmstock"
 )
 
+// One action in a walk. The position is built from all of them:
+//
+//	q = Σ picks − wPassed·Σ passed-over poles − wAvoid·Σ explicit avoids
+//
+// "Less like that" comes in two strengths, because the evidence differs.
+// Passing over a pole says little — only one of four could be taken — so it
+// subtracts mildly. An explicit avoid is the user saying NOT THIS, and pushes
+// hard. Both are steps, so backspace undoes them in order like anything else.
+type step struct {
+	id     int
+	avoid  bool  // an explicit "less like this"
+	passed []int // the poles offered and not taken, when this was a pick
+}
+
+const (
+	wPassed = 0.15
+	wAvoid  = 0.60
+)
+
 type walk struct {
-	stack      []int // every selection, newest last; the sum is the position
+	steps      []step
 	grid       []*cellJSON
 	cols, rows int
 
 	prevFacets map[string]int
 	prevN      int
+}
+
+// top is the last actual pick — an avoid does not move the centre.
+func (wk *walk) top() int {
+	for i := len(wk.steps) - 1; i >= 0; i-- {
+		if !wk.steps[i].avoid {
+			return wk.steps[i].id
+		}
+	}
+	return wk.steps[0].id
+}
+
+func (wk *walk) picks() []int {
+	var out []int
+	for _, st := range wk.steps {
+		if !st.avoid {
+			out = append(out, st.id)
+		}
+	}
+	return out
+}
+
+func (wk *walk) avoids() []int {
+	var out []int
+	for _, st := range wk.steps {
+		if st.avoid {
+			out = append(out, st.id)
+		}
+	}
+	return out
+}
+
+// all lists every film the walk has touched, so none is offered again.
+func (wk *walk) all() []int {
+	var out []int
+	for _, st := range wk.steps {
+		out = append(out, st.id)
+	}
+	return out
 }
 
 type explorers struct {
@@ -94,6 +153,7 @@ type viewJSON struct {
 		UpEnd    string `json:"up"`
 	} `json:"axis_names"`
 	Trail []cellJSON `json:"trail"`
+	Avoid []cellJSON `json:"avoid"`
 	Steps int        `json:"steps"`
 }
 
@@ -114,19 +174,31 @@ func (s *server) fillCell(r *http.Request, pageID int, score, x, y float32) cell
 	return c
 }
 
-// position is the sum of the stack's vectors, normalised. A taste, not a film.
-func (e *explorers) position(stack []int) ([]float32, bool) {
+// position folds every step into one point: picks pull, avoids and passed-over
+// poles push. Normalised at the end; if the pushes entirely cancel the pulls,
+// the last pick alone stands, because a position of nothing is not a taste.
+func (e *explorers) position(wk *walk) ([]float32, bool) {
 	var pos []float32
-	for _, id := range stack {
+	add := func(id int, w float32) {
 		v, ok := e.v.Vector(id)
 		if !ok {
-			continue
+			return
 		}
 		if pos == nil {
 			pos = make([]float32, len(v))
 		}
 		for i, x := range v {
-			pos[i] += x
+			pos[i] += w * x
+		}
+	}
+	for _, st := range wk.steps {
+		if st.avoid {
+			add(st.id, -wAvoid)
+			continue
+		}
+		add(st.id, 1)
+		for _, p := range st.passed {
+			add(p, -wPassed)
 		}
 	}
 	if pos == nil {
@@ -136,8 +208,12 @@ func (e *explorers) position(stack []int) ([]float32, bool) {
 	for _, x := range pos {
 		n += float64(x) * float64(x)
 	}
-	if n == 0 {
-		return nil, false
+	if n < 1e-6 {
+		v, ok := e.v.Vector(wk.top())
+		if !ok {
+			return nil, false
+		}
+		return v, true
 	}
 	f := float32(1 / math.Sqrt(n))
 	for i := range pos {
@@ -179,30 +255,47 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 		}
 		s.ex.next++
 		session = strconv.Itoa(s.ex.next)
-		wk = &walk{stack: []int{id}}
+		wk = &walk{steps: []step{{id: id}}}
 		s.ex.byID[session] = wk
 	case q.Get("pop") != "":
-		// Clicking a card in the stack unwinds to that pick: everything chosen
-		// after it comes off, and the sum reverts to what it was at that
-		// moment. Backspace is the one-step case of this.
-		if i, err := strconv.Atoi(q.Get("pop")); err == nil && i >= 0 && i < len(wk.stack)-1 {
-			wk.stack = wk.stack[:i+1]
+		// Clicking the i-th CARD unwinds to that pick. Cards are the positive
+		// picks; avoids interleave in the step list, so the deck index has to
+		// be mapped to its step first.
+		if i, err := strconv.Atoi(q.Get("pop")); err == nil && i >= 0 {
+			nth := -1
+			for si, st := range wk.steps {
+				if !st.avoid {
+					if nth++; nth == i {
+						if si < len(wk.steps)-1 {
+							wk.steps = wk.steps[:si+1]
+						}
+						break
+					}
+				}
+			}
+		}
+	case q.Get("avoid") != "":
+		// An explicit "less like this". It joins the walk as a step, so it
+		// undoes like anything else, and it pushes with wAvoid rather than
+		// merely failing to pull.
+		if id, err := strconv.Atoi(q.Get("avoid")); err == nil {
+			wk.steps = append(wk.steps, step{id: id, avoid: true})
 		}
 	case q.Get("goto") != "":
 		if id, err := strconv.Atoi(q.Get("goto")); err == nil && id != wk.top() {
-			wk.stack = append(wk.stack, id)
+			wk.steps = append(wk.steps, step{id: id, passed: passedOf(offered, id)})
 		}
 	case q.Get("move") == "back":
-		if len(wk.stack) > 1 {
-			wk.stack = wk.stack[:len(wk.stack)-1]
+		if len(wk.steps) > 1 {
+			wk.steps = wk.steps[:len(wk.steps)-1]
 		}
 	case q.Get("move") != "":
 		if next, ok := wk.neighbour(q.Get("move")); ok && next != wk.top() {
-			wk.stack = append(wk.stack, next)
+			wk.steps = append(wk.steps, step{id: next, passed: passedOf(offered, next)})
 		}
 	}
 
-	pos, ok := s.ex.position(wk.stack)
+	pos, ok := s.ex.position(wk)
 	if !ok {
 		http.Error(w, "no vectors for the selection", 404)
 		return
@@ -211,8 +304,9 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 	// be able to reach past a dense cluster. Starting on a Japanese film, the
 	// top forty candidates are all Japanese — maximally spread directions
 	// within that pool are four doors into the same room, and there is no way
-	// out. Rank ~1000 is where the next cluster over lives.
-	near := s.ex.coll.Nearest(pos, 1200, wk.stack)
+	// out. Rank ~1000 is where the next cluster over lives, and a deep cluster
+	// like classic Japanese cinema needs more still.
+	near := s.ex.coll.Nearest(pos, 3000, wk.all())
 	if len(near) < 5 {
 		http.Error(w, "nothing to explore here", 500)
 		return
@@ -246,15 +340,16 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 				attrsOf(cc, cc.genre, cc.country, cc.language), rejected)
 		}
 	}
-	out.Steps = len(wk.stack) - 1
-	for _, id := range wk.stack {
+	out.Steps = len(wk.steps) - 1
+	for _, id := range wk.picks() {
 		out.Trail = append(out.Trail, s.fillCell(r, id, 0, 0, 0))
+	}
+	for _, id := range wk.avoids() {
+		out.Avoid = append(out.Avoid, s.fillCell(r, id, 0, 0, 0))
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(out)
 }
-
-func (wk *walk) top() int { return wk.stack[len(wk.stack)-1] }
 
 // candidates lists what the four arrows currently offer: the poles.
 func (wk *walk) candidates() map[string]int {
@@ -368,5 +463,17 @@ func personNames(ps []filmstock.Person) []string {
 	for _, p := range ps {
 		out = append(out, p.Name)
 	}
+	return out
+}
+
+// passedOf lists what was offered and not taken.
+func passedOf(offered map[string]int, chose int) []int {
+	var out []int
+	for _, id := range offered {
+		if id != chose {
+			out = append(out, id)
+		}
+	}
+	sort.Ints(out)
 	return out
 }

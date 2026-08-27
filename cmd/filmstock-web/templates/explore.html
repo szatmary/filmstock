@@ -125,6 +125,7 @@
     <div class="dim" style="font-size:12px">
       <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> step to that film<br>
       <kbd>⏎</kbd> synopsis of the current film<br>
+      <kbd>shift</kbd>+<kbd>click</kbd> less like that<br>
       <kbd>⌫</kbd> back along the trail<br>
       <kbd>click</kbd> jump to any film
     </div>
@@ -192,6 +193,9 @@ async function goTo(id) {
   await load('s=' + session + '&goto=' + id);
 }
 async function move(dir) { if (session) await load('s=' + session + '&move=' + dir); }
+// Shift-click: "less like that", as a real variable — the film's vector is
+// SUBTRACTED from the position, strongly, rather than merely not added.
+async function avoid(id) { if (session) await load('s=' + session + '&avoid=' + id); }
 async function popTo(i, isTop) {
   if (isTop || !session) return;           // the top card is where you already are
   await load('s=' + session + '&pop=' + i);
@@ -273,7 +277,7 @@ function draw(v) {
     d.innerHTML =
       (cell.poster ? '<img src="' + cell.poster + '" loading="lazy" alt="">' : '<img alt="">') +
       '<div class="t">' + esc(cell.title) + (cell.year ? '<br>' + cell.year : '') + '</div>';
-    d.onclick = () => goTo(cell.page_id);
+    d.onclick = (ev) => ev.shiftKey ? avoid(cell.page_id) : goTo(cell.page_id);
     g.appendChild(d);
   }
 
@@ -294,6 +298,10 @@ function draw(v) {
     line('region gained', st.gained, 'var(--fg)') +
     line('region lost', st.lost, 'var(--dim)');
 
+  const av = v.avoid || [];
+  $('#avoid').innerHTML = av.length
+    ? av.map(t => '<div style="color:#e06c75">&minus; ' + esc(t.title) + '</div>').join('')
+    : '— (shift-click a film)';
   $('#trail').innerHTML = (v.trail || []).map(t => '<div>' + esc(t.title) + '</div>').join('');
   $('#status').textContent = v.steps + ' step' + (v.steps === 1 ? '' : 's');
 }
