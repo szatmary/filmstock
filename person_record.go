@@ -27,6 +27,12 @@ type PersonRecord struct {
 	Name    string `json:"name"`
 	WikiURL string `json:"wikipedia_url,omitempty"`
 
+	// Aliases are additional link targets that resolve to this same article —
+	// a renamed page leaves its old title behind as a redirect, and credits
+	// keep linking through it. Identity is the page_id, so those credits
+	// belong to this person, not to a second one.
+	Aliases []string `json:"aliases,omitempty"`
+
 	// Everything below comes from the person's OWN article, and is absent for
 	// anyone whose credit links to a page that is not a biography — a redlink,
 	// a disambiguation page, or a production company mistaken for a person.

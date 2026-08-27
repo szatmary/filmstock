@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -578,6 +579,11 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 	defer stmt.Close()
 
 	var wereWorks int
+	// Resolve every credit target first; the put happens in a second pass,
+	// because two link targets can resolve to one article — a rename leaves
+	// the old title behind as a redirect — and identity is the page_id, so
+	// those are one person, not two. The extra targets become aliases.
+	byPage := map[int][]*filmstock.PersonRecord{}
 	for _, p := range w.people {
 		// A work is not a person. Infoboxes link works into credit fields —
 		// "Saul of the Mole Men" lists itself under starring, and 60 Minutes,
@@ -598,12 +604,11 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 		var q, pid int64
 		if stmt.QueryRow(p.Wiki).Scan(&q, &pid) == nil && q > 0 {
 			p.QID = q
-			withQID++
 		}
 		// The dump is authoritative for page_id and covers articles that have no
 		// Wikidata item; wiki_qid fills in anyone whose article was not parsed as
 		// a biography (not person-shaped, a disambiguation page, a redirect).
-		if bp, ok := w.bioPage[wikitext.CanonTitle(p.Wiki)]; ok && bp > 0 {
+		if bp, ok := w.bioPage[key]; ok && bp > 0 {
 			p.PageID = bp
 		} else if pid > 0 {
 			p.PageID = int(pid)
@@ -611,9 +616,8 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 		// Join the biography read from this person's own article. A miss is
 		// ordinary and is counted, not guessed at: the credit may link to a
 		// redlink, a disambiguation page, or something that is not a person.
-		if b, ok := w.bios[wikitext.CanonTitle(p.Wiki)]; ok {
+		if b, ok := w.bios[key]; ok {
 			p.PersonBio = b
-			withBio++
 		}
 		// The display name comes from the article title, not from whichever
 		// credit was recorded first: with parsing spread across workers "first"
@@ -623,29 +627,53 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 		p.WikiURL = "https://en.wikipedia.org/wiki/" +
 			strings.ReplaceAll(url.PathEscape(p.Wiki), "%20", "_")
 		// No article means no page_id and no Q-id: nothing canonical to key on.
-		// Such a credit gets no record.
-		//
-		// It loses nothing. The record held name, wiki and a wikipedia_url —
-		// the first two are already on every work that credits the person, and
-		// the third pointed at a page that does not exist. The credit itself
-		// survives where it belongs, on the film, and the index still builds a
-		// searchable person row and their credits from there.
-		//
-		// It relinks by itself. The credit stores the link TARGET, so the day
-		// somebody writes the article a daily update brings that page in, its
-		// page_id comes straight from the dump, and the credit resolves to a
-		// real record with no rekeying and nothing to migrate.
-		//
-		// What this removes is the one identity in the database that was not
-		// canonical: a 31-bit hash of a display string, which put Issa
-		// Abdessamie and Costache Ciubotaru in the same record and would have
-		// changed the moment either article was created.
+		// Such a credit gets no record. (See the long rationale in git history:
+		// the credit survives on the work, and relinks by itself the day the
+		// article is written.)
 		if p.PageID == 0 {
 			noIdentity++
 			continue
 		}
+		byPage[p.PageID] = append(byPage[p.PageID], p)
+	}
+	pageOrder := make([]int, 0, len(byPage))
+	for pid := range byPage {
+		pageOrder = append(pageOrder, pid)
+	}
+	sort.Ints(pageOrder)
+	var merged int
+	for _, pid := range pageOrder {
+		group := byPage[pid]
+		// The record with the biography is the one whose target is the
+		// article's own title, so it wins; ties break on the smallest wiki —
+		// fixed and content-derived, like every ordering in the export.
+		sort.Slice(group, func(i, j int) bool {
+			bi, bj := group[i].PersonBio != nil, group[j].PersonBio != nil
+			if bi != bj {
+				return bi
+			}
+			return group[i].Wiki < group[j].Wiki
+		})
+		p := group[0]
+		for _, dup := range group[1:] {
+			p.Aliases = append(p.Aliases, dup.Wiki)
+			if p.QID == 0 {
+				p.QID = dup.QID
+			}
+			merged++
+		}
+		sort.Strings(p.Aliases)
+		if p.QID > 0 {
+			withQID++
+		}
+		if p.PersonBio != nil {
+			withBio++
+		}
 		w.store.put(filmstock.KindPerson, int64(p.PageID), p)
 		total++
+	}
+	if merged > 0 {
+		fmt.Fprintf(os.Stderr, "  %d link targets merged into the people they redirect to\n", merged)
 	}
 	if wereWorks > 0 {
 		fmt.Fprintf(os.Stderr, "  %d credits dropped: the link target is a film, series or event\n", wereWorks)

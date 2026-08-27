@@ -105,3 +105,9 @@ dist: $(OUT)/filmstock.db
 ## clean-out  delete the derived artifacts; keeps the dumps
 clean-out:
 	rm -rf $(OUT)
+
+## sqldiff    build the record-level differ against the vendored SQLite
+sqldiff:
+	cc -O2 -o sqldiff tools/sqldiff/sqldiff.c tools/sqldiff/sqlite3_stdio.c \
+	  -Itools/sqldiff -Iinternal/sqlite3 -DSQLITE_ENABLE_FTS5 \
+	  internal/sqlite3/sqlite3-binding.c -lm -lpthread -ldl

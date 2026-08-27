@@ -11,6 +11,42 @@ resolver cache warm; 70 min cold, the difference being the 96 GB Wikidata pass.
 
 ## Open
 
+### The diff plan — PROVEN END TO END (2026-08-27)
+
+Measured, on the real corpus, with the vendored 3.53.4 engine throughout:
+
+- Two independent full exports **sqldiff to zero bytes** (core and text).
+  This took making every synthetic id content-derived (`stableID` in
+  dbwriter.go): people.id = page_id (credit-only: hashed link target, bit 31
+  set), episode/season/slot ids = hashes of their canonical identity, credits
+  and person_alias WITHOUT ROWID on their natural keys. Before that, ids were
+  parallel-arrival-order and every export reshuffled them — content hashes
+  matched while sqldiff saw 262 MB of renumbering.
+- Full rebuild content-hashes **identical to the shipped publish/** (built
+  under modernc) — the null-op check across an engine swap.
+- Daily leg (20260819 applied to the 20260801 intermediate, mechanism trial —
+  days 02–18 have aged out of Wikimedia retention, so the canonical chain
+  restarts at the 20260901 full): export deterministic (daily-vs-daily = 0
+  bytes), patch full→daily = **534 KB core / 3.1 MB text (91 KB core zstd)**,
+  and applying the patch to a copy of the full **reproduces the daily's
+  content hashes exactly**.
+- The daily surfaced a real identity bug the stable ids turned loud: two link
+  targets resolving to one article (Christopher Münch → Christopher Munch
+  redirect after a retitle) previously became two people rows silently; now
+  flushPeople merges by page_id, keeps the extra target in
+  PersonRecord.Aliases, and person_alias joins credits from either title.
+- `make sqldiff` builds the differ from tools/sqldiff (same SQLite release as
+  the library). Trial artifacts: /var/tmp/rebuild-a (full), rebuild-19
+  (daily), trial-builds.json, patches in the session scratchpad.
+- Note for the pipeline: an export that fails mid-run leaves a torn output
+  file (journal_mode=OFF) — the file is disposable by design, but tooling
+  must treat a nonzero exit as "discard the output", never post-process it.
+
+Still to build: publisher script that emits patch + bridge + catalog per
+build, R2 upload/signing, updater's apply-patch path (verify content hash
+after apply; fall back to full download on mismatch).
+
+
 ### Daily updates cannot add people — BUILT, NOT YET PROVEN
 
 `applyBiography` only ever updated a person already in the store; the daily path

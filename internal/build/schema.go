@@ -58,10 +58,12 @@ CREATE TABLE people(id INTEGER PRIMARY KEY, page_id INTEGER, qid INTEGER,
   name TEXT NOT NULL, wiki TEXT, image_url TEXT);
 CREATE INDEX idx_people_qid ON people(qid);
 CREATE INDEX idx_people_name ON people(name);
-CREATE TABLE credits(person_id INTEGER, work_id INTEGER, work_type TEXT, role TEXT);
-CREATE INDEX idx_credits_person ON credits(person_id);
+-- WITHOUT ROWID: the natural key is the primary key, so the b-tree order is
+-- canonical and sqldiff pairs rows by content rather than by arrival order.
+CREATE TABLE credits(person_id INTEGER, work_id INTEGER, work_type TEXT, role TEXT,
+  PRIMARY KEY (person_id, work_id, work_type, role)) WITHOUT ROWID;
 CREATE INDEX idx_credits_work ON credits(work_id, work_type);
-CREATE TABLE person_alias(wiki TEXT PRIMARY KEY, person_id INTEGER);
+CREATE TABLE person_alias(wiki TEXT PRIMARY KEY, person_id INTEGER) WITHOUT ROWID;
 CREATE VIRTUAL TABLE people_fts USING fts5(name, content='people', content_rowid='id', tokenize='trigram');`
 
 const televisionSchema = `
@@ -97,7 +99,10 @@ CREATE VIRTUAL TABLE television_fts USING fts5(
 -- of most shows: they come from the series overview table on the episode-list
 -- page, and exist here only because of it.
 CREATE TABLE television_seasons(
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  -- Content-derived, not allocated: a stable hash of the row's identity, so
+  -- identical content gets identical ids in every build and record-level
+  -- diffs between builds carry changes, not renumbering.
+  id INTEGER PRIMARY KEY,
   series_id INTEGER NOT NULL, season INTEGER NOT NULL, page_id INTEGER,
   num_episodes INTEGER, first_aired TEXT, last_aired TEXT,
   network TEXT, starring TEXT, image TEXT,
@@ -105,7 +110,10 @@ CREATE TABLE television_seasons(
 );
 CREATE INDEX idx_television_seasons_series ON television_seasons(series_id, season);
 CREATE TABLE television_episodes(
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  -- Content-derived, not allocated: a stable hash of the row's identity, so
+  -- identical content gets identical ids in every build and record-level
+  -- diffs between builds carry changes, not renumbering.
+  id INTEGER PRIMARY KEY,
   series_id INTEGER, season INTEGER,
   number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT,
   viewers REAL
@@ -149,7 +157,10 @@ CREATE INDEX idx_schedules_season ON schedules(season);
 -- with no article. The title is kept either way because it is what the grid
 -- says, but only show_id may be joined on.
 CREATE TABLE schedule_slots(
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  -- Content-derived, not allocated: a stable hash of the row's identity, so
+  -- identical content gets identical ids in every build and record-level
+  -- diffs between builds carry changes, not renumbering.
+  id INTEGER PRIMARY KEY,
   schedule_id INTEGER NOT NULL,
   day TEXT NOT NULL, network TEXT NOT NULL,
   start TEXT NOT NULL, end TEXT NOT NULL,

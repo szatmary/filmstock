@@ -3,6 +3,7 @@ package build
 import (
 	"database/sql"
 	"fmt"
+	"hash/fnv"
 	"os"
 	"strings"
 	"sync"
@@ -38,6 +39,7 @@ type dbWriter struct {
 	insMovie, insSeries, insSeason, insEpisode  *sql.Stmt
 	insEvent, insSchedule, insSlot, insPerson   *sql.Stmt
 	insMovieText, insSeriesText, insEpisodeText *sql.Stmt
+	insAlias                                    *sql.Stmt
 	insCredit                                   *sql.Stmt
 
 	unchanged, updated, inserted int
@@ -140,11 +142,11 @@ func (w *dbWriter) begin() error {
 		 cover_image_url,wikipedia_url,wiki_title)
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	w.insSeason = p(`INSERT INTO television_seasons
-		(series_id,season,page_id,num_episodes,first_aired,last_aired,
-		 network,starring,image,rank,rating,viewers) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`)
+		(id,series_id,season,page_id,num_episodes,first_aired,last_aired,
+		 network,starring,image,rank,rating,viewers) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	w.insEpisode = p(`INSERT INTO television_episodes
-		(series_id,season,number_in_season,number_overall,title,air_date,viewers)
-		VALUES(?,?,?,?,?,?,?)`)
+		(id,series_id,season,number_in_season,number_overall,title,air_date,viewers)
+		VALUES(?,?,?,?,?,?,?,?)`)
 	w.insEvent = p(`INSERT OR REPLACE INTO events
 		(id,title,kind,award,edition,date,year,hosts,organizer,venue,location,network,
 		 best_film,most_wins,opening_film,closing_film,cover_image_file,wikipedia_url)
@@ -152,9 +154,10 @@ func (w *dbWriter) begin() error {
 	w.insSchedule = p(`INSERT OR REPLACE INTO schedules
 		(id,title,season,daypart,wikipedia_url) VALUES(?,?,?,?,?)`)
 	w.insSlot = p(`INSERT INTO schedule_slots
-		(schedule_id,day,network,start,end,part,title,show_id,rerun,rank,rating)
-		VALUES(?,?,?,?,?,?,?,?,?,?,?)`)
-	w.insPerson = p(`INSERT INTO people(page_id,qid,name,wiki,image_url) VALUES(?,?,?,?,?)`)
+		(id,schedule_id,day,network,start,end,part,title,show_id,rerun,rank,rating)
+		VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`)
+	w.insPerson = p(`INSERT INTO people(id,page_id,qid,name,wiki,image_url) VALUES(?,?,?,?,?,?)`)
+	w.insAlias = p(`INSERT OR IGNORE INTO person_alias(wiki,person_id) VALUES(?,?)`)
 	w.insMovieText = p(`INSERT OR REPLACE INTO synopsis.movie_text(id,overview,plot) VALUES(?,?,?)`)
 	w.insSeriesText = p(`INSERT OR REPLACE INTO synopsis.television_text(id,overview,plot) VALUES(?,?,?)`)
 	w.insEpisodeText = p(`INSERT OR REPLACE INTO synopsis.episode_text(id,series_id,summary) VALUES(?,?,?)`)
@@ -169,7 +172,7 @@ func (w *dbWriter) commit() error {
 		return nil
 	}
 	for _, s := range []*sql.Stmt{w.insMovie, w.insSeries, w.insSeason, w.insEpisode,
-		w.insEvent, w.insSchedule, w.insSlot, w.insPerson,
+		w.insEvent, w.insSchedule, w.insSlot, w.insPerson, w.insAlias,
 		w.insMovieText, w.insSeriesText, w.insEpisodeText, w.insCredit} {
 		if s != nil {
 			s.Close()
@@ -292,7 +295,8 @@ func (w *dbWriter) putSeries(id int64, s *filmstock.TelevisionSeries) {
 		w.credit(c.people, id, "television", c.role)
 	}
 	for _, se := range s.Seasons {
-		if _, err := w.insSeason.Exec(id, se.Season, se.PageID, se.NumEpisodes,
+		if _, err := w.insSeason.Exec(stableID("season", id, se.Season),
+			id, se.Season, se.PageID, se.NumEpisodes,
 			se.FirstAired, se.LastAired, se.Network, joinP(se.Starring), se.Image,
 			se.Rank, se.Rating, se.Viewers); err != nil {
 			w.fail(err)
@@ -300,16 +304,18 @@ func (w *dbWriter) putSeries(id int64, s *filmstock.TelevisionSeries) {
 		}
 		w.credit(se.Starring, id, "television", "Cast")
 		for _, e := range se.Episodes {
-			res, err := w.insEpisode.Exec(id, se.Season, e.NumberInSeason,
-				e.NumberOverall, e.Title, e.AirDate, e.Viewers)
-			if err != nil {
+			// The id survives metadata edits (air date, viewers, summary) so
+			// the episode_text row it anchors keeps pointing at the same
+			// episode across daily builds; a retitle or renumbering re-keys.
+			eid := stableID("episode", id, se.Season, e.NumberOverall,
+				e.NumberInSeason, e.Title)
+			if _, err := w.insEpisode.Exec(eid, id, se.Season, e.NumberInSeason,
+				e.NumberOverall, e.Title, e.AirDate, e.Viewers); err != nil {
 				w.fail(err)
 				return
 			}
 			if e.Summary != "" {
-				if eid, err := res.LastInsertId(); err == nil {
-					w.insEpisodeText.Exec(eid, id, e.Summary)
-				}
+				w.insEpisodeText.Exec(eid, id, e.Summary)
 			}
 			w.credit(e.DirectedBy, id, "television", "Director")
 			w.credit(e.WrittenBy, id, "television", "Writer")
@@ -338,12 +344,16 @@ func (w *dbWriter) putSchedule(id int64, s *filmstock.Schedule) {
 		w.fail(err)
 		return
 	}
-	for _, e := range s.Entries {
+	for i, e := range s.Entries {
 		rerun := 0
 		if e.Rerun {
 			rerun = 1
 		}
-		if _, err := w.insSlot.Exec(id, e.Day, e.Network, e.Start, e.End, e.Part,
+		// Keyed by position in the grid: a slot has no natural key of its own
+		// (one grid states the same programme twice), and the grid's order is
+		// part of the record, so the position is stable until the grid changes.
+		if _, err := w.insSlot.Exec(stableID("slot", id, i),
+			id, e.Day, e.Network, e.Start, e.End, e.Part,
 			e.Title, e.ShowID, rerun, e.Rank, e.Rating); err != nil {
 			w.fail(err)
 			return
@@ -358,8 +368,16 @@ func (w *dbWriter) putPerson(id int64, p *filmstock.PersonRecord) {
 	if p.PersonBio != nil && p.Image != "" {
 		imageURL = w.imageURL(p.Image, "")
 	}
-	if _, err := w.insPerson.Exec(id, p.QID, p.Name, p.Wiki, imageURL); err != nil {
-		w.fail(err)
+	if _, err := w.insPerson.Exec(id, id, p.QID, p.Name, p.Wiki, imageURL); err != nil {
+		w.fail(fmt.Errorf("person %q (page %d): %w", p.Wiki, id, err))
+		return
+	}
+	// A merged link target still joins credits to this person.
+	for _, a := range p.Aliases {
+		if _, err := w.insAlias.Exec(a, id); err != nil {
+			w.fail(fmt.Errorf("person alias %q -> %d: %w", a, id, err))
+			return
+		}
 	}
 }
 
@@ -394,14 +412,55 @@ func (w *dbWriter) finish() error {
 	// Keyed by the link target, which is what the encyclopaedia stated, and
 	// named by it too — the credit's display name varies between films while the
 	// target does not.
-	exec(`INSERT INTO people(page_id,qid,name,wiki)
-	      SELECT 0, 0, MIN(s.name), s.wiki FROM credit_staging s
-	      WHERE s.wiki NOT IN (SELECT wiki FROM people WHERE wiki <> '')
-	      GROUP BY s.wiki`)
-
-	// The alias table is what a credit joins through: link target -> person.
+	// Every person's own link target joins credits to them; merged aliases are
+	// already in place from putPerson.
 	exec(`INSERT OR IGNORE INTO person_alias(wiki,person_id)
 	      SELECT wiki, id FROM people WHERE wiki <> ''`)
+
+	// Their id is derived from the link target, the one identity they have —
+	// never allocated, so every build that states the same person agrees on
+	// the same id. Bit 31 is forced on to keep the range disjoint from real
+	// page_ids.
+	if w.err == nil {
+		rows, err := w.db.Query(`SELECT s.wiki, MIN(s.name) FROM credit_staging s
+		      WHERE s.wiki NOT IN (SELECT wiki FROM person_alias)
+		      GROUP BY s.wiki ORDER BY s.wiki`)
+		if err != nil {
+			w.err = err
+		} else {
+			type cp struct{ wiki, name string }
+			var pending []cp
+			for rows.Next() {
+				var c cp
+				if err := rows.Scan(&c.wiki, &c.name); err != nil {
+					w.err = err
+					break
+				}
+				pending = append(pending, c)
+			}
+			rows.Close()
+			if err := rows.Err(); err != nil && w.err == nil {
+				w.err = err
+			}
+			for _, c := range pending {
+				if w.err != nil {
+					break
+				}
+				pid := stableID("person", c.wiki) | (1 << 31)
+				if _, err := w.db.Exec(
+					`INSERT INTO people(id,page_id,qid,name,wiki) VALUES(?,0,0,?,?)`,
+					pid, c.name, c.wiki); err != nil {
+					w.err = fmt.Errorf("credit-only person %q: %w", c.wiki, err)
+					continue
+				}
+				if _, err := w.db.Exec(
+					`INSERT OR IGNORE INTO person_alias(wiki,person_id) VALUES(?,?)`,
+					c.wiki, pid); err != nil {
+					w.err = fmt.Errorf("credit-only alias %q: %w", c.wiki, err)
+				}
+			}
+		}
+	}
 
 	// DISTINCT because one person can be stated twice in the same role on the
 	// same work — two starring parameters, a season cast repeating the series
@@ -426,4 +485,22 @@ func (w *dbWriter) Close() error {
 		err = cerr
 	}
 	return err
+}
+
+// stableID derives a row id from the row's identity, so identical content
+// carries identical ids in every build — the property that lets record-level
+// diffs between builds carry changes instead of renumbering. FNV-1a 64,
+// masked positive below 2^62; the id is part of the published format and the
+// recipe must never change. A hash collision violates a PRIMARY KEY and
+// fails the export loudly rather than merging two rows.
+func stableID(parts ...any) int64 {
+	h := fnv.New64a()
+	for _, p := range parts {
+		fmt.Fprintf(h, "%v\x1f", p)
+	}
+	v := int64(h.Sum64() & (1<<62 - 1))
+	if v == 0 {
+		v = 1
+	}
+	return v
 }
