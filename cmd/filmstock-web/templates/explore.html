@@ -276,7 +276,10 @@ function draw(v) {
     d.style.opacity = cell.centre ? 1 : 0.5 + 0.5 * Math.max(0, Math.min(1, cell.score));
     d.innerHTML =
       (cell.poster ? '<img src="' + cell.poster + '" loading="lazy" alt="">' : '<img alt="">') +
-      '<div class="t">' + esc(cell.title) + (cell.year ? '<br>' + cell.year : '') + '</div>';
+      '<div class="t">' + esc(cell.title) + '<br>' +
+        (cell.year || '') +
+        (cell.lang && cell.lang !== 'English'
+          ? (cell.year ? ' · ' : '') + esc(cell.lang.split(' · ')[0]) : '') + '</div>';
     d.onclick = (ev) => ev.shiftKey ? avoid(cell.page_id) : goTo(cell.page_id);
     g.appendChild(d);
   }
@@ -330,7 +333,7 @@ async function openSyn() {
   const d = await r.json();
   $('#synimg').src = d.poster || '';
   $('#syntitle').textContent = d.title + (d.year ? ' (' + d.year + ')' : '');
-  $('#synmeta').textContent = [d.genre, d.director && 'dir. ' + d.director, d.runtime]
+  $('#synmeta').textContent = [d.genre, d.language, d.director && 'dir. ' + d.director, d.runtime]
       .filter(Boolean).join('  ·  ');
   $('#synov').textContent = d.overview || (d.plot ? '' : 'No synopsis in the record.');
   const hasPlot = !!d.plot;

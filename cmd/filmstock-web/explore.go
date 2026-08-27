@@ -128,6 +128,7 @@ type cellJSON struct {
 	X      float32 `json:"x"`
 	Y      float32 `json:"y"`
 	Centre bool    `json:"centre,omitempty"`
+	Lang   string  `json:"lang,omitempty"`
 	Pole   string  `json:"pole,omitempty"` // left/right/up/down when an arrow target
 
 	genre, country, language string
@@ -167,6 +168,7 @@ func (s *server) fillCell(r *http.Request, pageID int, score, x, y float32) cell
 		c.genre = strings.Join(m.Genre, " · ")
 		c.country = strings.Join(filmstock.Names(m.Country), " · ")
 		c.language = strings.Join(filmstock.Names(m.Language), " · ")
+		c.Lang = c.language
 	}
 	if c.Title == "" {
 		c.Title = fmt.Sprintf("#%d", pageID)
@@ -451,6 +453,7 @@ func (s *server) handleAPISynopsis(w http.ResponseWriter, r *http.Request) {
 		"director": strings.Join(personNames(m.Director), " · "),
 		"starring": strings.Join(personNames(m.Starring), " · "),
 		"runtime":  m.Runtime,
+		"language": strings.Join(filmstock.Names(m.Language), " · "),
 		"overview": m.Overview,
 		"plot":     m.Plot,
 		"poster":   m.CoverImageURL,
