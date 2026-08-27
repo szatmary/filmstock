@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -25,7 +26,7 @@ func TestReconstructOneNight(t *testing.T) {
 	if _, err := os.Stat(cache); err != nil {
 		t.Skip("no resolver cache")
 	}
-	rdb, err := sql.Open("sqlite", cache)
+	rdb, err := sql.Open(sqldrv.Name, cache)
 	if err != nil {
 		t.Skip(err)
 	}
@@ -41,7 +42,7 @@ func TestReconstructOneNight(t *testing.T) {
 		return id
 	})
 
-	idx, err := sql.Open("sqlite", "/var/tmp/gapcheck.db")
+	idx, err := sql.Open(sqldrv.Name, "/var/tmp/gapcheck.db")
 	if err != nil {
 		t.Skip(err)
 	}

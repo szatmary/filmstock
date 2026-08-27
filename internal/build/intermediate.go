@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // The intermediate store: everything the dump said, before anything decides what
@@ -107,6 +108,26 @@ func (in *Inter) rd() interface {
 	return in.db
 }
 
+// SetMeta records one key in the store's meta table.
+func (in *Inter) SetMeta(key, value string) error {
+	if in.tx != nil {
+		_, err := in.tx.Exec(`INSERT OR REPLACE INTO meta VALUES(?,?)`, key, value)
+		return err
+	}
+	_, err := in.db.Exec(`INSERT OR REPLACE INTO meta VALUES(?,?)`, key, value)
+	return err
+}
+
+// Meta reads one key from the store's meta table; missing keys return "".
+func (in *Inter) Meta(key string) (string, error) {
+	var v string
+	err := in.rd().QueryRow(`SELECT value FROM meta WHERE key=?`, key).Scan(&v)
+	if err == sql.ErrNoRows {
+		return "", nil
+	}
+	return v, err
+}
+
 // OpenInter opens or creates an intermediate store.
 func OpenInter(path string) (*Inter, error) {
 	if dir := filepath.Dir(path); dir != "" {
@@ -114,7 +135,7 @@ func OpenInter(path string) (*Inter, error) {
 			return nil, err
 		}
 	}
-	db, err := sql.Open("sqlite", path)
+	db, err := sql.Open(sqldrv.Name, path)
 	if err != nil {
 		return nil, fmt.Errorf("intermediate %s: %w", path, err)
 	}

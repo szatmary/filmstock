@@ -6,8 +6,6 @@ import (
 	"regexp"
 	"sort"
 	"strings"
-
-	_ "modernc.org/sqlite"
 )
 
 // SearchResult is one ranked hit, shared by the CLI and the web server.

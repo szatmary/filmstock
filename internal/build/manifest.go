@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // The release manifest: what a consumer fetches first.
@@ -124,7 +125,7 @@ func CmdManifest(args []string) {
 }
 
 func contentHashOf(path string) (string, map[string]string, error) {
-	h, err := sql.Open("sqlite", "file:"+path+"?mode=ro")
+	h, err := sql.Open(sqldrv.Name, "file:"+path+"?mode=ro")
 	if err != nil {
 		return "", nil, err
 	}

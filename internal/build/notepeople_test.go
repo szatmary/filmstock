@@ -64,7 +64,7 @@ func TestEveryPersonFieldIsNoted(t *testing.T) {
 			}
 			w := &recordWriter{
 				people: map[string]*filmstock.PersonRecord{},
-				store:  newStoreWriter(t.TempDir()),
+				store:  newMemSink(),
 			}
 			tc.note(w, rec)
 			if got := len(w.people); got != want {

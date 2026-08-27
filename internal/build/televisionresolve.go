@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	_ "modernc.org/sqlite"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // loadSeasonOf builds "episode-source page_id -> series page_id" from Wikidata's
@@ -29,7 +29,7 @@ func loadSeasonOf(dbPath string) (map[int]int, error) {
 		return nil, fmt.Errorf("television: -wikidata is required; it supplies the " +
 			"season->series edge, which cannot be derived from titles")
 	}
-	db, err := sql.Open("sqlite", dbPath)
+	db, err := sql.Open(sqldrv.Name, dbPath)
 	if err != nil {
 		return nil, err
 	}

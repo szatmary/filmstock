@@ -11,7 +11,6 @@ import (
 	"regexp"
 	"sort"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/szatmary/filmstock"
@@ -42,7 +41,8 @@ var incrDayRe = regexp.MustCompile(`href="(\d{8})/"`)
 // will run every day forever, so that is the job that gets run.
 func CmdCatchup(args []string) {
 	fs := flag.NewFlagSet("catchup", flag.ExitOnError)
-	records := fs.String("records", "filmstock-data", "record store to update in place")
+	dbOut := fs.String("db", "", "SQLite database to publish each day")
+	textOut := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	cache := fs.String("cache", defaultCachePath(), "Wikidata resolver cache")
 	dumps := fs.String("dumps", "dump/incr", "where to keep downloaded dailies")
 	full := fs.String("full-dumps", "dump", "directory holding the full dump set")
@@ -50,16 +50,18 @@ func CmdCatchup(args []string) {
 	workers := fs.Int("workers", 18, "parallel workers")
 	from := fs.String("from", "", "first day to apply (YYYYMMDD); default is the day after the store's last")
 	maxDays := fs.Int("max", 0, "stop after this many days (0 = all available)")
-	commit := fs.Bool("commit", true, "commit each day to the record store's repository")
 	keep := fs.Bool("keep", false, "keep the downloaded dumps instead of deleting each after use")
 	dry := fs.Bool("dry-run", false, "list what would be applied and stop")
 	fs.Parse(args)
 
+	if *dbOut == "" {
+		fatal(fmt.Errorf("catchup needs -db FILE"))
+	}
 	last := *from
 	if last == "" {
-		d, err := lastAppliedDay(*records)
+		d, err := lastAppliedDay(*inter)
 		if err != nil {
-			fatal(fmt.Errorf("cannot tell what the store already has: %w\n"+
+			fatal(fmt.Errorf("cannot tell what the intermediate already has: %w\n"+
 				"pass -from YYYYMMDD to say explicitly", err))
 		}
 		last = nextDay(d)
@@ -113,11 +115,9 @@ func CmdCatchup(args []string) {
 			// hole that nothing downstream would ever detect.
 			fatal(fmt.Errorf("%s: %w\nstopping; the store is consistent through the previous day", d, err))
 		}
-		cargs := []string{"-incr", path, "-records", *records, "-cache", *cache,
-			"-inter", *inter, "-dumps", *full, "-workers", strconv.Itoa(*workers)}
-		if *commit {
-			cargs = append(cargs, "-commit")
-		}
+		cargs := []string{"-incr", path, "-db", *dbOut, "-text-db", *textOut,
+			"-cache", *cache, "-inter", *inter, "-dumps", *full,
+			"-workers", strconv.Itoa(*workers)}
 		CmdUpdate(cargs)
 		if !*keep {
 			os.Remove(path)
@@ -126,20 +126,38 @@ func CmdCatchup(args []string) {
 	fmt.Fprintf(os.Stderr, "\ncaught up: %d day(s) in %.1f min\n", len(todo), time.Since(start).Minutes())
 }
 
-// lastAppliedDay reads the most recent day out of the store repository's log,
-// which is where `update -commit` records it.
-func lastAppliedDay(records string) (string, error) {
-	out, err := git(records, "log", "--format=%s", "-40")
+// lastAppliedDay reads how far the intermediate has advanced: the last
+// adds-changes day importIncr stamped, or failing that the day of the full
+// dump it was imported from. Before the record store was retired this came
+// from the store repository's git log.
+func lastAppliedDay(interPath string) (string, error) {
+	in, err := OpenInter(interPath)
 	if err != nil {
 		return "", err
 	}
-	re := regexp.MustCompile(`\b(20\d{6})\b`)
-	for _, line := range strings.Split(out, "\n") {
-		if m := re.FindStringSubmatch(line); m != nil {
-			return m[1], nil
-		}
+	defer in.Close()
+	if day, err := in.Meta("incr_through"); err != nil {
+		return "", err
+	} else if day != "" {
+		return day, nil
 	}
-	return "", fmt.Errorf("no commit in %s names a dump date", records)
+	src, err := in.Meta("source")
+	if err != nil {
+		return "", err
+	}
+	if day := dayFromDumpName(src); day != "" {
+		return day, nil
+	}
+	return "", fmt.Errorf("%s states no incr_through and its source %q names no date", interPath, src)
+}
+
+// dayFromDumpName pulls the YYYYMMDD out of a dump filename
+// (enwiki-20260801-… or a daily 20260815/enwiki-….xml.bz2 path).
+func dayFromDumpName(path string) string {
+	if m := regexp.MustCompile(`\b(20\d{6})\b`).FindStringSubmatch(path); m != nil {
+		return m[1]
+	}
+	return ""
 }
 
 func availableDays() ([]string, error) {

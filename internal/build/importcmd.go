@@ -401,6 +401,13 @@ func importIncr(path, interPath string, workers int, keepText bool) {
 	if err := in.Flush(); err != nil {
 		fatal(err)
 	}
+	// Record how far the intermediate has advanced. catchup reads this to know
+	// which day comes next; before it, that lived in the record store's git log.
+	if day := dayFromDumpName(path); day != "" {
+		if err := in.SetMeta("incr_through", day); err != nil {
+			fatal(err)
+		}
+	}
 	fmt.Fprintf(os.Stderr, "applied %s in %.1fs\n", path, time.Since(start).Seconds())
 	fmt.Fprintf(os.Stderr, "  pages=%d (ns0=%d) claims written=%d, stopped qualifying=%d\n",
 		pages, ns0, claimed, dropped)

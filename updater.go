@@ -14,6 +14,8 @@ import (
 	"strings"
 	"sync/atomic"
 	"time"
+
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // Keeping a running consumer current.
@@ -157,7 +159,7 @@ func (u *Updater) Update(ctx context.Context) (corePath, build string, changed b
 	}
 
 	core := filepath.Join(dir, "filmstock.db")
-	h, err := sql.Open("sqlite", core)
+	h, err := sql.Open(sqldrv.Name, core)
 	if err != nil {
 		return "", "", false, err
 	}
@@ -193,12 +195,12 @@ func (u *Updater) Update(ctx context.Context) (corePath, build string, changed b
 // UpdateAndSwap runs Update and, when a new build arrived, opens it and swaps
 // it into live. The PREVIOUS *DB is returned still open: in-flight queries on
 // it finish undisturbed, and the caller closes it once quiesced.
-func (u *Updater) UpdateAndSwap(ctx context.Context, live *Live, src RecordSource) (old *DB, changed bool, err error) {
+func (u *Updater) UpdateAndSwap(ctx context.Context, live *Live) (old *DB, changed bool, err error) {
 	core, _, changed, err := u.Update(ctx)
 	if err != nil || !changed {
 		return nil, false, err
 	}
-	db, err := Open(core, src)
+	db, err := Open(core)
 	if err != nil {
 		return nil, false, err
 	}
@@ -208,7 +210,7 @@ func (u *Updater) UpdateAndSwap(ctx context.Context, live *Live, src RecordSourc
 // Watch checks on an interval until the context ends, swapping updates in as
 // they appear. Old handles are closed after a grace period, long enough for
 // any in-flight query to have finished or given up.
-func (u *Updater) Watch(ctx context.Context, every time.Duration, live *Live, src RecordSource, onErr func(error)) {
+func (u *Updater) Watch(ctx context.Context, every time.Duration, live *Live, onErr func(error)) {
 	t := time.NewTicker(every)
 	defer t.Stop()
 	for {
@@ -216,7 +218,7 @@ func (u *Updater) Watch(ctx context.Context, every time.Duration, live *Live, sr
 		case <-ctx.Done():
 			return
 		case <-t.C:
-			old, changed, err := u.UpdateAndSwap(ctx, live, src)
+			old, changed, err := u.UpdateAndSwap(ctx, live)
 			if err != nil && onErr != nil {
 				onErr(err)
 			}

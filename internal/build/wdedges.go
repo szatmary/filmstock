@@ -16,7 +16,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	_ "modernc.org/sqlite"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // Relations extracted from the Wikidata entity dump. Both are *stated* edges
@@ -163,7 +163,7 @@ func CBuildWDEdges(args []string) {
 func buildWDEdges(in io.Reader, dbPathS string, workersN, everyN int) error {
 	dbPath, workers, every := &dbPathS, &workersN, &everyN
 
-	db, err := sql.Open("sqlite", *dbPath)
+	db, err := sql.Open(sqldrv.Name, *dbPath)
 	if err != nil {
 		return err
 	}

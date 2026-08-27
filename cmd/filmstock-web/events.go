@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -27,8 +28,8 @@ func (s *server) handleEventPage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad id", 400)
 		return
 	}
-	e, err := s.fs.Event(r.Context(), id)
-	if errors.Is(err, filmstock.ErrNotFound) {
+	e, err := s.eventView(r.Context(), id)
+	if errors.Is(err, sql.ErrNoRows) {
 		http.Error(w, "event not found", http.StatusNotFound)
 		return
 	}

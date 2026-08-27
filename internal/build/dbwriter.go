@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // A dbWriter takes finished records straight into the published database.
@@ -66,7 +67,7 @@ func newDBWriter(dbPath, textPath string) (*dbWriter, error) {
 	if err := os.Remove(textPath); err != nil && !os.IsNotExist(err) {
 		return nil, err
 	}
-	db, err := sql.Open("sqlite", dbPath)
+	db, err := sql.Open(sqldrv.Name, dbPath)
 	if err != nil {
 		return nil, err
 	}

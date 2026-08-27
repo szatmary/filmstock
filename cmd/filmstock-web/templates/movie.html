@@ -34,27 +34,24 @@ pre{background:#12151b;border:1px solid #222834;border-radius:10px;padding:14px;
 <div class="wrap">
 <a class="back" href="/">← search</a>
 <div class="hero">
-  {{with poster .CoverImageFile 600}}<img class="poster" src="{{.}}" alt="poster">{{end}}
+  {{with .CoverImageURL}}<img class="poster" src="{{.}}" alt="poster">{{end}}
   <div class="info">
-    <h1>{{title .Title}} {{with year .}}<span class="year">({{.}})</span>{{end}}</h1>
+    <h1>{{title .Title}} {{if .Year}}<span class="year">({{.Year}})</span>{{end}}</h1>
     <dl>
-      {{if .ReleaseDates}}<dt>Released</dt><dd>{{range $i,$d := .ReleaseDates}}{{if $i}}, {{end}}{{$d}}{{end}}</dd>{{end}}
-      {{if .Director}}<dt>Director</dt><dd>{{people .Director}}</dd>{{end}}
-      {{if .Writer}}<dt>Writer</dt><dd>{{people .Writer}}</dd>{{end}}
-      {{if .Producer}}<dt>Producer</dt><dd>{{people .Producer}}</dd>{{end}}
-      {{if .Music}}<dt>Music</dt><dd>{{people .Music}}</dd>{{end}}
-      {{if .Cinematography}}<dt>Cinematography</dt><dd>{{people .Cinematography}}</dd>{{end}}
-      {{if .Editing}}<dt>Editing</dt><dd>{{people .Editing}}</dd>{{end}}
-      {{if .ProductionCompanies}}<dt>Studio</dt><dd>{{join .ProductionCompanies}}</dd>{{end}}
-      {{if .Distributor}}<dt>Distributor</dt><dd>{{join .Distributor}}</dd>{{end}}
+      {{if .ReleaseDate}}<dt>Released</dt><dd>{{.ReleaseDate}}</dd>{{end}}
+      {{if .Director}}<dt>Director</dt><dd>{{.Director}}</dd>{{end}}
+      {{if .Writer}}<dt>Writer</dt><dd>{{.Writer}}</dd>{{end}}
+      {{if .Producer}}<dt>Producer</dt><dd>{{.Producer}}</dd>{{end}}
+      {{if .Music}}<dt>Music</dt><dd>{{.Music}}</dd>{{end}}
+      {{if .Distributor}}<dt>Distributor</dt><dd>{{.Distributor}}</dd>{{end}}
       {{if .Runtime}}<dt>Runtime</dt><dd>{{.Runtime}}</dd>{{end}}
-      {{if .Country}}<dt>Country</dt><dd>{{join .Country}}</dd>{{end}}
-      {{if .Language}}<dt>Language</dt><dd>{{join .Language}}</dd>{{end}}
+      {{if .Country}}<dt>Country</dt><dd>{{.Country}}</dd>{{end}}
+      {{if .Language}}<dt>Language</dt><dd>{{.Language}}</dd>{{end}}
       {{if .Budget}}<dt>Budget</dt><dd>{{.Budget}}</dd>{{end}}
       {{if .Gross}}<dt>Box office</dt><dd>{{.Gross}}</dd>{{end}}
     </dl>
     {{if .Starring}}<dt style="color:#8a90a0;font-size:14px">Starring</dt>
-    <div class="chips">{{range .Starring}}<a class="chip" href="{{phref .}}">{{.Name}}</a>{{end}}</div>{{end}}
+    <div class="chips">{{range .Starring}}<a class="chip" href="{{namehref .}}">{{.}}</a>{{end}}</div>{{end}}
     <div><a class="wl" href="{{.WikiURL}}" target="_blank" rel="noopener">View on Wikipedia →</a></div>
   </div>
 </div>

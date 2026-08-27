@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	_ "modernc.org/sqlite" // pure Go: importers of this package need no cgo
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // ErrNotFound is returned when an id is not in the database. It is a distinct
@@ -20,22 +20,18 @@ var ErrNotFound = errors.New("filmstock: not found")
 //
 // The division of labour is the whole design: every search, ranking and count
 // below is answered from index.db alone and touches no network. Only the
-// single-record accessors (Film, Series, Event) go to the RecordSource. That is
-// what lets a consumer take a 161 MB database and still reach 620k full records.
+// below is answered from the database alone and touches no network.
 type DB struct {
 	sql *sql.DB
-	src RecordSource
 }
 
-// Open opens a search database. src may be nil if the caller only searches;
-// the record accessors then return an error explaining what is missing rather
-// than panicking.
+// Open opens a search database.
 //
-//	db, err := filmstock.Open("index.db", filmstock.Dir("out"))
-func Open(path string, src RecordSource) (*DB, error) {
+//	db, err := filmstock.Open("filmstock.db")
+func Open(path string) (*DB, error) {
 	// Read-only: nothing in this package writes, and saying so lets several
 	// readers share one file without fighting over the write lock.
-	h, err := sql.Open("sqlite", "file:"+path+"?mode=ro")
+	h, err := sql.Open(sqldrv.Name, "file:"+path+"?mode=ro")
 	if err != nil {
 		return nil, err
 	}
@@ -43,11 +39,11 @@ func Open(path string, src RecordSource) (*DB, error) {
 		h.Close()
 		return nil, fmt.Errorf("filmstock: open %s: %w", path, err)
 	}
-	return &DB{sql: h, src: src}, nil
+	return &DB{sql: h}, nil
 }
 
 // FromSQL wraps an already-open handle, for callers who manage their own pool.
-func FromSQL(h *sql.DB, src RecordSource) *DB { return &DB{sql: h, src: src} }
+func FromSQL(h *sql.DB) *DB { return &DB{sql: h} }
 
 // SQL exposes the underlying handle. Everything this package does is a plain
 // query against a documented schema, so dropping to SQL is expected rather than
@@ -90,78 +86,6 @@ func (db *DB) Filmography(personID int) (*Filmography, error) {
 // is unknown — names are not identities here, so a miss is ordinary.
 func (db *DB) PersonID(name string) int { return PersonIDByName(db.sql, name) }
 
-// ── records: one fetch each ────────────────────────────────────────────────
-
-// Film returns the full film record: everything in the database plus what only
-// the record holds — plot, overview, genre, cinematography, editing, production
-// companies, release dates, and the unparsed infobox.
-func (db *DB) Film(ctx context.Context, id int) (*Movie, error) {
-	var m Movie
-	if err := db.fetch(ctx, KindMovie, id, &m); err != nil {
-		return nil, err
-	}
-	return &m, nil
-}
-
-// Series returns the full series record, including every season and episode
-// with its summary, director and writer. Episode summaries live here and not in
-// the database on purpose: they are 150 MB of text that nothing searches.
-func (db *DB) Series(ctx context.Context, id int) (*TelevisionSeries, error) {
-	var s TelevisionSeries
-	if err := db.fetch(ctx, KindTelevision, id, &s); err != nil {
-		return nil, err
-	}
-	return &s, nil
-}
-
-// Event returns the full award-ceremony or festival record.
-func (db *DB) Event(ctx context.Context, id int) (*Event, error) {
-	var e Event
-	if err := db.fetch(ctx, KindEvent, id, &e); err != nil {
-		return nil, err
-	}
-	return &e, nil
-}
-
-// locate reads where a record lives, from the index.
-func (db *DB) locate(ctx context.Context, kind string, id int) (Location, error) {
-	var table string
-	switch kind {
-	case KindMovie:
-		table = "movies"
-	case KindTelevision:
-		table = "television_series"
-	case KindEvent:
-		table = "events"
-	default:
-		return Location{}, fmt.Errorf("filmstock: no records of kind %q", kind)
-	}
-	loc := Location{Kind: kind, ID: id}
-	var one int
-	err := db.sql.QueryRowContext(ctx,
-		`SELECT 1 FROM `+table+` WHERE id = ?`, id).Scan(&one)
-	if err == sql.ErrNoRows {
-		return Location{}, fmt.Errorf("no %s with id %d: %w", kind, id, ErrNotFound)
-	}
-	return loc, err
-}
-
-func (db *DB) fetch(ctx context.Context, kind string, id int, v any) error {
-	if db.src == nil {
-		return fmt.Errorf("filmstock: no RecordSource configured; " +
-			"pass filmstock.Dir(root) to Open")
-	}
-	loc, err := db.locate(ctx, kind, id)
-	if err != nil {
-		return err
-	}
-	b, err := db.src.Fetch(ctx, loc)
-	if err != nil {
-		return err
-	}
-	return decodeRecord(b, v)
-}
-
 // Person returns the full record for a person: their identity, and — when their
 // credit links to an article that is actually a biography — birth and death,
 // occupation, nationality and the lead of their article.
@@ -183,24 +107,5 @@ func (db *DB) Person(ctx context.Context, id int) (*PersonRecord, error) {
 		return nil, err
 	}
 	rec := &PersonRecord{PageID: int(pageID.Int64), QID: qid.Int64, Wiki: wiki, Name: name}
-	if db.src == nil {
-		return rec, nil
-	}
-	// A person's identity is their article's page_id — the same key every other
-	// kind of record uses, with no exception. A credit whose link target has no
-	// article has no page_id, and so no record: the credit stands on the work
-	// that states it, and gains a record by itself the day somebody writes the
-	// article.
-	if pageID.Int64 == 0 {
-		return rec, nil
-	}
-	b, err := db.src.Fetch(ctx, Location{Kind: KindPerson, ID: int(pageID.Int64)})
-	if err != nil {
-		return rec, nil // no record on disk is not an error; the identity stands
-	}
-	var full PersonRecord
-	if err := decodeRecord(b, &full); err != nil {
-		return rec, nil
-	}
-	return &full, nil
+	return rec, nil
 }

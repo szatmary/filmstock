@@ -145,6 +145,17 @@ to decide what went stale, and a missing edge there is a silently stale record.
 Decided: ship a plain SQLite file. Revisit compression once the pipeline is
 producing it daily and we know whether at-rest size is a real constraint.
 
+**2026-08-27 experiment.** mlin/sqlite_zstd_vfs (open source, read/write
+page-compression VFS, zstd — the only credible open-source option; the zlib
+one is paid ZIPVFS) builds cleanly on this box, no libcurl needed on Linux:
+`VACUUM INTO 'file:x?vfs=zstd&level=6&outer_unsafe=true'` took the 331 MB core
+to **184 MB in 7.3 s** (whole-file zstd gets 112 MB — the ~65% gap is the
+price of random access). Statically compiling it into the Go build is the
+blocker: it is C++ on SQLiteCpp in loadable-extension mode, so static linking
+means patching to SQLITE_CORE and vendoring SQLiteCpp + readerwriterqueue +
+libzstd. Decision: not now. The vendored-driver groundwork (internal/sqlite3)
+is exactly where it would land if reopened.
+
 Everything below is measured, so the decision can be reopened without redoing
 the work.
 
@@ -500,10 +511,17 @@ embeddings, ColBERT late interaction, quantisation, reranking, fusion, and the
 eval harness that scored them — lives on the **ai-experiments** branch, together
 with the measurements that settled which of them were worth keeping.
 
-## A. Record storage (gitdb)
+## A. Record storage (gitdb) — REMOVED 2026-08-27
 
-Records are stored in gitdb stores, one per kind, so adding or changing a record
-is a one-line diff in git. See github.com/szatmary/gitdb. Done and measured:
+The record store, dict/ dictionaries, sync, compact/recompress/train-dict,
+split/join, diff-stores and the store-fed index builders are deleted: the
+parser writes SQL only (dbwriter is the one sink), the web UI reads SQL only,
+and daily state tracking moved to the intermediate's meta table
+(`incr_through`, else the full dump's date in `source`). What it was, for the
+record:
+
+Records were stored in gitdb stores, one per kind, so adding or changing a
+record was a one-line diff in git. See github.com/szatmary/gitdb. Measured:
 
   450,701 records   376 MB working tree   361.53 MiB packed   117 files
   extract+index 43.1 min, was 83.7 — the parse runs at 11,741 pages/s against

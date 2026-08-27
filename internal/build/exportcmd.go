@@ -34,12 +34,9 @@ func CmdExport(args []string) {
 	inter := fs.String("inter", defaultInterPath(), "intermediate store to read")
 	dumps := fs.String("dumps", "dump", "directory holding the dumps (for the wikidata cache)")
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
-	outDir := fs.String("out", "", "record tree to write (the gitdb form)")
-	dbOut := fs.String("db", "", "publish straight to this SQLite database instead")
+	dbOut := fs.String("db", "", "SQLite database to publish")
 	textOut := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
-	textDir := fs.String("text", "", "corpus directory (default: alongside the records)")
 	workers := fs.Int("workers", 18, "parallel workers")
-	skipText := fs.Bool("no-text", false, "skip the plain-text corpus")
 	limit := fs.Int("limit", 0, "stop after this many films (0 = all)")
 	fs.Parse(args)
 
@@ -72,21 +69,14 @@ func CmdExport(args []string) {
 		fmt.Fprintf(os.Stderr, "  imported from %s\n", src)
 	}
 
-	if *outDir == "" && *dbOut == "" {
-		fatal(fmt.Errorf("export needs -db FILE (a database) or -out DIR (a record tree)"))
+	if *dbOut == "" {
+		fatal(fmt.Errorf("export needs -db FILE"))
 	}
-	if *textDir == "" {
-		*textDir = *outDir
+	if *textOut == "" {
+		*textOut = defaultTextPath(*dbOut)
 	}
 	start := time.Now()
-	if *dbOut != "" {
-		if *textOut == "" {
-			*textOut = defaultTextPath(*dbOut)
-		}
-		if err := runExportDB(in, d, *dbOut, *textOut, *workers, *limit); err != nil {
-			fatal(err)
-		}
-	} else if err := runExport(in, d, *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
+	if err := runExportDB(in, d, *dbOut, *textOut, *workers, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "export complete in %.1f min\n", time.Since(start).Minutes())
@@ -102,6 +92,12 @@ func runExportDB(in *Inter, d *dumpSet, dbPath, textPath string, workers, limit 
 	if n == 0 {
 		return fmt.Errorf("export: %s holds no pages — run `filmstock import` first", in.path)
 	}
+	return runExportTo(d, interSource(in, n, workers), dbPath, textPath, workers, limit)
+}
+
+// runExportTo runs the record builders from any page source straight into the
+// database. Extract (dump source) and export (intermediate source) meet here.
+func runExportTo(d *dumpSet, src pageSource, dbPath, textPath string, workers, limit int) error {
 	w, err := newDBWriter(dbPath, textPath)
 	if err != nil {
 		return err
@@ -114,25 +110,11 @@ func runExportDB(in *Inter, d *dumpSet, dbPath, textPath string, workers, limit 
 		fmt.Fprintf(os.Stderr, "  %d local files known; image URLs go straight to the CDN\n",
 			len(w.localImages))
 	}
-	if err := extractRecordsTo(w, d, interSource(in, n, workers), workers, limit); err != nil {
+	if err := extractRecordsTo(w, d, src, workers, limit); err != nil {
 		w.Close()
 		return err
 	}
 	return w.Close()
-}
-
-// runExport rebuilds the record tree from the intermediate. Shared with the
-// daily update, which is the same operation after a day has been applied — one
-// implementation, so a day's records are the records a full export produces.
-func runExport(in *Inter, d *dumpSet, outDir, textDir string, workers int, wantText bool, limit int) error {
-	n, err := in.Pages()
-	if err != nil {
-		return err
-	}
-	if n == 0 {
-		return fmt.Errorf("export: %s holds no pages — run `filmstock import` first", in.path)
-	}
-	return extractRecords(d, interSource(in, n, workers), outDir, textDir, workers, wantText, limit)
 }
 
 // interSource replays the intermediate's pages, parsing them across workers.

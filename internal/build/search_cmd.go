@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 func CSearch(args []string) {
@@ -23,7 +24,7 @@ func CSearch(args []string) {
 		os.Exit(2)
 	}
 
-	db, err := sql.Open("sqlite", *dbPath)
+	db, err := sql.Open(sqldrv.Name, *dbPath)
 	if err != nil {
 		fatal(err)
 	}

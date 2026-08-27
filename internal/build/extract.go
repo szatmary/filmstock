@@ -14,8 +14,8 @@ import (
 
 	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 	"github.com/szatmary/filmstock/internal/wikitext"
-	_ "modernc.org/sqlite"
 )
 
 // `extract` turns a directory of dumps into the record hierarchy, in one command.
@@ -92,7 +92,7 @@ func hasSuffix(s, suf string) bool {
 // tableExists reports whether the resolver cache already holds a built table,
 // which is how phases 1 and 2 are skipped on a re-run.
 func tableExists(dbPath, table string, col string) bool {
-	db, err := sql.Open("sqlite", dbPath)
+	db, err := sql.Open(sqldrv.Name, dbPath)
 	if err != nil {
 		return false
 	}
@@ -117,17 +117,12 @@ func tableExists(dbPath, table string, col string) bool {
 func CExtract(args []string) {
 	fs := flag.NewFlagSet("extract", flag.ExitOnError)
 	dumpDir := fs.String("dumps", "dump", "directory holding the dumps (inputs; never written)")
-	outDir := fs.String("out", "out", "output directory for the record hierarchy")
 	workers := fs.Int("workers", 18, "parallel workers")
 	force := fs.Bool("force", false, "rebuild the resolver cache even if present")
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
 	limit := fs.Int("limit", 0, "stop after this many films (0 = all); for smoke tests")
-	skipText := fs.Bool("no-text", false, "skip the full-text corpus (faster; nothing is written to -text)")
-	textDir := fs.String("text", "", "where the full-text corpus goes (default <out>/text). "+
-		"Separate from -out so the records can live in a git repository while the "+
-		"corpus, which nothing consumes yet, stays with the other derived artifacts")
-	doIndex := fs.Bool("index", true, "also build the index when extraction finishes")
-	dbPath := fs.String("db", "index.db", "the index to build when -index is set")
+	dbPath := fs.String("db", "filmstock.db", "SQLite database to publish")
+	textOut := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	fs.Parse(args)
 
 	d, err := findDumps(*dumpDir)
@@ -163,27 +158,15 @@ func CExtract(args []string) {
 		fmt.Fprintln(os.Stderr, "[2/4] identity map: cached, skipping (-force to rebuild)")
 	}
 
-	// ---- Phase 3: enwiki -> records ----------------------------------------
-	fmt.Fprintf(os.Stderr, "[3/4] records: %s -> %s\n", d.articles, *outDir)
-	// Default the corpus alongside the records, so a plain `extract -out DIR`
-	// still behaves exactly as it always did.
-	if *textDir == "" {
-		*textDir = *outDir
+	// ---- Phase 3: enwiki -> database ---------------------------------------
+	fmt.Fprintf(os.Stderr, "[3/3] records: %s -> %s\n", d.articles, *dbPath)
+	if *textOut == "" {
+		*textOut = defaultTextPath(*dbPath)
 	}
-	if err := extractRecords(d, dumpSource(d, *workers), *outDir, *textDir, *workers, !*skipText, *limit); err != nil {
+	if err := runExportTo(d, dumpSource(d, *workers), *dbPath, *textOut, *workers, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "extract complete in %.1f min\n", time.Since(start).Minutes())
-
-	// Index here by default: the records were just written, so they are still in
-	// page cache and the 170k+ random reads that dominate a standalone index run
-	// are nearly free. `filmstock index -records DIR` stays available on its own —
-	// index.db is derived, so it must always be rebuildable without re-extracting.
-	if *doIndex {
-		fmt.Fprintln(os.Stderr, "[4/4] search index")
-		CIndexRecords([]string{"-records", *outDir, "-db", *dbPath})
-		fmt.Fprintf(os.Stderr, "extract+index complete in %.1f min\n", time.Since(start).Minutes())
-	}
 }
 
 // A pageSource feeds pages to the record builders.
@@ -208,46 +191,10 @@ func dumpSource(d *dumpSet, workers int) pageSource {
 		}}
 }
 
-// extractRecords feeds every page to both the film and the television
-// extractors and writes the record hierarchy.
-// extractRecordsTo runs the record builders against any sink.
-//
-// The gitdb tree and the published database differ only in where the finished
-// records go, so this is the whole of the pipeline and the caller supplies the
-// destination. No corpus is written: the plain-text files belong to the record
-// tree, and the database carries the synopses in its own columns.
+// extractRecordsTo runs the record builders against a sink. This is the whole
+// of the pipeline; the caller supplies the destination.
 func extractRecordsTo(sink recordSink, d *dumpSet, src pageSource, workers, limit int) error {
 	return extractRecordsInner(sink, d, src, "", "", workers, false, limit)
-}
-
-func extractRecords(d *dumpSet, src pageSource, outDir, textDir string, workers int, wantText bool, limit int) error {
-	// A store carries the dictionary it was written with. Seed a new one from
-	// what this build embeds; an existing store keeps its own, because the
-	// records already in it can only be read with that.
-	if err := filmstock.WriteDictionaries(outDir); err != nil {
-		return err
-	}
-	for _, k := range []string{filmstock.KindMovie, filmstock.KindTelevision, filmstock.KindPerson} {
-		if err := os.MkdirAll(filepath.Join(outDir, k), 0o755); err != nil {
-			return err
-		}
-	}
-	if wantText {
-		if err := os.MkdirAll(filepath.Join(textDir, filmstock.KindText), 0o755); err != nil {
-			return err
-		}
-	}
-
-	// Encoding stays on the parser workers; only syscalls go to the pool. Depth is
-	// generous because the array sustains only a few hundred IOPS and the parsers
-	// must be free to run far ahead of it.
-	sw := newStoreWriter(outDir)
-	// A complete run derives every record, so it can also say which are gone.
-	// A -limit run has not reached most of them and must not sweep.
-	if limit == 0 {
-		sw.wrote = map[string]map[string]bool{}
-	}
-	return extractRecordsInner(sw, d, src, outDir, textDir, workers, wantText, limit)
 }
 
 func extractRecordsInner(sink recordSink, d *dumpSet, src pageSource, outDir, textDir string, workers int, wantText bool, limit int) error {
@@ -579,7 +526,7 @@ func (w *recordWriter) flushSchedules(cachePath string) (grids, slots, linked in
 	if len(w.schedules) == 0 {
 		return
 	}
-	db, err := sql.Open("sqlite", cachePath)
+	db, err := sql.Open(sqldrv.Name, cachePath)
 	if err != nil {
 		w.fail(err)
 		return
@@ -617,7 +564,7 @@ func (w *recordWriter) flushSchedules(cachePath string) (grids, slots, linked in
 // as an article title would attach every unlinked "John Smith" to whoever holds
 // that title — an invented identity, and silently wrong.
 func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, noIdentity int) {
-	db, err := sql.Open("sqlite", cachePath)
+	db, err := sql.Open(sqldrv.Name, cachePath)
 	if err != nil {
 		w.fail(err)
 		return
@@ -715,7 +662,7 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 // Titles are resolved to page_ids through wiki_qid so the join itself never
 // compares strings.
 func buildListOwner(cachePath string, coll *televisionCollector) (map[int]int, error) {
-	db, err := sql.Open("sqlite", cachePath)
+	db, err := sql.Open(sqldrv.Name, cachePath)
 	if err != nil {
 		return nil, err
 	}

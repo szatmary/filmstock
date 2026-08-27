@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	_ "modernc.org/sqlite"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // fakeRelease lays out one tiny but real build the way the bucket will:
@@ -22,7 +22,7 @@ func fakeRelease(t *testing.T, root, id, title string) {
 	os.MkdirAll(dir, 0o777)
 	core := filepath.Join(dir, "filmstock.db")
 	os.Remove(core)
-	h, err := sql.Open("sqlite", core)
+	h, err := sql.Open(sqldrv.Name, core)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -77,7 +77,7 @@ func TestUpdaterFullCycle(t *testing.T) {
 	if err != nil || !changed || build != "20260801" {
 		t.Fatalf("first update: %v changed=%v build=%s", err, changed, build)
 	}
-	db, err := Open(core, nil)
+	db, err := Open(core)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -91,7 +91,7 @@ func TestUpdaterFullCycle(t *testing.T) {
 	}
 
 	fakeRelease(t, bucket, "20260820", "Blade Runner 2049")
-	old, changed, err := u.UpdateAndSwap(ctx, live, nil)
+	old, changed, err := u.UpdateAndSwap(ctx, live)
 	if err != nil || !changed || old == nil {
 		t.Fatalf("swap: %v changed=%v old=%v", err, changed, old)
 	}

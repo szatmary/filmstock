@@ -5,12 +5,12 @@ import (
 	"database/sql"
 	"testing"
 
-	_ "modernc.org/sqlite"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 func infoTestDB(t *testing.T) *DB {
 	t.Helper()
-	h, err := sql.Open("sqlite", "file:"+t.TempDir()+"/t.db")
+	h, err := sql.Open(sqldrv.Name, "file:"+t.TempDir()+"/t.db")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -31,7 +31,7 @@ func infoTestDB(t *testing.T) *DB {
 			t.Fatal(err)
 		}
 	}
-	return FromSQL(h, nil)
+	return FromSQL(h)
 }
 
 // Results come back in the order asked, and a missing id is absent, not an

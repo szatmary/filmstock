@@ -51,3 +51,4 @@ __pycache__/
 
 # ── Local agent config (contains machine-specific paths).
 /.claude/
+cmd/filmstock-web/filmstock-web

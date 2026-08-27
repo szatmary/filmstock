@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // Embedding vectors, one row per work.
@@ -77,7 +78,7 @@ func CIndexVectors(args []string) {
 	if err != nil {
 		fatal(err)
 	}
-	db, err := sql.Open("sqlite", *dbPath)
+	db, err := sql.Open(sqldrv.Name, *dbPath)
 	if err != nil {
 		fatal(err)
 	}

@@ -6,7 +6,7 @@ import (
 
 	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
-	_ "modernc.org/sqlite"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // A work is not a person. Infoboxes link works into credit fields — "Saul of
@@ -23,7 +23,7 @@ import (
 func cacheWith(t *testing.T, people map[string]int) string {
 	t.Helper()
 	path := t.TempDir() + "/resolver.db"
-	db, err := sql.Open("sqlite", path)
+	db, err := sql.Open(sqldrv.Name, path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -46,7 +46,7 @@ func newWorkTestWriter(t *testing.T) *recordWriter {
 		bios:      map[string]*filmstock.PersonBio{},
 		bioPage:   map[string]int{},
 		workTitle: map[string]bool{},
-		store:     newStoreWriter(t.TempDir()),
+		store:     newMemSink(),
 	}
 }
 

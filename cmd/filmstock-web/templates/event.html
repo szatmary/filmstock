@@ -24,23 +24,17 @@ td.k{color:#8a90a0;width:190px}
     {{if .Edition}} · edition {{.Edition}}{{end}}
     {{if .Date}} · {{.Date}}{{end}}
   </div>
-  {{if .Overview}}<div class="overview">{{.Overview}}</div>{{end}}
   <table>
     {{if .Hosts}}<tr><td class="k">Hosted by</td><td>
-      {{range $i, $h := .Hosts}}{{if $i}}, {{end}}<a href="/person?name={{$h.Name}}">{{$h.Name}}</a>{{end}}
+      {{range $i, $h := .Hosts}}{{if $i}}, {{end}}<a href="{{namehref $h}}">{{$h}}</a>{{end}}
     </td></tr>{{end}}
-    {{if .Network}}<tr><td class="k">Broadcast on</td><td>{{range $i,$n := .Network}}{{if $i}}, {{end}}{{$n}}{{end}}</td></tr>{{end}}
+    {{if .Network}}<tr><td class="k">Broadcast on</td><td>{{.Network}}</td></tr>{{end}}
     {{if .Venue}}<tr><td class="k">Venue</td><td>{{.Venue}}</td></tr>{{end}}
     {{if .Location}}<tr><td class="k">Location</td><td>{{.Location}}</td></tr>{{end}}
     {{if .BestFilm}}<tr><td class="k">Best film</td><td>{{.BestFilm}}</td></tr>{{end}}
     {{if .MostWins}}<tr><td class="k">Most wins</td><td>{{.MostWins}}</td></tr>{{end}}
-    {{if .MostNominations}}<tr><td class="k">Most nominations</td><td>{{.MostNominations}}</td></tr>{{end}}
     {{if .OpeningFilm}}<tr><td class="k">Opening film</td><td>{{.OpeningFilm}}</td></tr>{{end}}
     {{if .ClosingFilm}}<tr><td class="k">Closing film</td><td>{{.ClosingFilm}}</td></tr>{{end}}
-    {{if .MainCompetition}}<tr><td class="k">Main competition</td><td>{{.MainCompetition}}</td></tr>{{end}}
-    {{if .Founded}}<tr><td class="k">Founded</td><td>{{.Founded}}</td></tr>{{end}}
-    {{if .Previous}}<tr><td class="k">Previous</td><td>{{.Previous}}</td></tr>{{end}}
-    {{if .Next}}<tr><td class="k">Next</td><td>{{.Next}}</td></tr>{{end}}
   </table>
   <div class="back"><a href="{{.WikiURL}}">Wikipedia →</a></div>
 </div>

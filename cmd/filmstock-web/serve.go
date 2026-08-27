@@ -20,36 +20,45 @@ import (
 	"sync"
 
 	"github.com/szatmary/filmstock"
-	_ "modernc.org/sqlite"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 type server struct {
-	fs *filmstock.DB
-	ex *explorers
+	fs   *filmstock.DB
+	text *sql.DB // filmstock-text.db, nil when absent
+	ex   *explorers
 }
 
 func main() {
-	dbPath := flag.String("db", "index.db", "the index")
-	records := flag.String("records", "filmstock-data", "record tree produced by `filmstock extract`")
+	dbPath := flag.String("db", "filmstock.db", "the database")
+	textPath := flag.String("text-db", "", "synopsis database (default <db>'s sibling filmstock-text.db)")
 	vectors := flag.String("vectors", "", "embedding vectors, to enable /explore")
 	addr := flag.String("addr", ":8080", "listen address")
 	flag.Parse()
 
-	fmt.Fprintf(os.Stderr, "records: %s\n", *records)
-	db, err := filmstock.Open(*dbPath, filmstock.Store(*records))
+	db, err := filmstock.Open(*dbPath)
 	if err != nil {
 		fatal(err)
 	}
 	defer db.Close()
 
-	// A stale index answers plausible queries against an older corpus, which is
-	// worse than an error. Warn rather than refuse: searching a deliberately
-	// older index is legitimate.
-	if err := db.CheckStore(*records); err != nil {
-		fmt.Fprintf(os.Stderr, "WARNING: %v\n", err)
-	}
-
 	s := &server{fs: db}
+	explicitText := *textPath != ""
+	if !explicitText {
+		*textPath = strings.TrimSuffix(*dbPath, ".db") + "-text.db"
+	}
+	if _, err := os.Stat(*textPath); err == nil {
+		t, err := sql.Open(sqldrv.Name, "file:"+*textPath+"?mode=ro")
+		if err != nil {
+			fatal(err)
+		}
+		defer t.Close()
+		s.text = t
+	} else if explicitText {
+		fatal(fmt.Errorf("text database %s: %w", *textPath, err))
+	} else {
+		fmt.Fprintf(os.Stderr, "no text database at %s; synopses and plots will be absent\n", *textPath)
+	}
 	if *vectors != "" {
 		v, err := filmstock.OpenVectors(*vectors)
 		if err != nil {
@@ -92,7 +101,7 @@ func main() {
 // explorer can be restricted to records it can display and can tell when a
 // whole neighbourhood speaks one language.
 func filmIDs(dbPath string) ([]int, map[int]string, map[int]string, error) {
-	db, err := sql.Open("sqlite", dbPath)
+	db, err := sql.Open(sqldrv.Name, dbPath)
 	if err != nil {
 		return nil, nil, nil, err
 	}
@@ -255,8 +264,8 @@ func (s *server) handleTelevision(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad id", 400)
 		return
 	}
-	series, err := s.fs.Series(r.Context(), id)
-	if errors.Is(err, filmstock.ErrNotFound) {
+	series, err := s.televisionView(r.Context(), id)
+	if errors.Is(err, sql.ErrNoRows) {
 		http.Error(w, "series not found", http.StatusNotFound)
 		return
 	}
@@ -341,8 +350,8 @@ func (s *server) handleMovie(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad id", 400)
 		return
 	}
-	m, err := s.fs.Film(r.Context(), id)
-	if errors.Is(err, filmstock.ErrNotFound) {
+	m, err := s.movieView(r.Context(), id)
+	if errors.Is(err, sql.ErrNoRows) {
 		http.Error(w, "movie not found", http.StatusNotFound)
 		return
 	}
@@ -357,36 +366,12 @@ func (s *server) handleMovie(w http.ResponseWriter, r *http.Request) {
 }
 
 var funcs = template.FuncMap{
-	"year": func(m *filmstock.Movie) string {
-		if len(m.ReleaseDates) > 0 && len(m.ReleaseDates[0]) >= 4 {
-			return m.ReleaseDates[0][:4]
-		}
-		return ""
-	},
 	"join":            func(v []string) string { return strings.Join(v, ", ") },
 	"title":           filmstock.CleanTitle,
 	"televisiontitle": filmstock.CleanTelevisionTitle,
-	"poster":          filmstock.FilePathURL,
-	// people renders a []Person as comma-separated links to their person pages,
-	// linking by Wiki target (→ Q-id identity) when present, else by name.
-	"people": func(ps []filmstock.Person) template.HTML {
-		parts := make([]string, len(ps))
-		for i, p := range ps {
-			parts[i] = `<a class="plink" href="` + personHref(p) + `">` +
-				template.HTMLEscapeString(p.Name) + `</a>`
-		}
-		return template.HTML(strings.Join(parts, ", "))
-	},
-	"phref": personHref,
-}
-
-// personHref builds the person-page URL for a credit: by wiki target (canonical
-// identity) when linked, else by display name.
-func personHref(p filmstock.Person) string {
-	if p.Wiki != "" {
-		return "/person?wiki=" + url.QueryEscape(p.Wiki)
-	}
-	return "/person?name=" + url.QueryEscape(p.Name)
+	// namehref links a display name to its person page. Names are not
+	// identities; the person handler resolves or 404s honestly.
+	"namehref": func(name string) string { return "/person?name=" + url.QueryEscape(name) },
 }
 
 //go:embed templates/*.html

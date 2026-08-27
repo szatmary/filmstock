@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"testing"
 
-	_ "modernc.org/sqlite"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 func hashDB(t *testing.T, setup []string) (string, map[string]string) {
 	t.Helper()
-	h, err := sql.Open("sqlite", "file:"+t.TempDir()+"/x.db")
+	h, err := sql.Open(sqldrv.Name, "file:"+t.TempDir()+"/x.db")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -113,7 +113,7 @@ func TestCreditsHashThroughWiki(t *testing.T) {
 
 // An unknown table is an error, never a guess.
 func TestUnknownTableRefuses(t *testing.T) {
-	h, _ := sql.Open("sqlite", "file:"+t.TempDir()+"/x.db")
+	h, _ := sql.Open(sqldrv.Name, "file:"+t.TempDir()+"/x.db")
 	defer h.Close()
 	h.Exec(`CREATE TABLE brand_new_thing(x)`)
 	if _, _, err := ContentHash(h); err == nil {

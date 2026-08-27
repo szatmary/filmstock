@@ -25,36 +25,60 @@ func TestNextDayCrossesBoundaries(t *testing.T) {
 	}
 }
 
-// The store's own git log is the record of what it already holds. Reading the
-// wrong day here would re-apply days or skip them.
-func TestLastAppliedDayReadsTheLog(t *testing.T) {
-	dir := newRepo(t)
-	write(t, dir, "f", "x")
-	gitT(t, dir, "add", "-A")
-	gitT(t, dir, "commit", "-q", "-m", "filmstock record store: 2026-08-01 enwiki dump")
-	for _, d := range []string{"20260801", "20260802", "20260803"} {
-		write(t, dir, "f", d)
-		gitT(t, dir, "add", "-A")
-		gitT(t, dir, "commit", "-q", "-m", "Apply "+d+" adds-changes")
+// The intermediate's meta table is the record of what it already holds.
+// Reading the wrong day here would re-apply days or skip them.
+func TestLastAppliedDayReadsTheIntermediate(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "inter.db")
+	in, err := OpenInter(path)
+	if err != nil {
+		t.Fatal(err)
 	}
-	got, err := lastAppliedDay(dir)
+	if err := in.SetSource("/dumps/enwiki-20260801-pages-articles-multistream.xml.bz2"); err != nil {
+		t.Fatal(err)
+	}
+	in.Close()
+
+	// A fresh full import is current through the full dump's own day.
+	got, err := lastAppliedDay(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got != "20260801" {
+		t.Errorf("lastAppliedDay = %s, want 20260801 (the full dump's day)", got)
+	}
+
+	// Once a daily has been applied, that day wins.
+	in, err = OpenInter(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := in.SetMeta("incr_through", "20260803"); err != nil {
+		t.Fatal(err)
+	}
+	in.Close()
+	got, err = lastAppliedDay(path)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if got != "20260803" {
-		t.Errorf("lastAppliedDay = %s, want 20260803 (the most recent)", got)
+		t.Errorf("lastAppliedDay = %s, want 20260803 (the last applied daily)", got)
 	}
 }
 
 // Better to refuse than to guess: guessing wrong silently skips days, and a
 // skipped day leaves a hole no later run detects.
-func TestLastAppliedDayRefusesWhenNoCommitNamesADay(t *testing.T) {
-	dir := newRepo(t)
-	write(t, dir, "f", "x")
-	gitT(t, dir, "add", "-A")
-	gitT(t, dir, "commit", "-q", "-m", "initial import")
-	if _, err := lastAppliedDay(dir); err == nil {
-		t.Error("expected an error when no commit names a dump date")
+func TestLastAppliedDayRefusesWhenNothingNamesADay(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "inter.db")
+	in, err := OpenInter(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := in.SetSource("/dumps/no-date-here.xml.bz2"); err != nil {
+		t.Fatal(err)
+	}
+	in.Close()
+	if _, err := lastAppliedDay(path); err == nil {
+		t.Error("expected an error when nothing names a dump date")
 	}
 }
 

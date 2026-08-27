@@ -17,6 +17,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // Which wiki a file lives on, so image URLs can be built without asking.
@@ -52,7 +53,7 @@ func CBuildImageList(args []string) {
 	if err != nil {
 		fatal(err)
 	}
-	db, err := sql.Open("sqlite", *dbPath)
+	db, err := sql.Open(sqldrv.Name, *dbPath)
 	if err != nil {
 		fatal(err)
 	}
@@ -121,7 +122,7 @@ func loadLocalImages(cachePath string) map[string]bool {
 	if !tableExists(cachePath, "local_images", "") {
 		return nil
 	}
-	db, err := sql.Open("sqlite", cachePath)
+	db, err := sql.Open(sqldrv.Name, cachePath)
 	if err != nil {
 		return nil
 	}

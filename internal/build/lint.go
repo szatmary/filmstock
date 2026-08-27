@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -65,7 +66,7 @@ func CLint(args []string) {
 	if *dbPath == "" {
 		fatal(fmt.Errorf("lint needs -db FILE"))
 	}
-	db, err := sql.Open("sqlite", *dbPath)
+	db, err := sql.Open(sqldrv.Name, *dbPath)
 	if err != nil {
 		fatal(err)
 	}

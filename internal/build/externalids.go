@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // External identifiers, published as join keys.
@@ -42,7 +44,7 @@ func CIndexExternalIDs(args []string) {
 	cache := fs.String("cache", defaultCachePath(), "resolver cache holding wd_external_id")
 	fs.Parse(args)
 
-	db, err := sql.Open("sqlite", *dbPath)
+	db, err := sql.Open(sqldrv.Name, *dbPath)
 	if err != nil {
 		fatal(err)
 	}

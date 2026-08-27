@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	_ "modernc.org/sqlite"
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // reWikibase matches a page_props tuple that assigns a Wikidata item to a page:
@@ -60,7 +60,7 @@ func CBuildQidmap(args []string) {
 	sc := bufio.NewScanner(bzip2.NewReader(bufio.NewReaderSize(xf, 1<<20)))
 	sc.Buffer(make([]byte, 1<<20), 1<<20)
 
-	db, err := sql.Open("sqlite", *dbPath)
+	db, err := sql.Open(sqldrv.Name, *dbPath)
 	if err != nil {
 		fatal(err)
 	}

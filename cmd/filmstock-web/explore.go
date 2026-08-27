@@ -163,14 +163,12 @@ type viewJSON struct {
 
 func (s *server) fillCell(r *http.Request, pageID int, score, x, y float32) cellJSON {
 	c := cellJSON{PageID: pageID, Score: score, X: x, Y: y}
-	if m, err := s.fs.Film(r.Context(), pageID); err == nil {
+	if m, err := s.movieView(r.Context(), pageID); err == nil {
 		c.Title, c.Poster = m.Title, m.CoverImageURL
-		if len(m.ReleaseDates) > 0 && len(m.ReleaseDates[0]) >= 4 {
-			c.Year, _ = strconv.Atoi(m.ReleaseDates[0][:4])
-		}
-		c.genre = strings.Join(m.Genre, " · ")
-		c.country = strings.Join(filmstock.Names(m.Country), " · ")
-		c.language = strings.Join(filmstock.Names(m.Language), " · ")
+		c.Year = m.Year
+		c.genre = m.Genre
+		c.country = m.Country
+		c.language = m.Language
 		c.Lang = c.language
 	}
 	if c.Title == "" {
@@ -452,36 +450,28 @@ func (s *server) handleAPISynopsis(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad id", 400)
 		return
 	}
-	m, err := s.fs.Film(r.Context(), id)
+	m, err := s.movieView(r.Context(), id)
 	if err != nil {
 		http.Error(w, "not found", 404)
 		return
 	}
 	year := ""
-	if len(m.ReleaseDates) > 0 && len(m.ReleaseDates[0]) >= 4 {
-		year = m.ReleaseDates[0][:4]
+	if m.Year > 0 {
+		year = strconv.Itoa(m.Year)
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]any{
 		"title": m.Title, "year": year,
-		"genre":    strings.Join(m.Genre, " · "),
-		"director": strings.Join(personNames(m.Director), " · "),
-		"starring": strings.Join(personNames(m.Starring), " · "),
+		"genre":    m.Genre,
+		"director": m.Director,
+		"starring": strings.Join(m.Starring, " · "),
 		"runtime":  m.Runtime,
-		"language": strings.Join(filmstock.Names(m.Language), " · "),
+		"language": m.Language,
 		"overview": m.Overview,
 		"plot":     m.Plot,
 		"poster":   m.CoverImageURL,
 		"url":      m.WikiURL,
 	})
-}
-
-func personNames(ps []filmstock.Person) []string {
-	out := make([]string, 0, len(ps))
-	for _, p := range ps {
-		out = append(out, p.Name)
-	}
-	return out
 }
 
 // passedOf lists what was offered and not taken.

@@ -37,17 +37,14 @@ td.d{color:#8a90a0;white-space:nowrap}
 <div class="wrap">
 <a class="back" href="/">← search</a>
 <div class="hero">
-  {{with poster .CoverImageFile 500}}<img class="poster" src="{{.}}" alt="poster">{{end}}
+  {{with .CoverImageURL}}<img class="poster" src="{{.}}" alt="poster">{{end}}
   <div class="info">
     <h1>📺 {{televisiontitle .Title}} {{if .FirstAired}}<span class="year">({{slice .FirstAired 0 4}}{{if .LastAired}}–{{slice .LastAired 0 4}}{{end}})</span>{{end}}</h1>
-    <div class="badges">{{if .NumSeasons}}{{.NumSeasons}} seasons{{end}}{{if .NumEpisodes}} · {{.NumEpisodes}} episodes{{end}}{{if .Network}} · {{join .Network}}{{end}}</div>
+    <div class="badges">{{if .NumSeasons}}{{.NumSeasons}} seasons{{end}}{{if .NumEpisodes}} · {{.NumEpisodes}} episodes{{end}}{{if .Network}} · {{.Network}}{{end}}</div>
     <dl>
-      {{if .Genre}}<dt>Genre</dt><dd>{{join .Genre}}</dd>{{end}}
-      {{if .Creator}}<dt>Creator</dt><dd>{{people .Creator}}</dd>{{end}}
-      {{if .Starring}}<dt>Starring</dt><dd>{{people .Starring}}</dd>{{end}}
-      {{if .Composer}}<dt>Composer</dt><dd>{{people .Composer}}</dd>{{end}}
-      {{if .Country}}<dt>Country</dt><dd>{{join .Country}}</dd>{{end}}
-      {{if .Runtime}}<dt>Runtime</dt><dd>{{.Runtime}}</dd>{{end}}
+      {{if .Genre}}<dt>Genre</dt><dd>{{.Genre}}</dd>{{end}}
+      {{if .Creator}}<dt>Creator</dt><dd>{{.Creator}}</dd>{{end}}
+      {{if .Starring}}<dt>Starring</dt><dd>{{.Starring}}</dd>{{end}}
       {{if .FirstAired}}<dt>Aired</dt><dd>{{.FirstAired}}{{if .LastAired}} – {{.LastAired}}{{end}}</dd>{{end}}
     </dl>
     <a class="wl" href="{{.WikiURL}}" target="_blank" rel="noopener">View on Wikipedia →</a>
@@ -64,7 +61,6 @@ td.d{color:#8a90a0;white-space:nowrap}
     <tr>
       <td class="n">{{if .NumberInSeason}}{{.NumberInSeason}}{{else if .NumberOverall}}{{.NumberOverall}}{{else}}–{{end}}</td>
       <td><div class="ep-title">{{.Title}}</div>
-        {{if or .DirectedBy .WrittenBy}}<div class="crew">{{if .DirectedBy}}dir: {{people .DirectedBy}}{{end}}{{if .WrittenBy}} · writ: {{people .WrittenBy}}{{end}}</div>{{end}}
         {{if .Summary}}<div class="ep-sum">{{.Summary}}</div>{{end}}
       </td>
       <td class="d">{{.AirDate}}</td>

@@ -10,6 +10,8 @@ import (
 	"os"
 	"sort"
 	"strings"
+
+	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
 // Composing the shipped embedding from text AND the structured data.
@@ -84,7 +86,7 @@ func CmdComposeVectors(args []string) {
 		fatal(err)
 	}
 
-	db, err := sql.Open("sqlite", *dbPath)
+	db, err := sql.Open(sqldrv.Name, *dbPath)
 	if err != nil {
 		fatal(err)
 	}
