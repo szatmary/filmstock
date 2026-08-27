@@ -208,6 +208,53 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 		placed[p.c.n.PageID] = true
 	}
 
+	// The four diagonal-adjacent slots hold genuine BLENDS, not whatever the
+	// generic fill happened to drop there. Each takes the unplaced candidate
+	// whose direction best aligns with the sum of its two neighbouring poles'
+	// directions — the film most "up-and-right" there is, so steering between
+	// two poles is a real choice with a real destination. Filled by the
+	// ordinary projection they carried little signal, which is exactly what
+	// made them read as decoration.
+	fillN := min(len(cands), cols*rows*3)
+	diagAt := map[int]struct {
+		a, b []float32
+		dir  string
+	}{
+		mid - cols - 1: {pU.off, pL.off, "upleft"},
+		mid - cols + 1: {pU.off, pR.off, "upright"},
+		mid + cols - 1: {pD.off, pL.off, "downleft"},
+		mid + cols + 1: {pD.off, pR.off, "downright"},
+	}
+	for slot, d := range diagAt {
+		if slot < 0 || slot >= len(grid) || grid[slot] != nil {
+			continue
+		}
+		blend := make([]float32, len(d.a))
+		for i := range blend {
+			blend[i] = d.a[i] + d.b[i]
+		}
+		if !unit(blend) {
+			continue
+		}
+		best, bestD := -1, float32(-2)
+		for i, cd := range cands[:fillN] {
+			if placed[cd.n.PageID] {
+				continue
+			}
+			if al := dot(cd.off, blend); al > bestD {
+				best, bestD = i, al
+			}
+		}
+		if best < 0 || bestD < 0.1 {
+			continue // nothing actually lies between those poles
+		}
+		cell := s.fillCell(r, cands[best].n.PageID, cands[best].n.Score,
+			xs[best]/mx, ys[best]/my)
+		cell.Pole = d.dir
+		grid[slot] = &cell
+		placed[cands[best].n.PageID] = true
+	}
+
 	// Remaining slots from the middle outward, each taking the unplaced
 	// candidate whose projection lands nearest. Only the NEAR candidates fill
 	// slots — the deep list exists for the poles, and letting rank-1100 films
@@ -235,7 +282,6 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 		}
 	}
 	sort.Slice(slots, func(a, b int) bool { return slots[a].d < slots[b].d })
-	fillN := min(len(cands), cols*rows*3)
 	var cells []cellJSON
 	for _, sl := range slots {
 		best, bestD := -1, float32(math.MaxFloat32)

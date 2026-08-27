@@ -47,6 +47,13 @@
   .cell.pole-right::after { content:"\2192"; }
   .cell.pole-up::after    { content:"\2191"; }
   .cell.pole-down::after  { content:"\2193"; }
+  .cell.pole-upleft::after    { content:"\2196"; }
+  .cell.pole-upright::after   { content:"\2197"; }
+  .cell.pole-downleft::after  { content:"\2199"; }
+  .cell.pole-downright::after { content:"\2198"; }
+  .cell.pole-upleft img, .cell.pole-upright img,
+  .cell.pole-downleft img, .cell.pole-downright img {
+      border-color:#5b7bc4; box-shadow:0 0 0 2px rgba(91,123,196,.22); }
   #grid { display:grid; gap:10px 10px; align-content:start; padding-top:10px; }
   #axes { display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
           gap:10px; font-size:11px; }
@@ -124,6 +131,7 @@
     <h2>Keys</h2>
     <div class="dim" style="font-size:12px">
       <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> step to that film<br>
+      two arrows together — the diagonal between them<br>
       <kbd>⏎</kbd> synopsis of the current film<br>
       <kbd>shift</kbd>+<kbd>click</kbd> less like that<br>
       <kbd>⌫</kbd> back along the trail<br>
@@ -342,6 +350,28 @@ async function openSyn() {
   $('#syn').classList.add('open'); synOpen = true;
 }
 
+const held = new Set();
+let pending = null;
+const DIAG = { 'up,left':'upleft', 'left,up':'upleft', 'up,right':'upright', 'right,up':'upright',
+               'down,left':'downleft', 'left,down':'downleft',
+               'down,right':'downright', 'right,down':'downright' };
+function queueMove(dir) {
+  // A lone arrow moves after a beat; a second perpendicular arrow inside the
+  // window makes the pair a diagonal. The delay is short enough to read as
+  // immediate and long enough to catch two fingers landing together.
+  if (pending) {
+    const diag = DIAG[pending.dir + ',' + dir];
+    clearTimeout(pending.t);
+    pending = null;
+    if (diag) { move(diag); return; }
+    move(dir); return;
+  }
+  pending = { dir, t: setTimeout(() => { pending = null; move(dir); }, 110) };
+}
+addEventListener('keyup', e => {
+  held.delete(e.key);
+});
+
 addEventListener('keydown', e => {
   // Backspace out of the synopsis goes back to the grid — the overlay is a
   // place you went, so the key that means "back" leaves it. It must not fall
@@ -352,9 +382,13 @@ addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.activeElement === $('#search')) return;
   if (e.key === 'Enter') { e.preventDefault(); synOpen ? closeSyn() : openSyn(); return; }
   if (synOpen) return; // arrows should not walk behind the overlay
+  if (e.repeat) { e.preventDefault(); return; }
   const k = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down',
              Backspace:'back'}[e.key];
-  if (k && session) { e.preventDefault(); move(k); }
+  if (!k || !session) return;
+  e.preventDefault();
+  if (k === 'back') { move('back'); return; }
+  queueMove(k);
 });
 
 const boot = {{if .}}{{.}}{{else}}0{{end}};

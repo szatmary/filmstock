@@ -382,6 +382,18 @@ func (wk *walk) neighbour(dir string) (int, bool) {
 		dr = -1
 	case "down":
 		dr = 1
+	// The diagonals are real moves. Without them the layout promises a
+	// direction the controls cannot take: a film drawn up-and-right invites
+	// steering that pressing up THEN right cannot perform, because each press
+	// commits a whole film into the sum and the second pole drowns the first.
+	case "upleft":
+		dr, dc = -1, -1
+	case "upright":
+		dr, dc = -1, 1
+	case "downleft":
+		dr, dc = 1, -1
+	case "downright":
+		dr, dc = 1, 1
 	default:
 		return 0, false
 	}
