@@ -76,6 +76,7 @@ func main() {
 	if s.ex != nil {
 		mux.HandleFunc("/explore", s.handleExplore)
 		mux.HandleFunc("/api/explore", s.handleAPIExplore)
+		mux.HandleFunc("/api/synopsis", s.handleAPISynopsis)
 	}
 
 	if s.ex == nil {

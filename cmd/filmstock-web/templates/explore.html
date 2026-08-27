@@ -78,6 +78,19 @@
   .bar { height:5px; background:#1b1d24; border-radius:3px; overflow:hidden; margin:3px 0 8px; }
   .bar i { display:block; height:100%; background:var(--hot); }
   #hint { padding:40px; color:var(--dim); max-width:640px; }
+  #syn { position:fixed; inset:0; background:rgba(8,9,12,.82); z-index:50;
+         display:none; align-items:center; justify-content:center; }
+  #syn.open { display:flex; }
+  #syn .panel { background:#14161d; border:1px solid var(--line); border-radius:10px;
+      max-width:720px; width:min(92vw,720px); max-height:82vh; overflow:auto;
+      padding:22px 26px; display:flex; gap:20px; box-shadow:0 20px 60px rgba(0,0,0,.6); }
+  #syn img { width:150px; height:220px; object-fit:cover; border-radius:6px;
+             border:1px solid var(--line); background:#1b1d24; flex:0 0 auto; }
+  #syn h3 { margin:0 0 4px; color:var(--hot); font-size:19px; }
+  #syn .meta { color:var(--dim); font-size:12px; margin-bottom:12px; }
+  #syn p { font-size:13.5px; line-height:1.55; margin:0 0 10px; white-space:pre-line; }
+  #syn .plothead { font-size:11px; text-transform:uppercase; letter-spacing:.08em;
+                   color:var(--dim); margin:14px 0 6px; }
   #hint code { color:var(--fg); }
 </style>
 
@@ -111,11 +124,21 @@
     <h2>Keys</h2>
     <div class="dim" style="font-size:12px">
       <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> step to that film<br>
+      <kbd>⏎</kbd> synopsis of the current film<br>
       <kbd>⌫</kbd> back along the trail<br>
       <kbd>click</kbd> jump to any film
     </div>
   </aside>
 </main>
+
+<div id="syn" onclick="if(event.target===this)closeSyn()">
+  <div class="panel"><img id="synimg" alt=""><div style="min-width:0">
+    <h3 id="syntitle"></h3><div class="meta" id="synmeta"></div>
+    <p id="synov"></p>
+    <div class="plothead" id="synplothead" style="display:none">Plot</div>
+    <p id="synplot"></p>
+  </div></div>
+</div>
 
 <script>
 const $ = s => document.querySelector(s);
@@ -188,6 +211,7 @@ async function load(qs) {
 
 function draw(v) {
   session = v.session;
+  window._centerId = v.center.page_id;
   const surf = $('#surface');
   surf.innerHTML =
     '<div id="centre"></div>' +
@@ -287,7 +311,31 @@ addEventListener('resize', () => {
 
 $('#dice').onclick = () => load('start=random');
 
+let synOpen = false;
+function closeSyn() { $('#syn').classList.remove('open'); synOpen = false; }
+async function openSyn() {
+  // Enter answers "what actually IS this film" without leaving the walk.
+  const id = (window._centerId || 0);
+  if (!id) return;
+  const r = await fetch('/api/synopsis?id=' + id);
+  if (!r.ok) return;
+  const d = await r.json();
+  $('#synimg').src = d.poster || '';
+  $('#syntitle').textContent = d.title + (d.year ? ' (' + d.year + ')' : '');
+  $('#synmeta').textContent = [d.genre, d.director && 'dir. ' + d.director, d.runtime]
+      .filter(Boolean).join('  ·  ');
+  $('#synov').textContent = d.overview || (d.plot ? '' : 'No synopsis in the record.');
+  const hasPlot = !!d.plot;
+  $('#synplothead').style.display = hasPlot ? '' : 'none';
+  $('#synplot').textContent = hasPlot ? d.plot : '';
+  $('#syn').classList.add('open'); synOpen = true;
+}
+
 addEventListener('keydown', e => {
+  if (e.key === 'Escape' && synOpen) { closeSyn(); return; }
+  if (e.key === 'Enter' && document.activeElement === $('#search')) return;
+  if (e.key === 'Enter') { e.preventDefault(); synOpen ? closeSyn() : openSyn(); return; }
+  if (synOpen) return; // arrows should not walk behind the overlay
   const k = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down',
              Backspace:'back'}[e.key];
   if (k && session) { e.preventDefault(); move(k); }

@@ -326,3 +326,43 @@ func (s *server) handleExplore(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 	}
 }
+
+// handleAPISynopsis returns what the record says about one film, for the
+// overlay the explorer opens on Enter. The grid answers "what is near";
+// this answers "what actually is it" without leaving the walk.
+func (s *server) handleAPISynopsis(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+	if err != nil {
+		http.Error(w, "bad id", 400)
+		return
+	}
+	m, err := s.fs.Film(r.Context(), id)
+	if err != nil {
+		http.Error(w, "not found", 404)
+		return
+	}
+	year := ""
+	if len(m.ReleaseDates) > 0 && len(m.ReleaseDates[0]) >= 4 {
+		year = m.ReleaseDates[0][:4]
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]any{
+		"title": m.Title, "year": year,
+		"genre":    strings.Join(m.Genre, " · "),
+		"director": strings.Join(personNames(m.Director), " · "),
+		"starring": strings.Join(personNames(m.Starring), " · "),
+		"runtime":  m.Runtime,
+		"overview": m.Overview,
+		"plot":     m.Plot,
+		"poster":   m.CoverImageURL,
+		"url":      m.WikiURL,
+	})
+}
+
+func personNames(ps []filmstock.Person) []string {
+	out := make([]string, 0, len(ps))
+	for _, p := range ps {
+		out = append(out, p.Name)
+	}
+	return out
+}
