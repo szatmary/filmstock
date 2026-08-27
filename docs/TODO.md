@@ -282,6 +282,34 @@ verified — but three operational facts, all measured:
   (the CDN, built for serving), and put an onerror fallback on the tag.
 - Special:Redirect/file/NAME and Special:FilePath/NAME are equivalent forms.
 
+### Distribution — DECIDED: Cloudflare R2, plain HTTPS
+
+Evaluated GitHub releases (acceptable-use risk for a recurring data CDN,
+expiring redirect URLs), IPFS (gateways are a worse CDN; pinning reintroduces
+hosting), BitTorrent with webseeds plus a seedbox or Linode (workable, and
+anacrolix/torrent made the embedded-peer story real). R2's zero-egress pricing
+ended it: with bandwidth at $0 and storage inside the free tier, the only load
+p2p would have carried does not exist, so the torrent layer was complexity
+without a customer. Decision: R2 only.
+
+Shape, by convention:
+
+    /filmstock/<dump>/filmstock.db          immutable once written
+    /filmstock/<dump>/filmstock-text.db
+    /filmstock/<dump>/filmstock-vectors.db
+    /filmstock/<dump>/manifest.json
+    /filmstock/latest.json                  a COPY of the newest manifest
+
+`filmstock manifest` hashes a release directory into manifest.json — SHA-256
+per file does the job an infohash would have. Versioned paths never change;
+latest.json is the one mutable pointer, a copy rather than a redirect so one
+GET answers both "what is current" and "how do I verify it".
+
+Still open here: upload tooling (rclone or wrangler against the bucket — needs
+the user's credentials), signing the manifest (minisign or ssh-keygen -Y;
+needs a key decision), and repointing `filmstock sync` from the git store to
+the manifest URL once gitdb goes.
+
 ### 56 schedule articles still yield nothing
 
 232 of 288 read. The remainder are the overnight, morning and afternoon variants.
