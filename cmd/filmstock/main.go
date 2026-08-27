@@ -38,6 +38,8 @@ func main() {
 		build.CmdBuilds(os.Args[2:])
 	case "manifest":
 		build.CmdManifest(os.Args[2:])
+	case "publish":
+		build.CmdPublish(os.Args[2:])
 	case "build-image-list":
 		build.CBuildImageList(os.Args[2:])
 	case "build-qidmap":
@@ -73,6 +75,7 @@ Usage:
   filmstock index-series / index-vectors / index-external-ids  post-passes over the database
   filmstock compose-vectors / vectors                          embedding artifacts
   filmstock manifest / builds                                  release metadata (manifest.json, builds.json)
+  filmstock publish -root R2DIR -id YYYYMMDD -from DIR [-full] one build -> patches, manifest, catalog (verified)
   filmstock search  [-n 20] QUERY...                           fuzzy-search the database
 
 The browser is a separate binary:

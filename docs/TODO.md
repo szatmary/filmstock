@@ -42,9 +42,19 @@ Measured, on the real corpus, with the vendored 3.53.4 engine throughout:
   file (journal_mode=OFF) — the file is disposable by design, but tooling
   must treat a nonzero exit as "discard the output", never post-process it.
 
-Still to build: publisher script that emits patch + bridge + catalog per
-build, R2 upload/signing, updater's apply-patch path (verify content hash
-after apply; fall back to full download on mismatch).
+Publisher: DONE — `filmstock publish -root R -id D -from DIR [-full]`
+(publishcmd.go) copies the build in (hardlinks when possible, carries
+missing files forward from the base), emits gzipped sqldiff patches (daily:
+parent -> build; full: old chain tip -> build as the bridge), APPLIES each
+patch to a copy of its base and refuses to publish unless the content hash
+reproduces the build, then writes the manifest (covering the patches) and
+chains the catalog. Measured on the trial: full 8 s; daily 33 s with all
+three patches verified (core 103 KB gz / text 1.2 MB gz / carried-forward
+vectors 23 B); superseding full records bridge_from + bridge_statements.
+
+Still to build: R2 upload/signing (user credentials), updater's apply-patch
+path (download patch, apply, verify content hash, fall back to the full on
+mismatch).
 
 
 ### Daily updates cannot add people — BUILT, NOT YET PROVEN
