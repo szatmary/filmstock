@@ -18,11 +18,21 @@
   #results div:hover { background:#222532; }
   main { display:grid; grid-template-columns: 1fr 260px; gap:0; height:calc(100vh - 47px); }
   #surface { display:flex; flex-direction:column; gap:12px; padding:14px 16px; overflow:auto; }
-  #centre { display:flex; gap:12px; align-items:center; padding-bottom:12px;
+  #centre { display:flex; gap:16px; align-items:center; padding-bottom:12px;
             border-bottom:1px solid var(--line); }
-  #centre img { width:58px; height:84px; object-fit:cover; border-radius:4px;
-                border:1px solid var(--hot); background:#1b1d24; }
+  #stack { position:relative; height:96px; flex:0 0 auto; }
+  #stack img { position:absolute; bottom:0; width:60px; height:88px; object-fit:cover;
+               border-radius:4px; border:1px solid var(--line); background:#1b1d24; }
+  #stack img.top { border-color:var(--hot); box-shadow:0 0 0 2px rgba(224,179,65,.3); }
   #centre .n { font-size:17px; font-weight:600; color:var(--hot); }
+  .cell.pole img { border-color:#7aa2ff; box-shadow:0 0 0 2px rgba(122,162,255,.3); }
+  .cell.pole::after { position:absolute; left:50%; top:-9px; transform:translateX(-50%);
+      background:#7aa2ff; color:#101218; font-size:10px; font-weight:700;
+      padding:0 7px; border-radius:3px; }
+  .cell.pole-left::after  { content:"\2190"; }
+  .cell.pole-right::after { content:"\2192"; }
+  .cell.pole-up::after    { content:"\2191"; }
+  .cell.pole-down::after  { content:"\2193"; }
   #grid { display:grid; gap:10px 10px; align-content:start; padding-top:10px; }
   #axes { display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
           gap:10px; font-size:11px; }
@@ -165,11 +175,24 @@ function draw(v) {
     '<div id="grid"></div>';
 
   const c = v.center;
+  // The stack: every selection so far, newest on top. Its SUM is the position
+  // the grid is drawn around — the taste, not any single film.
+  const tr = v.trail || [];
+  const show = tr.slice(-6);
+  let stackHTML = '';
+  const W = 60, step = 14;
+  show.forEach((t, i) => {
+    const top = i === show.length - 1;
+    stackHTML += '<img src="' + (t.poster || '') + '" alt="" class="' + (top ? 'top' : '') +
+      '" style="left:' + (i * step) + 'px; z-index:' + i +
+      '; opacity:' + (top ? 1 : 0.55 + 0.08 * i) + '">';
+  });
   $('#centre').innerHTML =
-    (c.poster ? '<img src="' + c.poster + '" alt="">' : '<img alt="">') +
+    '<div id="stack" style="width:' + (W + step * (show.length - 1)) + 'px">' + stackHTML + '</div>' +
     '<div><div class="n">' + esc(c.title) + '</div>' +
-    '<div class="dim" style="font-size:12px">' + (c.year || '') +
-    ' &middot; use \u2190 \u2192 \u2191 \u2193 to move from here</div></div>';
+    '<div class="dim" style="font-size:12px">' +
+    (tr.length > 1 ? 'blend of ' + tr.length + ' picks &middot; ' : (c.year || '') + ' &middot; ') +
+    'arrows choose a direction &middot; \u232b un-picks</div></div>';
 
   // A grid, because the axes are continuous and the eye cannot read a cloud.
   // Empty slots stay in place rather than collapsing, so a title keeps its
@@ -189,7 +212,8 @@ function draw(v) {
   for (const cell of v.grid) {
     const d = document.createElement('div');
     if (!cell) { d.className = 'cell empty'; g.appendChild(d); continue; }
-    d.className = 'cell' + (cell.centre ? ' here' : '');
+    d.className = 'cell' + (cell.centre ? ' here' : '') +
+      (cell.pole ? ' pole pole-' + cell.pole : '');
     d.style.opacity = cell.centre ? 1 : 0.5 + 0.5 * Math.max(0, Math.min(1, cell.score));
     d.innerHTML =
       (cell.poster ? '<img src="' + cell.poster + '" loading="lazy" alt="">' : '<img alt="">') +

@@ -486,3 +486,17 @@ func (v *View) Grid(cols, rows int) [][]*Cell {
 	}
 	return out
 }
+
+// Nearest returns the records closest to an arbitrary position.
+//
+// Similar answers "near this RECORD"; this answers "near this POINT", which is
+// what a taste built from several selections is — the sum of their vectors is
+// a position that is no single record. skip lists records to leave out,
+// typically the ones that built the position.
+func (c *Collection) Nearest(q []float32, n int, skip []int) []Neighbour {
+	sk := make(map[int]bool, len(skip))
+	for _, id := range skip {
+		sk[id] = true
+	}
+	return c.v.nearest(q, n, sk, c.rows)
+}
