@@ -25,6 +25,15 @@ var FTSTables = []string{
 // minutes: the trigram tokenizer builds at roughly a gigabyte a minute.
 func RebuildFTS(h *sql.DB) error {
 	for _, t := range FTSTables {
+		// Skip tables the file does not declare: the text and vector databases
+		// carry no FTS, and one rebuild call should work on any of the three.
+		var n int
+		if err := h.QueryRow(`SELECT COUNT(*) FROM sqlite_master WHERE name=?`, t).Scan(&n); err != nil {
+			return err
+		}
+		if n == 0 {
+			continue
+		}
 		if _, err := h.Exec(`INSERT INTO ` + t + `(` + t + `) VALUES('rebuild')`); err != nil {
 			return fmt.Errorf("filmstock: rebuilding %s: %w", t, err)
 		}
