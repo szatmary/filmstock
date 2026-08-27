@@ -26,7 +26,8 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 	// Offsets from the position, for every candidate with a vector.
 	type cand struct {
 		n   filmstock.Neighbour
-		off []float32
+		off []float32 // unit direction, for the projection axes
+		raw []float32 // un-normalised, for choosing poles
 	}
 	cands := make([]cand, 0, len(near))
 	for _, nb := range near {
@@ -34,52 +35,59 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 		if !ok {
 			continue
 		}
-		off := make([]float32, len(v))
+		raw := make([]float32, len(v))
 		for i := range v {
-			off[i] = v[i] - pos[i]
+			raw[i] = v[i] - pos[i]
 		}
+		off := append([]float32(nil), raw...)
 		if unit(off) {
-			cands = append(cands, cand{nb, off})
+			cands = append(cands, cand{nb, off, raw})
 		}
 	}
 	if len(cands) < 5 {
 		return nil
 	}
 
-	// Poles by farthest-point sampling over the nearer candidates. Sampling
-	// from the whole list would pick exotic outliers; the poles should be
-	// plausible next steps that merely disagree with each other.
-	m := min(40, len(cands))
-	first, second, worst := 0, 1, float32(2)
-	for i := 0; i < m; i++ {
-		for j := i + 1; j < m; j++ {
-			if d := dot(cands[i].off, cands[j].off); d < worst {
-				first, second, worst = i, j, d
-			}
-		}
-	}
-	poles := []int{first, second}
-	for len(poles) < 4 && len(poles) < m {
-		best, bestD := -1, float32(2)
-		for i := 0; i < m; i++ {
+	// Poles by farthest-point sampling over the WHOLE candidate list, not the
+	// nearest few. Spread among the top forty finds four doors into the same
+	// room: near a Japanese film every one of them is Japanese, and the walk
+	// cannot leave the cluster. The deep list reaches the neighbouring
+	// clusters, so at least one arrow is an exit.
+	//
+	// Farthest-point sampling on the RAW offsets — distance, not direction.
+	//
+	// The first version normalised the offsets and maximised angular spread,
+	// and could not escape a cluster no matter how deep the pool: standing
+	// inside one, the local offsets point every which way (large mutual
+	// angles) while an entire distant cluster lies in roughly ONE direction,
+	// so angular spread always preferred four kinds of in-cluster noise over
+	// the single direction that leads out. Verified the hard way: the pool
+	// grew from 40 to 3,000 candidates and Seven Samurai's four poles did not
+	// change — all Japanese. Distance-FPS reaches the next cluster because a
+	// far film is far from every near one.
+	//
+	// Seeded at the single nearest candidate, so one pole is always "more of
+	// this" — the anchor the exits then disagree with.
+	poles := []int{0}
+	for len(poles) < 4 && len(poles) < len(cands) {
+		best, bestD := -1, float32(-1)
+		for i := range cands {
 			taken := false
+			mind := float32(math.MaxFloat32)
 			for _, p := range poles {
 				if p == i {
 					taken = true
+					break
+				}
+				if d := sqDist(cands[i].raw, cands[p].raw); d < mind {
+					mind = d
 				}
 			}
 			if taken {
 				continue
 			}
-			// The candidate least aligned with every chosen pole.
-			maxd := float32(-2)
-			for _, p := range poles {
-				if d := dot(cands[i].off, cands[p].off); d > maxd {
-					maxd = d
-				}
-			}
-			if maxd < bestD {
-				best, bestD = i, maxd
+			if mind > bestD {
+				best, bestD = i, mind
 			}
 		}
 		if best < 0 {
@@ -87,6 +95,22 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 		}
 		poles = append(poles, best)
 	}
+	// The most opposed pair of the four takes left/right.
+	first, second, worst := poles[0], poles[1], float32(2)
+	for a := 0; a < len(poles); a++ {
+		for b := a + 1; b < len(poles); b++ {
+			if d := dot(cands[poles[a]].off, cands[poles[b]].off); d < worst {
+				first, second, worst = poles[a], poles[b], d
+			}
+		}
+	}
+	rest := []int{}
+	for _, p := range poles {
+		if p != first && p != second {
+			rest = append(rest, p)
+		}
+	}
+	poles = append([]int{first, second}, rest...)
 
 	// The most opposed pair is left/right; the other two are up/down.
 	pL, pR := cands[poles[0]], cands[poles[1]]
@@ -149,7 +173,9 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 	}
 
 	// Remaining slots from the middle outward, each taking the unplaced
-	// candidate whose projection lands nearest.
+	// candidate whose projection lands nearest. Only the NEAR candidates fill
+	// slots — the deep list exists for the poles, and letting rank-1100 films
+	// fill the grid would dissolve the neighbourhood the walk stands in.
 	type slot struct {
 		i    int
 		x, y float32
@@ -173,10 +199,11 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 		}
 	}
 	sort.Slice(slots, func(a, b int) bool { return slots[a].d < slots[b].d })
+	fillN := min(len(cands), cols*rows*3)
 	var cells []cellJSON
 	for _, sl := range slots {
 		best, bestD := -1, float32(math.MaxFloat32)
-		for i, cd := range cands {
+		for i, cd := range cands[:fillN] {
 			if placed[cd.n.PageID] {
 				continue
 			}
@@ -195,9 +222,9 @@ func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbo
 		cells = append(cells, cell)
 	}
 	out.Grid = grid
-	// Axis naming wants every candidate's projection, placed or not.
-	all := make([]cellJSON, 0, len(cands))
-	for i, cd := range cands {
+	// Axis naming wants the near candidates' projections, placed or not.
+	all := make([]cellJSON, 0, fillN)
+	for i, cd := range cands[:fillN] {
 		cj := s.fillCell(r, cd.n.PageID, cd.n.Score, xs[i]/mx, ys[i]/my)
 		all = append(all, cj)
 	}
@@ -240,6 +267,15 @@ func (s *server) nameAxes(cells []cellJSON, out *viewJSON) {
 	lo, hi = split(func(c cellJSON) float32 { return c.Y })
 	l, h = describeEnds(lo, hi, facets)
 	out.AxisNames.DownEnd, out.AxisNames.UpEnd = axisLabel(l), axisLabel(h)
+}
+
+func sqDist(a, b []float32) float32 {
+	var s float32
+	for i := range a {
+		d := a[i] - b[i]
+		s += d * d
+	}
+	return s
 }
 
 func dot(a, b []float32) float32 {

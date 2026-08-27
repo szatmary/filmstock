@@ -207,8 +207,12 @@ func (s *server) handleAPIExplore(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "no vectors for the selection", 404)
 		return
 	}
-	// Enough candidates that the projections have spread beyond the grid.
-	near := s.ex.coll.Nearest(pos, cols*rows*3, wk.stack)
+	// Deep, deliberately: the grid fills from the nearest, but the POLES must
+	// be able to reach past a dense cluster. Starting on a Japanese film, the
+	// top forty candidates are all Japanese — maximally spread directions
+	// within that pool are four doors into the same room, and there is no way
+	// out. Rank ~1000 is where the next cluster over lives.
+	near := s.ex.coll.Nearest(pos, 1200, wk.stack)
 	if len(near) < 5 {
 		http.Error(w, "nothing to explore here", 500)
 		return
