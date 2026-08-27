@@ -165,11 +165,17 @@ which is easy to overlook next to the films:
 | tv.plot | 34 MB |
 | tv.overview | 31 MB |
 
-**A split may serve better than compression.** Core / text / vectors as three
-files, ATTACHed into one logical database: a consumer wanting a media database
-takes 204 MB, one wanting synopses adds them, one doing ML search adds the
-vectors. It also keeps daily patches per-file. Worth weighing against
-compression rather than after it.
+**The split is the shipped shape** (decided, built, in /tank/mediadb/publish):
+
+| file | disk | zstd |
+|---|---|---|
+| filmstock.db (core + FTS + external ids + franchises) | 471 MB | 212 MB |
+| filmstock-text.db (synopses, episode summaries) | 614 MB | ~204 MB |
+| filmstock-vectors.db (composed embeddings + meta) | 222 MB | 148 MB |
+
+ATTACHed they are one logical database; separately, nobody downloads what they
+do not want, and daily patches stay per-file. Compression of the files
+themselves remains deferred per the notes above.
 
 | approach | result |
 |---|---|
