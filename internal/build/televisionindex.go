@@ -32,7 +32,7 @@ CREATE TABLE television_series(
   first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
   network TEXT, num_seasons TEXT, num_episodes TEXT,
   seasons_count INTEGER, episodes_count INTEGER,
-  cover_image_file TEXT, wikipedia_url TEXT,
+  cover_image_file TEXT, cover_image_url TEXT, wikipedia_url TEXT,
   -- As with films: 2,208 titles are shared by 5,215 series. Five different
   -- shows are called Friends, five are called The Office.
   wiki_title TEXT

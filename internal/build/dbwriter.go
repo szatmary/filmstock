@@ -40,6 +40,10 @@ type dbWriter struct {
 	insCredit                                   *sql.Stmt
 
 	unchanged, updated, inserted int
+
+	// localImages decides en-vs-commons for direct CDN image URLs; nil falls
+	// back to Special:FilePath.
+	localImages map[string]bool
 }
 
 // creditStagingSchema holds credits until people have identities.
@@ -132,7 +136,8 @@ func (w *dbWriter) begin() error {
 	w.insSeries = p(`INSERT OR REPLACE INTO television_series
 		(id,title,year,first_aired,last_aired,genre,creator,starring,network,
 		 num_seasons,num_episodes,seasons_count,episodes_count,cover_image_file,
-		 wikipedia_url,wiki_title) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
+		 cover_image_url,wikipedia_url,wiki_title)
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	w.insSeason = p(`INSERT INTO television_seasons
 		(series_id,season,page_id,num_episodes,first_aired,last_aired,
 		 network,starring,image,rank,rating,viewers) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`)
@@ -187,6 +192,15 @@ func (w *dbWriter) credit(people []filmstock.Person, workID int64, workType, rol
 	}
 }
 
+// imageURL is the published URL for a stated image filename: the CDN's,
+// directly, when the local-file list is loaded; the given fallback otherwise.
+func (w *dbWriter) imageURL(file, fallback string) string {
+	if u := cdnImageURL(file, w.localImages); u != "" {
+		return u
+	}
+	return fallback
+}
+
 // put writes one record. The identity is always an enwiki page_id.
 func (w *dbWriter) put(kind string, identity int64, v any) {
 	w.mu.Lock()
@@ -227,7 +241,8 @@ func (w *dbWriter) putMovie(id int64, m *filmstock.Movie) {
 		joinP(m.Music), join(filmstock.Names(m.Distributor)),
 		join(filmstock.Names(m.Country)), join(filmstock.Names(m.Language)),
 		join(m.Genre), m.Runtime, m.Budget, m.Gross, m.WikiURL,
-		m.CoverImageURL, m.CoverImageFile, filmstock.WikiTitleFromURL(m.WikiURL)); err != nil {
+		w.imageURL(m.CoverImageFile, m.CoverImageURL), m.CoverImageFile,
+		filmstock.WikiTitleFromURL(m.WikiURL)); err != nil {
 		w.fail(err)
 		return
 	}
@@ -254,7 +269,8 @@ func (w *dbWriter) putSeries(id int64, s *filmstock.TelevisionSeries) {
 	if _, err := w.insSeries.Exec(id, filmstock.CleanTelevisionTitle(s.Title), year,
 		s.FirstAired, s.LastAired, join(s.Genre), joinP(s.Creator), joinP(s.Starring),
 		join(filmstock.Names(s.Network)), s.NumSeasons, s.NumEpisodes,
-		len(s.Seasons), eps, s.CoverImageFile, s.WikiURL,
+		len(s.Seasons), eps, s.CoverImageFile,
+		w.imageURL(s.CoverImageFile, s.CoverImageURL), s.WikiURL,
 		filmstock.WikiTitleFromURL(s.WikiURL)); err != nil {
 		w.fail(err)
 		return
@@ -339,7 +355,7 @@ func (w *dbWriter) putPerson(id int64, p *filmstock.PersonRecord) {
 	// resolved through Special:FilePath exactly as film posters are.
 	imageURL := ""
 	if p.PersonBio != nil && p.Image != "" {
-		_, imageURL = filmstock.CoverImageURL(p.Image)
+		imageURL = w.imageURL(p.Image, "")
 	}
 	if _, err := w.insPerson.Exec(id, p.QID, p.Name, p.Wiki, imageURL); err != nil {
 		w.fail(err)

@@ -106,6 +106,14 @@ func runExportDB(in *Inter, d *dumpSet, dbPath, textPath string, workers, limit 
 	if err != nil {
 		return err
 	}
+	w.localImages = loadLocalImages(d.cache)
+	if w.localImages == nil {
+		fmt.Fprintln(os.Stderr, "  no local_images in the cache; image URLs fall back to "+
+			"Special:FilePath (run `filmstock build-image-list` to publish direct CDN URLs)")
+	} else {
+		fmt.Fprintf(os.Stderr, "  %d local files known; image URLs go straight to the CDN\n",
+			len(w.localImages))
+	}
 	if err := extractRecordsTo(w, d, interSource(in, n, workers), workers, limit); err != nil {
 		w.Close()
 		return err
