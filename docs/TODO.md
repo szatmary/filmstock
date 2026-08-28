@@ -59,6 +59,16 @@ unless every file's content hash matches the target manifest; any break,
 missing patch, or mismatch falls back to downloading the build whole
 (tests: TestUpdaterTakesThePatchRoad, TestUpdaterFallsBackWhenThePatchLies).
 
+HOSTING DECISION (2026-08-28): only fulls host their databases; a daily is
+its patches + manifest (the tip's databases wait in the un-hosted
+<root>-work dir as the next diff base, pruned when superseded). The hosted
+tree dropped from 12 GB to 1.3 GB apparent. Consumer consequences, tested:
+a fresh install takes the full road (newest full whole, then the patch
+chain to the tip — measured 39 s to 20260827); a broken or lying patch can
+no longer be papered over by fetching the daily whole, so the updater
+refuses loudly and stays put (or, fresh, lands honestly on the full);
+downgrades never happen. New database files must debut at fulls.
+
 The real chain is published at /tank/mediadb/bucket: the 20260801 full plus
 ten dailies (20260818–20260827; days 02–17 aged out of Wikimedia retention —
 the gap closes at the 20260901 full via the bridge). Daily patches run

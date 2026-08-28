@@ -200,35 +200,65 @@ func (u *Updater) Update(ctx context.Context) (corePath, build string, changed b
 		if err := u.applyChain(ctx, cur, steps); err == nil {
 			return u.finishBuild(ctx, latest)
 		}
-		// The patch road failed; say nothing and take the full road — the
-		// verification below decides what is true.
+		// The patch road from what we hold failed; the full road below decides
+		// what is reachable.
 		os.RemoveAll(filepath.Join(u.Dir, latest))
 	}
 
-	var man buildManifest
-	if err := u.getJSON(ctx, u.BaseURL+"/"+latest+"/manifest.json", &man); err != nil {
+	// The full road. Only fulls host their databases, so this lands on the
+	// newest full and rides the patch chain from there to the tip. When the
+	// chain past the full is unreachable too, the full itself is the honest
+	// destination — newer than what is held, and the state says what it is.
+	// A full older than what is held is no destination at all: never
+	// downgrade.
+	full := cat.LatestFull
+	if full == "" {
+		return "", "", false, fmt.Errorf("filmstock: catalog lists no full build")
+	}
+	if full <= cur {
+		return "", "", false, fmt.Errorf(
+			"filmstock: no patch road from %s to %s, and the newest full %s is not newer", cur, latest, full)
+	}
+	if err := u.fetchFull(ctx, full); err != nil {
 		return "", "", false, err
 	}
-	dir := filepath.Join(u.Dir, latest)
+	if full == latest {
+		return u.finishBuild(ctx, full)
+	}
+	if steps := cat.chain(full, latest); steps != nil {
+		if err := u.applyChain(ctx, full, steps); err == nil {
+			return u.finishBuild(ctx, latest)
+		}
+		os.RemoveAll(filepath.Join(u.Dir, latest))
+	}
+	return u.finishBuild(ctx, full)
+}
+
+// fetchFull downloads a full build's files whole, verifying each.
+func (u *Updater) fetchFull(ctx context.Context, id string) error {
+	var man buildManifest
+	if err := u.getJSON(ctx, u.BaseURL+"/"+id+"/manifest.json", &man); err != nil {
+		return err
+	}
+	dir := filepath.Join(u.Dir, id)
 	if err := os.MkdirAll(dir, 0o777); err != nil {
-		return "", "", false, err
+		return err
 	}
 	for _, name := range u.files() {
 		want, ok := man.Files[name]
 		if !ok {
-			return "", "", false, fmt.Errorf("filmstock: build %s has no %s", latest, name)
+			return fmt.Errorf("filmstock: build %s has no %s", id, name)
 		}
 		dst := filepath.Join(dir, name)
 		// Already present and verified — an interrupted run resumes for free.
 		if sum, err := fileSHA256(dst); err == nil && sum == want.SHA256 {
 			continue
 		}
-		if err := u.fetch(ctx, u.BaseURL+"/"+latest+"/"+name, dst, want.SHA256); err != nil {
-			return "", "", false, err
+		if err := u.fetch(ctx, u.BaseURL+"/"+id+"/"+name, dst, want.SHA256); err != nil {
+			return err
 		}
 	}
-
-	return u.finishBuild(ctx, latest)
+	return nil
 }
 
 // finishBuild rebuilds the local FTS, optionally re-verifies content, and
@@ -299,14 +329,16 @@ func (u *Updater) applyChain(ctx context.Context, cur string, steps []catalogEnt
 		for _, name := range u.files() {
 			want, ok := man.Files[name+suffix]
 			if !ok {
-				// No patch published for this file in this step (it appeared
-				// new that day): take the file whole from the step instead.
-				full, ok := man.Files[name]
+				// No patch for this file in this step. A full hosts its
+				// databases, so take the file whole; a daily does not, and a
+				// file that debuts mid-chain is unreachable until the next
+				// full — which is where new files are supposed to debut.
+				whole, ok := man.Files[name]
 				if !ok {
 					return fmt.Errorf("filmstock: build %s has neither %s nor its patch", step.ID, name)
 				}
 				if err := u.fetch(ctx, u.BaseURL+"/"+step.ID+"/"+name,
-					filepath.Join(dir, name), full.SHA256); err != nil {
+					filepath.Join(dir, name), whole.SHA256); err != nil {
 					return err
 				}
 				continue

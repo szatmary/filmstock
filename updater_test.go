@@ -222,18 +222,16 @@ func TestUpdaterTakesThePatchRoad(t *testing.T) {
 	}
 }
 
-// A patch that produces the wrong content must not be trusted: the updater
-// falls back to downloading the build whole, and still lands verified.
-func TestUpdaterFallsBackWhenThePatchLies(t *testing.T) {
+// A patch that produces the wrong content must not be trusted — and with
+// daily databases unhosted there is nothing to fall back to: a consumer
+// already at the parent stays put with an error, and a fresh consumer lands
+// on the full, honestly behind the tip, rather than empty-handed.
+func TestUpdaterRefusesALyingPatch(t *testing.T) {
 	bucket := t.TempDir()
 	fakeRelease(t, bucket, "20260801", "Blade Runner")
-	u := NewUpdater(bucket, t.TempDir())
-	ctx := context.Background()
-	if _, _, _, err := u.Update(ctx); err != nil {
-		t.Fatal(err)
-	}
-
 	fakeDaily(t, bucket, "20260802", "20260801", stalkerPatch)
+	// The daily hosts no databases, only its patch and manifest.
+	os.Remove(filepath.Join(bucket, "20260802", "filmstock.db"))
 	// Replace the published patch with one that inserts the wrong film, and
 	// fix its manifest sha so only the CONTENT check can catch it.
 	lie := `INSERT INTO movies(id,title,year,starring,director,cover_image_file)
@@ -252,18 +250,21 @@ func TestUpdaterFallsBackWhenThePatchLies(t *testing.T) {
 	man["files"].(map[string]any)["filmstock.db.patch.sql.gz"].(map[string]any)["sha256"] = psha
 	mb, _ = json.Marshal(man)
 	os.WriteFile(mp, mb, 0o644)
+	ctx := context.Background()
 
-	core, build, changed, err := u.Update(ctx)
-	if err != nil || !changed || build != "20260802" {
-		t.Fatalf("fallback: build=%s changed=%v err=%v", build, changed, err)
+	// A fresh consumer takes the full road and lands on the full.
+	u := NewUpdater(bucket, t.TempDir())
+	_, build, changed, err := u.Update(ctx)
+	if err != nil || !changed || build != "20260801" {
+		t.Fatalf("fresh consumer: build=%s changed=%v err=%v; want to land on the full", build, changed, err)
 	}
-	h, err := sql.Open(sqldrv.Name, "file:"+core+"?mode=ro")
-	if err != nil {
-		t.Fatal(err)
+
+	// Now at the parent, the lying patch is the only road forward: refuse
+	// loudly and stay put.
+	if _, build, _, err := u.Update(ctx); err == nil {
+		t.Fatalf("a lying patch was accepted (build=%s)", build)
 	}
-	defer h.Close()
-	var title string
-	if err := h.QueryRow(`SELECT title FROM movies WHERE id=2`).Scan(&title); err != nil || title != "Stalker" {
-		t.Fatalf("fallback served the lie: %q %v", title, err)
+	if got := u.Current(); got != "20260801" {
+		t.Fatalf("current = %s after refusing the patch; must stay at the full", got)
 	}
 }

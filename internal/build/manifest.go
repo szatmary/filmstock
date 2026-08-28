@@ -69,12 +69,6 @@ func CmdManifest(args []string) {
 		*out = filepath.Join(*dir, "manifest.json")
 	}
 
-	m := manifest{
-		Dump:         *dump,
-		Generated:    time.Now().UTC().Format(time.RFC3339),
-		ContentHashV: filmstock.ContentHashVersion,
-		Files:        map[string]manifestFile{},
-	}
 	entries, err := os.ReadDir(*dir)
 	if err != nil {
 		fatal(err)
@@ -90,23 +84,47 @@ func CmdManifest(args []string) {
 	if len(names) == 0 {
 		fatal(fmt.Errorf("manifest: nothing to describe in %s", *dir))
 	}
+	files := map[string]string{}
 	for _, name := range names {
-		path := filepath.Join(*dir, name)
+		files[name] = filepath.Join(*dir, name)
+	}
+	if err := writeManifest(*out, *dump, files); err != nil {
+		fatal(err)
+	}
+}
+
+// writeManifest describes the named files — wherever each lives: a daily's
+// databases sit in the un-hosted work directory while its patches sit in the
+// hosted one, and one manifest speaks for both.
+func writeManifest(out, dump string, files map[string]string) error {
+	m := manifest{
+		Dump:         dump,
+		Generated:    time.Now().UTC().Format(time.RFC3339),
+		ContentHashV: filmstock.ContentHashVersion,
+		Files:        map[string]manifestFile{},
+	}
+	names := make([]string, 0, len(files))
+	for name := range files {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	for _, name := range names {
+		path := files[name]
 		f, err := os.Open(path)
 		if err != nil {
-			fatal(err)
+			return err
 		}
 		h := sha256.New()
 		size, err := io.Copy(h, f)
 		f.Close()
 		if err != nil {
-			fatal(err)
+			return err
 		}
 		mf := manifestFile{Size: size, SHA256: hex.EncodeToString(h.Sum(nil))}
 		if strings.HasSuffix(name, ".db") {
 			ch, tables, err := contentHashOf(path)
 			if err != nil {
-				fatal(fmt.Errorf("content hash of %s: %w", name, err))
+				return fmt.Errorf("content hash of %s: %w", name, err)
 			}
 			mf.Content, mf.ContentTables = ch, tables
 		}
@@ -116,12 +134,13 @@ func CmdManifest(args []string) {
 	}
 	b, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {
-		fatal(err)
+		return err
 	}
-	if err := os.WriteFile(*out, append(b, '\n'), 0o644); err != nil {
-		fatal(err)
+	if err := os.WriteFile(out, append(b, '\n'), 0o644); err != nil {
+		return err
 	}
-	fmt.Fprintf(os.Stderr, "  -> %s\n", *out)
+	fmt.Fprintf(os.Stderr, "  -> %s\n", out)
+	return nil
 }
 
 func contentHashOf(path string) (string, map[string]string, error) {

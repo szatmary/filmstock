@@ -18,30 +18,33 @@ import (
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
-// CmdPublish turns one finished build into one release: files copied into the
-// per-build directory, a patch from the parent for every database, the bridge
-// when a full supersedes an existing chain, the manifest, and the catalog
-// entry — with every patch APPLIED to a copy of its parent and content-hash
-// verified against the new build before anything is recorded. The "null op
-// unless there is a mistake" promise is checked here, at publish time, not
-// hoped for at consume time.
+// CmdPublish turns one finished build into one release — with every patch
+// APPLIED to a copy of its base and content-hash verified against the new
+// build before anything is recorded. The "null op unless there is a mistake"
+// promise is checked here, at publish time, not hoped for at consume time.
 //
 //	filmstock publish -root bucket -id 20260819 -from /var/tmp/rebuild-19
 //	filmstock publish -root bucket -id 20260901 -from ... -full
 //
-// Layout written under -root, matching what builds.json states:
+// Only fulls host their databases; a daily is its patches. The information
+// content of a chain is one full plus the patch series, so hosting a daily's
+// databases would ship redundancy — but the NEXT build still needs them to
+// diff against, so the chain tip's databases live in the un-hosted work
+// directory until their successor is published.
 //
-//	<root>/builds.json
-//	<root>/<id>/filmstock.db …           the build's databases
-//	<root>/<id>/<db>.patch.sql.gz        daily: parent -> this build
-//	<root>/<id>/<db>.bridge.sql.gz       full: previous chain tip -> this build
+//	<root>/builds.json                   hosted: sync this tree to the bucket
+//	<root>/<full>/filmstock.db …         a full's databases
+//	<root>/<full>/<db>.bridge.sql.gz     previous chain tip -> this full
+//	<root>/<daily>/<db>.patch.sql.gz     parent -> this daily
 //	<root>/<id>/manifest.json            sizes, sha256, content hashes
+//	<work>/<daily>/filmstock.db …        NOT hosted: the tip, kept for diffing
 func CmdPublish(args []string) {
 	fs := flag.NewFlagSet("publish", flag.ExitOnError)
 	root := fs.String("root", "bucket", "release root holding builds.json and one directory per build")
 	id := fs.String("id", "", "build id (YYYYMMDD, the dump it mirrors)")
 	from := fs.String("from", "", "directory holding the build's *.db files")
 	full := fs.Bool("full", false, "this build is a full (starts a new chain)")
+	work := fs.String("work", "", "un-hosted directory holding the chain tip's databases (default <root>-work)")
 	differ := fs.String("sqldiff", "./sqldiff", "the sqldiff binary (make sqldiff)")
 	fs.Parse(args)
 	if *id == "" || *from == "" {
@@ -49,6 +52,9 @@ func CmdPublish(args []string) {
 	}
 	if _, err := exec.LookPath(*differ); err != nil {
 		fatal(fmt.Errorf("%s: %w — build it with `make sqldiff`", *differ, err))
+	}
+	if *work == "" {
+		*work = strings.TrimSuffix(*root, "/") + "-work"
 	}
 
 	cat := readCatalog(filepath.Join(*root, "builds.json"))
@@ -71,12 +77,33 @@ func CmdPublish(args []string) {
 	if err := os.MkdirAll(dir, 0o777); err != nil {
 		fatal(err)
 	}
+	// A full's databases are hosted; a daily's live only in the work
+	// directory, waiting to be the next build's diff base.
+	dbDir := dir
+	if !*full {
+		dbDir = filepath.Join(*work, *id)
+		if err := os.MkdirAll(dbDir, 0o777); err != nil {
+			fatal(err)
+		}
+	}
 	ok := false
 	defer func() {
 		if !ok {
 			os.RemoveAll(dir)
+			if dbDir != dir {
+				os.RemoveAll(dbDir)
+			}
 		}
 	}()
+
+	// baseDBDir finds where a build's databases actually are: the work
+	// directory for a daily tip, the hosted directory for a full.
+	baseDBDir := func(id string) string {
+		if _, err := os.Stat(filepath.Join(*work, id)); err == nil {
+			return filepath.Join(*work, id)
+		}
+		return filepath.Join(*root, id)
+	}
 
 	// The build's databases. A file the build did not produce is carried
 	// forward from the base unchanged — a daily that did not re-embed vectors
@@ -88,12 +115,12 @@ func CmdPublish(args []string) {
 	files := map[string]bool{}
 	for _, p := range names {
 		files[filepath.Base(p)] = true
-		if err := linkOrCopy(p, filepath.Join(dir, filepath.Base(p))); err != nil {
+		if err := linkOrCopy(p, filepath.Join(dbDir, filepath.Base(p))); err != nil {
 			fatal(err)
 		}
 	}
 	if base != "" {
-		carried, err := filepath.Glob(filepath.Join(*root, base, "*.db"))
+		carried, err := filepath.Glob(filepath.Join(baseDBDir(base), "*.db"))
 		if err != nil {
 			fatal(err)
 		}
@@ -104,7 +131,7 @@ func CmdPublish(args []string) {
 			}
 			fmt.Fprintf(os.Stderr, "  %s: not in %s; carried forward from %s\n", b, *from, base)
 			files[b] = true
-			if err := linkOrCopy(p, filepath.Join(dir, b)); err != nil {
+			if err := linkOrCopy(p, filepath.Join(dbDir, b)); err != nil {
 				fatal(err)
 			}
 		}
@@ -128,12 +155,12 @@ func CmdPublish(args []string) {
 	totalStatements := 0
 	if base != "" {
 		for _, b := range ordered {
-			basePath := filepath.Join(*root, base, b)
+			basePath := filepath.Join(baseDBDir(base), b)
 			if _, err := os.Stat(basePath); err != nil {
 				fmt.Fprintf(os.Stderr, "  %s: new in this build, no patch\n", b)
 				continue
 			}
-			newPath := filepath.Join(dir, b)
+			newPath := filepath.Join(dbDir, b)
 			patchPath := filepath.Join(dir, b+suffix+".gz")
 			n, raw, err := writeDiff(*differ, basePath, newPath, patchPath)
 			if err != nil {
@@ -149,7 +176,20 @@ func CmdPublish(args []string) {
 		}
 	}
 
-	CmdManifest([]string{"-dir", dir, "-dump", *id})
+	manifestFiles := map[string]string{}
+	for _, b := range ordered {
+		manifestFiles[b] = filepath.Join(dbDir, b)
+	}
+	patches, err := filepath.Glob(filepath.Join(dir, "*.sql.gz"))
+	if err != nil {
+		fatal(err)
+	}
+	for _, p := range patches {
+		manifestFiles[filepath.Base(p)] = p
+	}
+	if err := writeManifest(filepath.Join(dir, "manifest.json"), *id, manifestFiles); err != nil {
+		fatal(err)
+	}
 
 	bargs := []string{"-catalog", filepath.Join(*root, "builds.json"),
 		"-id", *id, "-kind", kind}
@@ -163,6 +203,15 @@ func CmdPublish(args []string) {
 	}
 	CmdBuilds(bargs)
 	ok = true
+
+	// The old tip's databases have served their purpose: this build's patches
+	// were diffed against them and verified. Only the new tip stays in work.
+	tips, _ := filepath.Glob(filepath.Join(*work, "*"))
+	for _, t := range tips {
+		if filepath.Base(t) != *id {
+			os.RemoveAll(t)
+		}
+	}
 }
 
 func readCatalog(path string) buildsCatalog {
