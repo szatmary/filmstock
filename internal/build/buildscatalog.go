@@ -49,7 +49,7 @@ type buildEntry struct {
 // CmdBuilds adds or updates one entry in the catalog.
 func CmdBuilds(args []string) {
 	fs := flag.NewFlagSet("builds", flag.ExitOnError)
-	catalog := fs.String("catalog", "publish/builds.json", "the catalog to maintain")
+	catalog := fs.String("catalog", "bucket/builds.json", "the catalog to maintain")
 	id := fs.String("id", "", "build id (YYYYMMDD)")
 	kind := fs.String("kind", "", "full or daily")
 	dump := fs.String("dump", "", "the Wikimedia dump this mirrors (default: the id)")

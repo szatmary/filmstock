@@ -38,7 +38,7 @@ import (
 //	<root>/<id>/manifest.json            sizes, sha256, content hashes
 func CmdPublish(args []string) {
 	fs := flag.NewFlagSet("publish", flag.ExitOnError)
-	root := fs.String("root", "publish", "release root holding builds.json and one directory per build")
+	root := fs.String("root", "bucket", "release root holding builds.json and one directory per build")
 	id := fs.String("id", "", "build id (YYYYMMDD, the dump it mirrors)")
 	from := fs.String("from", "", "directory holding the build's *.db files")
 	full := fs.Bool("full", false, "this build is a full (starts a new chain)")

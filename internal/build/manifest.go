@@ -57,7 +57,7 @@ type manifestFile struct {
 // CmdManifest hashes a release directory into its manifest.
 func CmdManifest(args []string) {
 	fs := flag.NewFlagSet("manifest", flag.ExitOnError)
-	dir := fs.String("dir", "publish", "release directory holding the artifacts")
+	dir := fs.String("dir", "bucket", "release directory holding the artifacts")
 	dump := fs.String("dump", "", "dump date the release was built from (YYYYMMDD)")
 	out := fs.String("out", "", "where to write (default <dir>/manifest.json)")
 	fs.Parse(args)
