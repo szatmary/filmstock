@@ -1,6 +1,8 @@
 package filmstock
 
 import (
+	"bytes"
+	"compress/gzip"
 	"context"
 	"crypto/sha256"
 	"database/sql"
@@ -33,9 +35,13 @@ import (
 //	<dir>/20260820/…                arriving; invisible until verified
 //	<dir>/state.json                which build is current
 //
-// Today the updater follows FULL builds only. Daily patches will slot in as a
-// cheaper path to the same place once the patch releases exist; the content
-// hash in every manifest is what will prove the two paths converge.
+// The cheap path is the patch chain: when the catalog shows an unbroken line
+// of parents from what is held to the latest build — dailies naming their
+// parent, a full naming the chain it bridges from — the updater copies the
+// current files forward, applies each build's patches in order, and demands
+// the final content hashes match the target's manifest. Any break, any
+// missing patch, any mismatch, and it falls back to downloading the build
+// whole; the content hash is what proves the two paths converge.
 type Updater struct {
 	// BaseURL serves builds.json, e.g. "https://dl.example.org/filmstock".
 	// A value with no scheme is a LOCAL DIRECTORY laid out the same way —
@@ -79,12 +85,54 @@ type updaterState struct {
 }
 
 type catalogEntry struct {
-	ID   string `json:"id"`
-	Kind string `json:"kind"`
+	ID         string `json:"id"`
+	Kind       string `json:"kind"`
+	Parent     string `json:"parent"`
+	BridgeFrom string `json:"bridge_from"`
 }
 type catalog struct {
 	LatestFull string         `json:"latest_full"`
+	Latest     string         `json:"latest"`
 	Builds     []catalogEntry `json:"builds"`
+}
+
+func (c *catalog) entry(id string) *catalogEntry {
+	for i := range c.Builds {
+		if c.Builds[i].ID == id {
+			return &c.Builds[i]
+		}
+	}
+	return nil
+}
+
+// chain returns the builds stepping from cur to target, oldest first: each
+// step is a daily applying on its parent, or a full bridging from the chain
+// tip before it. Nil when no unbroken line exists — then only a full
+// download reaches the target.
+func (c *catalog) chain(cur, target string) []catalogEntry {
+	if cur == "" || cur == target {
+		return nil
+	}
+	var steps []catalogEntry
+	for id := target; id != cur; {
+		e := c.entry(id)
+		if e == nil {
+			return nil
+		}
+		prev := e.Parent
+		if e.Kind == "full" {
+			prev = e.BridgeFrom
+		}
+		if prev == "" {
+			return nil
+		}
+		steps = append(steps, *e)
+		id = prev
+	}
+	for i, j := 0, len(steps)-1; i < j; i, j = i+1, j-1 {
+		steps[i], steps[j] = steps[j], steps[i]
+	}
+	return steps
 }
 
 type buildManifest struct {
@@ -109,30 +157,52 @@ func (u *Updater) Current() string {
 	return s.Current
 }
 
-// Check reports the newest full build available, and whether it is newer than
+// Check reports the newest build available, and whether it is newer than
 // what is held.
 func (u *Updater) Check(ctx context.Context) (latest string, newer bool, err error) {
-	var cat catalog
-	if err := u.getJSON(ctx, u.BaseURL+"/builds.json", &cat); err != nil {
+	cat, err := u.catalog(ctx)
+	if err != nil {
 		return "", false, err
 	}
-	if cat.LatestFull == "" {
-		return "", false, fmt.Errorf("filmstock: catalog lists no full build")
-	}
-	return cat.LatestFull, cat.LatestFull > u.Current(), nil
+	return cat.Latest, cat.Latest > u.Current(), nil
 }
 
-// Update fetches the newest full build if it is newer than what is held.
+func (u *Updater) catalog(ctx context.Context) (*catalog, error) {
+	var cat catalog
+	if err := u.getJSON(ctx, u.BaseURL+"/builds.json", &cat); err != nil {
+		return nil, err
+	}
+	if cat.Latest == "" && cat.LatestFull != "" {
+		cat.Latest = cat.LatestFull
+	}
+	if cat.Latest == "" {
+		return nil, fmt.Errorf("filmstock: catalog lists no builds")
+	}
+	return &cat, nil
+}
+
+// Update brings the directory to the newest build if one is newer than what
+// is held — via the patch chain when the catalog offers one, downloading the
+// build whole when it does not or when the patched result fails to verify.
 // It returns the path of the ready-to-open core database and the build id;
 // changed is false when there was nothing to do.
 func (u *Updater) Update(ctx context.Context) (corePath, build string, changed bool, err error) {
-	latest, newer, err := u.Check(ctx)
+	cat, err := u.catalog(ctx)
 	if err != nil {
 		return "", "", false, err
 	}
-	cur := u.Current()
-	if !newer {
+	latest, cur := cat.Latest, u.Current()
+	if latest <= cur {
 		return filepath.Join(u.Dir, cur, "filmstock.db"), cur, false, nil
+	}
+
+	if steps := cat.chain(cur, latest); steps != nil {
+		if err := u.applyChain(ctx, cur, steps); err == nil {
+			return u.finishBuild(ctx, latest)
+		}
+		// The patch road failed; say nothing and take the full road — the
+		// verification below decides what is true.
+		os.RemoveAll(filepath.Join(u.Dir, latest))
 	}
 
 	var man buildManifest
@@ -158,6 +228,17 @@ func (u *Updater) Update(ctx context.Context) (corePath, build string, changed b
 		}
 	}
 
+	return u.finishBuild(ctx, latest)
+}
+
+// finishBuild rebuilds the local FTS, optionally re-verifies content, and
+// flips state.json — the commit point; everything before it is invisible.
+func (u *Updater) finishBuild(ctx context.Context, latest string) (string, string, bool, error) {
+	var man buildManifest
+	if err := u.getJSON(ctx, u.BaseURL+"/"+latest+"/manifest.json", &man); err != nil {
+		return "", "", false, err
+	}
+	dir := filepath.Join(u.Dir, latest)
 	core := filepath.Join(dir, "filmstock.db")
 	h, err := sql.Open(sqldrv.Name, core)
 	if err != nil {
@@ -183,13 +264,134 @@ func (u *Updater) Update(ctx context.Context) (corePath, build string, changed b
 	if err := h.Close(); err != nil {
 		return "", "", false, err
 	}
-
-	// The state flip is the commit point: everything before it is invisible.
 	sb, _ := json.Marshal(updaterState{Current: latest})
 	if err := os.WriteFile(filepath.Join(u.Dir, "state.json"), sb, 0o644); err != nil {
 		return "", "", false, err
 	}
 	return core, latest, true, nil
+}
+
+// applyChain copies the current build's files into the target's directory and
+// applies each step's patches in order, then demands every file's content
+// hash equal the target manifest's. Every failure is an error; the caller
+// falls back to the whole download.
+func (u *Updater) applyChain(ctx context.Context, cur string, steps []catalogEntry) error {
+	target := steps[len(steps)-1].ID
+	dir := filepath.Join(u.Dir, target)
+	os.RemoveAll(dir)
+	if err := os.MkdirAll(dir, 0o777); err != nil {
+		return err
+	}
+	for _, name := range u.files() {
+		if err := copyLocal(filepath.Join(u.Dir, cur, name), filepath.Join(dir, name)); err != nil {
+			return err
+		}
+	}
+	for _, step := range steps {
+		var man buildManifest
+		if err := u.getJSON(ctx, u.BaseURL+"/"+step.ID+"/manifest.json", &man); err != nil {
+			return err
+		}
+		suffix := ".patch.sql.gz"
+		if step.Kind == "full" {
+			suffix = ".bridge.sql.gz"
+		}
+		for _, name := range u.files() {
+			want, ok := man.Files[name+suffix]
+			if !ok {
+				// No patch published for this file in this step (it appeared
+				// new that day): take the file whole from the step instead.
+				full, ok := man.Files[name]
+				if !ok {
+					return fmt.Errorf("filmstock: build %s has neither %s nor its patch", step.ID, name)
+				}
+				if err := u.fetch(ctx, u.BaseURL+"/"+step.ID+"/"+name,
+					filepath.Join(dir, name), full.SHA256); err != nil {
+					return err
+				}
+				continue
+			}
+			raw, err := u.getBlob(ctx, u.BaseURL+"/"+step.ID+"/"+name+suffix, want.SHA256)
+			if err != nil {
+				return err
+			}
+			gz, err := gzip.NewReader(bytes.NewReader(raw))
+			if err != nil {
+				return err
+			}
+			sql, err := io.ReadAll(gz)
+			if err != nil {
+				return err
+			}
+			if err := applySQL(filepath.Join(dir, name), sql); err != nil {
+				return fmt.Errorf("filmstock: applying %s of %s: %w", name+suffix, step.ID, err)
+			}
+		}
+	}
+	// The proof: the patched files must BE the target build, content-wise.
+	var man buildManifest
+	if err := u.getJSON(ctx, u.BaseURL+"/"+target+"/manifest.json", &man); err != nil {
+		return err
+	}
+	for _, name := range u.files() {
+		want := man.Files[name].Content
+		if want == "" {
+			continue
+		}
+		h, err := sql.Open(sqldrv.Name, "file:"+filepath.Join(dir, name)+"?mode=ro")
+		if err != nil {
+			return err
+		}
+		got, _, err := ContentHash(h)
+		h.Close()
+		if err != nil {
+			return err
+		}
+		if got != want {
+			return fmt.Errorf("filmstock: %s after patch chain: content %s, want %s", name, got, want)
+		}
+	}
+	return nil
+}
+
+// applySQL runs a patch against one database file, atomically: all of it or
+// none of it.
+func applySQL(path string, patch []byte) error {
+	if len(patch) == 0 {
+		return nil
+	}
+	h, err := sql.Open(sqldrv.Name, path)
+	if err != nil {
+		return err
+	}
+	defer h.Close()
+	h.SetMaxOpenConns(1)
+	if _, err := h.Exec(`BEGIN IMMEDIATE`); err != nil {
+		return err
+	}
+	if _, err := h.Exec(string(patch)); err != nil {
+		h.Exec(`ROLLBACK`)
+		return err
+	}
+	_, err = h.Exec(`COMMIT`)
+	return err
+}
+
+func copyLocal(src, dst string) error {
+	in, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer in.Close()
+	out, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	if _, err := io.Copy(out, in); err != nil {
+		out.Close()
+		return err
+	}
+	return out.Close()
 }
 
 // UpdateAndSwap runs Update and, when a new build arrived, opens it and swaps
@@ -319,6 +521,42 @@ func (u *Updater) fetch(ctx context.Context, url, dst, wantSHA string) error {
 		return fmt.Errorf("filmstock: %s: sha256 mismatch: got %s want %s", url, got, wantSHA)
 	}
 	return os.Rename(tmp, dst)
+}
+
+// getBlob fetches a small file into memory, refusing a hash mismatch.
+func (u *Updater) getBlob(ctx context.Context, url, wantSHA string) ([]byte, error) {
+	var body io.ReadCloser
+	if u.local() {
+		f, err := os.Open(url)
+		if err != nil {
+			return nil, err
+		}
+		body = f
+	} else {
+		req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+		if err != nil {
+			return nil, err
+		}
+		res, err := u.client().Do(req)
+		if err != nil {
+			return nil, err
+		}
+		if res.StatusCode != 200 {
+			res.Body.Close()
+			return nil, fmt.Errorf("filmstock: GET %s: %s", url, res.Status)
+		}
+		body = res.Body
+	}
+	defer body.Close()
+	b, err := io.ReadAll(body)
+	if err != nil {
+		return nil, err
+	}
+	sum := sha256.Sum256(b)
+	if got := hex.EncodeToString(sum[:]); wantSHA != "" && got != wantSHA {
+		return nil, fmt.Errorf("filmstock: %s: sha256 mismatch: got %s want %s", url, got, wantSHA)
+	}
+	return b, nil
 }
 
 func fileSHA256(path string) (string, error) {

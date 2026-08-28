@@ -52,9 +52,24 @@ chains the catalog. Measured on the trial: full 8 s; daily 33 s with all
 three patches verified (core 103 KB gz / text 1.2 MB gz / carried-forward
 vectors 23 B); superseding full records bridge_from + bridge_statements.
 
-Still to build: R2 upload/signing (user credentials), updater's apply-patch
-path (download patch, apply, verify content hash, fall back to the full on
-mismatch).
+Updater patch path: DONE — when the catalog offers an unbroken parent/bridge
+chain from the held build to the latest, the Updater copies its files
+forward, applies each build's patches in order, and refuses the result
+unless every file's content hash matches the target manifest; any break,
+missing patch, or mismatch falls back to downloading the build whole
+(tests: TestUpdaterTakesThePatchRoad, TestUpdaterFallsBackWhenThePatchLies).
+
+The real chain is published at /tank/mediadb/bucket: the 20260801 full plus
+ten dailies (20260818–20260827; days 02–17 aged out of Wikimedia retention —
+the gap closes at the 20260901 full via the bridge). Daily patches run
+35–96 KB gz core + 0.6–1.2 MB gz text; a consumer seeded at the full rode
+all ten days in 29.8 s (~6.5 MB down instead of ~1.2 GB). Dailies were
+produced by scratchpad/chain.sh's loop: fetch incr -> update -> post-passes
+-> publish; that loop is what a daily timer should run.
+
+Still to build: R2 upload (user is handling distribution), a daily
+scheduler for the fetch/update/publish loop, wikidata cache + vectors
+refresh at the 20260901 full.
 
 
 ### Daily updates cannot add people — BUILT, NOT YET PROVEN

@@ -1,6 +1,8 @@
 package filmstock
 
 import (
+	"bytes"
+	"compress/gzip"
 	"context"
 	"database/sql"
 	"encoding/json"
@@ -135,5 +137,133 @@ func TestUpdaterLocalDirectory(t *testing.T) {
 	_, build, changed, err := u.Update(context.Background())
 	if err != nil || !changed || build != "20260801" {
 		t.Fatalf("%v changed=%v build=%s", err, changed, build)
+	}
+}
+
+// fakeDaily derives build id from parent by one INSERT, publishing the patch
+// beside the full file the way `filmstock publish` does.
+func fakeDaily(t *testing.T, root, id, parent, patchSQL string) {
+	t.Helper()
+	dir := filepath.Join(root, id)
+	os.MkdirAll(dir, 0o777)
+	core := filepath.Join(dir, "filmstock.db")
+	if err := copyLocal(filepath.Join(root, parent, "filmstock.db"), core); err != nil {
+		t.Fatal(err)
+	}
+	if err := applySQL(core, []byte(patchSQL)); err != nil {
+		t.Fatal(err)
+	}
+	h, err := sql.Open(sqldrv.Name, "file:"+core+"?mode=ro")
+	if err != nil {
+		t.Fatal(err)
+	}
+	content, _, err := ContentHash(h)
+	h.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+	sha, _ := fileSHA256(core)
+
+	var gz bytes.Buffer
+	zw := gzip.NewWriter(&gz)
+	zw.Write([]byte(patchSQL))
+	zw.Close()
+	patchPath := filepath.Join(dir, "filmstock.db.patch.sql.gz")
+	os.WriteFile(patchPath, gz.Bytes(), 0o644)
+	psha, _ := fileSHA256(patchPath)
+
+	man := map[string]any{"dump": id, "files": map[string]any{
+		"filmstock.db":              map[string]any{"sha256": sha, "content_hash": content},
+		"filmstock.db.patch.sql.gz": map[string]any{"sha256": psha},
+	}}
+	mb, _ := json.Marshal(man)
+	os.WriteFile(filepath.Join(dir, "manifest.json"), mb, 0o644)
+
+	cat := map[string]any{"latest_full": parent, "latest": id,
+		"builds": []map[string]any{
+			{"id": parent, "kind": "full"},
+			{"id": id, "kind": "daily", "parent": parent},
+		}}
+	cb, _ := json.Marshal(cat)
+	os.WriteFile(filepath.Join(root, "builds.json"), cb, 0o644)
+}
+
+const stalkerPatch = `INSERT INTO movies(id,title,year,starring,director,cover_image_file)
+  VALUES (2,'Stalker',1979,'','','');`
+
+// The patch road: with the daily's FULL file deleted from the release, only
+// the patch can reach the new build — and it does, content-verified.
+func TestUpdaterTakesThePatchRoad(t *testing.T) {
+	bucket := t.TempDir()
+	fakeRelease(t, bucket, "20260801", "Blade Runner")
+	u := NewUpdater(bucket, t.TempDir())
+	ctx := context.Background()
+	if _, _, changed, err := u.Update(ctx); err != nil || !changed {
+		t.Fatalf("seed full: changed=%v err=%v", changed, err)
+	}
+
+	fakeDaily(t, bucket, "20260802", "20260801", stalkerPatch)
+	if err := os.Remove(filepath.Join(bucket, "20260802", "filmstock.db")); err != nil {
+		t.Fatal(err)
+	}
+
+	core, build, changed, err := u.Update(ctx)
+	if err != nil || !changed || build != "20260802" {
+		t.Fatalf("patch road: build=%s changed=%v err=%v", build, changed, err)
+	}
+	h, err := sql.Open(sqldrv.Name, "file:"+core+"?mode=ro")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer h.Close()
+	var title string
+	if err := h.QueryRow(`SELECT title FROM movies WHERE id=2`).Scan(&title); err != nil || title != "Stalker" {
+		t.Fatalf("patched build lacks the day's row: %q %v", title, err)
+	}
+}
+
+// A patch that produces the wrong content must not be trusted: the updater
+// falls back to downloading the build whole, and still lands verified.
+func TestUpdaterFallsBackWhenThePatchLies(t *testing.T) {
+	bucket := t.TempDir()
+	fakeRelease(t, bucket, "20260801", "Blade Runner")
+	u := NewUpdater(bucket, t.TempDir())
+	ctx := context.Background()
+	if _, _, _, err := u.Update(ctx); err != nil {
+		t.Fatal(err)
+	}
+
+	fakeDaily(t, bucket, "20260802", "20260801", stalkerPatch)
+	// Replace the published patch with one that inserts the wrong film, and
+	// fix its manifest sha so only the CONTENT check can catch it.
+	lie := `INSERT INTO movies(id,title,year,starring,director,cover_image_file)
+	  VALUES (2,'Not Stalker',1979,'','','');`
+	var gz bytes.Buffer
+	zw := gzip.NewWriter(&gz)
+	zw.Write([]byte(lie))
+	zw.Close()
+	pp := filepath.Join(bucket, "20260802", "filmstock.db.patch.sql.gz")
+	os.WriteFile(pp, gz.Bytes(), 0o644)
+	psha, _ := fileSHA256(pp)
+	mp := filepath.Join(bucket, "20260802", "manifest.json")
+	var man map[string]any
+	mb, _ := os.ReadFile(mp)
+	json.Unmarshal(mb, &man)
+	man["files"].(map[string]any)["filmstock.db.patch.sql.gz"].(map[string]any)["sha256"] = psha
+	mb, _ = json.Marshal(man)
+	os.WriteFile(mp, mb, 0o644)
+
+	core, build, changed, err := u.Update(ctx)
+	if err != nil || !changed || build != "20260802" {
+		t.Fatalf("fallback: build=%s changed=%v err=%v", build, changed, err)
+	}
+	h, err := sql.Open(sqldrv.Name, "file:"+core+"?mode=ro")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer h.Close()
+	var title string
+	if err := h.QueryRow(`SELECT title FROM movies WHERE id=2`).Scan(&title); err != nil || title != "Stalker" {
+		t.Fatalf("fallback served the lie: %q %v", title, err)
 	}
 }
