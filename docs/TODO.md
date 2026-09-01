@@ -77,9 +77,49 @@ all ten days in 29.8 s (~6.5 MB down instead of ~1.2 GB). Dailies were
 produced by scratchpad/chain.sh's loop: fetch incr -> update -> post-passes
 -> publish; that loop is what a daily timer should run.
 
-Still to build: R2 upload (user is handling distribution), a daily
-scheduler for the fetch/update/publish loop, wikidata cache + vectors
-refresh at the 20260901 full.
+The daily scheduler is built: [scripts/daily.sh](../scripts/daily.sh), one
+cron entry point, replacing scratchpad/chain.sh. It holds a flock (the
+intermediate is mutated in place, so two runs applying different days would
+interleave into a store matching no day), preflights the
+binaries/inter/cache/dumps/catalog/free space, checks the intermediate's
+incr_through against the catalog's latest, and then runs one day at a time:
+`catchup -from D -max 1`, confirm the intermediate landed on D, the two
+post-passes, publish. Any failure stops the run — days are applied on top of
+one another, so skipping past one leaves a hole nothing downstream detects —
+and every failure is re-runnable rather than hand-repaired: import stamps
+incr_through only after the day is fully applied, a torn export dies with its
+staging directory, and a day that imported but never published is carried by
+the next day's export (the chain skips a build id, which is legal — patches
+chain parent to parent, not date to date). The one case it refuses to guess
+about is an existing build directory, because a published build is immutable.
+
+Proven on the 0828–0830 catch-up (2026-08-31), 80 min for three days:
+
+| step | 20260828 | 20260829 | 20260830 |
+|---|---|---|---|
+| fetch (~800–920 MB) | 3.4 min | 3.2 min | 4.0 min |
+| import (day -> inter) | 16.2 min | 2.7 min | 2.3 min |
+| export (inter -> dbs) | 6.8 min | 6.3 min | 4.6 min |
+| post-passes | 8.6 min | 8.6 min | 8.7 min |
+| publish | 1.7 min | 1.9 min | 1.7 min |
+| published patches | 672 KB | 581 KB | 684 KB |
+
+A steady-state day is ~21 min, peak RSS 4.3 GB in the update pass. 20260828's
+import is the outlier and is not a regression: the 8.25 GB intermediate had sat
+idle three days and that run paid for a cold ZFS ARC once (100% CPU against
+210–238% on the two warm days); 0829 and 0830 came in at the documented ~140 s.
+The post-passes are now the largest step — 8.6 min single-threaded at 86% CPU
+and 14 MB RSS, i.e. I/O bound — and are the obvious thing to attack if a daily
+needs to get shorter.
+
+Verified end to end afterwards: a fresh consumer, served the bucket over HTTP,
+took the full road and rode the patch chain to 20260830 in 24.1 s, landing a
+598 MB core whose row counts match the tip build exactly (166,092 movies /
+235,845 people). Re-running the script is a clean no-op ("already up to date",
+exit 0), as is a second concurrent run (the flock exits 0, not an error).
+
+Still to build: R2 upload (user is handling distribution), wikidata cache +
+vectors refresh at the 20260901 full.
 
 
 ### Daily updates cannot add people — BUILT, NOT YET PROVEN
