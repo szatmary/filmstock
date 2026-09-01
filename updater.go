@@ -60,6 +60,17 @@ type Updater struct {
 	VerifyContent bool
 	// Client, for tests and proxies. Nil means a client with sane timeouts.
 	Client *http.Client
+	// Log, if set, reports things that were handled but are worth knowing:
+	// chiefly a patch road abandoned for the full download, which is
+	// recoverable and invisible without this — and which means someone is
+	// paying a gigabyte for what should have been kilobytes.
+	Log func(format string, args ...any)
+}
+
+func (u *Updater) logf(format string, args ...any) {
+	if u.Log != nil {
+		u.Log(format, args...)
+	}
 }
 
 func NewUpdater(baseURL, dir string) *Updater {
@@ -199,10 +210,12 @@ func (u *Updater) Update(ctx context.Context) (corePath, build string, changed b
 	if steps := cat.chain(cur, latest); steps != nil {
 		if err := u.applyChain(ctx, cur, steps); err == nil {
 			return u.finishBuild(ctx, latest)
+		} else {
+			// The patch road from what we hold failed; the full road below
+			// decides what is reachable.
+			u.logf("filmstock: patch road %s -> %s failed, falling back to the full: %v", cur, latest, err)
+			os.RemoveAll(filepath.Join(u.Dir, latest))
 		}
-		// The patch road from what we hold failed; the full road below decides
-		// what is reachable.
-		os.RemoveAll(filepath.Join(u.Dir, latest))
 	}
 
 	// The full road. Only fulls host their databases, so this lands on the
@@ -228,8 +241,10 @@ func (u *Updater) Update(ctx context.Context) (corePath, build string, changed b
 	if steps := cat.chain(full, latest); steps != nil {
 		if err := u.applyChain(ctx, full, steps); err == nil {
 			return u.finishBuild(ctx, latest)
+		} else {
+			u.logf("filmstock: patch road %s -> %s failed, staying on the full: %v", full, latest, err)
+			os.RemoveAll(filepath.Join(u.Dir, latest))
 		}
-		os.RemoveAll(filepath.Join(u.Dir, latest))
 	}
 	return u.finishBuild(ctx, full)
 }
@@ -270,13 +285,28 @@ func (u *Updater) finishBuild(ctx context.Context, latest string) (string, strin
 	}
 	dir := filepath.Join(u.Dir, latest)
 	core := filepath.Join(dir, "filmstock.db")
-	h, err := sql.Open(sqldrv.Name, core)
+	h, err := sql.Open(sqldrv.Name, sqldrv.DSN(core, false))
 	if err != nil {
 		return "", "", false, err
 	}
 	if err := RebuildFTS(h); err != nil {
 		h.Close()
 		return "", "", false, err
+	}
+	// A compressed database grows while it is written: the rebuilt FTS lands
+	// as new extents and the space the old ones held is not reused until
+	// something compacts it. Left alone the core came out at 686 MB — larger
+	// than the plain file it replaced — against 215 MB after a VACUUM. Plain
+	// files are left alone: SQLite's own free-list already reuses that space,
+	// and a VACUUM would cost a full rewrite for nothing.
+	if compressed, err := isContainer(core); err != nil {
+		h.Close()
+		return "", "", false, err
+	} else if compressed {
+		if _, err := h.Exec(`VACUUM`); err != nil {
+			h.Close()
+			return "", "", false, fmt.Errorf("filmstock: compacting %s: %w", core, err)
+		}
 	}
 	if u.VerifyContent {
 		got, _, err := ContentHash(h)
@@ -314,7 +344,7 @@ func (u *Updater) applyChain(ctx context.Context, cur string, steps []catalogEnt
 	}
 	for _, name := range u.files() {
 		if err := copyLocal(filepath.Join(u.Dir, cur, name), filepath.Join(dir, name)); err != nil {
-			return err
+			return fmt.Errorf("filmstock: carrying %s forward from %s: %w", name, cur, err)
 		}
 	}
 	for _, step := range steps {
@@ -370,14 +400,14 @@ func (u *Updater) applyChain(ctx context.Context, cur string, steps []catalogEnt
 		if want == "" {
 			continue
 		}
-		h, err := sql.Open(sqldrv.Name, "file:"+filepath.Join(dir, name)+"?mode=ro")
+		h, err := sql.Open(sqldrv.Name, sqldrv.DSN(filepath.Join(dir, name), true))
 		if err != nil {
-			return err
+			return fmt.Errorf("filmstock: opening patched %s: %w", name, err)
 		}
 		got, _, err := ContentHash(h)
 		h.Close()
 		if err != nil {
-			return err
+			return fmt.Errorf("filmstock: hashing patched %s: %w", name, err)
 		}
 		if got != want {
 			return fmt.Errorf("filmstock: %s after patch chain: content %s, want %s", name, got, want)
@@ -388,25 +418,72 @@ func (u *Updater) applyChain(ctx context.Context, cur string, steps []catalogEnt
 
 // applySQL runs a patch against one database file, atomically: all of it or
 // none of it.
+//
+// The transaction runs in WAL mode because a compressed container cannot take
+// a patch this size in rollback-journal mode: a mixed insert/update/delete
+// transaction against an existing container fails with SQLITE_FULL once the
+// file has grown about 72.8 MB, on a disk with terabytes free (measured twice,
+// four kilobytes apart, on containers of 152 MB and 352 MB). The same
+// statements in WAL mode succeed, as do the same statements split across
+// several smaller rollback-mode transactions. Plain databases are unaffected —
+// they took these patches in rollback mode for the whole 20260818..20260831
+// chain — so this is the container write path, and the mode is set back
+// afterwards to leave the file as it was found and take the -wal/-shm
+// sidecars with it.
 func applySQL(path string, patch []byte) error {
 	if len(patch) == 0 {
 		return nil
 	}
-	h, err := sql.Open(sqldrv.Name, path)
+	h, err := sql.Open(sqldrv.Name, sqldrv.DSN(path, false))
 	if err != nil {
 		return err
 	}
 	defer h.Close()
 	h.SetMaxOpenConns(1)
+
+	var mode string
+	if err := h.QueryRow(`PRAGMA journal_mode`).Scan(&mode); err != nil {
+		return err
+	}
+	restore := func() error { return nil }
+	if !strings.EqualFold(mode, "wal") {
+		if _, err := h.Exec(`PRAGMA journal_mode=WAL`); err != nil {
+			return err
+		}
+		// Checked, not deferred-and-ignored: leaving the file in WAL means
+		// leaving a -wal beside it, and the next read-only open has to
+		// recover that WAL — which it cannot, read-only, so the build fails
+		// later with "attempt to write a readonly database" pointing at
+		// nothing in particular. Checkpoint first so the reset has nothing
+		// left to refuse.
+		restore = func() error {
+			if _, err := h.Exec(`PRAGMA wal_checkpoint(TRUNCATE)`); err != nil {
+				return fmt.Errorf("checkpointing %s: %w", path, err)
+			}
+			var got string
+			if err := h.QueryRow(`PRAGMA journal_mode=` + mode).Scan(&got); err != nil {
+				return fmt.Errorf("restoring journal mode of %s: %w", path, err)
+			}
+			if !strings.EqualFold(got, mode) {
+				return fmt.Errorf("%s stayed in %s journal mode, wanted %s", path, got, mode)
+			}
+			return nil
+		}
+	}
+
 	if _, err := h.Exec(`BEGIN IMMEDIATE`); err != nil {
 		return err
 	}
 	if _, err := h.Exec(string(patch)); err != nil {
 		h.Exec(`ROLLBACK`)
+		restore()
 		return err
 	}
-	_, err = h.Exec(`COMMIT`)
-	return err
+	if _, err := h.Exec(`COMMIT`); err != nil {
+		restore()
+		return err
+	}
+	return restore()
 }
 
 func copyLocal(src, dst string) error {
@@ -589,6 +666,22 @@ func (u *Updater) getBlob(ctx context.Context, url, wantSHA string) ([]byte, err
 		return nil, fmt.Errorf("filmstock: %s: sha256 mismatch: got %s want %s", url, got, wantSHA)
 	}
 	return b, nil
+}
+
+// isContainer reports whether a file is a compressed container rather than a
+// plain SQLite database. Plain files announce themselves in their first 16
+// bytes; anything else that opens at all is a container.
+func isContainer(path string) (bool, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return false, err
+	}
+	defer f.Close()
+	var magic [16]byte
+	if _, err := io.ReadFull(f, magic[:]); err != nil {
+		return false, err
+	}
+	return string(magic[:]) != "SQLite format 3\x00", nil
 }
 
 func fileSHA256(path string) (string, error) {

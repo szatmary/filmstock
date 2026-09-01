@@ -29,8 +29,16 @@ import (
 // Only fulls host their databases; a daily is its patches. The information
 // content of a chain is one full plus the patch series, so hosting a daily's
 // databases would ship redundancy — but the NEXT build still needs them to
-// diff against, so the chain tip's databases live in the un-hosted work
+// diff against, so every build's databases live in the un-hosted work
 // directory until their successor is published.
+//
+// With -compress a hosted full is converted to a zstdvfs container, which
+// halves it (1249 MB -> 595 MB across the three files) and stays that way on
+// the consumer's disk, since the VFS reads a container in place rather than
+// unpacking it. The work copy stays plain — diffs run plain against plain,
+// and content hashes are storage-independent, so a patch built from plain
+// files verifies against a container exactly the same. It is off by default
+// until a consumer can apply a daily patch to a container; see docs/TODO.md.
 //
 //	<root>/builds.json                   hosted: sync this tree to the bucket
 //	<root>/<full>/filmstock.db …         a full's databases
@@ -45,6 +53,7 @@ func CmdPublish(args []string) {
 	from := fs.String("from", "", "directory holding the build's *.db files")
 	full := fs.Bool("full", false, "this build is a full (starts a new chain)")
 	work := fs.String("work", "", "un-hosted directory holding the chain tip's databases (default <root>-work)")
+	compress := fs.Bool("compress", false, "full only: host the databases as zstdvfs containers (halves them; see docs/TODO.md — the consumer cannot yet patch a container)")
 	differ := fs.String("sqldiff", "./sqldiff", "the sqldiff binary (make sqldiff)")
 	fs.Parse(args)
 	if *id == "" || *from == "" {
@@ -77,14 +86,11 @@ func CmdPublish(args []string) {
 	if err := os.MkdirAll(dir, 0o777); err != nil {
 		fatal(err)
 	}
-	// A full's databases are hosted; a daily's live only in the work
-	// directory, waiting to be the next build's diff base.
-	dbDir := dir
-	if !*full {
-		dbDir = filepath.Join(*work, *id)
-		if err := os.MkdirAll(dbDir, 0o777); err != nil {
-			fatal(err)
-		}
+	// Every build's plain databases go to the work directory as the next
+	// build's diff base; a full additionally hosts compressed copies.
+	dbDir := filepath.Join(*work, *id)
+	if err := os.MkdirAll(dbDir, 0o777); err != nil {
+		fatal(err)
 	}
 	ok := false
 	defer func() {
@@ -176,9 +182,38 @@ func CmdPublish(args []string) {
 		}
 	}
 
+	// A full hosts its databases, compressed. The manifest then describes the
+	// bytes a consumer actually downloads; the content hash is the same either
+	// way, which is what lets a patch built against plain files verify against
+	// a container.
 	manifestFiles := map[string]string{}
 	for _, b := range ordered {
-		manifestFiles[b] = filepath.Join(dbDir, b)
+		src := filepath.Join(dbDir, b)
+		if !*full {
+			manifestFiles[b] = src
+			continue
+		}
+		hosted := filepath.Join(dir, b)
+		if err := copyFile(src, hosted); err != nil {
+			fatal(err)
+		}
+		if *compress {
+			plain, err := os.Stat(hosted)
+			if err != nil {
+				fatal(err)
+			}
+			if err := compressDB(hosted); err != nil {
+				fatal(fmt.Errorf("compressing %s: %w", b, err))
+			}
+			comp, err := os.Stat(hosted)
+			if err != nil {
+				fatal(err)
+			}
+			fmt.Fprintf(os.Stderr, "  %-24s compressed %5d MB -> %5d MB (%.2fx)\n",
+				b, plain.Size()/1048576, comp.Size()/1048576,
+				float64(plain.Size())/float64(comp.Size()))
+		}
+		manifestFiles[b] = hosted
 	}
 	patches, err := filepath.Glob(filepath.Join(dir, "*.sql.gz"))
 	if err != nil {
@@ -342,4 +377,24 @@ func copyFile(src, dst string) error {
 		return err
 	}
 	return out.Close()
+}
+
+// compressDB converts a plain SQLite file into a zstdvfs container in place.
+//
+// The conversion is a VACUUM through the VFS — the shim writes the rebuilt
+// database into container format — so it costs a full rewrite (36 s for the
+// 378 MB core) and needs room for both forms while it runs. It is one-way:
+// reading it back out means VACUUM INTO through a different VFS, which the
+// consumer never needs, because the VFS reads containers directly.
+func compressDB(path string) error {
+	db, err := sql.Open(sqldrv.Name, sqldrv.DSN(path, false))
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+	db.SetMaxOpenConns(1)
+	if _, err := db.Exec(`VACUUM`); err != nil {
+		return err
+	}
+	return db.Close()
 }

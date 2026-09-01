@@ -118,6 +118,43 @@ took the full road and rode the patch chain to 20260830 in 24.1 s, landing a
 235,845 people). Re-running the script is a clean no-op ("already up to date",
 exit 0), as is a second concurrent run (the flock exits 0, not an error).
 
+### Compressing the fulls — READS DONE, WRITES BLOCKED ON TWO VFS BUGS
+
+github.com/szatmary/sqlite-zstdvfs is vendored at internal/zstdvfs (with
+libzstd's single-file amalgamation, so `go get` still needs no system
+packages) and registered as "zstdvfs" — NOT as the process default, because a
+database created through it is a container from birth and that would silently
+compress the intermediate and every exported build. Reads route through it
+via sqldrv.DSN; creates stay plain.
+
+What works, measured on the real 20260801 build: `publish -full -compress`
+converts the hosted databases in 1m49s, 1249 MB -> 595 MB (core 2.48x, text
+2.27x, vectors 1.41x), content hashes unchanged — so a patch built against
+plain files still verifies against a container. The library opens and hashes
+containers transparently, and a fresh consumer installs from one in 31 s.
+Upstream's own test suite passes on Linux (4,700,340 checks, 0 failures)
+after four portability fixes, kept as a patch beside this work: array-parameter
+mismatches in container.c, an ignored fread result in a test, -D_DEFAULT_SOURCE
+for usleep/random under -std=c11, and -rdynamic for the dlopen'd extension
+test. Upstream states no license; that needs settling before publishing.
+
+What does not work, and why -compress defaults off: a consumer applies daily
+patches by WRITING into its copy, and large writes into an existing container
+fail two ways. In rollback-journal mode a mixed insert/update/delete
+transaction dies with SQLITE_FULL once the file has grown ~72.8 MB, on a disk
+with terabytes free (twice, 4 KB apart, on 152 MB and 352 MB containers);
+the same statements in 4,000-statement chunks succeed, and a 155 MB
+single-transaction rewrite of a synthetic container succeeds, so it is
+workload-shaped rather than a size cap. WAL mode takes the transaction, but
+then `PRAGMA journal_mode=delete` after `wal_checkpoint(TRUNCATE)` fails with
+SQLITE_IOERR/ENOENT on the 300 MB text container, leaving a WAL no read-only
+open can recover. Repro artifacts: /var/tmp/ztest-root (compressed full +
+daily patches) and /var/tmp/zpatch.sql.
+
+Two ways forward when that is settled: fix the container write path, or ship
+compression as transfer-only — the consumer expands the full to a plain file
+on install, keeping the 595 MB download and giving up the on-disk saving.
+
 Still to build: R2 upload (user is handling distribution), wikidata cache +
 vectors refresh at the 20260901 full.
 

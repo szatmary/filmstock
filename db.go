@@ -31,7 +31,7 @@ type DB struct {
 func Open(path string) (*DB, error) {
 	// Read-only: nothing in this package writes, and saying so lets several
 	// readers share one file without fighting over the write lock.
-	h, err := sql.Open(sqldrv.Name, "file:"+path+"?mode=ro")
+	h, err := sql.Open(sqldrv.Name, sqldrv.DSN(path, true))
 	if err != nil {
 		return nil, err
 	}

@@ -144,7 +144,7 @@ func writeManifest(out, dump string, files map[string]string) error {
 }
 
 func contentHashOf(path string) (string, map[string]string, error) {
-	h, err := sql.Open(sqldrv.Name, "file:"+path+"?mode=ro")
+	h, err := sql.Open(sqldrv.Name, sqldrv.DSN(path, true))
 	if err != nil {
 		return "", nil, err
 	}
