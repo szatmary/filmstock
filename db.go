@@ -37,6 +37,14 @@ func Open(path string) (*DB, error) {
 	}
 	if err := h.Ping(); err != nil {
 		h.Close()
+		// A pure-Go build has no zstd VFS, so a compressed database is just
+		// bytes it cannot parse. Say which problem it is.
+		if sqldrv.PureGo {
+			if c, cerr := IsCompressed(path); cerr == nil && c {
+				return nil, fmt.Errorf("filmstock: %s is a compressed database, "+
+					"which needs the cgo build (this binary was built without it)", path)
+			}
+		}
 		return nil, fmt.Errorf("filmstock: open %s: %w", path, err)
 	}
 	return &DB{sql: h}, nil

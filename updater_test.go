@@ -11,6 +11,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/szatmary/filmstock/internal/sqldrv"
@@ -266,5 +267,33 @@ func TestUpdaterRefusesALyingPatch(t *testing.T) {
 	}
 	if got := u.Current(); got != "20260801" {
 		t.Fatalf("current = %s after refusing the patch; must stay at the full", got)
+	}
+}
+
+// The splitter must cut on statement boundaries only: a semicolon inside a
+// string literal is data, and a title containing one is not hypothetical.
+func TestSQLBatchesRespectsStringLiterals(t *testing.T) {
+	patch := []byte(
+		`INSERT INTO movies(id,title) VALUES(1,'Hello; World');` + "\n" +
+			`INSERT INTO movies(id,title) VALUES(2,'It''s here; really');` + "\n" +
+			`INSERT INTO movies(id,title) VALUES(3,'plain');` + "\n")
+	squash := func(s string) string { return strings.Join(strings.Fields(s), "") }
+	for _, n := range []int{1, 2, 3, 100} {
+		got := sqlBatches(patch, n)
+		var joined string
+		for _, b := range got {
+			joined += b
+		}
+		if squash(joined) != squash(string(patch)) {
+			t.Errorf("n=%d: batches do not reassemble to the patch: %q", n, got)
+		}
+		// One statement per batch at n=1 proves the two literal semicolons
+		// were not mistaken for statement ends.
+		if n == 1 && len(got) != 3 {
+			t.Errorf("n=1: %d batches, want 3 — a semicolon inside a literal split a statement", len(got))
+		}
+		if n >= 3 && len(got) != 1 {
+			t.Errorf("n=%d: %d batches, want 1", n, len(got))
+		}
 	}
 }

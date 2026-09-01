@@ -60,5 +60,6 @@ Writing large transactions into an existing container does not yet work:
    later read-only open cannot recover ("attempt to write a readonly
    database").
 
-Because a consumer applies daily patches by writing into its copy, this is
-why `filmstock publish -compress` is off by default.
+A consumer applies daily patches by writing into its copy, so the updater
+works around both: it applies a patch in batches of 2,000 statements instead
+of one transaction. Both bugs are still worth fixing upstream.

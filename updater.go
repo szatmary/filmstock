@@ -299,7 +299,7 @@ func (u *Updater) finishBuild(ctx context.Context, latest string) (string, strin
 	// than the plain file it replaced — against 215 MB after a VACUUM. Plain
 	// files are left alone: SQLite's own free-list already reuses that space,
 	// and a VACUUM would cost a full rewrite for nothing.
-	if compressed, err := isContainer(core); err != nil {
+	if compressed, err := IsCompressed(core); err != nil {
 		h.Close()
 		return "", "", false, err
 	} else if compressed {
@@ -416,20 +416,21 @@ func (u *Updater) applyChain(ctx context.Context, cur string, steps []catalogEnt
 	return nil
 }
 
-// applySQL runs a patch against one database file, atomically: all of it or
-// none of it.
+// applySQL runs a patch against one database file.
 //
-// The transaction runs in WAL mode because a compressed container cannot take
-// a patch this size in rollback-journal mode: a mixed insert/update/delete
+// The statements go in batches rather than as one transaction, because a
+// compressed container cannot take a large one: a mixed insert/update/delete
 // transaction against an existing container fails with SQLITE_FULL once the
-// file has grown about 72.8 MB, on a disk with terabytes free (measured twice,
-// four kilobytes apart, on containers of 152 MB and 352 MB). The same
-// statements in WAL mode succeed, as do the same statements split across
-// several smaller rollback-mode transactions. Plain databases are unaffected —
-// they took these patches in rollback mode for the whole 20260818..20260831
-// chain — so this is the container write path, and the mode is set back
-// afterwards to leave the file as it was found and take the -wal/-shm
-// sidecars with it.
+// file has grown about 72.8 MB, on a disk with terabytes free (measured
+// twice, four kilobytes apart, on containers of 152 MB and 352 MB). WAL mode
+// takes the transaction but then cannot be switched back, leaving a WAL no
+// read-only open can recover. Batching sidesteps both, and costs nothing on a
+// plain database.
+//
+// Batching gives up all-or-nothing at the FILE level, which this caller does
+// not need: patches are applied inside a staging build directory that is
+// discarded whole if anything fails, so the build — not the file — is the
+// unit that commits.
 func applySQL(path string, patch []byte) error {
 	if len(patch) == 0 {
 		return nil
@@ -440,50 +441,55 @@ func applySQL(path string, patch []byte) error {
 	}
 	defer h.Close()
 	h.SetMaxOpenConns(1)
-
-	var mode string
-	if err := h.QueryRow(`PRAGMA journal_mode`).Scan(&mode); err != nil {
-		return err
-	}
-	restore := func() error { return nil }
-	if !strings.EqualFold(mode, "wal") {
-		if _, err := h.Exec(`PRAGMA journal_mode=WAL`); err != nil {
+	for _, batch := range sqlBatches(patch, patchBatchStatements) {
+		if _, err := h.Exec(`BEGIN IMMEDIATE`); err != nil {
 			return err
 		}
-		// Checked, not deferred-and-ignored: leaving the file in WAL means
-		// leaving a -wal beside it, and the next read-only open has to
-		// recover that WAL — which it cannot, read-only, so the build fails
-		// later with "attempt to write a readonly database" pointing at
-		// nothing in particular. Checkpoint first so the reset has nothing
-		// left to refuse.
-		restore = func() error {
-			if _, err := h.Exec(`PRAGMA wal_checkpoint(TRUNCATE)`); err != nil {
-				return fmt.Errorf("checkpointing %s: %w", path, err)
-			}
-			var got string
-			if err := h.QueryRow(`PRAGMA journal_mode=` + mode).Scan(&got); err != nil {
-				return fmt.Errorf("restoring journal mode of %s: %w", path, err)
-			}
-			if !strings.EqualFold(got, mode) {
-				return fmt.Errorf("%s stayed in %s journal mode, wanted %s", path, got, mode)
-			}
-			return nil
+		if _, err := h.Exec(batch); err != nil {
+			h.Exec(`ROLLBACK`)
+			return err
+		}
+		if _, err := h.Exec(`COMMIT`); err != nil {
+			return err
 		}
 	}
+	return nil
+}
 
-	if _, err := h.Exec(`BEGIN IMMEDIATE`); err != nil {
-		return err
+// patchBatchStatements is how many statements go in one transaction. Chosen
+// well under where a container starts refusing (a 23,643-statement patch fails
+// whole and succeeds in 4,000s), and high enough that the per-transaction
+// overhead stays invisible.
+const patchBatchStatements = 2000
+
+// sqlBatches splits a patch into groups of at most n statements, cutting only
+// at a semicolon that ends a statement — one inside a string literal is data.
+// sqldiff emits no comments, so quoting is the only state worth tracking.
+func sqlBatches(patch []byte, n int) []string {
+	var out []string
+	var start, count int
+	inString := false
+	for i := 0; i < len(patch); i++ {
+		switch patch[i] {
+		case '\'':
+			// '' inside a literal is an escaped quote, and reads here as a
+			// close immediately followed by an open — same state either way.
+			inString = !inString
+		case ';':
+			if inString {
+				continue
+			}
+			count++
+			if count >= n {
+				out = append(out, string(patch[start:i+1]))
+				start, count = i+1, 0
+			}
+		}
 	}
-	if _, err := h.Exec(string(patch)); err != nil {
-		h.Exec(`ROLLBACK`)
-		restore()
-		return err
+	if rest := strings.TrimSpace(string(patch[start:])); rest != "" {
+		out = append(out, rest)
 	}
-	if _, err := h.Exec(`COMMIT`); err != nil {
-		restore()
-		return err
-	}
-	return restore()
+	return out
 }
 
 func copyLocal(src, dst string) error {
@@ -668,10 +674,11 @@ func (u *Updater) getBlob(ctx context.Context, url, wantSHA string) ([]byte, err
 	return b, nil
 }
 
-// isContainer reports whether a file is a compressed container rather than a
-// plain SQLite database. Plain files announce themselves in their first 16
-// bytes; anything else that opens at all is a container.
-func isContainer(path string) (bool, error) {
+// IsCompressed reports whether a published database is stored compressed
+// rather than as a plain SQLite file. Plain files announce themselves in
+// their first 16 bytes; anything else is a container, which only a cgo build
+// can read.
+func IsCompressed(path string) (bool, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return false, err
