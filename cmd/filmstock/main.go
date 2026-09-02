@@ -40,6 +40,8 @@ func main() {
 		build.CmdManifest(os.Args[2:])
 	case "publish":
 		build.CmdPublish(os.Args[2:])
+	case "compress":
+		build.CmdCompress(os.Args[2:])
 	case "build-image-list":
 		build.CBuildImageList(os.Args[2:])
 	case "build-qidmap":
@@ -76,6 +78,7 @@ Usage:
   filmstock compose-vectors / vectors                          embedding artifacts
   filmstock manifest / builds                                  release metadata (manifest.json, builds.json)
   filmstock publish -root R2DIR -id YYYYMMDD -from DIR [-full] one build -> patches, manifest, catalog (verified)
+  filmstock compress FILE.db …                                 convert a published full to compressed form
   filmstock search  [-n 20] QUERY...                           fuzzy-search the database
 
 The browser is a separate binary:

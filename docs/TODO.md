@@ -118,7 +118,7 @@ took the full road and rode the patch chain to 20260830 in 24.1 s, landing a
 235,845 people). Re-running the script is a clean no-op ("already up to date",
 exit 0), as is a second concurrent run (the flock exits 0, not an error).
 
-### Compressing the fulls — DONE (2026-09-01)
+### Compressing the fulls — BLOCKED AGAIN (2026-09-02): VACUUM on a patched container
 
 github.com/szatmary/sqlite-zstdvfs is vendored at internal/zstdvfs (with
 libzstd's single-file amalgamation, so `go get` still needs no system
@@ -156,9 +156,29 @@ same 286 MB container takes 4.8 s and leaves 311 MB in batches, against
 41.6 s and 359 MB as one transaction, because a bulk transaction scatters
 gaps the container's online compaction only walks back gradually.
 
-End to end with -compress on: hosted release 605 MB against 1,249 MB, and a
-consumer installs the compressed full and rides a daily patch onto it in
-107 s, content-verified, holding 808 MB on disk against ~1,539 MB plain.
+End to end with -compress on and ONE daily patch: hosted release 605 MB
+against 1,249 MB, consumer install plus patch in 107 s, content-verified,
+808 MB on disk against ~1,539 MB plain.
+
+But with the real chain — the compressed 20260801 full plus all fifteen
+patches through 20260901 — the compaction step fails. Patches apply and the
+FTS rebuild succeeds; the VACUUM that follows dies with SQLITE_IOERR/ENOENT,
+leaving a 1.07 GB core and a 591 MB journal, and the pair is then unreadable:
+a plain SELECT through the VFS also returns SQLITE_IOERR, so the journal
+cannot roll back. Bounded between one patch (works, twice) and fifteen
+(fails), so it is churn- or size-shaped like the earlier report.
+
+Why that blocks shipping rather than merely annoying: the updater discards a
+failed build directory, so a consumer loses nothing — but it also never
+advances, and every retry repeats the failure. A compressed full would strand
+consumers after a couple of weeks of dailies. Without the VACUUM the core
+lands at 1.07 GB, worse than the 626 MB plain equivalent, so skipping
+compaction is not an answer either.
+
+-compress is back to defaulting off. The live bucket's 20260801 was converted
+and then restored to plain (content hashes identical throughout, chain
+re-verified end to end); nothing has been uploaded anywhere, so no consumer
+ever saw either form.
 
 Consumers built without cgo cannot read a container at all; they now get an
 error that says so rather than "file is not a database", and
