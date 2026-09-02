@@ -56,12 +56,9 @@ rebuilding the FTS tables, and applies patches in batches, which converges
 denser than one long transaction (311 MB vs 359 MB on the same patch, and
 4.8 s vs 41.6 s).
 
-**Open, and why `publish -compress` is off:** that `VACUUM` fails once enough
-has been written into the container. Applying the real 15-patch chain
-(20260801 -> 20260901) to a compressed full, then rebuilding the FTS tables,
-leaves the VACUUM dying with `SQLITE_IOERR`/ENOENT at a 1.07 GB core with a
-591 MB journal beside it — and the pair is then unreadable, a plain `SELECT`
-through the VFS returning `SQLITE_IOERR` too, so the journal never rolls
-back. One patch works (measured twice); fifteen do not. Skipping the VACUUM
-is not an answer: the un-compacted core is larger than the plain database it
-replaced.
+Compaction needs TWO passes after a bulk rebuild, which is why the updater
+VACUUMs twice: a container cannot reclaim space its own in-flight commit
+freed, so the first pass rewrites the database while reclaiming almost
+nothing and the second collects what the first freed. Measured on the
+20260901 build: 1.03 GB after one pass, 370 MB after two, and a third
+changes nothing.

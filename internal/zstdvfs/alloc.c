@@ -222,31 +222,52 @@ void zalloc_release(ZvfsAlloc *a, u64 uptoTxn){
 
 /* Task 15: the OVERWRITE rebuild commit's own allocator reset -- the whole
    OLD generation (everything below the just-appended dense stream) becomes
-   free space in one shot, replacing §7.4's original "slide the new
-   generation down in chunk-moves" mechanism: an ordinary best-fit
-   allocation into this span, followed by the incremental pack loop
-   (zcompact_full), does the same densification work as ordinary,
-   already-crash-safe commit machinery, so nothing bespoke is needed here
-   beyond correctly describing the span. Every existing generation entry
-   (gen[]) is discarded outright rather than released into fr[] first:
-   those entries describe extents somewhere inside [freeFrom,freeTo) too
-   (they were freed by ordinary commits against the OLD generation, which
-   this call is superseding wholesale), so re-adding them individually on
-   top of the span this function is about to insert would double-count the
-   same bytes. Splits around the lock hole exactly like zalloc_reserve_eof
-   does for a single extent, generalized to a possibly-hole-spanning
-   range. */
-void zalloc_reset_span(ZvfsAlloc *a, u64 freeFrom, u64 freeTo, u64 eof){
+   free space, replacing §7.4's original "slide the new generation down in
+   chunk-moves" mechanism: an ordinary best-fit allocation into this span,
+   followed by the incremental pack loop (zcompact_full), does the same
+   densification work as ordinary, already-crash-safe commit machinery, so
+   nothing bespoke is needed here beyond correctly describing the span.
+   Every existing generation entry (gen[]) is discarded outright rather
+   than released first: those entries describe extents somewhere inside
+   [freeFrom,freeTo) too (they were freed by ordinary commits against the
+   OLD generation, which this call is superseding wholesale), so re-adding
+   them individually on top of the span this function is about to insert
+   would double-count the same bytes. Splits around the lock hole exactly
+   like zalloc_reserve_eof does for a single extent, generalized to a
+   possibly-hole-spanning range.
+
+   Bug fix (Task 2 root-cause; docs/design.md Sec7.4's "RESOLVED --
+   reset_span reused the still-current generation's own space" entry has
+   the full writeup): this span describes the OLD generation, which is
+   still the CURRENTLY DURABLE one -- the commit that calls this (still
+   in progress, its own header not yet flipped) is only in the process of
+   superseding it. Staging the span directly into fr[] (the old
+   behavior) made it immediately reusable by that SAME not-yet-committed
+   commit's own placements -- exactly the hazard §5.2 step 4/§5.3 warn
+   about for an ordinary commit's own frees ("stays pending until
+   strictly after the second xSync"). Now takes the commit's own intended
+   txn (caller: c->hdr.txn+1, the value its header will carry once
+   durable) and stages the span as ONE pending generation via zalloc_free
+   (gen[], not fr[]) instead -- the same mechanism, and the same
+   two-generation discipline, ordinary commits already use for their own
+   frees. commit_once's own step 0 (zalloc_release(c->hdr.txn)) then
+   naturally leaves it pending through THIS commit (whose header, not yet
+   flipped, still carries the OLD txn when step 0 runs) and releases it
+   on the very next one, once c->hdr.txn has genuinely advanced to
+   txn -- true whether that happens via this commit's ordinary success
+   path or via a torn-flip-safe conversion's sub-case A partial adoption,
+   since both durably write the identical intended txn. */
+void zalloc_reset_span(ZvfsAlloc *a, u64 freeFrom, u64 freeTo, u64 eof, u64 txn){
   for(u32 i=0; i<a->nGen; i++) free(a->gen[i].a);
   a->nGen = 0;
   a->nFr = 0;
   a->freeBytes = 0;
   u64 lo1 = freeFrom;
   u64 hi1 = freeTo < HOLE0 ? freeTo : (freeFrom < HOLE0 ? HOLE0 : freeFrom);
-  if(hi1 > lo1) fr_insert(a, lo1, (u32)(hi1-lo1));
+  if(hi1 > lo1) zalloc_free(a, lo1, (u32)(hi1-lo1), txn);
   u64 lo2 = freeFrom > HOLE1 ? freeFrom : HOLE1;
   u64 hi2 = freeTo;
-  if(hi2 > lo2) fr_insert(a, lo2, (u32)(hi2-lo2));
+  if(hi2 > lo2) zalloc_free(a, lo2, (u32)(hi2-lo2), txn);
   a->eof = eof;
 }
 
@@ -276,10 +297,34 @@ int zalloc_last_free(const ZvfsAlloc *a, ZExt *out){
    nothing live left in that span for a lower eof to discard. Pending frees
    (not yet released) never appear in fr[], so this never trims a still-
    referenced tail -- that's the two-generation lag compact.c's caller relies
-   on: this commit's own frees only become trimmable on a later commit. */
+   on: this commit's own frees only become trimmable on a later commit.
+
+   Lock-hole fix: the ordinary abutment check above can never fire once eof
+   has crossed the hole, even when everything below the hole has already
+   been vacated -- the trailing free extent (if any) ends at HOLE0, not at
+   eof (which sits at HOLE1), so `fr[last].off+len == eof` is false forever
+   and eof gets permanently stuck at HOLE1, 64KiB (ZVFS_LOCK_HOLE_LEN) above
+   where it could otherwise sit. §4.5's own invariant is what makes the fix
+   safe: the allocator never places any record overlapping [HOLE0,HOLE1),
+   and zalloc_reserve_eof only ever moves eof across the hole atomically
+   (HOLE0 -> HOLE1 in one step, never leaving it anywhere strictly inside),
+   so eof==HOLE1 unconditionally means nothing lives anywhere in
+   [HOLE0,HOLE1) *or* above HOLE1 -- the hole's own bytes are always
+   reclaimable the instant eof sits at its far edge, independent of whether
+   anything below HOLE0 happens to be free too. So: whenever eof==HOLE1,
+   step it back to HOLE0 unconditionally (this alone recovers the hole's
+   64KiB and can never discard anything live) and loop again -- the ordinary
+   check below then keeps trimming past HOLE0 exactly as it would at any
+   other offset, if a free extent happens to abut it there too. */
 int zalloc_trim(ZvfsAlloc *a){
   int changed = 0;
-  while(a->nFr && a->fr[a->nFr-1].off + a->fr[a->nFr-1].len == a->eof){
+  for(;;){
+    if(a->eof == HOLE1){
+      a->eof = HOLE0;
+      changed = 1;
+      continue;
+    }
+    if(!a->nFr || a->fr[a->nFr-1].off + a->fr[a->nFr-1].len != a->eof) break;
     a->eof = a->fr[a->nFr-1].off;
     a->freeBytes -= a->fr[a->nFr-1].len;
     a->nFr--;

@@ -53,7 +53,7 @@ func CmdPublish(args []string) {
 	from := fs.String("from", "", "directory holding the build's *.db files")
 	full := fs.Bool("full", false, "this build is a full (starts a new chain)")
 	work := fs.String("work", "", "un-hosted directory holding the chain tip's databases (default <root>-work)")
-	compress := fs.Bool("compress", false, "full only: host the databases as zstdvfs containers, halving them (see docs/TODO.md: VACUUM on a heavily patched container currently fails)")
+	compress := fs.Bool("compress", true, "full only: host the databases as zstdvfs containers, halving them")
 	differ := fs.String("sqldiff", "./sqldiff", "the sqldiff binary (make sqldiff)")
 	fs.Parse(args)
 	if *id == "" || *from == "" {

@@ -154,13 +154,17 @@ void zalloc_release(ZvfsAlloc*, u64 uptoTxn); /* gens <= uptoTxn -> free, coales
    comment in alloc.c). */
 void zalloc_set_appendonly(ZvfsAlloc*, int on);
 /* Task 15: the rebuild commit's allocator reset -- [freeFrom,freeTo) minus
-   the lock hole becomes the entire free list (one or two extents), every
-   pending generation is discarded (not released -- see alloc.c), and eof is
-   set to the given value. Replaces §7.4's slide-down: what used to need
-   bespoke chunk-move machinery is now just "describe the old generation as
-   free space," with the incremental pack loop (zcompact_full) doing the
-   actual densification via ordinary crash-safe commits. */
-void zalloc_reset_span(ZvfsAlloc*, u64 freeFrom, u64 freeTo, u64 eof);
+   the lock hole becomes ONE PENDING generation tagged `txn` (the commit's
+   own intended new txn -- not immediately reusable; see alloc.c's own
+   comment for why release must wait, same two-generation discipline as
+   zalloc_free), every prior pending generation is discarded outright (not
+   released -- see alloc.c), and eof is set to the given value. Replaces
+   §7.4's slide-down: what used to need bespoke chunk-move machinery is now
+   just "describe the old generation as pending space," with the ordinary
+   commit protocol's own step-0 release (once this commit's header is
+   durable) and the incremental pack loop (zcompact_full) doing the actual
+   densification via ordinary crash-safe commits. */
+void zalloc_reset_span(ZvfsAlloc*, u64 freeFrom, u64 freeTo, u64 eof, u64 txn);
 u64  zalloc_eof(const ZvfsAlloc*);
 u64  zalloc_free_bytes(const ZvfsAlloc*);
 u32  zalloc_free_count(const ZvfsAlloc*);
@@ -226,6 +230,33 @@ struct ZvfsContainer {
   u32 pageSize;
   u64 stagedCount;        /* logical page count incl. staged writes/truncate */
   int dirty;
+  /* Item 1 fix (docs/design.md Sec7.3's former OPEN BUG -- burst
+     fragmentation converging over ~N commits instead of a handful): bytes
+     zalloc_release moved from pending to free at THIS commit_once call's
+     own step 0 (container.c) -- i.e. the backlog a PRIOR commit's writes
+     fragmented, only now becoming visible to compaction per Sec5.3's
+     two-generation discipline (an extent freed by commit N cannot be
+     reused, or even seen as a compaction candidate, until commit N's
+     header is durable -- so it is always the commit AFTER the one that
+     fragmented something that gets first crack at repacking it, never that
+     same commit). compact.c's byte-budget quota (quota_bytes) scales with
+     this alone, deliberately NOT with this commit's own write volume: an
+     earlier version also added the write volume, reasoning by analogy with
+     the (at-the-time-rejected) quota-byte-budget-WIP.patch attempt
+     recorded in .superpowers/reports/, and measurement (RUN_BIG=1 `make
+     bigsmoke`) caught that as a real regression -- a large bulk-INSERT
+     commit writes many megabytes but releases nothing, yet the write-
+     volume term alone was enough to saturate the budget's cap on every
+     such commit for no benefit. Bytes released, by contrast, is exactly
+     "the backlog this commit's own step 0 just exposed" -- a burst's own
+     commit cannot compact what it just fragmented (Sec5.3, structural), so
+     it releases little of its own; it is always the FOLLOWING commit, even
+     a trivially small one, that releases the whole backlog at its own step
+     0 and is what compact.c's descending multi-run sweep (below) needs to
+     be sized for, to fully vacate the runs a burst scattered in one pass.
+     Recomputed fresh at the top of every commit_once call (like
+     compactFull/lastCompactMoved above) -- valid only for that one call. */
+  u64 bytesReleasedThisCommit;
   u8 *pg1;                /* decompressed page-1 cache */
   u8 *pgbuf, *paybuf;     /* pageSize scratch: decompress dst, payload src */
   int rebuild;            /* OVERWRITE mode (Task 15) */

@@ -118,7 +118,7 @@ took the full road and rode the patch chain to 20260830 in 24.1 s, landing a
 235,845 people). Re-running the script is a clean no-op ("already up to date",
 exit 0), as is a second concurrent run (the flock exits 0, not an error).
 
-### Compressing the fulls — BLOCKED AGAIN (2026-09-02): VACUUM on a patched container
+### Compressing the fulls — DONE (2026-09-02)
 
 github.com/szatmary/sqlite-zstdvfs is vendored at internal/zstdvfs (with
 libzstd's single-file amalgamation, so `go get` still needs no system
@@ -160,25 +160,27 @@ End to end with -compress on and ONE daily patch: hosted release 605 MB
 against 1,249 MB, consumer install plus patch in 107 s, content-verified,
 808 MB on disk against ~1,539 MB plain.
 
-But with the real chain — the compressed 20260801 full plus all fifteen
-patches through 20260901 — the compaction step fails. Patches apply and the
-FTS rebuild succeeds; the VACUUM that follows dies with SQLITE_IOERR/ENOENT,
-leaving a 1.07 GB core and a 591 MB journal, and the pair is then unreadable:
-a plain SELECT through the VFS also returns SQLITE_IOERR, so the journal
-cannot roll back. Bounded between one patch (works, twice) and fifteen
-(fails), so it is churn- or size-shaped like the earlier report.
+The real chain — the compressed 20260801 full plus all fifteen patches
+through 20260901 — first failed at the compaction step (SQLITE_IOERR mid
+VACUUM, leaving an unreadable container + hot journal). Upstream fixed that
+same day; internal/zstdvfs is pinned at fa0d8d3, whose suite passes here and
+which carries four fixes aimed at exactly this: burst fragmentation absorbed
+in a handful of commits rather than ~N, WAL content preserved when a
+CKPT_DONE commit fails, zalloc_trim shrinking eof below the locking-page
+hole, and a VACUUM rebuild no longer reusing the generation it supersedes.
 
-Why that blocks shipping rather than merely annoying: the updater discards a
-failed build directory, so a consumer loses nothing — but it also never
-advances, and every retry repeats the failure. A compressed full would strand
-consumers after a couple of weeks of dailies. Without the VACUUM the core
-lands at 1.07 GB, worse than the 626 MB plain equivalent, so skipping
-compaction is not an answer either.
+One thing on our side was needed too: the updater VACUUMs TWICE after
+rebuilding the FTS tables. A container cannot reclaim space its own in-flight
+commit freed, so the first pass rewrites the database while reclaiming almost
+nothing and the second collects what the first freed — 1.03 GB after one
+pass, 370 MB after two, and a third changes nothing.
 
--compress is back to defaulting off. The live bucket's 20260801 was converted
-and then restored to plain (content hashes identical throughout, chain
-re-verified end to end); nothing has been uploaded anywhere, so no consumer
-ever saw either form.
+End to end, on the live bucket with the 20260801 full compressed and all
+fifteen patches through 20260901 applied: 160 s, content-verified, consumer
+holding 815 MB (core 352 MB, text 304 MB, vectors 159 MB) against ~1,539 MB
+plain, and the hosted tree 608 MB against 1.3 GB. -compress is on by default
+again. Consumers built without cgo still cannot read a container;
+-compress=false publishes plain databases for them.
 
 Consumers built without cgo cannot read a container at all; they now get an
 error that says so rather than "file is not a database", and

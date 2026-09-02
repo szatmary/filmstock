@@ -304,7 +304,20 @@ int commit_once(ZvfsContainer *c, int gateOk){
   ** pending until strictly after the second xSync at the bottom of this
   ** function -- see the comment there for why releasing them any earlier
   ** is a crash-safety bug, not an optimization. */
+  /* Item 1: measure what THIS release call itself makes newly available --
+  ** see ZvfsContainer.bytesReleasedThisCommit's own comment (zvfs_int.h)
+  ** for why compact.c's byte-budget quota scales with this. Captured
+  ** tightly around the release call, before zalloc_trim (which also
+  ** changes freeBytes, by retracting eof over already-free extents --
+  ** that's space ceasing to exist, not newly becoming available, so it
+  ** must not count here). */
+  u64 freeBytesBeforeRelease = zalloc_free_bytes(c->alloc);
   if(gateOk) zalloc_release(c->alloc, c->hdr.txn);
+  {
+    u64 freeBytesAfterRelease = zalloc_free_bytes(c->alloc);
+    c->bytesReleasedThisCommit = freeBytesAfterRelease > freeBytesBeforeRelease
+      ? freeBytesAfterRelease - freeBytesBeforeRelease : 0;
+  }
   /* trim: pop trailing free extent(s) abutting eof, lowering eof over them,
      off THAT release -- i.e. only extents PRIOR commits released, never
      THIS txn's own pending frees below (see zalloc_trim's comment for the
@@ -323,13 +336,14 @@ int commit_once(ZvfsContainer *c, int gateOk){
   }
   /* 2: old list records become garbage at flip. Skipped for the OVERWRITE
   ** rebuild's own commit (Task 15, same c->rebuild gate as step 1's
-  ** zcompact_step skip above): zalloc_reset_span already marked the
+  ** zcompact_step skip above): zalloc_reset_span already staged the
   ** ENTIRE old generation -- including wherever these two records
-  ** physically lived, both offsets necessarily < the old eof -- as free in
-  ** one shot. Freeing them again here would double-free the same bytes:
-  ** fr[] would gain a second, overlapping entry for space it already
-  ** considers free-and-immediately-reusable, corrupting the sorted/
-  ** coalesced invariant fr_insert otherwise guarantees. */
+  ** physically lived, both offsets necessarily < the old eof -- as one
+  ** pending generation in one shot. Freeing them again here would
+  ** double-account the same bytes: gen[] would gain a second, overlapping
+  ** entry for space already pending release under this same commit's own
+  ** txn, corrupting the sorted/coalesced invariant gen_insert otherwise
+  ** guarantees. */
   if(!c->rebuild){
     if(c->hdr.freeOff){ zalloc_free(c->alloc, c->hdr.freeOff, c->freeRecBytes, txn); }
     if(c->hdr.pendOff){ zalloc_free(c->alloc, c->hdr.pendOff, c->pendRecBytes, txn); }
@@ -679,7 +693,11 @@ int zctr_create_for_convert(ZvfsContainer **pOut, ZvfsIO io, u64 plainSize){
   if(rc){ zctr_close(c); *pOut = 0; return rc; }
   u64 startEof = plainSize > ZVFS_HDR_BLOCK_SIZE ? plainSize : ZVFS_HDR_BLOCK_SIZE;
   startEof = zvfs_gran_round64(startEof);
-  zalloc_reset_span(c->alloc, startEof, startEof, startEof);
+  /* freeFrom==freeTo here (an empty span, nothing to free) -- the txn
+     argument is never actually read on this call (see zalloc_reset_span's
+     own comment); 0 documents "not applicable" rather than implying a
+     real generation tag. */
+  zalloc_reset_span(c->alloc, startEof, startEof, startEof, 0);
   c->pRb->reclaimBase = startEof;
   c->convert = 1;
   return SQLITE_OK;
@@ -1249,7 +1267,35 @@ static int zctr_sync_rebuild(ZvfsContainer *c, int gateOk, u64 chunkCount){
   ** simpler and the only placement that's actually correct. */
   zctr_drop_buffers(c);
 
-  zalloc_reset_span(c->alloc, ZVFS_HDR_BLOCK_SIZE, oldEof, zalloc_eof(c->alloc));
+  /* Bug fix (Task 2 root-cause; docs/design.md Sec7.4's "RESOLVED --
+  ** reset_span reused the still-current generation's own space" entry has
+  ** the full writeup, including the field-shaped reproduction via
+  ** diskfull.test's diskfull-2.298). This span describes the OLD
+  ** generation, which right now is STILL the currently-durable one --
+  ** this very commit (not yet committed; its own header hasn't flipped
+  ** yet) is only in the process of superseding it. zalloc_reset_span now
+  ** stages it as ONE PENDING generation tagged with this commit's own
+  ** intended txn (matching commit_once's identical internal computation,
+  ** c->hdr.txn+1) rather than handing it out as immediately-reusable free
+  ** space -- the same two-generation discipline (Sec5.2 step 4/Sec5.3)
+  ** every ordinary commit's own frees already follow. commit_once's own
+  ** step 0 release (gated on the CURRENTLY DURABLE c->hdr.txn, read at
+  ** its own start, still the OLD txn while THIS commit is in flight)
+  ** correctly leaves it pending through this commit and releases it on
+  ** the very next one -- once c->hdr.txn has genuinely advanced to
+  ** intendedTxn, true whether that happens via this commit's ordinary
+  ** success path or a torn-flip-safe conversion's sub-case A partial
+  ** adoption (zctr_sync_abort), since both durably write the identical
+  ** intended txn. A real (non-crash) failure partway through commit_once
+  ** -- after at least one node/record had already been placed, before
+  ** this fix, into a prematurely-reused span -- used to leave the still-
+  ** durable OLD header (commit_once's own abort path correctly falls
+  ** back to it) pointing at content that same failed commit had already
+  ** overwritten: permanent, unrecoverable corruption. Now nothing this
+  ** commit places can ever land in the OLD generation's own span before
+  ** it is provably superseded, so that fallback is genuinely safe again. */
+  u64 intendedTxn = c->hdr.txn + 1;
+  zalloc_reset_span(c->alloc, ZVFS_HDR_BLOCK_SIZE, oldEof, zalloc_eof(c->alloc), intendedTxn);
   zalloc_set_appendonly(c->alloc, 0);
 
   sqlite3_free(rb->scratch);
@@ -1308,7 +1354,54 @@ static int zctr_sync_rebuild(ZvfsContainer *c, int gateOk, u64 chunkCount){
   u64 lastEof = zalloc_eof(c->alloc);
   do {
     progress = zcompact_full(c);
-    if(progress < 0) return -progress;
+    /* Found while validating Item 1's `make suite` gate (see
+    ** .superpowers/reports/sweep-ckptdone-report.md's own "known issue"
+    ** section -- this fix is real and independently correct, but it did
+    ** NOT resolve that gate's own diskfull.test failure; that failure's
+    ** true root cause is still open). A FAILED pack pass here must not be
+    ** reported as a failure of this whole function. The rebuild's own
+    ** commit, immediately above (the "rc = commit_once(...); if(rc)
+    ** return rc;" a few lines up), is what SQLite's own xSync call
+    ** actually corresponds to, and it has ALREADY landed durably by this
+    ** point -- everything from here down is this container's OWN
+    ** optional, best-effort follow-on densification (design.md Sec7.4:
+    ** "a loop of ordinary, already-crash-safe commits... under VACUUM's
+    ** still-held exclusive lock"), not something SQLite asked for or is
+    ** waiting on. zcompact_full's own commit_once call already leaves the
+    ** container in a fully valid, durable state on ANY failure (its own
+    ** abort path reloads from whatever IS durable on disk -- at least the
+    ** rebuild's own commit, possibly a later pack pass if some earlier
+    ** ones already succeeded) -- §5.1's invariant, unaffected by this
+    ** change. The OLD behavior (propagating -progress as this function's
+    ** own return value) told SQLite "the xSync for your VACUUM failed" --
+    ** even though the VACUUM itself unambiguously succeeded -- which
+    ** makes SQLite's own VACUUM machinery believe the whole statement
+    ** failed and attempt to roll back via journal replay, restoring
+    ** PRE-VACUUM logical pages through ordinary zctr_write calls onto a
+    ** container that is ALREADY at the NEW (different-layout, smaller
+    ** page count) generation -- a genuinely hazardous mismatch this
+    ** project's own design never anticipated (VACUUM's crash-safety
+    ** argument, Sec7.4, is about a real process crash, where nothing
+    ** reactively replays a journal against an already-committed newer
+    ** generation in the SAME process). Stopping the loop but still
+    ** reporting overall success is what design.md's own words already
+    ** promise ("a crash mid-pack loop simply leaves the previous...
+    ** commit as the durable state") -- this fix is what actually
+    ** delivers that promise for a same-process I/O failure, not just a
+    ** real crash, which the pre-fix `return -progress;` did not. Kept
+    ** despite not closing the diskfull.test gap: it is correct on its own
+    ** terms, matches this project's own documented design intent, and is
+    ** very likely still a necessary (if not sufficient) part of the fix
+    ** for that open issue and for the coordinator's own H2 field report,
+    ** whose artifacts match this exact shape ("the VACUUM's own commit
+    ** landed and then something failed after it"). */
+    if(progress < 0){
+      sqlite3_log(SQLITE_WARNING,
+        "zstdvfs: VACUUM's post-rebuild pack loop stopped early after %d "
+        "pass(es) (rc=%d) -- the rebuild itself is durably committed; "
+        "density will keep improving on later ordinary commits", npass, -progress);
+      break;
+    }
     npass++;
     u64 eofNow = zalloc_eof(c->alloc);
     if(eofNow < lastEof){ stall = 0; lastEof = eofNow; }

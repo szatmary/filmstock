@@ -68,7 +68,202 @@ typedef struct ZvfsFile {
   ** zero-initialized by zvOpen's memset. */
   int usedShm;
   u8 shmHeld[8];
+  /* Item 2 (CKPT_DONE discarded-return-value data-loss exposure -- see the
+  ** ZvfsWalGuard registry below for the full mechanism): the path key this
+  ** handle uses to reach its guard entry. For a MAIN_DB handle, the exact
+  ** zName bytes given to xOpen (the registry's key, set/cleared by the
+  ** CKPT_DONE call site and read by zvTruncate/zvDelete). For a WAL handle,
+  ** the MAIN db's own path, derived once at open by stripping the trailing
+  ** "-wal" suffix -- pager.c builds the wal filename by appending exactly
+  ** "-wal" to the same already-fully-qualified zPathname buffer it passes
+  ** to the main db's own xOpen (verified against
+  ** third_party/sqlite-src-3500400/src/pager.c), so this is a byte-exact,
+  ** allocation-free-at-lookup-time join key -- no separate normalization
+  ** needed. NULL for every other file kind (journal, temp, etc. -- none of
+  ** them ever need a guard lookup). Owned by this handle, freed in
+  ** zvClose. */
+  char *zGuardKey;
 } ZvfsFile;
+
+/* Item 2 fix (docs/design.md's CKPT_DONE discarded-return-value exposure --
+** see zvFileControl's own SQLITE_FCNTL_CKPT_DONE comment for the mechanism
+** this closes). SQLite's own walCheckpoint() (wal.c) unconditionally
+** discards SQLITE_FCNTL_CKPT_DONE's return value, so a real (non-crash)
+** commit_once failure at that exact call site is invisible to SQLite core:
+** our own abort path (zctr_sync_abort) rolls the in-memory container back
+** to the last durable generation, but the page-copy loop that ran just
+** before CKPT_DONE already succeeded, so SQLite's own wal-index bookkeeping
+** advances nBackfill regardless -- and, for a full/unblocked backfill under
+** SQLITE_CHECKPOINT_TRUNCATE, immediately goes on, within that SAME
+** walCheckpoint() call, to truncate the -wal file to zero (wal.c's own
+** `if(eMode==SQLITE_CHECKPOINT_TRUNCATE){ ...; rc =
+** sqlite3OsTruncate(pWal->pWalFd, 0); }`) -- discarding the only surviving
+** copy of the data our own commit never actually made durable. A
+** subsequent PRAGMA journal_mode=DELETE's own WAL close
+** (sqlite3WalClose, wal.c) can also delete the -wal file outright via
+** sqlite3OsDelete, on the same false premise (its own preceding PASSIVE
+** checkpoint's rc, which also never reflects a CKPT_DONE failure).
+**
+** Established empirically (not just by reasoning about the code) that
+** deleting the CKPT_DONE commit entirely is not an option: with it
+** stubbed to a no-op, test/integration/test_wal.c's own snapshot-isolation
+** step (a PASSIVE checkpoint blocked from a full backfill by a concurrent
+** reader's still-open snapshot -- the shape Task 17 introduced CKPT_DONE
+** to fix in the first place) fails at its `q1(rd,...)==before+1` check:
+** the transaction-end unlock hook in zvUnlock does NOT cover this path --
+** an ordinary WAL write transaction typically never crosses the
+** lockLevel>=RESERVED threshold that hook is gated on (WAL coordinates
+** writers via xShmLock's WRITE_LOCK slot, not the main-file lock level
+** zvLock/zvUnlock track), and even when a later ordinary xSync/xUnlock
+** commit eventually does run, nothing before this test's own read-back
+** assertion would have triggered one. That same test (unmodified) is this
+** fix's regression coverage for "is CKPT_DONE still needed at all" --
+** proof-by-failure that the commit is required, kept green by this fix
+** rather than by removing the commit.
+**
+** Rather than defend the exposure narrowly (retry logic, a special-cased
+** re-check of commit_once's own return value that SQLite itself will never
+** see), this closes it structurally: a sticky per-database-PATH "the
+** container is behind what SQLite/WAL machinery currently believes" flag,
+** set the instant a CKPT_DONE-triggered commit_once fails and cleared the
+** next time ANY commit for that same container succeeds. While set, the
+** two operations that would actually discard WAL content still holding the
+** only durable copy of the un-landed commit -- the -wal file's own
+** xTruncate to a smaller size (wal.c's TRUNCATE-mode checkpoint path
+** above) and its delete (sqlite3WalClose's sqlite3OsDelete, reached via
+** this VFS's own xDelete) -- are refused, replaying the ORIGINAL failed
+** commit's own rc so the refusal is never silently swallowed a second
+** time: for the TRUNCATE-checkpoint path, wal.c assigns
+** `sqlite3OsTruncate`'s return straight to its own local `rc`, which
+** propagates all the way out through sqlite3_wal_checkpoint_v2 as a real,
+** visible failure -- exactly "SQLite fails the checkpoint visibly." The
+** flag survives commit_once's own abort-reset (ZvfsContainer has no field
+** for it, and correctly so -- c->dirty/c->hdr are reset to match whatever
+** IS durable on disk, which is a real and correct in-memory state on its
+** own; "behind" describes a relationship between that state and what
+** SQLite's WAL bookkeeping currently believes, a fact about THIS PATH that
+** must outlive any one container object's own reset, including a full
+** close+reopen on the same path within this process).
+**
+** Registry: process-lifetime, path-keyed, mutex-guarded -- same pattern as
+** zvfsRegistry below (a permanent, never-freed, linked-list-by-key
+** structure built once per distinct key and reused thereafter), on a
+** SEPARATE static mutex slot (SQLITE_MUTEX_STATIC_VFS3, reserved by
+** SQLite specifically "for use by application VFS") so this registry's own
+** locking is independent of zvfsRegistry's. Unlike zvfsRegistry (bounded
+** by the small, fixed number of distinct VFS names an application ever
+** registers), this one is bounded by the number of distinct database PATHS
+** that ever experience an in-process CKPT_DONE failure -- expected to stay
+** small in practice (this is an error-triggered entry, never created on
+** ordinary successful operation), but unlike zvfsRegistry's bound it is
+** not structurally fixed; a process that opens a very large number of
+** distinct database paths, each occasionally hitting a transient
+** checkpoint failure, would accumulate one permanent entry per such path.
+** Accepted for the same reason zvfsRegistry accepts its own permanence:
+** correctness (a freed-then-reallocated entry could race a concurrent
+** truncate/delete check against a guard that's mid-reuse) over a
+** reclaim mechanism this exposure's expected rarity doesn't obviously
+** need. */
+typedef struct ZvfsWalGuard {
+  struct ZvfsWalGuard *pNext;
+  int behind;          /* sticky: set by a failed CKPT_DONE commit,
+                           cleared by the next successful one */
+  int behindRc;         /* the rc that failed commit returned; replayed to
+                            refuse WAL-content-discarding ops */
+  char zPath[1];          /* flexible array: the main db's own path, exact
+                              bytes as given to xOpen(SQLITE_OPEN_MAIN_DB) */
+} ZvfsWalGuard;
+static ZvfsWalGuard *zvfsWalGuards = 0;
+
+static sqlite3_mutex *zvWalGuardMutex(void){
+  return sqlite3_mutex_alloc(SQLITE_MUTEX_STATIC_VFS3);
+}
+
+/* Caller must hold zvWalGuardMutex(). Builds a new permanent entry (behind
+   starts clear) on a lookup miss iff create!=0. */
+static ZvfsWalGuard *zvWalGuardFindLocked(const char *zPath, int create){
+  ZvfsWalGuard *g;
+  for(g=zvfsWalGuards; g; g=g->pNext) if(strcmp(g->zPath, zPath)==0) return g;
+  if(!create) return 0;
+  size_t n = strlen(zPath);
+  g = malloc(sizeof(*g) + n);
+  if(!g) return 0;
+  g->behind = 0;
+  g->behindRc = SQLITE_OK;
+  memcpy(g->zPath, zPath, n+1);
+  g->pNext = zvfsWalGuards;
+  zvfsWalGuards = g;
+  return g;
+}
+
+/* Called from the CKPT_DONE call site only (zvFileControl) -- see this
+   whole mechanism's own top comment for why only that site needs to SET
+   this; every other commit call site's failure is already visible
+   directly to its own SQLite caller. zPath may be NULL (a container built
+   outside a MAIN_DB open, e.g. never -- but defensive: every CONTAINER-mode
+   file is a MAIN_DB open, see zvOpen, so this should always have a key). */
+static void zvWalGuardSetBehind(const char *zPath, int rc){
+  if(!zPath) return;
+  sqlite3_mutex *m = zvWalGuardMutex();
+  sqlite3_mutex_enter(m);
+  ZvfsWalGuard *g = zvWalGuardFindLocked(zPath, 1);
+  if(g){ g->behind = 1; g->behindRc = rc; }
+  sqlite3_mutex_leave(m);
+}
+/* Called from every successful commit call site for a CONTAINER-mode main
+   db (zvSync, zvUnlock, and CKPT_DONE itself) -- "clear on the next
+   successful commit" per the fix's own design. A lookup miss (nothing was
+   ever marked behind on this path) is a normal, cheap no-op -- never
+   creates an entry just to clear it.
+   Fast path: zvfsWalGuards stays NULL for the entire life of a process
+   that never hits a CKPT_DONE failure (the overwhelming common case --
+   this is an error-triggered registry, see its own top comment), so check
+   it WITHOUT the mutex before ever acquiring one. Found necessary, not
+   just an optimization, by direct measurement (`make suite`,
+   mutex1.2.singlethread.4): that test asserts NO static mutex is entered
+   at all during an ordinary CREATE TABLE + INSERT under
+   SQLITE_CONFIG_SINGLETHREAD, and this function (unconditionally called
+   on every successful commit, from zvSync/zvUnlock) was entering
+   SQLITE_MUTEX_STATIC_VFS3 every single time regardless of whether the
+   registry held anything at all -- SINGLETHREAD mode makes the mutex
+   itself a no-op, but mutex_counters' instrumentation still counts the
+   CALL, so cheapness alone doesn't help; only skipping the call entirely
+   does. A plain unsynchronized pointer read here is a standard, safe
+   check-before-lock idiom for a single word-sized pointer that is only
+   ever written while holding this exact mutex (same pattern
+   SQLite's own core uses for sqlite3GlobalConfig.bCoreMutex-style checks);
+   the only possible race is seeing a stale NULL an instant after some
+   OTHER path's first-ever SetBehind call, which just means this call
+   skips a clear that genuinely wasn't needed for THIS path anyway (the
+   entry that just appeared belongs to whatever path SetBehind was called
+   for) -- never a false "not behind" for a path that IS behind, since
+   this path's own guard, if it exists, was necessarily created before
+   this call by an earlier SetBehind on this SAME path, strictly
+   happens-before this one by ordinary program order on one connection. */
+static void zvWalGuardClear(const char *zPath){
+  if(!zPath || !zvfsWalGuards) return;
+  sqlite3_mutex *m = zvWalGuardMutex();
+  sqlite3_mutex_enter(m);
+  ZvfsWalGuard *g = zvWalGuardFindLocked(zPath, 0);
+  if(g) g->behind = 0;
+  sqlite3_mutex_leave(m);
+}
+/* Called from the -wal file's own zvTruncate (shrink only) and from
+   zvDelete (VFS-level, no open ZvfsFile -- zMainPath is derived fresh from
+   the path being deleted). Returns 1 and sets *pRc iff this path is
+   currently marked behind. Same fast-path reasoning as zvWalGuardClear
+   above -- an ordinary WAL truncate/delete with no CKPT_DONE failure ever
+   recorded anywhere in this process must not touch the mutex either. */
+static int zvWalGuardIsBehind(const char *zMainPath, int *pRc){
+  if(!zMainPath || !zvfsWalGuards) return 0;
+  sqlite3_mutex *m = zvWalGuardMutex();
+  sqlite3_mutex_enter(m);
+  ZvfsWalGuard *g = zvWalGuardFindLocked(zMainPath, 0);
+  int behind = g && g->behind;
+  if(behind) *pRc = g->behindRc;
+  sqlite3_mutex_leave(m);
+  return behind;
+}
 
 #define REAL(F) (((ZvfsFile*)(F))->pReal)
 
@@ -361,6 +556,7 @@ static int zvClose(sqlite3_file *f){
     zctr_rebuild_abort(p->pCtr);
     zctr_close(p->pCtr);
   }
+  sqlite3_free(p->zGuardKey); p->zGuardKey = 0;
   int rc = REAL(f)->pMethods ? REAL(f)->pMethods->xClose(REAL(f)) : SQLITE_OK;
   return rc;
 }
@@ -420,6 +616,22 @@ static int zvTruncate(sqlite3_file *f, i64 sz){
   ZvfsFile *p = (ZvfsFile*)f;
   if(p->mode==ZVFS_MODE_CONTAINER) return zctr_truncate(p->pCtr, sz);
   if(p->mode==ZVFS_MODE_PASSTHROUGH && p->converting) return zctr_truncate(p->pCtr, sz);
+  /* Item 2: refuse to shrink a -wal file this process has marked "behind"
+     -- see the ZvfsWalGuard registry's own top comment. Only a SHRINK is
+     dangerous (wal.c's own TRUNCATE-mode checkpoint truncates to 0 once it
+     believes -- possibly wrongly, per this whole mechanism -- that every
+     frame has been backfilled); growing a WAL file never discards content.
+     zGuardKey is set only for SQLITE_OPEN_WAL handles (see zvOpen), so this
+     never fires for any other file kind. */
+  if(p->zGuardKey){
+    i64 cur;
+    int rc = REAL(f)->pMethods->xFileSize(REAL(f), &cur);
+    if(rc) return rc;
+    if(sz < cur){
+      int behindRc;
+      if(zvWalGuardIsBehind(p->zGuardKey, &behindRc)) return behindRc;
+    }
+  }
   return REAL(f)->pMethods->xTruncate(REAL(f), sz);
 }
 /* Task 16: while converting (PASSTHROUGH mode, p->converting set), a
@@ -437,13 +649,56 @@ static int zvTruncate(sqlite3_file *f, i64 sz){
 ** bytes instead of correct logical content. */
 static int zvSync(sqlite3_file *f, int flags){
   ZvfsFile *p = (ZvfsFile*)f;
-  if(p->mode==ZVFS_MODE_CONTAINER)
+  if(p->mode==ZVFS_MODE_CONTAINER){
+    /* Item 2: captured BEFORE the call -- zctr_sync itself no-ops (and
+       still returns SQLITE_OK) when the container has nothing staged, and
+       xSync on a container-mode main db fires unconditionally as part of
+       ordinary WAL-checkpoint machinery even when this specific call has
+       nothing to do (e.g. the main-db xTruncate+xSync a full/unblocked
+       TRUNCATE-mode checkpoint issues right after CKPT_DONE, regardless of
+       whether CKPT_DONE's own commit -- possibly this exact call's own
+       immediately-preceding one -- succeeded). A harmless no-op "success"
+       must NOT clear a guard a CKPT_DONE failure just set: found by direct
+       measurement (test/integration/test_ckptdone_loss.c originally failed
+       without this guard, tracing showed the guard being cleared by
+       exactly this call one line after CKPT_DONE had just set it, before
+       the WAL-truncate refusal ever got a chance to see it). */
+    int wasDirty = zctr_is_dirty(p->pCtr);
     /* Task 18: computed WAL reader gate, replacing the constant gateOk=1
     ** that was correct only under rollback-journal/EXCLUSIVE (where a sync
     ** is always the sole writer's commit point) and unsound under WAL, once
     ** a second connection can hold an open read transaction against an
     ** older container generation. See zvGateOk's own comment above. */
-    return zctr_sync(p->pCtr, flags, /*gateOk=*/zvGateOk(p));
+    int rc = zctr_sync(p->pCtr, flags, /*gateOk=*/zvGateOk(p));
+    /* Item 2: an ordinary xSync's own failure is already visible directly
+       to its SQLite caller (unlike CKPT_DONE's), so this never SETS the
+       guard -- only clears it, and only when this call actually committed
+       something (wasDirty), since that's what "caught up with whatever
+       SQLite/WAL currently believes" actually requires. See the
+       ZvfsWalGuard registry's own top comment.
+       Also gated on p->usedShm: CKPT_DONE (the ONLY call site that ever
+       SETS this guard) is WAL-checkpoint-only -- a handle that has never
+       touched shm at all (a plain rollback-journal connection) could never
+       have set its own guard, on ANY path, so touching the mutex here for
+       it is pure waste, not mere caution. Found necessary, not just an
+       optimization, by direct measurement (`make suite`,
+       mutex1.2.singlethread.4): that test asserts zero static-mutex
+       activity for an ordinary rollback-journal CREATE TABLE + INSERT
+       under SQLITE_CONFIG_SINGLETHREAD, and once ANY WAL connection
+       ANYWHERE in the process had ever failed a CKPT_DONE commit (making
+       the registry non-empty), THIS call -- on a completely unrelated
+       rollback-journal path -- started entering SQLITE_MUTEX_STATIC_VFS3
+       on every single commit; a bare "is the registry non-empty" fast
+       path (tried first) does not fix this, since the registry can be
+       non-empty for a totally different path. usedShm is sticky (sees
+       xShmMap once, stays 1 for this handle's lifetime -- see its own
+       comment), so a connection that WAS WAL and later switches to
+       rollback-journal (e.g. PRAGMA journal_mode=DELETE) still clears its
+       own guard correctly here; only a handle that was NEVER WAL skips
+       this. */
+    if(p->usedShm && wasDirty && rc==SQLITE_OK) zvWalGuardClear(p->zGuardKey);
+    return rc;
+  }
   if(p->mode==ZVFS_MODE_PASSTHROUGH && p->converting){
     if(!zctr_is_dirty(p->pCtr)){
       /* Nothing was ever staged into the conversion's rebuild stream (e.g.
@@ -642,6 +897,12 @@ static int zvUnlock(sqlite3_file *f, int lk){
   ** the computation itself. */
   if(ctrEnding && zctr_is_dirty(p->pCtr)){
     rc = zctr_sync(p->pCtr, 0, /*gateOk=*/zvGateOk(p));
+    /* Item 2: same reasoning as zvSync's own commit call site (including
+       the p->usedShm gate -- see its own comment there for why a
+       never-WAL handle must never touch this mutex at all) -- this
+       failure is already visible directly to SQLite (the caller of
+       xUnlock), so only clear the guard on success, never set it here. */
+    if(p->usedShm && rc==SQLITE_OK) zvWalGuardClear(p->zGuardKey);
   }
   if(ctrEnding){
     zctr_rebuild_abort(p->pCtr);
@@ -732,16 +993,35 @@ static int zvFileControl(sqlite3_file *f, int op, void *pArg){
     ** still references. SQLite discards this file control's return value
     ** unconditionally (walCheckpoint never assigns
     ** sqlite3OsFileControl(...,CKPT_DONE,0) to anything), so a genuine
-    ** I/O failure here isn't specially surfaced through this path --
-    ** but zctr_sync's own abort-reset-on-failure contract (Task 10) keeps
-    ** the container internally consistent regardless: the checkpoint's
-    ** effect simply isn't made durable, and the WAL frames (never
-    ** discarded by a partial checkpoint) remain authoritative for every
-    ** reader and for crash recovery. A later full/TRUNCATE checkpoint or
-    ** ordinary commit on this same generation is a safe, idempotent no-op
-    ** here (zctr_sync itself no-ops once c->dirty is already clear). */
-    if(op==SQLITE_FCNTL_CKPT_DONE)
-      return zctr_is_dirty(p->pCtr) ? zctr_sync(p->pCtr, 0, /*gateOk=*/zvGateOk(p)) : SQLITE_OK;
+    ** I/O failure here isn't specially surfaced through this path, and
+    ** zctr_sync's own abort-reset-on-failure contract (Task 10) keeps the
+    ** container internally consistent regardless -- but internally
+    ** consistent is not the same as "harmless": an EARLIER version of this
+    ** comment reasoned that the checkpoint's effect "simply isn't made
+    ** durable, and the WAL frames... remain authoritative," which is true
+    ** only for a PARTIAL backfill (the one case Task 17 built this call
+    ** site for). For a FULL/unblocked backfill under
+    ** SQLITE_CHECKPOINT_TRUNCATE, wal.c advances nBackfill and truncates
+    ** the -wal file to zero within this SAME walCheckpoint() call
+    ** regardless of what this file control returns -- discarding the only
+    ** durable copy of whatever this commit failed to land. Item 2 (see the
+    ** ZvfsWalGuard registry's own top comment, above the ZvfsFile struct)
+    ** closes that: mark this database path "behind" on failure so the -wal
+    ** file's own truncate-to-smaller/delete are refused loudly until a
+    ** later commit catches up, rather than relying on an "isn't durable
+    ** but the source survives" argument that doesn't hold in every case. A
+    ** later full/TRUNCATE checkpoint or ordinary commit on this same
+    ** generation is a safe, idempotent no-op here (zctr_sync itself
+    ** no-ops once c->dirty is already clear) -- in particular it does NOT
+    ** re-clear an already-clear guard incorrectly, since a no-op sync
+    ** still returns SQLITE_OK, which is exactly "caught up." */
+    if(op==SQLITE_FCNTL_CKPT_DONE){
+      if(!zctr_is_dirty(p->pCtr)) return SQLITE_OK;
+      int rc = zctr_sync(p->pCtr, 0, /*gateOk=*/zvGateOk(p));
+      if(rc==SQLITE_OK) zvWalGuardClear(p->zGuardKey);
+      else zvWalGuardSetBehind(p->zGuardKey, rc);
+      return rc;
+    }
   }
   if(p->mode==ZVFS_MODE_PASSTHROUGH && op==SQLITE_FCNTL_OVERWRITE){
     /* Task 16: VACUUM's own copy-back fires this fcntl on ANY destination
@@ -936,6 +1216,16 @@ static const sqlite3_io_methods zvfs_io_methods = {
   zvShmMap, zvShmLock, zvShmBarrier, zvShmUnmap, zvFetch, zvUnfetch
 };
 
+/* Item 2: zName ends in the literal "-wal" suffix pager.c always appends
+   (see ZvfsFile.zGuardKey's own comment for why this is a safe, exact
+   join key with no separate normalization needed) -> the main db's own
+   path, newly allocated; otherwise NULL. Shared by zvOpen (WAL handles)
+   and zvDelete (VFS-level, no open handle to cache a key on). */
+static char *zvWalGuardKeyFromWalPath(const char *z){
+  size_t n = strlen(z);
+  if(n<=4 || memcmp(z+n-4, "-wal", 4)!=0) return 0;
+  return sqlite3_mprintf("%.*s", (int)(n-4), z);
+}
 static int zvOpen(sqlite3_vfs *pVfs, sqlite3_filename zName,
                   sqlite3_file *pFile, int flags, int *pOutFlags){
   sqlite3_vfs *pBase = BASEVFS(pVfs);
@@ -947,10 +1237,20 @@ static int zvOpen(sqlite3_vfs *pVfs, sqlite3_filename zName,
   p->mode = ZVFS_MODE_PASSTHROUGH;
   int rc = pBase->xOpen(pBase, zName, p->pReal, flags, pOutFlags);
   if(rc!=SQLITE_OK) return rc;
+  /* Item 2: stash this handle's WAL-guard registry key. See ZvfsFile's own
+     zGuardKey field comment for what a MAIN_DB vs. a WAL handle stores
+     here and why; every other open flag combination gets no key (no guard
+     lookup ever needed for those file kinds). */
+  if(flags & SQLITE_OPEN_MAIN_DB){
+    p->zGuardKey = sqlite3_mprintf("%s", zName);
+  }else if(flags & SQLITE_OPEN_WAL){
+    p->zGuardKey = zvWalGuardKeyFromWalPath(zName);
+  }
   if(flags & SQLITE_OPEN_MAIN_DB){
     rc = detect_mode(p);
     if(rc!=SQLITE_OK){
       if(p->pReal->pMethods) p->pReal->pMethods->xClose(p->pReal);
+      sqlite3_free(p->zGuardKey); p->zGuardKey = 0;
       return rc;
     }
   }
@@ -958,6 +1258,18 @@ static int zvOpen(sqlite3_vfs *pVfs, sqlite3_filename zName,
   return SQLITE_OK;
 }
 static int zvDelete(sqlite3_vfs *v, const char *z, int sync){
+  /* Item 2: refuse to delete a -wal file this process has marked "behind"
+     (a CKPT_DONE-triggered commit failed and hasn't been superseded by a
+     later successful one yet) -- see the ZvfsWalGuard registry's own top
+     comment for the full mechanism. z is a plain VFS-level path, not tied
+     to any open ZvfsFile, so the main-db key is derived fresh here. */
+  char *zMain = zvWalGuardKeyFromWalPath(z);
+  if(zMain){
+    int rc;
+    int behind = zvWalGuardIsBehind(zMain, &rc);
+    sqlite3_free(zMain);
+    if(behind) return rc;
+  }
   return BASEVFS(v)->xDelete(BASEVFS(v), z, sync);
 }
 static int zvAccess(sqlite3_vfs *v, const char *z, int f, int *pOut){
