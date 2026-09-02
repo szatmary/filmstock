@@ -418,14 +418,18 @@ func (u *Updater) applyChain(ctx context.Context, cur string, steps []catalogEnt
 
 // applySQL runs a patch against one database file.
 //
-// The statements go in batches rather than as one transaction, because a
-// compressed container cannot take a large one: a mixed insert/update/delete
-// transaction against an existing container fails with SQLITE_FULL once the
-// file has grown about 72.8 MB, on a disk with terabytes free (measured
-// twice, four kilobytes apart, on containers of 152 MB and 352 MB). WAL mode
-// takes the transaction but then cannot be switched back, leaving a WAL no
-// read-only open can recover. Batching sidesteps both, and costs nothing on a
-// plain database.
+// The statements go in batches rather than as one transaction because that
+// is both faster and denser against a compressed container: the same 16,822
+// statement patch applied to the same 286 MB container took 4.8 s and left
+// 311 MB in batches, against 41.6 s and 359 MB as one transaction. A bulk
+// transaction scatters free gaps the container's online compaction can only
+// walk back gradually, so a long single commit ends up carrying its own
+// fragmentation; committing in steps lets each one converge.
+//
+// (Batching also began as the workaround for an upstream bug where a large
+// transaction against a container failed with a false SQLITE_FULL. That is
+// fixed — internal/zstdvfs is pinned past it — and single transactions now
+// succeed; batching stays on the numbers above, not on the bug.)
 //
 // Batching gives up all-or-nothing at the FILE level, which this caller does
 // not need: patches are applied inside a staging build directory that is
@@ -456,9 +460,9 @@ func applySQL(path string, patch []byte) error {
 	return nil
 }
 
-// patchBatchStatements is how many statements go in one transaction. Chosen
-// well under where a container starts refusing (a 23,643-statement patch fails
-// whole and succeeds in 4,000s), and high enough that the per-transaction
+// patchBatchStatements is how many statements go in one transaction: small
+// enough that a container reclaims between commits rather than accumulating a
+// transaction's worth of fragmentation, large enough that per-transaction
 // overhead stays invisible.
 const patchBatchStatements = 2000
 

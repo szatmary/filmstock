@@ -92,10 +92,82 @@ typedef struct ZvfsFile {
 ** SQLITE_SYNC_NORMAL: the container's own commit protocol (container.c)
 ** decides exactly when a barrier is needed and never needs the pager's
 ** FULL/DATAONLY distinction on the physical file underneath it. */
+/* Field report ("SQLITE_FULL on large transactions", growth-full-report.md):
+** SQLite's own os_unix.c never expects a single xRead/xWrite call larger
+** than ~128 KiB (0x1ffff) -- both seekAndRead and seekAndWriteFd carry the
+** identical contract marker `assert(cnt==(cnt&0x1ffff))`, an assertion
+** compiled out under NDEBUG (auto-defined by sqliteInt.h whenever
+** SQLITE_DEBUG is not explicitly set -- true of this project's own release
+** build of third_party/sqlite/sqlite3.c; confirmed present at the exact
+** same offset in the actual linked amalgamation, not just the reference
+** source tree).
+**
+** The two sides of that contract are enforced asymmetrically once the
+** assert is compiled out, which is why only the write side has an
+** OBSERVED failure:
+**  - WRITE: seekAndWriteFd masks the count to `nBuf & 0x1ffff` before the
+**    real pwrite(). For a request >= 128 KiB this silently truncates the
+**    call; unixWrite's own retry loop reissues the remainder, but because
+**    128 KiB (0x20000) is an exact power of two, that remainder is ALWAYS
+**    itself an exact multiple of 128 KiB -- so the next masked count is
+**    exactly 0. write(fd,buf,0,...) returns 0 with no error; unixWrite
+**    treats that as "nothing left, must be disk-full" and returns
+**    SQLITE_FULL. Deterministic, not a race, not real disk pressure:
+**    reproduced directly, confirmed on a machine with tens of GB free, and
+**    exact by construction (see the report for the derivation).
+**  - READ: seekAndRead does NOT mask -- it passes the full count straight
+**    to pread()/read(). This works today only because a regular-file
+**    pread() for a size like this ordinarily returns everything in one
+**    call; unixRead has no retry loop at all for a short return (`got <
+**    amt` goes straight to zero-fill + SQLITE_IOERR_SHORT_READ). So an
+**    oversized read is not deterministically broken the way an oversized
+**    write is, but it is silently OUT OF CONTRACT and fragile: any base
+**    VFS (or kernel/filesystem combination) that legitimately short-reads
+**    a large regular-file request would surface as spurious corruption
+**    (SQLITE_IOERR_SHORT_READ / a bad record) with nothing to explain why.
+**
+** container.c's FREELIST/PENDING list records (commit_once, via
+** zctr_write_record / zctr_load_alloc) are the only records in this format
+** whose size is not bounded by a fixed page/node size -- a single
+** transaction's worth of scattered index/WITHOUT ROWID churn can serialize
+** a pending-free list past 128 KiB, in either direction (written by one
+** commit, read back by the next). The fix belongs at THIS layer (the
+** real-VFS adapter), not in container.c: it is a general property of
+** every xRead/xWrite this shim ever issues to the base VFS, mirrors the
+** same chunk-and-retry discipline os_unix.c itself uses internally for
+** writes, and protects any future oversized record type without
+** container.c (or any other caller of the ZvfsIO vtable) needing to know
+** anything about a base-VFS limit that has nothing to do with our own
+** format. Applied to both directions for the same reason, even though only
+** the write side has an observed failure: symmetric hardening against the
+** same documented ceiling, not a speculative fix for an unobserved bug. */
+#define ZVFS_IO_MAX_XFER (64u*1024u)   /* safely under the ~128 KiB ceiling */
 static int fio_read(void *ctx, void *b, u32 n, u64 off){
-  sqlite3_file *f=ctx; return f->pMethods->xRead(f,b,(int)n,(i64)off); }
+  sqlite3_file *f=ctx;
+  u8 *p=b;
+  u32 done=0;
+  while(done<n){
+    u32 chunk = n-done;
+    if(chunk>ZVFS_IO_MAX_XFER) chunk=ZVFS_IO_MAX_XFER;
+    int rc = f->pMethods->xRead(f, p+done, (int)chunk, (i64)(off+done));
+    if(rc!=SQLITE_OK) return rc;
+    done += chunk;
+  }
+  return SQLITE_OK;
+}
 static int fio_write(void *ctx, const void *b, u32 n, u64 off){
-  sqlite3_file *f=ctx; return f->pMethods->xWrite(f,b,(int)n,(i64)off); }
+  sqlite3_file *f=ctx;
+  const u8 *p=b;
+  u32 done=0;
+  while(done<n){
+    u32 chunk = n-done;
+    if(chunk>ZVFS_IO_MAX_XFER) chunk=ZVFS_IO_MAX_XFER;
+    int rc = f->pMethods->xWrite(f, p+done, (int)chunk, (i64)(off+done));
+    if(rc!=SQLITE_OK) return rc;
+    done += chunk;
+  }
+  return SQLITE_OK;
+}
 static int fio_trunc(void *ctx, u64 sz){
   sqlite3_file *f=ctx; return f->pMethods->xTruncate(f,(i64)sz); }
 static int fio_sync(void *ctx){

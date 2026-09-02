@@ -138,28 +138,27 @@ mismatches in container.c, an ignored fread result in a test, -D_DEFAULT_SOURCE
 for usleep/random under -std=c11, and -rdynamic for the dlopen'd extension
 test. Upstream states no license; that needs settling before publishing.
 
-Writing patches into a container needed a workaround, because large writes
-fail two ways upstream. In rollback-journal mode a mixed
-insert/update/delete transaction dies with SQLITE_FULL once the file has
-grown ~72.8 MB, on a disk with terabytes free (twice, 4 KB apart, on 152 MB
-and 352 MB containers) — though the same statements in 4,000-statement chunks
-succeed, and a 155 MB single-transaction rewrite of a synthetic container
-succeeds, so it is workload-shaped rather than a size cap. WAL mode takes the
-transaction but then `PRAGMA journal_mode=delete`, even after
-`wal_checkpoint(TRUNCATE)`, fails with SQLITE_IOERR/ENOENT on the 300 MB text
-container, leaving a WAL no read-only open can recover.
+The two write failures filmstock hit on 2026-09-01 were one upstream bug,
+fixed the same day and now pinned (internal/zstdvfs at 582e7ef): a single
+xWrite above SQLite's undocumented ~128 KiB per-call contract, which the unix
+VFS masks with `nBuf & 0x1ffff` behind an assert NDEBUG compiles out, so a
+request that is an exact multiple of 131072 becomes a zero-length write and
+reads back as a false SQLITE_FULL. In WAL mode it aborted a checkpoint commit
+unnoticed and could have lost a patch silently — the content-hash check is
+what would have caught it, and did. Upstream's suite passes here out of the
+box now (4,700,659 checks, 0 failures) and the GCC portability fixes are
+upstream too, so the vendored copy carries no local changes.
 
-The updater therefore applies a patch in batches of 2,000 statements rather
-than one transaction (sqlBatches, quote-aware so a semicolon inside a title
-is not a boundary). That sidesteps both bugs and costs nothing on a plain
-database; file-level atomicity is not lost in any way that matters, since
-patches land in a staging build directory that is discarded whole on failure.
-End to end with -compress on: a consumer installs the compressed full and
-rides a daily patch onto it in 107 s, content-verified, ending at 845 MB on
-disk against 1,539 MB plain.
+The updater still applies patches in batches of 2,000 statements (sqlBatches,
+quote-aware so a semicolon inside a title is not a boundary) — no longer as a
+workaround but on the numbers: the same 16,822-statement patch against the
+same 286 MB container takes 4.8 s and leaves 311 MB in batches, against
+41.6 s and 359 MB as one transaction, because a bulk transaction scatters
+gaps the container's online compaction only walks back gradually.
 
-Both upstream bugs are still worth fixing — the workaround is a workaround.
-Repro artifacts: /var/tmp/ztest-root and /var/tmp/zpatch.sql.
+End to end with -compress on: hosted release 605 MB against 1,249 MB, and a
+consumer installs the compressed full and rides a daily patch onto it in
+107 s, content-verified, holding 808 MB on disk against ~1,539 MB plain.
 
 Consumers built without cgo cannot read a container at all; they now get an
 error that says so rather than "file is not a database", and

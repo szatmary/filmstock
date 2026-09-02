@@ -18,19 +18,13 @@ unpacking the file.
   the upstream sources include `"sqlite3.h"` and our amalgamation header has
   a different name.
 
-Upstream states no license. Confirm one before this module is published.
+Upstream is public domain (the Unlicense); see LICENSE.zstdvfs.
 
-## Local changes (re-apply on upgrade)
+## Local changes
 
-`container.c`: four definitions (`zhdr_encode`, `zhdr_decode`, `zrec_encode`,
-`zrec_decode`) took `u8 *` while `zvfs_int.h` declares sized arrays. Clang is
-silent; GCC's `-Warray-parameter` makes it an error under upstream's `-Werror`.
-The definitions now match the declarations.
-
-Upstream's Makefile needs two more Linux fixes to build its own tests, which
-do not affect these sources: `-D_DEFAULT_SOURCE` (for `usleep`/`random` under
-`-std=c11`) and `-rdynamic` when linking test binaries that `dlopen` the
-extension. Both are in the patch kept beside this work.
+None. The GCC portability fixes filmstock needed on 2026-09-01 (sized array
+parameters in `container.c`, `-D_DEFAULT_SOURCE`, `-rdynamic`) are upstream
+as of dca4058, so these are verbatim copies.
 
 ## Registration
 
@@ -40,26 +34,24 @@ birth, which would silently compress the intermediate, every exported build
 and every test fixture. Reads ask for it by name via `sqldrv.DSN`; creates
 get the platform default and stay plain.
 
-## Known limits (measured here, 2026-09-01)
+## State (2026-09-02)
 
-Reading is solid: containers open, query and content-hash identically to the
-plain files they were made from, and upstream's own suite passes on Linux
-(4,700,340 checks, 0 failures) once the fixes above are applied.
+Upstream's suite passes on Linux out of the box: 4,700,659 checks, 0 failures.
 
-Writing large transactions into an existing container does not yet work:
+Two failures filmstock hit on 2026-09-01 — a false `SQLITE_FULL` on a large
+write, and a WAL that a later read-only open could not recover — turned out
+to be one bug, fixed upstream: a single `xWrite` above SQLite's undocumented
+~128 KiB per-call contract, which the vendored unix VFS masks with
+`nBuf & 0x1ffff` behind an assert that NDEBUG compiles out. A request that is
+an exact multiple of 131072 masks to a zero-length write, which `unixWrite`
+reads as `SQLITE_FULL` regardless of free space. In WAL mode it aborted the
+checkpoint's commit unnoticed, leaving the container at the pre-transaction
+generation while the WAL was truncated — silent loss, had filmstock not
+verified content hashes. Both reproduce against this pin and pass.
 
-1. Rollback-journal mode: a mixed insert/update/delete transaction fails with
-   `SQLITE_FULL` once the container has grown about 72.8 MB, on a disk with
-   terabytes free. Measured twice, 4 KB apart, on containers of 152 MB and
-   352 MB. The same statements split into 4,000-statement transactions
-   succeed, as does a 155 MB single-transaction rewrite of a synthetic
-   container — so it is workload-shaped, not a simple size cap.
-2. WAL mode takes those same transactions, but afterwards
-   `PRAGMA journal_mode=delete` (even after `wal_checkpoint(TRUNCATE)`) fails
-   with `SQLITE_IOERR`/ENOENT on a 300 MB container, leaving a WAL that a
-   later read-only open cannot recover ("attempt to write a readonly
-   database").
-
-A consumer applies daily patches by writing into its copy, so the updater
-works around both: it applies a patch in batches of 2,000 statements instead
-of one transaction. Both bugs are still worth fixing upstream.
+One documented limit still shapes how filmstock uses it: a bulk write leaves
+the container substantially larger than its plain equivalent, and online
+compaction claws that back only gradually, so a `VACUUM` is wanted after a
+bulk rebuild. The updater does that after rebuilding the FTS tables, and
+applies patches in batches, which converges denser than one long transaction
+(311 MB vs 359 MB on the same patch, and 4.8 s vs 41.6 s).
