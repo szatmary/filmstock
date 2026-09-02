@@ -178,9 +178,15 @@ pass, 370 MB after two, and a third changes nothing.
 End to end, on the live bucket with the 20260801 full compressed and all
 fifteen patches through 20260901 applied: 160 s, content-verified, consumer
 holding 815 MB (core 352 MB, text 304 MB, vectors 159 MB) against ~1,539 MB
-plain, and the hosted tree 608 MB against 1.3 GB. -compress is on by default
-again. Consumers built without cgo still cannot read a container;
--compress=false publishes plain databases for them.
+plain, and the hosted tree 608 MB against 1.3 GB.
+
+DECISION (2026-09-02): ship PLAIN for now. -compress defaults off and the
+live bucket's 20260801 is plain again (round-tripped twice, content hashes
+identical every time, chain re-verified end to end in 34 s). The published
+format stays readable by any SQLite, by cgo-free builds of this library, and
+by anyone poking at it with the sqlite3 CLI — a container is openable only
+through the VFS. The capability is built, tested and one flag away when the
+size matters more than that.
 
 Consumers built without cgo cannot read a container at all; they now get an
 error that says so rather than "file is not a database", and
