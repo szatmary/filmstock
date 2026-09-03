@@ -11,6 +11,34 @@ resolver cache warm; 70 min cold, the difference being the 96 GB Wikidata pass.
 
 ## Open
 
+### Prune the library to database management — API DONE, MOVES PENDING
+
+Decided 2026-09-03: filmstock manages the SQLite databases — building,
+publishing, downloading, verifying, updating, swapping — and its public API is
+opening one. Consumers ATTACH what else they need and write their own SQL,
+because their questions are their own and a query API only ever answers some
+of them. Same reasoning as sort keys living in Grindhouse.
+
+DONE: `Open(path, ...Attach)` attaches other databases under named schemas, so
+one query joins across core, text and vectors (verified on the real 20260902
+build: title from `movies`, plot from `text.movie_text`, dims from
+`vec.vector_meta`). Attachments are declared at Open, not added later, because
+ATTACH is per-connection state — sqldrv.Connector runs them from the driver's
+connect hook so every pooled connection carries the same schemas, with a test
+that hammers 32 goroutines across 8 connections to prove it.
+
+PENDING, and deliberately not started: moving the record types
+(Movie/TelevisionSeries/Season/Episode/Person/Event/Schedule/Link, the Kind
+constants, the title cleaners) into internal/record, and the query layer
+(search*, people, titleinfo, episodeinfo, explore, vectors, images) into
+internal/query — they are the parser's and the browser's, not a consumer's.
+internal/build and cmd/filmstock-web import them, so this is a mechanical
+move plus import rewrites.
+
+Blocked on the uncommitted prod_code work, which edits television.go and
+episodeinfo.go — both on the move list. Moving files out from under
+in-flight edits would orphan them. Do the moves once that lands.
+
 ### The diff plan — PROVEN END TO END (2026-08-27)
 
 Measured, on the real corpus, with the vendored 3.53.4 engine throughout:
