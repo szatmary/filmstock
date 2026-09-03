@@ -118,25 +118,43 @@ cmd/
   filmstock-web/     the browser
 ```
 
-## Use it as a library
+## Using the data
 
-```go
-import "github.com/szatmary/filmstock"
+**The product is three SQLite files and [a documented schema](docs/schema.md).**
+Open them with any SQLite library, in any language. There is no query API to
+learn and none to be limited by: your questions are yours, and SQL answers
+more of them than a set of methods would.
 
-db, err := filmstock.Open("filmstock.db")
-defer db.Close()
+```sql
+ATTACH DATABASE 'filmstock-text.db' AS text;
 
-films, _ := db.SearchFilms(ctx, "blade runner", "title", 20)
-info, _  := db.FilmInfo(ctx, []int{films[0].ID})   // title, year, poster URL
+SELECT m.title, m.year, t.plot
+FROM movies m JOIN text.movie_text t ON t.id = m.id
+WHERE m.year = 1954;
 ```
 
-Every search, ranking and count is answered from the database alone and touches
-no network. The full text (plots, episode summaries) ships separately in
-`filmstock-text.db` so a consumer that only searches never downloads it.
+Two things to know before writing that query, both covered in
+[docs/schema.md](docs/schema.md): every id is the article's Wikipedia page_id,
+and the full-text indexes ship empty because they are derived data that
+rebuilds in seconds.
 
-The `Updater` keeps a consumer current: it fetches a release, verifies file
-and content hashes, rebuilds the FTS tables locally (they ship empty — they
-are derived data), and swaps the live handle atomically.
+### The Go package
+
+For Go consumers it does the parts you would not want to reimplement —
+opening the files together, and keeping them current:
+
+```go
+db, err := filmstock.Open("filmstock.db",
+    filmstock.Attach{Schema: "text", Path: "filmstock-text.db"})
+defer db.Close()
+
+rows, err := db.SQL().Query(`SELECT title FROM movies WHERE year = ?`, 1954)
+```
+
+`Updater` fetches a release, verifies file and content hashes, applies daily
+patches when the catalog offers a chain, rebuilds the FTS tables, and swaps
+the live handle atomically so a running server never closes its database to
+take an update.
 
 ## Releases
 

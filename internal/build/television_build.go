@@ -314,12 +314,157 @@ func parseEpisodeRow(ib map[string]string) *filmstock.Episode {
 	}
 	e.NumberOverall = atoiSafe(ib["episodenumber"])
 	e.NumberInSeason = atoiSafe(ib["episodenumber2"])
-	if d := parseReleaseDates(ib["originalairdate"]); len(d) > 0 {
-		e.AirDate = d[0]
-	}
+	e.AirDate = episodeAirDate(ib["originalairdate"])
+	e.ProdCode = parseProdCode(ib["prodcode"])
 	e.Summary = wikitext.TrimLen(wikitext.CleanText(ib["shortsummary"]), 1500)
 	e.Viewers = parseViewers(ib["viewers"])
 	return e
+}
+
+// reAirDateTemplate finds where each date template starts, so a field stating
+// several dates can be split into one segment per date plus its annotation.
+// It mirrors reFilmDate/reStartDate/reEndDate exactly, so every split point is
+// one parseReleaseDates can read.
+var reAirDateTemplate = regexp.MustCompile(`\{\{(?:[Ff]ilm|[Ss]tart|[Ee]nd) date\|`)
+
+// reHomeVideo matches an annotation saying a date is a home-video release
+// rather than a broadcast. Confined to the disc/tape formats that actually
+// appear: DVD, Home video, VHS, VHS/DVD, BD/DVD, Blu-ray/DVD. Deliberately not
+// "disc", which would reach into network names.
+var reHomeVideo = regexp.MustCompile(`(?i)\b(?:DVD|Blu-?ray|BD|VHS|LaserDisc|home\s+(?:video|media)|direct-to-video)\b`)
+
+// episodeAirDate is the date the episode was broadcast.
+//
+// Usually the row states one date and this is just the first one parsed. But
+// 4,445 rows state several, and which one is the air date depends on what the
+// row says each date IS. The common case by far — 4,267 of them — is a
+// simultaneous release in two countries, Farscape's
+//
+//	{{Start date|1999|3|19}} (US)<br />{{Start date|1999|11|29}} (UK)
+//
+// where the first is the original airing and taking it is right.
+//
+// The remaining 178 are a home-video release listed BEFORE the broadcast, and
+// there taking the first date records something that is not an air date at all:
+//
+//	{{Start date|2007|11|27}} (DVD)<br>{{Start date|2008|3|23}} ([[Comedy Central]])
+//
+// That is Futurama season 5, whose sixteen episodes all came out stamped with a
+// DVD date while the season itself reported first_aired 2008-03-23 — the same
+// series disagreeing with itself about when it aired. Postman Pat, Bob the
+// Builder and twenty-odd others do the same.
+//
+// So a date annotated as home video is skipped, but only when the row states
+// another date that is not. Where every date is a home-video date that is what
+// the row says the release was, and dropping it would lose the only date there
+// is. No annotation is invented: the row labels these itself.
+func episodeAirDate(raw string) string {
+	at := reAirDateTemplate.FindAllStringIndex(raw, -1)
+	if len(at) < 2 {
+		if d := parseReleaseDates(raw); len(d) > 0 {
+			return d[0]
+		}
+		return ""
+	}
+	var first string
+	for i, m := range at {
+		end := len(raw)
+		if i+1 < len(at) {
+			end = at[i+1][0]
+		}
+		// The segment is one date template plus the annotation trailing it, up
+		// to wherever the next date begins.
+		seg := raw[m[0]:end]
+		d := parseReleaseDates(seg)
+		if len(d) == 0 {
+			continue
+		}
+		if first == "" {
+			first = d[0]
+		}
+		if !reHomeVideo.MatchString(seg) {
+			return d[0]
+		}
+	}
+	return first
+}
+
+// reProdCodeSplit splits a production code field where the row states more than
+// one code, which it writes as a line break.
+var reProdCodeSplit = regexp.MustCompile(`(?i)<br\s*/?>`)
+
+// reBareExternalLink matches a single-bracket external link, "[https://x label]".
+// Not [[a wikilink]], which CleanText resolves to its display text.
+var reBareExternalLink = regexp.MustCompile(`\[(?:[a-z]+:)?//`)
+
+// prodCodeSep stands in for a line break while the value is cleaned.
+//
+// The break has to be marked BEFORE cleaning rather than split on, because a
+// <br /> is often inside the citation attached to the code, and cutting there
+// severs <ref>...</ref> in half: the opening tag is dropped as a stray tag and
+// the citation's prose survives as a second "code". The West Wing states
+//
+//	|ProdCode=227223<ref>{{cite web|...|title=West Wing : no. 227223, The
+//	 special episode / directed by William Couturie|...}}<br />Search for ...</ref>
+//
+// which came out as "227223 / Search for : West Wing : no. 227223, The special
+// episode / directed by William Couturie". Substituted first, the marker sits
+// inside the ref and is removed along with it.
+//
+// NUL cannot occur in the source and no rule in CleanText touches it.
+const prodCodeSep = "\x00"
+
+// parseProdCode reads the production code, an opaque per-series label.
+//
+// The value is rarely bare. It carries citations ("40510-480<ref name=...>"),
+// explanatory footnotes ("201{{efn|The U.S. copyright registrations...}}"), and
+// placeholder markup for episodes that have no code at all ("{{small|N/A}}",
+// which must come out empty rather than as the literal string N/A). CleanText
+// handles all three, so the code is what survives it.
+func parseProdCode(raw string) string {
+	s := wikitext.ReComment.ReplaceAllString(raw, "")
+	// A commented-out parameter states nothing. ParseInfobox does not honour
+	// comments, so the Fresh Beat Band's
+	//
+	//	<!-- |ProdCode        = 103 -->
+	//
+	// arrives here as the value "103 -->": a closing delimiter with no opener,
+	// meaning the parameter itself was inside a comment. Wikipedia shows no
+	// code for that episode and neither does filmstock — salvaging the 103
+	// would publish a value the article deliberately hides.
+	if strings.Contains(s, "-->") {
+		return ""
+	}
+	// An opener with no closer comments out the rest of the field: California
+	// Dreams' "60272\n<!--" and everything after it.
+	if i := strings.Index(s, "<!--"); i >= 0 {
+		s = s[:i]
+	}
+	// What remains of a citation after the complete ones are removed is a
+	// citation that was cut in half before it got here, because splitParams
+	// ends a parameter at a "|" it should have ignored — one inside a <ref>, or
+	// inside an [external link]. Rosie's Rules states
+	//
+	//	|ProdCode = 101<ref>[https://tv.azpm.org/... Episode of Rosie's Rules | TV Schedules - AZPM]</ref>
+	//
+	// and the value arrives already truncated at that pipe, as
+	// "101<ref>[https://tv.azpm.org/... Episode of Rosie's Rules". The code is
+	// the part before the citation starts; the rest is a citation's title.
+	s = wikitext.StripRefs(s)
+	if i := strings.Index(strings.ToLower(s), "<ref"); i >= 0 {
+		s = s[:i]
+	}
+	if i := reBareExternalLink.FindStringIndex(s); i != nil {
+		s = s[:i[0]]
+	}
+	var codes []string
+	for _, part := range strings.Split(wikitext.CleanText(
+		reProdCodeSplit.ReplaceAllString(s, prodCodeSep)), prodCodeSep) {
+		if c := strings.Join(strings.Fields(part), " "); c != "" {
+			codes = append(codes, c)
+		}
+	}
+	return strings.Join(codes, " / ")
 }
 
 // reViewers takes the leading number out of a viewers field.

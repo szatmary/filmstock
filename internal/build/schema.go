@@ -116,7 +116,12 @@ CREATE TABLE television_episodes(
   id INTEGER PRIMARY KEY,
   series_id INTEGER, season INTEGER,
   number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT,
-  viewers REAL
+  viewers REAL,
+  -- The production code as the row states it: an opaque per-series label, not a
+  -- number and not comparable across series. It is the only thing that tells
+  -- the parts of a multi-part episode apart — Futurama's four cuts of Bender's
+  -- Big Score share a title and an air date and differ only as 5ACV01..04.
+  prod_code TEXT
 );
 CREATE INDEX idx_television_ep_series ON television_episodes(series_id);
 CREATE VIRTUAL TABLE television_episodes_fts USING fts5(

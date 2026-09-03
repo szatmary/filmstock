@@ -145,8 +145,9 @@ func (w *dbWriter) begin() error {
 		(id,series_id,season,page_id,num_episodes,first_aired,last_aired,
 		 network,starring,image,rank,rating,viewers) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`)
 	w.insEpisode = p(`INSERT INTO television_episodes
-		(id,series_id,season,number_in_season,number_overall,title,air_date,viewers)
-		VALUES(?,?,?,?,?,?,?,?)`)
+		(id,series_id,season,number_in_season,number_overall,title,air_date,viewers,
+		 prod_code)
+		VALUES(?,?,?,?,?,?,?,?,?)`)
 	w.insEvent = p(`INSERT OR REPLACE INTO events
 		(id,title,kind,award,edition,date,year,hosts,organizer,venue,location,network,
 		 best_film,most_wins,opening_film,closing_film,cover_image_file,wikipedia_url)
@@ -307,10 +308,17 @@ func (w *dbWriter) putSeries(id int64, s *filmstock.TelevisionSeries) {
 			// The id survives metadata edits (air date, viewers, summary) so
 			// the episode_text row it anchors keeps pointing at the same
 			// episode across daily builds; a retitle or renumbering re-keys.
+			//
+			// prod_code is metadata and stays OUT of the id, deliberately. The
+			// parts of a multi-part episode are already distinct here — they
+			// carry their own EpisodeNumbers — so the code is not needed to
+			// separate them, and folding it in would re-key every episode in
+			// the corpus the day it was added.
 			eid := stableID("episode", id, se.Season, e.NumberOverall,
 				e.NumberInSeason, e.Title)
 			if _, err := w.insEpisode.Exec(eid, id, se.Season, e.NumberInSeason,
-				e.NumberOverall, e.Title, e.AirDate, e.Viewers); err != nil {
+				e.NumberOverall, e.Title, e.AirDate, e.Viewers,
+				e.ProdCode); err != nil {
 				w.fail(err)
 				return
 			}

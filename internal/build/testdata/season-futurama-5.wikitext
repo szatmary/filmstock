@@ -1,0 +1,106 @@
+== Episodes ==
+{{Episode table
+|background = #DEDEE2
+|overall    = 5
+|season     = 5
+|title      = 20
+|director   = 17
+|writer     = 24
+|airdate    = 12
+|prodcode   = 9
+|episodes   =
+{{Episode list/sublist|Futurama season 5
+| EpisodeNumber_1  = 73
+| EpisodeNumber_2  = 74
+| EpisodeNumber_3  = 75
+| EpisodeNumber_4  = 76
+| EpisodeNumber2_1 = 1
+| EpisodeNumber2_2 = 2
+| EpisodeNumber2_3 = 3
+| EpisodeNumber2_4 = 4
+| RTitle           = ''[[Futurama: Bender's Big Score|Bender's Big Score]]''
+| DirectedBy       = [[Dwayne Carey-Hill]]
+| WrittenBy        = {{StoryTeleplay|s=[[Ken Keeler]] & [[David X. Cohen]]|t=Ken Keeler}}
+| OriginalAirDate  = {{Start date|2007|11|27}} (DVD)<br>{{Start date|2008|3|23}} ([[Comedy Central]])
+| ProdCode_1       = 5ACV01
+| ProdCode_2       = 5ACV02
+| ProdCode_3       = 5ACV03
+| ProdCode_4       = 5ACV04
+| NumParts         = 4
+| ShortSummary     = As Fry learns he has a tattoo of Bender on his buttocks that has universal consequences, nudist alien scammers take over Planet Express and brainwash Bender via a virus to do their bidding. Meanwhile, Leela meets the man of her dreams and Hermes (literally) loses his head during a game of [[Limbo (dance)|limbo]]. Using the power of time travel tattooed on Fry's buttocks, the scammers hatch a plan to steal history's most valuable riches. Fry escapes back to the 20th century while Bender is dispatched back in time to kill him. Meanwhile, Leela grows ever closer to her new boyfriend and Hermes gets a new body. Though the scammers release Bender from their control and the tattoo on Fry's buttocks is destroyed, more and more people find themselves being scammed onto the streets. Meanwhile, Leela is marrying her new boyfriend, and Fry discovers what his life could have been like in the 21st century. After Leela's heart (and Hermes' body) are broken at her wedding, the scammers ultimately banish Earth's inhabitants to the corners of the solar system, leading to an intergalactic battle to reclaim Earth. And as the shocking truth of Leela's fiancé is revealed, Bender becomes an unlikely hero.
+''Guest stars'': [[Al Gore]] as himself, [[Sarah Silverman]] as [[List of recurring characters in Futurama#Michelle|Michelle]], [[Tom Kenny]] as [[List of recurring characters in Futurama#Yancy Fry Jr.|Yancy Fry Jr.]], [[Coolio]] as [[List of recurring characters in Futurama#Kwanzaabot and Chanukah Zombie|Kwanzaabot]] and [[Mark Hamill]] as [[List of recurring characters in Futurama#Kwanzaabot and Chanukah Zombie|Chanukah Zombie]]
+| LineColor        = DEDEE2
+}}
+{{Episode list/sublist|Futurama season 5
+| EpisodeNumber_1  = 77
+| EpisodeNumber_2  = 78
+| EpisodeNumber_3  = 79
+| EpisodeNumber_4  = 80
+| EpisodeNumber2_1 = 5
+| EpisodeNumber2_2 = 6
+| EpisodeNumber2_3 = 7
+| EpisodeNumber2_4 = 8
+| RTitle           = ''[[Futurama: The Beast with a Billion Backs|The Beast with a Billion Backs]]''
+| DirectedBy       = [[Peter Avanzino]]
+| WrittenBy        = {{StoryTeleplay|s=[[Eric Kaplan]] & David X. Cohen|t=Eric Kaplan}}
+| OriginalAirDate  = {{Start date|2008|6|24}} (DVD)<br>{{Start date|2008|10|19}} (Comedy Central)
+| ProdCode_1       = 5ACV05
+| ProdCode_2       = 5ACV06
+| ProdCode_3       = 5ACV07
+| ProdCode_4       = 5ACV08
+| NumParts         = 4
+| ShortSummary     = When a mysterious tear appears in the universe, Professor Farnsworth mounts an expedition to explore whatever lies on the other side. Meanwhile, as Kif and Amy take their relationship to the next level, Fry discovers his new girlfriend may be spreading her love even further than he can handle. After the Professor's expedition ends with disaster, a military action is proposed, though it strikes a devastating blow that hits too close to Amy's heart when it costs Kif his life. Meanwhile, Fry decides to live in the universe on the other side of the tear as Bender joins the secret robot society of his dreams. Fry has fallen in love with a colossal tentacled monster from beyond the tear, which begins spreading its influence (and its tentacles) everywhere. Meanwhile, Amy deals with Kif's death, Bender builds his human-hating reputation in his new club, and Leela reveals a shocking truth about the monster. The tentacled monster asks everyone in the universe out on a date, eventually leading Earth's population to evacuate the planet so they can live on its body. Meanwhile, the monster brings Kif back to life, and Bender, left in charge of the abandoned robots on Earth, takes drastic measures to bring everyone back.
+''Guest stars'': [[Brittany Murphy]] as Colleen O'Hallahan, [[Stephen Hawking]] as himself, [[David Cross]] as Yivo and [[Dan Castellaneta]] as [[List of recurring characters in Futurama#Robot Devil|Robot Devil]]
+| LineColor        = DEDEE2
+}}
+{{Episode list/sublist|Futurama season 5
+| EpisodeNumber_1  = 81
+| EpisodeNumber_2  = 82
+| EpisodeNumber_3  = 83
+| EpisodeNumber_4  = 84
+| EpisodeNumber2_1 = 9
+| EpisodeNumber2_2 = 10
+| EpisodeNumber2_3 = 11
+| EpisodeNumber2_4 = 12
+| RTitle           = ''[[Futurama: Bender's Game|Bender's Game]]''
+| DirectedBy       = Dwayne Carey-Hill
+| WrittenBy_1      = {{StoryTeleplay|s=[[Eric Horsted]] & David X. Cohen|t=Eric Horsted}}
+| WrittenBy_2      = {{StoryTeleplay|s=Eric Horsted & David X. Cohen|t=Eric Horsted}}
+| WrittenBy_3      = {{StoryTeleplay|s=Eric Horsted & David X. Cohen|t=Eric Kaplan & [[Michael Rowe (screenwriter)|Michael Rowe]]}}
+| WrittenBy_4      = {{StoryTeleplay|s=Eric Horsted & David X. Cohen|t=David X. Cohen & [[Patric Verrone|Patric M. Verrone]]}}
+| OriginalAirDate  = {{Start date|2008|11|4}} (DVD)<br>{{Start date|2009|4|26}} (Comedy Central)
+| ProdCode_1       = 5ACV09
+| ProdCode_2       = 5ACV10
+| ProdCode_3       = 5ACV11
+| ProdCode_4       = 5ACV12
+| NumParts         = 4
+| ShortSummary     = Leela's anger gets the better of her when she wastes precious gas and enters the Space Demolition Derby. In fact, it has gotten the better of her so many times that Farnsworth and Hermes decide to do something about it. Meanwhile, Bender becomes too obsessed with playing [[Dungeons and Dragons]]. Farnsworth reveals why he's so angry about the dark matter shortage crisis. Bender is not progressing at the insane asylum. Fry, Leela, and Farnsworth infiltrate Mom's Alaskan headquarters. Fry, Leela and Farnsworth discover the shocking truth behind the [[dark matter]] shortage, and suddenly find themselves in the magical world of Cornwood where the knights strangely look like robots and the wizard's headquarters look strangely like [[outhouse]]s. Frydo becomes obsessed with the Die of Power and flees the Fellowship. Leegola joins the centaurs and becomes a pacifist, and Gynecaladriel, Greyfarn, and Titanius are besieged at Wipe Castle.
+''Guest stars'': [[Gary Gygax]] as himself (archive recordings), [[Rich Little]] as himself and [[George Takei]] as himself
+| LineColor        = DEDEE2
+}}
+{{Episode list/sublist|Futurama season 5
+| EpisodeNumber_1  = 85
+| EpisodeNumber_2  = 86
+| EpisodeNumber_3  = 87
+| EpisodeNumber_4  = 88
+| EpisodeNumber2_1 = 13
+| EpisodeNumber2_2 = 14
+| EpisodeNumber2_3 = 15
+| EpisodeNumber2_4 = 16
+| RTitle           = ''[[Futurama: Into the Wild Green Yonder|Into the Wild Green Yonder]]''
+| DirectedBy       = Peter Avanzino
+| WrittenBy_1      = {{StoryTeleplay|s=Ken Keeler & David X. Cohen|t=Ken Keeler}}
+| WrittenBy_2      = Ken Keeler
+| WrittenBy_3      = Ken Keeler
+| WrittenBy_4      = {{StoryTeleplay|s=Ken Keeler & David X. Cohen|t=Ken Keeler}}
+| OriginalAirDate  = {{Start date|2009|2|23}} (DVD)<br>{{Start date|2009|8|30}} (Comedy Central)
+| ProdCode_1       = 5ACV13
+| ProdCode_2       = 5ACV14
+| ProdCode_3       = 5ACV15
+| ProdCode_4       = 5ACV16
+| NumParts         = 4
+| ShortSummary     = The Planet Express crew visits Amy's parents, Leo and Inez, who are destroying the "old" Mars Vegas and constructing a more extravagant one. A group of eco-feminists, led by Frida Waterfall, protesting the destruction of the environment, leads to an accident wherein a piece of Frida's jewelry lodges inside Fry's brain granting him telepathy. The destruction upsets Leela, but Leo asserts that he has received environmental clearance — from a bribed Professor Farnsworth. Unconvinced, Leela saves a Martian muck leech, the last of its species, from the site. Hutch introduces Fry to the "Legion of Mad Fellows", a [[secret society]] of other [[tin foil hat]] wearing telepaths led by the No. 9 man. Fry learns that the violet dwarf is the only surviving egg of the Encyclopods, a now-extinct species which evolved to preserve the [[DNA]] of all endangered life forms and recreate extinct species. Leo enlists Zapp Brannigan and Kif Kroker to capture the eco-feminists and Fry infiltrates Leo's empire as a security guard. Fry later runs into Frida and has her take a discreet message of support to Leela, but an unseen Dark One later murders Frida. Farnsworth, Zoidberg and Hermes are captured by the eco-feminists (now joined by Amy, LaBarbara Conrad and others), who commandeer the Planet Express ship. Fry and Leela arrange a rendezvous which is ambushed by the eavesdropping Zapp in the Nimbus. The eco-feminists are captured and sent to prison. Fry learns from the Legion that the Dark One will be present at the implosion of the violet dwarf and is sent to thwart it using an Omega Device. Meanwhile, Leela and the other eco-feminists are sent to prison, but are broken out by Bender and taken by the Planet Express employees to stop the implosion ceremony. At the ceremony, Fry tries to identify the Dark One among everyone else present through its unreadable mind, but finds no one and concludes he must be the Dark One since his mind is unreadable. Leela and the others arrive and to disrupt the ceremony, but Fry convinces Leela to let him proceed. He activates the Omega Device to destroy himself, but it instead affects Leela's leech, which reveals itself as the Dark One. The violet dwarf system turns into a sperm and enters the star, which develops into an adult Encyclopod. The Dark One kills Hutch, who removes the ring from Fry's brain as his dying act, depriving Fry of his telepathy. The Encyclopod destroys the Dark One and leaves after preserving humanity's DNA. Zapp tries to have everyone arrested, and they go on the run. The Planet Express crew encounters a wormhole and decides to enter it, not knowing where it will lead them. Fry and Leela profess their love for each other and kiss as the ship enters.
+''Guest stars'': [[Seth MacFarlane]] as Mars Vegas Singer, [[Phil Hendrie]] as [[List of recurring characters in Futurama#Frida Waterfall|Frida Waterfall]], Hutch Waterfall and The Encyclopod, [[Penn Jillette]] as himself and [[Snoop Dogg]] as himself
+| LineColor        = DEDEE2
+}}
+}}</onlyinclude>
