@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/query"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
@@ -18,8 +18,8 @@ func CSearch(args []string) {
 	n := fs.Int("n", 20, "max results")
 	field := fs.String("field", "title", "field to rank against: title|starring|director")
 	fs.Parse(args)
-	query := strings.TrimSpace(strings.Join(fs.Args(), " "))
-	if query == "" {
+	q := strings.TrimSpace(strings.Join(fs.Args(), " "))
+	if q == "" {
 		fmt.Fprintln(os.Stderr, "usage: filmstock search [-n N] [-field title|starring|director] QUERY")
 		os.Exit(2)
 	}
@@ -30,7 +30,7 @@ func CSearch(args []string) {
 	}
 	defer db.Close()
 
-	results, err := filmstock.SearchMovies(context.Background(), db, query, *field, *n)
+	results, err := query.SearchMovies(context.Background(), db, q, *field, *n)
 	if err != nil {
 		fatal(err)
 	}
@@ -48,7 +48,7 @@ func CSearch(args []string) {
 			fmt.Printf("        dir: %s\n", r.Director)
 		}
 		if r.Starring != "" {
-			fmt.Printf("        cast: %s\n", filmstock.Truncate(r.Starring, 80))
+			fmt.Printf("        cast: %s\n", query.Truncate(r.Starring, 80))
 		}
 	}
 }

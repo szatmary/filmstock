@@ -11,7 +11,7 @@ resolver cache warm; 70 min cold, the difference being the 96 GB Wikidata pass.
 
 ## Open
 
-### Prune the library to database management — API DONE, MOVES PENDING
+### Prune the library to database management — DONE (2026-09-03)
 
 Decided 2026-09-03: filmstock manages the SQLite databases — building,
 publishing, downloading, verifying, updating, swapping — and its public API is
@@ -27,17 +27,23 @@ ATTACH is per-connection state — sqldrv.Connector runs them from the driver's
 connect hook so every pooled connection carries the same schemas, with a test
 that hammers 32 goroutines across 8 connections to prove it.
 
-PENDING, and deliberately not started: moving the record types
-(Movie/TelevisionSeries/Season/Episode/Person/Event/Schedule/Link, the Kind
-constants, the title cleaners) into internal/record, and the query layer
-(search*, people, titleinfo, episodeinfo, explore, vectors, images) into
-internal/query — they are the parser's and the browser's, not a consumer's.
-internal/build and cmd/filmstock-web import them, so this is a mechanical
-move plus import rewrites.
+DONE: the record types (Movie/TelevisionSeries/Season/Episode/Person/Event/
+Schedule/Link, the Kind constants, the title cleaners) are in internal/record,
+and the query layer (search*, people, titleinfo, episodeinfo, explore,
+vectors, images) is in internal/query. They are the parser's and the
+browser's, not a consumer's. The root package is now seven symbols:
 
-Blocked on the uncommitted prod_code work, which edits television.go and
-episodeinfo.go — both on the move list. Moving files out from under
-in-flight edits would orphan them. Do the moves once that lands.
+    Open (with Attach), DB, Updater, Live, ContentHash, RebuildFTS, IsCompressed
+
+Two things had to change rather than move. The *DB query methods became
+functions over *sql.DB, so the query layer does not depend on the root
+package at all — and EpisodeInfo had to be renamed Episodes, because a method
+may share a name with its own return type but a function may not. And
+updater_test asserted through SearchFilms, which no longer exists; it now
+asserts in SQL, which is what a consumer would write anyway.
+
+Verified after the move: whole suite green, cgo and purego both build, the
+CLI searches, the browser serves movie pages and /explore.
 
 ### The diff plan — PROVEN END TO END (2026-08-27)
 

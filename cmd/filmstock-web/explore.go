@@ -27,7 +27,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/query"
 )
 
 // One action in a walk. The position is built from all of them:
@@ -99,8 +99,8 @@ func (wk *walk) all() []int {
 
 type explorers struct {
 	mu     sync.Mutex
-	v      *filmstock.Vectors
-	coll   *filmstock.Collection
+	v      *query.Vectors
+	coll   *query.Collection
 	known  []int          // films in both the database and the vector file
 	lang   map[int]string // primary language per film, for the exit doors
 	decade map[int]string // "1960s", likewise
@@ -108,7 +108,7 @@ type explorers struct {
 	next   int
 }
 
-func newExplorers(v *filmstock.Vectors, known []int, lang, decade map[int]string) *explorers {
+func newExplorers(v *query.Vectors, known []int, lang, decade map[int]string) *explorers {
 	coll, missing := v.Collect(known)
 	fmt.Fprintf(os.Stderr, "explorer: %d films with vectors (%d in the database have none)\n",
 		coll.Len(), missing)

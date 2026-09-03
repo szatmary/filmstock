@@ -10,7 +10,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
@@ -182,7 +182,7 @@ func lintYears(db *sql.DB) []finding {
 // is "Episodes", so the link silently goes nowhere.
 func lintInfoboxes(in *Inter) []finding {
 	var out []finding
-	in.Each(filmstock.KindTelevision, true, func(p *Page) error {
+	in.Each(record.KindTelevision, true, func(p *Page) error {
 		t := strings.TrimSpace(p.Infobox["list_episodes"])
 		switch {
 		case t == "":

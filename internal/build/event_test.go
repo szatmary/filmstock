@@ -3,8 +3,8 @@ package build
 import (
 	"testing"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // The collision that put 4,065 non-films into the film index. Both of these
@@ -18,8 +18,8 @@ func TestFilmAwardsAndFestivalsAreNotFilms(t *testing.T) {
 	}{
 		{"film", "{{Infobox film\n| name = The Matrix\n| director = [[The Wachowskis]]\n}}", true, ""},
 		{"film no space", "{{Infobox film|name=Jaws|director=[[Steven Spielberg]]}}", true, ""},
-		{"awards", "{{Infobox film awards\n| award = Golden Raspberry Awards\n| number = 1\n| host = [[Bob Guy]]\n| network = [[NBC]]\n}}", false, filmstock.EventAwardCeremony},
-		{"festival", "{{Infobox Film festival\n| name = Cannes\n| number = 70\n| location = Cannes\n| opening = [[Ismael's Ghosts]]\n}}", false, filmstock.EventFilmFestival},
+		{"awards", "{{Infobox film awards\n| award = Golden Raspberry Awards\n| number = 1\n| host = [[Bob Guy]]\n| network = [[NBC]]\n}}", false, record.EventAwardCeremony},
+		{"festival", "{{Infobox Film festival\n| name = Cannes\n| number = 70\n| location = Cannes\n| opening = [[Ismael's Ghosts]]\n}}", false, record.EventFilmFestival},
 	}
 	for _, c := range cases {
 		p := dump.Page{Title: c.name, ID: 1, NS: 0, Text: c.text}

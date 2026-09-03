@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -57,11 +57,11 @@ var (
 func isScheduleArticle(title string) bool { return reScheduleTitle.MatchString(title) }
 
 // buildSchedule extracts every slot from a schedule article.
-func buildSchedule(p dump.Page) *filmstock.Schedule {
+func buildSchedule(p dump.Page) *record.Schedule {
 	if p.NS != 0 || !isScheduleArticle(p.Title) {
 		return nil
 	}
-	s := &filmstock.Schedule{
+	s := &record.Schedule{
 		PageID:  int(p.ID),
 		Title:   p.Title,
 		Daypart: daypartOf(p.Title),
@@ -106,7 +106,7 @@ func buildSchedule(p dump.Page) *filmstock.Schedule {
 // season repeats the same programme in dozens of slots and each lookup is a
 // query. Titles are canonicalised the same way the rest of the extractor does,
 // so a link written with an underscore or a leading lower case still joins.
-func ResolveShows(s *filmstock.Schedule, lookup func(title string) int) {
+func ResolveShows(s *record.Schedule, lookup func(title string) int) {
 	seen := map[string]int{}
 	for i := range s.Entries {
 		t := s.Entries[i].LinkTarget
@@ -168,7 +168,7 @@ func daypartOf(title string) string {
 }
 
 // readGrid turns one night's table into entries.
-func readGrid(tb *wikitext.Table, day string) []filmstock.ScheduleEntry {
+func readGrid(tb *wikitext.Table, day string) []record.ScheduleEntry {
 	// Which column is which time, read from the header row.
 	times := map[int]string{}
 	firstTime := -1
@@ -198,7 +198,7 @@ func readGrid(tb *wikitext.Table, day string) []filmstock.ScheduleEntry {
 	}
 	slotMinutes := gridStep(times)
 
-	var out []filmstock.ScheduleEntry
+	var out []record.ScheduleEntry
 	for row := range tb.Rows {
 		// Everything left of the first time column labels the row. The leftmost
 		// is the network; a second, when present, is which part of the season
@@ -231,7 +231,7 @@ func readGrid(tb *wikitext.Table, day string) []filmstock.ScheduleEntry {
 			if !found || c.Header || c.Col != col || c.Row != row {
 				continue // empty, a label, or a cell already reported at its origin
 			}
-			e := filmstock.ScheduleEntry{
+			e := record.ScheduleEntry{
 				Day: day, Network: network, Part: part, Start: start,
 				End: addMinutes(start, slotMinutes*c.ColSpan),
 			}

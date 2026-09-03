@@ -20,6 +20,8 @@ import (
 	"sync"
 
 	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/query"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
@@ -60,7 +62,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "no text database at %s; synopses and plots will be absent\n", *textPath)
 	}
 	if *vectors != "" {
-		v, err := filmstock.OpenVectors(*vectors)
+		v, err := query.OpenVectors(*vectors)
 		if err != nil {
 			fatal(err)
 		}
@@ -156,7 +158,7 @@ func (s *server) handleAPISearch(w http.ResponseWriter, r *http.Request) {
 	if field == "" {
 		field = "title"
 	}
-	results, err := filmstock.SearchMovies(r.Context(), s.fs.SQL(), q, field, 25)
+	results, err := query.SearchMovies(r.Context(), s.fs.SQL(), q, field, 25)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -167,7 +169,7 @@ func (s *server) handleAPISearch(w http.ResponseWriter, r *http.Request) {
 
 func (s *server) handleAPITelevision(w http.ResponseWriter, r *http.Request) {
 	field := r.URL.Query().Get("field")
-	results, err := filmstock.SearchTelevision(r.Context(), s.fs.SQL(), r.URL.Query().Get("q"), field, 25)
+	results, err := query.SearchTelevision(r.Context(), s.fs.SQL(), r.URL.Query().Get("q"), field, 25)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -181,21 +183,21 @@ var typeTie = map[string]int{"television": 0, "movie": 1, "event": 2, "person": 
 func (s *server) handleAPIAll(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query().Get("q")
 	ctx := r.Context() // one context for all 4 sub-searches: they cancel together
-	var mv []filmstock.SearchResult
-	var television []filmstock.TelevisionSearchResult
-	var ep []filmstock.EpisodeSearchResult
-	var pe []filmstock.PersonResult
-	var ev []filmstock.UnifiedResult
+	var mv []query.SearchResult
+	var television []query.TelevisionSearchResult
+	var ep []query.EpisodeSearchResult
+	var pe []query.PersonResult
+	var ev []query.UnifiedResult
 	var wg sync.WaitGroup
 	wg.Add(5)
-	go func() { defer wg.Done(); mv, _ = filmstock.SearchMovies(ctx, s.fs.SQL(), q, "title", 8) }()
-	go func() { defer wg.Done(); television, _ = filmstock.SearchTelevision(ctx, s.fs.SQL(), q, "title", 8) }()
-	go func() { defer wg.Done(); ep, _ = filmstock.SearchEpisodes(ctx, s.fs.SQL(), q, 6) }()
-	go func() { defer wg.Done(); pe, _ = filmstock.SearchPeople(ctx, s.fs.SQL(), q, 6) }()
-	go func() { defer wg.Done(); ev, _ = filmstock.SearchEvents(ctx, s.fs.SQL(), q, 4) }()
+	go func() { defer wg.Done(); mv, _ = query.SearchMovies(ctx, s.fs.SQL(), q, "title", 8) }()
+	go func() { defer wg.Done(); television, _ = query.SearchTelevision(ctx, s.fs.SQL(), q, "title", 8) }()
+	go func() { defer wg.Done(); ep, _ = query.SearchEpisodes(ctx, s.fs.SQL(), q, 6) }()
+	go func() { defer wg.Done(); pe, _ = query.SearchPeople(ctx, s.fs.SQL(), q, 6) }()
+	go func() { defer wg.Done(); ev, _ = query.SearchEvents(ctx, s.fs.SQL(), q, 4) }()
 	wg.Wait()
 
-	var out []filmstock.UnifiedResult
+	var out []query.UnifiedResult
 	yr := func(y int) string {
 		if y > 0 {
 			return fmt.Sprintf(" (%d)", y)
@@ -203,14 +205,14 @@ func (s *server) handleAPIAll(w http.ResponseWriter, r *http.Request) {
 		return ""
 	}
 	for _, m := range mv {
-		out = append(out, filmstock.UnifiedResult{Type: "movie", Title: m.Title + yr(m.Year), Subtitle: m.Director, Link: fmt.Sprintf("/movie?id=%d", m.ID), Cover: m.Cover, Score: m.Score})
+		out = append(out, query.UnifiedResult{Type: "movie", Title: m.Title + yr(m.Year), Subtitle: m.Director, Link: fmt.Sprintf("/movie?id=%d", m.ID), Cover: m.Cover, Score: m.Score})
 	}
 	for _, t := range television {
 		sub := fmt.Sprintf("%d seasons · %d episodes", t.SeasonsCount, t.EpisodesCount)
 		if t.Network != "" {
 			sub += " · " + t.Network
 		}
-		out = append(out, filmstock.UnifiedResult{Type: "television", Title: t.Title + yr(t.Year), Subtitle: sub, Link: fmt.Sprintf("/television?id=%d", t.ID), Cover: t.Cover, Score: t.Score})
+		out = append(out, query.UnifiedResult{Type: "television", Title: t.Title + yr(t.Year), Subtitle: sub, Link: fmt.Sprintf("/television?id=%d", t.ID), Cover: t.Cover, Score: t.Score})
 	}
 	// Episodes: dedup by title (many shows share "Pilot"/"Community") and cap,
 	// so a handful don't crowd out shows, movies, and people.
@@ -226,14 +228,14 @@ func (s *server) handleAPIAll(w http.ResponseWriter, r *http.Request) {
 		if e.Season > 0 {
 			sub += fmt.Sprintf(" · S%dE%d", e.Season, e.NumberInSeason)
 		}
-		out = append(out, filmstock.UnifiedResult{Type: "episode", Title: e.Title, Subtitle: sub, Link: fmt.Sprintf("/television?id=%d", e.SeriesID), Cover: "", Score: e.Score})
+		out = append(out, query.UnifiedResult{Type: "episode", Title: e.Title, Subtitle: sub, Link: fmt.Sprintf("/television?id=%d", e.SeriesID), Cover: "", Score: e.Score})
 		if epShown++; epShown >= 3 {
 			break
 		}
 	}
 	out = append(out, ev...)
 	for _, p := range pe {
-		out = append(out, filmstock.UnifiedResult{Type: "person", Title: p.Name, Subtitle: fmt.Sprintf("%d credits", p.Credits), Link: fmt.Sprintf("/person?id=%d", p.ID), Cover: "", Score: p.Score})
+		out = append(out, query.UnifiedResult{Type: "person", Title: p.Name, Subtitle: fmt.Sprintf("%d credits", p.Credits), Link: fmt.Sprintf("/person?id=%d", p.ID), Cover: "", Score: p.Score})
 	}
 	sort.SliceStable(out, func(i, j int) bool {
 		if d := out[i].Score - out[j].Score; d > 0.02 || d < -0.02 {
@@ -249,7 +251,7 @@ func (s *server) handleAPIAll(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) handleAPIEpisodes(w http.ResponseWriter, r *http.Request) {
-	results, err := filmstock.SearchEpisodes(r.Context(), s.fs.SQL(), r.URL.Query().Get("q"), 30)
+	results, err := query.SearchEpisodes(r.Context(), s.fs.SQL(), r.URL.Query().Get("q"), 30)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -280,7 +282,7 @@ func (s *server) handleTelevision(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) handleAPIPeople(w http.ResponseWriter, r *http.Request) {
-	results, err := filmstock.SearchPeople(r.Context(), s.fs.SQL(), r.URL.Query().Get("q"), 25)
+	results, err := query.SearchPeople(r.Context(), s.fs.SQL(), r.URL.Query().Get("q"), 25)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -293,19 +295,19 @@ func (s *server) handlePerson(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(r.URL.Query().Get("id"))
 	if id == 0 {
 		if wiki := r.URL.Query().Get("wiki"); wiki != "" {
-			id = filmstock.PersonIDByWiki(s.fs.SQL(), wiki)
+			id = query.PersonIDByWiki(s.fs.SQL(), wiki)
 		}
 	}
 	if id == 0 {
 		if name := r.URL.Query().Get("name"); name != "" {
-			id = filmstock.PersonIDByName(s.fs.SQL(), name)
+			id = query.PersonIDByName(s.fs.SQL(), name)
 		}
 	}
 	if id == 0 {
 		http.Error(w, "person not found", 404)
 		return
 	}
-	fm, err := filmstock.PersonFilmography(s.fs.SQL(), id)
+	fm, err := query.PersonFilmography(s.fs.SQL(), id)
 	if err != nil {
 		http.Error(w, "person not found", 404)
 		return
@@ -313,31 +315,31 @@ func (s *server) handlePerson(w http.ResponseWriter, r *http.Request) {
 	// The biography comes from the person's own article, via the record. Absent
 	// for anyone whose credit links to a redlink or something that is not a
 	// person; the page then shows identity and filmography, as it always did.
-	rec, err := s.fs.Person(r.Context(), id)
+	rec, err := query.PersonByID(r.Context(), s.fs.SQL(), id)
 	if err != nil {
 		rec = nil
 	}
 	// PersonBio is embedded by pointer, so rec.Image promotes straight through a
 	// nil PersonBio and panics. Pull the biography out once, explicitly, and work
 	// from that — every access below is then guarded by one nil check.
-	var bio *filmstock.PersonBio
+	var bio *record.PersonBio
 	var wikiURL string
 	if rec != nil {
 		bio, wikiURL = rec.PersonBio, rec.WikiURL
 	}
 	if bio != nil && bio.Image != "" {
-		fm.Image = filmstock.FilePathURL(bio.Image, 250)
+		fm.Image = record.FilePathURL(bio.Image, 250)
 	} else {
 		// No portrait in the infobox: fall back to the live thumbnail lookup.
-		fm.Image = filmstock.FetchPersonImage(fm.Name)
+		fm.Image = query.FetchPersonImage(fm.Name)
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	// The template gets the biography pointer itself, not the record: {{with}}
 	// guards a nil Bio, but would not guard a non-nil record whose PersonBio is
 	// nil — which is every person until their article has been extracted.
 	if err := pages.ExecuteTemplate(w, "person.html", struct {
-		*filmstock.Filmography
-		Bio     *filmstock.PersonBio
+		*query.Filmography
+		Bio     *record.PersonBio
 		WikiURL string
 	}{fm, bio, wikiURL}); err != nil {
 		http.Error(w, err.Error(), 500)
@@ -367,8 +369,8 @@ func (s *server) handleMovie(w http.ResponseWriter, r *http.Request) {
 
 var funcs = template.FuncMap{
 	"join":            func(v []string) string { return strings.Join(v, ", ") },
-	"title":           filmstock.CleanTitle,
-	"televisiontitle": filmstock.CleanTelevisionTitle,
+	"title":           record.CleanTitle,
+	"televisiontitle": record.CleanTelevisionTitle,
 	// namehref links a display name to its person page. Names are not
 	// identities; the person handler resolves or 404s honestly.
 	"namehref": func(name string) string { return "/person?name=" + url.QueryEscape(name) },

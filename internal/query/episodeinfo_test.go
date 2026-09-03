@@ -1,4 +1,4 @@
-package filmstock
+package query
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
-func episodeTestDB(t *testing.T) *DB {
+func episodeTestDB(t *testing.T) *sql.DB {
 	t.Helper()
 	h, err := sql.Open(sqldrv.Name, "file:"+t.TempDir()+"/t.db")
 	if err != nil {
@@ -31,14 +31,14 @@ func episodeTestDB(t *testing.T) *DB {
 			t.Fatal(err)
 		}
 	}
-	return FromSQL(h)
+	return h
 }
 
 // Episodes come back in airing order — season, then number within it — no
 // matter the insertion order, and only for the series asked.
 func TestEpisodeInfoOrder(t *testing.T) {
 	db := episodeTestDB(t)
-	got, err := db.EpisodeInfo(context.Background(), 100)
+	got, err := Episodes(context.Background(), db, 100)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,7 +60,7 @@ func TestEpisodeInfoOrder(t *testing.T) {
 // A series the database does not hold yields an empty list, not an error.
 func TestEpisodeInfoUnknownSeries(t *testing.T) {
 	db := episodeTestDB(t)
-	got, err := db.EpisodeInfo(context.Background(), 12345)
+	got, err := Episodes(context.Background(), db, 12345)
 	if err != nil || got != nil {
 		t.Fatalf("got %v, %v", got, err)
 	}

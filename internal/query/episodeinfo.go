@@ -1,4 +1,4 @@
-package filmstock
+package query
 
 import (
 	"context"
@@ -22,14 +22,14 @@ type EpisodeInfo struct {
 	ProdCode string `json:"prod_code,omitempty"`
 }
 
-// EpisodeInfo returns every episode of one series, ordered by season and then
+// Episodes returns every episode of one series, ordered by season and then
 // by number within the season. seriesID is the series page_id, as everywhere.
 //
 // An empty result is ordinary, not an error: plenty of series have no
 // episode-list article, and this call cannot tell that apart from a series id
 // the database does not hold — SeriesInfo answers whether the series exists.
-func (db *DB) EpisodeInfo(ctx context.Context, seriesID int) ([]EpisodeInfo, error) {
-	rows, err := db.sql.QueryContext(ctx,
+func Episodes(ctx context.Context, db *sql.DB, seriesID int) ([]EpisodeInfo, error) {
+	rows, err := db.QueryContext(ctx,
 		`SELECT season, number_in_season, title, air_date, prod_code
 		 FROM television_episodes WHERE series_id = ?
 		 ORDER BY season, number_in_season, number_overall, id`, seriesID)

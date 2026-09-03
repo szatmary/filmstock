@@ -85,8 +85,10 @@ func TestUpdaterFullCycle(t *testing.T) {
 		t.Fatal(err)
 	}
 	live := NewLive(db)
-	if r, _ := live.DB().SearchFilms(ctx, "blade", "", 5); len(r) != 1 {
-		t.Fatalf("search after install: %d results", len(r))
+	var title string
+	if err := live.DB().SQL().QueryRow(
+		`SELECT title FROM movies WHERE id = 1`).Scan(&title); err != nil || title == "" {
+		t.Fatalf("reading the installed build: %q %v", title, err)
 	}
 
 	if _, _, changed, err = u.Update(ctx); err != nil || changed {
@@ -98,12 +100,18 @@ func TestUpdaterFullCycle(t *testing.T) {
 	if err != nil || !changed || old == nil {
 		t.Fatalf("swap: %v changed=%v old=%v", err, changed, old)
 	}
-	if r, _ := live.DB().SearchFilms(ctx, "2049", "", 5); len(r) != 1 {
-		t.Fatalf("search after swap: %d results", len(r))
+	var swapped string
+	if err := live.DB().SQL().QueryRow(
+		`SELECT title FROM movies WHERE id = 1`).Scan(&swapped); err != nil ||
+		swapped != "Blade Runner 2049" {
+		t.Fatalf("after the swap the live handle reads %q (%v)", swapped, err)
 	}
 	// The old handle still answers until the caller closes it.
-	if r, _ := old.SearchFilms(ctx, "blade", "", 5); len(r) != 1 {
-		t.Fatal("old handle died before being closed")
+	var previous string
+	if err := old.SQL().QueryRow(
+		`SELECT title FROM movies WHERE id = 1`).Scan(&previous); err != nil ||
+		previous != "Blade Runner" {
+		t.Fatalf("the old handle died before being closed: %q (%v)", previous, err)
 	}
 	old.Close()
 	if u.Current() != "20260820" {

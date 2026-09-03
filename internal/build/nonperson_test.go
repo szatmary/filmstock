@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
@@ -42,8 +42,8 @@ func cacheWith(t *testing.T, people map[string]int) string {
 func newWorkTestWriter(t *testing.T) *recordWriter {
 	t.Helper()
 	return &recordWriter{
-		people:    map[string]*filmstock.PersonRecord{},
-		bios:      map[string]*filmstock.PersonBio{},
+		people:    map[string]*record.PersonRecord{},
+		bios:      map[string]*record.PersonBio{},
 		bioPage:   map[string]int{},
 		workTitle: map[string]bool{},
 		store:     newMemSink(),
@@ -54,7 +54,7 @@ func TestAWorkIsNotAPerson(t *testing.T) {
 	w := newWorkTestWriter(t)
 	// A series whose own infobox credits itself.
 	w.noteWork("Saul of the Mole Men")
-	w.notePeople([]filmstock.Person{
+	w.notePeople([]record.Person{
 		{Name: "Saul of the Mole Men", Wiki: "Saul of the Mole Men"},
 		{Name: "Craig Anton", Wiki: "Craig Anton"},
 	})
@@ -81,7 +81,7 @@ func TestAPageThatIsAlsoABiographyStaysAPerson(t *testing.T) {
 | birth_date = {{birth date|1924|10|10}}
 | occupation = Filmmaker
 }}`})
-	w.notePeople([]filmstock.Person{{Name: "Ed Wood", Wiki: "Ed Wood"}})
+	w.notePeople([]record.Person{{Name: "Ed Wood", Wiki: "Ed Wood"}})
 	_, _, total, _ := w.flushPeople(cacheWith(t, map[string]int{"Ed Wood": 900}))
 	if total != 1 {
 		t.Errorf("kept %d, want 1 — a page with a biography is a person", total)
@@ -93,7 +93,7 @@ func TestAPageThatIsAlsoABiographyStaysAPerson(t *testing.T) {
 // and the link target, and the index builds a searchable person row from there.
 func TestRedlinkedCreditGetsNoRecord(t *testing.T) {
 	w := newWorkTestWriter(t)
-	w.notePeople([]filmstock.Person{
+	w.notePeople([]record.Person{
 		{Name: "Real Person", Wiki: "Real Person"},
 		{Name: "Nobody Wrote This One", Wiki: "Nobody Wrote This One"},
 	})
@@ -112,13 +112,13 @@ func TestRedlinkedCreditGetsNoRecord(t *testing.T) {
 func TestCreditGainsARecordWhenTheArticleAppears(t *testing.T) {
 	const wiki = "Later Somebody Wrote It"
 	before := newWorkTestWriter(t)
-	before.notePeople([]filmstock.Person{{Name: "X", Wiki: wiki}})
+	before.notePeople([]record.Person{{Name: "X", Wiki: wiki}})
 	if _, _, total, _ := before.flushPeople(cacheWith(t, nil)); total != 0 {
 		t.Fatalf("wrote %d records before the article existed", total)
 	}
 
 	after := newWorkTestWriter(t)
-	after.notePeople([]filmstock.Person{{Name: "X", Wiki: wiki}})
+	after.notePeople([]record.Person{{Name: "X", Wiki: wiki}})
 	// The article now exists; its page_id comes from the dump, via bioPage.
 	after.bioPage[wiki] = 6161
 	_, _, total, noIdentity := after.flushPeople(cacheWith(t, nil))

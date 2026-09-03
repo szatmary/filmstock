@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
@@ -19,13 +19,13 @@ func TestEpisodeRoundTripsThroughTheDatabase(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	w.put(filmstock.KindTelevision, 228211, &filmstock.TelevisionSeries{
+	w.put(record.KindTelevision, 228211, &record.TelevisionSeries{
 		Title:  "Futurama",
 		PageID: 228211,
 		Type:   "television",
-		Seasons: []*filmstock.Season{{
+		Seasons: []*record.Season{{
 			Season: 5,
-			Episodes: []*filmstock.Episode{
+			Episodes: []*record.Episode{
 				{NumberOverall: 73, NumberInSeason: 1, Title: "Bender's Big Score",
 					AirDate: "2008-03-23", ProdCode: "5ACV01", Summary: "Part one."},
 				{NumberOverall: 74, NumberInSeason: 2, Title: "Bender's Big Score",

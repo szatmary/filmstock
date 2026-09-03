@@ -9,8 +9,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -130,9 +130,9 @@ func CmdImport(args []string) {
 	}
 	fmt.Fprintf(os.Stderr, "\nimported %d of %d pages in %.1f min\n",
 		atomic.LoadInt64(&kept), atomic.LoadInt64(&scanned), time.Since(start).Minutes())
-	for _, k := range []string{filmstock.KindMovie, filmstock.KindTelevision,
-		kindSeason, kindEpisodeList, filmstock.KindPerson, filmstock.KindEvent,
-		filmstock.KindSchedule} {
+	for _, k := range []string{record.KindMovie, record.KindTelevision,
+		kindSeason, kindEpisodeList, record.KindPerson, record.KindEvent,
+		record.KindSchedule} {
 		if counts[k] > 0 {
 			fmt.Fprintf(os.Stderr, "  %-12s %8d\n", k, counts[k])
 		}
@@ -179,22 +179,22 @@ func recognise(p dump.Page, keepText bool) []*Page {
 	}
 
 	if m := buildFilm(p); m != nil {
-		add(filmstock.KindMovie, m, m.Raw, linksOf(m.Raw,
+		add(record.KindMovie, m, m.Raw, linksOf(m.Raw,
 			"director", "producer", "writer", "screenplay", "story", "starring",
 			"music", "narrator", "cinematography", "editing", "distributor", "studio",
 			"production_companies", "based_on", "country", "language"))
 	}
 	if e := buildEvent(p); e != nil {
-		add(filmstock.KindEvent, e, nil, nil)
+		add(record.KindEvent, e, nil, nil)
 	}
 	if b := buildBiography(p); b != nil {
 		// Every person, not the credited ones: which people matter is export's
 		// question, and answering it during a streaming pass is what makes a
 		// daily update unable to add anyone.
-		add(filmstock.KindPerson, b, nil, nil)
+		add(record.KindPerson, b, nil, nil)
 	}
 	if sc := buildSchedule(p); sc != nil {
-		add(filmstock.KindSchedule, sc, nil, nil)
+		add(record.KindSchedule, sc, nil, nil)
 	}
 
 	// Television, claimed exactly as parseTelevisionPage claims it. Anything
@@ -222,13 +222,13 @@ func recognise(p dump.Page, keepText bool) []*Page {
 			"producer", "executive_producer", "writer", "editor",
 			"cinematography", "presenter", "narrator", "network")
 		links = append(links, titleLinksOf(ib, "list_episodes", "related")...)
-		add(filmstock.KindTelevision, buildTelevisionSeries(p.Title, p.ID, ib), ib, links)
+		add(record.KindTelevision, buildTelevisionSeries(p.Title, p.ID, ib), ib, links)
 	case hasAnimangaSeries(p.Text):
 		ib, _ := FindAnimangaSeries(p.Text)
 		links := linksOf(ib, "director", "producer", "writer", "music", "composer",
 			"starring", "network", "company")
 		links = append(links, titleLinksOf(ib, "list_episodes")...)
-		add(filmstock.KindTelevision, buildTelevisionSeries(p.Title, p.ID, ib), ib, links)
+		add(record.KindTelevision, buildTelevisionSeries(p.Title, p.ID, ib), ib, links)
 	case reListEpisodes.MatchString(p.Title):
 		add(kindEpisodeList, nil, nil, nil)
 	}

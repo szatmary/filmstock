@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // FindTemplate locates the first template whose name matches `name` (case
@@ -422,7 +422,7 @@ func expandLinkBreaks(s string) string {
 // person's [[link target]] as their identity. It unwraps list templates,
 // splits bullet/<br>/"X & Y"/"X and Y" lists (not inside [[...]]), strips
 // "Story & Screenplay:" label prefixes, and returns {Name, Wiki} per person.
-func SplitPeople(raw string) []filmstock.Person {
+func SplitPeople(raw string) []record.Person {
 	s := ReComment.ReplaceAllString(raw, "")
 	// Self-closing refs MUST be stripped first. <ref name="x"/> also matches
 	// reRef's opening tag (its [^>]* happily consumes ` name="x"/`), so reRef
@@ -437,7 +437,7 @@ func SplitPeople(raw string) []filmstock.Person {
 	s = reBrTag2.ReplaceAllString(s, "\n")
 	s = reBulletLine2.ReplaceAllString(s, "\n")
 
-	var out []filmstock.Person
+	var out []record.Person
 	seen := map[string]bool{}
 	for _, line := range strings.Split(s, "\n") {
 		line = strings.TrimSpace(line)
@@ -470,7 +470,7 @@ func SplitPeople(raw string) []filmstock.Person {
 
 // parseOnePerson turns one segment into a Person, capturing the first [[link]]
 // as the Wiki identity and the cleaned text as the display Name.
-func parseOnePerson(piece string) filmstock.Person {
+func parseOnePerson(piece string) record.Person {
 	piece = strings.TrimSpace(piece)
 	wiki, name := "", ""
 	if m := reWikiLink.FindStringSubmatch(piece); m != nil {
@@ -495,7 +495,7 @@ func parseOnePerson(piece string) filmstock.Person {
 	if name == "" && wiki != "" {
 		name = wiki
 	}
-	return filmstock.Person{Name: name, Wiki: wiki}
+	return record.Person{Name: name, Wiki: wiki}
 }
 
 // splitAmp splits on " & "/" and " at the top level (not inside [[...]]).
@@ -583,7 +583,7 @@ var reTrailingNote = regexp.MustCompile(`\s*\(([^()]{1,60})\)\s*$`)
 // Consumers should never have to read raw wikitext to find out what a field
 // points at. Every list field goes through here so a link target reaches the
 // record as data rather than as markup somebody else has to parse.
-func SplitLinks(raw string) []filmstock.Link {
+func SplitLinks(raw string) []record.Link {
 	v := raw
 	v = regexp.MustCompile(`(?i)<br\s*/?>`).ReplaceAllString(v, "\n")
 	v = regexp.MustCompile(`(?m)^\s*\*+`).ReplaceAllString(v, "\n")
@@ -591,7 +591,7 @@ func SplitLinks(raw string) []filmstock.Link {
 	v = stripSimpleTemplates(v)
 	v = ReComment.ReplaceAllString(v, "")
 
-	var out []filmstock.Link
+	var out []record.Link
 	seen := map[string]bool{}
 	for _, line := range strings.Split(v, "\n") {
 		line = strings.TrimSpace(line)
@@ -616,7 +616,7 @@ func SplitLinks(raw string) []filmstock.Link {
 			continue
 		}
 		seen[text] = true
-		out = append(out, filmstock.Link{Name: text, Wiki: CanonTitle(target), Note: note})
+		out = append(out, record.Link{Name: text, Wiki: CanonTitle(target), Note: note})
 	}
 	return out
 }

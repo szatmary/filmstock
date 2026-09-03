@@ -7,12 +7,12 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/query"
 )
 
 // handleAPIEvents serves the Events search mode.
 func (s *server) handleAPIEvents(w http.ResponseWriter, r *http.Request) {
-	res, err := filmstock.SearchEvents(r.Context(), s.fs.SQL(), r.URL.Query().Get("q"), 25)
+	res, err := query.SearchEvents(r.Context(), s.fs.SQL(), r.URL.Query().Get("q"), 25)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return

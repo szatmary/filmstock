@@ -1,11 +1,13 @@
-package filmstock
+package query
 
 import (
 	"context"
 	"database/sql"
-	"regexp"
+	"errors"
 	"sort"
 	"strings"
+
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // SearchResult is one ranked hit, shared by the CLI and the web server.
@@ -23,11 +25,11 @@ type SearchResult struct {
 // share at least one query trigram, then a precise Sørensen–Dice re-rank in Go
 // against the chosen field (title|starring|director).
 func SearchMovies(ctx context.Context, db *sql.DB, query, field string, limit int) ([]SearchResult, error) {
-	qgrams := trigrams(Normalize(query))
+	qgrams := trigrams(record.Normalize(query))
 	if len(qgrams) == 0 {
 		return nil, nil
 	}
-	qTokens := strings.Fields(Normalize(query))
+	qTokens := strings.Fields(record.Normalize(query))
 	parts := make([]string, 0, len(qgrams))
 	for g := range qgrams {
 		parts = append(parts, `"`+strings.ReplaceAll(g, `"`, `""`)+`"`)
@@ -54,8 +56,8 @@ func SearchMovies(ctx context.Context, db *sql.DB, query, field string, limit in
 			continue
 		}
 		r.Year = int(year.Int64)
-		r.Cover = FilePathURL(coverFile, 0) // resolves Commons-or-en automatically
-		target := CleanTitle(r.Title)
+		r.Cover = record.FilePathURL(coverFile, 0) // resolves Commons-or-en automatically
+		target := record.CleanTitle(r.Title)
 		switch field {
 		case "starring":
 			target = r.Starring
@@ -63,7 +65,7 @@ func SearchMovies(ctx context.Context, db *sql.DB, query, field string, limit in
 			target = r.Director
 		}
 		r.Score = fuzzyScore(qgrams, qTokens, target)
-		r.Title = CleanTitle(r.Title) // display without the (film) disambiguator
+		r.Title = record.CleanTitle(r.Title) // display without the (film) disambiguator
 		results = append(results, r)
 	}
 	sort.SliceStable(results, func(i, j int) bool { return results[i].Score > results[j].Score })
@@ -71,58 +73,6 @@ func SearchMovies(ctx context.Context, db *sql.DB, query, field string, limit in
 		results = results[:limit]
 	}
 	return results, nil
-}
-
-// reDisambig strips a trailing Wikipedia disambiguation parenthetical: a year
-// and/or a form word — "(film)", "(1975 film)", "(2017 American film)",
-// "(1975)", "(film series)", "(serial)", "(franchise)".
-//
-// Measured against the corpus, 57,284 film titles carry a parenthetical and this
-// matches 56,679 of them. The remainder are mostly "(film series)", "(serial)"
-// and "(franchise)", now included, plus hyphenated language forms like
-// "(1998 French-language film)".
-//
-// It matches only a TRAILING parenthetical containing a known form word, so a
-// title that genuinely opens with one — "(500) Days of Summer" — is untouched.
-var reDisambig = regexp.MustCompile(`(?i)\s*\((?:` +
-	// Year-led: "1985 film", "1966–67 film", "1940s animated film series",
-	// "2005 François Rotger film". The year may be a range (en dash or
-	// hyphen) or a decade, and any words between it and the keyword may
-	// carry accents or initials — "Éclair", "C. Pullayya".
-	`\d{4}(?:[–-]\d{2,4})?s?(?:[ -][\p{L}.]+)*(?: (?:` + disambigKind + `))?` +
-	// Word-led: "film", "short films", "Vietnamese telefilm",
-	// "Éclair film series".
-	`|(?:[\p{L}.-]+ )*(?:` + disambigKind + `)` +
-	`)\)\s*$`)
-
-// disambigKind is the vocabulary that makes a trailing parenthetical a
-// DISAMBIGUATOR rather than part of the name. Requiring one of these is what
-// keeps "I Am Curious (Yellow)" and "19(1)(a)" intact, so it is deliberately
-// a closed list rather than "any parenthetical".
-const disambigKind = `films?|film series|short films?|telefilms?|serials?|franchise|miniseries`
-
-// CleanTitle removes a trailing film disambiguator for ranking purposes.
-func CleanTitle(t string) string {
-	return reDisambig.ReplaceAllString(t, "")
-}
-
-// Normalize lowercases and keeps only [a-z0-9 ], collapsing whitespace.
-func Normalize(s string) string {
-	var b strings.Builder
-	prevSpace := false
-	for _, r := range strings.ToLower(s) {
-		switch {
-		case r >= 'a' && r <= 'z', r >= '0' && r <= '9':
-			b.WriteRune(r)
-			prevSpace = false
-		case r == ' ' || r == '\t' || r == '-' || r == '_' || r == ':':
-			if !prevSpace {
-				b.WriteByte(' ')
-				prevSpace = true
-			}
-		}
-	}
-	return strings.TrimSpace(b.String())
 }
 
 // trigrams returns the set of 3-character shingles of s.
@@ -179,7 +129,7 @@ func tokenSetScore(qTokens, tTokens []string) float64 {
 // Godfather" while still surfacing "Adventures of the Gummi Bears" for "gummy
 // bears". Shared ranking signal for all searches.
 func fuzzyScore(qgrams map[string]struct{}, qTokens []string, target string) float64 {
-	nt := Normalize(target)
+	nt := record.Normalize(target)
 	d := dice(qgrams, trigrams(nt))
 	ts := tokenSetScore(qTokens, strings.Fields(nt))
 	return 0.5*d + 0.5*ts
@@ -215,3 +165,8 @@ type UnifiedResult struct {
 	Cover    string
 	Score    float64
 }
+
+// ErrNotFound is returned when an id is not in the database. It is a distinct
+// error because a caller needs to tell it apart from a query that failed: one
+// is a 404, the other is a 500.
+var ErrNotFound = errors.New("filmstock: not found")

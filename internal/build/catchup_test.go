@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/query"
 )
 
 func TestNextDayCrossesBoundaries(t *testing.T) {
@@ -141,8 +141,8 @@ func TestRequestsCarryTheUserAgent(t *testing.T) {
 	if strings.HasPrefix(got, "Go-http-client") {
 		t.Fatalf("sent the default agent %q; Wikimedia rejects it", got)
 	}
-	if got != filmstock.UserAgent {
-		t.Errorf("User-Agent = %q, want %q", got, filmstock.UserAgent)
+	if got != query.UserAgent {
+		t.Errorf("User-Agent = %q, want %q", got, query.UserAgent)
 	}
 }
 

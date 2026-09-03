@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // Identity is the enwiki page_id for every kind of record, people included.
@@ -16,10 +16,10 @@ func TestIdentityIsPageIDForEveryKind(t *testing.T) {
 		rec  any
 		want int64
 	}{
-		{filmstock.KindMovie, filmstock.Movie{PageID: 51563, Title: "Heat"}, 51563},
-		{filmstock.KindEvent, filmstock.Event{PageID: 771, Title: "68th Academy Awards"}, 771},
-		{filmstock.KindTelevision, filmstock.TelevisionSeries{PageID: 9182, Title: "Lost"}, 9182},
-		{filmstock.KindPerson, filmstock.PersonRecord{PageID: 1037346, QID: 5272886, Name: "Dick Enberg"}, 1037346},
+		{record.KindMovie, record.Movie{PageID: 51563, Title: "Heat"}, 51563},
+		{record.KindEvent, record.Event{PageID: 771, Title: "68th Academy Awards"}, 771},
+		{record.KindTelevision, record.TelevisionSeries{PageID: 9182, Title: "Lost"}, 9182},
+		{record.KindPerson, record.PersonRecord{PageID: 1037346, QID: 5272886, Name: "Dick Enberg"}, 1037346},
 	} {
 		b, err := json.Marshal(tc.rec)
 		if err != nil {
@@ -35,8 +35,8 @@ func TestIdentityIsPageIDForEveryKind(t *testing.T) {
 // A Q-id must not be used as the key even when present: two identity schemes for
 // one kind of record is how a person ends up stored twice.
 func TestQIDIsNotThePersonKey(t *testing.T) {
-	b, _ := json.Marshal(filmstock.PersonRecord{PageID: 1037346, QID: 5272886, Name: "Dick Enberg"})
-	got, _ := identityOf(filmstock.KindPerson, b)
+	b, _ := json.Marshal(record.PersonRecord{PageID: 1037346, QID: 5272886, Name: "Dick Enberg"})
+	got, _ := identityOf(record.KindPerson, b)
 	if got == 5272886 {
 		t.Fatal("keyed by Q-id; the key must be the page_id")
 	}
@@ -53,16 +53,16 @@ func TestQIDIsNotThePersonKey(t *testing.T) {
 // credit itself is not lost — it stands on the work that states it, and the
 // index still builds a searchable person row and their credits from there.
 func TestPersonWithNoArticleHasNoIdentity(t *testing.T) {
-	b, _ := json.Marshal(filmstock.PersonRecord{Wiki: "Some_Uncredited_Extra", Name: "Extra"})
-	if got, ok := identityOf(filmstock.KindPerson, b); ok {
+	b, _ := json.Marshal(record.PersonRecord{Wiki: "Some_Uncredited_Extra", Name: "Extra"})
+	if got, ok := identityOf(record.KindPerson, b); ok {
 		t.Errorf("identity = %d; a link target alone is a display string, not an identity", got)
 	}
 }
 
 // A person with an article is keyed by its page_id, like every other record.
 func TestPersonWithAnArticleIsKeyedByPageID(t *testing.T) {
-	b, _ := json.Marshal(filmstock.PersonRecord{PageID: 4242, Wiki: "Real Person", Name: "Real Person"})
-	got, ok := identityOf(filmstock.KindPerson, b)
+	b, _ := json.Marshal(record.PersonRecord{PageID: 4242, Wiki: "Real Person", Name: "Real Person"})
+	got, ok := identityOf(record.KindPerson, b)
 	if !ok {
 		t.Fatal("a person with an article must have an identity")
 	}
@@ -73,8 +73,8 @@ func TestPersonWithAnArticleIsKeyedByPageID(t *testing.T) {
 
 // No link and no article is not an entity at all.
 func TestPersonWithNothingHasNoIdentity(t *testing.T) {
-	b, _ := json.Marshal(filmstock.PersonRecord{Name: "Just A Name"})
-	if _, ok := identityOf(filmstock.KindPerson, b); ok {
+	b, _ := json.Marshal(record.PersonRecord{Name: "Just A Name"})
+	if _, ok := identityOf(record.KindPerson, b); ok {
 		t.Error("a bare display name must not become an identity")
 	}
 }

@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -78,8 +78,8 @@ var (
 // Doing this properly means carrying the "series" parameter through to the
 // collector so each block attaches to the series it names. Until then the outer
 // template yields nothing, which is what it did before this file existed.
-func parseSeriesOverview(text string) []*filmstock.Season {
-	var out []*filmstock.Season
+func parseSeriesOverview(text string) []*record.Season {
+	var out []*record.Season
 	for _, body := range wikitext.FindAllTemplates(text, "Series overview") {
 		ib := wikitext.ParseInfobox(body)
 		if strings.TrimSpace(ib["multiseries"]) != "" {
@@ -99,7 +99,7 @@ func parseSeriesOverview(text string) []*filmstock.Season {
 // specific collision is handled below; sorting means the next one is at worst
 // wrong the same way every time, which is a bug that can be found rather than a
 // record that quietly moves.
-func overviewSeasons(ib map[string]string) []*filmstock.Season {
+func overviewSeasons(ib map[string]string) []*record.Season {
 	keys := make([]string, 0, len(ib))
 	for k := range ib {
 		keys = append(keys, k)
@@ -131,11 +131,11 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 		role[m[1]], claimed[r] = r, true
 	}
 
-	byNum := map[int]*filmstock.Season{}
-	season := func(n int) *filmstock.Season {
+	byNum := map[int]*record.Season{}
+	season := func(n int) *record.Season {
 		s, ok := byNum[n]
 		if !ok {
-			s = &filmstock.Season{Season: n}
+			s = &record.Season{Season: n}
 			byNum[n] = s
 		}
 		return s
@@ -208,7 +208,7 @@ func overviewSeasons(ib map[string]string) []*filmstock.Season {
 		nums = append(nums, n)
 	}
 	sort.Ints(nums)
-	out := make([]*filmstock.Season, 0, len(nums))
+	out := make([]*record.Season, 0, len(nums))
 	for _, n := range nums {
 		s := byNum[n]
 		if s.NumEpisodes == 0 {

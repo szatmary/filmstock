@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -88,14 +88,14 @@ func pad(s string) string {
 }
 
 // buildMovie constructs a Movie from a page title/id and its infobox params.
-func buildMovie(title string, pageID int, ib map[string]string) *filmstock.Movie {
-	m := &filmstock.Movie{
+func buildMovie(title string, pageID int, ib map[string]string) *record.Movie {
+	m := &record.Movie{
 		// The stored title is the DISPLAY title, with Wikipedia's disambiguator
 		// removed: a third of film titles carry one, and "(1985 film)" is
 		// namespacing rather than part of the name. Nothing may key on it —
 		// identity is the page_id — and the page name itself survives in
 		// WikiURL, which is built below from the raw title before this runs.
-		Title:   filmstock.CleanTitle(title),
+		Title:   record.CleanTitle(title),
 		PageID:  pageID,
 		WikiURL: "https://en.wikipedia.org/wiki/" + strings.ReplaceAll(url.PathEscape(title), "%20", "_"),
 		Raw:     ib,
@@ -118,7 +118,7 @@ func buildMovie(title string, pageID int, ib map[string]string) *filmstock.Movie
 	m.Budget = wikitext.CleanText(ib["budget"])
 	m.Gross = wikitext.CleanText(ib["gross"])
 	if img := ib["image"]; img != "" {
-		m.CoverImageFile, m.CoverImageURL = filmstock.CoverImageURL(cleanBareFilename(img))
+		m.CoverImageFile, m.CoverImageURL = record.CoverImageURL(cleanBareFilename(img))
 	}
 	return m
 }
@@ -138,9 +138,9 @@ func mergeLists(vals ...string) []string {
 }
 
 // mergePeople merges several person fields, de-duped by identity (Wiki else Name).
-func mergePeople(vals ...string) []filmstock.Person {
+func mergePeople(vals ...string) []record.Person {
 	seen := map[string]bool{}
-	var out []filmstock.Person
+	var out []record.Person
 	for _, v := range vals {
 		for _, p := range wikitext.SplitPeople(v) {
 			key := p.Wiki
@@ -175,8 +175,8 @@ func cleanBareFilename(v string) string {
 // mergeLinks is mergeLists for link-bearing fields: several infobox parameters
 // mean the same thing (production_companies and studio; network, channel and
 // first_run), and a film may use either.
-func mergeLinks(raws ...string) []filmstock.Link {
-	var out []filmstock.Link
+func mergeLinks(raws ...string) []record.Link {
+	var out []record.Link
 	seen := map[string]bool{}
 	for _, raw := range raws {
 		for _, l := range wikitext.SplitLinks(raw) {

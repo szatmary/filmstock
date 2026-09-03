@@ -1,4 +1,4 @@
-package filmstock
+package record
 
 // Award ceremonies and film festivals as a first-class record type.
 //

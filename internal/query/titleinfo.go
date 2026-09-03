@@ -1,4 +1,4 @@
-package filmstock
+package query
 
 import (
 	"context"
@@ -28,16 +28,16 @@ type TitleInfo struct {
 // database does not hold is simply absent — a missing film is an ordinary
 // condition for a caller holding ids from an older build, not an error that
 // should abort the other thirty-nine.
-func (db *DB) FilmInfo(ctx context.Context, ids []int) ([]TitleInfo, error) {
-	return db.titleInfo(ctx, "movies", ids)
+func FilmInfo(ctx context.Context, db *sql.DB, ids []int) ([]TitleInfo, error) {
+	return titleInfo(ctx, db, "movies", ids)
 }
 
 // SeriesInfo is FilmInfo for television.
-func (db *DB) SeriesInfo(ctx context.Context, ids []int) ([]TitleInfo, error) {
-	return db.titleInfo(ctx, "television_series", ids)
+func SeriesInfo(ctx context.Context, db *sql.DB, ids []int) ([]TitleInfo, error) {
+	return titleInfo(ctx, db, "television_series", ids)
 }
 
-func (db *DB) titleInfo(ctx context.Context, table string, ids []int) ([]TitleInfo, error) {
+func titleInfo(ctx context.Context, db *sql.DB, table string, ids []int) ([]TitleInfo, error) {
 	if len(ids) == 0 {
 		return nil, nil
 	}
@@ -51,7 +51,7 @@ func (db *DB) titleInfo(ctx context.Context, table string, ids []int) ([]TitleIn
 		for i, id := range chunk {
 			args[i] = id
 		}
-		rows, err := db.sql.QueryContext(ctx,
+		rows, err := db.QueryContext(ctx,
 			`SELECT id, title, year, cover_image_file, cover_image_url, wikipedia_url
 			 FROM `+table+` WHERE id IN (`+ph[:len(ph)-1]+`)`, args...)
 		if err != nil {

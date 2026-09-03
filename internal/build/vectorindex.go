@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/query"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
@@ -25,7 +25,7 @@ import (
 // them. A consumer wanting brute-force search reads the whole table once.
 //
 // No extension is needed. 170,421 rows of 1024 int8 is well under a second to
-// scan in Go, which is what filmstock.Vectors already does; sqlite-vec would
+// scan in Go, which is what query.Vectors already does; sqlite-vec would
 // buy SQL-level MATCH syntax and ANN indexing at a scale we are nowhere near,
 // and would cost the file being openable without it.
 const vectorSchema = `
@@ -74,7 +74,7 @@ func CIndexVectors(args []string) {
 			"unknown cannot be compared with anything"))
 	}
 
-	v, err := filmstock.OpenVectors(*vecPath)
+	v, err := query.OpenVectors(*vecPath)
 	if err != nil {
 		fatal(err)
 	}

@@ -1,4 +1,4 @@
-package filmstock
+package record
 
 // A Link is one entry in a list field, with its Wikipedia link target kept.
 //

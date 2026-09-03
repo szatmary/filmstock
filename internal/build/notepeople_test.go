@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // Every []Person field on a record type must reach notePeople.
@@ -32,29 +32,29 @@ func TestEveryPersonFieldIsNoted(t *testing.T) {
 		{
 			name: "Movie",
 			build: func() (any, int) {
-				var m filmstock.Movie
+				var m record.Movie
 				n := fillPeople(reflect.ValueOf(&m).Elem())
 				return &m, n
 			},
-			note: func(w *recordWriter, v any) { w.handleFilmRecord(v.(*filmstock.Movie), 1) },
+			note: func(w *recordWriter, v any) { w.handleFilmRecord(v.(*record.Movie), 1) },
 		},
 		{
 			name: "TelevisionSeries",
 			build: func() (any, int) {
-				var s filmstock.TelevisionSeries
+				var s record.TelevisionSeries
 				n := fillPeople(reflect.ValueOf(&s).Elem())
 				return &s, n
 			},
-			note: func(w *recordWriter, v any) { w.handleSeries(v.(*filmstock.TelevisionSeries)) },
+			note: func(w *recordWriter, v any) { w.handleSeries(v.(*record.TelevisionSeries)) },
 		},
 		{
 			name: "Event",
 			build: func() (any, int) {
-				var e filmstock.Event
+				var e record.Event
 				n := fillPeople(reflect.ValueOf(&e).Elem())
 				return &e, n
 			},
-			note: func(w *recordWriter, v any) { w.handleEventRecord(v.(*filmstock.Event)) },
+			note: func(w *recordWriter, v any) { w.handleEventRecord(v.(*record.Event)) },
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
@@ -63,7 +63,7 @@ func TestEveryPersonFieldIsNoted(t *testing.T) {
 				t.Fatalf("%s has no []Person fields; the test is not exercising anything", tc.name)
 			}
 			w := &recordWriter{
-				people: map[string]*filmstock.PersonRecord{},
+				people: map[string]*record.PersonRecord{},
 				store:  newMemSink(),
 			}
 			tc.note(w, rec)
@@ -83,10 +83,10 @@ func fillPeople(v reflect.Value) int {
 	var n int
 	for i := range t.NumField() {
 		f := t.Field(i)
-		if f.Type != reflect.TypeOf([]filmstock.Person(nil)) {
+		if f.Type != reflect.TypeOf([]record.Person(nil)) {
 			continue
 		}
-		v.Field(i).Set(reflect.ValueOf([]filmstock.Person{{
+		v.Field(i).Set(reflect.ValueOf([]record.Person{{
 			Name: f.Name,
 			Wiki: "Wiki_" + f.Name, // Wiki must be non-empty or notePeople skips it
 		}}))
@@ -95,12 +95,12 @@ func fillPeople(v reflect.Value) int {
 	return n
 }
 
-func missingFields(v reflect.Value, noted map[string]*filmstock.PersonRecord) []string {
+func missingFields(v reflect.Value, noted map[string]*record.PersonRecord) []string {
 	t := v.Type()
 	var out []string
 	for i := range t.NumField() {
 		f := t.Field(i)
-		if f.Type != reflect.TypeOf([]filmstock.Person(nil)) {
+		if f.Type != reflect.TypeOf([]record.Person(nil)) {
 			continue
 		}
 		if _, ok := noted["Wiki_"+f.Name]; !ok {
@@ -114,8 +114,8 @@ func missingFields(v reflect.Value, noted map[string]*filmstock.PersonRecord) []
 // attaching a bare "John Smith" to whoever holds that article title is an
 // invented identity.
 func TestUnlinkedPeopleAreNotNoted(t *testing.T) {
-	w := &recordWriter{people: map[string]*filmstock.PersonRecord{}}
-	w.notePeople([]filmstock.Person{
+	w := &recordWriter{people: map[string]*record.PersonRecord{}}
+	w.notePeople([]record.Person{
 		{Name: "Linked", Wiki: "Linked_Person"},
 		{Name: "Unlinked"},
 	})
@@ -128,9 +128,9 @@ func TestUnlinkedPeopleAreNotNoted(t *testing.T) {
 }
 
 func TestNotePeopleDeduplicatesByLink(t *testing.T) {
-	w := &recordWriter{people: map[string]*filmstock.PersonRecord{}}
+	w := &recordWriter{people: map[string]*record.PersonRecord{}}
 	for range 3 {
-		w.notePeople([]filmstock.Person{{Name: "Same", Wiki: "Same_Person"}})
+		w.notePeople([]record.Person{{Name: "Same", Wiki: "Same_Person"}})
 	}
 	if len(w.people) != 1 {
 		t.Errorf("noted %d, want 1 — the same link is one person", len(w.people))

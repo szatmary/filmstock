@@ -16,7 +16,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
@@ -151,7 +151,7 @@ func loadLocalImages(cachePath string) map[string]bool {
 // the fallback: still correct, merely the throttled indirection this exists to
 // remove.
 func cdnImageURL(filename string, local map[string]bool) string {
-	name, fp := filmstock.CoverImageURL(filename)
+	name, fp := record.CoverImageURL(filename)
 	if name == "" {
 		return ""
 	}

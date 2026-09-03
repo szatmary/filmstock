@@ -3,7 +3,7 @@ package build
 import (
 	"strings"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // The published database schema, one DDL block per subject area. The
@@ -179,13 +179,13 @@ CREATE INDEX idx_slots_show ON schedule_slots(show_id);
 CREATE INDEX idx_slots_when ON schedule_slots(day, start);
 `
 
-func roleCredits(m *filmstock.Movie) []struct {
+func roleCredits(m *record.Movie) []struct {
 	role   string
-	people []filmstock.Person
+	people []record.Person
 } {
 	return []struct {
 		role   string
-		people []filmstock.Person
+		people []record.Person
 	}{
 		{"Director", m.Director},
 		{"Writer", m.Writer},
@@ -207,7 +207,7 @@ func first(v []string) string {
 	return v[0]
 }
 
-func yearOf(m *filmstock.Movie) int {
+func yearOf(m *record.Movie) int {
 	s := first(m.ReleaseDates)
 	if len(s) >= 4 {
 		y := 0
@@ -222,7 +222,7 @@ func yearOf(m *filmstock.Movie) int {
 	return 0
 }
 
-func joinP(v []filmstock.Person) string {
+func joinP(v []record.Person) string {
 	names := make([]string, len(v))
 	for i, p := range v {
 		names[i] = p.Name

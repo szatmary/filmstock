@@ -1,4 +1,4 @@
-package filmstock
+package record
 
 // A Schedule is one season of a network television grid: what aired on each
 // network, each night, in each half-hour slot.

@@ -5,8 +5,8 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -16,7 +16,7 @@ var reInfoboxFilm = regexp.MustCompile(`(?i)\{\{\s*infobox film(\b|\s|\||\})`)
 // film. This is the single definition of "what counts as a film and how it is
 // parsed" — both the legacy writer and `extract` call it, so they cannot drift
 // apart and start disagreeing about what a given page is.
-func buildFilm(p dump.Page) *filmstock.Movie {
+func buildFilm(p dump.Page) *record.Movie {
 	if p.NS != 0 {
 		return nil
 	}

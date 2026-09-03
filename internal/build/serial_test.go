@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // A serial is neither a multi-part episode nor a segmented one. Classic Doctor
@@ -60,7 +60,7 @@ func TestSerialBecomesItsBroadcasts(t *testing.T) {
 // against each other and three of four vanish by another route.
 func TestSerialPartsSurviveDeduplication(t *testing.T) {
 	c := newTelevisionCollector()
-	c.add(televisionMsg{series: &filmstock.TelevisionSeries{PageID: 1, Title: "Doctor Who"}})
+	c.add(televisionMsg{series: &record.TelevisionSeries{PageID: 1, Title: "Doctor Who"}})
 	b, err := os.ReadFile("testdata/season-doctor-who-12.wikitext")
 	if err != nil {
 		t.Fatal(err)

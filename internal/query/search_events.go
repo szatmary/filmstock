@@ -1,4 +1,4 @@
-package filmstock
+package query
 
 import (
 	"compress/gzip"
@@ -10,9 +10,11 @@ import (
 	"os"
 	"sort"
 	"strings"
+
+	"github.com/szatmary/filmstock/internal/record"
 )
 
-func ReadEventGz(path string) (*Event, error) {
+func ReadEventGz(path string) (*record.Event, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -27,7 +29,7 @@ func ReadEventGz(path string) (*Event, error) {
 	if err != nil {
 		return nil, err
 	}
-	var e Event
+	var e record.Event
 	if err := json.Unmarshal(data, &e); err != nil {
 		return nil, err
 	}
@@ -38,11 +40,11 @@ func ReadEventGz(path string) (*Event, error) {
 // Dice re-rank the other searchers use, so a typo costs no more here than it
 // does on a film title.
 func SearchEvents(ctx context.Context, db *sql.DB, query string, limit int) ([]UnifiedResult, error) {
-	qgrams := trigrams(Normalize(query))
+	qgrams := trigrams(record.Normalize(query))
 	if len(qgrams) == 0 {
 		return nil, nil
 	}
-	qTokens := strings.Fields(Normalize(query))
+	qTokens := strings.Fields(record.Normalize(query))
 	parts := make([]string, 0, len(qgrams))
 	for g := range qgrams {
 		parts = append(parts, `"`+strings.ReplaceAll(g, `"`, `""`)+`"`)

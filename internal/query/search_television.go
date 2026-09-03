@@ -1,4 +1,4 @@
-package filmstock
+package query
 
 import (
 	"compress/gzip"
@@ -9,9 +9,11 @@ import (
 	"os"
 	"sort"
 	"strings"
+
+	"github.com/szatmary/filmstock/internal/record"
 )
 
-func ReadTelevisionSeriesGz(path string) (*TelevisionSeries, error) {
+func ReadTelevisionSeriesGz(path string) (*record.TelevisionSeries, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -26,7 +28,7 @@ func ReadTelevisionSeriesGz(path string) (*TelevisionSeries, error) {
 	if err != nil {
 		return nil, err
 	}
-	var s TelevisionSeries
+	var s record.TelevisionSeries
 	if err := json.Unmarshal(data, &s); err != nil {
 		return nil, err
 	}
@@ -59,11 +61,11 @@ type EpisodeSearchResult struct {
 
 // SearchEpisodes fuzzy-searches television episode titles.
 func SearchEpisodes(ctx context.Context, db *sql.DB, query string, limit int) ([]EpisodeSearchResult, error) {
-	qgrams := trigrams(Normalize(query))
+	qgrams := trigrams(record.Normalize(query))
 	if len(qgrams) == 0 {
 		return nil, nil
 	}
-	qTokens := strings.Fields(Normalize(query))
+	qTokens := strings.Fields(record.Normalize(query))
 	parts := make([]string, 0, len(qgrams))
 	for g := range qgrams {
 		parts = append(parts, `"`+strings.ReplaceAll(g, `"`, `""`)+`"`)
@@ -91,7 +93,7 @@ func SearchEpisodes(ctx context.Context, db *sql.DB, query string, limit int) ([
 			continue
 		}
 		r.Season, r.NumberInSeason = int(season.Int64), int(num.Int64)
-		r.SeriesTitle = CleanTelevisionTitle(r.SeriesTitle)
+		r.SeriesTitle = record.CleanTelevisionTitle(r.SeriesTitle)
 		r.Score = fuzzyScore(qgrams, qTokens, r.Title)
 		res = append(res, r)
 	}
@@ -104,11 +106,11 @@ func SearchEpisodes(ctx context.Context, db *sql.DB, query string, limit int) ([
 
 // SearchTelevision fuzzy-searches the television series index, mirroring SearchMovies.
 func SearchTelevision(ctx context.Context, db *sql.DB, query, field string, limit int) ([]TelevisionSearchResult, error) {
-	qgrams := trigrams(Normalize(query))
+	qgrams := trigrams(record.Normalize(query))
 	if len(qgrams) == 0 {
 		return nil, nil
 	}
-	qTokens := strings.Fields(Normalize(query))
+	qTokens := strings.Fields(record.Normalize(query))
 	parts := make([]string, 0, len(qgrams))
 	for g := range qgrams {
 		parts = append(parts, `"`+strings.ReplaceAll(g, `"`, `""`)+`"`)
@@ -132,13 +134,13 @@ func SearchTelevision(ctx context.Context, db *sql.DB, query, field string, limi
 			continue
 		}
 		r.Year = int(year.Int64)
-		r.Cover = FilePathURL(coverFile, 0)
-		target := CleanTelevisionTitle(r.Title)
+		r.Cover = record.FilePathURL(coverFile, 0)
+		target := record.CleanTelevisionTitle(r.Title)
 		if field == "starring" {
 			target = r.Starring
 		}
 		r.Score = fuzzyScore(qgrams, qTokens, target)
-		r.Title = CleanTelevisionTitle(r.Title) // display without the (TV series) suffix
+		r.Title = record.CleanTelevisionTitle(r.Title) // display without the (TV series) suffix
 		res = append(res, r)
 	}
 	sort.SliceStable(res, func(i, j int) bool { return res[i].Score > res[j].Score })

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sort"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/query"
 )
 
 // Laying out a crossroads.
@@ -20,12 +20,12 @@ import (
 // placed by projecting its offset onto the left-right and up-down lines, so a
 // film drawn beyond a pole is further along the direction that pole names, and
 // the eye can read the grid as "keep going that way".
-func (s *server) layout(r *http.Request, pos []float32, near []filmstock.Neighbour,
+func (s *server) layout(r *http.Request, pos []float32, near []query.Neighbour,
 	cols, rows int, out *viewJSON) []cellJSON {
 
 	// Offsets from the position, for every candidate with a vector.
 	type cand struct {
-		n   filmstock.Neighbour
+		n   query.Neighbour
 		off []float32 // unit direction, for the projection axes
 		raw []float32 // un-normalised, for choosing poles
 	}

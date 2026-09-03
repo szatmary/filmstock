@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // The pages that matter, one per way television is written up on Wikipedia.
@@ -26,7 +26,7 @@ func TestImportClaimsEveryTelevisionPageExtractDoes(t *testing.T) {
 		gotTV := false
 		for _, ip := range recognise(p, true) {
 			switch ip.Kind {
-			case filmstock.KindTelevision, kindSeason, kindEpisodeList:
+			case record.KindTelevision, kindSeason, kindEpisodeList:
 				gotTV = true
 			}
 		}
@@ -39,7 +39,7 @@ func TestImportClaimsEveryTelevisionPageExtractDoes(t *testing.T) {
 // The claim must land under the right kind, or export looks in the wrong place.
 func TestImportKinds(t *testing.T) {
 	want := map[string]string{
-		"ER (TV series)":      filmstock.KindTelevision,
+		"ER (TV series)":      record.KindTelevision,
 		"ER season 1":         kindSeason,
 		"List of ER episodes": kindEpisodeList,
 		"ER season 2":         kindSeason,
@@ -60,7 +60,7 @@ func TestImportKinds(t *testing.T) {
 func TestSeasonArticleIsNotClaimedAsSeries(t *testing.T) {
 	p := dump.Page{ID: 9, Title: "ER season 3", Text: "{{Infobox television season\n| season_number = 3\n}}\n{{Episode list\n| Title = x\n}}"}
 	for _, ip := range recognise(p, true) {
-		if ip.Kind == filmstock.KindTelevision {
+		if ip.Kind == record.KindTelevision {
 			t.Fatal("season article claimed as a series")
 		}
 	}
@@ -109,7 +109,7 @@ func TestRecogniseCanClaimOnePageTwice(t *testing.T) {
 			t.Errorf("page_id %d, want 7", ip.PageID)
 		}
 	}
-	if !kinds[filmstock.KindPerson] {
+	if !kinds[record.KindPerson] {
 		t.Errorf("person not claimed; got %v", kinds)
 	}
 }

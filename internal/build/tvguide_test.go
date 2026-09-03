@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
@@ -90,5 +90,5 @@ func TestReconstructOneNight(t *testing.T) {
 	if linked == 0 {
 		t.Error("nothing linked — the join to series records is broken")
 	}
-	_ = filmstock.Schedule{}
+	_ = record.Schedule{}
 }

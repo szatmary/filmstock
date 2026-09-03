@@ -1,4 +1,4 @@
-package filmstock
+package record
 
 import "testing"
 

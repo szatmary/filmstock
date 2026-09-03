@@ -1,10 +1,12 @@
-package filmstock
+package query
 
 import (
 	"context"
 	"database/sql"
 	"sort"
 	"strings"
+
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // PersonResult is one ranked person hit.
@@ -18,11 +20,11 @@ type PersonResult struct {
 // SearchPeople fuzzy-searches the people index: FTS5 trigram retrieval, then a
 // Dice re-rank on the name.
 func SearchPeople(ctx context.Context, db *sql.DB, query string, limit int) ([]PersonResult, error) {
-	qgrams := trigrams(Normalize(query))
+	qgrams := trigrams(record.Normalize(query))
 	if len(qgrams) == 0 {
 		return nil, nil
 	}
-	qTokens := strings.Fields(Normalize(query))
+	qTokens := strings.Fields(record.Normalize(query))
 	parts := make([]string, 0, len(qgrams))
 	for g := range qgrams {
 		parts = append(parts, `"`+strings.ReplaceAll(g, `"`, `""`)+`"`)
@@ -137,7 +139,7 @@ func PersonFilmography(db *sql.DB, id int) (*Filmography, error) {
 			continue
 		}
 		seen[k] = true
-		cm.Title = CleanTitle(title.String)
+		cm.Title = record.CleanTitle(title.String)
 		cm.Year = int(year.Int64)
 		byRole[role] = append(byRole[role], cm)
 	}

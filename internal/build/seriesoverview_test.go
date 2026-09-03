@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // ER's overview, in the shape the article writes it.
@@ -130,7 +130,7 @@ func TestUnlabelledColumnIsIgnored(t *testing.T) {
 // not parse, produces no seasons at all.
 func TestSeasonFromOverviewAloneSurvives(t *testing.T) {
 	c := newTelevisionCollector()
-	c.add(televisionMsg{series: &filmstock.TelevisionSeries{PageID: 100, Title: "ER"}})
+	c.add(televisionMsg{series: &record.TelevisionSeries{PageID: 100, Title: "ER"}})
 	for _, m := range overviewMsgs(erOverview, 200, "List of ER episodes", 100) {
 		c.add(m)
 	}
@@ -151,20 +151,20 @@ func TestSeasonFromOverviewAloneSurvives(t *testing.T) {
 // source that mentions a season keeps one and discards the other.
 func TestSeasonMergesBothSources(t *testing.T) {
 	c := newTelevisionCollector()
-	c.add(televisionMsg{series: &filmstock.TelevisionSeries{PageID: 100, Title: "ER"}})
+	c.add(televisionMsg{series: &record.TelevisionSeries{PageID: 100, Title: "ER"}})
 	// The overview, on the episode-list page: Nielsen figures.
 	for _, m := range overviewMsgs(erOverview, 200, "List of ER episodes", 100) {
 		c.add(m)
 	}
 	// The season's own article: cast, network, page_id.
 	c.add(televisionMsg{srcID: 300, srcTitle: "ER season 1", season: 1, auth: true,
-		seasonMeta: &filmstock.Season{Season: 1, PageID: 300, Network: "NBC",
-			Starring: []filmstock.Person{{Name: "George Clooney"}}}})
+		seasonMeta: &record.Season{Season: 1, PageID: 300, Network: "NBC",
+			Starring: []record.Person{{Name: "George Clooney"}}}})
 	series, _ := c.finish(map[int]int{200: 100, 300: 100}, nil)
 	if len(series) != 1 {
 		t.Fatalf("got %d series", len(series))
 	}
-	var s1 *filmstock.Season
+	var s1 *record.Season
 	for _, s := range series[0].Seasons {
 		if s.Season == 1 {
 			s1 = s
@@ -183,8 +183,8 @@ func TestSeasonMergesBothSources(t *testing.T) {
 
 // mergeSeason adds; it must never overwrite what is already known.
 func TestMergeSeasonNeverOverwrites(t *testing.T) {
-	dst := &filmstock.Season{Season: 1, PageID: 300, Network: "NBC", Rank: 2}
-	mergeSeason(dst, &filmstock.Season{Season: 1, PageID: 999, Network: "CBS", Rank: 9, Viewers: 30.1})
+	dst := &record.Season{Season: 1, PageID: 300, Network: "NBC", Rank: 2}
+	mergeSeason(dst, &record.Season{Season: 1, PageID: 999, Network: "CBS", Rank: 9, Viewers: 30.1})
 	if dst.PageID != 300 || dst.Network != "NBC" || dst.Rank != 2 {
 		t.Errorf("overwrote known values: %+v", dst)
 	}
@@ -197,11 +197,11 @@ func TestMergeSeasonNeverOverwrites(t *testing.T) {
 // contradicts itself; the stated count fills in only when none did.
 func TestNumEpisodesAgreesWithEpisodes(t *testing.T) {
 	c := newTelevisionCollector()
-	c.add(televisionMsg{series: &filmstock.TelevisionSeries{PageID: 100, Title: "ER"}})
+	c.add(televisionMsg{series: &record.TelevisionSeries{PageID: 100, Title: "ER"}})
 	for _, m := range overviewMsgs(erOverview, 200, "List of ER episodes", 100) {
 		c.add(m) // says 25
 	}
-	c.add(televisionMsg{srcID: 200, season: 1, auth: true, eps: []*filmstock.Episode{
+	c.add(televisionMsg{srcID: 200, season: 1, auth: true, eps: []*record.Episode{
 		{Title: "24 Hours", NumberInSeason: 1}, {Title: "Day One", NumberInSeason: 2}}})
 	series, _ := c.finish(map[int]int{200: 100}, nil)
 	for _, s := range series[0].Seasons {
@@ -268,7 +268,7 @@ func TestSplitSeasonSpansItsParts(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var s5 *filmstock.Season
+	var s5 *record.Season
 	for _, s := range parseSeriesOverview(string(b)) {
 		if s.Season == 5 {
 			s5 = s
@@ -366,15 +366,15 @@ func TestMultiseriesOverviewIsSkippedNotMerged(t *testing.T) {
 // season the first one seen wins — so the record changed between runs over
 // identical input.
 func TestSeasonSourcesMergeInAFixedOrder(t *testing.T) {
-	build := func() *filmstock.Season {
+	build := func() *record.Season {
 		c := newTelevisionCollector()
-		c.add(televisionMsg{series: &filmstock.TelevisionSeries{PageID: 1, Title: "X"}})
+		c.add(televisionMsg{series: &record.TelevisionSeries{PageID: 1, Title: "X"}})
 		// Two sources describing season 1 with different episode counts, and no
 		// episode rows, so the count can only come from the metadata.
 		c.add(televisionMsg{srcID: 500, season: 1,
-			seasonMeta: &filmstock.Season{Season: 1, NumEpisodes: 14}})
+			seasonMeta: &record.Season{Season: 1, NumEpisodes: 14}})
 		c.add(televisionMsg{srcID: 200, season: 1,
-			seasonMeta: &filmstock.Season{Season: 1, NumEpisodes: 13}})
+			seasonMeta: &record.Season{Season: 1, NumEpisodes: 13}})
 		series, _ := c.finish(map[int]int{500: 1, 200: 1}, nil)
 		if len(series) != 1 || len(series[0].Seasons) != 1 {
 			t.Fatalf("unexpected shape: %d series", len(series))
@@ -401,7 +401,7 @@ func TestPartFiguresDoNotOverwriteTheSeason(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var first []*filmstock.Season
+	var first []*record.Season
 	for run := range 25 {
 		got := parseSeriesOverview(string(b))
 		if run == 0 {
@@ -420,7 +420,7 @@ func TestPartFiguresDoNotOverwriteTheSeason(t *testing.T) {
 			}
 		}
 	}
-	var s14 *filmstock.Season
+	var s14 *record.Season
 	for _, s := range first {
 		if s.Season == 14 {
 			s14 = s
@@ -457,7 +457,7 @@ func TestPrimaryColumnKeepsItsRole(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var got *filmstock.Season
+		var got *record.Season
 		for _, s := range parseSeriesOverview(string(b)) {
 			if s.Season == c.season {
 				got = s

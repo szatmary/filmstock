@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
@@ -185,7 +185,7 @@ func (w *dbWriter) commit() error {
 }
 
 // credit stages one person's link target against a work.
-func (w *dbWriter) credit(people []filmstock.Person, workID int64, workType, role string) {
+func (w *dbWriter) credit(people []record.Person, workID int64, workType, role string) {
 	for _, p := range people {
 		if p.Wiki == "" {
 			continue // a bare name is not an identity, and never has been
@@ -214,16 +214,16 @@ func (w *dbWriter) put(kind string, identity int64, v any) {
 		return
 	}
 	switch kind {
-	case filmstock.KindMovie:
-		w.putMovie(identity, v.(*filmstock.Movie))
-	case filmstock.KindTelevision:
-		w.putSeries(identity, v.(*filmstock.TelevisionSeries))
-	case filmstock.KindEvent:
-		w.putEvent(identity, v.(*filmstock.Event))
-	case filmstock.KindSchedule:
-		w.putSchedule(identity, v.(*filmstock.Schedule))
-	case filmstock.KindPerson:
-		w.putPerson(identity, v.(*filmstock.PersonRecord))
+	case record.KindMovie:
+		w.putMovie(identity, v.(*record.Movie))
+	case record.KindTelevision:
+		w.putSeries(identity, v.(*record.TelevisionSeries))
+	case record.KindEvent:
+		w.putEvent(identity, v.(*record.Event))
+	case record.KindSchedule:
+		w.putSchedule(identity, v.(*record.Schedule))
+	case record.KindPerson:
+		w.putPerson(identity, v.(*record.PersonRecord))
 	default:
 		w.fail(fmt.Errorf("dbwriter: unknown kind %q", kind))
 		return
@@ -240,14 +240,14 @@ func (w *dbWriter) put(kind string, identity int64, v any) {
 	}
 }
 
-func (w *dbWriter) putMovie(id int64, m *filmstock.Movie) {
+func (w *dbWriter) putMovie(id int64, m *record.Movie) {
 	if _, err := w.insMovie.Exec(id, m.Title, yearOf(m), first(m.ReleaseDates),
 		joinP(m.Director), joinP(m.Producer), joinP(m.Writer), joinP(m.Starring),
-		joinP(m.Music), join(filmstock.Names(m.Distributor)),
-		join(filmstock.Names(m.Country)), join(filmstock.Names(m.Language)),
+		joinP(m.Music), join(record.Names(m.Distributor)),
+		join(record.Names(m.Country)), join(record.Names(m.Language)),
 		join(m.Genre), m.Runtime, m.Budget, m.Gross, m.WikiURL,
 		w.imageURL(m.CoverImageFile, m.CoverImageURL), m.CoverImageFile,
-		filmstock.WikiTitleFromURL(m.WikiURL)); err != nil {
+		record.WikiTitleFromURL(m.WikiURL)); err != nil {
 		w.fail(err)
 		return
 	}
@@ -262,7 +262,7 @@ func (w *dbWriter) putMovie(id int64, m *filmstock.Movie) {
 	}
 }
 
-func (w *dbWriter) putSeries(id int64, s *filmstock.TelevisionSeries) {
+func (w *dbWriter) putSeries(id int64, s *record.TelevisionSeries) {
 	year := 0
 	if len(s.FirstAired) >= 4 {
 		fmt.Sscanf(s.FirstAired[:4], "%d", &year)
@@ -271,12 +271,12 @@ func (w *dbWriter) putSeries(id int64, s *filmstock.TelevisionSeries) {
 	for _, se := range s.Seasons {
 		eps += len(se.Episodes)
 	}
-	if _, err := w.insSeries.Exec(id, filmstock.CleanTelevisionTitle(s.Title), year,
+	if _, err := w.insSeries.Exec(id, record.CleanTelevisionTitle(s.Title), year,
 		s.FirstAired, s.LastAired, join(s.Genre), joinP(s.Creator), joinP(s.Starring),
-		join(filmstock.Names(s.Network)), s.NumSeasons, s.NumEpisodes,
+		join(record.Names(s.Network)), s.NumSeasons, s.NumEpisodes,
 		len(s.Seasons), eps, s.CoverImageFile,
 		w.imageURL(s.CoverImageFile, s.CoverImageURL), s.WikiURL,
-		filmstock.WikiTitleFromURL(s.WikiURL)); err != nil {
+		record.WikiTitleFromURL(s.WikiURL)); err != nil {
 		w.fail(err)
 		return
 	}
@@ -285,7 +285,7 @@ func (w *dbWriter) putSeries(id int64, s *filmstock.TelevisionSeries) {
 	}
 	for _, c := range []struct {
 		role   string
-		people []filmstock.Person
+		people []record.Person
 	}{
 		{"Creator", s.Creator}, {"Cast", s.Starring}, {"Composer", s.Composer},
 		{"Director", s.Director}, {"Producer", s.Producer},
@@ -331,23 +331,23 @@ func (w *dbWriter) putSeries(id int64, s *filmstock.TelevisionSeries) {
 	}
 }
 
-func (w *dbWriter) putEvent(id int64, e *filmstock.Event) {
+func (w *dbWriter) putEvent(id int64, e *record.Event) {
 	names := make([]string, 0, len(e.Hosts))
 	for _, h := range e.Hosts {
 		names = append(names, h.Name)
 	}
 	if _, err := w.insEvent.Exec(id, e.Title, e.Kind, e.Award, e.Edition, e.Date,
 		e.Year, strings.Join(names, ", "), e.Organizer, e.Venue, e.Location,
-		join(filmstock.Names(e.Network)), join(filmstock.Names(e.BestFilm)),
-		join(filmstock.Names(e.MostWins)), join(filmstock.Names(e.OpeningFilm)),
-		join(filmstock.Names(e.ClosingFilm)), e.CoverImageFile, e.WikiURL); err != nil {
+		join(record.Names(e.Network)), join(record.Names(e.BestFilm)),
+		join(record.Names(e.MostWins)), join(record.Names(e.OpeningFilm)),
+		join(record.Names(e.ClosingFilm)), e.CoverImageFile, e.WikiURL); err != nil {
 		w.fail(err)
 		return
 	}
 	w.credit(e.Hosts, id, "event", "Host")
 }
 
-func (w *dbWriter) putSchedule(id int64, s *filmstock.Schedule) {
+func (w *dbWriter) putSchedule(id int64, s *record.Schedule) {
 	if _, err := w.insSchedule.Exec(id, s.Title, s.Season, s.Daypart, s.WikiURL); err != nil {
 		w.fail(err)
 		return
@@ -369,7 +369,7 @@ func (w *dbWriter) putSchedule(id int64, s *filmstock.Schedule) {
 	}
 }
 
-func (w *dbWriter) putPerson(id int64, p *filmstock.PersonRecord) {
+func (w *dbWriter) putPerson(id int64, p *record.PersonRecord) {
 	// The biography states a bare filename; the published column is a URL,
 	// resolved through Special:FilePath exactly as film posters are.
 	imageURL := ""

@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -17,9 +17,9 @@ var eventTemplates = []struct {
 	name string
 	kind string
 }{
-	{"Infobox film awards", filmstock.EventAwardCeremony},
-	{"Infobox Film festival", filmstock.EventFilmFestival},
-	{"Infobox film festival", filmstock.EventFilmFestival},
+	{"Infobox film awards", record.EventAwardCeremony},
+	{"Infobox Film festival", record.EventFilmFestival},
+	{"Infobox film festival", record.EventFilmFestival},
 }
 
 // reEdition pulls the ordinal out of a title like "53rd NAACP Image Awards" or
@@ -40,8 +40,8 @@ var reDeliveryLabel = regexp.MustCompile(`(?i)^(broadcast|streaming|radio|televi
 // search for "ABC" can never match "Broadcast: ABC". The raw field is passed in
 // rather than a cleaned one because the split needs the <br> separators that
 // cleaning removes.
-func networkLinks(raws ...string) []filmstock.Link {
-	out := []filmstock.Link{}
+func networkLinks(raws ...string) []record.Link {
+	out := []record.Link{}
 	for _, l := range mergeLinks(raws...) {
 		l.Name = strings.TrimSpace(reDeliveryLabel.ReplaceAllString(l.Name, ""))
 		if l.Name == "" {
@@ -53,7 +53,7 @@ func networkLinks(raws ...string) []filmstock.Link {
 }
 
 // buildEvent returns the event record for a page, or nil if the page is not one.
-func buildEvent(p dump.Page) *filmstock.Event {
+func buildEvent(p dump.Page) *record.Event {
 	if p.NS != 0 {
 		return nil
 	}
@@ -67,8 +67,8 @@ func buildEvent(p dump.Page) *filmstock.Event {
 	return nil
 }
 
-func newEvent(p dump.Page, kind string, ib map[string]string) *filmstock.Event {
-	e := &filmstock.Event{
+func newEvent(p dump.Page, kind string, ib map[string]string) *record.Event {
+	e := &record.Event{
 		Title:      p.Title,
 		PageID:     p.ID,
 		WikiURL:    "https://en.wikipedia.org/wiki/" + strings.ReplaceAll(url.PathEscape(p.Title), "%20", "_"),
@@ -103,7 +103,7 @@ func newEvent(p dump.Page, kind string, ib map[string]string) *filmstock.Event {
 	if host == "" {
 		host = ib["hosts"]
 	}
-	if kind == filmstock.EventAwardCeremony {
+	if kind == record.EventAwardCeremony {
 		e.Hosts = wikitext.SplitPeople(host)
 	} else {
 		e.Organizer = wikitext.CleanText(wikitext.ReComment.ReplaceAllString(host, ""))

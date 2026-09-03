@@ -13,8 +13,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -27,14 +27,14 @@ import (
 // from Wikidata's stated P179 ("part of the series") relation rather than being
 // derived from strings.
 type televisionMsg struct {
-	series *filmstock.TelevisionSeries
+	series *record.TelevisionSeries
 
 	srcID      int    // page_id of the article these episodes came from
 	srcTitle   string // diagnostics only — never a key
 	seriesID   int    // series page_id when the source article IS the series
 	season     int
-	eps        []*filmstock.Episode
-	seasonMeta *filmstock.Season
+	eps        []*record.Episode
+	seasonMeta *record.Season
 	auth       bool // episodes from a dedicated season article
 }
 
@@ -47,13 +47,13 @@ func parseTelevisionPage(p dump.Page) []televisionMsg {
 	// Season article: episodes all belong to the season named in the title.
 	if _, season, ok := articleSeason(p.Title); ok &&
 		(strings.Contains(lower, "{{infobox television season") || strings.Contains(lower, "{{episode list")) {
-		var meta *filmstock.Season
+		var meta *record.Season
 		if body, ok := wikitext.FindTemplate(text, "Infobox television season"); ok {
 			ib := wikitext.ParseInfobox(body)
 			// PageID: a season article is a real page, so a season is
 			// addressable like everything else rather than being reachable only
 			// as an index into its series.
-			meta = &filmstock.Season{Season: season, PageID: p.ID}
+			meta = &record.Season{Season: season, PageID: p.ID}
 			if d := parseReleaseDates(ib["first_aired"]); len(d) > 0 {
 				meta.FirstAired = d[0]
 			}
@@ -70,7 +70,7 @@ func parseTelevisionPage(p dump.Page) []televisionMsg {
 				meta.NumEpisodes = n
 			}
 		}
-		var eps []*filmstock.Episode
+		var eps []*record.Episode
 		for _, body := range wikitext.FindAllTemplates(text, "Episode list") {
 			eps = append(eps, parseEpisodeRows(wikitext.ParseInfobox(body))...)
 		}
@@ -135,7 +135,7 @@ func overviewMsgs(text string, srcID int, srcTitle string, seriesID int) []telev
 // episodesByHeading groups an article's inline episodes into per-season messages,
 // tagged with the source article's page_id (and its series, when self-evident).
 func episodesByHeading(text string, srcID int, srcTitle string, seriesID int) []televisionMsg {
-	bySeason := map[int][]*filmstock.Episode{}
+	bySeason := map[int][]*record.Episode{}
 	for _, te := range extractEpisodesByHeading(text) {
 		s := te.season
 		if s == 0 {
@@ -159,14 +159,14 @@ type televisionCollector struct {
 	// disambiguator-stripped title silently dropped every show that collided
 	// with another (the BBC's House of Cards, PBS Frontline, all non-US Big
 	// Brothers), because the loser was simply overwritten.
-	series map[int]*filmstock.TelevisionSeries
+	series map[int]*record.TelevisionSeries
 
 	// Episodes are staged by SOURCE article page_id until the owning series is
 	// known. auth = from a dedicated season article, which outranks inline
 	// episodes scraped from a "List of X episodes" page.
-	auth   map[int]map[int][]*filmstock.Episode
-	inline map[int]map[int][]*filmstock.Episode
-	smeta  map[int]map[int]*filmstock.Season
+	auth   map[int]map[int][]*record.Episode
+	inline map[int]map[int][]*record.Episode
+	smeta  map[int]map[int]*record.Season
 
 	srcTitle map[int]string // page_id -> title, for reporting unresolved sources
 	srcOwner map[int]int    // page_id -> series page_id, when the source states it
@@ -174,19 +174,19 @@ type televisionCollector struct {
 
 func newTelevisionCollector() *televisionCollector {
 	return &televisionCollector{
-		series:   map[int]*filmstock.TelevisionSeries{},
-		auth:     map[int]map[int][]*filmstock.Episode{},
-		inline:   map[int]map[int][]*filmstock.Episode{},
-		smeta:    map[int]map[int]*filmstock.Season{},
+		series:   map[int]*record.TelevisionSeries{},
+		auth:     map[int]map[int][]*record.Episode{},
+		inline:   map[int]map[int][]*record.Episode{},
+		smeta:    map[int]map[int]*record.Season{},
 		srcTitle: map[int]string{},
 		srcOwner: map[int]int{},
 	}
 }
 
-func addEps(m map[int]map[int][]*filmstock.Episode, key int, season int, eps []*filmstock.Episode) {
+func addEps(m map[int]map[int][]*record.Episode, key int, season int, eps []*record.Episode) {
 	sm := m[key]
 	if sm == nil {
-		sm = map[int][]*filmstock.Episode{}
+		sm = map[int][]*record.Episode{}
 		m[key] = sm
 	}
 	sm[season] = append(sm[season], eps...)
@@ -208,7 +208,7 @@ func (c *televisionCollector) add(m televisionMsg) {
 		if m.seasonMeta != nil {
 			mm := c.smeta[m.srcID]
 			if mm == nil {
-				mm = map[int]*filmstock.Season{}
+				mm = map[int]*record.Season{}
 				c.smeta[m.srcID] = mm
 			}
 			// Merge: one page can state a season twice — an episode-list
@@ -246,7 +246,7 @@ type televisionStats struct {
 // which is exactly how the two Hawaii Five-Os and fifty Big Brothers would merge.
 // listOwner maps a "List of X episodes" article page_id to its series page_id,
 // built by inverting the series' own list_episodes infobox link.
-func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmstock.TelevisionSeries, televisionStats) {
+func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*record.TelevisionSeries, televisionStats) {
 	var st televisionStats
 
 	// Map each episode source to its owning series.
@@ -284,7 +284,7 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 		}
 	}
 
-	var out []*filmstock.TelevisionSeries
+	var out []*record.TelevisionSeries
 	for id, s := range c.series {
 		srcs := bySeries[id]
 		// In page_id order. srcs is built by ranging over a map, so without this
@@ -294,13 +294,13 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 		// mostly num_episodes disagreeing by one.
 		sort.Ints(srcs)
 		// Union of season numbers from authoritative and inline sources.
-		seasons := map[int][]*filmstock.Episode{}
+		seasons := map[int][]*record.Episode{}
 		for _, src := range srcs {
 			for snum, list := range c.inline[src] {
 				seasons[snum] = append(seasons[snum], list...)
 			}
 		}
-		authSeasons := map[int][]*filmstock.Episode{}
+		authSeasons := map[int][]*record.Episode{}
 		for _, src := range srcs {
 			for snum, list := range c.auth[src] {
 				authSeasons[snum] = append(authSeasons[snum], list...)
@@ -322,7 +322,7 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 		}
 		for snum, list := range seasons {
 			seen := map[string]bool{}
-			var ded []*filmstock.Episode
+			var ded []*record.Episode
 			for _, e := range list {
 				// Number AND title, not number alone.
 				//
@@ -353,7 +353,7 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 				}
 				return ded[i].NumberOverall < ded[j].NumberOverall
 			})
-			sea := &filmstock.Season{Season: snum, Episodes: ded, NumEpisodes: len(ded)}
+			sea := &record.Season{Season: snum, Episodes: ded, NumEpisodes: len(ded)}
 			// Every source, not the first: the season's own article knows its
 			// cast, network and page_id, while the series overview knows its
 			// Nielsen standing, and neither knows the other's. Stopping at the
@@ -385,7 +385,7 @@ func (c *televisionCollector) finish(seasonOf, listOwner map[int]int) ([]*filmst
 // Season data arrives from two places that know different things — the season
 // article for cast, network, image and its own page_id; {{Series overview}} for
 // rank, rating and viewers — so combining them is addition, not replacement.
-func mergeSeason(dst, src *filmstock.Season) {
+func mergeSeason(dst, src *record.Season) {
 	if src == nil || dst == nil {
 		return
 	}
@@ -424,7 +424,7 @@ func mergeSeason(dst, src *filmstock.Season) {
 var reTelevisionSlug = reSlug
 
 // writeTelevisionSeries writes one gzip-compressed series JSON, sharded like movies.
-func writeTelevisionSeries(outDir string, s *filmstock.TelevisionSeries) error {
+func writeTelevisionSeries(outDir string, s *record.TelevisionSeries) error {
 	sum := md5.Sum([]byte(s.Title))
 	dir := filepath.Join(outDir, hex.EncodeToString(sum[:1]))
 	if err := os.MkdirAll(dir, 0o755); err != nil {

@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
@@ -91,7 +91,7 @@ func pad2(n int) string {
 // The result is keyed by article title, NOT by name: the title is what a credit
 // links to, and it is the only thing that ties this article to the people
 // discovered from film and television infoboxes.
-func buildBiography(p dump.Page) *filmstock.PersonBio {
+func buildBiography(p dump.Page) *record.PersonBio {
 	if p.NS != 0 {
 		return nil
 	}
@@ -118,7 +118,7 @@ func buildBiography(p dump.Page) *filmstock.PersonBio {
 		return nil
 	}
 
-	b := &filmstock.PersonBio{
+	b := &record.PersonBio{
 		BirthName:   wikitext.CleanText(ib["birth_name"]),
 		BirthPlace:  wikitext.CleanText(ib["birth_place"]),
 		DeathPlace:  wikitext.CleanText(ib["death_place"]),

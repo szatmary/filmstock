@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // A multi-part episode is ONE {{Episode list}} row spanning several episodes,
@@ -138,7 +138,7 @@ type episodeLike struct {
 	directors         []string
 }
 
-func personNames(ps []filmstock.Person) []string {
+func personNames(ps []record.Person) []string {
 	var out []string
 	for _, p := range ps {
 		out = append(out, p.Name)
@@ -157,14 +157,14 @@ func TestSegmentedEpisodeStaysOneEpisode(t *testing.T) {
 	}
 	msgs := parseTelevisionPage(dump.Page{ID: 1,
 		Title: "The Simpsons season 8", Text: string(b)})
-	var all []*filmstock.Episode
+	var all []*record.Episode
 	for _, m := range msgs {
 		all = append(all, m.eps...)
 	}
 	if len(all) != 25 {
 		t.Errorf("season 8 has %d episodes, want 25", len(all))
 	}
-	var th *filmstock.Episode
+	var th *record.Episode
 	for _, e := range all {
 		if e.Title == "Treehouse of Horror VII" {
 			if th != nil {

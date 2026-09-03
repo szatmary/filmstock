@@ -1,4 +1,4 @@
-package filmstock
+package query
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
-func infoTestDB(t *testing.T) *DB {
+func infoTestDB(t *testing.T) *sql.DB {
 	t.Helper()
 	h, err := sql.Open(sqldrv.Name, "file:"+t.TempDir()+"/t.db")
 	if err != nil {
@@ -31,14 +31,14 @@ func infoTestDB(t *testing.T) *DB {
 			t.Fatal(err)
 		}
 	}
-	return FromSQL(h)
+	return h
 }
 
 // Results come back in the order asked, and a missing id is absent, not an
 // error: a caller holding ids from an older build should still get the rest.
 func TestFilmInfoOrderAndMisses(t *testing.T) {
 	db := infoTestDB(t)
-	got, err := db.FilmInfo(context.Background(), []int{2, 99999, 3746, 1})
+	got, err := FilmInfo(context.Background(), db, []int{2, 99999, 3746, 1})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -61,7 +61,7 @@ func TestFilmInfoOrderAndMisses(t *testing.T) {
 // sloppily, and doubling a card is never what a grid wants.
 func TestFilmInfoDeduplicates(t *testing.T) {
 	db := infoTestDB(t)
-	got, err := db.FilmInfo(context.Background(), []int{1, 1, 1})
+	got, err := FilmInfo(context.Background(), db, []int{1, 1, 1})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -72,7 +72,7 @@ func TestFilmInfoDeduplicates(t *testing.T) {
 
 func TestSeriesInfo(t *testing.T) {
 	db := infoTestDB(t)
-	got, err := db.SeriesInfo(context.Background(), []int{8209})
+	got, err := SeriesInfo(context.Background(), db, []int{8209})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -84,7 +84,7 @@ func TestSeriesInfo(t *testing.T) {
 // Empty in, empty out, no query.
 func TestInfoEmpty(t *testing.T) {
 	db := infoTestDB(t)
-	if got, err := db.FilmInfo(context.Background(), nil); err != nil || got != nil {
+	if got, err := FilmInfo(context.Background(), db, nil); err != nil || got != nil {
 		t.Fatalf("got %v, %v", got, err)
 	}
 }
@@ -97,7 +97,7 @@ func TestInfoChunks(t *testing.T) {
 		ids = append(ids, 100000+i)
 	}
 	ids = append(ids, 3746, 1, 2)
-	got, err := db.FilmInfo(context.Background(), ids)
+	got, err := FilmInfo(context.Background(), db, ids)
 	if err != nil {
 		t.Fatal(err)
 	}

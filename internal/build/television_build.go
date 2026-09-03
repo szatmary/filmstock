@@ -6,13 +6,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
 
 // buildTelevisionSeries constructs a series record from an {{Infobox television}} map.
-func buildTelevisionSeries(title string, pageID int, ib map[string]string) *filmstock.TelevisionSeries {
-	s := &filmstock.TelevisionSeries{
+func buildTelevisionSeries(title string, pageID int, ib map[string]string) *record.TelevisionSeries {
+	s := &record.TelevisionSeries{
 		// Display title, as for films: "(TV series)" is Wikipedia namespacing,
 		// not part of the name. Identity stays the page_id and the page name
 		// survives in WikiURL, built below from the raw title.
@@ -21,7 +21,7 @@ func buildTelevisionSeries(title string, pageID int, ib map[string]string) *film
 		// join series to episodes, and two shows differing only by disambiguator
 		// collapsed into one with the loser silently dropped — the BBC's House of
 		// Cards, PBS Frontline, every non-US Big Brother.
-		Title:   filmstock.CleanTelevisionTitle(title),
+		Title:   record.CleanTelevisionTitle(title),
 		PageID:  pageID,
 		Type:    "television",
 		WikiURL: "https://en.wikipedia.org/wiki/" + strings.ReplaceAll(url.PathEscape(title), "%20", "_"),
@@ -59,7 +59,7 @@ func buildTelevisionSeries(title string, pageID int, ib map[string]string) *film
 		s.LastAired = d[0]
 	}
 	if img := ib["image"]; img != "" {
-		s.CoverImageFile, s.CoverImageURL = filmstock.CoverImageURL(cleanBareFilename(img))
+		s.CoverImageFile, s.CoverImageURL = record.CoverImageURL(cleanBareFilename(img))
 	}
 	if le := wikitext.CleanText(ib["list_episodes"]); le != "" {
 		s.ListEpisodes = le
@@ -120,11 +120,11 @@ const maxEpisodeParts = 12
 // Star Trek's "The Menagerie" came out as episode 0 of season 0, and the season
 // reported 28 episodes instead of 29. 10,514 such rows across 908 articles,
 // covering upwards of 21,000 episodes.
-func parseEpisodeRows(ib map[string]string) []*filmstock.Episode {
+func parseEpisodeRows(ib map[string]string) []*record.Episode {
 	n := atoiSafe(ib["numparts"])
 	if n < 2 {
 		if e := parseEpisodeRow(ib); e != nil {
-			return []*filmstock.Episode{e}
+			return []*record.Episode{e}
 		}
 		return nil
 	}
@@ -153,11 +153,11 @@ func parseEpisodeRows(ib map[string]string) []*filmstock.Episode {
 	}
 	if !hasPerPartNumbers(ib, n) {
 		if e := parseEpisodeRow(mergeEpisodeParts(ib, n)); e != nil {
-			return []*filmstock.Episode{e}
+			return []*record.Episode{e}
 		}
 		return nil
 	}
-	var out []*filmstock.Episode
+	var out []*record.Episode
 	for i := 1; i <= n; i++ {
 		if e := parseEpisodeRow(episodePart(ib, i)); e != nil {
 			out = append(out, e)
@@ -185,12 +185,12 @@ func isSerial(v string) bool {
 // The article names the parts itself, in Aux1_1..Aux1_N ("Part One"). Aux1 is a
 // generic column elsewhere, so it is only read here, inside a row that has
 // declared itself a serial.
-func serialParts(ib map[string]string, n int) []*filmstock.Episode {
+func serialParts(ib map[string]string, n int) []*record.Episode {
 	base := parseEpisodeRow(mergeEpisodeParts(ib, n))
 	if base == nil {
 		return nil
 	}
-	out := make([]*filmstock.Episode, 0, n)
+	out := make([]*record.Episode, 0, n)
 	for i := 1; i <= n; i++ {
 		part := parseEpisodeRow(episodePart(ib, i))
 		if part == nil {
@@ -201,7 +201,7 @@ func serialParts(ib map[string]string, n int) []*filmstock.Episode {
 		out = append(out, part)
 	}
 	if len(out) == 0 {
-		return []*filmstock.Episode{base}
+		return []*record.Episode{base}
 	}
 	return out
 }
@@ -302,12 +302,12 @@ func episodePart(ib map[string]string, i int) map[string]string {
 	return out
 }
 
-func parseEpisodeRow(ib map[string]string) *filmstock.Episode {
+func parseEpisodeRow(ib map[string]string) *record.Episode {
 	title := wikitext.CleanText(firstNonEmpty(ib["title"], ib["rtitle"], ib["englishtitle"]))
 	if title == "" {
 		return nil
 	}
-	e := &filmstock.Episode{
+	e := &record.Episode{
 		Title:      title,
 		DirectedBy: wikitext.SplitPeople(ib["directedby"]),
 		WrittenBy:  wikitext.SplitPeople(ib["writtenby"]),
@@ -537,7 +537,7 @@ func extractEpisodesByHeading(text string) []taggedEpisode {
 }
 
 type taggedEpisode struct {
-	ep     *filmstock.Episode
+	ep     *record.Episode
 	season int
 }
 

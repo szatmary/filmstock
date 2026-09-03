@@ -13,8 +13,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 	"github.com/szatmary/filmstock/internal/wikitext"
 )
@@ -204,8 +204,8 @@ func extractRecordsInner(sink recordSink, d *dumpSet, src pageSource, outDir, te
 		return err
 	}
 	rec := &recordWriter{out: outDir, textOut: textDir, wantText: wantText,
-		store: sink, people: map[string]*filmstock.PersonRecord{},
-		bios:      map[string]*filmstock.PersonBio{},
+		store: sink, people: map[string]*record.PersonRecord{},
+		bios:      map[string]*record.PersonBio{},
 		bioPage:   map[string]int{},
 		workTitle: map[string]bool{},
 		pool:      newWritePool(8, 16384)}
@@ -355,12 +355,12 @@ type recordWriter struct {
 
 	store  recordSink
 	mu     sync.Mutex
-	people map[string]*filmstock.PersonRecord
+	people map[string]*record.PersonRecord
 	// bios is keyed by article title. A biography is encountered at an arbitrary
 	// point in the stream — long before or long after the film that credits its
 	// subject — so it cannot be attached on sight. It is held here and joined to
 	// the discovered people once the pass is over.
-	bios map[string]*filmstock.PersonBio
+	bios map[string]*record.PersonBio
 	// bioPage is the page_id of each biography article, keyed the same way as
 	// bios. It is the person's identity, and it comes from the dump rather than
 	// from wiki_qid so that a person whose article carries no Wikidata item still
@@ -376,7 +376,7 @@ type recordWriter struct {
 	// schedules are held until the pass is over: their show ids resolve through
 	// the same cache the people pass uses, and doing it per cell would be a
 	// query for every slot in every season.
-	schedules []*filmstock.Schedule
+	schedules []*record.Schedule
 	err       error
 }
 
@@ -400,7 +400,7 @@ func (w *recordWriter) noteWork(title string) {
 }
 
 // notePeople records every credit that carries a stated identity.
-func (w *recordWriter) notePeople(groups ...[]filmstock.Person) {
+func (w *recordWriter) notePeople(groups ...[]record.Person) {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	for _, g := range groups {
@@ -409,7 +409,7 @@ func (w *recordWriter) notePeople(groups ...[]filmstock.Person) {
 				continue // no link, no identity, not an entity
 			}
 			if _, ok := w.people[p.Wiki]; !ok {
-				w.people[p.Wiki] = &filmstock.PersonRecord{Wiki: p.Wiki, Name: p.Name}
+				w.people[p.Wiki] = &record.PersonRecord{Wiki: p.Wiki, Name: p.Name}
 			}
 		}
 	}
@@ -435,8 +435,8 @@ func (w *recordWriter) handlePerson(p dump.Page) {
 
 // handleFilmRecord is the half of handleFilm that stores a parsed film and notes
 // its people, split out so a test can drive the real code rather than restate it.
-func (w *recordWriter) handleFilmRecord(m *filmstock.Movie, pageID int64) {
-	w.store.put(filmstock.KindMovie, pageID, m)
+func (w *recordWriter) handleFilmRecord(m *record.Movie, pageID int64) {
+	w.store.put(record.KindMovie, pageID, m)
 	atomic.AddInt64(&w.films, 1)
 	w.notePeople(m.Director, m.Producer, m.Writer, m.Starring, m.Music,
 		m.Cinematography, m.Editing, m.Narrator)
@@ -455,7 +455,7 @@ func (w *recordWriter) handleFilm(p dump.Page) {
 		if td, err := encodeRecordText(wikitext.FullPlainText(p.Text)); err != nil {
 			w.fail(err)
 		} else {
-			w.pool.put(filmstock.RecordPath(w.textOut, filmstock.KindText, int64(p.ID), ".txt.gz"), td)
+			w.pool.put(record.RecordPath(w.textOut, record.KindText, int64(p.ID), ".txt.gz"), td)
 		}
 	}
 }
@@ -468,8 +468,8 @@ func (w *recordWriter) handleFilm(p dump.Page) {
 // handleEventRecord is the half of handleEvent that stores a parsed event and
 // notes its people, split out so a test can drive the real code rather than
 // restate it.
-func (w *recordWriter) handleEventRecord(e *filmstock.Event) {
-	w.store.put(filmstock.KindEvent, int64(e.PageID), e)
+func (w *recordWriter) handleEventRecord(e *record.Event) {
+	w.store.put(record.KindEvent, int64(e.PageID), e)
 	w.notePeople(e.Hosts)
 }
 
@@ -500,8 +500,8 @@ func (w *recordWriter) handleSchedule(p dump.Page) {
 	w.mu.Unlock()
 }
 
-func (w *recordWriter) handleSeries(s *filmstock.TelevisionSeries) {
-	w.store.put(filmstock.KindTelevision, int64(s.PageID), s)
+func (w *recordWriter) handleSeries(s *record.TelevisionSeries) {
+	w.store.put(record.KindTelevision, int64(s.PageID), s)
 	// EVERY person-bearing field has to be noted here. Noting only some of them
 	// does not drop those people from the database — the index still builds
 	// credits from the series record — it drops them from Q-id resolution, so
@@ -552,7 +552,7 @@ func (w *recordWriter) flushSchedules(cachePath string) (grids, slots, linked in
 				linked++
 			}
 		}
-		w.store.put(filmstock.KindSchedule, int64(sc.PageID), sc)
+		w.store.put(record.KindSchedule, int64(sc.PageID), sc)
 		grids++
 	}
 	return grids, slots, linked
@@ -583,7 +583,7 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 	// because two link targets can resolve to one article — a rename leaves
 	// the old title behind as a redirect — and identity is the page_id, so
 	// those are one person, not two. The extra targets become aliases.
-	byPage := map[int][]*filmstock.PersonRecord{}
+	byPage := map[int][]*record.PersonRecord{}
 	for _, p := range w.people {
 		// A work is not a person. Infoboxes link works into credit fields —
 		// "Saul of the Mole Men" lists itself under starring, and 60 Minutes,
@@ -623,7 +623,7 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 		// credit was recorded first: with parsing spread across workers "first"
 		// meant arrival order, and the same person got a different name on
 		// different runs over identical input.
-		p.Name = filmstock.CleanPersonName(p.Wiki)
+		p.Name = record.CleanPersonName(p.Wiki)
 		p.WikiURL = "https://en.wikipedia.org/wiki/" +
 			strings.ReplaceAll(url.PathEscape(p.Wiki), "%20", "_")
 		// No article means no page_id and no Q-id: nothing canonical to key on.
@@ -669,7 +669,7 @@ func (w *recordWriter) flushPeople(cachePath string) (withQID, withBio, total, n
 		if p.PersonBio != nil {
 			withBio++
 		}
-		w.store.put(filmstock.KindPerson, int64(p.PageID), p)
+		w.store.put(record.KindPerson, int64(p.PageID), p)
 		total++
 	}
 	if merged > 0 {

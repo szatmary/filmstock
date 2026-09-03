@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/dump"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // Anime articles use {{Infobox animanga}}, not {{Infobox television}}, so the
@@ -18,7 +18,7 @@ func TestAnimeFranchiseArticleIsASeries(t *testing.T) {
 		t.Fatal(err)
 	}
 	msgs := parseTelevisionPage(dump.Page{ID: 5, Title: "Code Geass", Text: string(b)})
-	var s *filmstock.TelevisionSeries
+	var s *record.TelevisionSeries
 	for _, m := range msgs {
 		if m.series != nil {
 			s = m.series
@@ -38,7 +38,7 @@ func TestAnimeFranchiseArticleIsASeries(t *testing.T) {
 	if len(s.Director) == 0 || s.Director[0].Name != "Gorō Taniguchi" {
 		t.Errorf("director %v, want Gorō Taniguchi", personNames(s.Director))
 	}
-	if n := filmstock.Names(s.Network); len(n) == 0 {
+	if n := record.Names(s.Network); len(n) == 0 {
 		t.Error("no network")
 	}
 	if s.Overview == "" {

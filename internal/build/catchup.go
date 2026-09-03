@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/query"
 )
 
 // Bringing the store up to date meant knowing which adds-changes dumps were
@@ -256,7 +256,7 @@ func httpDo(method, url string) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", filmstock.UserAgent)
+	req.Header.Set("User-Agent", query.UserAgent)
 	return dumpClient.Do(req)
 }
 

@@ -3,11 +3,11 @@ package wikitext
 import (
 	"testing"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // names flattens a []Person to its display names for comparison.
-func names(ps []filmstock.Person) []string {
+func names(ps []record.Person) []string {
 	out := make([]string, len(ps))
 	for i, p := range ps {
 		out[i] = p.Name

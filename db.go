@@ -1,9 +1,7 @@
 package filmstock
 
 import (
-	"context"
 	"database/sql"
-	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -11,18 +9,12 @@ import (
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
-// ErrNotFound is returned when an id is not in the database. It is a distinct
-// error because callers need to tell it apart from a fetch that failed: one is a
-// 404, the other is a 500, and collapsing them makes a broken record source look
-// like a missing record.
-var ErrNotFound = errors.New("filmstock: not found")
-
-// DB is a searchable filmstock database plus the source its full records come
-// from. It is safe for concurrent use.
+// DB is an open filmstock database, safe for concurrent use.
 //
-// The division of labour is the whole design: every search, ranking and count
-// below is answered from index.db alone and touches no network. Only the
-// below is answered from the database alone and touches no network.
+// It is a handle and nothing more. This package's job is the FILES — building
+// them, publishing them, fetching them, verifying them, keeping them current —
+// and a consumer's questions are its own, so they are asked in SQL against a
+// documented schema (docs/schema.md) rather than through methods here.
 type DB struct {
 	sql *sql.DB
 }
@@ -104,61 +96,3 @@ func FromSQL(h *sql.DB) *DB { return &DB{sql: h} }
 func (db *DB) SQL() *sql.DB { return db.sql }
 
 func (db *DB) Close() error { return db.sql.Close() }
-
-// ── search: database only, no network ──────────────────────────────────────
-
-// SearchFilms ranks films by fuzzy title match. field selects what is matched:
-// "title", "starring" or "director"; empty means title.
-func (db *DB) SearchFilms(ctx context.Context, q, field string, limit int) ([]SearchResult, error) {
-	return SearchMovies(ctx, db.sql, q, field, limit)
-}
-
-// SearchSeries ranks television series. field: "title", "starring" or "creator".
-func (db *DB) SearchSeries(ctx context.Context, q, field string, limit int) ([]TelevisionSearchResult, error) {
-	return SearchTelevision(ctx, db.sql, q, field, limit)
-}
-
-func (db *DB) SearchEpisodes(ctx context.Context, q string, limit int) ([]EpisodeSearchResult, error) {
-	return SearchEpisodes(ctx, db.sql, q, limit)
-}
-
-func (db *DB) SearchPeople(ctx context.Context, q string, limit int) ([]PersonResult, error) {
-	return SearchPeople(ctx, db.sql, q, limit)
-}
-
-func (db *DB) SearchEvents(ctx context.Context, q string, limit int) ([]UnifiedResult, error) {
-	return SearchEvents(ctx, db.sql, q, limit)
-}
-
-// Filmography returns everything a person is credited on, grouped by role.
-func (db *DB) Filmography(personID int) (*Filmography, error) {
-	return PersonFilmography(db.sql, personID)
-}
-
-// PersonID resolves a display name to a person id. It returns 0 when the name
-// is unknown — names are not identities here, so a miss is ordinary.
-func (db *DB) PersonID(name string) int { return PersonIDByName(db.sql, name) }
-
-// Person returns the full record for a person: their identity, and — when their
-// credit links to an article that is actually a biography — birth and death,
-// occupation, nationality and the lead of their article.
-//
-// Not every person has one. A credit's link target may be a redlink, a
-// disambiguation page, or something that is not a person at all; those return a
-// record with identity and no PersonBio, which is the honest answer rather than
-// an error.
-func (db *DB) Person(ctx context.Context, id int) (*PersonRecord, error) {
-	var qid, pageID sql.NullInt64
-	var name, wiki string
-	err := db.sql.QueryRowContext(ctx,
-		`SELECT page_id, qid, name, COALESCE(wiki,'') FROM people WHERE id = ?`,
-		id).Scan(&pageID, &qid, &name, &wiki)
-	if err == sql.ErrNoRows {
-		return nil, fmt.Errorf("no person with id %d: %w", id, ErrNotFound)
-	}
-	if err != nil {
-		return nil, err
-	}
-	rec := &PersonRecord{PageID: int(pageID.Int64), QID: qid.Int64, Wiki: wiki, Name: name}
-	return rec, nil
-}

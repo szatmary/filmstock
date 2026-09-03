@@ -10,7 +10,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/szatmary/filmstock"
+	"github.com/szatmary/filmstock/internal/record"
 )
 
 // encodeRecordJSON serialises v to gzipped JSON in memory.
@@ -76,7 +76,7 @@ func writeRecordJSON(root, kind string, id int64, v any) error {
 	if err != nil {
 		return err
 	}
-	return writeBytesAtomic(filmstock.RecordPath(root, kind, id, ".json.gz"), data)
+	return writeBytesAtomic(record.RecordPath(root, kind, id, ".json.gz"), data)
 }
 
 // writeRecordText writes gzipped plain text (the full-text corpus), atomically.
@@ -85,7 +85,7 @@ func writeRecordText(root string, id int64, s string) error {
 	if err != nil {
 		return err
 	}
-	return writeBytesAtomic(filmstock.RecordPath(root, filmstock.KindText, id, ".txt.gz"), data)
+	return writeBytesAtomic(record.RecordPath(root, record.KindText, id, ".txt.gz"), data)
 }
 
 // pendingWrite is one already-compressed record waiting for a writer thread.
