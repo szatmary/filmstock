@@ -632,6 +632,31 @@ day at a time instead of rebuilt in 46 minutes.
 
 ## Settled by measurement — do not re-litigate
 
+### Sort keys ("Martian, The") belong in Grindhouse, not here — DECIDED 2026-09-02
+
+Wikipedia does carry them: `{{DEFAULTSORT:}}` in the wikitext, and MediaWiki
+resolves it into page_props as the `defaultsort` property — the same file
+build-qidmap already reads for wikibase_item, where it is the third most
+common property (76,596 rows against 201,684 in a 40 MB sample). So importing
+it would have been nearly free.
+
+Not doing it. A sort key is presentation, it is derived from data we already
+publish, and it is language-dependent, so it belongs in the consumer. Also
+Wikipedia's is not good enough to be worth a column: only 47% of film
+articles state one (1,875 of 4,000 sampled), and the ones that exist are
+hand-maintained and inconsistent — "In the Bedroom" -> "In The Bedroom",
+"Beautiful Girls (film)" -> "Beautiful Girls (Film)", "Léon: The
+Professional" -> "Leon", "The Bridge on the River Kwai" -> "Bridge on the
+River Kwai" (leading article dropped rather than appended).
+
+What we publish is enough to derive one: `movies.title` and `movies.language`
+(stated for 160,859 of 166,126 films). 32,329 titles begin with The/A/An, of
+which 14,795 are non-English — which is exactly why the article set has to be
+chosen by language and why the rule wants to live next to the UI's own locale
+handling.
+
+
+
 **Import throughput, on an identical 300,000-page prefix.** 470 pages/s
 recognising on the decode goroutine (`RunStream` calls its handler serially, so
 every parser sat behind one core); 2,065 on the multistream reader; 2,921 with
