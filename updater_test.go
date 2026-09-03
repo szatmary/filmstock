@@ -73,10 +73,10 @@ func TestUpdaterFullCycle(t *testing.T) {
 	srv := httptest.NewServer(http.FileServer(http.Dir(bucket)))
 	defer srv.Close()
 
-	u := NewUpdater(srv.URL, t.TempDir())
+	base, dir := srv.URL, t.TempDir()
 	ctx := context.Background()
 
-	core, build, changed, err := u.Update(ctx)
+	core, build, changed, err := Update(ctx, base, dir)
 	if err != nil || !changed || build != "20260801" {
 		t.Fatalf("first update: %v changed=%v build=%s", err, changed, build)
 	}
@@ -84,42 +84,52 @@ func TestUpdaterFullCycle(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	live := NewLive(db)
 	var title string
-	if err := live.DB().SQL().QueryRow(
-		`SELECT title FROM movies WHERE id = 1`).Scan(&title); err != nil || title == "" {
-		t.Fatalf("reading the installed build: %q %v", title, err)
+	if err := db.SQL().QueryRow(`SELECT title FROM movies WHERE id = 1`).Scan(&title); err != nil {
+		t.Fatalf("reading the installed build: %v", err)
+	}
+	if title != "Blade Runner" {
+		t.Fatalf("installed build reads %q", title)
+	}
+	if Held(dir) != "20260801" {
+		t.Fatalf("Held = %s", Held(dir))
 	}
 
-	if _, _, changed, err = u.Update(ctx); err != nil || changed {
+	// Running again with nothing new must change nothing and say so.
+	if _, _, changed, err = Update(ctx, base, dir); err != nil || changed {
 		t.Fatalf("second update should be a no-op: %v changed=%v", err, changed)
 	}
 
+	// A newer build arrives. The old handle keeps working — the new build
+	// lands in its own directory — and the caller reopens when it is ready,
+	// which is the whole reason Update returns a path instead of swapping.
 	fakeRelease(t, bucket, "20260820", "Blade Runner 2049")
-	old, changed, err := u.UpdateAndSwap(ctx, live)
-	if err != nil || !changed || old == nil {
-		t.Fatalf("swap: %v changed=%v old=%v", err, changed, old)
+	newCore, build, changed, err := Update(ctx, base, dir)
+	if err != nil || !changed || build != "20260820" {
+		t.Fatalf("second release: %v changed=%v build=%s", err, changed, build)
 	}
-	var swapped string
-	if err := live.DB().SQL().QueryRow(
-		`SELECT title FROM movies WHERE id = 1`).Scan(&swapped); err != nil ||
-		swapped != "Blade Runner 2049" {
-		t.Fatalf("after the swap the live handle reads %q (%v)", swapped, err)
+	if newCore == core {
+		t.Fatal("the new build reused the old build's path")
 	}
-	// The old handle still answers until the caller closes it.
 	var previous string
-	if err := old.SQL().QueryRow(
-		`SELECT title FROM movies WHERE id = 1`).Scan(&previous); err != nil ||
+	if err := db.SQL().QueryRow(`SELECT title FROM movies WHERE id = 1`).Scan(&previous); err != nil ||
 		previous != "Blade Runner" {
-		t.Fatalf("the old handle died before being closed: %q (%v)", previous, err)
+		t.Fatalf("the old handle stopped working after an update: %q (%v)", previous, err)
 	}
-	old.Close()
-	if u.Current() != "20260820" {
-		t.Fatalf("state says %s", u.Current())
+	db.Close()
+
+	fresh, err := Open(newCore)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer fresh.Close()
+	var updated string
+	if err := fresh.SQL().QueryRow(`SELECT title FROM movies WHERE id = 1`).Scan(&updated); err != nil ||
+		updated != "Blade Runner 2049" {
+		t.Fatalf("reopened handle reads %q (%v)", updated, err)
 	}
 }
 
-// A corrupted download never gets a real filename and never becomes current.
 func TestUpdaterRefusesBadBytes(t *testing.T) {
 	bucket := t.TempDir()
 	fakeRelease(t, bucket, "20260801", "X")
@@ -128,11 +138,11 @@ func TestUpdaterRefusesBadBytes(t *testing.T) {
 	fmt.Fprint(f, "tampered")
 	f.Close()
 
-	u := NewUpdater(bucket, t.TempDir()) // local-directory mode, same code path
-	if _, _, _, err := u.Update(context.Background()); err == nil {
+	dir := t.TempDir() // local-directory mode, same code path
+	if _, _, _, err := Update(context.Background(), bucket, dir); err == nil {
 		t.Fatal("accepted a download whose sha256 does not match the manifest")
 	}
-	if u.Current() != "" {
+	if Held(dir) != "" {
 		t.Fatal("a refused build became current")
 	}
 }
@@ -142,8 +152,7 @@ func TestUpdaterRefusesBadBytes(t *testing.T) {
 func TestUpdaterLocalDirectory(t *testing.T) {
 	bucket := t.TempDir()
 	fakeRelease(t, bucket, "20260801", "Local")
-	u := NewUpdater(bucket, t.TempDir())
-	_, build, changed, err := u.Update(context.Background())
+	_, build, changed, err := Update(context.Background(), bucket, t.TempDir())
 	if err != nil || !changed || build != "20260801" {
 		t.Fatalf("%v changed=%v build=%s", err, changed, build)
 	}
@@ -205,9 +214,9 @@ const stalkerPatch = `INSERT INTO movies(id,title,year,starring,director,cover_i
 func TestUpdaterTakesThePatchRoad(t *testing.T) {
 	bucket := t.TempDir()
 	fakeRelease(t, bucket, "20260801", "Blade Runner")
-	u := NewUpdater(bucket, t.TempDir())
+	base, dir := bucket, t.TempDir()
 	ctx := context.Background()
-	if _, _, changed, err := u.Update(ctx); err != nil || !changed {
+	if _, _, changed, err := Update(ctx, base, dir); err != nil || !changed {
 		t.Fatalf("seed full: changed=%v err=%v", changed, err)
 	}
 
@@ -216,7 +225,7 @@ func TestUpdaterTakesThePatchRoad(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	core, build, changed, err := u.Update(ctx)
+	core, build, changed, err := Update(ctx, base, dir)
 	if err != nil || !changed || build != "20260802" {
 		t.Fatalf("patch road: build=%s changed=%v err=%v", build, changed, err)
 	}
@@ -262,18 +271,18 @@ func TestUpdaterRefusesALyingPatch(t *testing.T) {
 	ctx := context.Background()
 
 	// A fresh consumer takes the full road and lands on the full.
-	u := NewUpdater(bucket, t.TempDir())
-	_, build, changed, err := u.Update(ctx)
+	base, dir := bucket, t.TempDir()
+	_, build, changed, err := Update(ctx, base, dir)
 	if err != nil || !changed || build != "20260801" {
 		t.Fatalf("fresh consumer: build=%s changed=%v err=%v; want to land on the full", build, changed, err)
 	}
 
 	// Now at the parent, the lying patch is the only road forward: refuse
 	// loudly and stay put.
-	if _, build, _, err := u.Update(ctx); err == nil {
+	if _, build, _, err := Update(ctx, base, dir); err == nil {
 		t.Fatalf("a lying patch was accepted (build=%s)", build)
 	}
-	if got := u.Current(); got != "20260801" {
+	if got := Held(dir); got != "20260801" {
 		t.Fatalf("current = %s after refusing the patch; must stay at the full", got)
 	}
 }

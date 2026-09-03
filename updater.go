@@ -14,35 +14,51 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"sync/atomic"
 	"time"
 
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
-// Keeping a running consumer current.
+// Update brings dir to the newest build published behind baseURL, and returns
+// the path of the core database to open.
 //
-// The published data is a catalog of builds behind a base URL. An Updater
-// checks that catalog, fetches what is newer than what it holds, verifies the
-// bytes against the manifest, rebuilds the local search indexes, and hands the
-// result over as an atomic swap — a serving process never closes its database
-// to take an update, it opens the new one beside the old and flips a pointer.
+// One call does the whole thing and then returns: read the catalog, work out
+// whether a chain of daily patches reaches the newest build or the full has to
+// be fetched whole, verify every downloaded byte against the manifest, apply
+// the patches, rebuild the local full-text indexes, check the result's content
+// hash, and only then record it. Nothing runs in the background and nothing
+// happens on a timer; call it when you want an update.
 //
-// Builds land in their own directories, so an interrupted download can never
-// damage the build being served:
+//	core, build, changed, err := filmstock.Update(ctx, baseURL, dir)
+//
+// Builds land in their own directories, so an interrupted call cannot damage
+// the build already in use:
 //
 //	<dir>/20260801/filmstock.db     the build in use
-//	<dir>/20260820/…                arriving; invisible until verified
+//	<dir>/20260902/…                arriving; invisible until verified
 //	<dir>/state.json                which build is current
 //
-// The cheap path is the patch chain: when the catalog shows an unbroken line
-// of parents from what is held to the latest build — dailies naming their
-// parent, a full naming the chain it bridges from — the updater copies the
-// current files forward, applies each build's patches in order, and demands
-// the final content hashes match the target's manifest. Any break, any
-// missing patch, any mismatch, and it falls back to downloading the build
-// whole; the content hash is what proves the two paths converge.
-type Updater struct {
+// The returned path is inside the NEW build's directory, so a caller reopens
+// from there — including any attachments, whose files live in that same
+// directory and therefore move with every build:
+//
+//	if changed {
+//	    dir := filepath.Dir(core)
+//	    db, err := filmstock.Open(core,
+//	        filmstock.Attach{Schema: "text", Path: filepath.Join(dir, "filmstock-text.db")})
+//	}
+//
+// files names the artifacts to keep current; none means the core database
+// alone. baseURL with no scheme is a local directory laid out the same way.
+func Update(ctx context.Context, baseURL, dir string, files ...string) (core, build string, changed bool, err error) {
+	u := &updater{BaseURL: baseURL, Dir: dir, Files: files, VerifyContent: true}
+	return u.update(ctx)
+}
+
+// Held reports which build dir currently holds, "" for none.
+func Held(dir string) string { return (&updater{Dir: dir}).current() }
+
+type updater struct {
 	// BaseURL serves builds.json, e.g. "https://dl.example.org/filmstock".
 	// A value with no scheme is a LOCAL DIRECTORY laid out the same way —
 	// "fake it until the bucket exists": point at a directory today, swap one
@@ -67,24 +83,20 @@ type Updater struct {
 	Log func(format string, args ...any)
 }
 
-func (u *Updater) logf(format string, args ...any) {
+func (u *updater) logf(format string, args ...any) {
 	if u.Log != nil {
 		u.Log(format, args...)
 	}
 }
 
-func NewUpdater(baseURL, dir string) *Updater {
-	return &Updater{BaseURL: baseURL, Dir: dir, VerifyContent: true}
-}
-
-func (u *Updater) files() []string {
+func (u *updater) files() []string {
 	if len(u.Files) > 0 {
 		return u.Files
 	}
 	return []string{"filmstock.db"}
 }
 
-func (u *Updater) client() *http.Client {
+func (u *updater) client() *http.Client {
 	if u.Client != nil {
 		return u.Client
 	}
@@ -156,7 +168,7 @@ type buildManifest struct {
 }
 
 // Current reports the build this directory holds, "" for none.
-func (u *Updater) Current() string {
+func (u *updater) current() string {
 	b, err := os.ReadFile(filepath.Join(u.Dir, "state.json"))
 	if err != nil {
 		return ""
@@ -170,15 +182,15 @@ func (u *Updater) Current() string {
 
 // Check reports the newest build available, and whether it is newer than
 // what is held.
-func (u *Updater) Check(ctx context.Context) (latest string, newer bool, err error) {
+func (u *updater) check(ctx context.Context) (latest string, newer bool, err error) {
 	cat, err := u.catalog(ctx)
 	if err != nil {
 		return "", false, err
 	}
-	return cat.Latest, cat.Latest > u.Current(), nil
+	return cat.Latest, cat.Latest > u.current(), nil
 }
 
-func (u *Updater) catalog(ctx context.Context) (*catalog, error) {
+func (u *updater) catalog(ctx context.Context) (*catalog, error) {
 	var cat catalog
 	if err := u.getJSON(ctx, u.BaseURL+"/builds.json", &cat); err != nil {
 		return nil, err
@@ -193,16 +205,32 @@ func (u *Updater) catalog(ctx context.Context) (*catalog, error) {
 }
 
 // Update brings the directory to the newest build if one is newer than what
-// is held — via the patch chain when the catalog offers one, downloading the
+// is held.
+//
+// It returns the path of the core database in the NEW build's directory. A
+// caller reopens from there — including any attachments, whose files live in
+// that same directory and therefore move with every build:
+//
+//	core, build, changed, err := u.Update(ctx)
+//	if changed {
+//	    dir := filepath.Dir(core)
+//	    fresh, err := filmstock.Open(core,
+//	        filmstock.Attach{Schema: "text", Path: filepath.Join(dir, "filmstock-text.db")})
+//	    // start serving from fresh, then close the old handle
+//	}
+//
+// Reopening is the caller's to do because only the caller knows which
+// databases it attached and when its in-flight work is finished with the old
+// handle — via the patch chain when the catalog offers one, downloading the
 // build whole when it does not or when the patched result fails to verify.
 // It returns the path of the ready-to-open core database and the build id;
 // changed is false when there was nothing to do.
-func (u *Updater) Update(ctx context.Context) (corePath, build string, changed bool, err error) {
+func (u *updater) update(ctx context.Context) (corePath, build string, changed bool, err error) {
 	cat, err := u.catalog(ctx)
 	if err != nil {
 		return "", "", false, err
 	}
-	latest, cur := cat.Latest, u.Current()
+	latest, cur := cat.Latest, u.current()
 	if latest <= cur {
 		return filepath.Join(u.Dir, cur, "filmstock.db"), cur, false, nil
 	}
@@ -250,7 +278,7 @@ func (u *Updater) Update(ctx context.Context) (corePath, build string, changed b
 }
 
 // fetchFull downloads a full build's files whole, verifying each.
-func (u *Updater) fetchFull(ctx context.Context, id string) error {
+func (u *updater) fetchFull(ctx context.Context, id string) error {
 	var man buildManifest
 	if err := u.getJSON(ctx, u.BaseURL+"/"+id+"/manifest.json", &man); err != nil {
 		return err
@@ -278,7 +306,7 @@ func (u *Updater) fetchFull(ctx context.Context, id string) error {
 
 // finishBuild rebuilds the local FTS, optionally re-verifies content, and
 // flips state.json — the commit point; everything before it is invisible.
-func (u *Updater) finishBuild(ctx context.Context, latest string) (string, string, bool, error) {
+func (u *updater) finishBuild(ctx context.Context, latest string) (string, string, bool, error) {
 	var man buildManifest
 	if err := u.getJSON(ctx, u.BaseURL+"/"+latest+"/manifest.json", &man); err != nil {
 		return "", "", false, err
@@ -344,7 +372,7 @@ func (u *Updater) finishBuild(ctx context.Context, latest string) (string, strin
 // applies each step's patches in order, then demands every file's content
 // hash equal the target manifest's. Every failure is an error; the caller
 // falls back to the whole download.
-func (u *Updater) applyChain(ctx context.Context, cur string, steps []catalogEntry) error {
+func (u *updater) applyChain(ctx context.Context, cur string, steps []catalogEntry) error {
 	target := steps[len(steps)-1].ID
 	dir := filepath.Join(u.Dir, target)
 	os.RemoveAll(dir)
@@ -522,45 +550,9 @@ func copyLocal(src, dst string) error {
 	return out.Close()
 }
 
-// UpdateAndSwap runs Update and, when a new build arrived, opens it and swaps
-// it into live. The PREVIOUS *DB is returned still open: in-flight queries on
-// it finish undisturbed, and the caller closes it once quiesced.
-func (u *Updater) UpdateAndSwap(ctx context.Context, live *Live) (old *DB, changed bool, err error) {
-	core, _, changed, err := u.Update(ctx)
-	if err != nil || !changed {
-		return nil, false, err
-	}
-	db, err := Open(core)
-	if err != nil {
-		return nil, false, err
-	}
-	return live.Swap(db), true, nil
-}
+func (u *updater) local() bool { return !strings.Contains(u.BaseURL, "://") }
 
-// A Live is a database handle a server reads while an updater replaces it.
-//
-// Updates happen when the caller decides to run one — there is no timer here
-// and nothing polls. Live exists so that decision does not require a restart:
-// UpdateAndSwap opens the new build beside the old one and flips a pointer, so
-// requests in flight finish on the handle they started with.
-type Live struct{ p atomic.Pointer[DB] }
-
-func NewLive(db *DB) *Live {
-	l := &Live{}
-	l.p.Store(db)
-	return l
-}
-
-// DB is the current handle. Callers use it for one operation and re-fetch
-// rather than caching it across requests, so a swap takes effect immediately.
-func (l *Live) DB() *DB { return l.p.Load() }
-
-// Swap installs a new handle and returns the previous one, still open.
-func (l *Live) Swap(db *DB) *DB { return l.p.Swap(db) }
-
-func (u *Updater) local() bool { return !strings.Contains(u.BaseURL, "://") }
-
-func (u *Updater) getJSON(ctx context.Context, url string, v any) error {
+func (u *updater) getJSON(ctx context.Context, url string, v any) error {
 	if u.local() {
 		b, err := os.ReadFile(url)
 		if err != nil {
@@ -586,7 +578,7 @@ func (u *Updater) getJSON(ctx context.Context, url string, v any) error {
 // fetch streams a file to disk, hashing as it goes, and renames into place
 // only when the hash matches — a torn download or a tampered byte never gets a
 // real filename.
-func (u *Updater) fetch(ctx context.Context, url, dst, wantSHA string) error {
+func (u *updater) fetch(ctx context.Context, url, dst, wantSHA string) error {
 	var body io.ReadCloser
 	if u.local() {
 		f, err := os.Open(url)
@@ -632,7 +624,7 @@ func (u *Updater) fetch(ctx context.Context, url, dst, wantSHA string) error {
 }
 
 // getBlob fetches a small file into memory, refusing a hash mismatch.
-func (u *Updater) getBlob(ctx context.Context, url, wantSHA string) ([]byte, error) {
+func (u *updater) getBlob(ctx context.Context, url, wantSHA string) ([]byte, error) {
 	var body io.ReadCloser
 	if u.local() {
 		f, err := os.Open(url)

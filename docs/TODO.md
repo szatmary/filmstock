@@ -33,7 +33,7 @@ and the query layer (search*, people, titleinfo, episodeinfo, explore,
 vectors, images) is in internal/query. They are the parser's and the
 browser's, not a consumer's. The root package is now seven symbols:
 
-    Open (with Attach), DB, Updater, Live, ContentHash, RebuildFTS, IsCompressed
+    Open (with Attach), DB, Update, Held, ContentHash, RebuildFTS
 
 Two things had to change rather than move. The *DB query methods became
 functions over *sql.DB, so the query layer does not depend on the root
@@ -41,6 +41,16 @@ package at all — and EpisodeInfo had to be renamed Episodes, because a method
 may share a name with its own return type but a function may not. And
 updater_test asserted through SearchFilms, which no longer exists; it now
 asserts in SQL, which is what a consumer would write anyway.
+
+Then cut further, 2026-09-03: Watch (an interval ticker — updates happen when
+the consumer decides), IsCompressed (internal bookkeeping), and Live plus
+UpdateAndSwap. That last one was not merely surplus but wrong: it reopened
+with Open(core) and no attachments, so a consumer that had attached the text
+and vectors databases would silently get a handle without them — and it could
+not have carried them over either, because those files live in the build
+directory and their paths change with every update. Reopening belongs to the
+caller. The Updater struct then collapsed into one function, Update, since
+nothing was left to configure or keep between calls.
 
 Verified after the move: whole suite green, cgo and purego both build, the
 CLI searches, the browser serves movie pages and /explore.

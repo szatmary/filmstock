@@ -140,8 +140,8 @@ rebuilds in seconds.
 
 ### The Go package
 
-For Go consumers it does the parts you would not want to reimplement —
-opening the files together, and keeping them current:
+For Go consumers it does the two things you would not want to reimplement:
+opening the files together, and fetching new ones.
 
 ```go
 db, err := filmstock.Open("filmstock.db",
@@ -151,21 +151,30 @@ defer db.Close()
 rows, err := db.SQL().Query(`SELECT title FROM movies WHERE year = ?`, 1954)
 ```
 
-`Updater` fetches a release, verifies file and content hashes, applies daily
-patches when the catalog offers a chain, and rebuilds the FTS tables. It runs
-when you call it — there is no timer and nothing polls:
+`Update` is one call that does one update and returns: it reads the catalog,
+works out whether a chain of daily patches reaches the newest build or the
+full has to be fetched whole, verifies every byte against the manifest,
+applies the patches, rebuilds the full-text indexes, checks the result's
+content hash, and only then records it. Nothing runs in the background and
+nothing happens on a timer.
 
 ```go
-u := filmstock.NewUpdater("https://dl.example.org/filmstock", "/var/lib/app")
-if _, build, changed, err := u.Update(ctx); changed {
-    log.Printf("now on %s", build)
+core, build, changed, err := filmstock.Update(ctx, baseURL, dir)
+if changed {
+    dir := filepath.Dir(core)
+    fresh, err := filmstock.Open(core,
+        filmstock.Attach{Schema: "text", Path: filepath.Join(dir, "filmstock-text.db")})
+    // serve from fresh, then close the old handle
 }
 ```
 
-`Check` asks what is available without fetching. If you would rather not
-restart to pick up a new build, `Live` holds the handle behind an atomic
-pointer and `UpdateAndSwap` opens the new database beside the old one and
-flips it, so requests in flight finish on the handle they started with.
+Reopening is yours to do, because only you know which databases you attached
+and when your in-flight work has finished with the old handle. The old build
+stays where it is until you delete it, so the handle you are serving from
+keeps working while a new build downloads.
+
+`Held(dir)` reports which build a directory holds. That, plus `ContentHash`
+and `RebuildFTS`, is the whole package.
 
 ## Releases
 
