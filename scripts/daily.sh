@@ -66,6 +66,25 @@ if ! flock -n 9; then
   exit 0
 fi
 
+# The binary must come from committed code. A build published from a dirty
+# tree carries whatever was half-finished in it: on 2026-09-03 an uncommitted
+# schema change (a new episodes column) reached a daily this way, and the
+# resulting build was self-consistent but unverifiable by any consumer running
+# released code, because its manifest's content hash was computed with a spec
+# that only existed in the working tree. Set FILMSTOCK_ALLOW_DIRTY=1 to
+# override deliberately.
+if command -v git >/dev/null && git -C "$REPO" rev-parse --git-dir >/dev/null 2>&1; then
+  DIRTY=$(git -C "$REPO" status --porcelain 2>/dev/null | grep -v '^?? ' | head -20)
+  if [ -n "$DIRTY" ] && [ "${FILMSTOCK_ALLOW_DIRTY:-0}" != "1" ]; then
+    { echo "filmstock daily: $REPO has uncommitted changes; refusing to publish from it."
+      echo "$DIRTY" | sed 's/^/  /'
+      echo "commit them, or re-run with FILMSTOCK_ALLOW_DIRTY=1 to publish anyway."
+    } >&2
+    exit 1
+  fi
+  COMMIT=$(git -C "$REPO" rev-parse --short HEAD 2>/dev/null || echo unknown)
+fi
+
 mkdir -p "$LOGDIR" "$STAGE" "$INCR_DIR"
 LOG=$LOGDIR/daily-$(date -u +%Y%m%dT%H%M%SZ).log
 STARTED=$(date -u +%s)
