@@ -85,9 +85,21 @@ func SearchMovies(ctx context.Context, db *sql.DB, query, field string, limit in
 // It matches only a TRAILING parenthetical containing a known form word, so a
 // title that genuinely opens with one — "(500) Days of Summer" — is untouched.
 var reDisambig = regexp.MustCompile(`(?i)\s*\((?:` +
-	`\d{4}(?:[ -][a-z]+)*(?: (?:film|serial|miniseries))?` +
-	`|(?:[a-z-]+ )*(?:film series|film|serial|franchise|miniseries)` +
+	// Year-led: "1985 film", "1966–67 film", "1940s animated film series",
+	// "2005 François Rotger film". The year may be a range (en dash or
+	// hyphen) or a decade, and any words between it and the keyword may
+	// carry accents or initials — "Éclair", "C. Pullayya".
+	`\d{4}(?:[–-]\d{2,4})?s?(?:[ -][\p{L}.]+)*(?: (?:` + disambigKind + `))?` +
+	// Word-led: "film", "short films", "Vietnamese telefilm",
+	// "Éclair film series".
+	`|(?:[\p{L}.-]+ )*(?:` + disambigKind + `)` +
 	`)\)\s*$`)
+
+// disambigKind is the vocabulary that makes a trailing parenthetical a
+// DISAMBIGUATOR rather than part of the name. Requiring one of these is what
+// keeps "I Am Curious (Yellow)" and "19(1)(a)" intact, so it is deliberately
+// a closed list rather than "any parenthetical".
+const disambigKind = `films?|film series|short films?|telefilms?|serials?|franchise|miniseries`
 
 // CleanTitle removes a trailing film disambiguator for ranking purposes.
 func CleanTitle(t string) string {

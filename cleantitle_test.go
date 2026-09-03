@@ -39,3 +39,44 @@ func TestCleanTitleLeavesRealTitlesAlone(t *testing.T) {
 		}
 	}
 }
+
+// Disambiguators Wikipedia actually writes that the first pass of this regex
+// missed — accents, initials, decades, year ranges, plurals and telefilm —
+// alongside the parentheses that are part of a NAME and must survive.
+func TestCleanTitleDisambiguatorVariants(t *testing.T) {
+	strip := map[string]string{
+		"The Passenger (2005 François Rotger film)": "The Passenger",
+		"Carmen (1915 Cecil B. DeMille film)":       "Carmen",
+		"Sati Savitri (C. Pullayya film)":           "Sati Savitri",
+		"Sati Savitri (H. M. Reddy film)":           "Sati Savitri",
+		"Die Nibelungen (1966–67 film)":             "Die Nibelungen",
+		"Superman (1940s animated film series)":     "Superman",
+		"Sherlock Holmes (Éclair film series)":      "Sherlock Holmes",
+		"Cards on the Table (Vietnamese telefilm)":  "Cards on the Table",
+		"The Spirit of Christmas (short films)":     "The Spirit of Christmas",
+		"Batman (1989 film)":                        "Batman",
+		"Blue Velvet (film)":                        "Blue Velvet",
+	}
+	for in, want := range strip {
+		if got := CleanTitle(in); got != want {
+			t.Errorf("CleanTitle(%q) = %q, want %q", in, got, want)
+		}
+	}
+	// A parenthetical that is part of the title is not a disambiguator.
+	keep := []string{
+		"I Am Curious (Yellow)",
+		"I Am Curious (Blue)",
+		"19(1)(a)",
+		"(Dis)Honesty: The Truth About Lies",
+		"Gigantic (A Tale of Two Johns)",
+		"Susan Lenox (Her Fall and Rise)",
+		"La Commune (Paris, 1871)",
+		"Bon Voyage, Charlie Brown (and Don't Come Back!!)",
+		"Everything You Always Wanted to Know About Sex* (*But Were Afraid to Ask)",
+	}
+	for _, in := range keep {
+		if got := CleanTitle(in); got != in {
+			t.Errorf("CleanTitle(%q) = %q, want it unchanged", in, got)
+		}
+	}
+}
