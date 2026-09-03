@@ -230,8 +230,10 @@ var (
 )
 
 // CleanText reduces a wikitext fragment to readable plain text.
-func CleanText(s string) string {
-	s = ReComment.ReplaceAllString(s, "")
+// StripRefs removes citations, and only citations, leaving everything else as
+// it stands. Callers that need the text around a citation without the rest of
+// CleanText's flattening use it directly.
+func StripRefs(s string) string {
 	// Self-closing refs MUST be stripped first. <ref name="x"/> also matches
 	// reRef's opening tag (its [^>]* happily consumes ` name="x"/`), so reRef
 	// would treat it as an opening <ref> and delete everything up to the next
@@ -239,7 +241,12 @@ func CleanText(s string) string {
 	// articles — Harry Potter (film) went from 158k chars to 10k, leaving only
 	// the infobox and the trailing categories.
 	s = reRefSelf.ReplaceAllString(s, "")
-	s = reRef.ReplaceAllString(s, "")
+	return reRef.ReplaceAllString(s, "")
+}
+
+func CleanText(s string) string {
+	s = ReComment.ReplaceAllString(s, "")
+	s = StripRefs(s)
 	// [[target|display]] -> display ; [[target]] -> target
 	s = reWikiLink.ReplaceAllStringFunc(s, func(m string) string {
 		inner := m[2 : len(m)-2]

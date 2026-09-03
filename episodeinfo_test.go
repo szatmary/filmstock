@@ -19,7 +19,7 @@ func episodeTestDB(t *testing.T) *DB {
 		`CREATE TABLE television_episodes(id INTEGER PRIMARY KEY AUTOINCREMENT,
 		   series_id INTEGER, season INTEGER,
 		   number_in_season INTEGER, number_overall INTEGER, title TEXT, air_date TEXT,
-		   viewers REAL)`,
+		   viewers REAL, prod_code TEXT)`,
 		// Inserted out of order on purpose: the ORDER BY is the contract.
 		`INSERT INTO television_episodes(series_id, season, number_in_season, number_overall, title, air_date) VALUES
 		   (100, 2, 1, 8, 'Seven Thirty-Seven', '2009-03-08'),

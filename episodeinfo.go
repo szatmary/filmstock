@@ -13,6 +13,13 @@ type EpisodeInfo struct {
 	NumberInSeason int    `json:"number_in_season,omitempty"`
 	Title          string `json:"title"`
 	AirDate        string `json:"air_date,omitempty"`
+
+	// ProdCode is the production code the row states, opaque and per-series;
+	// see Episode.ProdCode. It is carried here because for a multi-part episode
+	// it is the only field that separates the parts: Futurama season 5 lists
+	// four rows titled "Bender's Big Score", all dated 2007-11-27, which differ
+	// only as 5ACV01, 5ACV02, 5ACV03, 5ACV04.
+	ProdCode string `json:"prod_code,omitempty"`
 }
 
 // EpisodeInfo returns every episode of one series, ordered by season and then
@@ -23,7 +30,7 @@ type EpisodeInfo struct {
 // the database does not hold — SeriesInfo answers whether the series exists.
 func (db *DB) EpisodeInfo(ctx context.Context, seriesID int) ([]EpisodeInfo, error) {
 	rows, err := db.sql.QueryContext(ctx,
-		`SELECT season, number_in_season, title, air_date
+		`SELECT season, number_in_season, title, air_date, prod_code
 		 FROM television_episodes WHERE series_id = ?
 		 ORDER BY season, number_in_season, number_overall, id`, seriesID)
 	if err != nil {
@@ -34,12 +41,12 @@ func (db *DB) EpisodeInfo(ctx context.Context, seriesID int) ([]EpisodeInfo, err
 	for rows.Next() {
 		var e EpisodeInfo
 		var season, num sql.NullInt64
-		var title, air sql.NullString
-		if err := rows.Scan(&season, &num, &title, &air); err != nil {
+		var title, air, prod sql.NullString
+		if err := rows.Scan(&season, &num, &title, &air, &prod); err != nil {
 			return nil, err
 		}
 		e.Season, e.NumberInSeason = int(season.Int64), int(num.Int64)
-		e.Title, e.AirDate = title.String, air.String
+		e.Title, e.AirDate, e.ProdCode = title.String, air.String, prod.String
 		out = append(out, e)
 	}
 	return out, rows.Err()

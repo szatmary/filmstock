@@ -29,7 +29,8 @@ import (
 //
 // ContentHashVersion changes whenever the canonical queries do; hashes from
 // different versions are not comparable and manifests must say which they used.
-const ContentHashVersion = 1
+// v2 added prod_code to the television_episodes stream.
+const ContentHashVersion = 2
 
 // contentSpecs maps each table to its canonical row stream.
 var contentSpecs = map[string]string{
@@ -57,7 +58,7 @@ var contentSpecs = map[string]string{
 	   last_aired,network,starring,image,rank,rating,viewers
 	   FROM television_seasons ORDER BY series_id,season`,
 	"television_episodes": `SELECT series_id,season,number_overall,number_in_season,
-	   title,air_date,viewers FROM television_episodes
+	   title,air_date,viewers,prod_code FROM television_episodes
 	   ORDER BY series_id,season,number_overall,number_in_season,title,air_date`,
 	"schedule_slots": `SELECT schedule_id,day,network,start,end,part,title,show_id,
 	   rerun,rank,rating FROM schedule_slots

@@ -99,6 +99,18 @@ type Episode struct {
 	WrittenBy      []Person `json:"written_by,omitempty"`
 	Summary        string   `json:"summary,omitempty"`
 
+	// ProdCode is the production code exactly as the row states it, and is an
+	// OPAQUE per-series label — never a number, never comparable across series.
+	// Real values include 5ACV01, 4F02, 456601 and 4A. Sorting by it recovers
+	// production order within some series (Doctor Who season 12 states 4A, 4C,
+	// 4B, 4E, 4D in air order) but the codes are not fixed-width everywhere, so
+	// filmstock states the label and derives no ordering from it.
+	//
+	// Where the row names more than one code — a rerun under a second code, an
+	// episode held over from the previous production block — they are joined
+	// with " / ", the same way a two-segment title is.
+	ProdCode string `json:"prod_code,omitempty"`
+
 	// Viewers is US viewership in millions, as the episode list states it.
 	//
 	// Per EPISODE, unlike the Nielsen rank and rating carried on a schedule

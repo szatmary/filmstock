@@ -28,7 +28,7 @@ func hashDB(t *testing.T, setup []string) (string, map[string]string) {
 
 const epSchema = `CREATE TABLE television_episodes(id INTEGER PRIMARY KEY AUTOINCREMENT,
   series_id INTEGER, season INTEGER, number_in_season INTEGER, number_overall INTEGER,
-  title TEXT, air_date TEXT, viewers REAL)`
+  title TEXT, air_date TEXT, viewers REAL, prod_code TEXT)`
 
 // The whole point: a patched consumer and a fresh build hold the same facts in
 // different storage — different insert order, different AUTOINCREMENT ids,
