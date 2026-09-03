@@ -299,7 +299,7 @@ func (u *Updater) finishBuild(ctx context.Context, latest string) (string, strin
 	// than the plain file it replaced — against 215 MB after a VACUUM. Plain
 	// files are left alone: SQLite's own free-list already reuses that space,
 	// and a VACUUM would cost a full rewrite for nothing.
-	if compressed, err := IsCompressed(core); err != nil {
+	if compressed, err := isCompressed(core); err != nil {
 		h.Close()
 		return "", "", false, err
 	} else if compressed {
@@ -537,32 +537,12 @@ func (u *Updater) UpdateAndSwap(ctx context.Context, live *Live) (old *DB, chang
 	return live.Swap(db), true, nil
 }
 
-// Watch checks on an interval until the context ends, swapping updates in as
-// they appear. Old handles are closed after a grace period, long enough for
-// any in-flight query to have finished or given up.
-func (u *Updater) Watch(ctx context.Context, every time.Duration, live *Live, onErr func(error)) {
-	t := time.NewTicker(every)
-	defer t.Stop()
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case <-t.C:
-			old, changed, err := u.UpdateAndSwap(ctx, live)
-			if err != nil && onErr != nil {
-				onErr(err)
-			}
-			if changed && old != nil {
-				go func(d *DB) {
-					time.Sleep(time.Minute)
-					d.Close()
-				}(old)
-			}
-		}
-	}
-}
-
 // A Live is a database handle a server reads while an updater replaces it.
+//
+// Updates happen when the caller decides to run one — there is no timer here
+// and nothing polls. Live exists so that decision does not require a restart:
+// UpdateAndSwap opens the new build beside the old one and flips a pointer, so
+// requests in flight finish on the handle they started with.
 type Live struct{ p atomic.Pointer[DB] }
 
 func NewLive(db *DB) *Live {
@@ -687,11 +667,11 @@ func (u *Updater) getBlob(ctx context.Context, url, wantSHA string) ([]byte, err
 	return b, nil
 }
 
-// IsCompressed reports whether a published database is stored compressed
+// isCompressed reports whether a published database is stored compressed
 // rather than as a plain SQLite file. Plain files announce themselves in
 // their first 16 bytes; anything else is a container, which only a cgo build
 // can read.
-func IsCompressed(path string) (bool, error) {
+func isCompressed(path string) (bool, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return false, err

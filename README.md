@@ -152,9 +152,20 @@ rows, err := db.SQL().Query(`SELECT title FROM movies WHERE year = ?`, 1954)
 ```
 
 `Updater` fetches a release, verifies file and content hashes, applies daily
-patches when the catalog offers a chain, rebuilds the FTS tables, and swaps
-the live handle atomically so a running server never closes its database to
-take an update.
+patches when the catalog offers a chain, and rebuilds the FTS tables. It runs
+when you call it — there is no timer and nothing polls:
+
+```go
+u := filmstock.NewUpdater("https://dl.example.org/filmstock", "/var/lib/app")
+if _, build, changed, err := u.Update(ctx); changed {
+    log.Printf("now on %s", build)
+}
+```
+
+`Check` asks what is available without fetching. If you would rather not
+restart to pick up a new build, `Live` holds the handle behind an atomic
+pointer and `UpdateAndSwap` opens the new database beside the old one and
+flips it, so requests in flight finish on the handle they started with.
 
 ## Releases
 
