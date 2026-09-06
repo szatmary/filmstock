@@ -194,3 +194,61 @@ func TestSameEpochStillPatchesNormally(t *testing.T) {
 		t.Fatalf("full=%q steps=%d; want the ordinary single patch", full, len(steps))
 	}
 }
+
+// The years-behind case, and where it stops being worth walking.
+//
+// Positional rollups can have their source pruned, so a consumer years behind
+// cannot rely on them. The full-to-full edge can always be built — a full's
+// databases are hosted permanently — so the hop count is one per month and does
+// not depend on which spans survived.
+//
+// Bounded hops is not the same as a cheaper path, and the byte rule is what
+// tells them apart: far enough back, re-downloading beats walking, and the
+// search says so without being told where the line is.
+func monthlyFulls(months int, hop, fullBytes int64) *catalog {
+	c := &catalog{}
+	prev := ""
+	for m := 0; m < months; m++ {
+		id := "f" + day(m)
+		e := catalogEntry{ID: id, Kind: "full", Through: day(m), Bytes: fullBytes}
+		if prev != "" {
+			// Only the month-to-month edge: every daily and every positional
+			// rollup between them has long since been pruned.
+			e.Edges = []patchEdge{{From: prev, Suffix: ".from-" + prev, Bytes: hop}}
+			e.BridgeFrom = prev
+		}
+		c.Builds = append(c.Builds, e)
+		c.Latest, c.LatestFull = id, id
+		prev = id
+	}
+	return c
+}
+
+func TestFullToFullWalksWhileItIsWorthIt(t *testing.T) {
+	// Six months at 40 MB a hop is 200 MB against a 1.3 GB full: walk.
+	c := monthlyFulls(6, 40_000_000, 1_300_000_000)
+	seed, steps, cost := c.cheapest("f"+day(0), c.Latest)
+	if seed != "" {
+		t.Fatalf("refetched a full when 5 month-hops cost far less")
+	}
+	if len(steps) != 5 {
+		t.Fatalf("steps=%d; want one per month", len(steps))
+	}
+	if cost != 5*40_000_000 {
+		t.Errorf("cost=%d; want the five hops", cost)
+	}
+}
+
+func TestFullToFullStopsBeingWorthItEventually(t *testing.T) {
+	// Three years at 40 MB a hop is 1.4 GB, past the 1.3 GB full. Bounded hops
+	// were never the goal in themselves — fewest bytes was.
+	c := monthlyFulls(36, 40_000_000, 1_300_000_000)
+	seed, steps, cost := c.cheapest("f"+day(0), c.Latest)
+	if seed != c.Latest {
+		t.Fatalf("walked %d hops for %d bytes when the 1.3 GB full was cheaper",
+			len(steps), cost)
+	}
+	if cost != 1_300_000_000 {
+		t.Errorf("cost=%d; want the full's price", cost)
+	}
+}

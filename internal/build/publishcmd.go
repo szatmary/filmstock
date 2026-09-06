@@ -310,6 +310,36 @@ func CmdPublish(args []string) {
 		// A rollup can only be built against databases still on disk, which is
 		// what -keep-tips retains. A span whose source has been pruned is simply
 		// not offered — a missing route costs a longer path, never correctness.
+		// The guaranteed month-to-month edge: previous full -> this full.
+		//
+		// The bridge above is day-to-month, from whatever daily happened to be
+		// the tip, and it has to be: it is what keeps a follower from
+		// re-downloading a database every month, and it is the only diff whose
+		// endpoints share a content day, which is what makes it an integrity
+		// comparison rather than just a month of change.
+		//
+		// But its source is a moving target that depends on when the rebuild
+		// ran, and the positional rollups below can have had their source
+		// pruned out of the work directory, in which case the edge is silently
+		// not offered. A full's databases are hosted permanently, so this edge
+		// can always be built. That is what makes a consumer years behind a
+		// bounded number of hops — one per month, guaranteed — instead of a
+		// number that depends on which spans happened to survive.
+		if *full && cat.LatestFull != "" && cat.LatestFull != base {
+			prev := cat.LatestFull
+			prevDir := baseDBDir(prev)
+			if _, err := os.Stat(prevDir); err != nil {
+				fmt.Fprintf(os.Stderr, "  full-to-full: %s not on disk, not offered\n", prev)
+			} else {
+				tag := ".from-" + prev
+				_, size, err := emitPatches(*differ, prevDir, dbDir, dir, ordered, ".patch.sql", tag)
+				if err != nil {
+					fatal(fmt.Errorf("full-to-full patch from %s: %w", prev, err))
+				}
+				edges = append(edges, patchEdge{From: prev, Suffix: tag, Bytes: size})
+			}
+		}
+
 		for _, span := range rollupSpans(*rollups) {
 			src := nthBack(cat, span)
 			if src == "" || src == base {
