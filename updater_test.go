@@ -58,8 +58,18 @@ func fakeRelease(t *testing.T, root, id, title string) {
 	}}
 	mb, _ := json.Marshal(man)
 	os.WriteFile(filepath.Join(dir, "manifest.json"), mb, 0o644)
-	cat := map[string]any{"latest_full": id,
-		"builds": []map[string]any{{"id": id, "kind": "full"}}}
+	fi, err := os.Stat(core)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// through is the content day: what orders the chain, and what the updater
+	// compares. A real catalog always carries it — builds refuses without one.
+	cat := map[string]any{"latest_full": id, "latest": id,
+		"builds": []map[string]any{
+			// bytes is the full road's price, which the path search weighs
+			// every route of patches against.
+			{"id": id, "kind": "full", "through": id, "bytes": fi.Size()},
+		}}
 	cb, _ := json.Marshal(cat)
 	os.WriteFile(filepath.Join(root, "builds.json"), cb, 0o644)
 }
@@ -199,8 +209,8 @@ func fakeDaily(t *testing.T, root, id, parent, patchSQL string) {
 
 	cat := map[string]any{"latest_full": parent, "latest": id,
 		"builds": []map[string]any{
-			{"id": parent, "kind": "full"},
-			{"id": id, "kind": "daily", "parent": parent},
+			{"id": parent, "kind": "full", "through": parent, "bytes": parentBytes(t, root, parent)},
+			{"id": id, "kind": "daily", "through": id, "parent": parent},
 		}}
 	cb, _ := json.Marshal(cat)
 	os.WriteFile(filepath.Join(root, "builds.json"), cb, 0o644)
@@ -313,4 +323,14 @@ func TestSQLBatchesRespectsStringLiterals(t *testing.T) {
 			t.Errorf("n=%d: %d batches, want 1", n, len(got))
 		}
 	}
+}
+
+// parentBytes is the full road's price for a fixture's seed build.
+func parentBytes(t *testing.T, root, id string) int64 {
+	t.Helper()
+	fi, err := os.Stat(filepath.Join(root, id, "filmstock.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	return fi.Size()
 }

@@ -12,11 +12,54 @@ import (
 	"os/exec"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/szatmary/filmstock"
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
+
+// emitPatches writes one route into a build: a gzipped diff per database from
+// baseDir to dbDir, each APPLIED to a copy of its base and refused unless the
+// result reproduces the target's content hash.
+//
+// tag distinguishes routes that land in the same build directory. The default
+// route has none; a rollup uses ".from-<id>", so a build can host several ways
+// in without its files colliding. Verification is per route and not optional:
+// an unverified shortcut is worse than a missing one, because a consumer that
+// takes it ends up holding something that is not the build it thinks it is.
+func emitPatches(differ, baseDir, dbDir, outDir string, ordered []string, suffix, tag string) (int, int64, error) {
+	statements := 0
+	var bytes int64
+	for _, b := range ordered {
+		basePath := filepath.Join(baseDir, b)
+		if _, err := os.Stat(basePath); err != nil {
+			// A file that debuts in this build has nothing to diff against.
+			// New database files must therefore debut at fulls, which host
+			// their databases whole; see docs/TODO.md.
+			fmt.Fprintf(os.Stderr, "  %s: not in %s, no patch\n", b, baseDir)
+			continue
+		}
+		newPath := filepath.Join(dbDir, b)
+		patchPath := filepath.Join(outDir, b+tag+suffix+".gz")
+		n, raw, err := writeDiff(differ, basePath, newPath, patchPath)
+		if err != nil {
+			return 0, 0, err
+		}
+		statements += n
+		if err := verifyPatch(basePath, raw, newPath); err != nil {
+			return 0, 0, fmt.Errorf("%s%s: the patch does not reproduce the build: %w", b, tag, err)
+		}
+		fi, err := os.Stat(patchPath)
+		if err != nil {
+			return 0, 0, err
+		}
+		bytes += fi.Size()
+		fmt.Fprintf(os.Stderr, "  %-24s %-22s %8d statements  %9d bytes gz  verified\n",
+			b, tag+suffix[1:], n, fi.Size())
+	}
+	return statements, bytes, nil
+}
 
 // guardThrough refuses a build whose content stops before the chain tip's.
 //
@@ -94,6 +137,8 @@ func CmdPublish(args []string) {
 	work := fs.String("work", "", "un-hosted directory holding the chain tip's databases (default <root>-work)")
 	compress := fs.Bool("compress", false, "full only: host the databases as zstdvfs containers, halving them")
 	differ := fs.String("sqldiff", "./sqldiff", "the sqldiff binary (make sqldiff)")
+	rollups := fs.String("rollups", "7,30", "also emit patches spanning this many builds back (comma-separated; empty for none)")
+	keepTips := fs.Int("keep-tips", 31, "how many recent builds' databases to retain in the work dir as rollup sources")
 	fs.Parse(args)
 	if *id == "" || *from == "" {
 		fatal(fmt.Errorf("publish needs -id YYYYMMDD and -from DIR"))
@@ -215,42 +260,43 @@ func CmdPublish(args []string) {
 		suffix = ".bridge.sql"
 	}
 	totalStatements := 0
+	var edges []patchEdge
 	if base != "" {
-		for _, b := range ordered {
-			basePath := filepath.Join(baseDBDir(base), b)
-			if _, err := os.Stat(basePath); err != nil {
-				fmt.Fprintf(os.Stderr, "  %s: new in this build, no patch\n", b)
+		n, size, err := emitPatches(*differ, baseDBDir(base), dbDir, dir, ordered, suffix, "")
+		if err != nil {
+			fatal(err)
+		}
+		totalStatements = n
+		edges = append(edges, patchEdge{From: base, Bytes: size})
+
+		// Rollups: extra routes into this build spanning further back than the
+		// parent, so the number of hops a consumer walks stops depending on how
+		// long they were away. Without them, six months away is six bridges and
+		// ~180 dailies; with them it is ~6 monthly patches.
+		//
+		// A rollup can only be built against databases still on disk, which is
+		// what -keep-tips retains. A span whose source has been pruned is simply
+		// not offered — a missing route costs a longer path, never correctness.
+		for _, span := range rollupSpans(*rollups) {
+			src := nthBack(cat, span)
+			if src == "" || src == base {
 				continue
 			}
-			newPath := filepath.Join(dbDir, b)
-			patchPath := filepath.Join(dir, b+suffix+".gz")
-			n, raw, err := writeDiff(*differ, basePath, newPath, patchPath)
+			srcDir := baseDBDir(src)
+			if _, err := os.Stat(srcDir); err != nil {
+				fmt.Fprintf(os.Stderr, "  rollup -%d: %s no longer on disk, not offered\n", span, src)
+				continue
+			}
+			tag := ".from-" + src
+			n, size, err := emitPatches(*differ, srcDir, dbDir, dir, ordered, ".patch.sql", tag)
 			if err != nil {
-				fatal(err)
+				fatal(fmt.Errorf("rollup from %s: %w", src, err))
 			}
-			totalStatements += n
-			if err := verifyPatch(basePath, raw, newPath); err != nil {
-				fatal(fmt.Errorf("%s: the patch does not reproduce the build: %w", b, err))
-			}
-			fi, _ := os.Stat(patchPath)
-			fmt.Fprintf(os.Stderr, "  %-24s %s %8d statements  %9d bytes gz  verified\n",
-				b, suffix[1:], n, fi.Size())
+			_ = n
+			edges = append(edges, patchEdge{From: src, Suffix: tag, Bytes: size})
 		}
 	}
 
-	// The drift gate. bridge_statements is the pipeline's integrity meter: with
-	// a same-`through` bridge the two branches describe the same day by
-	// different routes, so the diff is pure drift and a spike is a bug.
-	//
-	// "Published where everyone can see it" is the right instinct with an
-	// operator reading the output, and insufficient without one: a spike that
-	// ships is still shipped, and the anomalous build becomes the base every
-	// later daily is diffed against. So the meter gates rather than reports.
-	//
-	// Refusing is the safe direction. The chain stays where it is, the dailies
-	// keep working, the staged build in -from is left for inspection and the
-	// next run retries. Too tight a ceiling costs a missed monthly, which
-	// self-heals; no ceiling costs a corrupted base that everything inherits.
 	// The bridge may repair anything and remove only what the dump says is
 	// gone. Checked before the build is committed, so a refusal leaves the
 	// chain exactly where it was and the staged build available to look at.
@@ -314,8 +360,24 @@ func CmdPublish(args []string) {
 	if *dump == "" {
 		*dump = *id
 	}
+	// The full road's cost, so a consumer can weigh a path of patches against
+	// simply downloading this build: only a full hosts its databases, so only a
+	// full has one.
+	var hostedBytes int64
+	if *full {
+		for _, b := range ordered {
+			if fi, err := os.Stat(filepath.Join(dir, b)); err == nil {
+				hostedBytes += fi.Size()
+			}
+		}
+	}
+	edgeJSON, err := json.Marshal(edges)
+	if err != nil {
+		fatal(err)
+	}
 	bargs := []string{"-catalog", filepath.Join(*root, "builds.json"),
-		"-id", *id, "-kind", kind, "-dump", *dump, "-through", *through}
+		"-id", *id, "-kind", kind, "-dump", *dump, "-through", *through,
+		"-edges", string(edgeJSON), "-bytes", fmt.Sprint(hostedBytes)}
 	if kind == "daily" {
 		bargs = append(bargs, "-parent", base)
 	} else if base != "" {
@@ -329,9 +391,19 @@ func CmdPublish(args []string) {
 
 	// The old tip's databases have served their purpose: this build's patches
 	// were diffed against them and verified. Only the new tip stays in work.
+	// The work directory holds every build's databases so the NEXT build can
+	// diff against them. It used to hold only the tip, because only the tip was
+	// ever a diff base. Rollups make the last -keep-tips builds diff bases too,
+	// so they stay — at roughly 1.3 GB each, which is the price of a consumer
+	// six months behind not walking a hundred and eighty patches.
+	keep := map[string]bool{*id: true}
+	fresh := readCatalog(filepath.Join(*root, "builds.json"))
+	for i := len(fresh.Builds) - 1; i >= 0 && len(keep) <= *keepTips; i-- {
+		keep[fresh.Builds[i].ID] = true
+	}
 	tips, _ := filepath.Glob(filepath.Join(*work, "*"))
 	for _, t := range tips {
-		if filepath.Base(t) != *id {
+		if !keep[filepath.Base(t)] {
 			os.RemoveAll(t)
 		}
 	}
@@ -485,4 +557,34 @@ func compressDB(path string) error {
 		return err
 	}
 	return db.Close()
+}
+
+// rollupSpans parses the -rollups list. A malformed entry is a configuration
+// error and stops the publish rather than being skipped: a rollup silently not
+// emitted is a route consumers never learn they were meant to have.
+func rollupSpans(spec string) []int {
+	var out []int
+	for _, f := range strings.Split(spec, ",") {
+		f = strings.TrimSpace(f)
+		if f == "" {
+			continue
+		}
+		n, err := strconv.Atoi(f)
+		if err != nil || n < 1 {
+			fatal(fmt.Errorf("-rollups %q: %q is not a positive number of builds", spec, f))
+		}
+		out = append(out, n)
+	}
+	return out
+}
+
+// nthBack names the build n positions before the tip, "" if the chain is not
+// that long yet. Position, not date arithmetic: a chain with skipped days is
+// legal and common, and counting days would silently name nothing.
+func nthBack(cat buildsCatalog, n int) string {
+	i := len(cat.Builds) - 1 - n
+	if i < 0 {
+		return ""
+	}
+	return cat.Builds[i].ID
 }

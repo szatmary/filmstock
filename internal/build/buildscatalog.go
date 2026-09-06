@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 	"sort"
 	"time"
 )
@@ -60,6 +61,40 @@ type buildEntry struct {
 	BridgeFrom string `json:"bridge_from,omitempty"` // last daily of the old chain
 	Bridge     string `json:"bridge,omitempty"`      // path to the bridge patch
 	BridgeSize int    `json:"bridge_statements,omitempty"`
+	// Every route into this build, cheapest-first being the consumer's problem
+	// rather than ours. Edges[0] is always the default one (the parent, or the
+	// bridge on a full); the rest are rollups spanning further back.
+	Edges []patchEdge `json:"edges,omitempty"`
+	// Fulls only: the bytes a consumer downloads to take the full road. It is
+	// the alternative every path search is measured against.
+	Bytes int64 `json:"bytes,omitempty"`
+}
+
+// patchEdge is one route into a build: apply the patches named by Suffix to the
+// build named by From, and you have this one.
+//
+// The chain used to be a line — each build naming the single build it applies
+// to — and a line is why a consumer who was away six months had to walk six
+// bridges and a hundred and eighty dailies or give up and refetch a full. That
+// cost grows linearly with time away and never improves.
+//
+// Rollups make it a DAG: the same information, more routes through it. Nothing
+// prescribes which route to take, because the catalog cannot know what a given
+// consumer already holds. Bytes is recorded so the consumer can choose, and
+// choosing by total bytes gives the right answer for every case without anyone
+// enumerating the cases: a fresh install finds the full cheapest, a daily
+// follower finds one patch, a returning consumer finds the rollups, and one away
+// so long that no path beats refetching gets exactly that.
+//
+// A missing route is not a failure, only a longer path — which is what makes
+// pruning old builds safe.
+type patchEdge struct {
+	From string `json:"from"`
+	// Suffix distinguishes this build's patch files: "" is the default
+	// (<db>.patch.sql.gz or <db>.bridge.sql.gz), and a rollup adds
+	// ".from-<id>" so several routes can live in one build directory.
+	Suffix string `json:"suffix,omitempty"`
+	Bytes  int64  `json:"bytes"`
 }
 
 // orderCatalog sorts the chain and recomputes the tip.
@@ -151,9 +186,16 @@ func CmdBuilds(args []string) {
 	bridge := fs.String("bridge", "", "full only: path to the bridge patch")
 	bridgeSize := fs.Int("bridge-statements", -1, "full only: statement count of the bridge")
 	backfill := fs.Bool("backfill-through", false, "one-time migration: give pre-`through` entries through=id")
+	backfillE := fs.String("backfill-edges", "", "one-time migration: price each build's existing route from the patch files in this release root")
+	edgesJSON := fs.String("edges", "", "JSON array of the routes into this build")
+	bytes := fs.Int64("bytes", 0, "full only: total hosted database bytes, the full-road cost")
 	fs.Parse(args)
 	if *backfill {
 		backfillThrough(*catalog)
+		return
+	}
+	if *backfillE != "" {
+		backfillEdges(*catalog, *backfillE)
 		return
 	}
 	if *id == "" || (*kind != "full" && *kind != "daily") {
@@ -185,7 +227,12 @@ func CmdBuilds(args []string) {
 	e := buildEntry{
 		ID: *id, Kind: *kind, Dump: *dump, Through: *through, Parent: *parent,
 		Manifest:   "/filmstock/" + *id + "/manifest.json",
-		BridgeFrom: *bridgeFrom, Bridge: *bridge,
+		BridgeFrom: *bridgeFrom, Bridge: *bridge, Bytes: *bytes,
+	}
+	if *edgesJSON != "" {
+		if err := json.Unmarshal([]byte(*edgesJSON), &e.Edges); err != nil {
+			fatal(fmt.Errorf("-edges is not a JSON array of routes: %w", err))
+		}
 	}
 	if *bridgeSize >= 0 {
 		e.BridgeSize = *bridgeSize
@@ -223,4 +270,73 @@ func CmdBuilds(args []string) {
 	}
 	fmt.Fprintf(os.Stderr, "  %s: %d builds, latest %s (latest full %s)\n",
 		*catalog, len(cat.Builds), cat.Latest, cat.LatestFull)
+}
+
+// backfillEdges gives the builds published before `edges` existed the one route
+// they always had — the parent line, or the bridge on a full — priced from the
+// patch files already sitting in the release root.
+//
+// Priced, and not left at zero, because zero is not "unknown" to a path search:
+// it is "free", and a free edge wins every comparison. A catalog of unpriced
+// legacy builds beside a priced full would send a fresh install walking every
+// legacy patch instead of downloading the full. The sizes are on disk and
+// exact, so there is no reason to guess at them.
+func backfillEdges(catalogPath, root string) {
+	var cat buildsCatalog
+	b, err := os.ReadFile(catalogPath)
+	if err != nil {
+		fatal(err)
+	}
+	if err := json.Unmarshal(b, &cat); err != nil {
+		fatal(err)
+	}
+	edged, sized := 0, 0
+	for i, x := range cat.Builds {
+		dir := filepath.Join(root, x.ID)
+		if x.Kind == "full" && x.Bytes == 0 {
+			dbs, _ := filepath.Glob(filepath.Join(dir, "*.db"))
+			var total int64
+			for _, p := range dbs {
+				if fi, err := os.Stat(p); err == nil {
+					total += fi.Size()
+				}
+			}
+			if total > 0 {
+				cat.Builds[i].Bytes = total
+				sized++
+			}
+		}
+		if len(x.Edges) > 0 {
+			continue
+		}
+		from := x.Parent
+		if x.Kind == "full" {
+			from = x.BridgeFrom
+		}
+		if from == "" {
+			continue // the chain's first full applies to nothing
+		}
+		var total int64
+		for _, pat := range []string{"*.patch.sql.gz", "*.bridge.sql.gz"} {
+			ps, _ := filepath.Glob(filepath.Join(dir, pat))
+			for _, p := range ps {
+				if fi, err := os.Stat(p); err == nil {
+					total += fi.Size()
+				}
+			}
+		}
+		if total == 0 {
+			fmt.Fprintf(os.Stderr, "  %s: no patch files under %s; leaving it unrouted\n", x.ID, dir)
+			continue
+		}
+		cat.Builds[i].Edges = []patchEdge{{From: from, Bytes: total}}
+		edged++
+	}
+	orderCatalog(&cat)
+	out, _ := json.MarshalIndent(cat, "", "  ")
+	if err := os.WriteFile(catalogPath, append(out, '\n'), 0o644); err != nil {
+		fatal(err)
+	}
+	fmt.Fprintf(os.Stderr, "  %s: priced %d route(s) and %d full(s) of %d builds\n",
+		catalogPath, edged, sized, len(cat.Builds))
 }

@@ -108,10 +108,27 @@ type updaterState struct {
 }
 
 type catalogEntry struct {
-	ID         string `json:"id"`
-	Kind       string `json:"kind"`
-	Parent     string `json:"parent"`
-	BridgeFrom string `json:"bridge_from"`
+	ID         string      `json:"id"`
+	Kind       string      `json:"kind"`
+	Parent     string      `json:"parent"`
+	BridgeFrom string      `json:"bridge_from"`
+	Through    string      `json:"through"`
+	Edges      []patchEdge `json:"edges"`
+	Bytes      int64       `json:"bytes"`
+}
+
+// patchEdge is one route into a build: apply the patches named by Suffix to
+// the build named by From.
+type patchEdge struct {
+	From   string `json:"from"`
+	Suffix string `json:"suffix"`
+	Bytes  int64  `json:"bytes"`
+}
+
+// routeStep is one build's patches, applied to whatever the previous step left.
+type routeStep struct {
+	entry  catalogEntry
+	suffix string
 }
 type catalog struct {
 	LatestFull string         `json:"latest_full"`
@@ -128,34 +145,117 @@ func (c *catalog) entry(id string) *catalogEntry {
 	return nil
 }
 
-// chain returns the builds stepping from cur to target, oldest first: each
-// step is a daily applying on its parent, or a full bridging from the chain
-// tip before it. Nil when no unbroken line exists — then only a full
-// download reaches the target.
-func (c *catalog) chain(cur, target string) []catalogEntry {
-	if cur == "" || cur == target {
+// newer reports whether build a holds content later than build b.
+//
+// By content day, never by comparing ids. An id is a label — since the
+// 20260901 collision it is not even always a date — and ordering releases by
+// parsing one is the mistake that ordering by `through` exists to end. An
+// unknown build is not newer: refusing to move is always safe.
+func (c *catalog) newer(a, b string) bool {
+	if b == "" {
+		return a != ""
+	}
+	ea, eb := c.entry(a), c.entry(b)
+	if ea == nil || eb == nil {
+		return false
+	}
+	return ea.Through > eb.Through
+}
+
+// routes returns each build's incoming edges, falling back to the single
+// parent/bridge line for a catalog published before edges existed.
+func (c *catalog) routes(e catalogEntry) []patchEdge {
+	if len(e.Edges) > 0 {
+		return e.Edges
+	}
+	prev := e.Parent
+	if e.Kind == "full" {
+		prev = e.BridgeFrom
+	}
+	if prev == "" {
 		return nil
 	}
-	var steps []catalogEntry
-	for id := target; id != cur; {
-		e := c.entry(id)
-		if e == nil {
-			return nil
+	return []patchEdge{{From: prev}}
+}
+
+// cheapest returns the steps from cur to target that download the fewest
+// bytes, oldest first, and the full to start from when starting fresh beats
+// patching from what is held.
+//
+// The chain used to be a line, walked backwards from the target. A line is why
+// a consumer six months behind had to apply every intervening daily or give up
+// and refetch — a cost that grows with time away and never improves. Rollups
+// make the catalog a DAG, and once more than one route exists the catalog
+// should stop prescribing one: it cannot know what any given consumer holds.
+//
+// So this weighs every route by the bytes it actually costs, against the cost
+// of simply downloading the newest full. That single rule produces the right
+// answer for every case without enumerating any of them — one patch for a daily
+// follower, rollups for a returning consumer, the full for a fresh install or
+// for someone away so long that no path beats refetching.
+//
+// Returns nil steps and "" when nothing reaches the target at all.
+func (c *catalog) cheapest(cur, target string) (full string, steps []routeStep, cost int64) {
+	if target == "" {
+		return "", nil, 0
+	}
+	type node struct {
+		cost int64
+		from string // predecessor build; "" when this node is a starting point
+		step routeStep
+		seed string // the full downloaded to start here, "" if continuing
+	}
+	best := map[string]*node{}
+	if cur != "" {
+		best[cur] = &node{cost: 0}
+	}
+	// Every full is also a place to start, at the price of downloading it.
+	for _, e := range c.Builds {
+		if e.Kind != "full" || e.Bytes <= 0 {
+			continue
 		}
-		prev := e.Parent
-		if e.Kind == "full" {
-			prev = e.BridgeFrom
+		if n, ok := best[e.ID]; !ok || e.Bytes < n.cost {
+			best[e.ID] = &node{cost: e.Bytes, seed: e.ID}
 		}
-		if prev == "" {
-			return nil
+	}
+	if len(best) == 0 {
+		return "", nil, 0
+	}
+
+	// The graph is a few hundred nodes and edges only ever point forward in the
+	// catalog's order, so one ordered sweep settles every node: a build's cost
+	// is final by the time the sweep reaches it.
+	for _, e := range c.Builds {
+		for _, edge := range c.routes(e) {
+			src, ok := best[edge.From]
+			if !ok {
+				continue
+			}
+			cand := src.cost + edge.Bytes
+			if n, seen := best[e.ID]; !seen || cand < n.cost {
+				best[e.ID] = &node{cost: cand, from: edge.From,
+					step: routeStep{entry: e, suffix: edge.Suffix}}
+			}
 		}
-		steps = append(steps, *e)
-		id = prev
+	}
+
+	end, ok := best[target]
+	if !ok {
+		return "", nil, 0
+	}
+	for id := target; ; {
+		n := best[id]
+		if n.seed != "" || n.from == "" {
+			full = n.seed
+			break
+		}
+		steps = append(steps, n.step)
+		id = n.from
 	}
 	for i, j := 0, len(steps)-1; i < j; i, j = i+1, j-1 {
 		steps[i], steps[j] = steps[j], steps[i]
 	}
-	return steps
+	return full, steps, end.cost
 }
 
 type buildManifest struct {
@@ -231,32 +331,60 @@ func (u *updater) update(ctx context.Context) (corePath, build string, changed b
 		return "", "", false, err
 	}
 	latest, cur := cat.Latest, u.current()
-	if latest <= cur {
+	// Stand pat only when the catalog positively says there is nothing newer.
+	// A held build the catalog no longer lists — pruned, or from a chain that
+	// has been superseded — is not grounds for refusing to move: it just means
+	// the search below has to start from a full instead of from here.
+	if cur != "" && cur == latest {
+		return filepath.Join(u.Dir, cur, "filmstock.db"), cur, false, nil
+	}
+	if held := cat.entry(cur); held != nil && !cat.newer(latest, cur) {
 		return filepath.Join(u.Dir, cur, "filmstock.db"), cur, false, nil
 	}
 
-	if steps := cat.chain(cur, latest); steps != nil {
-		if err := u.applyChain(ctx, cur, steps); err == nil {
+	// What the catalog says is cheapest from here: possibly a full to seed
+	// from, then the patches to ride. The rule is bytes, and it covers a fresh
+	// install, a daily follower and a consumer years behind without any of
+	// them being special-cased.
+	seed, steps, cost := cat.cheapest(cur, latest)
+	if seed != "" || len(steps) > 0 {
+		base := cur
+		if seed != "" {
+			u.logf("filmstock: %s -> %s via full %s + %d patch step(s), %d bytes",
+				cur, latest, seed, len(steps), cost)
+			if err := u.fetchFull(ctx, seed); err != nil {
+				return "", "", false, err
+			}
+			base = seed
+		} else {
+			u.logf("filmstock: %s -> %s via %d patch step(s), %d bytes", cur, latest, len(steps), cost)
+		}
+		if len(steps) == 0 {
+			return u.finishBuild(ctx, base)
+		}
+		if err := u.applyChain(ctx, base, steps); err == nil {
 			return u.finishBuild(ctx, latest)
 		} else {
-			// The patch road from what we hold failed; the full road below
-			// decides what is reachable.
-			u.logf("filmstock: patch road %s -> %s failed, falling back to the full: %v", cur, latest, err)
+			// A patch that lies is not papered over by fetching the build
+			// whole: the full road below lands honestly on a full instead.
+			u.logf("filmstock: patch road %s -> %s failed, falling back to the full: %v", base, latest, err)
 			os.RemoveAll(filepath.Join(u.Dir, latest))
 		}
 	}
 
 	// The full road. Only fulls host their databases, so this lands on the
-	// newest full and rides the patch chain from there to the tip. When the
-	// chain past the full is unreachable too, the full itself is the honest
+	// newest full and rides whatever patches reach the tip from there. When
+	// nothing past the full is reachable, the full itself is the honest
 	// destination — newer than what is held, and the state says what it is.
-	// A full older than what is held is no destination at all: never
+	// A full no newer than what is held is no destination at all: never
 	// downgrade.
 	full := cat.LatestFull
 	if full == "" {
 		return "", "", false, fmt.Errorf("filmstock: catalog lists no full build")
 	}
-	if full <= cur {
+	// As above: only a held build the catalog still lists can establish that
+	// the newest full would be a downgrade.
+	if held := cat.entry(cur); held != nil && !cat.newer(full, cur) {
 		return "", "", false, fmt.Errorf(
 			"filmstock: no patch road from %s to %s, and the newest full %s is not newer", cur, latest, full)
 	}
@@ -266,7 +394,7 @@ func (u *updater) update(ctx context.Context) (corePath, build string, changed b
 	if full == latest {
 		return u.finishBuild(ctx, full)
 	}
-	if steps := cat.chain(full, latest); steps != nil {
+	if _, steps, _ := cat.cheapest(full, latest); len(steps) > 0 {
 		if err := u.applyChain(ctx, full, steps); err == nil {
 			return u.finishBuild(ctx, latest)
 		} else {
@@ -372,8 +500,8 @@ func (u *updater) finishBuild(ctx context.Context, latest string) (string, strin
 // applies each step's patches in order, then demands every file's content
 // hash equal the target manifest's. Every failure is an error; the caller
 // falls back to the whole download.
-func (u *updater) applyChain(ctx context.Context, cur string, steps []catalogEntry) error {
-	target := steps[len(steps)-1].ID
+func (u *updater) applyChain(ctx context.Context, cur string, steps []routeStep) error {
+	target := steps[len(steps)-1].entry.ID
 	dir := filepath.Join(u.Dir, target)
 	os.RemoveAll(dir)
 	if err := os.MkdirAll(dir, 0o777); err != nil {
@@ -384,13 +512,16 @@ func (u *updater) applyChain(ctx context.Context, cur string, steps []catalogEnt
 			return fmt.Errorf("filmstock: carrying %s forward from %s: %w", name, cur, err)
 		}
 	}
-	for _, step := range steps {
+	for _, st := range steps {
+		step := st.entry
 		var man buildManifest
 		if err := u.getJSON(ctx, u.BaseURL+"/"+step.ID+"/manifest.json", &man); err != nil {
 			return err
 		}
-		suffix := ".patch.sql.gz"
-		if step.Kind == "full" {
+		// A rollup's files carry the tag naming where they start from, so one
+		// build directory can host several routes in without collision.
+		suffix := st.suffix + ".patch.sql.gz"
+		if step.Kind == "full" && st.suffix == "" {
 			suffix = ".bridge.sql.gz"
 		}
 		for _, name := range u.files() {

@@ -283,6 +283,27 @@ Pruning becomes a policy question the search makes safe to answer: dropping an
 old full or old dailies removes edges, and as long as *some* verified path
 remains from any still-supported build, no consumer is stranded.
 
+### As built
+
+- `publish -rollups 7,30` emits, alongside the parent patch, a patch spanning
+  7 and 30 builds back, named `<db>.from-<id>.patch.sql.gz` so several routes
+  live in one build directory without colliding. Each is applied to a copy of
+  its base and refused unless it reproduces the target's content hash — the
+  same proof the parent patch has always carried.
+- `publish -keep-tips 31` retains that many recent builds' databases in the
+  work directory. A rollup can only be built against databases still on disk;
+  a span whose source has been pruned is simply not offered, which costs a
+  longer path and never correctness.
+- The catalog records `edges` (`from`, `suffix`, `bytes`) per build and `bytes`
+  on each full — the full road's price, which every route is weighed against.
+- The updater's `cheapest` replaces the old backwards walk with a byte-weighted
+  search over those edges, seeded from what is held and from every full.
+- `builds -backfill-edges <root>` prices the routes of builds published before
+  the field existed, from the patch files already on disk. Priced, not left at
+  zero: to a path search zero is not "unknown" but "free", and a free edge wins
+  every comparison — an unpriced legacy chain beside a priced full would send a
+  fresh install walking every legacy patch instead of taking the full.
+
 ## Migration
 
 The 17 existing entries keep their ids — they are already unique, and rewriting
