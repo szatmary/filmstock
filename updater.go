@@ -29,7 +29,7 @@ import (
 // hash, and only then record it. Nothing runs in the background and nothing
 // happens on a timer; call it when you want an update.
 //
-//	core, build, changed, err := filmstock.Update(ctx, baseURL, dir)
+//	core, build, changed, err := filmstock.Update(ctx, filmstock.DefaultBaseURL, dir)
 //
 // Builds land in their own directories, so an interrupted call cannot damage
 // the build already in use:
@@ -49,11 +49,27 @@ import (
 //	}
 //
 // files names the artifacts to keep current; none means the core database
-// alone. baseURL with no scheme is a local directory laid out the same way.
+// alone. baseURL is where the tree is served from — DefaultBaseURL for the
+// published releases, or any directory laid out the same way (a value with no
+// scheme is read as a local path).
 func Update(ctx context.Context, baseURL, dir string, files ...string) (core, build string, changed bool, err error) {
 	u := &updater{BaseURL: baseURL, Dir: dir, Files: files, VerifyContent: true}
 	return u.update(ctx)
 }
+
+// DefaultBaseURL is where filmstock releases are published: the catalog is at
+// DefaultBaseURL/builds.json and each build is a directory beside it.
+//
+// It is a plain constant a caller passes explicitly rather than something
+// Update reaches for on its own, because which tree you update from is the one
+// decision in this package that has to be visible at the call site — a test
+// pointing at a fixture directory and a program pointing at the internet must
+// not look the same.
+//
+// Nothing else published names a host: builds.json records each manifest as a
+// path relative to the tree root. Moving hosts is this constant plus a bucket
+// copy, and every byte already released stays valid.
+const DefaultBaseURL = "https://filmstock.halide.tv"
 
 // Held reports which build dir currently holds, "" for none.
 func Held(dir string) string { return (&updater{Dir: dir}).current() }

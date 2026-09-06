@@ -159,7 +159,7 @@ content hash, and only then records it. Nothing runs in the background and
 nothing happens on a timer.
 
 ```go
-core, build, changed, err := filmstock.Update(ctx, baseURL, dir)
+core, build, changed, err := filmstock.Update(ctx, filmstock.DefaultBaseURL, dir)
 if changed {
     dir := filepath.Dir(core)
     fresh, err := filmstock.Open(core,
