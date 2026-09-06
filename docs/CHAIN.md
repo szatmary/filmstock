@@ -416,6 +416,30 @@ without it.
 The first epoch is 0, which is what every build published so far already reads
 as, so nothing needs migrating.
 
+### Bumping `ContentHashVersion` is an epoch break
+
+Content hashes are versioned and the version is part of the hashed bytes, so a
+client with older rules mismatches every build published under newer ones. That
+is not a degradation, it is a total loss of verification: the patch road refuses,
+and the full road downloads the whole database, rebuilds its indexes, re-hashes
+and refuses that too. The client fails safe and never moves again.
+
+Which is exactly the definition of "nothing held can be carried forward". So
+changing `ContentHashVersion` requires publishing the next full with
+`-fresh -reason "content hash vN"`.
+
+A consumer must also be told which of the two it is. Manifests state
+`content_hash_version`, and the updater now reads it before doing any work: a
+build published under rules it does not understand is refused immediately,
+naming both versions and saying to upgrade, rather than after a wasted download
+with an error that reads like a corrupt build.
+
+File hashes cannot do this job and are not asked to. A consumer that applies
+patches holds the same facts as a freshly built file in different bytes —
+different page layout, freelist, AUTOINCREMENT counters — so `sha256` verifies a
+*download* and `content_hash` verifies a *state*. That distinction is why
+identifying which build a local copy actually holds is possible at all.
+
 ## Migration
 
 The 17 existing entries keep their ids — they are already unique, and rewriting

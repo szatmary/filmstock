@@ -1,6 +1,13 @@
 package filmstock
 
-import "testing"
+import (
+	"context"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
+	"strings"
+	"testing"
+)
 
 // A catalog shaped like the real one: a full, then dailies, with rollup edges
 // spanning 7 back on every build that has one.
@@ -250,5 +257,47 @@ func TestFullToFullStopsBeingWorthItEventually(t *testing.T) {
 	}
 	if cost != 1_300_000_000 {
 		t.Errorf("cost=%d; want the full's price", cost)
+	}
+}
+
+// A client whose content-hash rules are older than the build's cannot verify
+// that build by any road, and must say so before doing the work rather than
+// after.
+//
+// Left to discover it, the client takes the patch road (content mismatch,
+// falls back), then the full road — ~1.3 GB downloaded, indexes rebuilt,
+// re-hashed, refused — and reports a content-hash mismatch, which reads like a
+// corrupt build rather than an out-of-date client. It fails safe and never
+// moves, and repeats the whole thing next run.
+func TestUpdaterRefusesABuildItCannotVerify(t *testing.T) {
+	var hits int
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hits++
+		switch r.URL.Path {
+		case "/builds.json":
+			fmt.Fprintf(w, `{"latest_full":"F","latest":"F","builds":[
+			  {"id":"F","kind":"full","through":"20260901","bytes":10}]}`)
+		case "/F/manifest.json":
+			fmt.Fprintf(w, `{"dump":"20260901","content_hash_version":%d,
+			  "files":{"filmstock.db":{"size":10,"sha256":"x","content_hash":"y"}}}`,
+				ContentHashVersion+1)
+		default:
+			t.Errorf("client fetched %s despite being unable to verify the build", r.URL.Path)
+			w.WriteHeader(404)
+		}
+	}))
+	defer srv.Close()
+
+	_, _, changed, err := Update(context.Background(), srv.URL, t.TempDir())
+	if err == nil {
+		t.Fatal("accepted a build published under newer content-hash rules")
+	}
+	if changed {
+		t.Error("reported a change it could not verify")
+	}
+	for _, want := range []string{"content-hash", "upgrade"} {
+		if !strings.Contains(err.Error(), want) {
+			t.Errorf("error does not mention %q: %v", want, err)
+		}
 	}
 }

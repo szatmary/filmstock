@@ -278,8 +278,12 @@ func (c *catalog) cheapest(cur, target string) (full string, steps []routeStep, 
 }
 
 type buildManifest struct {
-	Dump  string `json:"dump"`
-	Files map[string]struct {
+	Dump string `json:"dump"`
+	// The content-hash rules this build was published under. A consumer whose
+	// own rules are older cannot verify it — not the patch road and not the
+	// full — so this has to be read before any work, not discovered after.
+	ContentHashV int `json:"content_hash_version"`
+	Files        map[string]struct {
 		Size    int64  `json:"size"`
 		SHA256  string `json:"sha256"`
 		Content string `json:"content_hash"`
@@ -379,6 +383,30 @@ func (u *updater) update(ctx context.Context) (corePath, build string, changed b
 				cur, held.Epoch, tip.Epoch, why)
 		}
 	}
+	// Can this client verify that build at all?
+	//
+	// Content hashes are versioned, and the version is part of the hashed
+	// bytes, so a client with older rules mismatches every build published
+	// under newer ones. Both roads then fail: the patch chain refuses, and the
+	// full road downloads ~1.3 GB, rebuilds its indexes, re-hashes, and refuses
+	// that too — reporting a content-hash mismatch, which reads like a corrupt
+	// build rather than an out-of-date client. It fails safe and it never
+	// moves, and it repeats the work every run.
+	//
+	// The manifest says which rules it used, so ask first. Refusing here costs
+	// one small GET and names the actual problem.
+	var tipMan buildManifest
+	if err := u.getJSON(ctx, u.BaseURL+"/"+latest+"/manifest.json", &tipMan); err != nil {
+		return "", "", false, err
+	}
+	if tipMan.ContentHashV > ContentHashVersion {
+		return "", "", false, fmt.Errorf(
+			"filmstock: build %s was published with content-hash rules v%d and this "+
+				"client understands v%d; it cannot verify that build by any road. "+
+				"Staying on %s — upgrade filmstock to move",
+			latest, tipMan.ContentHashV, ContentHashVersion, cur)
+	}
+
 	seed, steps, cost := cat.cheapest(cur, latest)
 	if seed != "" || len(steps) > 0 {
 		base := cur
