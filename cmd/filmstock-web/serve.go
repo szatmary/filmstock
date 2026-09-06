@@ -33,7 +33,7 @@ type server struct {
 
 func main() {
 	dbPath := flag.String("db", "filmstock.db", "the database")
-	textPath := flag.String("text-db", "", "synopsis database (default <db>'s sibling filmstock-text.db)")
+	textPath := flag.String("text-db", "", "a separate synopsis database (pre-merge builds only; text is in -db now)")
 	vectors := flag.String("vectors", "", "embedding vectors, to enable /explore")
 	addr := flag.String("addr", ":8080", "listen address")
 	flag.Parse()
@@ -45,21 +45,17 @@ func main() {
 	defer db.Close()
 
 	s := &server{fs: db}
-	explicitText := *textPath != ""
-	if !explicitText {
-		*textPath = strings.TrimSuffix(*dbPath, ".db") + "-text.db"
-	}
-	if _, err := os.Stat(*textPath); err == nil {
+	// Overviews and episode summaries live in the core database now, so the
+	// default is the handle already open. -text-db remains for a build from
+	// before the merge, where they are still a file of their own.
+	s.text = db.SQL()
+	if *textPath != "" {
 		t, err := sql.Open(sqldrv.Name, "file:"+*textPath+"?mode=ro")
 		if err != nil {
-			fatal(err)
+			fatal(fmt.Errorf("text database %s: %w", *textPath, err))
 		}
 		defer t.Close()
 		s.text = t
-	} else if explicitText {
-		fatal(fmt.Errorf("text database %s: %w", *textPath, err))
-	} else {
-		fmt.Fprintf(os.Stderr, "no text database at %s; synopses and plots will be absent\n", *textPath)
 	}
 	if *vectors != "" {
 		v, err := query.OpenVectors(*vectors)

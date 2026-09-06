@@ -42,7 +42,6 @@ var incrDayRe = regexp.MustCompile(`href="(\d{8})/"`)
 func CmdCatchup(args []string) {
 	fs := flag.NewFlagSet("catchup", flag.ExitOnError)
 	dbOut := fs.String("db", "", "SQLite database to publish each day")
-	textOut := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	cache := fs.String("cache", defaultCachePath(), "Wikidata resolver cache")
 	dumps := fs.String("dumps", "dump/incr", "where to keep downloaded dailies")
 	full := fs.String("full-dumps", "dump", "directory holding the full dump set")
@@ -115,7 +114,7 @@ func CmdCatchup(args []string) {
 			// hole that nothing downstream would ever detect.
 			fatal(fmt.Errorf("%s: %w\nstopping; the store is consistent through the previous day", d, err))
 		}
-		cargs := []string{"-incr", path, "-db", *dbOut, "-text-db", *textOut,
+		cargs := []string{"-incr", path, "-db", *dbOut,
 			"-cache", *cache, "-inter", *inter, "-dumps", *full,
 			"-workers", strconv.Itoa(*workers)}
 		CmdUpdate(cargs)

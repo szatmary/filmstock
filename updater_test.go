@@ -53,7 +53,7 @@ func fakeRelease(t *testing.T, root, id, title string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	man := map[string]any{"dump": id, "files": map[string]any{
+	man := map[string]any{"dump": id, "content_hash_version": ContentHashVersion, "files": map[string]any{
 		"filmstock.db": map[string]any{"sha256": sha, "content_hash": content},
 	}}
 	mb, _ := json.Marshal(man)
@@ -200,7 +200,7 @@ func fakeDaily(t *testing.T, root, id, parent, patchSQL string) {
 	os.WriteFile(patchPath, gz.Bytes(), 0o644)
 	psha, _ := fileSHA256(patchPath)
 
-	man := map[string]any{"dump": id, "files": map[string]any{
+	man := map[string]any{"dump": id, "content_hash_version": ContentHashVersion, "files": map[string]any{
 		"filmstock.db":              map[string]any{"sha256": sha, "content_hash": content},
 		"filmstock.db.patch.sql.gz": map[string]any{"sha256": psha},
 	}}

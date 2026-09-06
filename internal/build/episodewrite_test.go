@@ -15,7 +15,7 @@ import (
 // (or vice versa) fails here rather than in a six-hour build.
 func TestEpisodeRoundTripsThroughTheDatabase(t *testing.T) {
 	dir := t.TempDir()
-	w, err := newDBWriter(filepath.Join(dir, "core.db"), filepath.Join(dir, "text.db"))
+	w, err := newDBWriter(filepath.Join(dir, "core.db"))
 	if err != nil {
 		t.Fatal(err)
 	}

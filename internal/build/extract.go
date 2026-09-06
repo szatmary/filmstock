@@ -123,7 +123,6 @@ func CExtract(args []string) {
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
 	limit := fs.Int("limit", 0, "stop after this many films (0 = all); for smoke tests")
 	dbPath := fs.String("db", "filmstock.db", "SQLite database to publish")
-	textOut := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	fs.Parse(args)
 
 	d, err := findDumps(*dumpDir)
@@ -161,10 +160,7 @@ func CExtract(args []string) {
 
 	// ---- Phase 3: enwiki -> database ---------------------------------------
 	fmt.Fprintf(os.Stderr, "[3/3] records: %s -> %s\n", d.articles, *dbPath)
-	if *textOut == "" {
-		*textOut = defaultTextPath(*dbPath)
-	}
-	if err := runExportTo(d, dumpSource(d, *workers), *dbPath, *textOut, *workers, *limit); err != nil {
+	if err := runExportTo(d, dumpSource(d, *workers), *dbPath, *workers, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "extract complete in %.1f min\n", time.Since(start).Minutes())

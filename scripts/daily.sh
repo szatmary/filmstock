@@ -229,7 +229,7 @@ for day in $plan; do
   # into the intermediate, then every record re-derived from the whole corpus.
   timed "$day update" "$BIN" catchup \
     -from "$day" -max 1 -keep \
-    -db "$dir/filmstock.db" -text-db "$dir/filmstock-text.db" \
+    -db "$dir/filmstock.db" \
     -inter "$INTER" -cache "$CACHE" \
     -dumps "$INCR_DIR" -full-dumps "$FULL_DUMPS" -workers "$WORKERS"
   say "    $(timing "$day update")"
@@ -238,12 +238,11 @@ for day in $plan; do
   # asked of the intermediate rather than of the exit status.
   now=$(interday)
   [ "$now" = "$day" ] || die "$day: catchup left the intermediate at $now; refusing to publish"
-  [ -s "$dir/filmstock.db" ] && [ -s "$dir/filmstock-text.db" ] \
-    || die "$day: export produced no databases in $dir"
+  [ -s "$dir/filmstock.db" ] || die "$day: export produced no database in $dir"
 
   # The post-passes. They read the resolver cache and rewrite index tables in
-  # the freshly exported database; the vectors database is not rebuilt daily
-  # and is carried forward from the base by publish.
+  # the freshly exported database. Vectors are not published at present, so
+  # there is nothing here to carry forward.
   timed "$day post" bash -c \
     "'$BIN' index-external-ids -db '$dir/filmstock.db' -cache '$CACHE' && \
      '$BIN' index-series       -db '$dir/filmstock.db' -cache '$CACHE'"

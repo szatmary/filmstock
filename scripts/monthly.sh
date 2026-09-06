@@ -343,7 +343,7 @@ say "new intermediate holds $have; the tip holds $tip_through"
 
 if [ "$have" \< "$tip_through" ]; then
   timed "converge" "$BIN" catchup \
-    -db "$STAGE/$ID/filmstock.db" -text-db "$STAGE/$ID/filmstock-text.db" \
+    -db "$STAGE/$ID/filmstock.db" \
     -inter "$NEW_INTER" -cache "$NEW_CACHE" \
     -dumps "$INCR_DIR" -full-dumps "$DUMPS" -workers "$WORKERS" -keep
   say "    $(timing converge)"
@@ -363,12 +363,11 @@ say "converged: new intermediate holds $have (tip $tip_through)"
 
 # --- export + post-passes -------------------------------------------------
 # Exported unconditionally even when catchup already wrote a build: catchup's
-# output is the last day's, and a full publishes every database including the
-# vectors that a daily carries forward untouched.
+# output is the last day's, and the full must be a clean re-derivation of the
+# whole corpus rather than whatever the final day happened to leave.
 rm -rf "$STAGE/$ID"; mkdir -p "$STAGE/$ID"
 timed "export" "$BIN" export \
   -inter "$NEW_INTER" -db "$STAGE/$ID/filmstock.db" \
-  -text-db "$STAGE/$ID/filmstock-text.db" \
   -cache "$NEW_CACHE" -dumps "$DUMPS" -workers "$WORKERS"
 say "    $(timing export)"
 [ -s "$STAGE/$ID/filmstock.db" ] || die "export produced no database"

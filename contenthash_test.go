@@ -137,3 +137,65 @@ func TestDerivedTablesAreInvisible(t *testing.T) {
 		t.Fatal("derived tables leaked into the content hash")
 	}
 }
+
+// A v1 database has no prod_code column at all, so the v2 query against it is a
+// hard SQL error rather than a wrong number. Everything published before the v2
+// bump is v1 and stays in the bucket, so verifying it under its own declared
+// rules is the difference between those builds being consumable and not.
+const epSchemaV1 = `CREATE TABLE television_episodes(id INTEGER PRIMARY KEY AUTOINCREMENT,
+  series_id INTEGER, season INTEGER, number_in_season INTEGER, number_overall INTEGER,
+  title TEXT, air_date TEXT, viewers REAL)`
+
+func openWith(t *testing.T, setup []string) *sql.DB {
+	t.Helper()
+	h, err := sql.Open(sqldrv.Name, "file:"+t.TempDir()+"/x.db")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { h.Close() })
+	for _, q := range setup {
+		if _, err := h.Exec(q); err != nil {
+			t.Fatalf("%s: %v", q, err)
+		}
+	}
+	return h
+}
+
+func TestContentHashVerifiesAV1Database(t *testing.T) {
+	rows := `INSERT INTO television_episodes(series_id,season,number_in_season,number_overall,title,air_date,viewers)
+		 VALUES (1,1,1,1,'Pilot','1999-01-10',3.5)`
+	h := openWith(t, []string{epSchemaV1, rows})
+
+	// The current rules cannot read a v1 database.
+	if _, _, err := ContentHashAt(h, ContentHashVersion); err == nil {
+		t.Fatal("v2 rules hashed a v1 database; the missing column should have failed")
+	}
+	// Its own rules can.
+	v1, tables, err := ContentHashAt(h, 1)
+	if err != nil {
+		t.Fatalf("v1 rules on a v1 database: %v", err)
+	}
+	if tables["television_episodes"] == "" {
+		t.Fatal("no episode digest")
+	}
+
+	// The version is inside the total, so the same rows under different rules
+	// cannot collide: a v1 hash must never be mistaken for a v2 one.
+	h2 := openWith(t, []string{epSchema, rows})
+	v2, _, err := ContentHashAt(h2, ContentHashVersion)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if v1 == v2 {
+		t.Fatal("v1 and v2 totals collided")
+	}
+}
+
+func TestContentHashRefusesUnknownVersions(t *testing.T) {
+	h := openWith(t, []string{epSchema})
+	for _, v := range []int{0, -1, ContentHashVersion + 1} {
+		if _, _, err := ContentHashAt(h, v); err == nil {
+			t.Fatalf("v%d was accepted; a version this client cannot reproduce must be refused", v)
+		}
+	}
+}

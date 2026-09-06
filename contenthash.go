@@ -29,8 +29,65 @@ import (
 //
 // ContentHashVersion changes whenever the canonical queries do; hashes from
 // different versions are not comparable and manifests must say which they used.
-// v2 added prod_code to the television_episodes stream.
-const ContentHashVersion = 2
+// v2 added prod_code to the television_episodes stream. v3 dropped plot from
+// the movie_text and television_text streams and moved all three text tables
+// into the core database.
+const ContentHashVersion = 3
+
+// olderSpecs records, per superseded version, the canonical queries that
+// version used where they differ from the current ones — so a client can still
+// verify a build published under an older recipe instead of refusing it.
+//
+// A published build is immutable and its manifest's hashes were computed once,
+// under the rules in force that day. Those bytes stay in the bucket for as long
+// as anyone hosts them, which is longer than any particular version of this
+// file lives. Keeping the old queries is what lets "verify what is published"
+// stay true without republishing history every time a column joins a stream.
+//
+// Bumping ContentHashVersion means adding an entry here for the version being
+// left behind, holding the queries as they read BEFORE the change. Only the
+// tables that actually changed need listing; everything else is inherited.
+var olderSpecs = map[int]map[string]string{
+	// v1 hashed episodes without prod_code, and v1 databases have no such
+	// column — running the v2 query against one is a hard SQL error, not a
+	// hash mismatch.
+	1: {
+		"television_episodes": `SELECT series_id,season,number_overall,number_in_season,
+	   title,air_date,viewers FROM television_episodes
+	   ORDER BY series_id,season,number_overall,number_in_season,title,air_date`,
+	},
+}
+
+// specsFor returns the canonical queries for one content-hash version.
+func specsFor(version int) (map[string]string, error) {
+	if version < 1 {
+		return nil, fmt.Errorf(
+			"filmstock: manifest declares no content hash version, so its hashes " +
+				"cannot be reproduced")
+	}
+	if version > ContentHashVersion {
+		return nil, fmt.Errorf(
+			"filmstock: content hash v%d is newer than this client understands (v%d)",
+			version, ContentHashVersion)
+	}
+	if version == ContentHashVersion {
+		return contentSpecs, nil
+	}
+	old, ok := olderSpecs[version]
+	if !ok {
+		return nil, fmt.Errorf(
+			"filmstock: content hash v%d is no longer supported by this client (v%d)",
+			version, ContentHashVersion)
+	}
+	specs := make(map[string]string, len(contentSpecs))
+	for k, v := range contentSpecs {
+		specs[k] = v
+	}
+	for k, v := range old {
+		specs[k] = v
+	}
+	return specs, nil
+}
 
 // contentSpecs maps each table to its canonical row stream.
 var contentSpecs = map[string]string{
@@ -72,8 +129,8 @@ var contentSpecs = map[string]string{
 	   ORDER BY p.wiki,c.work_type,c.work_id,c.role`,
 
 	// the synopsis database
-	"movie_text":      `SELECT id,overview,plot FROM movie_text ORDER BY id`,
-	"television_text": `SELECT id,overview,plot FROM television_text ORDER BY id`,
+	"movie_text":      `SELECT id,overview FROM movie_text ORDER BY id`,
+	"television_text": `SELECT id,overview FROM television_text ORDER BY id`,
 	"episode_text": `SELECT series_id,summary FROM episode_text
 	   ORDER BY series_id,summary`,
 
@@ -96,10 +153,29 @@ func contentSkip(name string) bool {
 	return false
 }
 
-// ContentHash hashes every content table, returning the per-table digests and
-// a total. The total is the SHA-256 of "name digest" lines sorted by name, so
-// two databases agree on the total exactly when they agree on every table.
+// ContentHash hashes every content table under the CURRENT rules, returning
+// the per-table digests and a total. The total is the SHA-256 of "name digest"
+// lines sorted by name, so two databases agree on the total exactly when they
+// agree on every table.
+//
+// Use it when producing a hash. To CHECK a published build, use ContentHashAt
+// with the version its manifest declares: the build was hashed under the rules
+// of its own day, and those are the only rules its number can be reproduced by.
 func ContentHash(h *sql.DB) (total string, tables map[string]string, err error) {
+	return ContentHashAt(h, ContentHashVersion)
+}
+
+// ContentHashAt hashes every content table under the rules of one specific
+// content-hash version — the version a build's manifest declares.
+func ContentHashAt(h *sql.DB, version int) (total string, tables map[string]string, err error) {
+	specs, err := specsFor(version)
+	if err != nil {
+		return "", nil, err
+	}
+	return contentHash(h, version, specs)
+}
+
+func contentHash(h *sql.DB, version int, contentSpecs map[string]string) (total string, tables map[string]string, err error) {
 	rows, err := h.Query(`SELECT name FROM sqlite_master WHERE type='table'`)
 	if err != nil {
 		return "", nil, err
@@ -133,7 +209,7 @@ func ContentHash(h *sql.DB) (total string, tables map[string]string, err error) 
 		tables[name] = d
 	}
 	sum := sha256.New()
-	fmt.Fprintf(sum, "content-hash v%d\n", ContentHashVersion)
+	fmt.Fprintf(sum, "content-hash v%d\n", version)
 	for _, name := range names {
 		fmt.Fprintf(sum, "%s %s\n", name, tables[name])
 	}

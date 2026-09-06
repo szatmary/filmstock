@@ -23,15 +23,11 @@ import (
 func CmdSchema(args []string) {
 	fs := flag.NewFlagSet("schema", flag.ExitOnError)
 	core := fs.String("db", "", "the published core database")
-	text := fs.String("text-db", "", "synopsis database (default: beside -db)")
 	vec := fs.String("vectors-db", "", "vectors database (default: beside -db)")
 	out := fs.String("out", "", "where to write (default stdout)")
 	fs.Parse(args)
 	if *core == "" {
 		fatal(fmt.Errorf("schema needs -db FILE"))
-	}
-	if *text == "" {
-		*text = defaultTextPath(*core)
 	}
 	if *vec == "" {
 		*vec = strings.TrimSuffix(*core, ".db") + "-vectors.db"
@@ -40,8 +36,7 @@ func CmdSchema(args []string) {
 	var b strings.Builder
 	b.WriteString(schemaPreamble)
 	for _, f := range []struct{ path, name, what string }{
-		{*core, "filmstock.db", "Every entity, every credit, and the search indexes."},
-		{*text, "filmstock-text.db", "Prose: overviews, plots and episode summaries. Ships separately because a consumer that only searches never needs it."},
+		{*core, "filmstock.db", "Every entity, every credit, the overviews and episode summaries, and the search indexes."},
 		{*vec, "filmstock-vectors.db", "Embedding vectors, for similarity and recommendation."},
 	} {
 		if _, err := os.Stat(f.path); err != nil {

@@ -244,16 +244,21 @@ func (s *server) eventView(ctx context.Context, id int) (*eventView, error) {
 	return e, nil
 }
 
-// textOf reads one row of a text-database table; absent text is "".
+// textOf reads one row of a text table; absent text is "".
+//
+// Plot is no longer published — it was most of a 462 MB second file and is not
+// what a UI renders — so only the overview comes back. The signature keeps its
+// second result so callers and templates did not all have to change on the
+// same day; it is always "".
 func (s *server) textOf(table string, id int) (overview, plot string) {
 	if s.text == nil {
 		return "", ""
 	}
 	err := s.text.QueryRow(
-		`SELECT COALESCE(overview,''), COALESCE(plot,'') FROM `+table+` WHERE id = ?`,
-		id).Scan(&overview, &plot)
+		`SELECT COALESCE(overview,'') FROM `+table+` WHERE id = ?`,
+		id).Scan(&overview)
 	if err != nil {
 		return "", ""
 	}
-	return overview, plot
+	return overview, ""
 }

@@ -551,7 +551,10 @@ func (u *updater) finishBuild(ctx context.Context, latest string) (string, strin
 		}
 	}
 	if u.VerifyContent {
-		got, _, err := ContentHash(h)
+		// Under the rules the BUILD declares, not the client's current ones: a
+		// published manifest's number was produced once, by the version in
+		// force that day, and that is the only version it reproduces under.
+		got, _, err := ContentHashAt(h, man.ContentHashV)
 		if err != nil {
 			h.Close()
 			return "", "", false, err
@@ -649,7 +652,7 @@ func (u *updater) applyChain(ctx context.Context, cur string, steps []routeStep)
 		if err != nil {
 			return fmt.Errorf("filmstock: opening patched %s: %w", name, err)
 		}
-		got, _, err := ContentHash(h)
+		got, _, err := ContentHashAt(h, man.ContentHashV)
 		h.Close()
 		if err != nil {
 			return fmt.Errorf("filmstock: hashing patched %s: %w", name, err)

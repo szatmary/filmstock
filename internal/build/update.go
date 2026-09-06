@@ -36,7 +36,6 @@ func CmdUpdate(args []string) {
 	dumps := fs.String("dumps", "dump", "directory holding the dumps (for the wikidata cache)")
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db)")
 	dbOut := fs.String("db", "", "SQLite database to publish")
-	textOut := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	workers := fs.Int("workers", 18, "parallel workers")
 	noWikitext := fs.Bool("no-wikitext", false, "do not store the day's wikitext")
 	fs.Parse(args)
@@ -54,9 +53,6 @@ func CmdUpdate(args []string) {
 	if *dbOut == "" {
 		fatal(fmt.Errorf("update needs -db FILE"))
 	}
-	if *textOut == "" {
-		*textOut = defaultTextPath(*dbOut)
-	}
 
 	start := time.Now()
 	fmt.Fprintf(os.Stderr, "[1/2] %s -> %s\n", *incr, *inter)
@@ -68,7 +64,7 @@ func CmdUpdate(args []string) {
 		fatal(err)
 	}
 	defer in.Close()
-	if err := runExportDB(in, d, *dbOut, *textOut, *workers, 0); err != nil {
+	if err := runExportDB(in, d, *dbOut, *workers, 0); err != nil {
 		fatal(err)
 	}
 

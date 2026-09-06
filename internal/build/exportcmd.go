@@ -35,7 +35,6 @@ func CmdExport(args []string) {
 	dumps := fs.String("dumps", "dump", "directory holding the dumps (for the wikidata cache)")
 	cache := fs.String("cache", "", "resolver db (default <dumps>/resolver.db); build-time only, discardable")
 	dbOut := fs.String("db", "", "SQLite database to publish")
-	textOut := fs.String("text-db", "", "synopsis database (default <db>-text.db)")
 	workers := fs.Int("workers", 18, "parallel workers")
 	limit := fs.Int("limit", 0, "stop after this many films (0 = all)")
 	fs.Parse(args)
@@ -72,11 +71,8 @@ func CmdExport(args []string) {
 	if *dbOut == "" {
 		fatal(fmt.Errorf("export needs -db FILE"))
 	}
-	if *textOut == "" {
-		*textOut = defaultTextPath(*dbOut)
-	}
 	start := time.Now()
-	if err := runExportDB(in, d, *dbOut, *textOut, *workers, *limit); err != nil {
+	if err := runExportDB(in, d, *dbOut, *workers, *limit); err != nil {
 		fatal(err)
 	}
 	fmt.Fprintf(os.Stderr, "export complete in %.1f min\n", time.Since(start).Minutes())
@@ -84,7 +80,7 @@ func CmdExport(args []string) {
 
 // runExportDB publishes straight into the database, with no record tree in
 // between. The record builders are the same; only the sink differs.
-func runExportDB(in *Inter, d *dumpSet, dbPath, textPath string, workers, limit int) error {
+func runExportDB(in *Inter, d *dumpSet, dbPath string, workers, limit int) error {
 	n, err := in.Pages()
 	if err != nil {
 		return err
@@ -92,13 +88,13 @@ func runExportDB(in *Inter, d *dumpSet, dbPath, textPath string, workers, limit 
 	if n == 0 {
 		return fmt.Errorf("export: %s holds no pages — run `filmstock import` first", in.path)
 	}
-	return runExportTo(d, interSource(in, n, workers), dbPath, textPath, workers, limit)
+	return runExportTo(d, interSource(in, n, workers), dbPath, workers, limit)
 }
 
 // runExportTo runs the record builders from any page source straight into the
 // database. Extract (dump source) and export (intermediate source) meet here.
-func runExportTo(d *dumpSet, src pageSource, dbPath, textPath string, workers, limit int) error {
-	w, err := newDBWriter(dbPath, textPath)
+func runExportTo(d *dumpSet, src pageSource, dbPath string, workers, limit int) error {
+	w, err := newDBWriter(dbPath)
 	if err != nil {
 		return err
 	}

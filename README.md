@@ -4,14 +4,12 @@ A media database built from the English Wikipedia and Wikidata dumps: films, tel
 series and episodes, award ceremonies and festivals, and the people credited on
 them — parsed, cross-linked by Wikidata Q-id, and indexed for search.
 
-No API keys, no scraping, no third-party service. The dumps go in; three SQLite
-databases come out, ready to serve:
+No API keys, no scraping, no third-party service. The dumps go in; one SQLite
+database comes out, ready to serve:
 
 | file | holds | size |
 |---|---|---|
-| `filmstock.db` | every entity, credit and search index | 315 MB |
-| `filmstock-text.db` | overviews, plots and episode summaries | 614 MB |
-| `filmstock-vectors.db` | embedding vectors for recommendations | 222 MB |
+| `filmstock.db` | every entity, credit, overview, episode summary and search index |
 
 **Current build** (enwiki 2026-08-01 dump):
 

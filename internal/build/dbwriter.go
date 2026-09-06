@@ -29,12 +29,11 @@ import (
 // They are staged in a table rather than held in memory. There are 1.7M of
 // them; SQLite handles that without noticing, and a map would not.
 type dbWriter struct {
-	mu   sync.Mutex
-	db   *sql.DB
-	tx   *sql.Tx
-	err  error
-	n    int
-	text string // the synopsis database, attached
+	mu  sync.Mutex
+	db  *sql.DB
+	tx  *sql.Tx
+	err error
+	n   int
 
 	insMovie, insSeries, insSeason, insEpisode  *sql.Stmt
 	insEvent, insSchedule, insSlot, insPerson   *sql.Stmt
@@ -62,11 +61,8 @@ CREATE TABLE IF NOT EXISTS credit_staging(
 );
 `
 
-func newDBWriter(dbPath, textPath string) (*dbWriter, error) {
+func newDBWriter(dbPath string) (*dbWriter, error) {
 	if err := os.Remove(dbPath); err != nil && !os.IsNotExist(err) {
-		return nil, err
-	}
-	if err := os.Remove(textPath); err != nil && !os.IsNotExist(err) {
 		return nil, err
 	}
 	db, err := sql.Open(sqldrv.Name, dbPath)
@@ -77,18 +73,14 @@ func newDBWriter(dbPath, textPath string) (*dbWriter, error) {
 	for _, s := range []string{
 		`PRAGMA journal_mode=OFF`, `PRAGMA synchronous=OFF`,
 		schema, peopleSchema, televisionSchema, eventSchema, scheduleSchema,
-		creditStagingSchema,
+		creditStagingSchema, textSchema,
 	} {
 		if _, err := db.Exec(s); err != nil {
 			db.Close()
 			return nil, fmt.Errorf("schema: %w", err)
 		}
 	}
-	w := &dbWriter{db: db, text: textPath}
-	if err := attachText(db, textPath); err != nil {
-		db.Close()
-		return nil, err
-	}
+	w := &dbWriter{db: db}
 	if err := w.begin(); err != nil {
 		db.Close()
 		return nil, err
@@ -159,9 +151,9 @@ func (w *dbWriter) begin() error {
 		VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`)
 	w.insPerson = p(`INSERT INTO people(id,page_id,qid,name,wiki,image_url) VALUES(?,?,?,?,?,?)`)
 	w.insAlias = p(`INSERT OR IGNORE INTO person_alias(wiki,person_id) VALUES(?,?)`)
-	w.insMovieText = p(`INSERT OR REPLACE INTO synopsis.movie_text(id,overview,plot) VALUES(?,?,?)`)
-	w.insSeriesText = p(`INSERT OR REPLACE INTO synopsis.television_text(id,overview,plot) VALUES(?,?,?)`)
-	w.insEpisodeText = p(`INSERT OR REPLACE INTO synopsis.episode_text(id,series_id,summary) VALUES(?,?,?)`)
+	w.insMovieText = p(`INSERT OR REPLACE INTO movie_text(id,overview) VALUES(?,?)`)
+	w.insSeriesText = p(`INSERT OR REPLACE INTO television_text(id,overview) VALUES(?,?)`)
+	w.insEpisodeText = p(`INSERT OR REPLACE INTO episode_text(id,series_id,summary) VALUES(?,?,?)`)
 	w.insCredit = p(`INSERT INTO credit_staging(work_id,work_type,role,wiki,name) VALUES(?,?,?,?,?)`)
 	return err
 }
@@ -252,7 +244,7 @@ func (w *dbWriter) putMovie(id int64, m *record.Movie) {
 		return
 	}
 	if m.Overview != "" || m.Plot != "" {
-		if _, err := w.insMovieText.Exec(id, m.Overview, m.Plot); err != nil {
+		if _, err := w.insMovieText.Exec(id, m.Overview); err != nil {
 			w.fail(err)
 			return
 		}
@@ -281,7 +273,7 @@ func (w *dbWriter) putSeries(id int64, s *record.TelevisionSeries) {
 		return
 	}
 	if s.Overview != "" || s.Plot != "" {
-		w.insSeriesText.Exec(id, s.Overview, s.Plot)
+		w.insSeriesText.Exec(id, s.Overview)
 	}
 	for _, c := range []struct {
 		role   string
