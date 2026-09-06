@@ -156,12 +156,35 @@ def main():
 
     for path, key in items:
         size = os.path.getsize(path)
-        digest = sha256_of(path)
         head = remote_head(s3, bucket, key)
 
+        # HEAD first, and hash only when the answer can still change. A
+        # published build directory is immutable, so an object already up there
+        # at the right size with a recorded sha256 is current by construction —
+        # rehashing 1.3 GB to learn that on every daily run is pure cost. The
+        # cases that do need a hash: nothing up there yet (the digest becomes
+        # the object's metadata), a size match with no recorded digest (an
+        # older upload, so compare properly), or --force.
+        digest = None
+
+        def local_digest():
+            nonlocal digest
+            if digest is None:
+                digest = sha256_of(path)
+            return digest
+
         if head is not None:
-            same = (head["ContentLength"] == size
-                    and head.get("Metadata", {}).get("sha256") == digest)
+            recorded = head.get("Metadata", {}).get("sha256")
+            if head["ContentLength"] != size:
+                same = False
+            elif recorded:
+                # --verify-only and --force are the modes that are asking the
+                # real question, so they pay for the hash; a plain sync trusts
+                # size plus a recorded digest under an immutable key.
+                same = (recorded == local_digest()
+                        if (args.force or args.verify_only) else True)
+            else:
+                same = False  # size matches but nothing recorded; re-upload to record it
             # Whatever else is true, an object serving with Content-Encoding
             # set will fail the consumer's hash check. Say so loudly.
             if head.get("ContentEncoding"):
@@ -190,7 +213,7 @@ def main():
                     "ContentType": content_type(key),
                     # sha256 travels with the object so a later run can tell
                     # "same bytes" from "same size" without re-downloading.
-                    "Metadata": {"sha256": digest},
+                    "Metadata": {"sha256": local_digest()},
                     # Immutable content under an immutable key. builds.json is
                     # the one thing that changes, so it gets a short TTL.
                     "CacheControl": ("public, max-age=60"

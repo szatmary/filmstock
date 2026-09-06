@@ -57,3 +57,8 @@ cmd/filmstock-web/filmstock-web
 # ── R2 credentials. Never in the repo.
 /.r2.env
 r2.env
+
+# ── R2 credentials (lives at /tank/mediadb/cloudflair.env). Never in the repo.
+cloudflair.env
+*.env
+!scripts/r2.env.example

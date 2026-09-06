@@ -215,6 +215,41 @@ waiting on overall completion would delay every monthly for no reason.
 
 Not ready is not a failure. It retries.
 
+### We do not control when a dump appears
+
+A dump is named for the day its content was snapshotted, not the day it is
+published. `enwiki-20260901` finished its article jobs on 2026-09-03; nothing
+promises three days. It could as easily be thirty — a dump dated 10/01 finishing
+on 10/30 — and that is not an error condition, it is Wikimedia's schedule.
+
+The consequence is that a rebuild's content always starts at the dump's date and
+has to be carried forward to the published tip by replaying the adds-changes
+dumps in between. The later a dump lands, the more days that is. If any of those
+days is unavailable, the rebuild can never satisfy §2's invariant, and `publish`
+refuses it — correctly, and at the very end of several hours of work.
+
+Two things follow.
+
+**Retention here is the insurance, and it is cheap.** Wikimedia keeps
+adds-changes dumps about 42 days; that is their budget, not ours. Once a day is
+downloaded it is ours to keep, and these files are the only thing that can carry
+a late rebuild onto the tip. Keeping 45 days made our margin the same as the
+server's, which is to say none. At ~850 MB/day, half a year is ~155 GB against
+37 TB free, so `FILMSTOCK_KEEP_INCR` now defaults to 180 days. A dump a month
+late then converges from files already on disk and the lateness is a non-event.
+
+**A doomed rebuild is refused in the first minute, not the last.** Before
+fetching ~27 GB, the monthly enumerates the days between the dump's date and the
+tip's content day and checks each is held locally or still on the server. If any
+is gone from both, it stops and names them. The answer does not change by
+working for four hours first, and a run that fails early with the missing days
+listed is the same outcome made legible.
+
+Neither of these repairs a gap that has already opened. Nothing can: if the days
+between a dump and the tip are genuinely gone, that dump is unusable and the
+pipeline waits for a later one while the dailies carry on working. What they do
+is make the situation nearly unreachable, and unmistakable when it happens.
+
 ### The long work holds no lock
 
 The monthly's expensive phases — download, qidmap, import — write only files

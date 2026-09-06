@@ -57,7 +57,22 @@ LOGDIR=${FILMSTOCK_LOGDIR:-$HOME_DIR/logs}
 LOCK=${FILMSTOCK_LOCK:-$HOME_DIR/.daily.lock}
 WORKERS=${FILMSTOCK_WORKERS:-18}
 MAX_DAYS=${FILMSTOCK_MAX_DAYS:-0}          # 0 = every day available
-KEEP_INCR_DAYS=${FILMSTOCK_KEEP_INCR:-45}  # past Wikimedia's ~42-day retention
+# How long WE keep the adds-changes dumps. Wikimedia's ~42 days is their
+# budget, not ours: once a day is downloaded it is ours to keep, and these
+# files are the only thing that can carry a monthly rebuild forward onto the
+# published tip.
+#
+# That matters because we do not control when a dump is finished. A dump is
+# named for the day its content was snapshotted, not the day it is published,
+# so an enwiki-20261001 dump that only finishes on 10/30 still has to replay
+# every daily from 10/02 to reach the tip. If those days have aged off the
+# server AND out of here, the rebuild simply cannot be published — the full
+# would be older than the chain, which is the one thing publish refuses.
+#
+# Keeping 45 days made our margin the same as the server's, which is to say
+# none. At ~850 MB/day, half a year is ~155 GB, and the disk holds 37 TB.
+# Retention here is the cheapest insurance in the pipeline.
+KEEP_INCR_DAYS=${FILMSTOCK_KEEP_INCR:-180}
 MIN_FREE_GB=${FILMSTOCK_MIN_FREE_GB:-25}   # a day stages ~1.3 GB; leave room
 
 # One run at a time. The intermediate is mutated in place, and two runs

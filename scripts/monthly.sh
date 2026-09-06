@@ -61,6 +61,7 @@ UA=${FILMSTOCK_UA:-"filmstock/1.0 (https://github.com/szatmary/filmstock; matt@s
 # here that gets harder to fix the longer it goes unnoticed, so it escalates
 # well before the cliff.
 STALE_WARN_DAYS=${FILMSTOCK_STALE_WARN_DAYS:-25}
+KEEP_INCR_DAYS=${FILMSTOCK_KEEP_INCR:-180}
 
 mkdir -p "$LOGDIR" "$STAGE" "$INCR_DIR"
 LOG=$LOGDIR/monthly-$(date -u +%Y%m%dT%H%M%SZ).log
@@ -163,6 +164,53 @@ NEW_CACHE=$HOME_DIR/resolver-ext-$D.db
 # to be unique, and staying legible is worth more here than being opaque when
 # the reader is a cron mail at 04:00.
 ID=f$D
+
+# --- can this dump actually reach the tip? --------------------------------
+# A dump is named for the day its content was snapshotted, not the day it was
+# published, and we do not control the gap. An enwiki-20261001 dump finished on
+# 10/30 still has to replay every daily from 10/02 to reach the published tip.
+#
+# Checked here, before ~27 GB and several hours of work, because the answer
+# does not change afterwards: if a day in that span is gone from both this
+# machine and the server, the rebuild can never satisfy through(new) >=
+# through(tip), and publish will refuse it at the very end. Failing in the
+# first minute with the missing days named is the same outcome, four hours
+# earlier and legible.
+need_missing=$(python3 - "$D" "$tip_through" "$INCR_DIR" <<'PYQ'
+import sys, os, datetime
+d0 = datetime.datetime.strptime(sys.argv[1], "%Y%m%d").date()
+d1 = datetime.datetime.strptime(sys.argv[2], "%Y%m%d").date()
+incr = sys.argv[3]
+missing = []
+day = d0 + datetime.timedelta(days=1)
+while day <= d1:
+    stamp = day.strftime("%Y%m%d")
+    if not os.path.exists(os.path.join(incr, "enwiki-%s-pages-meta-hist-incr.xml.bz2" % stamp)):
+        missing.append(stamp)
+    day += datetime.timedelta(days=1)
+print(" ".join(missing))
+PYQ
+)
+if [ -n "$need_missing" ]; then
+  say "days not held locally, checking the server: $need_missing"
+  server=$(curl -sf -A "$UA" https://dumps.wikimedia.org/other/incr/enwiki/ \
+           | grep -oE '2[0-9]{7}' | sort -u || true)
+  gone=""
+  for d in $need_missing; do
+    echo "$server" | grep -qx "$d" || gone="$gone $d"
+  done
+  if [ -n "$gone" ]; then
+    die "dump $D cannot reach the chain tip ($tip_through).
+These adds-changes days are needed to carry it forward and are held neither
+here nor on the server:$gone
+The dump's content stops at $D, so without them the rebuild would be older than
+the chain and publish would refuse it. Nothing is wrong with the chain: dailies
+continue to work. Either a later dump arrives close enough to the tip to be
+usable, or the gap needs a human. Raising FILMSTOCK_KEEP_INCR (now ${KEEP_INCR_DAYS:-180}d)
+is what stops this recurring."
+  fi
+  say "all missing days are still on the server; catchup will fetch them"
+fi
 
 [ -x "$BIN" ]     || die "no filmstock binary at $BIN (make build)"
 [ -x "$SQLDIFF" ] || die "no sqldiff at $SQLDIFF (make sqldiff)"
