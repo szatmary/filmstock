@@ -19,8 +19,14 @@ import (
 // because implicit chains (date arithmetic, filename conventions) break the
 // first time a day is skipped or a dump is late.
 //
-//	/filmstock/builds.json          this catalog
-//	/filmstock/<id>/manifest.json   per-build files and hashes
+//	builds.json          this catalog
+//	<id>/manifest.json   per-build files and hashes
+//
+// Both are relative to the base the tree is served from, which is the bucket
+// root. The base is the consumer's to hold — nothing published names a host or
+// a mount point — so the same tree serves unchanged from
+// https://filmstock.halide.tv, from a plain directory on disk, or from
+// whatever hosts it next.
 //
 // The bridge_size on a full is the statement count of the diff between
 // [previous full + every daily] and [this full, rebuilt from scratch]. It is
@@ -56,7 +62,7 @@ type buildEntry struct {
 	// docs/CHAIN.md.
 	Through  string `json:"through"`
 	Parent   string `json:"parent,omitempty"` // the build this applies on top of
-	Manifest string `json:"manifest"`         // path to the build's manifest
+	Manifest string `json:"manifest"`         // the build's manifest, relative to the tree root
 	// Full builds only: the reconciliation from the previous chain.
 	BridgeFrom string `json:"bridge_from,omitempty"` // last daily of the old chain
 	Bridge     string `json:"bridge,omitempty"`      // path to the bridge patch
@@ -68,6 +74,22 @@ type buildEntry struct {
 	// Fulls only: the bytes a consumer downloads to take the full road. It is
 	// the alternative every path search is measured against.
 	Bytes int64 `json:"bytes,omitempty"`
+	// Epoch is the lineage this build belongs to. Routes never cross epochs.
+	//
+	// It is not the same thing as a full. A monthly full continues the lineage
+	// and bridges onto it, which is what stops a follower re-downloading a
+	// database every month. Bumping the epoch is the deliberate opposite: it
+	// declares that nothing held from before can be carried forward — after a
+	// schema change that old patches cannot express, or a chain found to be
+	// wrong — so consumers take the full road on purpose rather than by
+	// discovering that a patch will not verify.
+	//
+	// A break announced is a break the consumer can explain. A break inferred
+	// from a failure is indistinguishable from a bug in the patch.
+	Epoch int `json:"epoch"`
+	// Why this build opened a new epoch. Set only on that build, and meant for
+	// a human reading a log line about why their copy was replaced.
+	EpochReason string `json:"epoch_reason,omitempty"`
 }
 
 // patchEdge is one route into a build: apply the patches named by Suffix to the
@@ -188,6 +210,8 @@ func CmdBuilds(args []string) {
 	backfill := fs.Bool("backfill-through", false, "one-time migration: give pre-`through` entries through=id")
 	backfillE := fs.String("backfill-edges", "", "one-time migration: price each build's existing route from the patch files in this release root")
 	edgesJSON := fs.String("edges", "", "JSON array of the routes into this build")
+	epoch := fs.Int("epoch", 0, "lineage this build belongs to; routes never cross epochs")
+	epochReason := fs.String("epoch-reason", "", "why this build opens a new epoch")
 	bytes := fs.Int64("bytes", 0, "full only: total hosted database bytes, the full-road cost")
 	fs.Parse(args)
 	if *backfill {
@@ -226,8 +250,9 @@ func CmdBuilds(args []string) {
 
 	e := buildEntry{
 		ID: *id, Kind: *kind, Dump: *dump, Through: *through, Parent: *parent,
-		Manifest:   "/filmstock/" + *id + "/manifest.json",
+		Manifest:   *id + "/manifest.json",
 		BridgeFrom: *bridgeFrom, Bridge: *bridge, Bytes: *bytes,
+		Epoch: *epoch, EpochReason: *epochReason,
 	}
 	if *edgesJSON != "" {
 		if err := json.Unmarshal([]byte(*edgesJSON), &e.Edges); err != nil {
@@ -339,4 +364,14 @@ func backfillEdges(catalogPath, root string) {
 	}
 	fmt.Fprintf(os.Stderr, "  %s: priced %d route(s) and %d full(s) of %d builds\n",
 		catalogPath, edged, sized, len(cat.Builds))
+}
+
+// entry finds one build by id, nil when the catalog does not list it.
+func (c buildsCatalog) entry(id string) *buildEntry {
+	for i := range c.Builds {
+		if c.Builds[i].ID == id {
+			return &c.Builds[i]
+		}
+	}
+	return nil
 }

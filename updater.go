@@ -108,13 +108,15 @@ type updaterState struct {
 }
 
 type catalogEntry struct {
-	ID         string      `json:"id"`
-	Kind       string      `json:"kind"`
-	Parent     string      `json:"parent"`
-	BridgeFrom string      `json:"bridge_from"`
-	Through    string      `json:"through"`
-	Edges      []patchEdge `json:"edges"`
-	Bytes      int64       `json:"bytes"`
+	ID          string      `json:"id"`
+	Kind        string      `json:"kind"`
+	Parent      string      `json:"parent"`
+	BridgeFrom  string      `json:"bridge_from"`
+	Through     string      `json:"through"`
+	Edges       []patchEdge `json:"edges"`
+	Bytes       int64       `json:"bytes"`
+	Epoch       int         `json:"epoch"`
+	EpochReason string      `json:"epoch_reason"`
 }
 
 // patchEdge is one route into a build: apply the patches named by Suffix to
@@ -205,13 +207,27 @@ func (c *catalog) cheapest(cur, target string) (full string, steps []routeStep, 
 		step routeStep
 		seed string // the full downloaded to start here, "" if continuing
 	}
+	// Routes never cross epochs. An epoch is bumped only to declare that
+	// nothing held from before can be carried forward — a schema change old
+	// patches cannot express, or a chain found to be wrong — so a consumer on
+	// a retired lineage must take the full road deliberately rather than by
+	// discovering that some patch will not verify. A break announced is one
+	// the consumer can explain; a break inferred from a failure is
+	// indistinguishable from a bug.
+	tgt := c.entry(target)
+	if tgt == nil {
+		return "", nil, 0
+	}
+	era := tgt.Epoch
+
 	best := map[string]*node{}
-	if cur != "" {
+	if held := c.entry(cur); held != nil && held.Epoch == era {
 		best[cur] = &node{cost: 0}
 	}
-	// Every full is also a place to start, at the price of downloading it.
+	// Every full in this epoch is also a place to start, at the price of
+	// downloading it.
 	for _, e := range c.Builds {
-		if e.Kind != "full" || e.Bytes <= 0 {
+		if e.Kind != "full" || e.Bytes <= 0 || e.Epoch != era {
 			continue
 		}
 		if n, ok := best[e.ID]; !ok || e.Bytes < n.cost {
@@ -226,6 +242,9 @@ func (c *catalog) cheapest(cur, target string) (full string, steps []routeStep, 
 	// catalog's order, so one ordered sweep settles every node: a build's cost
 	// is final by the time the sweep reaches it.
 	for _, e := range c.Builds {
+		if e.Epoch != era {
+			continue
+		}
 		for _, edge := range c.routes(e) {
 			src, ok := best[edge.From]
 			if !ok {
@@ -346,6 +365,20 @@ func (u *updater) update(ctx context.Context) (corePath, build string, changed b
 	// from, then the patches to ride. The rule is bytes, and it covers a fresh
 	// install, a daily follower and a consumer years behind without any of
 	// them being special-cased.
+	if held := cat.entry(cur); held != nil {
+		if tip := cat.entry(latest); tip != nil && tip.Epoch != held.Epoch {
+			why := ""
+			for _, e := range cat.Builds {
+				if e.Epoch == tip.Epoch && e.EpochReason != "" {
+					why = e.EpochReason
+					break
+				}
+			}
+			u.logf("filmstock: %s is from epoch %d, which has been retired (now %d: %s); "+
+				"nothing held can be carried forward, taking the full road",
+				cur, held.Epoch, tip.Epoch, why)
+		}
+	}
 	seed, steps, cost := cat.cheapest(cur, latest)
 	if seed != "" || len(steps) > 0 {
 		base := cur

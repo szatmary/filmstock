@@ -150,3 +150,47 @@ func TestCheapestReportsWhenNothingReaches(t *testing.T) {
 		t.Fatalf("invented a route: full=%q steps=%v", full, steps)
 	}
 }
+
+// Starting fresh. An epoch is bumped to declare that nothing held from before
+// can be carried forward — a schema change old patches cannot express, or a
+// chain found to be wrong. The consumer must take the full road on purpose,
+// not by discovering that a patch will not verify.
+func TestFreshEpochStrandsNoOneAndCarriesNothingForward(t *testing.T) {
+	c := chainOf(20, 1_300_000_000, 1_000_000, 4_000_000)
+	oldTip := c.Latest
+	// The new lineage: a full with no bridge and no edges at all.
+	c.Builds = append(c.Builds, catalogEntry{
+		ID: "N", Kind: "full", Through: "999", Bytes: 900_000_000,
+		Epoch: 1, EpochReason: "episodes gained a column patches cannot express",
+	})
+	c.Latest, c.LatestFull = "N", "N"
+
+	// A consumer on the old lineage cannot patch across, however little they
+	// are behind: the only way in is the new full, whole.
+	full, steps, _ := c.cheapest(oldTip, "N")
+	if full != "N" {
+		t.Fatalf("crossed a lineage break: full=%q steps=%d", full, len(steps))
+	}
+	if len(steps) != 0 {
+		t.Errorf("applied %d patch(es) across an epoch boundary", len(steps))
+	}
+
+	// Nor may a build in the new epoch be used as a stepping stone into the
+	// old one. Asking for a route to a retired build still answers — cheapest
+	// is a path finder, and refusing a downgrade is update's job — but the
+	// answer must re-seed from a full of that lineage rather than continue
+	// from what is held.
+	if seed, _, _ := c.cheapest("N", oldTip); seed != "F" {
+		t.Errorf("continued out of the new epoch into the old instead of re-seeding: %q", seed)
+	}
+}
+
+// Within one epoch nothing changes: the break is a declaration, not a new
+// default.
+func TestSameEpochStillPatchesNormally(t *testing.T) {
+	c := chainOf(20, 1_300_000_000, 1_000_000, 4_000_000)
+	full, steps, _ := c.cheapest(day(19), c.Latest)
+	if full != "" || len(steps) != 1 {
+		t.Fatalf("full=%q steps=%d; want the ordinary single patch", full, len(steps))
+	}
+}

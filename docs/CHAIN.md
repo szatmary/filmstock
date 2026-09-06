@@ -304,6 +304,34 @@ remains from any still-supported build, no consumer is stranded.
   every comparison — an unpriced legacy chain beside a priced full would send a
   fresh install walking every legacy patch instead of taking the full.
 
+## 6. Signalling a fresh start
+
+Everything above assumes continuity: a full bridges onto the lineage it
+supersedes, which is exactly what stops a follower re-downloading a database
+every month. Sometimes continuity is the wrong claim — a schema change old
+patches cannot express, or a chain discovered to be wrong — and the consumer
+must abandon what it holds.
+
+Today that would be discovered by *failing*: the updater takes a route, the
+result does not verify, and it falls back to the full. A break inferred from a
+failure is indistinguishable from a bug in the patch, and after a schema change
+the old patches may not be safe to attempt at all.
+
+So the break is declared, not inferred. Every build carries an `epoch`, and
+**routes never cross epochs**. `publish -full -fresh -reason "…"` opens a new
+one: no bridge is emitted, no edge leads out of the old lineage, and every
+consumer takes the full road on purpose. The updater says so in as many words,
+naming the reason, rather than logging a verification failure.
+
+This is orthogonal to `-full`, and deliberately awkward to reach for. A monthly
+full continues the lineage; `-fresh` costs every consumer a full download, so it
+refuses without `-reason` — the one thing a consumer gets in return for that
+cost is being told why — refuses on a daily, and refuses a `-reason` given
+without it.
+
+The first epoch is 0, which is what every build published so far already reads
+as, so nothing needs migrating.
+
 ## Migration
 
 The 17 existing entries keep their ids — they are already unique, and rewriting

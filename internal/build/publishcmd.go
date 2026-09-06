@@ -139,6 +139,8 @@ func CmdPublish(args []string) {
 	differ := fs.String("sqldiff", "./sqldiff", "the sqldiff binary (make sqldiff)")
 	rollups := fs.String("rollups", "7,30", "also emit patches spanning this many builds back (comma-separated; empty for none)")
 	keepTips := fs.Int("keep-tips", 31, "how many recent builds' databases to retain in the work dir as rollup sources")
+	fresh := fs.Bool("fresh", false, "full only: open a new epoch — publish with NO bridge, so consumers cannot carry anything forward")
+	reason := fs.String("reason", "", "required with -fresh: why the lineage is being broken")
 	fs.Parse(args)
 	if *id == "" || *from == "" {
 		fatal(fmt.Errorf("publish needs -id YYYYMMDD and -from DIR"))
@@ -161,6 +163,37 @@ func CmdPublish(args []string) {
 		kind = "full"
 	} else if base == "" {
 		fatal(fmt.Errorf("the catalog is empty; the first build must be -full"))
+	}
+
+	// Starting fresh: open a new epoch and publish with no bridge at all, so
+	// no route leads out of the old lineage and every consumer takes the full
+	// road deliberately.
+	//
+	// This is the opposite of what a monthly full does. A full continues the
+	// lineage and bridges onto it, which is what stops a follower
+	// re-downloading a database every month; -fresh declares that nothing held
+	// can be carried forward. It is the escape hatch for a schema change old
+	// patches cannot express, or a chain discovered to be wrong — rare, and
+	// deliberately awkward to reach for, because a lineage break costs every
+	// consumer a full download.
+	epoch := 0
+	if e := cat.entry(base); e != nil {
+		epoch = e.Epoch
+	}
+	if *fresh {
+		if !*full {
+			fatal(fmt.Errorf("-fresh only makes sense with -full: a daily cannot open a lineage"))
+		}
+		if strings.TrimSpace(*reason) == "" {
+			fatal(fmt.Errorf("-fresh needs -reason: a lineage break costs every consumer a full " +
+				"download, and the one thing they should get in return is being told why"))
+		}
+		epoch++
+		fmt.Fprintf(os.Stderr, "  opening epoch %d: %s\n", epoch, *reason)
+		fmt.Fprintf(os.Stderr, "  no bridge will be published; every consumer takes the full road\n")
+		base = "" // no diff base: nothing from the old lineage is carried forward
+	} else if *reason != "" {
+		fatal(fmt.Errorf("-reason is only meaningful with -fresh"))
 	}
 
 	// The chain may not move backwards in time.
@@ -377,7 +410,11 @@ func CmdPublish(args []string) {
 	}
 	bargs := []string{"-catalog", filepath.Join(*root, "builds.json"),
 		"-id", *id, "-kind", kind, "-dump", *dump, "-through", *through,
-		"-edges", string(edgeJSON), "-bytes", fmt.Sprint(hostedBytes)}
+		"-edges", string(edgeJSON), "-bytes", fmt.Sprint(hostedBytes),
+		"-epoch", fmt.Sprint(epoch)}
+	if *fresh {
+		bargs = append(bargs, "-epoch-reason", *reason)
+	}
 	if kind == "daily" {
 		bargs = append(bargs, "-parent", base)
 	} else if base != "" {
@@ -397,9 +434,9 @@ func CmdPublish(args []string) {
 	// so they stay — at roughly 1.3 GB each, which is the price of a consumer
 	// six months behind not walking a hundred and eighty patches.
 	keep := map[string]bool{*id: true}
-	fresh := readCatalog(filepath.Join(*root, "builds.json"))
-	for i := len(fresh.Builds) - 1; i >= 0 && len(keep) <= *keepTips; i-- {
-		keep[fresh.Builds[i].ID] = true
+	reread := readCatalog(filepath.Join(*root, "builds.json"))
+	for i := len(reread.Builds) - 1; i >= 0 && len(keep) <= *keepTips; i-- {
+		keep[reread.Builds[i].ID] = true
 	}
 	tips, _ := filepath.Glob(filepath.Join(*work, "*"))
 	for _, t := range tips {
