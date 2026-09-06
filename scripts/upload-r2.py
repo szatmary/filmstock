@@ -60,7 +60,14 @@ CONTENT_TYPE = {
     ".db": "application/vnd.sqlite3",
     ".gz": "application/gzip",
     ".json": "application/json",
+    ".md": "text/markdown; charset=utf-8",
 }
+
+# Static documents at the tree root, published alongside the data. The licence
+# notice has to travel with the bytes: a consumer who pulls a .db out of this
+# bucket never sees the repo, so README.md is the only place the CC BY-SA
+# attribution reaches them.
+ROOT_DOCS = ("README.md",)
 
 # 1.3 GB of the tree is one file, so multipart parallelism is what sets the
 # wall time. 64 MB parts keep the part count small enough that a retry is cheap.
@@ -92,6 +99,13 @@ def plan(root):
     """Every (local path, key) in publish order: a build's data, then its
     manifest, then builds.json once every build is complete."""
     items = []
+    # Docs first: they are never what a consumer is mid-download, so they carry
+    # no ordering hazard, and publishing them early means the terms are in place
+    # before the data they describe.
+    for name in ROOT_DOCS:
+        doc = os.path.join(root, name)
+        if os.path.isfile(doc):
+            items.append((doc, name))
     for d in sorted(os.listdir(root)):
         bdir = os.path.join(root, d)
         if not os.path.isdir(bdir):
@@ -217,7 +231,7 @@ def main():
                     # Immutable content under an immutable key. builds.json is
                     # the one thing that changes, so it gets a short TTL.
                     "CacheControl": ("public, max-age=60"
-                                     if key == "builds.json"
+                                     if key == "builds.json" or key in ROOT_DOCS
                                      else "public, max-age=31536000, immutable"),
                 },
                 Config=TRANSFER,
