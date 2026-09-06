@@ -38,6 +38,11 @@ HOME_DIR=${FILMSTOCK_HOME:-/tank/mediadb}
 REPO=${FILMSTOCK_REPO:-$HOME_DIR/filmstock}
 LOGDIR=${FILMSTOCK_LOGDIR:-$HOME_DIR/logs}
 RUN_LOCK=${FILMSTOCK_RUN_LOCK:-$HOME_DIR/.run.lock}
+ROOT=${FILMSTOCK_ROOT:-$HOME_DIR/bucket}
+# Credentials for the upload, kept outside the repo. Absent means the release
+# tree is built and verified but not shipped, which is said out loud rather
+# than passed over: a build nobody can fetch is not a release.
+R2_ENV=${FILMSTOCK_R2_ENV:-$HOME_DIR/.r2.env}
 
 mkdir -p "$LOGDIR"
 STARTED=$(date -u +%s)
@@ -58,9 +63,33 @@ echo
 echo "=== monthly $(date -Is) ==="
 "$REPO/scripts/monthly.sh" || monthly_rc=$?
 
+# --- ship it --------------------------------------------------------------
+# Publishing to disk is not publishing. Everything upstream — the guards, the
+# patches, the routes — is machinery for consumers, and no consumer can see any
+# of it until the tree reaches the bucket. So the upload is part of the run,
+# not a thing someone remembers to do afterwards.
+#
+# It is last, and it is skipped when either half failed: uploading a tree built
+# by a run that stopped halfway would publish whatever state it stopped in.
+# The uploader itself is idempotent — it compares size and sha256 and sends
+# only what differs — so a run that uploads nothing new is the normal case.
+upload_rc=0
+echo
+echo "=== upload $(date -Is) ==="
+if [ "$daily_rc" -ne 0 ] || [ "$monthly_rc" -ne 0 ]; then
+  echo "filmstock: skipping the upload; an earlier half failed"
+elif [ ! -r "$R2_ENV" ]; then
+  echo "filmstock: no credentials at $R2_ENV; the release tree in $ROOT is built" >&2
+  echo "and verified but NOT published. See scripts/r2.env.example." >&2
+  upload_rc=1
+else
+  ( set -a; . "$R2_ENV"; set +a
+    "$REPO/scripts/upload-r2.py" --root "$ROOT" ) || upload_rc=$?
+fi
+
 mins=$(( ( $(date -u +%s) - STARTED ) / 60 ))
 echo
-if [ "$daily_rc" -eq 0 ] && [ "$monthly_rc" -eq 0 ]; then
+if [ "$daily_rc" -eq 0 ] && [ "$monthly_rc" -eq 0 ] && [ "$upload_rc" -eq 0 ]; then
   echo "filmstock: run complete in ${mins}m"
   exit 0
 fi
@@ -69,5 +98,6 @@ fi
 # to the end.
 [ "$daily_rc" -eq 0 ]   || echo "filmstock: DAILY FAILED (exit $daily_rc)" >&2
 [ "$monthly_rc" -eq 0 ] || echo "filmstock: MONTHLY FAILED (exit $monthly_rc)" >&2
+[ "$upload_rc" -eq 0 ]  || echo "filmstock: UPLOAD FAILED (exit $upload_rc) — built but not published" >&2
 echo "filmstock: run finished in ${mins}m with failures; logs in $LOGDIR" >&2
 exit 1
