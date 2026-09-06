@@ -53,3 +53,7 @@ __pycache__/
 /.claude/
 cmd/filmstock-web/filmstock-web
 /sqldiff
+
+# ── R2 credentials. Never in the repo.
+/.r2.env
+r2.env

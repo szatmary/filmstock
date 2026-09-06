@@ -1,9 +1,8 @@
 #!/bin/bash
 #
 # filmstock monthly — rebuild from a fresh Wikimedia dump and supersede the
-# chain. One entry point, meant to run unattended from cron beside daily.sh:
-#
-#   40 3 * * *  /tank/mediadb/filmstock/scripts/monthly.sh
+# chain. Normally invoked by scripts/run.sh, which is the single cron entry and
+# runs the day's dailies first; safe to run by hand for a one-off rebuild.
 #
 # It runs every day and usually does nothing. A monthly dump appears when it
 # appears — the 20260901 dump finished its article jobs on 2026-09-03 — so the
@@ -221,6 +220,8 @@ if [ ! -s "$DUMPS/.fetched" ]; then
   # The wikidata entity dump is a separate, much larger cadence; the resolver
   # reuses the one already on disk rather than re-fetching 102 GB monthly.
   ln -sfn "$DUMP_DIR/latest-all.json.bz2" "$DUMPS/latest-all.json.bz2"
+  # Written only once every file above has passed its md5: the marker means
+  # "verified", not "downloaded".
   touch "$DUMPS/.fetched"
 fi
 
@@ -231,6 +232,7 @@ fi
 if [ ! -s "$NEW_CACHE" ]; then
   timed "cache copy" cp "$CACHE" "$NEW_CACHE"
 fi
+if [ ! -f "$NEW_CACHE.built" ]; then
 timed "qidmap" "$BIN" build-qidmap \
   -pageprops "$DUMPS/enwiki-$D-page_props.sql.gz" \
   -index "$DUMPS/enwiki-$D-pages-articles-multistream-index.txt.bz2" \
@@ -239,17 +241,29 @@ say "    $(timing qidmap)"
 timed "image-list" "$BIN" build-image-list \
   -sql "$DUMPS/enwiki-$D-image.sql.gz" -db "$NEW_CACHE"
 say "    $(timing image-list)"
+  touch "$NEW_CACHE.built"
+else
+  say "resolver cache already built for $D; reusing it"
+fi
 
 # --- import ---------------------------------------------------------------
 # Into a NEW intermediate, never over the live one: a full import sets `source`
 # but leaves `incr_through` where it was, so importing in place would rewind
 # pages to the dump's day while still claiming every later day had been
 # applied — and catchup would skip those days forever.
-if [ "$(interday "$NEW_INTER" 2>/dev/null || true)" = "" ] && [ ! -s "$NEW_INTER" ]; then
+# Resumed on an explicit marker, never on the file merely existing. A crashed
+# import leaves a large, well-formed, INCOMPLETE intermediate, and "-s" cannot
+# tell that from a finished one — the run would converge, export and publish
+# from a truncated corpus. The marker is written only after import returns 0.
+if [ ! -f "$NEW_INTER.imported" ]; then
+  rm -f "$NEW_INTER"
   timed "import" "$BIN" import -dumps "$DUMPS" -inter "$NEW_INTER" -workers "$WORKERS"
   say "    $(timing import)"
+  [ -s "$NEW_INTER" ] || die "import produced no intermediate at $NEW_INTER"
+  touch "$NEW_INTER.imported"
+else
+  say "import already complete for $D (marker $NEW_INTER.imported); reusing it"
 fi
-[ -s "$NEW_INTER" ] || die "import produced no intermediate at $NEW_INTER"
 
 # ==========================================================================
 # Phase 2 — under the lock. The tip must not move while we converge on it.

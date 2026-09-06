@@ -150,10 +150,59 @@ measurement, not a test.
 
 ## 4. Running unattended
 
-`daily.sh` already establishes the discipline: one flock, refuse to publish from
-a dirty tree, preflight everything that could fail halfway, fail-stop with the
-diagnosis in the output, every step re-runnable. The monthly is the same shape
-with two additions.
+### One entry point
+
+`scripts/run.sh` is the whole schedule:
+
+```
+40 3 * * *  /tank/mediadb/filmstock/scripts/run.sh
+```
+
+It runs the day's incremental builds, then rebuilds from a fresh dump if one has
+appeared. Most days the second half finds nothing and says so in a line.
+
+They are sequenced rather than given a cron line each because they are not
+independent: a monthly rebuild may only supersede the tip once it has replayed
+every delta that tip holds (§2), so it wants the day's dailies to have landed
+first. Sequencing makes that ordering a property of the schedule instead of a
+race between two timers.
+
+`run.sh` takes its own non-blocking lock so two invocations never overlap — a
+rebuild runs for hours and tomorrow's cron must not start a second one on the
+same dump. The halves keep their own locking underneath and nothing is nested:
+`daily.sh` takes the build lock per day and releases it on exit, and
+`monthly.sh` takes the same lock only for its short convergence-and-publish
+phase. A skipped run costs nothing, because `catchup` knows which days it is
+behind and the monthly resumes from its phase markers.
+
+Either half failing does not stop the other being attempted: they fail for
+unrelated reasons — a late adds-changes dump versus a full dump's jobs
+finishing — and one being broken is a poor reason to skip the other. Both
+outcomes are reported and the exit status is nonzero if either failed, so cron
+mails once with the whole picture.
+
+### The discipline both halves share
+
+`daily.sh` already establishes it: one flock, refuse to publish from a dirty
+tree, preflight everything that could fail halfway, fail-stop with the diagnosis
+in the output, every step re-runnable. The monthly is the same shape with two
+additions.
+
+Nothing in either half may pin a date. `daily.sh` used to hardcode the full dump
+set it resolved against, which the first promotion would have silently
+invalidated; it now reads the dump path out of the intermediate's own `source`.
+And it compared the intermediate's content day against the tip's *id*, which
+stops meaning anything the moment an id is not a date — it compares `through`
+now.
+
+### Resuming, and what a marker means
+
+Phase completion is recorded with an explicit marker written only after the step
+returns successfully, and never inferred from a file existing. A crashed import
+leaves a large, well-formed, incomplete intermediate that `-s` cannot tell from a
+finished one; resuming on that would converge, export and publish from a
+truncated corpus. The removal guard (§3) would catch it, but only after hours of
+wasted work, and only for the page-keyed tables.
 
 ### The dump is not ready because the calendar says so
 

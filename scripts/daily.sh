@@ -1,9 +1,8 @@
 #!/bin/bash
 #
 # filmstock daily — fetch the day's adds-changes dump, apply it, publish the
-# build. One entry point, meant to run unattended from cron:
-#
-#   17 9 * * *  /tank/mediadb/filmstock/scripts/daily.sh
+# build. Normally invoked by scripts/run.sh, which is the single cron entry;
+# safe to run by hand.
 #
 # It is a loop over days rather than one day because a missed run — a reboot, a
 # dump published late, a machine that was off for a week — has to heal itself
@@ -46,7 +45,11 @@ BIN=${FILMSTOCK_BIN:-$REPO/filmstock}
 SQLDIFF=${FILMSTOCK_SQLDIFF:-$REPO/sqldiff}
 INTER=${FILMSTOCK_INTER:-$HOME_DIR/intermediate-v3.db}
 CACHE=${FILMSTOCK_CACHE:-$HOME_DIR/resolver-ext.db}
-FULL_DUMPS=${FILMSTOCK_FULL_DUMPS:-$HOME_DIR/dump/20260801}
+# The full dump set this intermediate was built from, read from the store
+# rather than pinned: the monthly promotes a new intermediate built from a new
+# dump, and a hardcoded path here would quietly go on resolving against the
+# superseded one. The intermediate records its own source; that is the fact.
+FULL_DUMPS=${FILMSTOCK_FULL_DUMPS:-}
 INCR_DIR=${FILMSTOCK_INCR:-$HOME_DIR/dump/incr}
 ROOT=${FILMSTOCK_ROOT:-$HOME_DIR/bucket}
 STAGE=${FILMSTOCK_STAGE:-$HOME_DIR/stage}
@@ -125,11 +128,22 @@ timed() {
 timing() { grep -F "[$1]" "$LOG" | tail -1 | sed 's/^ *//'; }
 
 interday() { sqlite3 -readonly "$INTER" "select * from meta" | sed -n 's/^incr_through|//p'; }
+intersource() { sqlite3 -readonly "$INTER" "select * from meta" | sed -n 's/^source|//p'; }
 catlatest() {
   python3 - "$ROOT/builds.json" <<'PY'
 import json,sys
 print(json.load(open(sys.argv[1]))["latest"])
 PY
+}
+# The tip's CONTENT DAY, which is what compares against the intermediate's
+# incr_through. Not its id: ids are labels and no longer always dates, so
+# comparing one against a day reports a mismatch every time.
+catlatestthrough() {
+  python3 - "$ROOT/builds.json" <<'PYQ'
+import json,sys
+c=json.load(open(sys.argv[1]))
+print(next(b["through"] for b in c["builds"] if b["id"]==c["latest"]))
+PYQ
 }
 
 # --- preflight ------------------------------------------------------------
@@ -139,6 +153,11 @@ PY
 [ -x "$SQLDIFF" ] || die "no sqldiff at $SQLDIFF (make sqldiff)"
 [ -w "$INTER" ]   || die "intermediate $INTER is missing or not writable"
 [ -r "$CACHE" ]   || die "resolver cache $CACHE is missing"
+if [ -z "$FULL_DUMPS" ]; then
+  src=$(intersource) || die "cannot read source from $INTER"
+  [ -n "$src" ] || die "$INTER states no source; cannot locate its full dump set"
+  FULL_DUMPS=$(dirname "$src")
+fi
 [ -d "$FULL_DUMPS" ] || die "full dump set $FULL_DUMPS is missing"
 [ -s "$ROOT/builds.json" ] || die "no catalog at $ROOT/builds.json"
 
@@ -151,9 +170,11 @@ free_gb=$(df -BG --output=avail "$STAGE" | tail -1 | tr -dc '0-9')
 # files around and the next patch would be computed against the wrong base.
 have=$(interday) || die "cannot read incr_through from $INTER"
 tip=$(catlatest) || die "cannot read latest from $ROOT/builds.json"
+tip_through=$(catlatestthrough) || die "cannot read the tip's through from $ROOT/builds.json"
 [ -n "$have" ] || die "$INTER states no incr_through"
-say "intermediate through $have; published chain tip $tip"
-if [ "$have" != "$tip" ]; then
+say "full dump set $FULL_DUMPS"
+say "intermediate through $have; published chain tip $tip (content day $tip_through)"
+if [ "$have" != "$tip_through" ]; then
   say "note: intermediate is ahead of the chain (a previous run imported but did"
   say "      not publish); the next build will carry both days' changes"
 fi
