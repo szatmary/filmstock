@@ -92,7 +92,11 @@ fi
 # that only existed in the working tree. Set FILMSTOCK_ALLOW_DIRTY=1 to
 # override deliberately.
 if command -v git >/dev/null && git -C "$REPO" rev-parse --git-dir >/dev/null 2>&1; then
-  DIRTY=$(git -C "$REPO" status --porcelain 2>/dev/null | grep -v '^?? ' | head -20)
+  # `|| true` is load-bearing: with pipefail a CLEAN tree makes grep -v
+  # match nothing and exit 1, the pipeline inherits it, and set -e kills the
+  # run here — before the ERR trap exists, so it dies silently with no log.
+  # The guard against a dirty tree was refusing to run on a clean one.
+  DIRTY=$(git -C "$REPO" status --porcelain 2>/dev/null | grep -v '^?? ' | head -20 || true)
   if [ -n "$DIRTY" ] && [ "${FILMSTOCK_ALLOW_DIRTY:-0}" != "1" ]; then
     { echo "filmstock daily: $REPO has uncommitted changes; refusing to publish from it."
       echo "$DIRTY" | sed 's/^/  /'
