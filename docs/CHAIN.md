@@ -76,6 +76,51 @@ So a full published against a tip that has advanced past it is not merely stale
 — it is *missing information the chain already had*, and adopting it destroys
 that information. That is the 2026-09-05 failure exactly.
 
+### What actually happens each month
+
+```
+ TIME ───────────────────────────────────────────────────────────────►
+      08-01                                            09-01     09-05
+
+      ┌──────────┐  ┌───┐ ┌───┐          ┌───┐ ┌───┐ ┌───┐
+      │full 0801 │─►│d02│─►│d03│─► … ───►│d03│─►│d04│─►│d05│   ← tip
+      └──────────┘  └───┘ └───┘          └───┘ └───┘ └───┘        (09-05)
+            ▲         each hop is a small patch (tens of KB)  │
+            │                                                 │
+      built from                                              │  BRIDGE
+      the 08-01 dump                                          │  (small)
+                                                              ▼
+      ┌──────────┐ import  ┌──────────┐ replay d02..d05 ┌─────────────┐
+      │09-01 dump│────────►│inter@0901│────────────────►│ f20260901   │ ← new tip
+      └──────────┘         └──────────┘   CONVERGE      │ full @09-05 │
+                                                        └─────────────┘
+```
+
+The bridge is the patch from the old tip to the new full. It exists so that a
+consumer following the dailies crosses onto the rebuild by downloading a diff
+rather than a fresh database — the reason a monthly rebuild does not cost every
+follower a full download.
+
+The convergence above it is what makes that patch honest:
+
+```
+  WITHOUT converging              WITH converging
+  ─────────────────────           ─────────────────────
+  tip       @ 09-05               tip        @ 09-05
+  new full  @ 09-01               new full   @ 09-05
+
+  bridge = 09-05 ──► 09-01        bridge = 09-05 ──► 09-05
+         = going BACKWARDS               = same day, two routes
+
+  silently drops four days of     diff is only: deletions,
+  edits from every consumer       dump-boundary fuzz
+```
+
+The right-hand column is also why `bridge_statements` means anything. When both
+sides describe the same day by different routes, it measures drift — how far
+applying patches a day at a time diverged from rebuilding from scratch. Same-day
+is the only arrangement in which that reading is a reading rather than a number.
+
 ### The invariant
 
 A full whose intermediate has replayed **every delta the tip contains** holds
