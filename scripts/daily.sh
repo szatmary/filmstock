@@ -220,8 +220,13 @@ it is a half-written one, and re-run."
   # publish emits the patches, APPLIES each one to a copy of its base, and
   # refuses to record the build unless the result reproduces its content
   # hashes. The verification is the publisher's, not something bolted on here.
+  # -through is the day the intermediate actually reached, asserted equal to
+  # $day above. It is what orders the chain and what publish compares against
+  # the tip; it is passed explicitly rather than inferred from -id, because an
+  # id that is inferred-from is an id that cannot ever stop being a date.
   timed "$day publish" "$BIN" publish \
-    -root "$ROOT" -id "$day" -from "$dir" -sqldiff "$SQLDIFF"
+    -root "$ROOT" -id "$day" -dump "$day" -through "$day" \
+    -from "$dir" -sqldiff "$SQLDIFF"
   say "    $(timing "$day publish")"
 
   published=$(catlatest)

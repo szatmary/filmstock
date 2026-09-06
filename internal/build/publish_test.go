@@ -28,6 +28,28 @@ func tinyBuild(t *testing.T, dir string, rows map[int]string) {
 		cover_image_url TEXT, cover_image_file TEXT, wiki_title TEXT)`); err != nil {
 		t.Fatal(err)
 	}
+	// The other page-keyed tables, empty. A real build always has them, and
+	// guardRemovals treats a table missing from both sides as its own list
+	// naming something the schema does not have.
+	// Columns follow contenthash.go's queries, which is what publish hashes.
+	for _, ddl := range []string{
+		`CREATE TABLE television_series(id INTEGER PRIMARY KEY, title TEXT, year INTEGER,
+			first_aired TEXT, last_aired TEXT, genre TEXT, creator TEXT, starring TEXT,
+			network TEXT, num_seasons TEXT, num_episodes TEXT, seasons_count INTEGER,
+			episodes_count INTEGER, cover_image_file TEXT, cover_image_url TEXT,
+			wikipedia_url TEXT, wiki_title TEXT)`,
+		`CREATE TABLE events(id INTEGER PRIMARY KEY, title TEXT, kind TEXT, award TEXT,
+			edition INTEGER, date TEXT, year INTEGER, hosts TEXT, organizer TEXT,
+			venue TEXT, location TEXT, network TEXT, best_film TEXT, most_wins TEXT,
+			opening_film TEXT, closing_film TEXT, cover_image_file TEXT,
+			wikipedia_url TEXT)`,
+		`CREATE TABLE people(id INTEGER PRIMARY KEY, page_id INTEGER, qid INTEGER,
+			name TEXT NOT NULL, wiki TEXT, image_url TEXT)`,
+	} {
+		if _, err := db.Exec(ddl); err != nil {
+			t.Fatal(err)
+		}
+	}
 	for id, title := range rows {
 		if _, err := db.Exec(`INSERT INTO movies(id,title,year,release_date,director,
 			producer,writer,starring,music,distributor,country,language,genre,runtime,
@@ -51,11 +73,11 @@ func TestPublishChainsAndVerifies(t *testing.T) {
 	src := t.TempDir()
 
 	tinyBuild(t, filepath.Join(src, "a"), map[int]string{1: "Heat", 2: "Solaris"})
-	CmdPublish([]string{"-root", root, "-id", "20260801",
+	CmdPublish([]string{"-root", root, "-id", "20260801", "-through", "20260801",
 		"-from", filepath.Join(src, "a"), "-full", "-sqldiff", differ})
 
 	tinyBuild(t, filepath.Join(src, "b"), map[int]string{1: "Heat", 2: "Solaris", 3: "Stalker"})
-	CmdPublish([]string{"-root", root, "-id", "20260802",
+	CmdPublish([]string{"-root", root, "-id", "20260802", "-through", "20260802",
 		"-from", filepath.Join(src, "b"), "-sqldiff", differ})
 
 	var cat buildsCatalog

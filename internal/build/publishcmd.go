@@ -18,6 +18,42 @@ import (
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
 
+// guardThrough refuses a build whose content stops before the chain tip's.
+//
+// A full is authoritative for existence — page deletions arrive only in a full
+// — and the dailies are authoritative for recency. Neither dominates, so
+// "which one wins" has no answer, and a bridge between two branches where
+// neither contains the other silently reverts whatever the loser knew. A full
+// whose intermediate has replayed every delta the tip holds is a superset of
+// both and dominates by construction; this check is the condition under which
+// the question does not arise.
+//
+// Without it the failure is invisible for a month: the bridge generates,
+// verifies against its own content hashes, publishes, and walks every consumer
+// backwards until the next full. See docs/CHAIN.md.
+func guardThrough(cat buildsCatalog, base, through string) error {
+	if through == "" {
+		return fmt.Errorf("publish needs -through YYYYMMDD (the intermediate's incr_through): " +
+			"without the content day nothing can tell a rebuild from a rewind")
+	}
+	if base == "" {
+		return nil
+	}
+	tipThrough, known := throughOf(cat, base)
+	if !known {
+		return fmt.Errorf("the tip %s states no `through`; run "+
+			"`filmstock builds -backfill-through` first", base)
+	}
+	if through < tipThrough {
+		return fmt.Errorf("refusing to publish: this build's content stops at %s "+
+			"but the chain tip %s already holds %s.\n"+
+			"Publishing it would bridge backwards and drop %s..%s from every consumer.\n"+
+			"Replay the missing days into the intermediate (filmstock catchup) and re-run",
+			through, base, tipThrough, through, tipThrough)
+	}
+	return nil
+}
+
 // CmdPublish turns one finished build into one release — with every patch
 // APPLIED to a copy of its base and content-hash verified against the new
 // build before anything is recorded. The "null op unless there is a mistake"
@@ -52,6 +88,9 @@ func CmdPublish(args []string) {
 	id := fs.String("id", "", "build id (YYYYMMDD, the dump it mirrors)")
 	from := fs.String("from", "", "directory holding the build's *.db files")
 	full := fs.Bool("full", false, "this build is a full (starts a new chain)")
+	dump := fs.String("dump", "", "the Wikimedia dump the content derives from (default: -id)")
+	through := fs.String("through", "", "content day: the last adds-changes day applied (YYYYMMDD)")
+	pageSet := fs.String("page-set", "", "full only: the resolver cache for this build's dump, whose wiki_qid is the dump's page set")
 	work := fs.String("work", "", "un-hosted directory holding the chain tip's databases (default <root>-work)")
 	compress := fs.Bool("compress", false, "full only: host the databases as zstdvfs containers, halving them")
 	differ := fs.String("sqldiff", "./sqldiff", "the sqldiff binary (make sqldiff)")
@@ -77,6 +116,23 @@ func CmdPublish(args []string) {
 		kind = "full"
 	} else if base == "" {
 		fatal(fmt.Errorf("the catalog is empty; the first build must be -full"))
+	}
+
+	// The chain may not move backwards in time.
+	//
+	// A full is authoritative for existence — page deletions arrive only in a
+	// full — and the dailies are authoritative for recency. Neither dominates,
+	// so "which one wins" has no answer, and a bridge between two branches
+	// where neither contains the other silently reverts whatever the loser
+	// knew. A full whose intermediate has replayed every delta the tip holds is
+	// a superset of both, and dominates by construction; this check is the
+	// condition under which the question does not arise.
+	//
+	// Without it the failure is invisible for a month: the bridge generates,
+	// verifies against its own content hashes, publishes, and walks every
+	// consumer backwards until the next full. See docs/CHAIN.md.
+	if err := guardThrough(cat, base, *through); err != nil {
+		fatal(err)
 	}
 
 	dir := filepath.Join(*root, *id)
@@ -182,6 +238,35 @@ func CmdPublish(args []string) {
 		}
 	}
 
+	// The drift gate. bridge_statements is the pipeline's integrity meter: with
+	// a same-`through` bridge the two branches describe the same day by
+	// different routes, so the diff is pure drift and a spike is a bug.
+	//
+	// "Published where everyone can see it" is the right instinct with an
+	// operator reading the output, and insufficient without one: a spike that
+	// ships is still shipped, and the anomalous build becomes the base every
+	// later daily is diffed against. So the meter gates rather than reports.
+	//
+	// Refusing is the safe direction. The chain stays where it is, the dailies
+	// keep working, the staged build in -from is left for inspection and the
+	// next run retries. Too tight a ceiling costs a missed monthly, which
+	// self-heals; no ceiling costs a corrupted base that everything inherits.
+	// The bridge may repair anything and remove only what the dump says is
+	// gone. Checked before the build is committed, so a refusal leaves the
+	// chain exactly where it was and the staged build available to look at.
+	if *full && base != "" {
+		for _, b := range ordered {
+			if b != "filmstock.db" {
+				continue
+			}
+			if err := guardRemovals(filepath.Join(baseDBDir(base), b),
+				filepath.Join(dbDir, b), *pageSet); err != nil {
+				fatal(err)
+			}
+			fmt.Fprintf(os.Stderr, "  %-24s bridge removes nothing still in the dump\n", b)
+		}
+	}
+
 	// A full hosts its databases, compressed. The manifest then describes the
 	// bytes a consumer actually downloads; the content hash is the same either
 	// way, which is what lets a patch built against plain files verify against
@@ -226,8 +311,11 @@ func CmdPublish(args []string) {
 		fatal(err)
 	}
 
+	if *dump == "" {
+		*dump = *id
+	}
 	bargs := []string{"-catalog", filepath.Join(*root, "builds.json"),
-		"-id", *id, "-kind", kind}
+		"-id", *id, "-kind", kind, "-dump", *dump, "-through", *through}
 	if kind == "daily" {
 		bargs = append(bargs, "-parent", base)
 	} else if base != "" {
