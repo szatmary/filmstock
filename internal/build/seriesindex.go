@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/szatmary/filmstock/internal/sqldrv"
 )
@@ -64,6 +65,23 @@ func CIndexSeries(args []string) {
 		fatal(err)
 	}
 	defer db.Close()
+	// One connection, and a page cache worth having.
+	//
+	// This pass joins the 165k-row work tables against a 10.3M-row Q-id map in
+	// an attached 1.2 GB cache, which is tens of millions of random b-tree
+	// probes. On SQLite's 2 MB default cache almost every one of them misses:
+	// measured at 2h26m for work the sqlite3 CLI does in 30s. It is also the
+	// reason ATTACH must not be left to a pooled connection — the attachment
+	// is per-connection, so a second connection would not see `wd` at all.
+	db.SetMaxOpenConns(1)
+	for _, pragma := range []string{
+		`PRAGMA cache_size=-1048576`, // 1 GB, not 2 MB
+		`PRAGMA temp_store=MEMORY`,
+	} {
+		if _, err := db.Exec(pragma); err != nil {
+			fatal(fmt.Errorf("%s: %w", pragma, err))
+		}
+	}
 	if !tableExists(*cache, "wd_part_of_series", "") {
 		fmt.Fprintf(os.Stderr, "  no wd_part_of_series in %s; run `filmstock build-wd-edges`\n", *cache)
 		return
@@ -79,17 +97,34 @@ func CIndexSeries(args []string) {
 
 	// The franchises themselves: every series item some work of ours belongs to,
 	// that has an article of its own to be keyed by.
+	t0 := time.Now()
 	if _, err := db.Exec(`
 		INSERT OR IGNORE INTO franchises(id,qid,title)
 		SELECT fq.page_id, s.series_qid, fq.title
 		FROM wd.wd_part_of_series s
 		JOIN wd.wiki_qid fq ON fq.qid = s.series_qid
 		WHERE s.item_qid IN (
+		    -- UNION ALL, not UNION, and the difference is 2h26m against 9s.
+		    --
+		    -- IN does its own de-duplication, so the UNION's was pure waste --
+		    -- but it was not free waste. To de-duplicate by merging, both arms
+		    -- have to arrive sorted by qid, and SQLite 3.53's planner obliges by
+		    -- reading wiki_qid through idx_wiki_qid: a traversal of a 10.3M-row
+		    -- index with a random rowid probe into the work table for every
+		    -- entry, 20.6M probes across the two arms. UNION ALL removes the
+		    -- ordering requirement and the same query becomes two sequential
+		    -- scans.
+		    --
+		    -- Worth knowing that this is version-dependent: the system sqlite3
+		    -- (3.45) chose UNION USING TEMP B-TREE here and ran in 9s, so the
+		    -- pathology only appears against the vendored 3.53.4 that ships in
+		    -- the binary. A query timed against the CLI has not been timed.
 		    SELECT q.qid FROM movies m JOIN wd.wiki_qid q ON q.page_id = m.id
-		    UNION SELECT q.qid FROM television_series t JOIN wd.wiki_qid q ON q.page_id = t.id
+		    UNION ALL SELECT q.qid FROM television_series t JOIN wd.wiki_qid q ON q.page_id = t.id
 		)`); err != nil {
 		fatal(err)
 	}
+	fmt.Fprintf(os.Stderr, "  franchises   %6.1fs\n", time.Since(t0).Seconds())
 
 	for _, m := range []struct{ kind, table string }{
 		{"movies", "movies"}, {"television", "television_series"},
@@ -105,7 +140,8 @@ func CIndexSeries(args []string) {
 			fatal(err)
 		}
 		n, _ := res.RowsAffected()
-		fmt.Fprintf(os.Stderr, "  %-12s %7d franchise members\n", m.kind, n)
+		fmt.Fprintf(os.Stderr, "  %-12s %7d franchise members  %6.1fs\n", m.kind, n, time.Since(t0).Seconds())
+		t0 = time.Now()
 	}
 
 	if !tableExists(*cache, "wd_sequel", "") {
