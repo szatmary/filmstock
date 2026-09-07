@@ -187,10 +187,21 @@ free_gb=$(df -BG --output=avail "$STAGE" | tail -1 | tr -dc '0-9')
 # drift by exactly one day when a previous run imported and then failed to
 # publish, which is recoverable; anything wider means someone has been moving
 # files around and the next patch would be computed against the wrong base.
+# How far the store has advanced, asked the way catchup's lastAppliedDay asks
+# it: the last adds-changes day applied, or -- when none has been, because the
+# store was just imported from a full dump -- that dump's own day. This is not
+# a fallback for a missing value; it is the same question with two sources, and
+# refusing here would mean a freshly rebuilt chain could never take its first
+# daily.
 have=$(interday) || die "cannot read incr_through from $INTER"
+if [ -z "$have" ]; then
+  src=$(intersource) || die "cannot read source from $INTER"
+  have=$(printf '%s' "$src" | grep -oE '\b20[0-9]{6}\b' | head -1)
+  [ -n "$have" ] || die "$INTER states no incr_through and its source $src names no date"
+  say "no incr_through yet; the store is at its import day $have"
+fi
 tip=$(catlatest) || die "cannot read latest from $ROOT/builds.json"
 tip_through=$(catlatestthrough) || die "cannot read the tip's through from $ROOT/builds.json"
-[ -n "$have" ] || die "$INTER states no incr_through"
 say "full dump set $FULL_DUMPS"
 say "intermediate through $have; published chain tip $tip (content day $tip_through)"
 if [ "$have" != "$tip_through" ]; then
