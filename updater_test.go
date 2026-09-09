@@ -314,3 +314,67 @@ func TestSQLBatchesRespectsStringLiterals(t *testing.T) {
 		}
 	}
 }
+
+// A daily that names no parent is a catalog nothing can be chained through.
+// The refusal must name the entry that breaks the chain: the alternative is
+// "no patch road", which reads as a missing patch file and sends whoever gets
+// it looking in the wrong place.
+func TestUpdaterNamesTheEntryThatBreaksTheChain(t *testing.T) {
+	root := t.TempDir()
+	fakeRelease(t, root, "20260801", "Blade Runner")
+	cat := map[string]any{"latest_full": "20260801", "latest": "20260802",
+		"builds": []map[string]any{
+			{"id": "20260801", "kind": "full"},
+			{"id": "20260802", "kind": "daily"}, // no parent
+		}}
+	cb, _ := json.Marshal(cat)
+	os.WriteFile(filepath.Join(root, "builds.json"), cb, 0o644)
+
+	dir := t.TempDir()
+	if _, _, _, err := Update(context.Background(), root, dir); err != nil {
+		t.Fatalf("first install: %v", err)
+	}
+	_, _, _, err := Update(context.Background(), root, dir)
+	if err == nil {
+		t.Fatal("a catalog that cannot be chained was accepted")
+	}
+	if !strings.Contains(err.Error(), "20260802") || !strings.Contains(err.Error(), "parent") {
+		t.Fatalf("err = %v, want the entry and what it is missing", err)
+	}
+}
+
+// A published build is immutable. One that changed under its own id is not the
+// build being held, however much the id agrees, and holding it silently serves
+// content nobody can name.
+func TestUpdaterRefetchesABuildThatChangedUnderItsID(t *testing.T) {
+	root := t.TempDir()
+	dir := t.TempDir()
+	fakeRelease(t, root, "20260801", "Blade Runner")
+	if _, _, _, err := Update(context.Background(), root, dir); err != nil {
+		t.Fatalf("first install: %v", err)
+	}
+
+	// The publisher rewrites the same id with different content.
+	os.RemoveAll(filepath.Join(root, "20260801"))
+	fakeRelease(t, root, "20260801", "Blade Runner: The Final Cut")
+
+	core, build, changed, err := Update(context.Background(), root, dir)
+	if err != nil {
+		t.Fatalf("second update: %v", err)
+	}
+	if !changed || build != "20260801" {
+		t.Fatalf("changed=%v build=%q, want the rewritten build taken", changed, build)
+	}
+	db, err := sql.Open(sqldrv.Name, core)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	var title string
+	if err := db.QueryRow(`SELECT title FROM movies WHERE id=1`).Scan(&title); err != nil {
+		t.Fatal(err)
+	}
+	if title != "Blade Runner: The Final Cut" {
+		t.Fatalf("title = %q, want the rewritten content", title)
+	}
+}
