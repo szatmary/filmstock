@@ -106,9 +106,10 @@ func (u *updater) client() *http.Client {
 type updaterState struct {
 	Current string `json:"current"`
 	// Content is the core database's content hash when the build was
-	// committed. A published build is immutable, so this is what says
-	// whether the build still on the shelf under that id is the one held.
-	Content string `json:"content,omitempty"`
+	// committed. A published build is immutable, so this is what says whether
+	// the build still on the shelf under that id is the one held. A state
+	// without it names a build nothing can vouch for.
+	Content string `json:"content"`
 }
 
 type catalogEntry struct {
@@ -224,13 +225,16 @@ func (u *updater) held() updaterState {
 
 // changedUnderUs reports whether the build published under id is no longer
 // the one held. A published build is immutable; one rewritten in place is a
-// different build wearing the same name, and holding it serves content
-// nobody can name. Nothing is claimed when the held state predates the
-// recorded hash, or when the catalog publishes none.
+// different build wearing the same name, and holding it serves content nobody
+// can name. A state that records no hash cannot show that what is on disk is
+// what is published, so it does not get the benefit of the doubt.
 func (u *updater) changedUnderUs(ctx context.Context, id string) bool {
 	s := u.held()
-	if s.Current != id || s.Content == "" {
+	if s.Current != id {
 		return false
+	}
+	if s.Content == "" {
+		return true
 	}
 	var man buildManifest
 	if err := u.getJSON(ctx, u.BaseURL+"/"+id+"/manifest.json", &man); err != nil {

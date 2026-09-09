@@ -378,3 +378,30 @@ func TestUpdaterRefetchesABuildThatChangedUnderItsID(t *testing.T) {
 		t.Fatalf("title = %q, want the rewritten content", title)
 	}
 }
+
+// A state naming a build but no content hash cannot show that what is on disk
+// is what is published under that id, so it does not get the benefit of the
+// doubt: the build is taken again.
+func TestUpdaterRetakesABuildItCannotVouchFor(t *testing.T) {
+	root := t.TempDir()
+	dir := t.TempDir()
+	fakeRelease(t, root, "20260801", "Blade Runner")
+	if _, _, _, err := Update(context.Background(), root, dir); err != nil {
+		t.Fatalf("first install: %v", err)
+	}
+	os.WriteFile(filepath.Join(dir, "state.json"), []byte(`{"current":"20260801"}`), 0o644)
+
+	_, build, changed, err := Update(context.Background(), root, dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !changed || build != "20260801" {
+		t.Fatalf("changed=%v build=%q, want the build taken again", changed, build)
+	}
+	var s updaterState
+	b, _ := os.ReadFile(filepath.Join(dir, "state.json"))
+	json.Unmarshal(b, &s)
+	if s.Content == "" {
+		t.Fatal("the retake did not record what it committed")
+	}
+}
