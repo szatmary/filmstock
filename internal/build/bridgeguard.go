@@ -38,15 +38,28 @@ import (
 // that stops recognising a template, and a truncated import all fail it — and
 // those last two are worth catching for their own sake.
 //
-// Seasons and episodes are deliberately not checked. Their ids are content
-// hashes rather than page_ids: most seasons have no article of their own, and
-// an episode row vanishing because someone reformatted a "List of episodes"
-// table is an ordinary edit, not a deletion.
+// Only records whose EXISTENCE follows from the page are checked. That is the
+// whole basis of the rule: a film row exists because a page carries
+// {{Infobox film}}, so if the page is still in the dump and the row is gone,
+// something is wrong.
+//
+// Seasons and episodes fail that test -- their ids are content hashes, most
+// seasons have no article of their own, and an episode row vanishing because
+// someone reformatted a "List of episodes" table is an ordinary edit.
+//
+// So do PEOPLE, which is less obvious and cost a refused publish to learn.
+// People are discovered from credits, not from biographies: a person row
+// exists because some work links to them, and their own article may not even
+// be in the database. When the crediting work is edited and the link goes, the
+// person legitimately goes with it while their article sits untouched in the
+// dump. The 20260901 bridge flagged 48 of these -- Rainier III of Monaco among
+// them, who had two credits in the tip and none in the rebuild -- and every one
+// was an ordinary edit. Checking people here asks whether a page exists to
+// answer a question about whether anything still points at it.
 var bridgeKeyed = []struct{ table, col string }{
 	{"movies", "id"},
 	{"television_series", "id"},
 	{"events", "id"},
-	{"people", "page_id"},
 }
 
 // removal is one record present in the tip and absent from the new build.
