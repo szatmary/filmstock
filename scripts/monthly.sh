@@ -256,7 +256,7 @@ FILES=(
   "enwiki-$D-pages-articles-multistream.xml.bz2"
 )
 mkdir -p "$DUMPS"
-if [ ! -s "$DUMPS/.fetched" ]; then
+if [ ! -f "$DUMPS/.fetched" ]; then
   say "fetching the $D dump set (~27 GB, ~100 min at one connection)"
   curl -sf -A "$UA" -o "$DUMPS/md5sums.txt" \
     "https://dumps.wikimedia.org/enwiki/$D/enwiki-$D-md5sums.txt" \
@@ -342,6 +342,10 @@ fi
 say "new intermediate holds $have; the tip holds $tip_through"
 
 if [ "$have" \< "$tip_through" ]; then
+  # catchup exports a build per day as it goes, so its output directory has to
+  # exist before the first one -- the export section below makes it too, but
+  # that runs after this and is far too late.
+  mkdir -p "$STAGE/$ID"
   timed "converge" "$BIN" catchup \
     -db "$STAGE/$ID/filmstock.db" \
     -inter "$NEW_INTER" -cache "$NEW_CACHE" \
