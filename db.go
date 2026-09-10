@@ -22,10 +22,13 @@ type DB struct {
 // An Attach names another database file to make visible on the same
 // connections, so one query can join across them.
 //
-//	db, _ := filmstock.Open("filmstock.db",
-//	    filmstock.Attach{Schema: "text", Path: "filmstock-text.db"})
-//	db.SQL().Query(`SELECT m.title, t.plot FROM movies m
-//	                JOIN text.movie_text t ON t.id = m.id WHERE m.year = ?`, 1954)
+//	db, _ := filmstock.Open("filmstock.db")
+//	db.SQL().Query(`SELECT m.title, t.overview FROM movies m
+//	                JOIN movie_text t ON t.id = m.id WHERE m.year = ?`, 1954)
+//
+// One published database holds everything, so an attachment is no longer
+// needed to reach the prose. Attach remains for a consumer joining filmstock
+// against a database of their own.
 //
 // Attachments are declared at Open rather than added later because ATTACH is
 // per-connection state: a statement run on one pooled connection leaves every

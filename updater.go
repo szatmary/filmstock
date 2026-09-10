@@ -45,7 +45,7 @@ import (
 //	if changed {
 //	    dir := filepath.Dir(core)
 //	    db, err := filmstock.Open(core,
-//	        filmstock.Attach{Schema: "text", Path: filepath.Join(dir, "filmstock-text.db")})
+
 //	}
 //
 // files names the artifacts to keep current; none means the core database
@@ -83,7 +83,7 @@ type updater struct {
 	// Dir is where builds live locally.
 	Dir string
 	// Files is which of a build's artifacts to fetch. Nil means just the core
-	// database; add filmstock-text.db or filmstock-vectors.db as wanted.
+	// database, which since content-hash v3 is the whole published build.
 	Files []string
 	// VerifyContent re-computes the content hash after the FTS rebuild and
 	// refuses the build on mismatch. ~20 s of paranoia per update; on by
@@ -354,7 +354,7 @@ func (u *updater) catalog(ctx context.Context) (*catalog, error) {
 //	if changed {
 //	    dir := filepath.Dir(core)
 //	    fresh, err := filmstock.Open(core,
-//	        filmstock.Attach{Schema: "text", Path: filepath.Join(dir, "filmstock-text.db")})
+
 //	    // start serving from fresh, then close the old handle
 //	}
 //

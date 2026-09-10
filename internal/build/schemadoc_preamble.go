@@ -14,8 +14,8 @@ The files are separate so a consumer downloads only what it uses, but they
 join on shared ids. Attach them and query across:
 
 ` + "```sql" + `
-ATTACH DATABASE 'filmstock-text.db'    AS text;
-ATTACH DATABASE 'filmstock-vectors.db' AS vec;
+-- One file holds everything: entities, credits, overviews, episode
+-- summaries and the search indexes. No ATTACH is required.
 
 SELECT m.title, m.year, t.plot
 FROM movies m

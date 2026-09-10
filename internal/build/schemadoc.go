@@ -37,7 +37,6 @@ func CmdSchema(args []string) {
 	b.WriteString(schemaPreamble)
 	for _, f := range []struct{ path, name, what string }{
 		{*core, "filmstock.db", "Every entity, every credit, the overviews and episode summaries, and the search indexes."},
-		{*vec, "filmstock-vectors.db", "Embedding vectors, for similarity and recommendation."},
 	} {
 		if _, err := os.Stat(f.path); err != nil {
 			fmt.Fprintf(os.Stderr, "  %s: absent, skipping\n", f.path)

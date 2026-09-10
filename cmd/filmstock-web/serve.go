@@ -27,7 +27,7 @@ import (
 
 type server struct {
 	fs   *filmstock.DB
-	text *sql.DB // filmstock-text.db, nil when absent
+	text *sql.DB // where the prose lives: the core handle, unless -text-db
 	ex   *explorers
 }
 

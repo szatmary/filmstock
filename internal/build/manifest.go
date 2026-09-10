@@ -28,8 +28,6 @@ import (
 // Layout on the bucket, by convention:
 //
 //	/filmstock/<dump>/filmstock.db            immutable once written
-//	/filmstock/<dump>/filmstock-text.db
-//	/filmstock/<dump>/filmstock-vectors.db
 //	/filmstock/<dump>/manifest.json
 //	/filmstock/latest.json                    a COPY of the newest manifest
 //

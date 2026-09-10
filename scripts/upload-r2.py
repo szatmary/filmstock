@@ -39,10 +39,13 @@ Usage:
 """
 
 import argparse
+import atexit
 import hashlib
 import json
 import os
+import shutil
 import sys
+import tempfile
 import time
 
 try:
@@ -116,9 +119,25 @@ def plan(root):
             items.append((os.path.join(bdir, n), f"{d}/{n}"))
         if "manifest.json" in names:
             items.append((os.path.join(bdir, "manifest.json"), f"{d}/manifest.json"))
+    # The catalog is snapshotted HERE, at plan time, and the snapshot is what
+    # gets uploaded -- not whatever builds.json says minutes later when its turn
+    # comes round.
+    #
+    # The daily job publishes while this runs. Re-reading the file at upload
+    # time can therefore publish a catalog naming a build that entered it after
+    # the directory walk above, whose files were consequently never uploaded:
+    # a consumer follows the catalog to a 404. Uploading the snapshot instead
+    # means the catalog can only ever name builds this run actually sent, and
+    # the newer build simply arrives on the next run.
     catalog = os.path.join(root, "builds.json")
     if os.path.isfile(catalog):
-        items.append((catalog, "builds.json"))
+        snap = tempfile.NamedTemporaryFile(
+            prefix="builds-", suffix=".json", delete=False)
+        with open(catalog, "rb") as f:
+            shutil.copyfileobj(f, snap)
+        snap.close()
+        atexit.register(lambda p=snap.name: os.path.exists(p) and os.unlink(p))
+        items.append((snap.name, "builds.json"))
     return items
 
 
