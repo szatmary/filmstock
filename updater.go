@@ -121,6 +121,11 @@ func (u *updater) client() *http.Client {
 
 type updaterState struct {
 	Current string `json:"current"`
+	// Content is the core database's content hash when the build was
+	// committed. A published build is immutable, so this is what says whether
+	// the build still on the shelf under that id is the one held. A state
+	// without it names a build nothing can vouch for.
+	Content string `json:"content"`
 }
 
 type catalogEntry struct {
@@ -293,6 +298,31 @@ func (c *catalog) cheapest(cur, target string) (full string, steps []routeStep, 
 	return full, steps, end.cost
 }
 
+// whyNoChain says what stops the walk from target back to cur, for an error
+// that sends a reader at the catalog rather than at the patch files. It is
+// only called once a chain has already come back empty.
+func (c *catalog) whyNoChain(cur, target string) string {
+	if cur == "" {
+		return "nothing is held to patch from"
+	}
+	for id := target; id != cur; {
+		e := c.entry(id)
+		if e == nil {
+			return fmt.Sprintf("the catalog has no entry %s", id)
+		}
+		prev := e.Parent
+		what := "parent"
+		if e.Kind == "full" {
+			prev, what = e.BridgeFrom, "bridge_from"
+		}
+		if prev == "" {
+			return fmt.Sprintf("%s names no %s, so the chain stops there", id, what)
+		}
+		id = prev
+	}
+	return "the chain is unbroken"
+}
+
 type buildManifest struct {
 	Dump string `json:"dump"`
 	// The content-hash rules this build was published under. A consumer whose
@@ -317,6 +347,40 @@ func (u *updater) current() string {
 		return ""
 	}
 	return s.Current
+}
+
+// held is the whole state: which build, and the content it was committed as.
+func (u *updater) held() updaterState {
+	b, err := os.ReadFile(filepath.Join(u.Dir, "state.json"))
+	if err != nil {
+		return updaterState{}
+	}
+	var s updaterState
+	if json.Unmarshal(b, &s) != nil {
+		return updaterState{}
+	}
+	return s
+}
+
+// changedUnderUs reports whether the build published under id is no longer
+// the one held. A published build is immutable; one rewritten in place is a
+// different build wearing the same name, and holding it serves content nobody
+// can name. A state that records no hash cannot show that what is on disk is
+// what is published, so it does not get the benefit of the doubt.
+func (u *updater) changedUnderUs(ctx context.Context, id string) bool {
+	s := u.held()
+	if s.Current != id {
+		return false
+	}
+	if s.Content == "" {
+		return true
+	}
+	var man buildManifest
+	if err := u.getJSON(ctx, u.BaseURL+"/"+id+"/manifest.json", &man); err != nil {
+		return false
+	}
+	published := man.Files["filmstock.db"].Content
+	return published != "" && published != s.Content
 }
 
 // Check reports the newest build available, and whether it is newer than
@@ -374,11 +438,18 @@ func (u *updater) update(ctx context.Context) (corePath, build string, changed b
 	// A held build the catalog no longer lists — pruned, or from a chain that
 	// has been superseded — is not grounds for refusing to move: it just means
 	// the search below has to start from a full instead of from here.
-	if cur != "" && cur == latest {
-		return filepath.Join(u.Dir, cur, "filmstock.db"), cur, false, nil
-	}
-	if held := cat.entry(cur); held != nil && !cat.newer(latest, cur) {
-		return filepath.Join(u.Dir, cur, "filmstock.db"), cur, false, nil
+	//
+	// Ordering is by content day, never by comparing ids: since f20260901 an id
+	// is not always a date, and `latest <= cur` on those is meaningless.
+	held := cat.entry(cur)
+	if (cur != "" && cur == latest) || (held != nil && !cat.newer(latest, cur)) {
+		// Nothing newer is published, but the build under the held id may no
+		// longer be the one held: a rewritten build is a different build.
+		if !u.changedUnderUs(ctx, cur) {
+			return filepath.Join(u.Dir, cur, "filmstock.db"), cur, false, nil
+		}
+		u.logf("filmstock: build %s was rewritten where it is published; taking it again", cur)
+		return u.retakeFull(ctx, cur)
 	}
 
 	// What the catalog says is cheapest from here: possibly a full to seed
@@ -460,10 +531,16 @@ func (u *updater) update(ctx context.Context) (corePath, build string, changed b
 		return "", "", false, fmt.Errorf("filmstock: catalog lists no full build")
 	}
 	// As above: only a held build the catalog still lists can establish that
-	// the newest full would be a downgrade.
-	if held := cat.entry(cur); held != nil && !cat.newer(full, cur) {
+	// the newest full would be a downgrade, and the comparison is by content
+	// day rather than by id.
+	if h := cat.entry(cur); h != nil && !cat.newer(full, cur) {
+		if u.changedUnderUs(ctx, cur) {
+			u.logf("filmstock: build %s was rewritten where it is published; taking it again", cur)
+			return u.retakeFull(ctx, cur)
+		}
 		return "", "", false, fmt.Errorf(
-			"filmstock: no patch road from %s to %s, and the newest full %s is not newer", cur, latest, full)
+			"filmstock: no patch road from %s to %s (%s), and the newest full %s is not newer",
+			cur, latest, cat.whyNoChain(cur, latest), full)
 	}
 	if err := u.fetchFull(ctx, full); err != nil {
 		return "", "", false, err
@@ -550,6 +627,14 @@ func (u *updater) finishBuild(ctx context.Context, latest string) (string, strin
 			}
 		}
 	}
+	// The content hash goes into the state either way: it is what a later
+	// run compares against the shelf to see whether the build it holds is
+	// still the build being published under that id.
+	content, _, err := ContentHash(h)
+	if err != nil {
+		h.Close()
+		return "", "", false, err
+	}
 	if u.VerifyContent {
 		// Under the rules the BUILD declares, not the client's current ones: a
 		// published manifest's number was produced once, by the version in
@@ -569,7 +654,7 @@ func (u *updater) finishBuild(ctx context.Context, latest string) (string, strin
 	if err := h.Close(); err != nil {
 		return "", "", false, err
 	}
-	sb, _ := json.Marshal(updaterState{Current: latest})
+	sb, _ := json.Marshal(updaterState{Current: latest, Content: content})
 	if err := os.WriteFile(filepath.Join(u.Dir, "state.json"), sb, 0o644); err != nil {
 		return "", "", false, err
 	}
@@ -898,4 +983,15 @@ func fileSHA256(path string) (string, error) {
 		return "", err
 	}
 	return hex.EncodeToString(h.Sum(nil)), nil
+}
+
+// retakeFull fetches a full build again over the copy already held, for the
+// one case that calls for it: the build published under that id is not the
+// one on disk.
+func (u *updater) retakeFull(ctx context.Context, id string) (string, string, bool, error) {
+	os.RemoveAll(filepath.Join(u.Dir, id))
+	if err := u.fetchFull(ctx, id); err != nil {
+		return "", "", false, err
+	}
+	return u.finishBuild(ctx, id)
 }

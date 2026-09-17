@@ -334,3 +334,103 @@ func parentBytes(t *testing.T, root, id string) int64 {
 	}
 	return fi.Size()
 }
+
+// A daily that names no parent is a catalog nothing can be chained through.
+// The refusal must name the entry that breaks the chain: the alternative is
+// "no patch road", which reads as a missing patch file and sends whoever gets
+// it looking in the wrong place.
+func TestUpdaterNamesTheEntryThatBreaksTheChain(t *testing.T) {
+	root := t.TempDir()
+	fakeRelease(t, root, "20260801", "Blade Runner")
+	// 20260802 gets a manifest but no parent: the catalog is unchainable, which
+	// is what this tests, not unreachable. The updater reads the tip's manifest
+	// for its content-hash version before doing any work, so an entry with no
+	// manifest at all would fail for the wrong reason.
+	os.MkdirAll(filepath.Join(root, "20260802"), 0o777)
+	mb, _ := json.Marshal(map[string]any{
+		"dump": "20260802", "content_hash_version": ContentHashVersion,
+		"files": map[string]any{}})
+	os.WriteFile(filepath.Join(root, "20260802", "manifest.json"), mb, 0o644)
+	cat := map[string]any{"latest_full": "20260801", "latest": "20260802",
+		"builds": []map[string]any{
+			{"id": "20260801", "kind": "full", "through": "20260801"},
+			{"id": "20260802", "kind": "daily", "through": "20260802"}, // no parent
+		}}
+	cb, _ := json.Marshal(cat)
+	os.WriteFile(filepath.Join(root, "builds.json"), cb, 0o644)
+
+	dir := t.TempDir()
+	if _, _, _, err := Update(context.Background(), root, dir); err != nil {
+		t.Fatalf("first install: %v", err)
+	}
+	_, _, _, err := Update(context.Background(), root, dir)
+	if err == nil {
+		t.Fatal("a catalog that cannot be chained was accepted")
+	}
+	if !strings.Contains(err.Error(), "20260802") || !strings.Contains(err.Error(), "parent") {
+		t.Fatalf("err = %v, want the entry and what it is missing", err)
+	}
+}
+
+// A published build is immutable. One that changed under its own id is not the
+// build being held, however much the id agrees, and holding it silently serves
+// content nobody can name.
+func TestUpdaterRefetchesABuildThatChangedUnderItsID(t *testing.T) {
+	root := t.TempDir()
+	dir := t.TempDir()
+	fakeRelease(t, root, "20260801", "Blade Runner")
+	if _, _, _, err := Update(context.Background(), root, dir); err != nil {
+		t.Fatalf("first install: %v", err)
+	}
+
+	// The publisher rewrites the same id with different content.
+	os.RemoveAll(filepath.Join(root, "20260801"))
+	fakeRelease(t, root, "20260801", "Blade Runner: The Final Cut")
+
+	core, build, changed, err := Update(context.Background(), root, dir)
+	if err != nil {
+		t.Fatalf("second update: %v", err)
+	}
+	if !changed || build != "20260801" {
+		t.Fatalf("changed=%v build=%q, want the rewritten build taken", changed, build)
+	}
+	db, err := sql.Open(sqldrv.Name, core)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	var title string
+	if err := db.QueryRow(`SELECT title FROM movies WHERE id=1`).Scan(&title); err != nil {
+		t.Fatal(err)
+	}
+	if title != "Blade Runner: The Final Cut" {
+		t.Fatalf("title = %q, want the rewritten content", title)
+	}
+}
+
+// A state naming a build but no content hash cannot show that what is on disk
+// is what is published under that id, so it does not get the benefit of the
+// doubt: the build is taken again.
+func TestUpdaterRetakesABuildItCannotVouchFor(t *testing.T) {
+	root := t.TempDir()
+	dir := t.TempDir()
+	fakeRelease(t, root, "20260801", "Blade Runner")
+	if _, _, _, err := Update(context.Background(), root, dir); err != nil {
+		t.Fatalf("first install: %v", err)
+	}
+	os.WriteFile(filepath.Join(dir, "state.json"), []byte(`{"current":"20260801"}`), 0o644)
+
+	_, build, changed, err := Update(context.Background(), root, dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !changed || build != "20260801" {
+		t.Fatalf("changed=%v build=%q, want the build taken again", changed, build)
+	}
+	var s updaterState
+	b, _ := os.ReadFile(filepath.Join(dir, "state.json"))
+	json.Unmarshal(b, &s)
+	if s.Content == "" {
+		t.Fatal("the retake did not record what it committed")
+	}
+}
