@@ -137,8 +137,14 @@ func CmdPublish(args []string) {
 	work := fs.String("work", "", "un-hosted directory holding the chain tip's databases (default <root>-work)")
 	compress := fs.Bool("compress", false, "full only: host the databases as zstdvfs containers, halving them")
 	differ := fs.String("sqldiff", "./sqldiff", "the sqldiff binary (make sqldiff)")
-	rollups := fs.String("rollups", "7,30", "also emit patches spanning this many builds back (comma-separated; empty for none)")
-	keepTips := fs.Int("keep-tips", 31, "how many recent builds' databases to retain in the work dir as rollup sources")
+	// Off by default. The release shape is a monthly full, a bridge carrying the
+	// cumulative chain onto it, and one diff per day -- and a full every month is
+	// already the answer to "I have been away a long time", so spanning patches
+	// bought a second answer to a question that had one. They cost three sqldiff
+	// passes per build instead of one and roughly 9 MB per build directory
+	// instead of 0.3. Still available for a tree that wants them.
+	rollups := fs.String("rollups", "", "also emit patches spanning this many builds back (comma-separated; empty for none)")
+	keepTips := fs.Int("keep-tips", 2, "how many recent builds' databases to retain in the work dir as diff bases")
 	fresh := fs.Bool("fresh", false, "full only: open a new epoch — publish with NO bridge, so consumers cannot carry anything forward")
 	reason := fs.String("reason", "", "required with -fresh: why the lineage is being broken")
 	fs.Parse(args)
@@ -310,36 +316,6 @@ func CmdPublish(args []string) {
 		// A rollup can only be built against databases still on disk, which is
 		// what -keep-tips retains. A span whose source has been pruned is simply
 		// not offered — a missing route costs a longer path, never correctness.
-		// The guaranteed month-to-month edge: previous full -> this full.
-		//
-		// The bridge above is day-to-month, from whatever daily happened to be
-		// the tip, and it has to be: it is what keeps a follower from
-		// re-downloading a database every month, and it is the only diff whose
-		// endpoints share a content day, which is what makes it an integrity
-		// comparison rather than just a month of change.
-		//
-		// But its source is a moving target that depends on when the rebuild
-		// ran, and the positional rollups below can have had their source
-		// pruned out of the work directory, in which case the edge is silently
-		// not offered. A full's databases are hosted permanently, so this edge
-		// can always be built. That is what makes a consumer years behind a
-		// bounded number of hops — one per month, guaranteed — instead of a
-		// number that depends on which spans happened to survive.
-		if *full && cat.LatestFull != "" && cat.LatestFull != base {
-			prev := cat.LatestFull
-			prevDir := baseDBDir(prev)
-			if _, err := os.Stat(prevDir); err != nil {
-				fmt.Fprintf(os.Stderr, "  full-to-full: %s not on disk, not offered\n", prev)
-			} else {
-				tag := ".from-" + prev
-				_, size, err := emitPatches(*differ, prevDir, dbDir, dir, ordered, ".patch.sql", tag)
-				if err != nil {
-					fatal(fmt.Errorf("full-to-full patch from %s: %w", prev, err))
-				}
-				edges = append(edges, patchEdge{From: prev, Suffix: tag, Bytes: size})
-			}
-		}
-
 		for _, span := range rollupSpans(*rollups) {
 			src := nthBack(cat, span)
 			if src == "" || src == base {
